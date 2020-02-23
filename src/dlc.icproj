@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Intel C++ Project"
+	Version="11.0"
+	Name="DLE-XP"
+	ProjectGUID="{FECE4B10-B5B9-44D7-AFBB-A93AA82E5712}"
+	VCNestedProjectGUID="{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}"
+	VCNestedProjectFileName="dlc.vcproj">
+	<Configurations>
+		<Configuration
+			Name="Intel Release|Win32">
+			<Tool
+				Name="CppCmplrTool"
+				GlobalOptimizations="true"
+				InterproceduralOptimization="1"
+				OptimizeForWindowsApplication="true"
+				GenerateAlternateCodePaths="5"
+				UseProcessorExtensions="6"
+				Parallelization="true"/>
+		</Configuration>
+		<Configuration
+			Name="Intel Release|x64">
+			<Tool
+				Name="CppCmplrTool"
+				GlobalOptimizations="true"
+				InterproceduralOptimization="1"
+				OptimizeForWindowsApplication="true"
+				GenerateAlternateCodePaths="5"
+				UseProcessorExtensions="6"
+				Parallelization="true"/>
+		</Configuration>
+	</Configurations>
+	<Files/>
+</VisualStudioProject>
