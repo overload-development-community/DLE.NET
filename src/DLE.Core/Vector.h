@@ -1,9 +1,6 @@
 #ifndef __vector_h
 #define __vector_h
 
-#include <math.h>
-#include "define.h"
-
 struct tAngleVector;
 class CAngleVector;
 struct tFixVector;
@@ -122,7 +119,7 @@ public:
 	void Clear (void) { Set (0,0,0); }
 
 inline const bool operator== (const CFixVector other);
-inline int& CFixVector::operator[] (const size_t i);
+inline int& operator[] (const size_t i);
 inline const CFixVector& operator= (const tFixVector& other);
 inline const CFixVector& operator= (const CFixVector& other);
 inline const CFixVector& operator= (const CFloatVector& other);
@@ -174,7 +171,7 @@ public:
 	void Clear (void) { Set (0.0, 0.0, 0.0); }
 
 inline const bool operator== (const CFloatVector other);
-inline float& CFloatVector::operator[] (const size_t i);
+inline float& operator[] (const size_t i);
 inline const CFloatVector& operator= (const tFixVector& other);
 inline const CFloatVector& operator= (const CFloatVector& other);
 inline const CFloatVector& operator= (const tDoubleVector& other);
@@ -224,7 +221,7 @@ class CDoubleVector {
 #endif
 	inline const bool operator== (const CDoubleVector other);
 	inline const bool operator!= (const CDoubleVector other);
-	inline double& CDoubleVector::operator[] (const size_t i);
+	inline double& operator[] (const size_t i);
 	inline const CDoubleVector& operator= (const tDoubleVector& other);
 	inline const CDoubleVector& operator= (const CDoubleVector& other);
 	inline const CDoubleVector& operator= (const tFixVector& other);

@@ -1,5 +1,4 @@
-#include <math.h>
-#include "define.h"
+#include "pch.h"
 #include "Vector.h"
 
 // -----------------------------------------------------------------------------

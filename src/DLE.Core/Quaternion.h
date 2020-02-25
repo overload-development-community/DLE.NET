@@ -27,9 +27,9 @@ class CQuaternion : public CDoubleVector {
 
 	CQuaternion& Normalize (void);
 
-	CQuaternion CQuaternion::operator* (CQuaternion other);
+	CQuaternion operator* (CQuaternion other);
 
-	CDoubleVector CQuaternion::operator* (CDoubleVector v);
+	CDoubleVector operator* (CDoubleVector v);
 
 	CQuaternion& FromAxisAngle (CDoubleVector axis, double angle);
 

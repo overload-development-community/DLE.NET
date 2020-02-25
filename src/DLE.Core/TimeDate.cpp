@@ -1,10 +1,8 @@
+#include "pch.h"
 
 //------------------------------------------------------------------------------
 
-#include <stdio.h>
-#include <time.h>
-
-static char *szMonths [] = {"jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"};
+static const char *szMonths [] = {"jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"};
 
 struct tm *GetTimeDate (struct tm *td)
 {

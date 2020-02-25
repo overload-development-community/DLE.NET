@@ -1,7 +1,4 @@
-#include <math.h>
-#include "define.h"
-#include "types.h"
-#include "mine.h"
+#include "pch.h"
 #include "matrix.h"
 
 //------------------------------------------------------------------------------
