@@ -42,7 +42,7 @@ public:
 	//computes a matrix from a forward vector and an angle
 	CFixMatrix (CFixVector *v, short a);
 
-	CFixMatrix& CFixMatrix::Set (int x1, int y1, int z1, int x2, int y2, int z2, int x3, int y3, int z3);
+	CFixMatrix& Set (int x1, int y1, int z1, int x2, int y2, int z2, int x3, int y3, int z3);
 	CFixMatrix& Set (int sinp, int cosp, int sinb, int cosb, int sinh, int cosh);
 
 	CFixMatrix& Invert (CFixMatrix& m);
@@ -50,7 +50,7 @@ public:
 	CFixMatrix& Scale (CFixVector& scale);
 
 	const CFixVector operator* (const CFixVector& v);
-	inline const CFixMatrix operator* (const CFixMatrix& other) { return Mul (other); }
+	//inline const CFixMatrix operator* (const CFixMatrix& other) { return Mul (other); }
 	inline const CFixMatrix& operator= (const CFixMatrix& other) { 
 		m.rVec = other.m.rVec, m.uVec = other.m.uVec, m.fVec = other.m.fVec;
 		return *this;
@@ -58,7 +58,7 @@ public:
 
 	const int Det (void);
 	const CFixMatrix Inverse (void);
-	void CFixMatrix::Rotate (double angle, char axis);
+	void Rotate (double angle, char axis);
 	inline const CFixMatrix Transpose (void);
 };
 
@@ -117,8 +117,8 @@ public:
 		m.fVec.Write (fp);
 		}
 #endif
-	CDoubleMatrix::CDoubleMatrix () { Clear (); }
-	CDoubleMatrix::CDoubleMatrix (double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3);
+	CDoubleMatrix () { Clear (); }
+	CDoubleMatrix (double x1, double y1, double z1, double x2, double y2, double z2, double x3, double y3, double z3);
 	CDoubleMatrix (const CDoubleMatrix& other) { m.rVec = other.m.rVec, m.uVec = other.m.uVec, m.fVec = other.m.fVec; }
 	CDoubleMatrix (CDoubleVector r, CDoubleVector u, CDoubleVector f) { m.rVec = r, m.uVec = u, m.fVec = f; }
 	CDoubleMatrix (double sinp, double cosp, double sinb, double cosb, double sinh, double cosh);
@@ -154,7 +154,7 @@ public:
 		return (m.rVec != other.m.rVec) || (m.uVec != other.m.uVec) || (m.fVec != other.m.fVec);
 		}
 
-	inline CDoubleVector& CDoubleMatrix::operator[] (const size_t i) { return ((CDoubleVector*) &m) [i]; }
+	inline CDoubleVector& operator[] (const size_t i) { return ((CDoubleVector*) &m) [i]; }
 
 	inline int Handedness (void) { return (Dot (m.fVec, CrossProduct (m.rVec, m.uVec)) > 0.0) ? 1 : 0; } // 0: left handed, 1: right handed
 	

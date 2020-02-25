@@ -1,4 +1,4 @@
-#include <math.h>
+#include "pch.h"
 #include "Vector.h"
 #include "Quaternion.h"
 

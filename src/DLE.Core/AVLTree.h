@@ -1,8 +1,6 @@
 #ifndef __AVLTree_H
 #define __AVLTree_H
 
-#include "define.h"
-
 template < class _T, class _K > 
 class CAVLTree {
 
