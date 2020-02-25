@@ -78,7 +78,7 @@ class CFaceListEntry : public CSideKey {
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 
-typedef enum ePenColor {
+enum ePenColor {
 	penBlack,
 	penWhite,
 	penGold,

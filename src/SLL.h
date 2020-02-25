@@ -3,7 +3,6 @@
 #define __SLL_H
 
 #include "define.h"
-#include "types.h"
 
 // -----------------------------------------------------------------------------
 // Singly Linked List

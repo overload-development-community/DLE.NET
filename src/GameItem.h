@@ -2,8 +2,6 @@
 #define __gameitem_h
 
 #include "define.h"
-#include "FileManager.h"
-#include "crc.h"
 #include "DLL.h"
 
 # pragma pack(push, packing)
@@ -83,6 +81,8 @@ class CGameItemList : public CDLL< CGameItem*, CGameItem* > {};
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
+
+# pragma pack(pop)
 
 #endif // __gameitem_h
 

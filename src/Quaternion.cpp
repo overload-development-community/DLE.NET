@@ -1,6 +1,3 @@
-
-#include "stdafx.h"
-
 #include <math.h>
 #include "Vector.h"
 #include "Quaternion.h"

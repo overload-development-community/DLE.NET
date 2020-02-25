@@ -13,6 +13,9 @@
 #include "define.h"
 #include "Vector.h"
 #include "Matrix.h"
+#include <memory.h>
+#include <string.h>
+#include <afxtempl.h>
 
 // ----------------------------------------------------------------------------
 // the maximum length of a filename
