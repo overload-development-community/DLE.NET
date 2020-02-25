@@ -1,7 +1,6 @@
 #ifndef __matrix_h
 #define __matrix_h
 
-#include <afxwin.h>
 #include <cmath>
 
 #include "define.h"

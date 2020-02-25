@@ -3,7 +3,6 @@
 
 #include <math.h>
 #include "define.h"
-//#include "FileManager.h"
 
 struct tAngleVector;
 class CAngleVector;
