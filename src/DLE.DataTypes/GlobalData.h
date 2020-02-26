@@ -186,6 +186,12 @@ public:
 	IRenderer* GetRenderer();
 	IFileManager* CreateFileManager();
 
+	// Can't include DrawHelpers.h in DLE.DataTypes due to MFC...
+	// may move this later
+	bool GLCreateTexture(CTexture* texture, bool bForce);
+	GLuint GLBindTexture(const CTexture* texture, GLuint nTMU, GLuint nMode);
+	void GLReleaseTexture(CTexture* texture);
+
 	GlobalData(ILightManager* lightManager,
 		IModelManager* modelManager,
 		IObjectManager* objectManager,

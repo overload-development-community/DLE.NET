@@ -405,7 +405,7 @@ return true;
 
 //------------------------------------------------------------------------
 
-GLuint DrawHelpers::GLBindTexture (CTexture* texture, GLuint nTMU, GLuint nMode)
+GLuint DrawHelpers::GLBindTexture (const CTexture* texture, GLuint nTMU, GLuint nMode)
 {
 glActiveTexture (nTMU);
 glClientActiveTexture (nTMU);

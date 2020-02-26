@@ -11,7 +11,7 @@ public:
 	static bool CreateBitmapFromTexture(const CTexture* texture, CBitmap** ppImage, bool bScale = false, int width = -1, int height = -1);
 
 	static bool GLCreateTexture(CTexture* texture, bool bForce);
-	static GLuint GLBindTexture(CTexture* texture, GLuint nTMU, GLuint nMode);
+	static GLuint GLBindTexture(const CTexture* texture, GLuint nTMU, GLuint nMode);
 	static void GLReleaseTexture(CTexture* texture);
 };
 
