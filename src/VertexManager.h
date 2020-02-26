@@ -13,11 +13,6 @@
 
 //------------------------------------------------------------------------
 
-#define MAX_VERTICES_D1		2808 // descent 1 max # of vertices
-#define MAX_VERTICES_D2		(MAX_SEGMENTS_D2 * 4 + 8) // descent 2 max # of vertices
-#define VERTEX_LIMIT			(SEGMENT_LIMIT * 3 + 8) // descent 2 max # of vertices
-#define MAX_VERTEX			0xfff7 // highest permissible vertex number - higher number are reserved for segment collapsing purposes!
-
 #define MAX_VERTICES ((theMine == null) ? MAX_VERTICES_D2 : DLE.IsD1File () ? MAX_VERTICES_D1 : DLE.IsStdLevel () ? MAX_VERTICES_D2 : VERTEX_LIMIT)
 
 //------------------------------------------------------------------------

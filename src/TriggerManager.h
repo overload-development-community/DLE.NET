@@ -11,14 +11,6 @@
 
 //------------------------------------------------------------------------
 
-#define MAX_TRIGGERS_D1			100
-#define MAX_TRIGGERS_D2			254
-#define MAX_OBJ_TRIGGERS		254
-#define MAX_REACTOR_TRIGGERS	10
-#define TRIGGER_LIMIT			MAX_TRIGGERS_D2
-#define MAX_TRIGGER_FLAGS		12
-#define NO_TRIGGER				255
-
 #define MAX_TRIGGERS	((theMine == null) ? MAX_TRIGGERS_D2 : (DLE.IsD1File () || (DLE.LevelVersion () < 12)) ? MAX_TRIGGERS_D1 : MAX_TRIGGERS_D2)
 
 //------------------------------------------------------------------------

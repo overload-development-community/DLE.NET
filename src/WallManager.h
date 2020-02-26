@@ -8,14 +8,7 @@
 
 // -----------------------------------------------------------------------------
 
-#define MAX_WALLS_D1		175
-#define MAX_WALLS_D2		255
-#define MAX_WALLS_D2X	2047
-#define WALL_LIMIT		2047
-
 #define MAX_WALLS ((theMine == null) ? MAX_WALLS_D2 : DLE.IsD1File () ? MAX_WALLS_D1 : (DLE.LevelVersion () < 12) ? MAX_WALLS_D2 : WALL_LIMIT)
-
-#define NO_WALL			WALL_LIMIT
 
 #define MAX_DOORS_D1						50 // Maximum number of open doors Descent 1
 #define MAX_DOORS_D2						90 // Maximum number of open doors Descent 2

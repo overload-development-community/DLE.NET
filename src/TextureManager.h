@@ -112,22 +112,6 @@ private:
 
 //------------------------------------------------------------------------
 
-#define MAX_TEXTURES ((theMine == null) ? MAX_TEXTURES_D2 : DLE.IsD1File () ? MAX_TEXTURES_D1 : MAX_TEXTURES_D2)
-
-//------------------------------------------------------------------------
-
-#define SMOKE_ICON		0
-#define SNOW_ICON			1
-#define RAIN_ICON			2
-#define BUBBLE_ICON		3
-#define FIRE_ICON			4
-#define LIGHTNING_ICON	5
-#define SOUND_ICON		6
-#define WAYPOINT_ICON	7
-#define LIGHT_ICON		8
-#define CIRCLE_ICON		9
-#define ICON_COUNT		10
-
 #if 1 //_DEBUG
 
 typedef CDynamicArray< CTexture > textureList;
