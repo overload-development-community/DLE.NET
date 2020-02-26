@@ -191,7 +191,7 @@ inline operator CDoubleVector();
 inline const float operator^ (const CFloatVector& other) const;
 
 inline const float SqrMag (void) { return v.x * v.x + v.y * v.y + v.z * v.z; }
-inline const float Mag (void) { return sqrt (SqrMag ()); }
+inline const float Mag (void) { return sqrtf (SqrMag ()); }
 inline const CFloatVector& Normalize (void) { *this /= Mag (); return *this; }
 inline const CFloatVector Negate (void) { v.x = -v.x, v.y = -v.y, v.z = -v.z; return *this; }
 };

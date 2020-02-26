@@ -335,7 +335,7 @@ class CDynamicArray : public CQuickSort < _T > {
 
 		inline void Pos (uint pos) { m_data.pos = pos % m_data.length; }
 
-		size_t Read (CFileManager& fp, uint nCount = 0, uint nOffset = 0) { 
+		size_t Read (IFileManager& fp, uint nCount = 0, uint nOffset = 0) { 
 			if (!m_data.buffer)
 				return -1;
 			if (nOffset >= m_data.length)
@@ -347,7 +347,7 @@ class CDynamicArray : public CQuickSort < _T > {
 			return int (fp.Read (m_data.buffer + nOffset, sizeof (_T), nCount));
 			}
 
-		size_t Write (CFileManager& fp, uint nCount = 0, uint nOffset = 0) { 
+		size_t Write (IFileManager& fp, uint nCount = 0, uint nOffset = 0) {
 			if (!m_data.buffer)
 				return -1;
 			if (nOffset >= m_data.length)
@@ -378,7 +378,7 @@ class CDynamicArray : public CQuickSort < _T > {
 			return -1;
 			}
 
-		inline size_t FindSorted (_T key) {
+		/*inline size_t FindSorted (_T key) {
 			size_t i = 0, j = size_t (m_data.length);
 			_T t;
 			do {
@@ -392,15 +392,15 @@ class CDynamicArray : public CQuickSort < _T > {
 					return m;
 			} while (i <= j);
 			return -1;
-			}
+			}*/
 
 #ifdef _WIN32
-		inline void SortAscending (comparator compare, int left = 0, int right = -1) {
+		inline void SortAscending (CQuickSort<_T>::comparator compare, int left = 0, int right = -1) {
 			if (m_data.buffer) 
 				CQuickSort<_T>::SortAscending (m_data.buffer, left, (right >= 0) ? right : m_data.length - 1, compare);
 			}
 
-		inline void SortDescending (comparator compare, int left = 0, int right = -1) {
+		inline void SortDescending (CQuickSort<_T>::comparator compare, int left = 0, int right = -1) {
 			if (m_data.buffer) 
 				CQuickSort<_T>::SortDescending (m_data.buffer, left, (right >= 0) ? right : m_data.length - 1, compare);
 			}
@@ -453,7 +453,7 @@ class CStaticArray : public CDynamicArray < _T > {
 
 		_T *Create (uint _length) { 
 			this->SetBuffer (m_staticData.buffer, 2, _length); 
-			return m_data.buffer;
+			return this->m_data.buffer;
 			}
 		void Destroy (void) { }
 	};
