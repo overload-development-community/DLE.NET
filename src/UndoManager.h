@@ -157,15 +157,15 @@ public:
 
 	bool	m_bSelections;
 	uint	m_nId;
-	char* m_szFunction;
+	const char* m_szFunction;
 	int	m_dataFlags;
 	short	m_backupCalls [12];
 
 	inline uint& Id (void) { return m_nId; }
 
-	inline char* Function (void) { return m_szFunction; }
+	inline const char* Function (void) { return m_szFunction; }
 	 
-	bool Backup (int dataFlags, char* szFunction = null);
+	bool Backup (int dataFlags, const char* szFunction = null);
 
 	void Cancel (int dataFlags);
 
@@ -290,15 +290,15 @@ class CBufPtr {
 class CUndoHistory : public CStack<char*>
 {
 	public:
-		void Push (char* szFunction);
-		void Pop (char* szFunction);
+		void Push (const char* szFunction);
+		void Pop (const char* szFunction);
 };
 
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 
-class CUndoManager
+class CUndoManager : public IUndoManager
 {
 	private:
 		CUndoData		m_buffer [DLE_MAX_UNDOS];
@@ -358,13 +358,13 @@ class CUndoManager
 
 		void SetModified (bool bModified);
 
-		void Begin (char* szFunction, int dataFlags, bool bAccumulate = false);
+		void Begin (const char* szFunction, int dataFlags, bool bAccumulate = false);
 
-		void End (char* szFunction);
+		void End (const char* szFunction);
 
-		void Cancel (char* szFunction, int dataFlags);
+		void Cancel (const char* szFunction, int dataFlags);
 
-		void Unroll (char* szFunction, bool bRestore = true);
+		void Unroll (const char* szFunction, bool bRestore = true);
 
 		char* CreateId (char* szDest, char* szSrc);
 

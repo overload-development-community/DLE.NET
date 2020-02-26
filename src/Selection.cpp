@@ -1,4 +1,4 @@
-
+#include "stdafx.h"
 #include "selection.h"
 #include "TriggerManager.h"
 #include "WallManager.h"

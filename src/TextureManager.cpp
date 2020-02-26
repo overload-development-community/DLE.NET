@@ -1,7 +1,8 @@
-	
+#include "stdafx.h"	
 #include "mine.h"
 #include "dle-xp.h"
 #include "TextureManager.h"
+#include "DrawHelpers.h"
 
 CTextureManager textureManager;
 
@@ -231,9 +232,9 @@ m_paletteName [0][0] =
 m_paletteName [1][0] = '\0';
 Create (0);
 Create (1);
-m_arrow.LoadFromResource (IDR_ARROW_TEXTURE);
+DrawHelpers::LoadTextureFromResource(&m_arrow, IDR_ARROW_TEXTURE);
 for (int i = 0; i < ICON_COUNT; i++)
-	m_icons [i].LoadFromResource (IDR_SMOKE_ICON + i);
+	DrawHelpers::LoadTextureFromResource(&m_icons[i], IDR_SMOKE_ICON + i);
 }
 
 //------------------------------------------------------------------------

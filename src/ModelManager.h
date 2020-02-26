@@ -8,6 +8,7 @@
 #include "Renderer.h"
 #include "ASEModel.h"
 #include "RenderModel.h"
+#include "ModelTextures.h"
 
 //------------------------------------------------------------------------------
 
@@ -38,7 +39,7 @@ class CModelRenderData {
 
 //------------------------------------------------------------------------------
 
-class CModelManager {
+class CModelManager : public IModelManager {
 	friend class CPolyModel;
 	friend class CModelRenderPoly;
 

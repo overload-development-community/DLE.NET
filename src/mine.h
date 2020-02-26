@@ -1,16 +1,6 @@
 #ifndef __mine_h
 #define __mine_h
 
-#include "define.h"
-#include "global.h"
-#include "MemoryFile.h"
-#include "carray.h"
-#include "Types.h"
-#include "GameItem.h"
-#include "Light.h"
-#include "Selection.h"
-#include "Textures.h"
-#include "MineInfo.h"
 #include "TriggerManager.h"
 #include "WallManager.h"
 #include "segmentManager.h"

@@ -1,13 +1,9 @@
 // Copyright (c) 1997 Bryan Aamot
-#include <stdio.h>
-#include <stdlib.h>
-#include <assert.h>
-#include <string.h>
-#include <math.h>
-#include <string.h>
 
+#include "stdafx.h"
 #include "mine.h"
 #include "dle-xp.h"
+#include "ModelTextures.h"
 #include "ASEModel.h"
 #include "RenderModel.h"
 #include "ModelManager.h"
@@ -16,6 +12,32 @@
 CModelManager modelManager;
 
 int nDbgModel = -1;
+
+//------------------------------------------------------------------------------
+// MACROS
+//------------------------------------------------------------------------------
+
+#define W(p)   (*((ushort *) (p)))
+#define WP(p)  ((ushort *) (p))
+#define VP(p)  ((CFixVector*) (p))
+
+#define calcNormal(a, b)
+#define glNormal3fv(a)
+#define glColor3ub(a, b, c)
+#define glBegin(a)
+#define glVertex3i(x, y, z)
+#define glEnd()
+#define glTexCoord2fv(a)
+
+#define UINTW int
+
+//------------------------------------------------------------------------------
+
+#define PAL2RGBA(_c)	(((_c) >= 31) ? 1.0 : double (_c) / 31.0)
+
+typedef struct tIntUVL {
+	int u, v, l;
+} tIntUVL;
 
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
@@ -375,18 +397,18 @@ if (m_nModel >= 0) {
 	if (m_renderer->Type ()) {
 		m_renderer->BeginRender ();
 
-		if (m_polyModels [1][m_nModel].Draw (m_viewMatrix, m_pDC, 0))
+		if (m_polyModels [1][m_nModel].Draw (m_viewMatrix, 0))
 			;
 		else if (m_renderModels [m_nModel].Render (m_viewMatrix, m_object))
 			;
 		else
-			m_polyModels [0][m_nModel].Draw (m_viewMatrix, m_pDC, 0);
+			m_polyModels [0][m_nModel].Draw (m_viewMatrix, 0);
 		m_renderer->EndRender ();
 		}
 	else {
 		for (int nStage = 0; nStage < 2; nStage++) {
 			m_renderer->BeginRender (nStage > 0);
-			m_polyModels [0][m_nModel].Draw (m_viewMatrix, m_pDC, nStage ? 1 : -1);
+			m_polyModels [0][m_nModel].Draw (m_viewMatrix, nStage ? 1 : -1);
 			m_renderer->EndRender ();
 			}
 		}

@@ -2,6 +2,7 @@
 #include "dle-xp.h"
 #include "PogDialog.h"
 #include <stdarg.h>
+#include "DrawHelpers.h"
 
 #define ICONLIST_ICON_SIZE 16
 #define ICONLIST_SIZE_INITIAL 200
@@ -273,7 +274,7 @@ item.mask = LVIF_IMAGE;
 TextureList ()->GetItem (&item);
 if (item.iImage != -1) {
 	CBitmap *pbmImage = null;
-	pTexture->CreateBitmap (&pbmImage, true, ICONLIST_ICON_SIZE);
+	DrawHelpers::CreateBitmapFromTexture (pTexture, &pbmImage, true, ICONLIST_ICON_SIZE);
 	m_customTextureIcons.Replace (item.iImage, pbmImage, (CBitmap *)null);
 	delete pbmImage;
 	}
@@ -313,7 +314,7 @@ void CPogDialog::AddTextureListItem (int nListItem, const CTexture *pTexture, bo
 if (!asFrame) {
 	// Scale down texture to 16x16 and add to image list
 	CBitmap *pbmImage = null;
-	pTexture->CreateBitmap (&pbmImage, true, ICONLIST_ICON_SIZE);
+	DrawHelpers::CreateBitmapFromTexture (pTexture, &pbmImage, true, ICONLIST_ICON_SIZE);
 	// Mask not used, second parameter ignored
 	m_customTextureIcons.Add (pbmImage, (CBitmap *)null);
 	delete pbmImage;

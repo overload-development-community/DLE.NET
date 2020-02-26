@@ -1,8 +1,7 @@
-#include <math.h>
-#include <stdlib.h>
-
+#include "stdafx.h"
 #include "mine.h"
 #include "dle-xp.h"
+#include "ModelTextures.h"
 #include "rendermodel.h"
 #include "modelmanager.h"
 #include "glew.h"

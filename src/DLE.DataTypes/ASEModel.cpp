@@ -751,27 +751,29 @@ return 1;
 
 //------------------------------------------------------------------------------
 
-int CModel::SaveBinary (IFileManager& fp /*const char* pszFolder, const short nModel*/)
+int CModel::SaveBinary (const char* pszFolder, const short nModel)
 {
-//char szFile [256];
-//sprintf (szFile, "%s\\model%3d.bin", pszFolder, nModel);
-//
-//if (!fp.Open (szFile, "wb"))
-//	return 0;
-fp.WriteInt32 (MODEL_DATA_VERSION);
-fp.Write (m_nModel);
-fp.Write (m_nSubModels);
-fp.Write (m_nVerts);
-fp.Write (m_nFaces);
-fp.Write (m_bCustom);
+	IFileManager* fp = g_data.CreateFileManager();
 
-m_textures.WriteBinary (fp);
+char szFile [256];
+sprintf (szFile, "%s\\model%3d.bin", pszFolder, nModel);
+
+if (!fp->Open (szFile, "wb"))
+	return 0;
+fp->WriteInt32 (MODEL_DATA_VERSION);
+fp->Write (m_nModel);
+fp->Write (m_nSubModels);
+fp->Write (m_nVerts);
+fp->Write (m_nFaces);
+fp->Write (m_bCustom);
+
+m_textures.WriteBinary (*fp);
 
 CSubModel*	pSubModel = m_subModels;
 
 for (int i = 0; i < m_nSubModels; i++, pSubModel = pSubModel->m_next)
-	pSubModel->SaveBinary (fp);
-fp.Close ();
+	pSubModel->SaveBinary (*fp);
+fp->Close ();
 return 1;
 }
 
@@ -820,35 +822,36 @@ return 1;
 
 //------------------------------------------------------------------------------
 
-int CModel::ReadBinary (IFileManager& fp /*const char* pszFolder, const short nModel*/, time_t tASE)
+int CModel::ReadBinary (const char* pszFolder, const short nModel, time_t tASE)
 {
+	IFileManager* fp = g_data.CreateFileManager();
 	int				h, i;
 	
-//char szFile [256];
-//sprintf (szFile, "%s\\model%3d.bin", pszFolder, nModel);
-//
-//time_t tBIN = fp.Date (szFile);
+char szFile [256];
+sprintf (szFile, "%s\\model%3d.bin", pszFolder, nModel);
 
-//if (tASE > tBIN)
-//	return 0;
-//
-//if (!fp.Open (szFile, "rb"))
-//	return 0;
-h = fp.ReadInt32 ();
+time_t tBIN = fp->Date (szFile);
+
+if (tASE > tBIN)
+	return 0;
+
+if (!fp->Open (szFile, "rb"))
+	return 0;
+h = fp->ReadInt32 ();
 if (h != MODEL_DATA_VERSION) {
-	fp.Close ();
+	fp->Close ();
 	Destroy ();
 	return 0;
 	}
-m_nModel = fp.ReadInt32 ();
-m_nSubModels = fp.ReadInt32 ();
-m_nVerts = fp.ReadInt32 ();
-m_nFaces = fp.ReadInt32 ();
-m_bCustom = fp.ReadInt32 ();
+m_nModel = fp->ReadInt32 ();
+m_nSubModels = fp->ReadInt32 ();
+m_nVerts = fp->ReadInt32 ();
+m_nFaces = fp->ReadInt32 ();
+m_bCustom = fp->ReadInt32 ();
 
 m_subModels = null;
-if (m_textures.ReadBinary (fp)) {
-	fp.Close ();
+if (m_textures.ReadBinary (*fp)) {
+	fp->Close ();
 	Destroy ();
 	return 0;
 	}
@@ -858,7 +861,7 @@ CSubModel*	pSubModel, * pTail = null;
 m_subModels = null;
 for (i = 0; i < m_nSubModels; i++) {
 	if (!(pSubModel = new CSubModel)) {
-		fp.Close ();
+		fp->Close ();
 		Destroy ();
 		return 0;
 		}
@@ -868,8 +871,8 @@ for (i = 0; i < m_nSubModels; i++) {
 		m_subModels = pSubModel;
 	pTail = pSubModel;
 	try {
-		if (!pSubModel->ReadBinary (fp)) {
-			fp.Close ();
+		if (!pSubModel->ReadBinary (*fp)) {
+			fp->Close ();
 			Destroy ();
 			return 0;
 			}
@@ -878,7 +881,7 @@ for (i = 0; i < m_nSubModels; i++) {
 		char szMsg [256];
 		sprintf (szMsg, "Compiled model file 'model%03d.bin' is damaged and will be replaced\n", m_nModel);
 		g_data.DoInfoMsg (szMsg);
-		fp.Close ();
+		fp->Close ();
 		Destroy ();
 		return 0;
 		}
@@ -889,26 +892,32 @@ return 1;
 
 //------------------------------------------------------------------------------
 
-int CModel::Read (IFileManager& fp, const char* pszFolder, const char* pszFile, const short nModel)
+int CModel::Read (const char* pszFolder, const short nModel)
 {
+	IFileManager* fp = g_data.CreateFileManager();
 	int				nResult = 1;
 
 if (m_nModel >= 0)
 	return 0;
 
-//char szFile [256];
-//if (nModel == 108)
-//	sprintf (szFile, "%s\\pyrogl.ase", pszFolder);
-//else if (nModel == 109)
-//	sprintf (szFile, "%s\\wolf.ase", pszFolder);
-//else if (nModel == 110)
-//	sprintf (szFile, "%s\\phantomxl.ase", pszFolder);
-//else
-//	sprintf (szFile, "%s\\model%d.ase", pszFolder, nModel);
+#ifdef _DEBUG
+if (nModel == nDbgModel)
+	nDbgModel = nDbgModel;
+#endif
+
+char szFile [256];
+if (nModel == 108)
+	sprintf (szFile, "%s\\pyrogl.ase", pszFolder);
+else if (nModel == 109)
+	sprintf (szFile, "%s\\wolf.ase", pszFolder);
+else if (nModel == 110)
+	sprintf (szFile, "%s\\phantomxl.ase", pszFolder);
+else
+	sprintf (szFile, "%s\\model%d.ase", pszFolder, nModel);
 
 #if USE_BINARY_MODELS
 try {
-	if (ReadBinary (pszFolder, nModel, fp.Date (szFile)))
+	if (ReadBinary (pszFolder, nModel, fp->Date (szFile)))
 		return 1;
 	}
 catch(...) {
@@ -918,25 +927,25 @@ catch(...) {
 	Destroy ();
 	}
 #endif
-//if (!fp.Open (szFile, "rb")) 
-//	return 0;
+if (!fp->Open (szFile, "rb")) 
+	return 0;
 	
 m_folder = pszFolder;
 bErrMsg = 0;
-aseFile = &fp;
+aseFile = fp;
 Init ();
 m_nModel = nModel;
-while ((pszToken = ReadLine (fp))) {
+while ((pszToken = ReadLine (*fp))) {
 	if (!strcmp (pszToken, "*MATERIAL_LIST")) {
-		if (!(nResult = ReadMaterialList (fp)))
+		if (!(nResult = ReadMaterialList (*fp)))
 			break;
 		}
 	else if (!strcmp (pszToken, "*GEOMOBJECT")) {
-		if (!(nResult = ReadSubModel (fp)))
+		if (!(nResult = ReadSubModel (*fp)))
 			break;
 		}
 	}
-fp.Close ();
+fp->Close ();
 if (!nResult)
 	Destroy ();
 else {

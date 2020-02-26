@@ -11,21 +11,18 @@ AND AGREES TO THE TERMS HEREIN AND ACCEPTS THE SAME BY USE OF THIS FILE.
 COPYRIGHT 1993-1999 PARALLAX SOFTWARE CORPORATION.  ALL RIGHTS RESERVED.
 */
 
+#include "stdafx.h"
+
 #ifdef HAVE_CONFIG_H
 #include <conf.h>
 #endif
 
-#include <stdio.h>
-#include <string.h>
 #if defined (_WIN32_WCE) || defined (_WIN32)
 #	include <sys/stat.h>
 #else
 #	include <sys/stat.h>
 #	include <errno.h>
 #endif
-
-#include "MemoryFile.h"
-//#include "findfile.h"
 
 // ----------------------------------------------------------------------------
 

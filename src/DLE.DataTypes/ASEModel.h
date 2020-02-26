@@ -107,9 +107,9 @@ class CModel {
 		void Init (void);
 		bool Create (void);
 		void Destroy (void);
-		int Read (IFileManager& fp, const char* pszFolder, const char* pszFile, const short nModel);
-		int SaveBinary (IFileManager& fp);
-		int ReadBinary (IFileManager& fp, time_t tASE);
+		int Read (const char* pszFolder, const short nModel);
+		int SaveBinary (const char* pszFolder, const short nModel);
+		int ReadBinary (const char* pszFolder, const short nModel, time_t tASE);
 		int ReloadTextures (void);
 		int ReleaseTextures (void);
 		int FreeTextures (void);

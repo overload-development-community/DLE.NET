@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "ModelTextures.h"
 #include "OOFModel.h"
-#include "textures.h"
 
 #define MAXGAP	0.01f
 
@@ -988,7 +987,7 @@ if (!_stricmp (command, "$thruster=")) {
 	float r,g,b;
 	float size;
 
-	sscanf_s(data, " %f, %f, %f, %f", &r, &g, &b, &size);
+	sscanf_s(data, " %f, %f, %f, %f", &r,&g,&b,&size);
 	m_nFlags |= OOF_SOF_THRUSTER;
 	//m_glowInfo = new CGlowInfo;
 	m_glowInfo.m_color.r = r;
@@ -1491,37 +1490,42 @@ for (i = 0, pso = m_subModels.Buffer (); i < m_nSubModels; i++, pso++)
 
 //------------------------------------------------------------------------------
 
-int CModel::Read (IFileManager& fp, const char* pszFolder, const char* pszFile, const short nModel)
+int CModel::Read (const char* pszFolder, const short nModel)
 {
 if (m_nModel >= 0)
 	return 0;
 
+	IFileManager* fp = g_data.CreateFileManager();
 	char				fileId [4];
 	int				i, nLength, nFrames, nSubModels, bTimed = 0;
 
-//char szFile [256];
-//if (nModel == 108)
-//	sprintf_s (szFile, "%s\\pyrogl.oof", pszFolder);
-//else if (nModel == 109)
-//	sprintf_s (szFile, "%s\\wolf.oof", pszFolder);
-//else if (nModel == 110)
-//	sprintf_s (szFile, "%s\\phantomxl.oof", pszFolder);
-//else
-//	sprintf_s (szFile, "%s\\model%d.oof", pszFolder, nModel);
-//
-//if (!fp.Open (szFile, "rb")) 
-//	return 0;
+char szFile [256];
+if (nModel == 108)
+	sprintf_s (szFile, "%s\\pyrogl.oof", pszFolder);
+else if (nModel == 109)
+	sprintf_s (szFile, "%s\\wolf.oof", pszFolder);
+else if (nModel == 110)
+	sprintf_s (szFile, "%s\\phantomxl.oof", pszFolder);
+else
+	sprintf_s (szFile, "%s\\model%d.oof", pszFolder, nModel);
+
+if (!fp->Open (szFile, "rb")) {
+	delete fp;
+	return 0;
+	}
 	
 m_folder = pszFolder;
 
 nIndent = 0;
 
-if (!fp.Read (fileId, sizeof (fileId), 1)) {
-	fp.Close ();
+if (!fp->Read (fileId, sizeof (fileId), 1)) {
+	fp->Close ();
+	delete fp;
 	return 0;
 	}
 if (strncmp (fileId, "PSPO", 4)) {
-	fp.Close ();
+	fp->Close ();
+	delete fp;
 	return 0;
 	}
 Init ();
@@ -1532,7 +1536,7 @@ if (nModel == nDbgModel)
 	nDbgModel = nDbgModel;
 #endif
 
-m_nVersion = OOF_ReadInt (fp, "nVersion");
+m_nVersion = OOF_ReadInt (*fp, "nVersion");
 if (m_nVersion >= 2100)
 	m_nFlags |= OOF_PMF_LIGHTMAP_RES;
 if (m_nVersion >= 22) {
@@ -1543,54 +1547,61 @@ if (m_nVersion >= 22) {
 	}
 nSubModels = 0;
 
-while (!fp.EoF ()) {
+while (!fp->EoF ()) {
 	char chunkID [4];
 
-	if (!fp.Read (chunkID, sizeof (chunkID), 1)) {
-		fp.Close ();
+	if (!fp->Read (chunkID, sizeof (chunkID), 1)) {
+		fp->Close ();
+		delete fp;
 		return 0;
 		}
-	nLength = OOF_ReadInt (fp, "nLength");
+	nLength = OOF_ReadInt (*fp, "nLength");
 	switch (ListType (chunkID)) {
 		case 0:
-			if (!ReadTextures (fp)) {
+			if (!ReadTextures (*fp)) {
 				Destroy ();
+				delete fp;
 				return 0;
 				}
 			break;
 
 		case 1:
-			if (!ReadInfo (fp)) {
+			if (!ReadInfo (*fp)) {
 				Destroy ();
+				delete fp;
 				return 0;
 				}
 			break;
 
 		case 2:
-			if (!m_subModels [nSubModels].Read (fp, this, 1)) {
+			if (!m_subModels [nSubModels].Read (*fp, this, 1)) {
 				Destroy ();
+				delete fp;
 				return 0;
 				}
 			nSubModels++;
 			break;
 
 		case 3:
-			if (!m_gunPoints.Read (fp, m_nVersion >= 1908, MAX_GUNS)) {
+			if (!m_gunPoints.Read (*fp, m_nVersion >= 1908, MAX_GUNS)) {
 				Destroy ();
+				delete fp;
 				return 0;
 				}
 			break;
 
 		case 4:
-			if (!m_specialPoints.Read (fp)) {
+			if (!m_specialPoints.Read (*fp)) {
 				Destroy ();
+				delete fp;
 				return 0;
 				}
 			break;
 
 		case 5:
-			if (!m_attachPoints.Read (fp)) {
+			if (!m_attachPoints.Read (*fp)) {
 				Destroy ();
+				delete fp;
 				return 0;
 				}
 			break;
@@ -1598,10 +1609,11 @@ while (!fp.EoF ()) {
 		case 6:
 			nFrames = m_frameInfo.m_nFrames;
 			if (!bTimed)
-				m_frameInfo.m_nFrames = OOF_ReadInt (fp, "nFrames");
+				m_frameInfo.m_nFrames = OOF_ReadInt (*fp, "nFrames");
 			for (i = 0; i < m_nSubModels; i++)
-				if (!m_subModels [i].m_posAnim.Read (fp, this, bTimed)) {
+				if (!m_subModels [i].m_posAnim.Read (*fp, this, bTimed)) {
 					Destroy ();
+					delete fp;
 					return 0;
 					}
 			if (m_frameInfo.m_nFrames < nFrames)
@@ -1612,10 +1624,11 @@ while (!fp.EoF ()) {
 		case 8:
 			nFrames = m_frameInfo.m_nFrames;
 			if (!bTimed)
-				m_frameInfo.m_nFrames = OOF_ReadInt (fp, "nFrames");
+				m_frameInfo.m_nFrames = OOF_ReadInt (*fp, "nFrames");
 			for (i = 0; i < m_nSubModels; i++)
-				if (!m_subModels [i].m_rotAnim.Read (fp, this, bTimed)) {
+				if (!m_subModels [i].m_rotAnim.Read (*fp, this, bTimed)) {
 					Destroy ();
+					delete fp;
 					return 0;
 					}
 			if (m_frameInfo.m_nFrames < nFrames)
@@ -1623,25 +1636,28 @@ while (!fp.EoF ()) {
 			break;
 
 		case 9:
-			if (!m_armament.Read (fp)) {
+			if (!m_armament.Read (*fp)) {
 				Destroy ();
+				delete fp;
 				return 0;
 				}
 			break;
 
 		case 10:
-			if (!m_attachPoints.ReadNormals (fp)) {
+			if (!m_attachPoints.ReadNormals (*fp)) {
 				Destroy ();
+				delete fp;
 				return 0;
 				}
 			break;
 
 		default:
-			fp.Seek (nLength, SEEK_CUR);
+			fp->Seek (nLength, SEEK_CUR);
 			break;
 		}
 	}
-fp.Close ();
+fp->Close ();
+delete fp;
 ConfigureSubModels ();
 BuildAnimMatrices ();
 AssignChildren ();

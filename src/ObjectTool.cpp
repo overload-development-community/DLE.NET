@@ -12,6 +12,7 @@
 #include "dle-xp.h"
 #include "toolview.h"
 #include "TextureManager.h"
+#include "DrawHelpers.h"
 
 //------------------------------------------------------------------------------
 
@@ -483,8 +484,8 @@ PaintTexture (&m_showTextureWnd, IMG_BKCOLOR, nBaseTex, 0);
 void CObjectTool::DrawObjectImages (void) 
 {
 CGameObject *pObject = current->Object ();
-pObject->DrawBitmap (&m_showObjWnd);
-pObject->DrawBitmap (&m_showSpawnWnd);
+DrawHelpers::DrawGameObjectBitmap (pObject, &m_showObjWnd);
+DrawHelpers::DrawGameObjectBitmap (pObject, &m_showSpawnWnd);
 }
 
 //------------------------------------------------------------------------

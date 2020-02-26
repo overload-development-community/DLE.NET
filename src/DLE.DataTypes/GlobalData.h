@@ -3,7 +3,7 @@
 class ILightManager
 {
 public:
-	virtual int Count() = 0;
+	virtual int GetCount() = 0;
 	virtual CVariableLight* VariableLight(int i) = 0;
 	virtual short VariableLight(CSideKey key = CSideKey()) = 0;
 	virtual CVariableLight* AddVariableLight(short index = -1) = 0;

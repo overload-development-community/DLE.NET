@@ -1,6 +1,7 @@
 #ifndef __selection_h
 #define __selection_h
 
+#include "Global.h"
 #include "Types.h"
 #include "Vertex.h"
 #include "Trigger.h"
@@ -13,7 +14,8 @@
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 
-class CSelection : public CSideKey {
+class CSelection : public CSideKey, public ISelection
+{
 	protected:
 		short m_nEdge;
 		short m_nPoint;

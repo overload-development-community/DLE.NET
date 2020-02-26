@@ -3,9 +3,9 @@
 #include "stdafx.h"
 #include <math.h>
 
+#include "global.h"
 #include "types.h"
 #include "matrix.h"
-#include "global.h"
 #include "mine.h"
 #include "segment.h"
 #include "GameObject.h"

@@ -43,7 +43,7 @@ typedef CGameObject objectList [MAX_OBJECTS_D2];
 
 #endif
 
-class CObjectManager {
+class CObjectManager : public IObjectManager {
 	private:
 		objectList		m_objects;
 		CMineItemInfo	m_info;
@@ -103,9 +103,9 @@ class CObjectManager {
 
 		void Move (CGameObject * pObject = null, int nSegment = -1);
 
-		inline void ReadInfo (CFileManager* fp) { m_info.Read (fp); }
+		virtual void ReadInfo (IFileManager* fp) { m_info.Read (fp); }
 
-		inline void WriteInfo (CFileManager* fp) { m_info.Write (fp); }
+		virtual void WriteInfo (IFileManager* fp) { m_info.Write (fp); }
 
 		void Read (CFileManager* fp);
 

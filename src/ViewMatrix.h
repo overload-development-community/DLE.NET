@@ -7,7 +7,7 @@
 
 // -----------------------------------------------------------------------------
 
-class CViewMatrix
+class CViewMatrix : public IViewMatrix
 {
 	public:
 		CViewData		m_data [2];
@@ -21,6 +21,7 @@ class CViewMatrix
 		short				m_viewHeight;
 
 	public:
+		virtual CViewData& Data (int n) { return m_data [n]; }
 
 	protected:
 		void ClampAngle (int i);

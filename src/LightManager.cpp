@@ -1,4 +1,4 @@
-
+#include "stdafx.h"
 #include "Mine.h"
 #include "dle-xp.h"
 
@@ -155,7 +155,7 @@ if ((IsLight (nBaseTex) == -1) && (IsLight (nOvlTex) == -1)) {
 
 if (index < 0)
 	index = Count ();
-Count ()++;
+m_nCount++;
 return VariableLight (index);
 }
 
@@ -194,7 +194,7 @@ if (index > -1) {
 		VariableLight (index)->Backup (opDelete);
 		}
 	undoManager.Begin (__FUNCTION__, udVariableLights);
-	if (index < --Count ()) {
+	if (index < --m_nCount) {
 		if (!bUndo) {
 			VariableLight (index)->Index () = Count ();
 			VariableLight (index)->Backup (opMove);

@@ -122,7 +122,7 @@ typedef CTexture* textureList;
 
 #endif
 
-class CTextureManager {
+class CTextureManager : public ITextureManager {
 	private:
 		textureList		m_textures [2];
 		CDynamicArray <CTexture*>	m_overrides [2]; // Items can be blank if there is no custom texture
@@ -333,7 +333,7 @@ class CTextureManager {
 
 		int CreateDtx (CFileManager& fp, CDtxSoundList& soundList);
 
-		int WriteCustomTexture (CFileManager& fp, const CTexture *pTexture, bool bUseBMPFileFormat = false);
+		virtual int WriteCustomTexture (IFileManager& fp, const CTexture *pTexture, bool bUseBMPFileFormat = false);
 
 		void Setup (void);
 

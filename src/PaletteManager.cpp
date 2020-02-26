@@ -5,11 +5,11 @@
 
 #include <string.h>
 
+#include "global.h"
 #include "define.h"
 #include "types.h"
 #include "dle-xp.h"
 #include "mine.h"
-#include "global.h"
 #include "FileManager.h"
 #include "PaletteManager.h"
 
@@ -330,6 +330,13 @@ else {
 		return null;
 	return paletteNamesD2 [nPalette];
 	}
+}
+
+//------------------------------------------------------------------------------
+
+UINT CPaletteManager::GetPaletteEntries(UINT nStartIndex, UINT nNumEntries, LPPALETTEENTRY lpPaletteColors)
+{
+	return Render ()->GetPaletteEntries (nStartIndex, nNumEntries, lpPaletteColors);
 }
 
 //------------------------------------------------------------------------------

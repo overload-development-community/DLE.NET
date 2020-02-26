@@ -1,4 +1,4 @@
-
+#include "stdafx.h"
 #include "mine.h"
 #include "dle-xp.h"
 
@@ -102,7 +102,7 @@ return count;
 
 //------------------------------------------------------------------------------
 
-bool CUndoData::Backup (int dataFlags, char* szFunction) 
+bool CUndoData::Backup (int dataFlags, const char* szFunction) 
 {
 if (szFunction && *szFunction)
 	m_dataFlags = 0;
@@ -443,7 +443,7 @@ return szDest;
 
 static char* szFlagNames [] = {" vertices", " segments", " producers", " walls", " doors", " triggers", " objects", " robots", " variable_lights", " static_light", " dynamic_light" };
 
-void CUndoManager::Begin (char* szFunction, int dataFlags, bool bAccumulate) 
+void CUndoManager::Begin (const char* szFunction, int dataFlags, bool bAccumulate) 
 {
 if (!Locked ()) {
 	char szFlags [200];
@@ -468,7 +468,7 @@ if (!Locked ()) {
 
 //------------------------------------------------------------------------------
 
-void CUndoManager::End (char* szFunction) 
+void CUndoManager::End (const char* szFunction) 
 {
 if (!Locked () && (m_nNested > 0)) {
 	PrintLog (-1, "End Undo (%s)\n", szFunction);
@@ -480,7 +480,7 @@ if (!Locked () && (m_nNested > 0)) {
 
 //------------------------------------------------------------------------------
 
-void CUndoManager::Cancel (char* szFunction, int dataFlags) 
+void CUndoManager::Cancel (const char* szFunction, int dataFlags) 
 {
 if (m_nNested > 0) {
 	PrintLog (-1, "Cancel Undo (%s)\n", szFunction);
@@ -503,7 +503,7 @@ return true;
 
 //------------------------------------------------------------------------------
 
-void CUndoManager::Unroll (char* szFunction, bool bRestore) 
+void CUndoManager::Unroll (const char* szFunction, bool bRestore) 
 {
 if (m_nNested > 0) {
 	PrintLog (-1, "Unroll Undo (%s)\n", szFunction);
@@ -529,19 +529,19 @@ if (Locked ()) {
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 
-void CUndoHistory::Push (char* szFunction)
+void CUndoHistory::Push (const char* szFunction)
 {
 if (ToS () && (*Top () == szFunction)) {
 	char szMsg [256];
 	sprintf_s (szMsg, sizeof (szMsg), "%s: Undo manager redundancy", szFunction);
 	INFOMSG (szMsg);
 	}
-CStack<char*>::Push (szFunction);
+CStack<char*>::Push (const_cast<char*>(szFunction));
 }
 
 //------------------------------------------------------------------------------
 
-void CUndoHistory::Pop (char* szFunction)
+void CUndoHistory::Pop (const char* szFunction)
 {
 if (ToS () && (*Top () != szFunction)) {
 	char szMsg [256];

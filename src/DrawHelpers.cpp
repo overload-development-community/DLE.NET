@@ -1,4 +1,11 @@
+#include "stdafx.h"
 #include "DrawHelpers.h"
+#include "PaletteManager.h"
+#include "dle-xp.h"
+
+#ifdef _DEBUG
+extern short nDbgTexture;
+#endif
 
 void DrawHelpers::DrawGameObjectBitmap (CGameObject* object, CWnd* pWindow)
 {
@@ -80,7 +87,7 @@ pWindow->UpdateWindow ();
 
 //------------------------------------------------------------------------------
 
-void DrawHelpers::RgbFromIndex (int nIndex, PALETTEENTRY& rgb)
+void RgbFromIndex (int nIndex, PALETTEENTRY& rgb)
 {
 CBGR* color = paletteManager.Current (nIndex);
 if (color != null) {
@@ -93,7 +100,7 @@ if (color != null) {
 
 // -------------------------------------------------------------------------- 
 
-bool DrawHelpers::PaintTexture (CWnd *pWindow, int bkColor, int texture1, int texture2, int xOffset, int yOffset)
+bool PaintTexture (CWnd *pWindow, int bkColor, int texture1, int texture2, int xOffset, int yOffset)
 {
 #ifdef _DEBUG
 if (texture1 == nDbgTexture)
@@ -114,7 +121,7 @@ return PaintTexture (pWindow, bkColor, pBaseTex, pOvlTex, nOvlAlignment, xOffset
 
 // --------------------------------------------------------------------------
 
-bool DrawHelpers::PaintTexture (CWnd *pWindow, int bkColor, const CTexture *pBaseTex, const CTexture *pOvlTex, short nOvlAlignment, int xOffset, int yOffset, bool bCurrentFrameOnly)
+bool PaintTexture (CWnd *pWindow, int bkColor, const CTexture *pBaseTex, const CTexture *pOvlTex, short nOvlAlignment, int xOffset, int yOffset, bool bCurrentFrameOnly)
 {
 if (!pWindow->m_hWnd)
 	return false;
@@ -127,7 +134,7 @@ if (!pDC)
 	return false;
 
 	CBitmap			bmTexture;
-	IFileManager	fp;
+	CFileManager	fp;
 	char				szFile [256];
 	BITMAP			bm;
 	CDC				memDC;
@@ -269,7 +276,32 @@ void DrawHelpers::LoadTextureFromResource(CTexture* texture, int nId)
 	texture->LoadFromData(pData, res.Size());
 }
 
-bool DrawHelpers::CreateBitmapFromTexture(CTexture* texture, CBitmap** ppImage, bool bScale, int width, int height) const
+bool CenterBitmapInBuffer (CBGRA *pDestBuffer, int destWidth, int destHeight, const CBGRA *pSrcBuffer, int srcWidth, int srcHeight)
+{
+if (!pDestBuffer || !pSrcBuffer)
+	return false;
+
+int srcX = max ((srcWidth - destWidth) / 2, 0);
+int srcY = max ((srcHeight - destHeight) / 2, 0);
+int destX = max ((destWidth - srcWidth) / 2, 0);
+int destY = max ((destHeight - srcHeight) / 2, 0);
+
+int nSize = destWidth * destHeight;
+size_t elementSize = sizeof (pDestBuffer [0]);
+memset (pDestBuffer, 0xFF, nSize * elementSize);
+
+// Copy offset bitmap data into the buffer (row by row)
+for (int y = srcY; y < min (srcHeight, destHeight); y++) {
+	int destOffset = (y + destY) * destWidth + destX;
+	int sourceOffset = (y + srcY) * srcWidth + srcX;
+	memcpy_s (pDestBuffer + destOffset, (nSize - destOffset) * elementSize,
+		pSrcBuffer + sourceOffset, min (srcWidth, destWidth) * elementSize);
+	}
+
+return true;
+}
+
+bool DrawHelpers::CreateBitmapFromTexture(const CTexture* texture, CBitmap** ppImage, bool bScale, int width, int height)
 {
 if (!ppImage)
 	return false;
@@ -283,8 +315,8 @@ if (bScale && width > 0) {
 		actualHeight = actualWidth;
 	}
 else {
-	actualWidth = m_info.width;
-	actualHeight = m_info.height;
+	actualWidth = texture->m_info.width;
+	actualHeight = texture->m_info.height;
 	}
 
 CBitmap *pNewImage = new CBitmap ();
@@ -302,9 +334,9 @@ if (bOk) {
 
 		// Scale texture to as close to the desired size as possible
 		// (using FrameHeight since we currently only want the first frame for a CBitmap)
-		if (actualWidth <= (int)Width () || actualHeight <= (int)FrameHeight ()) {
-			if (bOk) bOk = scaledTexture.Copy (*this);
-			int factor = (int)max (ceil ((float)Width () / actualWidth), ceil ((float)FrameHeight () / actualHeight));
+		if (actualWidth <= (int)texture->Width () || actualHeight <= (int)texture->FrameHeight ()) {
+			if (bOk) bOk = scaledTexture.Copy (*texture);
+			int factor = (int)max (ceil ((float)texture->Width () / actualWidth), ceil ((float)texture->FrameHeight () / actualHeight));
 			if (bOk) 
 				bOk = (0 < scaledTexture.Shrink (factor, factor));
 			pSourceBuffer = scaledTexture.Buffer ();
@@ -312,9 +344,9 @@ if (bOk) {
 			srcHeight = scaledTexture.FrameHeight ();
 			}
 		else {
-			pSourceBuffer = Buffer ();
-			srcWidth = Width ();
-			srcHeight = FrameHeight ();
+			pSourceBuffer = texture->Buffer ();
+			srcWidth = texture->Width ();
+			srcHeight = texture->FrameHeight ();
 			}
 
 		// Now center texture
@@ -331,7 +363,7 @@ if (bOk) {
 			}
 		}
 	else {
-		pBuffer = Buffer ();
+		pBuffer = texture->Buffer ();
 		}
 	bmi->bmiHeader.biWidth = actualWidth;
 	bmi->bmiHeader.biHeight = actualHeight;
@@ -356,7 +388,7 @@ if (texture->m_glHandle)
 	if (!bForce)
 		return true;
 	else
-		GLRelease ();
+		GLReleaseTexture (texture);
 
 glGenTextures (1, &texture->m_glHandle);
 if (!texture->m_glHandle)

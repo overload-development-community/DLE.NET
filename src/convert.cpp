@@ -8,6 +8,7 @@
 #include "dlcdoc.h"
 #include "PaletteManager.h"
 #include "TextureManager.h"
+#include "DrawHelpers.h"
 
 extern short nDbgSeg, nDbgSide;
 extern int nDbgVertex;

@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "mine.h"
 #include "dle-xp.h"
 

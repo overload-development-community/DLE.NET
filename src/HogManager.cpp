@@ -8,6 +8,7 @@
 #include "mine.h"
 #include "dle-xp.h"
 #include "TimeDate.h"
+#include "ModelTextures.h"
 #include "ModelManager.h"
 
 CHogManager* hogManager = null;
@@ -16,7 +17,7 @@ CHogManager* hogManager = null;
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 
-int CLevelHeader::Read (CFileManager* fp) 
+int CLevelHeader::Read (IFileManager* fp) 
 {
 if (fp->Read (m_name, 1, sizeof (m_name)) != sizeof (m_name))
 	return 0;
@@ -37,7 +38,7 @@ return 1;
 
 //------------------------------------------------------------------------------
 
-int CLevelHeader::Write (CFileManager* fp, int bExtended) 
+int CLevelHeader::Write (IFileManager* fp, int bExtended) 
 {
 if (fp->Write (m_name, 1, sizeof (m_name)) != sizeof (m_name))
 	return 0;

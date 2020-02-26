@@ -1,4 +1,4 @@
-
+#include "stdafx.h"
 #include "Mine.h"
 #include "dle-xp.h"
 
@@ -120,7 +120,7 @@ void CLightManager::WriteVariableLights (CFileManager* fp)
 {
 if (DLE.LevelVersion () > 6) {
 	long fPos = fp->Tell ();
-	fp->Write (lightManager.Count ());
+	fp->WriteInt32 (lightManager.Count ());
 	for (int i = 0, j = lightManager.Count (); i < j; i++) {
 		if ((VariableLight (i)->m_nSegment < 0) || (VariableLight (i)->m_nSegment >= segmentManager.Count ())) 
 			--lightManager.Count ();
@@ -128,7 +128,7 @@ if (DLE.LevelVersion () > 6) {
 			VariableLight (i)->Write (fp);
 		}
 	fp->Seek (fPos, SEEK_SET);
-	fp->Write (lightManager.Count ());
+	fp->WriteInt32 (lightManager.Count ());
 	fp->Seek (0, SEEK_END);
 	}
 }
