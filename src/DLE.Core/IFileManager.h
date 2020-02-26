@@ -74,6 +74,6 @@ public:
 	virtual void WriteMatrix(const CDoubleMatrix& m) = 0;
 	inline void Write(const CFixMatrix& m) { WriteMatrix(m); }
 	inline void Write(const CDoubleMatrix& m) { WriteMatrix(m); }
-
-	virtual void SplitPath(const char* szFullPath, char* szFolder, char* szFile, char* szExt) = 0;
 };
+
+void SplitPath(const char* szFullPath, char* szFolder, char* szFile, char* szExt);
