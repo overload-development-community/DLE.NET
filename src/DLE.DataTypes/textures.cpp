@@ -1179,7 +1179,22 @@ return ToBitmap ();
 
 //------------------------------------------------------------------------------
 
-void CTexture::DrawLine (POINT pt0, POINT pt1, CBGRA color) 
+bool CTexture::GLCreate(bool bForce)
+{
+return g_data.GLCreateTexture(this, bForce);
+}
+
+GLuint CTexture::GLBind(GLuint nTMU, GLuint nMode) const
+{
+return g_data.GLBindTexture(this, nTMU, nMode);
+}
+
+void CTexture::GLRelease(void)
+{
+return g_data.GLReleaseTexture(this);
+}
+
+void CTexture::DrawLine (POINT pt0, POINT pt1, CBGRA color)
 {
 	int i, x, y;
 	int dx = pt1.x - pt0.x;
