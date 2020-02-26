@@ -133,24 +133,6 @@ class CUndoItem {
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 
-typedef enum {
-	udVertices = 1,
-	udSegments = 2,
-	udProducers = 4,
-	udWalls = 8,
-	udDoors = 16,
-	udTriggers = 32,
-	udObjects = 64,
-	udRobots = 128,
-	udVariableLights = 256,
-	udStaticLight = 512,
-	udDynamicLight = 1024,
-	udLight = 0x700,
-	udAll = 0x7FF
-} eUndoFlags;
-
-//------------------------------------------------------------------------------
-
 class CUndoData {
 public:
 	CUndoItem<CVertex>				m_vertices;

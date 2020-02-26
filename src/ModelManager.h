@@ -11,24 +11,6 @@
 
 //------------------------------------------------------------------------------
 
-#define MAX_OBJ_TEXTURES	600
-#define MAX_ANIMATIONS		110
-
-typedef struct {
-  ushort index;
-} BITMAP_INDEX;
-
-//------------------------------------------------------------------------------
-// the followin numbers are set using the original D2 robots
-
-#define MAX_POLYMODEL_POINTS			416
-#define MAX_POLYMODEL_POLYS			300
-#define MAX_POLYMODEL_POLY_POINTS   13
-#define MIN_POLYMODEL_POLY_POINTS	3
-#define MAX_POLY_MODEL_SIZE			32000
-
-//------------------------------------------------------------------------------
-
 class CModelRenderPoly {
 public:
 	ushort		nVerts;
@@ -126,6 +108,8 @@ class CModelManager {
 		void LoadMod (void);
 
 		int BuildModel (CObject* pObject, int nModel, CPolyModel* pp, CDynamicArray<CTexture*>& modelTextures);
+
+		virtual void Render (ubyte* p, int nStage, int bCustom, ushort firstTexture);
 
 	private:
 		int Model (void);

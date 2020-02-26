@@ -33,12 +33,6 @@ typedef float vec4 [4];
 
 // -----------------------------------------------------------------------------
 
-typedef struct tTexCoord2d {
-	double u, v;
-} tTexCoord2d;
-
-// -----------------------------------------------------------------------------
-
 enum eObjectViewFlags {
 	eViewObjectsNone          = 0,
 	eViewObjectsRobots        = (1 << 0),
@@ -77,30 +71,6 @@ class CFaceListEntry : public CSideKey {
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
-
-enum ePenColor {
-	penBlack,
-	penWhite,
-	penGold,
-	penRed,
-	penMedRed,
-	penGray,
-	penLtGray, 
-	penDkGray,
-	penGreen,
-	penMedGreen,
-	penDkGreen,
-	penDkCyan,
-	penMedCyan,
-	penLtCyan,
-	penBlue,
-	penMedBlue, 
-	penLtBlue,
-	penYellow,
-	penOrange,
-	penMagenta,
-	penCount
-};
 
 class CRenderData {
 public:

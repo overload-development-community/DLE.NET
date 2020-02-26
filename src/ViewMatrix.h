@@ -7,17 +7,6 @@
 
 // -----------------------------------------------------------------------------
 
-class CViewData {
-	public:
-		CDoubleMatrix	m_transformation [2];
-		CDoubleVector	m_translate;
-		CDoubleVector	m_rotate;
-		CDoubleVector	m_scale;
-		CDoubleVector	m_origin;
-};
-
-// -----------------------------------------------------------------------------
-
 class CViewMatrix
 {
 	public:

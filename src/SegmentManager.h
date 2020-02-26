@@ -98,18 +98,6 @@ typedef struct tVertMatch {
 
 // -----------------------------------------------------------------------------
 
-class CFogInfo {
-	public:
-		rgbColor			m_color;
-		ubyte				m_density;
-
-		void Init (int nType);
-		void Read (CFileManager *fp);
-		void Write (CFileManager *fp);
-	};
-
-// -----------------------------------------------------------------------------
-
 class CSegmentManager {
 	public:
 		segmentList				m_segments;
