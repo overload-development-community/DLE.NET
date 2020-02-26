@@ -34,7 +34,7 @@ public:
 class IPaletteManager
 {
 public:
-	virtual UINT GetPaletteEntries(UINT nStartIndex, UINT nNumEntries, LPPALETTEENTRY lpPaletteColors) const = 0;
+	virtual UINT GetPaletteEntries(UINT nStartIndex, UINT nNumEntries, LPPALETTEENTRY lpPaletteColors) = 0;
 	virtual CBGR* Current(int i = 0, char* pszName = null) = 0;
 	virtual BITMAPINFO* BMI() = 0;
 	virtual ubyte ClosestColor(CBGR& color, bool bAllowTransp = true) = 0;
@@ -185,5 +185,32 @@ public:
 	int ExpertMode();
 	IRenderer* GetRenderer();
 	IFileManager* CreateFileManager();
+
+	GlobalData(ILightManager* lightManager,
+		IModelManager* modelManager,
+		IObjectManager* objectManager,
+		IPaletteManager* paletteManager,
+		IRobotManager* robotManager,
+		ISegmentManager* segmentManager,
+		ITextureManager* textureManager,
+		ITriggerManager* triggerManager,
+		IWallManager* wallManager,
+		IVertexManager* vertexManager,
+		IUndoManager* undoManager,
+		ISelection* currentSelection)
+		:
+		lightManager(lightManager),
+		modelManager(modelManager),
+		objectManager(objectManager),
+		paletteManager(paletteManager),
+		robotManager(robotManager),
+		segmentManager(segmentManager),
+		textureManager(textureManager),
+		triggerManager(triggerManager),
+		wallManager(wallManager),
+		vertexManager(vertexManager),
+		undoManager(undoManager),
+		currentSelection(currentSelection)
+	{}
 };
 extern GlobalData g_data;

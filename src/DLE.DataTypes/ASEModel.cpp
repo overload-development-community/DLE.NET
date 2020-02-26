@@ -571,7 +571,7 @@ while ((pszToken = ReadLine (fp))) {
 	if (!strcmp (pszToken, "*BITMAP")) {
 		if (tex.IsLoaded ())	//duplicate
 			return CModel::Error ("duplicate bitmap");
-		fp.SplitPath (StrTok ("\""), null, fn, null);
+		SplitPath (StrTok ("\""), null, fn, null);
 		char szFile [256];
 		sprintf (szFile, "%s\\%s", m_folder, fn);
 		if (!strrchr (szFile, '.'))
