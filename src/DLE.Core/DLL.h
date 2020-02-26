@@ -107,7 +107,7 @@ class CDLL {
 			return true;
 			}
 
-		_T* InsertBefore (_T data, _K key) {
+		/*_T* InsertBefore (_T data, _K key) {
 			if (!(m_current = new CNode<_T>))
 				return null;
 			CNode<_T>* pNode = FindNode (key);
@@ -158,7 +158,7 @@ class CDLL {
 				m_tail = m_tail->GetSucc ();
 			pNode->m_data = data;
 			return &pNode->m_data;
-			}
+			}*/
 
 	inline CDLL<_T, _K>& operator= (CDLL<_T, _K>& other) {
 		m_head = other.m_head;

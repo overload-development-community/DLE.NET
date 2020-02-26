@@ -226,15 +226,15 @@ return (x >= 0 && x <= 21) ? (int) (exp ((double) x) + 0.5) : 1; // round (assum
 
 #define D1_PLAYER_CLIP_NUMBER		43
 #define D2_PLAYER_CLIP_NUMBER		108
-#define PLAYER_CLIP_NUMBER			(DLE.IsD1File () ? D1_PLAYER_CLIP_NUMBER : D2_PLAYER_CLIP_NUMBER)
+#define PLAYER_CLIP_NUMBER			(g_data.IsD1File () ? D1_PLAYER_CLIP_NUMBER : D2_PLAYER_CLIP_NUMBER)
 
 #define D1_COOP_CLIP_NUMBER		44
 #define D2_COOP_CLIP_NUMBER		108
-#define COOP_CLIP_NUMBER			(DLE.IsD1File () ? D1_COOP_CLIP_NUMBER : D2_COOP_CLIP_NUMBER)
+#define COOP_CLIP_NUMBER			(g_data.IsD1File () ? D1_COOP_CLIP_NUMBER : D2_COOP_CLIP_NUMBER)
 
 #define D1_REACTOR_CLIP_NUMBER	39
 #define D2_REACTOR_CLIP_NUMBER	93 // D2 version of D1 reactor, only referenced during conversion
-#define REACTOR_CLIP_NUMBER		(DLE.IsD1File () ? D1_REACTOR_CLIP_NUMBER : D2_REACTOR_CLIP_NUMBER)
+#define REACTOR_CLIP_NUMBER		(g_data.IsD1File () ? D1_REACTOR_CLIP_NUMBER : D2_REACTOR_CLIP_NUMBER)
 
 // -----------------------------------------------------------------------------
 

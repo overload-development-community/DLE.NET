@@ -82,7 +82,7 @@ class CGameItemList : public CDLL< CGameItem*, CGameItem* > {};
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 
-# pragma pack(pop)
+# pragma pack(pop, packing)
 
 #endif // __gameitem_h
 
