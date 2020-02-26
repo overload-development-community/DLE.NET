@@ -14,6 +14,23 @@ CModelManager modelManager;
 int nDbgModel = -1;
 
 //------------------------------------------------------------------------------
+// CONSTANTS
+//------------------------------------------------------------------------------
+
+#define OP_EOF        0	/* eof                                 */
+#define OP_DEFPOINTS  1	/* defpoints                (not used) */
+#define OP_FLATPOLY   2	/* flat-shaded polygon                 */
+#define OP_TMAPPOLY   3	/* texture-mapped polygon              */
+#define OP_SORTNORM   4	/* sort by normal                      */
+#define OP_RODBM      5	/* rod bitmap               (not used) */
+#define OP_SUBCALL    6	/* call a subobject                    */
+#define OP_DEFP_START 7	/* defpoints with start                */
+#define OP_GLOW       8	/* m_info.glow value for next poly            */
+
+#define MAX_INTERP_COLORS 100
+#define MAX_POINTS_PER_POLY 25
+
+//------------------------------------------------------------------------------
 // MACROS
 //------------------------------------------------------------------------------
 
