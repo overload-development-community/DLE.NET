@@ -93,6 +93,9 @@ class DrawHelpers;
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
 
+#pragma pack(push, packing)
+#pragma pack(1)
+
 typedef struct {
   ubyte	flags;				//values defined above
   ubyte	pad[3];				//keep alignment
@@ -148,6 +151,8 @@ typedef struct tWallEffectInfo {
   char	 filename [13];
   char	 pad;
 } tWallEffectInfo;
+
+#pragma pack(pop, packing)
 
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
