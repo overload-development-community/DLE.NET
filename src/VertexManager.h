@@ -39,7 +39,8 @@ class CVertexUpdate {
 	inline void Set (ushort index);
 };
 
-class CVertexManager  {
+class CVertexManager : public IVertexManager
+{
 	public:
 		vertexList					m_vertices;
 		CMineItemInfo				m_info;

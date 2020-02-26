@@ -67,7 +67,7 @@ typedef CVertexColor vertexColorList [VERTEX_LIMIT];
 
 #endif
 
-class CLightManager {
+class CLightManager : public ILightManager {
 	private:
 		variableLightList		m_variableLights;
 		int						m_nCount;
@@ -134,6 +134,8 @@ class CLightManager {
 
 		inline uint* LightMap (int i = 0) { return &m_lightMap [i]; }
 		
+		virtual int GetCount () { return m_nCount; }
+
 		inline int& Count (void) { return m_nCount; }
 
 		inline int& TexColorCount (void) { return m_nTexColorCount = MAX_TEXTURES_D2; }
@@ -210,17 +212,17 @@ class CLightManager {
 		void ReadLightDeltas (CFileManager* fp);
 		void WriteLightDeltas (CFileManager* fp);
 
-		inline void ReadDeltaIndexInfo (CFileManager* fp) { m_deltaIndexInfo.Read (fp); }
-		inline void WriteDeltaIndexInfo (CFileManager* fp) { m_deltaIndexInfo.Write (fp); }
-		inline void ReadDeltaValueInfo (CFileManager* fp) { m_deltaValueInfo.Read (fp); }
-		inline void WriteDeltaValueInfo (CFileManager* fp) { m_deltaValueInfo.Write (fp); }
+		inline void ReadDeltaIndexInfo (IFileManager* fp) { m_deltaIndexInfo.Read (fp); }
+		inline void WriteDeltaIndexInfo (IFileManager* fp) { m_deltaIndexInfo.Write (fp); }
+		inline void ReadDeltaValueInfo (IFileManager* fp) { m_deltaValueInfo.Read (fp); }
+		inline void WriteDeltaValueInfo (IFileManager* fp) { m_deltaValueInfo.Write (fp); }
 
-		inline void ReadLightDeltaInfo (CFileManager* fp) {
+		virtual void ReadLightDeltaInfo (IFileManager* fp) {
 			ReadDeltaIndexInfo (fp);
 			ReadDeltaValueInfo (fp);
 			}
 
-		inline void WriteLightDeltaInfo (CFileManager* fp) {
+		virtual void WriteLightDeltaInfo (IFileManager* fp) {
 			WriteDeltaIndexInfo (fp);
 			WriteDeltaValueInfo (fp);
 			}

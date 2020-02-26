@@ -141,7 +141,7 @@ switch (EditType ()) {
 			*GetParent () = *this;
 		break;
 	case opMove:
-		*g_data.lightManager->VariableLight (g_data.lightManager->Count ()) = *this;
+		*g_data.lightManager->VariableLight (g_data.lightManager->GetCount ()) = *this;
 		break;
 	}
 }

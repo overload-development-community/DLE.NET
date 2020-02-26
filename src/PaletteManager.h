@@ -19,7 +19,7 @@ typedef struct tBMIInfo {
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
 
-class CPaletteManager {
+class CPaletteManager : public IPaletteManager {
 	private:
 		char				m_name [15];
 		ubyte				m_rawData [37 * 256];
@@ -93,6 +93,8 @@ class CPaletteManager {
 		int NumAvailablePalettes (int nVersion);
 
 		const char* AvailablePaletteName (int nPalette, int nVersion);
+
+		virtual UINT GetPaletteEntries(UINT nStartIndex, UINT nNumEntries, LPPALETTEENTRY lpPaletteColors);
 
 	private:
 		const char* SelectResource (char* pszName);

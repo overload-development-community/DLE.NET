@@ -118,7 +118,8 @@ public:
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 
-class CRenderer {
+class CRenderer : public IRenderer
+{
 	public:
 		CRenderData&	m_renderData;
 		CWnd*				m_pParent;
@@ -176,6 +177,7 @@ class CRenderer {
 		virtual int Project (CRect* pRC = null, bool bCheckBehind = false) = 0; 
 		virtual void DrawFaceTextured (CFaceListEntry& fle) = 0; 
 		virtual int FaceIsVisible (CSegment* pSegment, CSide* pSide) = 0; 
+		virtual bool IsSideInFrustum (short nSegment, short nSide) { return Frustum ()->Contains (nSegment, nSide); }
 		virtual void BeginRender (bool bOrtho = false) = 0; 
 		virtual void EndRender (bool bSwapBuffers = false) = 0; 
 		virtual int ZoomIn (int nSteps = 1, bool bSlow = false) = 0; 
@@ -189,6 +191,7 @@ class CRenderer {
 		virtual bool CanFitToView (void) = 0;
 
 		virtual void SelectPen (int nPen, float nWeight = 1.0f) = 0;
+		virtual void SetLineWidth (float nWeight = 1.0f) { SelectPen (m_renderData.m_pen, nWeight); }
 		void GetPen (ePenColor& nPen, float& penWeight)  { nPen = m_renderData.m_pen, penWeight = m_renderData.m_penWeight; }
 		virtual void MoveTo (int x, int y) = 0;
 		virtual void LineTo (int x, int y) = 0;

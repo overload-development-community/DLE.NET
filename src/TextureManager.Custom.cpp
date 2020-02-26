@@ -1,10 +1,10 @@
 #include <assert.h>
 
 #include "stdafx.h"
+#include "global.h"
 #include "textures.h"
 #include "FileManager.h"
 #include "dle-xp-res.h"
-#include "global.h"
 #include "PaletteManager.h"
 #include "TextureManager.h"
 #include "HogManager.h"
@@ -223,7 +223,7 @@ return nOffset + ((pTexture->Format () == TGA) ? pTexture->Size () * sizeof (CBG
 
 //-----------------------------------------------------------------------------------
 
-int CTextureManager::WriteCustomTexture (CFileManager& fp, const CTexture *pTexture, bool bUseBMPFileFormat)
+int CTextureManager::WriteCustomTexture (IFileManager& fp, const CTexture *pTexture, bool bUseBMPFileFormat)
 {
 if (pTexture->Format () == TGA && DLE.IsD2XLevel ()) {
 	tRGBA rgba [16384];

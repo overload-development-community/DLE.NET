@@ -98,7 +98,7 @@ typedef struct tVertMatch {
 
 // -----------------------------------------------------------------------------
 
-class CSegmentManager {
+class CSegmentManager : public ISegmentManager {
 	public:
 		segmentList				m_segments;
 		CMineItemInfo			m_segmentInfo;
@@ -348,29 +348,29 @@ class CSegmentManager {
 
 		void SetIndex (void);
 
-		inline void ReadInfo (CFileManager* fp) { m_segmentInfo.Read (fp); }
+		virtual void ReadInfo (IFileManager* fp) { m_segmentInfo.Read (fp); }
 
-		inline void WriteInfo (CFileManager* fp) { m_segmentInfo.Write (fp); }
+		virtual void WriteInfo (IFileManager* fp) { m_segmentInfo.Write (fp); }
 
-		inline void ReadRobotMakerInfo (CFileManager* fp) { m_producerInfo [0].Read (fp); }
+		virtual void ReadRobotMakerInfo (IFileManager* fp) { m_producerInfo [0].Read (fp); }
 
-		inline void WriteRobotMakerInfo (CFileManager* fp) { m_producerInfo [0].Write (fp); }
+		virtual void WriteRobotMakerInfo (IFileManager* fp) { m_producerInfo [0].Write (fp); }
 
-		inline void ReadEquipMakerInfo (CFileManager* fp) { m_producerInfo [1].Read (fp); }
+		virtual void ReadEquipMakerInfo (IFileManager* fp) { m_producerInfo [1].Read (fp); }
 
-		inline void WriteEquipMakerInfo (CFileManager* fp) { m_producerInfo [1].Write (fp); }
+		virtual void WriteEquipMakerInfo (IFileManager* fp) { m_producerInfo [1].Write (fp); }
 
 		inline void InitFogInfo (void) { 
 			for (int i = 0; i < NUM_FOG_TYPES; i++)
 				m_fogInfo [i].Init (i);
 			}
 
-		inline void ReadFogInfo (CFileManager* fp) { 
+		virtual void ReadFogInfo (IFileManager* fp) {
 			for (int i = 0; i < NUM_FOG_TYPES; i++)
 				m_fogInfo [i].Read (fp);
 			}
 
-		inline void WriteFogInfo (CFileManager* fp) { 
+		virtual void WriteFogInfo (IFileManager* fp) { 
 			for (int i = 0; i < NUM_FOG_TYPES; i++)
 				m_fogInfo [i].Write (fp);
 			}

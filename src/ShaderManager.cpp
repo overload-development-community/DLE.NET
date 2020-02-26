@@ -1,8 +1,8 @@
+#include "stdafx.h"
 #include <fcntl.h>
 #include <io.h>
 #include <stdio.h>
 
-#include "stdafx.h"
 #include "dle-xp.h"
 #include "cstack.h"
 #include "shadermanager.h"

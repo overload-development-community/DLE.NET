@@ -1,22 +1,17 @@
 // dlcDoc.cpp : implementation of the CDlcDoc class
 //
 
+#include "stdafx.h"
 #include <process.h>
 #include <direct.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <errno.h>
-#include "stdafx.h"
 #include "dle-xp.h"
 
 #include "dlcDoc.h"
-#include "global.h"
 #include "parser.h"
 #include "FileManager.h"
+#include "ModelTextures.h"
 #include "ModelManager.h"
 #include "HogManager.h"
-#include "light.h"
-#include "textures.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

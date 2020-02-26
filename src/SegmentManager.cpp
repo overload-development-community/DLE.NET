@@ -1,5 +1,6 @@
 // Segment.cpp
 
+#include "stdafx.h"
 #include "mine.h"
 #include "dle-xp.h"
 #include "AVLTree.h"

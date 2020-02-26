@@ -35,6 +35,39 @@ public:
 extern CDLCModule _Module;
 #include <atlcom.h>
 
+#include <assert.h>
+#include <errno.h>
+#include <math.h>
+#include <memory.h>
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "define.h"
+#include "Vector.h"
+#include "matrix.h"
+#include "IFileManager.h"
+#include "carray.h"
+#include "GameItem.h"
+#include "types.h"
+#include "Vertex.h"
+#include "side.h"
+#include "segment.h"
+#include "IRenderer.h"
+#include "GameObject.h"
+#include "Light.h"
+#include "textures.h"
+#include "robot.h"
+#include "GlobalData.h"
+#include "global.h"
+#include "MemoryFile.h"
+#include "GameItem.h"
+#include "Selection.h"
+#include "MineInfo.h"
+#include "ViewMatrix.h"
+#include "renderer.h"
+
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Developer Studio will insert additional declarations immediately before the previous line.
 

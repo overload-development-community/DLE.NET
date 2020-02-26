@@ -1,11 +1,5 @@
-
-
 #ifndef __global_h
 #define __global_h
-
-#include "types.h"
-#include "segment.h"
-#include "GameObject.h"
 
 extern CMissionData missionData;
 extern char message [4096];

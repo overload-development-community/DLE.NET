@@ -3,49 +3,6 @@
 #include "PolyModel.h"
 
 //------------------------------------------------------------------------------
-// CONSTANTS
-//------------------------------------------------------------------------------
-
-#define OP_EOF        0	/* eof                                 */
-#define OP_DEFPOINTS  1	/* defpoints                (not used) */
-#define OP_FLATPOLY   2	/* flat-shaded polygon                 */
-#define OP_TMAPPOLY   3	/* texture-mapped polygon              */
-#define OP_SORTNORM   4	/* sort by normal                      */
-#define OP_RODBM      5	/* rod bitmap               (not used) */
-#define OP_SUBCALL    6	/* call a subobject                    */
-#define OP_DEFP_START 7	/* defpoints with start                */
-#define OP_GLOW       8	/* m_info.glow value for next poly            */
-
-#define MAX_INTERP_COLORS 100
-#define MAX_POINTS_PER_POLY 25
-
-//------------------------------------------------------------------------------
-// MACROS
-//------------------------------------------------------------------------------
-
-#define W(p)   (*((ushort *) (p)))
-#define WP(p)  ((ushort *) (p))
-#define VP(p)  ((CFixVector*) (p))
-
-#define calcNormal(a, b)
-#define glNormal3fv(a)
-#define glColor3ub(a, b, c)
-#define glBegin(a)
-#define glVertex3i(x, y, z)
-#define glEnd()
-#define glTexCoord2fv(a)
-
-#define UINTW int
-
-//------------------------------------------------------------------------------
-
-#define PAL2RGBA(_c)	(((_c) >= 31) ? 1.0 : double (_c) / 31.0)
-
-typedef struct tIntUVL {
-	int u, v, l;
-} tIntUVL;
-
-//------------------------------------------------------------------------------
 
 void CPolyModel::Read (IFileManager* fp, bool bRenderData) 
 {

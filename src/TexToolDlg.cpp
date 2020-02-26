@@ -15,6 +15,7 @@
 #include "FileManager.h"
 #include "Selection.h"
 #include "TextureManager.h"
+#include "DrawHelpers.h"
 
 #include <math.h>
 

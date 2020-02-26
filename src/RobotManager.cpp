@@ -11,6 +11,7 @@
 #include "Mine.h"
 #include "dle-xp.h"
 #include "ResourceManager.h"
+#include "ModelTextures.h"
 #include "ModelManager.h"
 
 CRobotManager robotManager;

@@ -1312,33 +1312,6 @@ return color;
 
 //------------------------------------------------------------------------
 
-bool CenterBitmapInBuffer (CBGRA *pDestBuffer, int destWidth, int destHeight, const CBGRA *pSrcBuffer, int srcWidth, int srcHeight)
-{
-if (!pDestBuffer || !pSrcBuffer)
-	return false;
-
-int srcX = max ((srcWidth - destWidth) / 2, 0);
-int srcY = max ((srcHeight - destHeight) / 2, 0);
-int destX = max ((destWidth - srcWidth) / 2, 0);
-int destY = max ((destHeight - srcHeight) / 2, 0);
-
-int nSize = destWidth * destHeight;
-size_t elementSize = sizeof (pDestBuffer [0]);
-memset (pDestBuffer, 0xFF, nSize * elementSize);
-
-// Copy offset bitmap data into the buffer (row by row)
-for (int y = srcY; y < min (srcHeight, destHeight); y++) {
-	int destOffset = (y + destY) * destWidth + destX;
-	int sourceOffset = (y + srcY) * srcWidth + srcX;
-	memcpy_s (pDestBuffer + destOffset, (nSize - destOffset) * elementSize,
-		pSrcBuffer + sourceOffset, min (srcWidth, destWidth) * elementSize);
-	}
-
-return true;
-}
-
-//------------------------------------------------------------------------
-
 bool CTexture::IsAssignableFrame (void) const
 {
 if (m_info.nTexture >= 0)

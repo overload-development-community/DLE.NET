@@ -3,9 +3,9 @@
 #include "stdafx.h"
 #include <math.h>
 
+#include "global.h"
 #include "types.h"
 #include "matrix.h"
-#include "global.h"
 #include "mine.h"
 #include "segment.h"
 #include "GameObject.h"
@@ -90,7 +90,7 @@ if (m_DIB == 0) {
 	if (m_DC.m_hDC == 0)
 		m_DC.CreateCompatibleDC (pDC);
 	if (m_DC.m_hDC) {
-		BITMAPINFO bmi = {{sizeof (BITMAPINFOHEADER), ViewWidth (), -ViewHeight (), 1, ViewDepth () * 8, BI_RGB, 0, 0, 0, 0, 0}, {255,255,255,0}};
+		BITMAPINFO bmi = {{sizeof (BITMAPINFOHEADER), ViewWidth (), -ViewHeight (), 1, (WORD)(ViewDepth () * 8), BI_RGB, 0, 0, 0, 0, 0}, {255,255,255,0}};
 	m_DIB = ::CreateDIBSection (null, (BITMAPINFO *) &bmi, DIB_RGB_COLORS, (void**) &m_renderData.m_renderBuffer, null, 0);
 	if (DepthBuffer () != null) 
 		delete DepthBuffer ();

@@ -87,6 +87,8 @@ static inline int Pow2Dim (int w, int h)
 return (w < h) ? Pow2ize (h) : Pow2ize (w);
 }
 
+class DrawHelpers;
+
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
@@ -629,6 +631,8 @@ class CTexture {
 		bool SaveTGA (IFileManager& fp) const;
 
 		bool SaveBMP (IFileManager& fp) const;
+
+		friend class DrawHelpers;
 };
 
 //------------------------------------------------------------------------

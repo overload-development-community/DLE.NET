@@ -49,7 +49,8 @@ class CReactorData {
 
 //------------------------------------------------------------------------
 
-class CTriggerManager {
+class CTriggerManager : public ITriggerManager
+{
 	private:
 		triggerList				m_triggers [2];
 		CMineItemInfo			m_info [2];
@@ -166,13 +167,13 @@ class CTriggerManager {
 #else
 		bool Full (void);
 #endif
-		inline void ReadInfo (CFileManager* fp) { m_info [0].Read (fp); }
+		virtual void ReadInfo (IFileManager* fp) { m_info [0].Read (fp); }
 
-		inline void WriteInfo (CFileManager* fp) { m_info [0].Write (fp); }
+		virtual void WriteInfo (IFileManager* fp) { m_info [0].Write (fp); }
 
-		inline void ReadReactorInfo (CFileManager* fp) { m_reactorInfo.Read (fp); }
+		virtual void ReadReactorInfo (IFileManager* fp) { m_reactorInfo.Read (fp); }
 
-		inline void WriteReactorInfo (CFileManager* fp) { m_reactorInfo.Write (fp); }
+		virtual void WriteReactorInfo (IFileManager* fp) { m_reactorInfo.Write (fp); }
 
 		void Read (CFileManager* fp);
 

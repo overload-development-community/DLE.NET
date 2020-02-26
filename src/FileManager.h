@@ -58,7 +58,7 @@ typedef struct tFileInfo {
 
 // ----------------------------------------------------------------------------
 
-class CFileManager {
+class CFileManager : public IFileManager {
 	protected:
 		tFileInfo	m_info;
 

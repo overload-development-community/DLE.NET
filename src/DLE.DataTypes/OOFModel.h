@@ -384,7 +384,7 @@ class CModel {
 		void Init (void);
 		bool Create (void);
 		void Destroy (void);
-		int Read (IFileManager& fp, const char* pszFolder, const char* pszFile, const short nModel);
+		int Read (const char* pszFolder, const short nModel);
 		int ReleaseTextures (void);
 		int ReloadTextures (void);
 		int FreeTextures (void);

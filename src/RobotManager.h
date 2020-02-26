@@ -22,7 +22,7 @@ typedef CRobotInfo robotInfoList [MAX_ROBOT_TYPES];
 
 #endif
 
-class CRobotManager {
+class CRobotManager : public IRobotManager {
 	private:
 		robotInfoList	m_robotInfo [2];
 

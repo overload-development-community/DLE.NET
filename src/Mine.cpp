@@ -4,9 +4,9 @@
 #include "dle-xp-res.h"
 
 #include < math.h>
+#include "global.h"
 #include "define.h"
 #include "types.h"
-#include "global.h"
 #include "mine.h"
 #include "matrix.h"
 #include "FileManager.h"

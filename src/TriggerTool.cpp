@@ -11,6 +11,7 @@
 #include "dle-xp.h"
 #include "toolview.h"
 #include "TextureManager.h"
+#include "DrawHelpers.h"
 
 //------------------------------------------------------------------------------
 
@@ -428,7 +429,7 @@ void CTriggerTool::DrawObjectImage ()
 if (m_nClass) {
 	CGameObject *pObject = current->Object ();
 	if ((pObject->Type () == OBJ_ROBOT) || (pObject->Type () == OBJ_CAMBOT) || (pObject->Type () == OBJ_MONSTERBALL) || (pObject->Type () == OBJ_SMOKE))
-		pObject->DrawBitmap (&m_showObjWnd);
+		DrawHelpers::DrawGameObjectBitmap (pObject, &m_showObjWnd);
 	}
 }
 

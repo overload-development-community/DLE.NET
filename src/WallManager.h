@@ -32,7 +32,8 @@ typedef CDoor doorList [DOOR_LIMIT];
 
 // -----------------------------------------------------------------------------
 
-class CWallManager {
+class CWallManager : public IWallManager
+{
 	private:
 		wallList				m_walls;
 		doorList				m_doors;
@@ -123,20 +124,20 @@ class CWallManager {
 
 		bool HaveResources (CSideKey* key = null);
 
-		inline void ReadWallInfo (CFileManager* fp) { m_info [0].Read (fp); }
+		inline void ReadWallInfo (IFileManager* fp) { m_info [0].Read (fp); }
 
-		inline void WriteWallInfo (CFileManager* fp) { m_info [0].Write (fp); }
+		inline void WriteWallInfo (IFileManager* fp) { m_info [0].Write (fp); }
 
-		inline void ReadDoorInfo (CFileManager* fp) { m_info [1].Read (fp); }
+		inline void ReadDoorInfo (IFileManager* fp) { m_info [1].Read (fp); }
 
-		inline void WriteDoorInfo (CFileManager* fp) { m_info [1].Write (fp); }
+		inline void WriteDoorInfo (IFileManager* fp) { m_info [1].Write (fp); }
 
-		inline void ReadInfo (CFileManager* fp) {
+		virtual void ReadInfo (IFileManager* fp) {
 			ReadWallInfo (fp);
 			ReadDoorInfo (fp);
 			}	
 
-		inline void WriteInfo (CFileManager* fp) {
+		virtual void WriteInfo (IFileManager* fp) {
 			WriteWallInfo (fp);
 			WriteDoorInfo (fp);
 			}	

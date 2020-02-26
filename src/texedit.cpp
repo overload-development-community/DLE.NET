@@ -11,6 +11,7 @@
 #include "toolview.h"
 #include "PaletteManager.h"
 #include "TextureManager.h"
+#include "DrawHelpers.h"
 
 //------------------------------------------------------------------------------
 
