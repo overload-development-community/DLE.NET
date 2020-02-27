@@ -1,9 +1,7 @@
 #ifndef __robot_h
 #define __robot_h
 
-#ifdef _WIN32
-#pragma pack (push, 1)
-#endif
+#pragma pack(push, 1)
 
 //------------------------------------------------------------------------------
 //describes a list of joint positions
@@ -161,8 +159,6 @@ class CRobotInfo : public CGameItem {
 
 //------------------------------------------------------------------------------
 
-#ifdef _WIN32
-#pragma pack (pop)
-#endif
+#pragma pack(pop)
 
 #endif //__robot_h

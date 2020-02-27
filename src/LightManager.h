@@ -1,14 +1,7 @@
 #ifndef __lightman_h
 #define __lightman_h
 
-#include "define.h"
-
-# pragma pack(push, packing)
-# pragma pack(1)
-
-#include "Vector.h"
-#include "FileManager.h"
-#include "carray.h"
+#pragma pack(push, 1)
 
 #define DEFAULT_LIGHT_RENDER_DEPTH 6
 
@@ -287,6 +280,8 @@ extern CLightManager lightManager;
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
+
+#pragma pack(pop)
 
 #endif // __lightman_h
 

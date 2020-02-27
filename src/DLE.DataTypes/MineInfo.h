@@ -1,8 +1,7 @@
 #ifndef __mineinfo_h
 #define __mineinfo_h
 
-#pragma pack(push, packing)
-#pragma pack(1)
+#pragma pack(push, 1)
 
 // -----------------------------------------------------------------------------
 
@@ -79,7 +78,7 @@ public:
 
 // -----------------------------------------------------------------------------
 
-#pragma pack(pop, packing)
+#pragma pack(pop)
 
 #endif // __mineinfo_h
 

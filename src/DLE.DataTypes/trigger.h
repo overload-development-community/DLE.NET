@@ -9,8 +9,7 @@
 #define MAX_TRIGGER_FLAGS		12
 #define NO_TRIGGER				255
 
-#pragma pack(push, packing)
-#pragma pack(1)
+#pragma pack(push, 1)
 
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
@@ -137,7 +136,7 @@ class CReactorTrigger : public CTriggerTargets, public CGameItem {
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
 
-#pragma pack(pop, packing)
+#pragma pack(pop)
 
 #endif // __trigger_h
 

@@ -1,8 +1,7 @@
 #ifndef __light_h
 #define __light_h
 
-#pragma pack(push, packing)
-#pragma pack(1)
+#pragma pack(push, 1)
 
 #define DEFAULT_LIGHT_RENDER_DEPTH 6
 
@@ -125,7 +124,7 @@ public:
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 
-#pragma pack(pop, packing)
+#pragma pack(pop)
 
 #endif // __light_h
 

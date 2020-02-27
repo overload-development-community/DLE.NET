@@ -1,8 +1,7 @@
 #ifndef __types_h
 #define __types_h
 
-#pragma pack(push, packing)
-#pragma pack(1)
+#pragma pack(push, 1)
 
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
@@ -255,8 +254,7 @@ class CBaseLevelHeader {
 		int Write (IFileManager* fp) { return fp->Write (Info (), Size (), 1) == 1; }
 	};
 
-# pragma pack(push)
-# pragma pack(1)
+#pragma pack(push, 1)
 
 class CStdLevelInfo {
 	public:
@@ -280,8 +278,7 @@ class CStdLevelHeader : public CBaseLevelHeader {
 		virtual int NameSize (void) { return sizeof (m_info.name); }
 	};
 
-# pragma pack(push)
-# pragma pack(1)
+#pragma pack(push, 1)
 
 class CExtLevelInfo {
 	public:
@@ -400,7 +397,7 @@ extern CMine* theMine;
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 
-#pragma pack(pop, packing)
+#pragma pack(pop)
 
 #endif // __types_h
 

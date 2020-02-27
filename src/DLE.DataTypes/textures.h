@@ -93,8 +93,7 @@ class DrawHelpers;
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
 
-#pragma pack(push, packing)
-#pragma pack(1)
+#pragma pack(push, 1)
 
 typedef struct {
   ubyte	flags;				//values defined above
@@ -152,7 +151,7 @@ typedef struct tWallEffectInfo {
   char	 pad;
 } tWallEffectInfo;
 
-#pragma pack(pop, packing)
+#pragma pack(pop)
 
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------

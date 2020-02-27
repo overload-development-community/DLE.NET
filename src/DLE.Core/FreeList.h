@@ -1,9 +1,6 @@
 #ifndef __freelist_h
 #define __freelist_h
 
-# pragma pack(push, packing)
-# pragma pack(1)
-
 #define USE_FREELIST 0
 
 // -----------------------------------------------------------------------------
