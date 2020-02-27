@@ -19,11 +19,6 @@ typedef struct {
 
 //------------------------------------------------------------------------------
 
-// This seems to get different alignments between modules if
-// packing isn't reset.
-#pragma pack(push)
-#pragma pack()
-
 typedef struct tSubModel {
   int 			ptr;
   CFixVector 	offset;
@@ -83,8 +78,6 @@ public:
 		return true;
 		}
 };
-
-#pragma pack(pop)
 
 //------------------------------------------------------------------------------
 

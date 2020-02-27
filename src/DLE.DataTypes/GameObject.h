@@ -1,8 +1,7 @@
 #ifndef __gameobject_h
 #define __gameobject_h
 
-#pragma pack(push, packing)
-#pragma pack(1)
+#pragma pack(push, 1)
 
 //------------------------------------------------------------------------
 
@@ -453,7 +452,7 @@ class CGameObject : public CGameItem {
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
 
-#pragma pack(pop, packing)
+#pragma pack(pop)
 
 #endif // __gameobject_h
 
