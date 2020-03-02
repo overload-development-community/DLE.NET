@@ -29,24 +29,6 @@
     <Filter Include="Documents">
       <UniqueIdentifier>{b6e3f117-c4f4-416a-a7f6-33d7c6683959}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core">
-      <UniqueIdentifier>{b35d823c-6287-436e-9dfe-26aa7c4e02bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Source Files">
-      <UniqueIdentifier>{af2ee97a-5af6-446d-80cc-041633a20ada}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\Header Files">
-      <UniqueIdentifier>{462953d0-4d58-4e8a-8536-c3b7f1fa9a7b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Items">
-      <UniqueIdentifier>{fdf58f2f-839a-4674-8033-94c6f177d67a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Items\Source Files">
-      <UniqueIdentifier>{16489d05-e238-4a9a-87c5-432c3d15c248}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Items\Header Files">
-      <UniqueIdentifier>{956927e2-766f-44a9-8627-d5ab9718aaa7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Managers">
       <UniqueIdentifier>{fe74ea38-4245-4173-85c7-048c28bad2ea}</UniqueIdentifier>
     </Filter>
@@ -127,99 +109,6 @@
     <ClInclude Include="..\Resource.h">
       <Filter>UI\Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\carray.h">
-      <Filter>Core\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\cstack.h">
-      <Filter>Core\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Define.h">
-      <Filter>Core\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GameItem.h">
-      <Filter>Core\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\glew.h">
-      <Filter>Core\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Global.h">
-      <Filter>Core\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\io.h">
-      <Filter>Core\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\matrix.h">
-      <Filter>Core\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Mine.h">
-      <Filter>Core\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TimeDate.h">
-      <Filter>Core\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Vector.h">
-      <Filter>Core\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ViewMatrix.h">
-      <Filter>Core\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\wglew.h">
-      <Filter>Core\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ASEModel.h">
-      <Filter>Items\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\buildmodel.h">
-      <Filter>Items\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\FreeList.h">
-      <Filter>Items\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\GameObject.h">
-      <Filter>Items\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ItemIterator.h">
-      <Filter>Items\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Light.h">
-      <Filter>Items\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\MineInfo.h">
-      <Filter>Items\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ModelTextures.h">
-      <Filter>Items\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\PolyModel.h">
-      <Filter>Items\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\rendermodel.h">
-      <Filter>Items\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\robot.h">
-      <Filter>Items\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\segment.h">
-      <Filter>Items\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\side.h">
-      <Filter>Items\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\textures.h">
-      <Filter>Items\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\trigger.h">
-      <Filter>Items\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Types.h">
-      <Filter>Items\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Vertex.h">
-      <Filter>Items\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\wall.h">
-      <Filter>Items\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\BlockManager.h">
       <Filter>Managers\Header Files</Filter>
     </ClInclude>
@@ -286,9 +175,6 @@
     <ClInclude Include="..\WallManager.h">
       <Filter>Managers\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\OOFModel.h">
-      <Filter>Items\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\FBO.h">
       <Filter>OpenGL\Header Files</Filter>
     </ClInclude>
@@ -298,19 +184,31 @@
     <ClInclude Include="..\Frustum.h">
       <Filter>OpenGL\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Quaternion.h">
-      <Filter>Core\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\AVLTree.h">
-      <Filter>Core\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\SLL.h">
-      <Filter>Core\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\DLL.h">
-      <Filter>Core\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\PogDialog.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Global.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ViewMatrix.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Mine.h">
+      <Filter>Managers\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\buildmodel.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\rendermodel.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\glew.h">
+      <Filter>OpenGL\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\wglew.h">
+      <Filter>OpenGL\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DrawHelpers.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -468,87 +366,6 @@
     <ClCompile Include="..\WallTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\cquicksort.cpp">
-      <Filter>Core\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\glew.cpp">
-      <Filter>Core\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\global.cpp">
-      <Filter>Core\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\LoadMine.cpp">
-      <Filter>Core\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Matrix.cpp">
-      <Filter>Core\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Mine.cpp">
-      <Filter>Core\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\modify.cpp">
-      <Filter>Core\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SaveMine.cpp">
-      <Filter>Core\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TimeDate.cpp">
-      <Filter>Core\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Vector.cpp">
-      <Filter>Core\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ViewMatrix.cpp">
-      <Filter>Core\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ASEModel.cpp">
-      <Filter>Items\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ASERenderModel.cpp">
-      <Filter>Items\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\buildmodel.cpp">
-      <Filter>Items\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\GameObject.cpp">
-      <Filter>Items\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Light.cpp">
-      <Filter>Items\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\MineInfo.cpp">
-      <Filter>Items\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ModelTextures.cpp">
-      <Filter>Items\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\PolyModel.cpp">
-      <Filter>Items\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\RenderModel.cpp">
-      <Filter>Items\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\robot.cpp">
-      <Filter>Items\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Segment.cpp">
-      <Filter>Items\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Side.cpp">
-      <Filter>Items\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\textures.cpp">
-      <Filter>Items\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\trigger.cpp">
-      <Filter>Items\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Vertex.cpp">
-      <Filter>Items\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\wall.cpp">
-      <Filter>Items\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\BlockManager.cpp">
       <Filter>Managers\Source Files</Filter>
     </ClCompile>
@@ -645,12 +462,6 @@
     <ClCompile Include="..\WallManager.cpp">
       <Filter>Managers\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\OOFModel.cpp">
-      <Filter>Items\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\OOFRenderModel.cpp">
-      <Filter>Items\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\FBO.cpp">
       <Filter>OpenGL\Source Files</Filter>
     </ClCompile>
@@ -659,9 +470,6 @@
     </ClCompile>
     <ClCompile Include="..\Frustum.cpp">
       <Filter>OpenGL\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Quaternion.cpp">
-      <Filter>Core\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\ObjectTool.Position.cpp">
       <Filter>UI\Source Files</Filter>
@@ -694,6 +502,42 @@
       <Filter>UI\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\MineView.Input.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SaveMine.cpp">
+      <Filter>Managers\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Mine.cpp">
+      <Filter>Managers\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\LoadMine.cpp">
+      <Filter>Managers\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\modify.cpp">
+      <Filter>Managers\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ViewMatrix.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\global.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ASERenderModel.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\buildmodel.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\OOFRenderModel.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\RenderModel.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\glew.cpp">
+      <Filter>OpenGL\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DrawHelpers.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
