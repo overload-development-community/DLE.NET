@@ -67,6 +67,10 @@ class CLightDeltaIndex : public CSideKey, public CGameItem {
 	public:
 		tLightDeltaIndex m_info;
 
+		CLightDeltaIndex () :
+			m_nVariableLightIndex (-1)
+		{}
+
 		void Read (CFileManager* fp, bool bD2X);
 
 		void Write (CFileManager* fp, bool bD2X);
@@ -88,7 +92,7 @@ class CLightDeltaIndex : public CSideKey, public CGameItem {
 		void RecalculateVariableLightIndex ();
 
 	private:
-		short m_nVariableLightIndex = -1;
+		short m_nVariableLightIndex;
 };
 
 // -----------------------------------------------------------------------------
