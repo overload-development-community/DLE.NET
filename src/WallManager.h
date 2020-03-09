@@ -1,8 +1,7 @@
 #ifndef __wallman_h
 #define __wallman_h
 
-#include "define.h"
-#include "carray.h"
+#include "wall.h"
 #include "FreeList.h"
 #include "ItemIterator.h"
 

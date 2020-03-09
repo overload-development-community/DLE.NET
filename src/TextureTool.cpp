@@ -1,26 +1,8 @@
 // dlcView.cpp : implementation of the CMineView class
 //
 
-#include <math.h>
 #include "stdafx.h"
-#include "afxpriv.h"
-#include "dle-xp.h"
-
-#include "dlcDoc.h"
-#include "mineview.h"
-#include "toolview.h"
-
-#include "PaletteManager.h"
-#include "textures.h"
-#include "global.h"
-#include "texedit.h"
-#include "FileManager.h"
-#include "TextureManager.h"
-#include "AVLTree.h"
-#include "SLL.h"
 #include "PogDialog.h"
-
-#include <math.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

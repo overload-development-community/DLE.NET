@@ -1,15 +1,6 @@
 #ifndef __selection_h
 #define __selection_h
 
-#include "Global.h"
-#include "Types.h"
-#include "Vertex.h"
-#include "Trigger.h"
-#include "Wall.h"
-#include "Segment.h"
-#include "GameObject.h"
-#include "Light.h"
-
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------

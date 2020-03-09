@@ -11,14 +11,6 @@
 //***************************************************************************
 
 #include "stdafx.h"
-
-#include "global.h"
-#include "define.h"
-#include "types.h"
-#include "mine.h"
-#include "LightManager.h"
-#include "ModelTextures.h"
-#include "ModelManager.h"
 #include "DrawHelpers.h"
 
 char message [4096];

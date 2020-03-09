@@ -1,20 +1,7 @@
 #ifndef __fileman_h
 #define __fileman_h
 
-#include <stdio.h>
 #include <sys/types.h>
-#ifndef _WIN32
-#include <unistd.h>
-#endif
-#ifndef _WIN32_WCE
-#include <errno.h>
-#endif
-
-#include "define.h"
-#include "Vector.h"
-#include "Matrix.h"
-#include <memory.h>
-#include <string.h>
 #include <afxtempl.h>
 
 // ----------------------------------------------------------------------------

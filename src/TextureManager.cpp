@@ -1,7 +1,4 @@
-#include "stdafx.h"	
-#include "mine.h"
-#include "dle-xp.h"
-#include "TextureManager.h"
+#include "stdafx.h"
 #include "DrawHelpers.h"
 
 CTextureManager textureManager;
@@ -695,7 +692,7 @@ for (iter.Begin (); *iter != iter.End (); iter++) {
 		if (aic.m_nTexture == nDbgTexture)
 			nDbgTexture = nDbgTexture;
 #endif
-		textures [aic.m_nTexture].SetFrameCount (aic.FrameCount ());
+		textures [aic.m_nTexture].SetFrameCount (static_cast<ubyte> (aic.FrameCount ()));
 		for (int i = 0, h = aic.FrameCount (); i < h; i++) {
 			m_animationIndex [nVersion][aic.Frame (i)] = *iter;
 			textures [aic.Frame (i)].SetFrame (i);

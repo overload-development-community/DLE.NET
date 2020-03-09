@@ -1,8 +1,6 @@
 // Segment.cpp
 
 #include "stdafx.h"
-#include "mine.h"
-#include "dle-xp.h"
 
 extern short nDbgSeg, nDbgSide;
 extern int nDbgVertex;

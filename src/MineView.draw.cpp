@@ -2,21 +2,6 @@
 //
 
 #include "stdafx.h"
-#include "winuser.h"
-#include "dle-xp.h"
-#include "global.h"
-
-#include "dlcDoc.h"
-#include "mineview.h"
-
-#include "PaletteManager.h"
-#include "TextureManager.h"
-#include "FileManager.h"
-#include "ModelTextures.h"
-#include "ModelManager.h"
-
-#include <math.h>
-#include <time.h>
 
 extern short nDbgSeg, nDbgSide;
 extern int nDbgVertex;

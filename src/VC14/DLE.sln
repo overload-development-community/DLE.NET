@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE", "dle-xp.vcxproj", "{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -19,10 +19,6 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Debug|x64 = Debug|x64
-		Demo|Win32 = Demo|Win32
-		Demo|x64 = Demo|x64
-		Intel Release|Win32 = Intel Release|Win32
-		Intel Release|x64 = Intel Release|x64
 		Release|Win32 = Release|Win32
 		Release|x64 = Release|x64
 	EndGlobalSection
@@ -31,14 +27,6 @@ Global
 		{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}.Debug|Win32.Build.0 = Debug|Win32
 		{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}.Debug|x64.ActiveCfg = Debug|x64
 		{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}.Debug|x64.Build.0 = Debug|x64
-		{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}.Demo|Win32.ActiveCfg = Demo|Win32
-		{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}.Demo|Win32.Build.0 = Demo|Win32
-		{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}.Demo|x64.ActiveCfg = Demo|x64
-		{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}.Demo|x64.Build.0 = Demo|x64
-		{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}.Intel Release|Win32.ActiveCfg = Intel Release|Win32
-		{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}.Intel Release|Win32.Build.0 = Intel Release|Win32
-		{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}.Intel Release|x64.ActiveCfg = Intel Release|x64
-		{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}.Intel Release|x64.Build.0 = Intel Release|x64
 		{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}.Release|Win32.ActiveCfg = Release|Win32
 		{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}.Release|Win32.Build.0 = Release|Win32
 		{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}.Release|x64.ActiveCfg = Release|x64
@@ -47,14 +35,6 @@ Global
 		{57D9B500-1AEC-434F-9A0C-5DB4383AA442}.Debug|Win32.Build.0 = Debug|Win32
 		{57D9B500-1AEC-434F-9A0C-5DB4383AA442}.Debug|x64.ActiveCfg = Debug|x64
 		{57D9B500-1AEC-434F-9A0C-5DB4383AA442}.Debug|x64.Build.0 = Debug|x64
-		{57D9B500-1AEC-434F-9A0C-5DB4383AA442}.Demo|Win32.ActiveCfg = Debug|Win32
-		{57D9B500-1AEC-434F-9A0C-5DB4383AA442}.Demo|Win32.Build.0 = Debug|Win32
-		{57D9B500-1AEC-434F-9A0C-5DB4383AA442}.Demo|x64.ActiveCfg = Debug|x64
-		{57D9B500-1AEC-434F-9A0C-5DB4383AA442}.Demo|x64.Build.0 = Debug|x64
-		{57D9B500-1AEC-434F-9A0C-5DB4383AA442}.Intel Release|Win32.ActiveCfg = Release|Win32
-		{57D9B500-1AEC-434F-9A0C-5DB4383AA442}.Intel Release|Win32.Build.0 = Release|Win32
-		{57D9B500-1AEC-434F-9A0C-5DB4383AA442}.Intel Release|x64.ActiveCfg = Release|x64
-		{57D9B500-1AEC-434F-9A0C-5DB4383AA442}.Intel Release|x64.Build.0 = Release|x64
 		{57D9B500-1AEC-434F-9A0C-5DB4383AA442}.Release|Win32.ActiveCfg = Release|Win32
 		{57D9B500-1AEC-434F-9A0C-5DB4383AA442}.Release|Win32.Build.0 = Release|Win32
 		{57D9B500-1AEC-434F-9A0C-5DB4383AA442}.Release|x64.ActiveCfg = Release|x64
@@ -63,14 +43,6 @@ Global
 		{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}.Debug|Win32.Build.0 = Debug|Win32
 		{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}.Debug|x64.ActiveCfg = Debug|x64
 		{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}.Debug|x64.Build.0 = Debug|x64
-		{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}.Demo|Win32.ActiveCfg = Debug|Win32
-		{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}.Demo|Win32.Build.0 = Debug|Win32
-		{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}.Demo|x64.ActiveCfg = Debug|x64
-		{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}.Demo|x64.Build.0 = Debug|x64
-		{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}.Intel Release|Win32.ActiveCfg = Release|Win32
-		{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}.Intel Release|Win32.Build.0 = Release|Win32
-		{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}.Intel Release|x64.ActiveCfg = Release|x64
-		{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}.Intel Release|x64.Build.0 = Release|x64
 		{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}.Release|Win32.ActiveCfg = Release|Win32
 		{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}.Release|Win32.Build.0 = Release|Win32
 		{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}.Release|x64.ActiveCfg = Release|x64

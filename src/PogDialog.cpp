@@ -1,7 +1,5 @@
 #include "stdafx.h"
-#include "dle-xp.h"
 #include "PogDialog.h"
-#include <stdarg.h>
 #include "DrawHelpers.h"
 
 #define ICONLIST_ICON_SIZE 16

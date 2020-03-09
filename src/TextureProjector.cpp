@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include "dle-xp.h"
 #include "TextureProjector.h"
 
 #define PREVIEWUVLS_EXPAND_INCREMENT 256

@@ -13,17 +13,6 @@ COPYRIGHT 1993-1999 PARALLAX SOFTWARE CORPORATION.  ALL RIGHTS RESERVED.
 
 #include "stdafx.h"
 
-#ifdef HAVE_CONFIG_H
-#include <conf.h>
-#endif
-
-#if defined (_WIN32_WCE) || defined (_WIN32)
-#	include <sys/stat.h>
-#else
-#	include <sys/stat.h>
-#	include <errno.h>
-#endif
-
 // ----------------------------------------------------------------------------
 
 bool CMemoryFile::Create (size_t size)

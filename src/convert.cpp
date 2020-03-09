@@ -1,13 +1,4 @@
-
 #include "stdafx.h"
-#include <stdio.h>
-#include <string.h>
-
-#include "mine.h"
-#include "dle-xp.h"
-#include "dlcdoc.h"
-#include "PaletteManager.h"
-#include "TextureManager.h"
 #include "DrawHelpers.h"
 
 extern short nDbgSeg, nDbgSide;

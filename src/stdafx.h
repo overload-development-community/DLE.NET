@@ -37,6 +37,7 @@ extern CDLCModule _Module;
 
 #include <assert.h>
 #include <errno.h>
+#include <io.h>
 #include <math.h>
 #include <memory.h>
 #include <stddef.h>
@@ -65,8 +66,19 @@ extern CDLCModule _Module;
 #include "GameItem.h"
 #include "Selection.h"
 #include "MineInfo.h"
+#include "glew.h"
 #include "ViewMatrix.h"
+#include "Frustum.h"
+#include "FBO.h"
 #include "renderer.h"
+
+#include "mine.h"
+#include "DlcDoc.h"
+#include "MainFrame.h"
+#include "dle-xp.h"
+
+#include "ModelTextures.h"
+#include "ModelManager.h"
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Developer Studio will insert additional declarations immediately before the previous line.

@@ -1,7 +1,4 @@
 #include "stdafx.h"
-#include "mine.h"
-#include "dle-xp.h"
-#include "glew.h"
 #include "RenderBuffers.h"
 
 // -----------------------------------------------------------------------------------

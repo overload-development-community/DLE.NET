@@ -1,14 +1,5 @@
-#include <assert.h>
-
 #include "stdafx.h"
-#include "global.h"
-#include "textures.h"
-#include "FileManager.h"
-#include "dle-xp-res.h"
-#include "PaletteManager.h"
 #include "TextureManager.h"
-#include "HogManager.h"
-#include "dle-xp.h"
 
 extern short nDbgTexture;
 
@@ -142,7 +133,7 @@ for (int i = 0; i < pigFileInfo.nTextures; i++) {
 	int nTexture;
 	bool bFound = false;
 	for (int nMatchTexture = 0; nMatchTexture < GlobalTextureCount (); nMatchTexture++) {
-		if (strnicmp (textureManager.TextureByIndex (nMatchTexture)->Name (), pigTexInfo.name, ARRAYSIZE (pigTexInfo.name)) == 0 &&
+		if (_strnicmp (textureManager.TextureByIndex (nMatchTexture)->Name (), pigTexInfo.name, ARRAYSIZE (pigTexInfo.name)) == 0 &&
 			((pigTexInfo.dflags & BM_DFLAG_ANIMATED) == 0 ||
 			(pigTexInfo.dflags & BM_DFLAG_ANIMFRAME_MASK) == textureManager.TextureByIndex (nMatchTexture)->FrameNumber ())
 			) {

@@ -1,6 +1,4 @@
 #include "stdafx.h"
-#include "dle-xp.h"
-#include "toolview.h"
 
 BEGIN_MESSAGE_MAP (CObjectPositionTool, CObjectTabDlg)
 	ON_BN_CLICKED (IDC_OBJ_SETLOC, OnSetLoc)

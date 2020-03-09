@@ -1,12 +1,4 @@
-#include <assert.h>
-
 #include "stdafx.h"
-#include "global.h"
-#include "textures.h"
-#include "FileManager.h"
-#include "dle-xp-res.h"
-#include "PaletteManager.h"
-#include "dle-xp.h"
 
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------

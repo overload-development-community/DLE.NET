@@ -1,9 +1,4 @@
 #include "stdafx.h"
-#include "mine.h"
-#include "dle-xp.h"
-#include "ModelTextures.h"
-#include "OOFModel.h"
-#include "RenderModel.h"
 
 using namespace RenderModel;
 

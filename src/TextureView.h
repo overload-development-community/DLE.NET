@@ -10,10 +10,6 @@
 #endif // _MSC_VER >= 1000
 
 #include "afxcview.h"
-#include "DlcDoc.h"
-#include "Matrix.h"
-#include "mineview.h"
-#include "PolyModel.h"
 #include "texturefilter.h"
 
 //------------------------------------------------------------------------------

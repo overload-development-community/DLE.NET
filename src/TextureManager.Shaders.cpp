@@ -1,7 +1,4 @@
 #include "stdafx.h"
-#include "dle-xp.h"
-#include "glew.h"
-#include "cstack.h"
 #include "shadermanager.h"
 
 //------------------------------------------------------------------------------

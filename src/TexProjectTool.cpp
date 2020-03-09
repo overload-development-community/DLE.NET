@@ -2,8 +2,6 @@
 //
 
 #include "stdafx.h"
-#include "dle-xp.h"
-#include "toolview.h"
 
 BEGIN_MESSAGE_MAP(CTextureProjectTool, CTextureTabDlg)
 	ON_BN_CLICKED (IDC_TEXPROJECT_PLANAR, OnProjectPlanar)

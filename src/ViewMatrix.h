@@ -2,9 +2,6 @@
 #ifndef __viewmatrix_h
 #define __viewmatrix_h
 
-#include "matrix.h"
-#include "glew.h"
-
 // -----------------------------------------------------------------------------
 
 class CViewMatrix : public IViewMatrix

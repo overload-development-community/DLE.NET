@@ -10,12 +10,6 @@
 #endif // _MSC_VER >= 1000
 
 #include "afxcview.h"
-#include "DlcDoc.h"
-#include "Matrix.h"
-#include "PolyModel.h"
-#include "Textures.h"
-#include "renderer.h"
-#include "glew.h"
 
 // -----------------------------------------------------------------------------
 

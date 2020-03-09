@@ -1,13 +1,5 @@
 #include "stdafx.h"
 
-#include <math.h>
-#include "global.h"
-#include "define.h"
-#include "types.h"
-#include "mine.h"
-#include "matrix.h"
-#include "dle-xp.h"
-
 double CViewMatrix::m_depthScaleTable [4] = {10000.0, 400.0, 250.0, 150.0};
 
 // -----------------------------------------------------------------------------

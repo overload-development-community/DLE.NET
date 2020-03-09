@@ -1,22 +1,6 @@
 // Copyright (c) 1998 Bryan Aamot, Brainware
 
 #include "stdafx.h"
-#include "dle-xp-res.h"
-
-#include < math.h>
-#include "global.h"
-#include "define.h"
-#include "types.h"
-#include "mine.h"
-#include "matrix.h"
-#include "FileManager.h"
-#include "textures.h"
-#include "PaletteManager.h"
-#include "dle-xp.h"
-#include "robot.h"
-#include "HogManager.h"
-#include "PaletteManager.h"
-#include "light.h"
 
 #ifdef ALLOCATE_tPolyModelS
 #undef ALLOCATE_tPolyModelS

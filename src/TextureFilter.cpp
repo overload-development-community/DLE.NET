@@ -1,12 +1,4 @@
-
 #include "stdafx.h"
-
-#include "Global.h"
-#include "define.h"
-#include "types.h"
-#include "mine.h"
-#include "dle-xp.h"
-#include "TextureManager.h"
 #include "texturefilter.h"
 
 //------------------------------------------------------------------------

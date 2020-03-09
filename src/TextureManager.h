@@ -1,10 +1,6 @@
 #ifndef __texturemanager_h
 #define __texturemanager_h
 
-#include "textures.h"
-#include "carray.h"
-#include "sll.h"
-
 //------------------------------------------------------------------------
 
 class CAnimationClipInfo {

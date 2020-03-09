@@ -1,11 +1,6 @@
 #ifndef _OGL_SHADER_H
 #define _OGL_SHADER_H
 
-#ifdef _WIN32
-#include <windows.h>
-#include <stddef.h>
-#endif
-
 #include "glew.h"
 #include "cstack.h"
 #include "oglmatrix.h"

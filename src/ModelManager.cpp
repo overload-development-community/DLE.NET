@@ -1,13 +1,6 @@
 // Copyright (c) 1997 Bryan Aamot
 
 #include "stdafx.h"
-#include "mine.h"
-#include "dle-xp.h"
-#include "ModelTextures.h"
-#include "ASEModel.h"
-#include "RenderModel.h"
-#include "ModelManager.h"
-#include "glew.h"
 
 CModelManager modelManager;
 

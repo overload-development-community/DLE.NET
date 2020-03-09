@@ -2,10 +2,6 @@
 #ifndef _RENDERMODEL_H
 #define _RENDERMODEL_H
 
-#include <math.h>
-
-#include "mine.h"
-#include "dle-xp.h"
 #include "asemodel.h"
 #include "oofmodel.h"
 

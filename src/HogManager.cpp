@@ -1,15 +1,5 @@
-
 #include "stdafx.h"
-#include <math.h>
-#include <io.h>
-#include <string.h>
-#include <errno.h>
-
-#include "mine.h"
-#include "dle-xp.h"
 #include "TimeDate.h"
-#include "ModelTextures.h"
-#include "ModelManager.h"
 
 CHogManager* hogManager = null;
 

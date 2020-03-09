@@ -1,18 +1,4 @@
-
 #include "stdafx.h"
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
-#include <io.h>
-
-#include "define.h"
-#include "global.h"
-#include "FileManager.h"
-#include "Mine.h"
-#include "dle-xp.h"
-#include "ResourceManager.h"
-#include "ModelTextures.h"
-#include "ModelManager.h"
 
 CRobotManager robotManager;
 

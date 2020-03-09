@@ -5,12 +5,6 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
-#include "Matrix.h"
-#include "Textures.h"
-#include "FBO.h"
-#include "Frustum.h"
-#include "glew.h"
-
 // -----------------------------------------------------------------------------
 
 extern double zoomScales [2];

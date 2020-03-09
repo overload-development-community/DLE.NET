@@ -4,14 +4,7 @@
 #include "stdafx.h"
 #include <process.h>
 #include <direct.h>
-#include "dle-xp.h"
-
-#include "dlcDoc.h"
 #include "parser.h"
-#include "FileManager.h"
-#include "ModelTextures.h"
-#include "ModelManager.h"
-#include "HogManager.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

@@ -31,5 +31,8 @@
 *.out
 *.app
 
-# Visual Studio metadata
-/.vs
+# Visual Studio metadata/output
+**/.vs
+*.user
+**/Debug
+**/Release

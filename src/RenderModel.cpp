@@ -1,9 +1,5 @@
 #include "stdafx.h"
-#include "mine.h"
-#include "dle-xp.h"
-#include "ModelTextures.h"
-#include "RenderModel.h"
-#include "glew.h"
+#include "rendermodel.h"
 
 //------------------------------------------------------------------------------
 

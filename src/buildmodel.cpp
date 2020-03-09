@@ -1,10 +1,5 @@
 #include "stdafx.h"
-#include "mine.h"
-#include "dle-xp.h"
-#include "ModelTextures.h"
 #include "rendermodel.h"
-#include "modelmanager.h"
-#include "glew.h"
 
 using namespace RenderModel;
 

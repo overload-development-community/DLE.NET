@@ -2,20 +2,6 @@
 //
 
 #include "stdafx.h"
-#include "dle-xp.h"
-
-#include "dlcDoc.h"
-#include "mineview.h"
-
-#include "PaletteManager.h"
-#include "TextureManager.h"
-#include "global.h"
-#include "FileManager.h"
-#include "light.h"
-#include "toolview.h"
-#include "texturefilter.h"
-
-#include <math.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

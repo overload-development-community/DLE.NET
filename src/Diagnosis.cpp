@@ -1,18 +1,5 @@
-
 #include "stdafx.h"
 #include "afxpriv.h"
-#include "dle-xp.h"
-
-#include "dlcDoc.h"
-#include "mineview.h"
-#include "toolview.h"
-
-#include "PaletteManager.h"
-#include "textures.h"
-#include "global.h"
-#include "FileManager.h"
-
-#include <math.h>
 
 typedef struct tBugPos {
 	int	nSegment;
@@ -591,7 +578,7 @@ if (theMine == null)
 
 int id= objectManager.Object (nObject)->m_info.id;
 if ((id < nMin) || (id > nMax))
-	sprintf_s (message, sizeof (message), "WARNING: Invalid player id (Object %d)", id, nObject);
+	sprintf_s (message, sizeof (message), "WARNING: Invalid player id (Object %d)", nObject);
 else if (players [id])
 	sprintf_s (message, sizeof (message), "WARNING: Duplicate player #%d (found %d)", id, players [id]);
 else {
@@ -1343,7 +1330,7 @@ for (h = i = 0; i < j; i++, pSegment++) {
 	if (h < MAX_NUM_MATCENS_D2)
 		segList [h++] = i;
 	else {
-		sprintf_s (message, sizeof (message), "%s: Too many %s makers", m_bAutoFixBugs ? "FIXED" : "ERROR", pszType, i);
+		sprintf_s (message, sizeof (message), "%s: Too many %s makers", m_bAutoFixBugs ? "FIXED" : "ERROR", pszType);
 		if (m_bAutoFixBugs) 
 			segmentManager.Undefine (i);
 		}

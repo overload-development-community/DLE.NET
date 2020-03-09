@@ -1,8 +1,6 @@
 // Copyright (c) 1998 Bryan Aamot, Brainware
 
 #include "stdafx.h"
-#include "mine.h"
-#include "dle-xp.h"
 
 // -----------------------------------------------------------------------------
 

@@ -1,6 +1,4 @@
 #include "stdafx.h"
-#include "mineview.h"
-#include "dle-xp.h"
 
 template < eMouseStates T >
 class CMouseInputStateBase : public IMouseInputState {

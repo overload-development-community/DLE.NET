@@ -1,20 +1,6 @@
 // render.cpp
 
 #include "stdafx.h"
-#include <math.h>
-
-#include "global.h"
-#include "types.h"
-#include "matrix.h"
-#include "mine.h"
-#include "segment.h"
-#include "GameObject.h"
-#include "dle-xp.h"
-#include "dlcdoc.h"
-#include "MainFrame.h"
-#include "TextureManager.h"
-#include "ShaderManager.h"
-#include "mineview.h"
 
 extern ubyte sideVertexTable [6][4];
 

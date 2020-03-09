@@ -1,8 +1,4 @@
 #include "stdafx.h"
-#include "mine.h"
-#include "dle-xp.h"
-#include "glew.h"
-#include "textures.h"
 #include "RenderBuffers.h"
 #include "FBO.h"
 

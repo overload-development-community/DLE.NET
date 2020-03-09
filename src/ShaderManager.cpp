@@ -1,10 +1,5 @@
 #include "stdafx.h"
 #include <fcntl.h>
-#include <io.h>
-#include <stdio.h>
-
-#include "dle-xp.h"
-#include "cstack.h"
 #include "shadermanager.h"
 
 #define SUSPENDABLE_SHADERS 1

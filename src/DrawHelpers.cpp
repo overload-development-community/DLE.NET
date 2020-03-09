@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "DrawHelpers.h"
-#include "PaletteManager.h"
-#include "dle-xp.h"
 
 #ifdef _DEBUG
 extern short nDbgTexture;

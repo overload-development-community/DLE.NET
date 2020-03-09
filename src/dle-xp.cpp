@@ -2,20 +2,9 @@
 //
 
 #include "stdafx.h"
-#include "dle-xp.h"
 #include "afxadv.h"
-
-#include "MainFrame.h"
-#include "dlcDoc.h"
-#include "mineview.h"
 #include <initguid.h>
 #include "Dlc_i.c"
-//#include "ComMine.h"
-//#include "ComCube.h"
-//#include "ComObj.h"
-#include "global.h"
-#include "TextureManager.h"
-#include "FileManager.h"
 #ifdef _OPENMP
 #	include "omp.h"
 #endif

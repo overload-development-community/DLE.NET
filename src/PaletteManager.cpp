@@ -1,17 +1,6 @@
 // palette.cpp
 
 #include "stdafx.h"
-#include "dle-xp-res.h"
-
-#include <string.h>
-
-#include "global.h"
-#include "define.h"
-#include "types.h"
-#include "dle-xp.h"
-#include "mine.h"
-#include "FileManager.h"
-#include "PaletteManager.h"
 
 HGLOBAL hPalette;
 

@@ -1,6 +1,4 @@
 #include "stdafx.h"
-#include "mine.h"
-#include "dle-xp.h"
 
 // external globals
 //extern int DLE.MineView ()->RenderVariableLights (); // uvls.cpp
@@ -599,7 +597,7 @@ for (short nSourceSeg = 0; !nErrors && (nSourceSeg < nSegments); nSourceSeg++) {
 
 		if (DeltaIndexCount () >= nMaxIndices) {
 			char szMsg [256];
-			sprintf_s (szMsg, sizeof (szMsg), " Light tool: Too many dynamic lights in the mine", nDepth);
+			sprintf_s (szMsg, sizeof (szMsg), " Light tool: Too many dynamic lights in the mine");
 			DEBUGMSG (szMsg);
 			break;
 			}

@@ -1,11 +1,5 @@
-
-
 #ifndef __texturefilter_h
 #define __texturefilter_h
-
-#include "types.h"
-#include "segment.h"
-#include "GameObject.h"
 
 //------------------------------------------------------------------------
 

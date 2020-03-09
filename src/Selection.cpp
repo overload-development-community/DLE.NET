@@ -1,11 +1,5 @@
 #include "stdafx.h"
 #include "selection.h"
-#include "TriggerManager.h"
-#include "WallManager.h"
-#include "segmentManager.h"
-#include "ObjectManager.h"
-#include "VertexManager.h"
-#include "LightManager.h"
 
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------

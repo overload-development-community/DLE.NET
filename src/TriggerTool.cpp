@@ -1,16 +1,4 @@
-
 #include "stdafx.h"
-#include <malloc.h>
-#include <stdlib.h>
-#undef abs
-#include <math.h>
-#include <mmsystem.h>
-#include <stdio.h>
-
-#include "mine.h"
-#include "dle-xp.h"
-#include "toolview.h"
-#include "TextureManager.h"
 #include "DrawHelpers.h"
 
 //------------------------------------------------------------------------------

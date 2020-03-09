@@ -1,16 +1,4 @@
-
 #include "stdafx.h"
-#include <string.h>
-#include <stdio.h>
-#include <string.h>
-#include <commdlg.h>
-#include <math.h>
-
-#include "mine.h"
-#include "dle-xp.h"
-#include "toolview.h"
-#include "PaletteManager.h"
-#include "TextureManager.h"
 #include "DrawHelpers.h"
 
 //------------------------------------------------------------------------------

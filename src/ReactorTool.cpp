@@ -1,15 +1,4 @@
-
 #include "stdafx.h"
-#include <malloc.h>
-#include <stdlib.h>
-#undef abs
-#include <math.h>
-#include <mmsystem.h>
-#include <stdio.h>
-
-#include "mine.h"
-#include "dle-xp.h"
-#include "toolview.h"
 
 // D1/2 use an algorithm to determine the "shield count" of a reactor that starts at
 // 200 for the first level in a mission, increasing by 50 each level. (Secret levels

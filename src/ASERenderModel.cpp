@@ -1,7 +1,4 @@
 #include "stdafx.h"
-#include "mine.h"
-#include "dle-xp.h"
-#include "ModelTextures.h"
 #include "rendermodel.h"
 #include "buildmodel.h"
 

@@ -9,9 +9,6 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
-#include "mine.h"
-#include "script.h"
-
 class CDlcDoc : public CDocument
 {
 protected: // create from serialization only

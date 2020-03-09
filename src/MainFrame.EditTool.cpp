@@ -3,11 +3,6 @@
 //
 
 #include "stdafx.h"
-#include "dle-xp.h"
-
-#include "MainFrame.h"
-#include "global.h"
-#include "toolview.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

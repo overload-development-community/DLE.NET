@@ -9,20 +9,8 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
-#include <afxwin.h>
-#include <afxext.h>
 #include <afxcview.h>
-
-#include "DlcDoc.h"
-#include "Matrix.h"
-#include "PolyModel.h"
-#include "define.h"
-#include "types.h"
-#include "global.h"
-#include "dle-xp-res.h"
-#include "textures.h"
 #include "texedit.h"
-#include "resourcemanager.h"
 
 extern int nLayout;
 

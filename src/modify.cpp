@@ -1,17 +1,4 @@
-
 #include "stdafx.h"
-#include "dle-xp-res.h"
-
-#include <math.h>
-#include "global.h"
-#include "define.h"
-#include "types.h"
-#include "mine.h"
-#include "matrix.h"
-#include "FileManager.h"
-#include "textures.h"
-#include "PaletteManager.h"
-#include "dle-xp.h"
 
 #define CURRENT_POINT(a) ((current->Point () + (a))&0x03)
 
