@@ -66,7 +66,7 @@ namespace EditorUITest
 
         private void EditorWindow_Load(object sender, EventArgs e)
         {
-            ActiveLayout = LayoutOrientation.FLOATING;
+            ActiveLayout = LayoutOrientation.HORIZONTAL;
             //new TestForm().Show(this);
         }
 
