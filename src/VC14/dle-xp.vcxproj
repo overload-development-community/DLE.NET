@@ -276,9 +276,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\ComCube.h" />
-    <ClInclude Include="..\ComMine.h" />
-    <ClInclude Include="..\ComObj.h" />
     <ClInclude Include="..\dlcDoc.h" />
     <ClInclude Include="..\dle-xp.h" />
     <ClInclude Include="..\DrawHelpers.h" />
@@ -286,7 +283,6 @@
     <ClInclude Include="..\Frustum.h" />
     <ClInclude Include="..\MainFrame.h" />
     <ClInclude Include="..\mineview.h" />
-    <ClInclude Include="..\Parser.h" />
     <ClInclude Include="..\PogDialog.h" />
     <ClInclude Include="..\RenderBuffers.h" />
     <ClInclude Include="..\renderer.h" />

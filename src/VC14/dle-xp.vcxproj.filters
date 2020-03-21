@@ -64,15 +64,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\ComCube.h">
-      <Filter>UI\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ComMine.h">
-      <Filter>UI\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ComObj.h">
-      <Filter>UI\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\dlcDoc.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
@@ -83,9 +74,6 @@
       <Filter>UI\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\mineview.h">
-      <Filter>UI\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Parser.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\renderer.h">

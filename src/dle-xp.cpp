@@ -4,7 +4,6 @@
 #include "stdafx.h"
 #include "afxadv.h"
 #include <initguid.h>
-#include "Dlc_i.c"
 #ifdef _OPENMP
 #	include "omp.h"
 #endif
