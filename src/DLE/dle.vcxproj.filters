@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="UI">
@@ -19,9 +19,6 @@
     <Filter Include="Resources">
       <UniqueIdentifier>{b464bfb6-c992-490e-84e7-dc7e5b056aac}</UniqueIdentifier>
       <Extensions>*.256 *.dat</Extensions>
-    </Filter>
-    <Filter Include="script">
-      <UniqueIdentifier>{44f9fa3d-2bfa-471e-b6af-b69227b7de3b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Data Files">
       <UniqueIdentifier>{d3425922-19e5-462d-8351-7f131927e6e2}</UniqueIdentifier>
@@ -109,9 +106,6 @@
     <ClInclude Include="..\ObjectManager.h">
       <Filter>Managers\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\oglmatrix.h">
-      <Filter>Managers\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\PaletteManager.h">
       <Filter>Managers\Header Files</Filter>
     </ClInclude>
@@ -124,19 +118,7 @@
     <ClInclude Include="..\SegmentManager.h">
       <Filter>Managers\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Selection.h">
-      <Filter>Managers\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ShaderManager.h">
-      <Filter>Managers\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TextureFilter.h">
-      <Filter>Managers\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\TextureManager.h">
-      <Filter>Managers\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\TextureProjector.h">
       <Filter>Managers\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\TriggerManager.h">
@@ -195,6 +177,21 @@
     </ClInclude>
     <ClInclude Include="..\dle-res.h">
       <Filter>UI\Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\oglmatrix.h">
+      <Filter>OpenGL\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Selection.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TextureProjector.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ShaderManager.h">
+      <Filter>OpenGL\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\TextureFilter.h">
+      <Filter>UI\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -408,15 +405,6 @@
     <ClCompile Include="..\SegmentManager.Textures.cpp">
       <Filter>Managers\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Selection.cpp">
-      <Filter>Managers\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ShaderManager.cpp">
-      <Filter>Managers\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TextureFilter.cpp">
-      <Filter>Managers\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\TextureManager.cpp">
       <Filter>Managers\Source Files</Filter>
     </ClCompile>
@@ -424,9 +412,6 @@
       <Filter>Managers\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\TextureManager.Shaders.cpp">
-      <Filter>Managers\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\TextureProjector.cpp">
       <Filter>Managers\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\TriggerManager.cpp">
@@ -523,6 +508,18 @@
       <Filter>UI\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\dle.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Selection.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TextureProjector.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\ShaderManager.cpp">
+      <Filter>OpenGL\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\TextureFilter.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
   </ItemGroup>

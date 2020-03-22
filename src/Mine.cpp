@@ -255,6 +255,26 @@ segmentManager.Count () = 1;
 vertexManager.Count () = 8;
 }
 
+CMineData& CMine::Data(void) { return m_data; }
+
+int CMine::LevelVersion(void) { return m_levelVersion; }
+
+void CMine::SetLevelVersion(int levelVersion) { m_levelVersion = levelVersion; }
+
+int CMine::FileType(void) { return m_fileType; }
+
+void CMine::SetFileType(int fileType) { m_fileType = fileType; }
+
+bool CMine::IsD1File(void) { return m_fileType == RDL_FILE; }
+
+bool CMine::IsD2File(void) { return m_fileType != RDL_FILE; }
+
+bool CMine::IsVertigo() { return m_bVertigo; }
+
+CMineInfo& CMine::Info(void) { return Data().m_info; }
+
+CMineFileInfo& CMine::FileInfo(void) { return Data().m_info.fileInfo; }
+
 // -----------------------------------------------------------------------------
 // ClearMineData()
 // -----------------------------------------------------------------------------
@@ -294,6 +314,16 @@ void CMine::SetCenter (const CDoubleVector &center)
 {
 vertexManager.SetCenter (center);
 objectManager.SetCenter (center);
+}
+
+LPCSTR CMine::LevelName(void)
+{
+	return m_currentLevelName;
+}
+
+void CMine::SetLevelName(LPCSTR levelName)
+{
+	strcpy_s(m_currentLevelName, levelName);
 }
 
 // ----------------------------------------------------------------------------------

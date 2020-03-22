@@ -125,7 +125,7 @@ class CNewFileDlg : public CDialog {
 			}
       virtual BOOL OnInitDialog () {
 			CDialog::OnInitDialog ();
-			if (!theMine->m_bVertigo)
+			if (!theMine->IsVertigo())
 				GetDlgItem (IDC_D2VLEVEL)->EnableWindow (FALSE);
 			return TRUE;
 			}
@@ -256,7 +256,7 @@ if (d.DoModal () == IDOK) {
 			segmentManager.UpdateWalls (MAX_WALLS_D2, WALL_LIMIT);
 		}
 	*m_szSubFile = '\0';
-	strcpy_s (theMine->LevelName (), theMine->LevelNameSize (), newLevelName);
+	theMine->SetLevelName(newLevelName);
 	theMine->Reset ();
 	segmentManager.SetLinesToDraw ();
 	DLE.MineView ()->ResetView (true);

@@ -7,6 +7,10 @@
 
 #define MAX_TEXTURES (g_data.IsD1File () ? MAX_TEXTURES_D1 : MAX_TEXTURES_D2)
 
+#define TEXTURE_MASK 0x3fff
+#define ALIGNMENT_MASK 0xc000
+#define ALIGNMENT_SHIFT 14
+
 /* pig file types */
 typedef struct {
   int nTextures;

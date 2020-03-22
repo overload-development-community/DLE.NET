@@ -37,12 +37,6 @@
 
 class CMine {
 	public:
-		// level info
-		int				m_fileType;
-		int				m_levelVersion;
-		char				m_currentLevelName [256];	
-		CMineData		m_data;
-
 		HPALETTE			m_paletteHandle;
 		
 		// strings
@@ -52,9 +46,6 @@ class CMine {
 		int				m_changesMade;
 		int				m_nNoLightDeltas;
 		char				m_szBlockFile [256];
-		bool				m_bVertigo;
-		char*				m_pHxmExtraData;
-		int				m_nHxmExtraDataSize;
 
 		double			m_rotateRate;
 	// Constructor/Desctuctor
@@ -66,26 +57,27 @@ class CMine {
 		void Default (void);
 		
 	public:
-		inline CMineData& Data (void) { return m_data; }
+		CMineData& Data(void);
 
-		inline int LevelVersion (void) { return m_levelVersion; }
-		inline void SetLevelVersion (int levelVersion) { m_levelVersion = levelVersion; }
+		int LevelVersion(void);
+		void SetLevelVersion(int levelVersion);
 		inline bool IsD2XLevel (void) { return LevelVersion () >= 9; }
 		inline bool IsStdLevel (void) { return LevelVersion () < 9; }
 		inline bool LevelIsOutdated (void) { return IsD2XLevel () && (LevelVersion () < LEVEL_VERSION); }
 		inline void UpdateLevelVersion (void) { SetLevelVersion (LEVEL_VERSION); }
 
-		inline int FileType (void) { return m_fileType; }
-		inline void SetFileType (int fileType) { m_fileType = fileType; }
-		inline bool IsD1File (void) { return m_fileType == RDL_FILE; }
-		inline bool IsD2File (void) { return m_fileType != RDL_FILE; }
+		int FileType(void);
+		void SetFileType(int fileType);
+		bool IsD1File(void);
+		bool IsD2File(void);
 		inline bool IsD2XFile (void) { return IsD2File () && IsD2XLevel (); }
+		bool IsVertigo();
 
 		inline int LevelType (void) { return IsD2XLevel () ? 2 : IsD2File () ? 1 : 0; }
 
-		inline CMineInfo& Info (void)	{ return Data ().m_info; }
+		CMineInfo& Info(void);
 
-		inline CMineFileInfo& FileInfo (void) { return Data ().m_info.fileInfo; }
+		CMineFileInfo& FileInfo(void);
 
 		long TotalSize (CMineItemInfo& gii) { return (int) gii.size * (int) gii.count; }
 
@@ -111,9 +103,8 @@ class CMine {
 
 		void SetCenter (const CDoubleVector &center);
 
-		inline LPSTR LevelName (void) { return m_currentLevelName; }
-
-		inline int LevelNameSize (void) { return sizeof m_currentLevelName; }
+		LPCSTR LevelName(void);
+		void SetLevelName(LPCSTR levelName);
 
 		inline void SetSelectMode (short mode) { m_selectMode = mode; }
 
@@ -149,6 +140,16 @@ class CMine {
 		void ConvertD2toD1 (void); 
 
 	private:
+		// level info
+		int m_fileType;
+		int m_levelVersion;
+		char m_currentLevelName[256];
+		CMineData m_data;
+
+		bool m_bVertigo;
+		char* m_pHxmExtraData;
+		int m_nHxmExtraDataSize;
+
 		short CreateNewLevel (CMemoryFile& fp);
 		int FixIndexValues (void) { return segmentManager.Fix () | wallManager.Fix (); }
 
