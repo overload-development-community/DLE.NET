@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}</ProjectGuid>
-    <RootNamespace>DLE-XP</RootNamespace>
+    <RootNamespace>DLE</RootNamespace>
     <Keyword>MFCProj</Keyword>
     <ProjectName>DLE</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
@@ -277,7 +277,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\dlcDoc.h" />
-    <ClInclude Include="..\dle-xp.h" />
+    <ClInclude Include="..\dle.h" />
     <ClInclude Include="..\DrawHelpers.h" />
     <ClInclude Include="..\FBO.h" />
     <ClInclude Include="..\Frustum.h" />
@@ -290,7 +290,7 @@
     <ClInclude Include="..\TEXEDIT.h" />
     <ClInclude Include="..\textureView.h" />
     <ClInclude Include="..\toolview.h" />
-    <ClInclude Include="..\dle-xp-res.h" />
+    <ClInclude Include="..\dle-res.h" />
     <ClInclude Include="..\Resource.h" />
     <ClInclude Include="..\glew.h" />
     <ClInclude Include="..\Global.h" />
@@ -328,7 +328,7 @@
     <ClCompile Include="..\Diagnosis.cpp" />
     <ClCompile Include="..\DiagTool.cpp" />
     <ClCompile Include="..\dlcDoc.cpp" />
-    <ClCompile Include="..\dle-xp.cpp" />
+    <ClCompile Include="..\dle.cpp" />
     <ClCompile Include="..\DlgHelpers.cpp" />
     <ClCompile Include="..\DrawHelpers.cpp" />
     <ClCompile Include="..\EffectTool.cpp" />
@@ -438,84 +438,12 @@
     <ClCompile Include="..\TextureProjector.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\dle-xp.rc">
+    <ResourceCompile Include="..\dle.rc">
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(OUTDIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\Websites\Descent\dle-cubes.html">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-diagnosis.html">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-effects.html">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-frames.html">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-gui.html">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-history.html">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-intro.html">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-light.html">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-lighting-howto.html">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-misc.html">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-mission.html">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-missions.html">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-music-howto.html">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-objects.html">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-segments.html">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-textures.html">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-triggers.html">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-walls.html">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </None>
     <None Include="..\Resource\bitmaps\10000.bmp" />
     <None Include="..\Resource\10000.BMP" />
     <None Include="..\Resource\bitmaps\10001.bmp" />
@@ -742,7 +670,6 @@
     <None Include="..\Resource\Dlc.ico" />
     <None Include="..\Resource\icons\Dlc.ico" />
     <None Include="..\res\dlc.ico" />
-    <None Include="..\Resource\dlc.rc2" />
     <None Include="..\Resource\icons\dlcdoc.ico" />
     <None Include="..\res\dlcDoc.ico" />
     <None Include="..\Resource\dle-xp_logo.bmp" />
@@ -1209,10 +1136,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </CustomBuildStep>
     <CustomBuildStep Include="..\..\..\Websites\Descent\dle-xp-walls.html">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </CustomBuildStep>
-    <CustomBuildStep Include="..\..\..\Websites\Descent\downloads.html">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
     </CustomBuildStep>

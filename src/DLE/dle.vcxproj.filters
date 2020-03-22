@@ -26,9 +26,6 @@
     <Filter Include="Data Files">
       <UniqueIdentifier>{d3425922-19e5-462d-8351-7f131927e6e2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Documents">
-      <UniqueIdentifier>{b6e3f117-c4f4-416a-a7f6-33d7c6683959}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Managers">
       <UniqueIdentifier>{fe74ea38-4245-4173-85c7-048c28bad2ea}</UniqueIdentifier>
     </Filter>
@@ -67,9 +64,6 @@
     <ClInclude Include="..\dlcDoc.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\dle-xp.h">
-      <Filter>UI\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\MainFrame.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
@@ -90,9 +84,6 @@
     </ClInclude>
     <ClInclude Include="..\toolview.h">
       <Filter>UI\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dle-xp-res.h">
-      <Filter>UI\Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Resource.h">
       <Filter>UI\Resource Files</Filter>
@@ -199,6 +190,12 @@
     <ClInclude Include="..\DrawHelpers.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\dle.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\dle-res.h">
+      <Filter>UI\Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\AdvancedObjTool.cpp">
@@ -214,9 +211,6 @@
       <Filter>UI\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\dlcDoc.cpp">
-      <Filter>UI\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dle-xp.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\DlgHelpers.cpp">
@@ -528,16 +522,11 @@
     <ClCompile Include="..\DrawHelpers.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\dle.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\dle-xp.rc">
-      <Filter>UI\Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\Resource\dlc.rc2">
-      <Filter>UI\Resource Files</Filter>
-    </None>
     <None Include="..\res\rc_data1.bin">
       <Filter>UI\Resource Files</Filter>
     </None>
@@ -2461,64 +2450,10 @@
     <None Include="..\resource\bitmaps\backd.bmp">
       <Filter>UI\Resource Files</Filter>
     </None>
-    <None Include="..\..\..\Websites\Descent\dle-cubes.html">
-      <Filter>Documents</Filter>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-diagnosis.html">
-      <Filter>Documents</Filter>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-effects.html">
-      <Filter>Documents</Filter>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-frames.html">
-      <Filter>Documents</Filter>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-gui.html">
-      <Filter>Documents</Filter>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-history.html">
-      <Filter>Documents</Filter>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-intro.html">
-      <Filter>Documents</Filter>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-light.html">
-      <Filter>Documents</Filter>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-lighting-howto.html">
-      <Filter>Documents</Filter>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-misc.html">
-      <Filter>Documents</Filter>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-mission.html">
-      <Filter>Documents</Filter>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-missions.html">
-      <Filter>Documents</Filter>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-music-howto.html">
-      <Filter>Documents</Filter>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-objects.html">
-      <Filter>Documents</Filter>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-segments.html">
-      <Filter>Documents</Filter>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-textures.html">
-      <Filter>Documents</Filter>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-triggers.html">
-      <Filter>Documents</Filter>
-    </None>
-    <None Include="..\..\..\Websites\Descent\dle-walls.html">
-      <Filter>Documents</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuildStep Include="..\..\..\Websites\Descent\downloads.html">
-      <Filter>Documents</Filter>
-    </CustomBuildStep>
+    <ResourceCompile Include="..\dle.rc">
+      <Filter>UI\Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

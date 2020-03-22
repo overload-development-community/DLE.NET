@@ -12,7 +12,7 @@
 	#error include 'stdafx.h' before including this file for PCH
 #endif
 
-#include "dle-xp-res.h"       // main symbols
+#include "dle-res.h"       // main symbols
 
 extern int nLayout;
 extern int bSingleToolPane;

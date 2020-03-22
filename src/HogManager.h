@@ -1,7 +1,7 @@
 #ifndef __hogman_h
 #define __hogman_h
 
-#include "dle-xp-res.h"
+#include "dle-res.h"
 #include "MemoryFile.h"
 
 #define MAX_HOGFILES	1000

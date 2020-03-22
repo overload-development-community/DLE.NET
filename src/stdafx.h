@@ -75,7 +75,7 @@ extern CDLCModule _Module;
 #include "mine.h"
 #include "DlcDoc.h"
 #include "MainFrame.h"
-#include "dle-xp.h"
+#include "dle.h"
 
 #include "ModelTextures.h"
 #include "ModelManager.h"
