@@ -334,18 +334,18 @@ _strlwr_s (szFile, 256);
 if (pszSubFile)
 	strcpy_s (szSubFile, sizeof (szSubFile), pszSubFile);
 if (strstr (szFile, ".hog")) {
-	hogManager->Setup (szFile, szSubFile);
 	if (*szSubFile) {
 		if (!hogManager->LoadLevel (szFile, szSubFile))
 			return FALSE;
 		}
 	else {
-		if (hogManager->DoModal () != IDOK)
+		HogDialog hogDialog(DLE.MainFrame(), szFile, szSubFile);
+		if (hogDialog.DoModal () != IDOK)
 			return FALSE;
-		strcpy_s (szSubFile, sizeof (szSubFile), hogManager->LevelName ());
+		strcpy_s (szSubFile, sizeof (szSubFile), hogDialog.LevelName ());
 		}
 	theMine->Backup (szFile);
-	err = !theMine->Load (&hogManager->m_level, true);
+	err = !theMine->Load (hogManager->GetLevel(), true);
 	memset (&missionData, 0, sizeof (missionData));
 	ReadMissionFile (szFile);
 	textureManager.LoadMod ();

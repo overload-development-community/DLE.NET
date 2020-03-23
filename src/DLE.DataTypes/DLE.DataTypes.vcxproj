@@ -180,6 +180,7 @@
   <ItemGroup>
     <ClCompile Include="ASEModel.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="LevelHeader.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="MineInfo.cpp" />
     <ClCompile Include="ModelTextures.cpp" />

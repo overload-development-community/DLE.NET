@@ -44,6 +44,8 @@ extern CDLCModule _Module;
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <string>
+#include <vector>
 
 #include "define.h"
 #include "Vector.h"
@@ -79,6 +81,7 @@ extern CDLCModule _Module;
 
 #include "ModelTextures.h"
 #include "ModelManager.h"
+#include "HogDialog.h"
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Developer Studio will insert additional declarations immediately before the previous line.

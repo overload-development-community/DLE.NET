@@ -321,6 +321,7 @@
     <ClInclude Include="..\VertexManager.h" />
     <ClInclude Include="..\WallManager.h" />
     <ClInclude Include="..\TextureProjector.h" />
+    <ClInclude Include="..\HogDialog.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\AdvancedObjTool.cpp" />
@@ -436,6 +437,7 @@
     <ClCompile Include="..\VertexManager.cpp" />
     <ClCompile Include="..\WallManager.cpp" />
     <ClCompile Include="..\TextureProjector.cpp" />
+    <ClCompile Include="..\HogDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="..\dle.rc">

@@ -128,10 +128,7 @@ undoManager.Begin (__FUNCTION__, udSegments);
 //#pragma omp parallel for
 for (int nSegment = 0; nSegment < nSegments; nSegment++) {
 	CSegment *pSegment = segmentManager.Segment (nSegment);
-#if DBG
-	if (pSegment - segmentManager.Segments ().Buffer () == nDbgSeg)
-		nDbgSeg = nDbgSeg;
-#endif
+
 	for (ubyte nPoint = 0; nPoint < 8; nPoint++) {
 		int nVertex = pSegment->m_info.vertexIds [nPoint];
 		if (nVertex > MAX_VERTEX)

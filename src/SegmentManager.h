@@ -100,29 +100,16 @@ typedef struct tVertMatch {
 
 class CSegmentManager : public ISegmentManager {
 	public:
-		segmentList				m_segments;
-		CMineItemInfo			m_segmentInfo;
-		FREELIST(CSegment)
-		int						m_nAddMode;
-		robotMakerList			m_producers [2];
-		CMineItemInfo			m_producerInfo [2];
-		bool						m_bCreating;
-		CSegment*				m_selectedSegments;
-		CSide*					m_selectedSides;
-		CFogInfo					m_fogInfo [NUM_FOG_TYPES];
-		bool						m_bUpdateAlignmentOnEdit;
+		int m_nAddMode;
+		bool m_bUpdateAlignmentOnEdit;
+		CFogInfo m_fogInfo[NUM_FOG_TYPES];
 
 	public:
 		inline void ResetInfo (void) {
 			m_segmentInfo.Reset ();
 			m_producerInfo [0].Reset ();
 			m_producerInfo [1].Reset ();
-#if USE_FREELST
-			m_free.Reset ();
-#endif
 			}
-		// Segment and side getters
-		inline segmentList& Segments (void)	{ return m_segments; }
 
 		inline int& Count (void) { return m_segmentInfo.count; }
 
@@ -402,18 +389,11 @@ class CSegmentManager : public ISegmentManager {
 
 		void DeleteD2X (void);
 
-#if USE_FREELIST
-		inline bool Full (void) { return m_free.Empty (); }
-#else
 		bool Full (void);
-#endif
 
 		CSegmentManager () : m_bCreating (false) { 
 			ResetInfo ();
 			Clear ();
-#if USE_FREELST
-			m_free.Create (Segment (0), SEGMENT_LIMIT);
-#endif
 			}
 
 		int Overflow (int nSegments = -1);
@@ -475,6 +455,14 @@ class CSegmentManager : public ISegmentManager {
 		
 		void WriteProducers (CFileManager* fp, int nClass);
 
+	private:
+		segmentList m_segments;
+		CMineItemInfo m_segmentInfo;
+		robotMakerList m_producers[2];
+		CMineItemInfo m_producerInfo[2];
+		bool m_bCreating;
+		CSegment* m_selectedSegments;
+		CSide* m_selectedSides;
 	};
 
 extern CSegmentManager segmentManager;

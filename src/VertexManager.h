@@ -42,23 +42,13 @@ class CVertexUpdate {
 class CVertexManager : public IVertexManager
 {
 	public:
-		vertexList					m_vertices;
-		CMineItemInfo				m_info;
-		FREELIST(CVertex)
-
-	public:
 		// Segment and side getters
 		// Vertex getters
 		void ResetInfo (void) { 
 			m_info.Reset (); 
-#if USE_FREELIST
-			m_free.Reset ();
-#endif
 			}
 
 		inline CVertex& operator[] (int i) { return m_vertices [i]; }
-
-		inline vertexList& Vertices (void) { return m_vertices; }
 
 		inline CVertex *Vertex (int i) { return &m_vertices [i]; }
 
@@ -107,11 +97,12 @@ class CVertexManager : public IVertexManager
 		CVertexManager () {
 			ResetInfo ();
 			Clear ();
-#if USE_FREELIST
-			m_free.Create (Vertex (0), VERTEX_LIMIT);
-#endif
 			}
-	};
+
+private:
+	vertexList m_vertices;
+	CMineItemInfo m_info;
+};
 
 extern CVertexManager vertexManager;
 

@@ -308,8 +308,11 @@ if ((i >= 0) && (i < h - 1)) {
 
 void CMissionTool::OnFromHog ()
 {
-if (!hogManager->ReadData (DLE.GetDocument ()->File (), LBLevels (), false, true, false))
-	UpdateData (TRUE);
+	if (!hogManager->ReadData(DLE.GetDocument()->File(), false, true, false))
+	{
+		::RefreshHogFileList(LBLevels());
+		UpdateData(TRUE);
+	}
 }
 
 //------------------------------------------------------------------------------

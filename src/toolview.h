@@ -11,6 +11,7 @@
 
 #include <afxcview.h>
 #include "texedit.h"
+#include "dle-res.h"
 
 extern int nLayout;
 

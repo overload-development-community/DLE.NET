@@ -300,9 +300,9 @@ ToolView ()->EditMission ();
 
 void CMainFrame::OnEditHog ()
 {
-hogManager->Setup (DLE.GetDocument ()->File (), null);
-if (hogManager->DoModal () == IDOK)
-	DLE.GetDocument ()->OpenFile (false, hogManager->MissionName (), hogManager->LevelName ());
+	HogDialog hogDialog(DLE.MainFrame(), DLE.GetDocument()->File(), null);
+	if (hogDialog.DoModal() == IDOK)
+		DLE.GetDocument()->OpenFile(false, hogDialog.MissionName(), hogDialog.LevelName());
 }
 
 void CMainFrame::OnEditPog ()
