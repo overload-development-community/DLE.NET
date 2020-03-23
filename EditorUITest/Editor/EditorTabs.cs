@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EditorUITest.Editor.Layouts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,8 @@ namespace EditorUITest.Editor
     public class EditorTabs
     {
         private bool attached;
-        public LayoutableUserControl[] AllTabs { get; }
+        private bool attachedToFloating;
+        public DLELayoutableUserControl[] AllTabs { get; }
         // tabs in above must match the tabs in an EditorTabsContainer
 
         public TextureTab Textures { get; }
@@ -41,8 +43,8 @@ namespace EditorUITest.Editor
             TextureFilters = new TextureFiltersTab();
             Settings = new SettingsTab();
 
-            AllTabs = new LayoutableUserControl[] { Textures, Segments, Walls, Triggers, Objects, Effects, Lights, Reactor, Mission, Diagnostics, TextureFilters, Settings };
-            attached = false;
+            AllTabs = new DLELayoutableUserControl[] { Textures, Segments, Walls, Triggers, Objects, Effects, Lights, Reactor, Mission, Diagnostics, TextureFilters, Settings };
+            attached = attachedToFloating = false;
         }
 
         private void DetachControl(UserControl c)
@@ -62,16 +64,19 @@ namespace EditorUITest.Editor
                 DetachControl(tab);
             }
             attached = false;
+            attachedToFloating = false;
         }
 
         public void AttachToContainer(LayoutOrientation layout, EditorTabContainer ctr)
         {
             if (attached) Detach();
+            attachedToFloating = false;
+            attached = true;
 
             TabControl tabControl = ctr.Controls.OfType<TabControl>().First();
             for (int i = 0; i < AllTabs.Length; ++i)
             {
-                LayoutableUserControl tab = AllTabs[i];
+                DLELayoutableUserControl tab = AllTabs[i];
                 TabPage tabPage = tabControl.TabPages[i];
                 
                 tabPage.SuspendLayout();
@@ -82,7 +87,7 @@ namespace EditorUITest.Editor
             }
         }
 
-        public void CreateFloatingForm(LayoutableUserControl tab)
+        public void CreateFloatingForm(DLELayoutableUserControl tab)
         {
             Form f = new Form();
             f.SuspendLayout();
@@ -108,12 +113,23 @@ namespace EditorUITest.Editor
 
         public void AttachToFloating(LayoutOrientation layout)
         {
+            if (attachedToFloating) return;
             if (attached) Detach();
+            attachedToFloating = true;
+            attached = true;
 
-            foreach (LayoutableUserControl tab in AllTabs)
+            foreach (DLELayoutableUserControl tab in AllTabs)
             {
                 tab.DialogLayout = layout;
                 CreateFloatingForm(tab);
+            }
+        }
+
+        internal void SelfTest()
+        {
+            foreach (DLELayoutableUserControl tab in AllTabs)
+            {
+                tab.SelfTestRecursive();
             }
         }
 

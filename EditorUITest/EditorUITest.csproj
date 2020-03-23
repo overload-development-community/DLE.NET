@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\ChangeableState.cs" />
+    <Compile Include="Editor\EditorStateBinder.cs" />
     <Compile Include="Dialogs\ConvertLevelDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +72,12 @@
     <Compile Include="Dialogs\InputDialog.Designer.cs">
       <DependentUpon>InputDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\POGManagerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\POGManagerDialog.Designer.cs">
+      <DependentUpon>POGManagerDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\TextureEditDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -88,144 +96,381 @@
     <Compile Include="Dialogs\NewFileDialog.Designer.cs">
       <DependentUpon>NewFileDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="EditorWindowMenuTools.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="EditorWindowKeyEvents.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Editor\DiagnosticsTab.cs">
+    <Compile Include="Editor\Layouts\Floating\FloatingLightsTab.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\DiagnosticsTab.Designer.cs">
+    <Compile Include="Editor\Layouts\Floating\FloatingLightsTab.Designer.cs">
+      <DependentUpon>FloatingLightsTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Floating\FloatingMissionTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Floating\FloatingMissionTab.Designer.cs">
+      <DependentUpon>FloatingMissionTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Floating\FloatingReactorTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Floating\FloatingReactorTab.Designer.cs">
+      <DependentUpon>FloatingReactorTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Floating\FloatingSettingsTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Floating\FloatingSettingsTab.Designer.cs">
+      <DependentUpon>FloatingSettingsTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Floating\FloatingTextureFiltersTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Floating\FloatingTextureFiltersTab.Designer.cs">
+      <DependentUpon>FloatingTextureFiltersTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Floating\FloatingTextureTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Floating\FloatingTextureTab.Designer.cs">
+      <DependentUpon>FloatingTextureTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Floating\FloatingTriggerTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Floating\FloatingTriggerTab.Designer.cs">
+      <DependentUpon>FloatingTriggerTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Floating\FloatingWallTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Floating\FloatingWallTab.Designer.cs">
+      <DependentUpon>FloatingWallTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalEffectFog.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalEffectFog.Designer.cs">
+      <DependentUpon>VerticalEffectFog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalEffectLightning.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalEffectLightning.Designer.cs">
+      <DependentUpon>VerticalEffectLightning.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalEffectParticle.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalEffectParticle.Designer.cs">
+      <DependentUpon>VerticalEffectParticle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalEffectSound.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalEffectSound.Designer.cs">
+      <DependentUpon>VerticalEffectSound.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalEffectTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalEffectTab.Designer.cs">
+      <DependentUpon>VerticalEffectTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalEffectWaypoint.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalEffectWaypoint.Designer.cs">
+      <DependentUpon>VerticalEffectWaypoint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalMissionTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalMissionTab.Designer.cs">
+      <DependentUpon>VerticalMissionTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalObjectAdvanced.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalObjectAdvanced.Designer.cs">
+      <DependentUpon>VerticalObjectAdvanced.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalObjectPosition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalObjectPosition.Designer.cs">
+      <DependentUpon>VerticalObjectPosition.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalDiagnosticsTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalDiagnosticsTab.Designer.cs">
+      <DependentUpon>VerticalDiagnosticsTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalLightsTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalLightsTab.Designer.cs">
+      <DependentUpon>VerticalLightsTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalObjectTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalObjectTab.Designer.cs">
+      <DependentUpon>VerticalObjectTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalPreferencesEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalPreferencesEditor.Designer.cs">
+      <DependentUpon>VerticalPreferencesEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalPreferencesFiles.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalPreferencesFiles.Designer.cs">
+      <DependentUpon>VerticalPreferencesFiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalPreferencesLayout.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalPreferencesLayout.Designer.cs">
+      <DependentUpon>VerticalPreferencesLayout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalPreferencesMisc.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalPreferencesMisc.Designer.cs">
+      <DependentUpon>VerticalPreferencesMisc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalPreferencesRenderer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalPreferencesRenderer.Designer.cs">
+      <DependentUpon>VerticalPreferencesRenderer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalPreferencesVisibility.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalPreferencesVisibility.Designer.cs">
+      <DependentUpon>VerticalPreferencesVisibility.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalReactorTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalReactorTab.Designer.cs">
+      <DependentUpon>VerticalReactorTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalSettingsTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalSettingsTab.Designer.cs">
+      <DependentUpon>VerticalSettingsTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalTextureFiltersTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalTextureFiltersTab.Designer.cs">
+      <DependentUpon>VerticalTextureFiltersTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalTextureTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalTextureTab.Designer.cs">
+      <DependentUpon>VerticalTextureTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalTriggerTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalTriggerTab.Designer.cs">
+      <DependentUpon>VerticalTriggerTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalWallTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalWallTab.Designer.cs">
+      <DependentUpon>VerticalWallTab.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\DiagnosticsTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\DiagnosticsTab.Designer.cs">
       <DependentUpon>DiagnosticsTab.cs</DependentUpon>
     </Compile>
     <Compile Include="Editor\EditorTabs.cs" />
-    <Compile Include="Editor\EffectTab.cs">
+    <Compile Include="Editor\Layouts\EffectFog.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\EffectTab.Designer.cs">
+    <Compile Include="Editor\Layouts\EffectFog.Designer.cs">
+      <DependentUpon>EffectFog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\EffectLightning.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\EffectLightning.Designer.cs">
+      <DependentUpon>EffectLightning.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\EffectParticle.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\EffectParticle.Designer.cs">
+      <DependentUpon>EffectParticle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\EffectSound.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\EffectSound.Designer.cs">
+      <DependentUpon>EffectSound.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\EffectTab.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\EffectTab.Designer.cs">
       <DependentUpon>EffectTab.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\MainView.cs">
+    <Compile Include="Editor\Layouts\EffectWaypoint.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\MainView.Designer.cs">
+    <Compile Include="Editor\Layouts\EffectWaypoint.Designer.cs">
+      <DependentUpon>EffectWaypoint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\MainView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\MainView.Designer.cs">
       <DependentUpon>MainView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\MainViewFloating.cs">
+    <Compile Include="Editor\Layouts\Floating\MainViewFloating.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\MainViewFloating.Designer.cs">
+    <Compile Include="Editor\Layouts\Floating\MainViewFloating.Designer.cs">
       <DependentUpon>MainViewFloating.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\MainViewHorizontal.cs">
+    <Compile Include="Editor\Layouts\MainViewHorizontal.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\MainViewHorizontal.Designer.cs">
+    <Compile Include="Editor\Layouts\MainViewHorizontal.Designer.cs">
       <DependentUpon>MainViewHorizontal.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\MainViewVertical.cs">
+    <Compile Include="Editor\Layouts\Vertical\MainViewVertical.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\MainViewVertical.Designer.cs">
+    <Compile Include="Editor\Layouts\Vertical\MainViewVertical.Designer.cs">
       <DependentUpon>MainViewVertical.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\MainViewVerticalSS.cs">
+    <Compile Include="Editor\Layouts\Vertical\MainViewVerticalSS.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\MainViewVerticalSS.Designer.cs">
+    <Compile Include="Editor\Layouts\Vertical\MainViewVerticalSS.Designer.cs">
       <DependentUpon>MainViewVerticalSS.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\MissionTab.cs">
+    <Compile Include="Editor\Layouts\MissionTab.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\MissionTab.Designer.cs">
+    <Compile Include="Editor\Layouts\MissionTab.Designer.cs">
       <DependentUpon>MissionTab.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\ObjectPosition.cs">
+    <Compile Include="Editor\Layouts\ObjectAdvanced.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\ObjectPosition.Designer.cs">
+    <Compile Include="Editor\Layouts\ObjectAdvanced.Designer.cs">
+      <DependentUpon>ObjectAdvanced.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Layouts\ObjectPosition.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\ObjectPosition.Designer.cs">
       <DependentUpon>ObjectPosition.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\PreferencesFiles.cs">
+    <Compile Include="Editor\Layouts\PreferencesFiles.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\PreferencesFiles.Designer.cs">
+    <Compile Include="Editor\Layouts\PreferencesFiles.Designer.cs">
       <DependentUpon>PreferencesFiles.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\PreferencesLayout.cs">
+    <Compile Include="Editor\Layouts\PreferencesLayout.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\PreferencesLayout.Designer.cs">
+    <Compile Include="Editor\Layouts\PreferencesLayout.Designer.cs">
       <DependentUpon>PreferencesLayout.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\PreferencesVisibility.cs">
+    <Compile Include="Editor\Layouts\PreferencesVisibility.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\PreferencesVisibility.Designer.cs">
+    <Compile Include="Editor\Layouts\PreferencesVisibility.Designer.cs">
       <DependentUpon>PreferencesVisibility.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\PreferencesMisc.cs">
+    <Compile Include="Editor\Layouts\PreferencesMisc.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\PreferencesMisc.Designer.cs">
+    <Compile Include="Editor\Layouts\PreferencesMisc.Designer.cs">
       <DependentUpon>PreferencesMisc.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\PreferencesEditor.cs">
+    <Compile Include="Editor\Layouts\PreferencesEditor.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\PreferencesEditor.Designer.cs">
+    <Compile Include="Editor\Layouts\PreferencesEditor.Designer.cs">
       <DependentUpon>PreferencesEditor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\ReactorTab.cs">
+    <Compile Include="Editor\PropertyNameTree.cs" />
+    <Compile Include="Editor\Layouts\ReactorTab.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\ReactorTab.Designer.cs">
+    <Compile Include="Editor\Layouts\ReactorTab.Designer.cs">
       <DependentUpon>ReactorTab.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\TextureAlignment.cs">
+    <Compile Include="Editor\Layouts\TextureAlignment.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\TextureAlignment.Designer.cs">
+    <Compile Include="Editor\Layouts\TextureAlignment.Designer.cs">
       <DependentUpon>TextureAlignment.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\TextureFiltersTab.cs">
+    <Compile Include="Editor\Layouts\TextureFiltersTab.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\TextureFiltersTab.Designer.cs">
+    <Compile Include="Editor\Layouts\TextureFiltersTab.Designer.cs">
       <DependentUpon>TextureFiltersTab.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\PreferencesRenderer.cs">
+    <Compile Include="Editor\Layouts\PreferencesRenderer.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\PreferencesRenderer.Designer.cs">
+    <Compile Include="Editor\Layouts\PreferencesRenderer.Designer.cs">
       <DependentUpon>PreferencesRenderer.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\TextureLighting.cs">
+    <Compile Include="Editor\Layouts\TextureLighting.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\TextureLighting.Designer.cs">
+    <Compile Include="Editor\Layouts\TextureLighting.Designer.cs">
       <DependentUpon>TextureLighting.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\TextureProjection.cs">
+    <Compile Include="Editor\Layouts\TextureProjection.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\TextureProjection.Designer.cs">
+    <Compile Include="Editor\Layouts\TextureProjection.Designer.cs">
       <DependentUpon>TextureProjection.cs</DependentUpon>
     </Compile>
-    <Compile Include="Util\AlignableGroupBox.cs">
-      <SubType>Component</SubType>
+    <Compile Include="Editor\Layouts\Vertical\VerticalTextureLighting.cs">
+      <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Editor\Layouts\Vertical\VerticalTextureLighting.Designer.cs">
+      <DependentUpon>VerticalTextureLighting.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Placeholder\Level.cs" />
+    <Compile Include="Placeholder\Segment.cs" />
+    <Compile Include="Data\EditorState.cs" />
+    <Compile Include="Util\AlignableGroupBox.cs" />
     <Compile Include="Util\ControlUtilities.cs" />
-    <Compile Include="Util\LayoutableUserControl.cs">
+    <Compile Include="Util\DLEUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\EditorTabContainer.cs">
+    <Compile Include="Util\SegSideTextBox.cs" />
+    <Compile Include="Util\IntTextBox.cs" />
+    <Compile Include="Util\FloatTextBox.cs" />
+    <Compile Include="Util\InvalidLayoutException.cs" />
+    <Compile Include="Util\DLELayoutableUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\EditorTabContainer.Designer.cs">
+    <Compile Include="Editor\Layouts\EditorTabContainer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editor\Layouts\EditorTabContainer.Designer.cs">
       <DependentUpon>EditorTabContainer.cs</DependentUpon>
     </Compile>
     <Compile Include="EditorWindow.cs">
@@ -234,16 +479,16 @@
     <Compile Include="EditorWindow.Designer.cs">
       <DependentUpon>EditorWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\ObjectTab.cs">
+    <Compile Include="Editor\Layouts\ObjectTab.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\ObjectTab.Designer.cs">
+    <Compile Include="Editor\Layouts\ObjectTab.Designer.cs">
       <DependentUpon>ObjectTab.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\LightsTab.cs">
+    <Compile Include="Editor\Layouts\LightsTab.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\LightsTab.Designer.cs">
+    <Compile Include="Editor\Layouts\LightsTab.Designer.cs">
       <DependentUpon>LightsTab.cs</DependentUpon>
     </Compile>
     <Compile Include="MineView.cs">
@@ -254,23 +499,17 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Editor\SegmentTab.cs">
+    <Compile Include="Editor\Layouts\SegmentTab.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\SegmentTab.Designer.cs">
+    <Compile Include="Editor\Layouts\SegmentTab.Designer.cs">
       <DependentUpon>SegmentTab.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\SettingsTab.cs">
+    <Compile Include="Editor\Layouts\SettingsTab.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\SettingsTab.Designer.cs">
+    <Compile Include="Editor\Layouts\SettingsTab.Designer.cs">
       <DependentUpon>SettingsTab.cs</DependentUpon>
-    </Compile>
-    <Compile Include="TestForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="TestForm.Designer.cs">
-      <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
     <Compile Include="TextureList.cs">
       <SubType>UserControl</SubType>
@@ -278,33 +517,48 @@
     <Compile Include="TextureList.Designer.cs">
       <DependentUpon>TextureList.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\TextureTab.cs">
+    <Compile Include="Editor\Layouts\TextureTab.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\TextureTab.Designer.cs">
+    <Compile Include="Editor\Layouts\TextureTab.Designer.cs">
       <DependentUpon>TextureTab.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\TriggerTab.cs">
+    <Compile Include="Editor\Layouts\TriggerTab.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\TriggerTab.Designer.cs">
+    <Compile Include="Editor\Layouts\TriggerTab.Designer.cs">
       <DependentUpon>TriggerTab.cs</DependentUpon>
     </Compile>
     <Compile Include="Util\AlternativeLayoutUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\AltLayouts\Vertical\VerticalSegmentTab.cs">
+    <Compile Include="Editor\Layouts\Vertical\VerticalSegmentTab.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\AltLayouts\Vertical\VerticalSegmentTab.Designer.cs">
+    <Compile Include="Editor\Layouts\Vertical\VerticalSegmentTab.Designer.cs">
       <DependentUpon>VerticalSegmentTab.cs</DependentUpon>
     </Compile>
-    <Compile Include="Editor\WallTab.cs">
+    <Compile Include="Editor\Layouts\WallTab.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Editor\WallTab.Designer.cs">
+    <Compile Include="Editor\Layouts\WallTab.Designer.cs">
       <DependentUpon>WallTab.cs</DependentUpon>
     </Compile>
+    <Compile Include="Util\MathUtilities.cs" />
+    <Compile Include="Util\SparseTrackBar.cs" />
+    <Compile Include="Util\UpDownControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Util\UpDownControl.Designer.cs">
+      <DependentUpon>UpDownControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Util\LeftRightControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Util\LeftRightControl.Designer.cs">
+      <DependentUpon>LeftRightControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Util\RepeatingButton.cs" />
     <EmbeddedResource Include="Dialogs\ConvertLevelDialog.resx">
       <DependentUpon>ConvertLevelDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -317,6 +571,9 @@
     <EmbeddedResource Include="Dialogs\InputDialog.resx">
       <DependentUpon>InputDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\POGManagerDialog.resx">
+      <DependentUpon>POGManagerDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\TextureEditDialog.resx">
       <DependentUpon>TextureEditDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -326,73 +583,190 @@
     <EmbeddedResource Include="Dialogs\NewFileDialog.resx">
       <DependentUpon>NewFileDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\EditorTabContainer.resx">
+    <EmbeddedResource Include="Editor\Layouts\Floating\FloatingLightsTab.resx">
+      <DependentUpon>FloatingLightsTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Floating\FloatingMissionTab.resx">
+      <DependentUpon>FloatingMissionTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Floating\FloatingReactorTab.resx">
+      <DependentUpon>FloatingReactorTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Floating\FloatingSettingsTab.resx">
+      <DependentUpon>FloatingSettingsTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Floating\FloatingTextureFiltersTab.resx">
+      <DependentUpon>FloatingTextureFiltersTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Floating\FloatingTextureTab.resx">
+      <DependentUpon>FloatingTextureTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Floating\FloatingTriggerTab.resx">
+      <DependentUpon>FloatingTriggerTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Floating\FloatingWallTab.resx">
+      <DependentUpon>FloatingWallTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalEffectFog.resx">
+      <DependentUpon>VerticalEffectFog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalEffectLightning.resx">
+      <DependentUpon>VerticalEffectLightning.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalEffectParticle.resx">
+      <DependentUpon>VerticalEffectParticle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalEffectSound.resx">
+      <DependentUpon>VerticalEffectSound.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalEffectTab.resx">
+      <DependentUpon>VerticalEffectTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalEffectWaypoint.resx">
+      <DependentUpon>VerticalEffectWaypoint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalMissionTab.resx">
+      <DependentUpon>VerticalMissionTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalObjectAdvanced.resx">
+      <DependentUpon>VerticalObjectAdvanced.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalObjectPosition.resx">
+      <DependentUpon>VerticalObjectPosition.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalDiagnosticsTab.resx">
+      <DependentUpon>VerticalDiagnosticsTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalLightsTab.resx">
+      <DependentUpon>VerticalLightsTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalObjectTab.resx">
+      <DependentUpon>VerticalObjectTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalPreferencesEditor.resx">
+      <DependentUpon>VerticalPreferencesEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalPreferencesFiles.resx">
+      <DependentUpon>VerticalPreferencesFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalPreferencesLayout.resx">
+      <DependentUpon>VerticalPreferencesLayout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalPreferencesMisc.resx">
+      <DependentUpon>VerticalPreferencesMisc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalPreferencesRenderer.resx">
+      <DependentUpon>VerticalPreferencesRenderer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalPreferencesVisibility.resx">
+      <DependentUpon>VerticalPreferencesVisibility.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalReactorTab.resx">
+      <DependentUpon>VerticalReactorTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalSettingsTab.resx">
+      <DependentUpon>VerticalSettingsTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalTextureFiltersTab.resx">
+      <DependentUpon>VerticalTextureFiltersTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalTextureLighting.resx">
+      <DependentUpon>VerticalTextureLighting.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalTextureTab.resx">
+      <DependentUpon>VerticalTextureTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalTriggerTab.resx">
+      <DependentUpon>VerticalTriggerTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalWallTab.resx">
+      <DependentUpon>VerticalWallTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\EditorTabContainer.resx">
       <DependentUpon>EditorTabContainer.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditorWindow.resx">
       <DependentUpon>EditorWindow.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\DiagnosticsTab.resx">
+    <EmbeddedResource Include="Editor\Layouts\DiagnosticsTab.resx">
       <DependentUpon>DiagnosticsTab.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\EffectTab.resx">
+    <EmbeddedResource Include="Editor\Layouts\EffectFog.resx">
+      <DependentUpon>EffectFog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\EffectLightning.resx">
+      <DependentUpon>EffectLightning.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\EffectParticle.resx">
+      <DependentUpon>EffectParticle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\EffectSound.resx">
+      <DependentUpon>EffectSound.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\EffectTab.resx">
       <DependentUpon>EffectTab.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\MainViewFloating.resx">
+    <EmbeddedResource Include="Editor\Layouts\Floating\MainViewFloating.resx">
       <DependentUpon>MainViewFloating.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\MainViewHorizontal.resx">
+    <EmbeddedResource Include="Editor\Layouts\EffectWaypoint.resx">
+      <DependentUpon>EffectWaypoint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\MainViewHorizontal.resx">
       <DependentUpon>MainViewHorizontal.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\MainViewVertical.resx">
+    <EmbeddedResource Include="Editor\Layouts\Vertical\MainViewVertical.resx">
       <DependentUpon>MainViewVertical.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\MainViewVerticalSS.resx">
+    <EmbeddedResource Include="Editor\Layouts\Vertical\MainViewVerticalSS.resx">
       <DependentUpon>MainViewVerticalSS.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\MissionTab.resx">
+    <EmbeddedResource Include="Editor\Layouts\MissionTab.resx">
       <DependentUpon>MissionTab.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\ObjectPosition.resx">
+    <EmbeddedResource Include="Editor\Layouts\ObjectAdvanced.resx">
+      <DependentUpon>ObjectAdvanced.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editor\Layouts\ObjectPosition.resx">
       <DependentUpon>ObjectPosition.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\ObjectTab.resx">
+    <EmbeddedResource Include="Editor\Layouts\ObjectTab.resx">
       <DependentUpon>ObjectTab.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\LightsTab.resx">
+    <EmbeddedResource Include="Editor\Layouts\LightsTab.resx">
       <DependentUpon>LightsTab.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\PreferencesFiles.resx">
+    <EmbeddedResource Include="Editor\Layouts\PreferencesFiles.resx">
       <DependentUpon>PreferencesFiles.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\PreferencesLayout.resx">
+    <EmbeddedResource Include="Editor\Layouts\PreferencesLayout.resx">
       <DependentUpon>PreferencesLayout.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\PreferencesVisibility.resx">
+    <EmbeddedResource Include="Editor\Layouts\PreferencesVisibility.resx">
       <DependentUpon>PreferencesVisibility.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\PreferencesMisc.resx">
+    <EmbeddedResource Include="Editor\Layouts\PreferencesMisc.resx">
       <DependentUpon>PreferencesMisc.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\PreferencesEditor.resx">
+    <EmbeddedResource Include="Editor\Layouts\PreferencesEditor.resx">
       <DependentUpon>PreferencesEditor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\PreferencesRenderer.resx">
+    <EmbeddedResource Include="Editor\Layouts\PreferencesRenderer.resx">
       <DependentUpon>PreferencesRenderer.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\ReactorTab.resx">
+    <EmbeddedResource Include="Editor\Layouts\ReactorTab.resx">
       <DependentUpon>ReactorTab.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\TextureAlignment.resx">
+    <EmbeddedResource Include="Editor\Layouts\TextureAlignment.resx">
       <DependentUpon>TextureAlignment.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\TextureFiltersTab.resx">
+    <EmbeddedResource Include="Editor\Layouts\TextureFiltersTab.resx">
       <DependentUpon>TextureFiltersTab.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\TextureLighting.resx">
+    <EmbeddedResource Include="Editor\Layouts\TextureLighting.resx">
       <DependentUpon>TextureLighting.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\TextureProjection.resx">
+    <EmbeddedResource Include="Editor\Layouts\TextureProjection.resx">
       <DependentUpon>TextureProjection.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MineView.resx">
@@ -407,29 +781,32 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Editor\SegmentTab.resx">
+    <EmbeddedResource Include="Editor\Layouts\SegmentTab.resx">
       <DependentUpon>SegmentTab.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\SettingsTab.resx">
+    <EmbeddedResource Include="Editor\Layouts\SettingsTab.resx">
       <DependentUpon>SettingsTab.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TestForm.resx">
-      <DependentUpon>TestForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="TextureList.resx">
       <DependentUpon>TextureList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\TextureTab.resx">
+    <EmbeddedResource Include="Editor\Layouts\TextureTab.resx">
       <DependentUpon>TextureTab.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\TriggerTab.resx">
+    <EmbeddedResource Include="Editor\Layouts\TriggerTab.resx">
       <DependentUpon>TriggerTab.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\AltLayouts\Vertical\VerticalSegmentTab.resx">
+    <EmbeddedResource Include="Editor\Layouts\Vertical\VerticalSegmentTab.resx">
       <DependentUpon>VerticalSegmentTab.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Editor\WallTab.resx">
+    <EmbeddedResource Include="Editor\Layouts\WallTab.resx">
       <DependentUpon>WallTab.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Util\UpDownControl.resx">
+      <DependentUpon>UpDownControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Util\LeftRightControl.resx">
+      <DependentUpon>LeftRightControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -444,5 +821,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

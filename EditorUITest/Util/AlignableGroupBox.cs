@@ -11,6 +11,7 @@ using System.Windows.Forms;
 namespace EditorUITest
 {
     // A GroupBox that supports aligning the header to left, center or right
+    [System.ComponentModel.DesignerCategory("Code")]
     public class AlignableGroupBox : GroupBox
     {
         private string _Text = "";

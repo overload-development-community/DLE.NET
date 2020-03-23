@@ -293,7 +293,7 @@
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
             this.mainMenuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.mainMenuStrip.Size = new System.Drawing.Size(1204, 24);
+            this.mainMenuStrip.Size = new System.Drawing.Size(1424, 24);
             this.mainMenuStrip.TabIndex = 1;
             this.mainMenuStrip.Text = "menuStrip1";
             // 
@@ -1608,80 +1608,91 @@
             // textureEditToolStripMenuItem
             // 
             this.textureEditToolStripMenuItem.Name = "textureEditToolStripMenuItem";
-            this.textureEditToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.textureEditToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.textureEditToolStripMenuItem.Text = "&Texture edit...";
             this.textureEditToolStripMenuItem.Click += new System.EventHandler(this.textureEditToolStripMenuItem_Click);
             // 
             // segmentEditToolStripMenuItem
             // 
             this.segmentEditToolStripMenuItem.Name = "segmentEditToolStripMenuItem";
-            this.segmentEditToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.segmentEditToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.segmentEditToolStripMenuItem.Text = "&Segment edit...";
+            this.segmentEditToolStripMenuItem.Click += new System.EventHandler(this.segmentEditToolStripMenuItem_Click);
             // 
             // wallEditToolStripMenuItem
             // 
             this.wallEditToolStripMenuItem.Name = "wallEditToolStripMenuItem";
-            this.wallEditToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.wallEditToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.wallEditToolStripMenuItem.Text = "&Wall edit...";
+            this.wallEditToolStripMenuItem.Click += new System.EventHandler(this.wallEditToolStripMenuItem_Click);
             // 
             // triggerEditToolStripMenuItem
             // 
             this.triggerEditToolStripMenuItem.Name = "triggerEditToolStripMenuItem";
-            this.triggerEditToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.triggerEditToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.triggerEditToolStripMenuItem.Text = "Tr&igger edit...";
+            this.triggerEditToolStripMenuItem.Click += new System.EventHandler(this.triggerEditToolStripMenuItem_Click);
             // 
             // objectEditToolStripMenuItem
             // 
             this.objectEditToolStripMenuItem.Name = "objectEditToolStripMenuItem";
-            this.objectEditToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.objectEditToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.objectEditToolStripMenuItem.Text = "&Object edit...";
+            this.objectEditToolStripMenuItem.Click += new System.EventHandler(this.objectEditToolStripMenuItem_Click);
             // 
             // effectEditToolStripMenuItem
             // 
             this.effectEditToolStripMenuItem.Name = "effectEditToolStripMenuItem";
-            this.effectEditToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.effectEditToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.effectEditToolStripMenuItem.Text = "&Effect edit...";
+            this.effectEditToolStripMenuItem.Click += new System.EventHandler(this.effectEditToolStripMenuItem_Click);
             // 
             // lightAdjustmentToolStripMenuItem
             // 
             this.lightAdjustmentToolStripMenuItem.Name = "lightAdjustmentToolStripMenuItem";
-            this.lightAdjustmentToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.lightAdjustmentToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.lightAdjustmentToolStripMenuItem.Text = "&Light adjustment...";
+            this.lightAdjustmentToolStripMenuItem.Click += new System.EventHandler(this.lightAdjustmentToolStripMenuItem_Click);
             // 
             // reactorTriggersToolStripMenuItem
             // 
             this.reactorTriggersToolStripMenuItem.Name = "reactorTriggersToolStripMenuItem";
-            this.reactorTriggersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.reactorTriggersToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.reactorTriggersToolStripMenuItem.Text = "&Reactor triggers...";
+            this.reactorTriggersToolStripMenuItem.Click += new System.EventHandler(this.reactorTriggersToolStripMenuItem_Click);
             // 
             // missionEditToolStripMenuItem
             // 
             this.missionEditToolStripMenuItem.Name = "missionEditToolStripMenuItem";
-            this.missionEditToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.missionEditToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.missionEditToolStripMenuItem.Text = "&Mission edit ...";
+            this.missionEditToolStripMenuItem.Click += new System.EventHandler(this.missionEditToolStripMenuItem_Click);
             // 
             // diagnosisToolStripMenuItem
             // 
             this.diagnosisToolStripMenuItem.Name = "diagnosisToolStripMenuItem";
-            this.diagnosisToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.diagnosisToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.diagnosisToolStripMenuItem.Text = "&Diagnosis ...";
+            this.diagnosisToolStripMenuItem.Click += new System.EventHandler(this.diagnosisToolStripMenuItem_Click);
             // 
             // texturefiltersToolStripMenuItem
             // 
             this.texturefiltersToolStripMenuItem.Name = "texturefiltersToolStripMenuItem";
-            this.texturefiltersToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.texturefiltersToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.texturefiltersToolStripMenuItem.Text = "Texture &filters ...";
+            this.texturefiltersToolStripMenuItem.Click += new System.EventHandler(this.texturefiltersToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.settingsToolStripMenuItem.Text = "&Settings ...";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // curveGeneratorToolStripMenuItem
             // 
             this.curveGeneratorToolStripMenuItem.Name = "curveGeneratorToolStripMenuItem";
-            this.curveGeneratorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.curveGeneratorToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.curveGeneratorToolStripMenuItem.Text = "Curve &Generator...";
             // 
             // helpToolStripMenuItem
@@ -1749,7 +1760,7 @@
             this.mainToolStrip.Location = new System.Drawing.Point(0, 24);
             this.mainToolStrip.Name = "mainToolStrip";
             this.mainToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.mainToolStrip.Size = new System.Drawing.Size(1204, 25);
+            this.mainToolStrip.Size = new System.Drawing.Size(1424, 25);
             this.mainToolStrip.TabIndex = 1;
             this.mainToolStrip.Text = "toolStrip1";
             // 
@@ -2140,7 +2151,7 @@
             this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainPanel.Location = new System.Drawing.Point(0, 49);
             this.mainPanel.Name = "mainPanel";
-            this.mainPanel.Size = new System.Drawing.Size(1204, 830);
+            this.mainPanel.Size = new System.Drawing.Size(1424, 657);
             this.mainPanel.TabIndex = 1;
             // 
             // statusStrip
@@ -2151,9 +2162,9 @@
             this.toolStripStatusLabelAction,
             this.toolStripStatusLabelInsertMode,
             this.toolStripStatusLabelSelectMode});
-            this.statusStrip.Location = new System.Drawing.Point(0, 879);
+            this.statusStrip.Location = new System.Drawing.Point(0, 706);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(1204, 22);
+            this.statusStrip.Size = new System.Drawing.Size(1424, 22);
             this.statusStrip.TabIndex = 1;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -2191,7 +2202,7 @@
             this.toolStripStatusLabelAction.BorderStyle = System.Windows.Forms.Border3DStyle.Etched;
             this.toolStripStatusLabelAction.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripStatusLabelAction.Name = "toolStripStatusLabelAction";
-            this.toolStripStatusLabelAction.Size = new System.Drawing.Size(364, 17);
+            this.toolStripStatusLabelAction.Size = new System.Drawing.Size(584, 17);
             this.toolStripStatusLabelAction.Spring = true;
             this.toolStripStatusLabelAction.Text = "action";
             this.toolStripStatusLabelAction.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -2226,7 +2237,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1204, 901);
+            this.ClientSize = new System.Drawing.Size(1424, 728);
             this.Controls.Add(this.mainPanel);
             this.Controls.Add(this.mainToolStrip);
             this.Controls.Add(this.mainMenuStrip);

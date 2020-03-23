@@ -1,5 +1,9 @@
-﻿using EditorUITest.Dialogs;
+﻿using EditorUITest.Data;
+using EditorUITest.Dialogs;
 using EditorUITest.Editor;
+using EditorUITest.Editor.Layouts;
+using EditorUITest.Editor.Layouts.Floating;
+using EditorUITest.Editor.Layouts.Vertical;
 using EditorUITest.Util;
 using System;
 using System.Collections.Generic;
@@ -21,17 +25,17 @@ namespace EditorUITest
          *    perhaps the tool strip buttons Click events should just use the menu item click events too
          * 
          *  TODO:
-         *    - port object advanced tab
-         *    - port effect tab
-         *    - port vertical/floating UIs
+         *    - binding system, testing, more examples
          *    - icons
+         *    - .NET Core port
          * 
          */
-        private LayoutOrientation _activeLayout = LayoutOrientation.HORIZONTAL; // see Load below for actual default
+        private LayoutOrientation _activeLayout;
         private MainView _activeMainView = null;
         private MineView mineView = new MineView();
         private TextureList textureList = new TextureList();
         private EditorTabs editorTabs = new EditorTabs();
+        public EditorState EditorState { get; } = new EditorState();
 
         public EditorWindow()
         {
@@ -40,7 +44,8 @@ namespace EditorUITest
 
         private void EditorWindow_Load(object sender, EventArgs e)
         {
-            ActiveLayout = LayoutOrientation.HORIZONTAL;
+            editorTabs.SelfTest(); // must be called before assigning layout!!!
+            ActiveLayout = LayoutOrientation.VERTICAL_SS;
             //new TestForm().Show(this);
         }
 
@@ -146,11 +151,11 @@ namespace EditorUITest
 
         private Control GetActiveControl()
         {
-            Control c = this.ActiveControl;
-            while (c is ContainerControl)
+            Control c = this;
+            do
             {
                 c = ((ContainerControl)c).ActiveControl;
-            }
+            } while (c is ContainerControl);
             return c;
         }
 
@@ -289,10 +294,18 @@ namespace EditorUITest
         #endregion
 
         #region --- Events for the Tools menu
-        private void textureEditToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            EditorTabs.ShowTab(this, editorTabs.Textures);
-        }
+        private void textureEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Textures);
+        private void segmentEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Segments);
+        private void wallEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Walls);
+        private void triggerEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Triggers);
+        private void objectEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Objects);
+        private void effectEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Effects);
+        private void lightAdjustmentToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Lights);
+        private void reactorTriggersToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Reactor);
+        private void missionEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Mission);
+        private void diagnosisToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Diagnostics);
+        private void texturefiltersToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.TextureFilters);
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Settings);
         #endregion
 
         #region --- Events for the Help menu

@@ -46,6 +46,7 @@
             // 
             this.levelnameTextBox.Location = new System.Drawing.Point(12, 21);
             this.levelnameTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.levelnameTextBox.MaxLength = 35;
             this.levelnameTextBox.Name = "levelnameTextBox";
             this.levelnameTextBox.Size = new System.Drawing.Size(240, 20);
             this.levelnameTextBox.TabIndex = 0;
