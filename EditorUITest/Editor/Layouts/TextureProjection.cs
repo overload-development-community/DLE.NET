@@ -14,23 +14,14 @@ namespace EditorUITest.Editor.Layouts
     {
         public TextureProjection()
         {
-            InitializeLayout();
-        }
-
-        public void InitializeLayout()
-        {
-            this.Controls.Clear();
             InitializeComponent();
         }
 
-        public override void OnLayoutUpdate()
-        {
-            InitializeLayout();
-        }
+        internal override void InitializeLayoutInternal() => InitializeComponent();
 
-        public override void SelfTest()
+        public override Type PickLayout(LayoutOrientation layout)
         {
-            DoSelfTestFor();
+            return null;
         }
     }
 }

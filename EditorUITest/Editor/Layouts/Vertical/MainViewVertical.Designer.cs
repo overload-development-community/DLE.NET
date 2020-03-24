@@ -87,7 +87,7 @@
             // 
             this.splitContainerTexture.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.splitContainerTexture.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainerTexture.FixedPanel = System.Windows.Forms.FixedPanel.Panel2;
+            this.splitContainerTexture.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainerTexture.Location = new System.Drawing.Point(0, 0);
             this.splitContainerTexture.Name = "splitContainerTexture";
             // 

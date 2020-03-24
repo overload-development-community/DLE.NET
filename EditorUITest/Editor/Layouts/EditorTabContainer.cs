@@ -12,11 +12,6 @@ namespace EditorUITest.Editor.Layouts
 {
     public partial class EditorTabContainer : UserControl
     {
-        public EditorTabContainer()
-        {
-            InitializeComponent();
-        }
-
         /*
          * 
          * NOTE: This is only the container. The actual tab contents
@@ -28,5 +23,22 @@ namespace EditorUITest.Editor.Layouts
          * 
          * 
          */
+
+        public EditorTabContainer()
+        {
+            InitializeComponent();
+        }
+
+        public int SelectedTab
+        {
+            get
+            {
+                return this.editorTabControl.SelectedIndex;
+            }
+            set
+            {
+                this.editorTabControl.SelectedIndex = value;
+            }
+        }
     }
 }

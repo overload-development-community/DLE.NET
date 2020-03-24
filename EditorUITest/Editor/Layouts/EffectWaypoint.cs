@@ -15,30 +15,21 @@ namespace EditorUITest.Editor.Layouts
     {
         public EffectWaypoint()
         {
-            InitializeLayout();
+            InitializeComponent();
         }
 
-        public void InitializeLayout()
+        internal override void InitializeLayoutInternal() => InitializeComponent();
+
+        public override Type PickLayout(LayoutOrientation layout)
         {
-            this.Controls.Clear();
-            InitializeComponent();
-            switch (this.DialogLayout)
+            switch (layout)
             {
                 case LayoutOrientation.VERTICAL:
                 case LayoutOrientation.VERTICAL_SS:
-                    this.CopyLayout(typeof(VerticalEffectWaypoint));
-                    break;
+                case LayoutOrientation.FLOATING:
+                    return typeof(VerticalEffectWaypoint);
             }
-        }
-
-        public override void OnLayoutUpdate()
-        {
-            InitializeLayout();
-        }
-
-        public override void SelfTest()
-        {
-            DoSelfTestFor(typeof(VerticalEffectWaypoint));
+            return null;
         }
     }
 }

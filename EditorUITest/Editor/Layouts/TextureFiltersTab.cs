@@ -16,33 +16,22 @@ namespace EditorUITest.Editor.Layouts
     {
         public TextureFiltersTab()
         {
-            InitializeLayout();
+            InitializeComponent();
         }
 
-        public void InitializeLayout()
+        internal override void InitializeLayoutInternal() => InitializeComponent();
+
+        public override Type PickLayout(LayoutOrientation layout)
         {
-            this.Controls.Clear();
-            InitializeComponent();
-            switch (this.DialogLayout)
+            switch (layout)
             {
                 case LayoutOrientation.VERTICAL:
                 case LayoutOrientation.VERTICAL_SS:
-                    this.CopyLayout(typeof(VerticalTextureFiltersTab));
-                    break;
+                    return typeof(VerticalTextureFiltersTool);
                 case LayoutOrientation.FLOATING:
-                    this.CopyLayout(typeof(FloatingTextureFiltersTab));
-                    break;
+                    return typeof(FloatingTextureFiltersTool);
             }
-        }
-
-        public override void OnLayoutUpdate()
-        {
-            InitializeLayout();
-        }
-
-        public override void SelfTest()
-        {
-            DoSelfTestFor(typeof(VerticalTextureFiltersTab), typeof(FloatingTextureFiltersTab));
+            return null;
         }
     }
 }

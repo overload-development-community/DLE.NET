@@ -34,23 +34,26 @@ namespace EditorUITest
         private MainView _activeMainView = null;
         private MineView mineView = new MineView();
         private TextureList textureList = new TextureList();
-        private EditorTabs editorTabs = new EditorTabs();
-        public EditorState EditorState { get; } = new EditorState();
+        private EditorTools editorTabs = new EditorTools();
+        public EditorState EditorState { get; }
 
         public EditorWindow()
         {
             InitializeComponent();
+            EditorState = new EditorState(this);
         }
 
         private void EditorWindow_Load(object sender, EventArgs e)
         {
+#if DEBUG
             editorTabs.SelfTest(); // must be called before assigning layout!!!
-            ActiveLayout = LayoutOrientation.VERTICAL_SS;
-            //new TestForm().Show(this);
+            new TestForm() { EditorWindow = this, EditorState = this.EditorState }.Show(this);
+#endif
+            ActiveLayout = LayoutOrientation.VERTICAL;
         }
 
         #region --- Layout handling code
-        private LayoutOrientation ActiveLayout
+        internal LayoutOrientation ActiveLayout
         {
             get
             {
@@ -78,11 +81,15 @@ namespace EditorUITest
 
         private void UpdateLayoutMainView()
         {
-            // create new MainView for selected layout
-            mainPanel.SuspendLayout();
+            MainView newMainView;
+            int selectedTab = -1;
+
+            if (_activeMainView?.GetEditorTabs() != null)
+            {
+                selectedTab = _activeMainView.GetEditorTabs().SelectedTab;
+            }
 
             mainPanel.Controls.Clear();
-            MainView newMainView;
 
             switch (_activeLayout)
             {
@@ -101,12 +108,10 @@ namespace EditorUITest
                     break;
             }
 
-            if (_activeMainView != null)
-            {
-                _activeMainView.Dispose();
-            }
+            newMainView.CreateControl();
             mainPanel.Controls.Add(newMainView);
             newMainView.Dock = DockStyle.Fill;
+            newMainView.Size = mainPanel.ClientSize;
 
             EditorTabContainer editorTabContainer = newMainView.GetEditorTabs();
             if (editorTabContainer == null)
@@ -115,10 +120,16 @@ namespace EditorUITest
             }
             else
             {
+                if (selectedTab >= 0) editorTabContainer.SelectedTab = selectedTab;
                 editorTabs.AttachToContainer(_activeLayout, editorTabContainer);
             }
-            
-            mainPanel.ResumeLayout(false);
+
+            if (_activeMainView != null)
+            {
+                _activeMainView.Dispose();
+            }
+            ActiveMainView = newMainView;
+            mainPanel.PerformLayout();
         }
 
         private void OnMainViewUpdate(MainView newMainView, MainView oldMainView)
@@ -143,13 +154,13 @@ namespace EditorUITest
         #endregion
 
         #region --- Handling key events (those not handled by ShortcutKeys)
-        private bool FocusedOnTypable()
+        public bool FocusedOnTypable()
         {
             Control active = GetActiveControl();
             return ControlUtilities.IsTypableControl(active);
         }
 
-        private Control GetActiveControl()
+        public Control GetActiveControl()
         {
             Control c = this;
             do
@@ -294,18 +305,18 @@ namespace EditorUITest
         #endregion
 
         #region --- Events for the Tools menu
-        private void textureEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Textures);
-        private void segmentEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Segments);
-        private void wallEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Walls);
-        private void triggerEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Triggers);
-        private void objectEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Objects);
-        private void effectEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Effects);
-        private void lightAdjustmentToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Lights);
-        private void reactorTriggersToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Reactor);
-        private void missionEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Mission);
-        private void diagnosisToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Diagnostics);
-        private void texturefiltersToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.TextureFilters);
-        private void settingsToolStripMenuItem_Click(object sender, EventArgs e) => EditorTabs.ShowTab(this, editorTabs.Settings);
+        private void textureEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Textures);
+        private void segmentEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Segments);
+        private void wallEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Walls);
+        private void triggerEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Triggers);
+        private void objectEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Objects);
+        private void effectEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Effects);
+        private void lightAdjustmentToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Lights);
+        private void reactorTriggersToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Reactor);
+        private void missionEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Mission);
+        private void diagnosisToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Diagnostics);
+        private void texturefiltersToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.TextureFilters);
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Settings);
         #endregion
 
         #region --- Events for the Help menu

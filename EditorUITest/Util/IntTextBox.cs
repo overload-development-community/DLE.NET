@@ -11,7 +11,7 @@ using System.Windows.Forms;
 namespace EditorUITest
 {
     [System.ComponentModel.DesignerCategory("Code")]
-    public class IntTextBox : TextBox
+    public class IntTextBox : TextBox, IValidatable
     {
         private int _value;
         private int _minValue = int.MinValue;
@@ -40,7 +40,9 @@ namespace EditorUITest
             set
             {
                 int bounded = Math.Max(Math.Min(value, this.MaximumValue), this.MinimumValue);
+                this.TextChanged -= IntTextBox_removenonint; // disable event temporarily; optimization
                 this.Text = bounded.ToString();
+                this.TextChanged += IntTextBox_removenonint;
                 bool callEvent = _value != bounded;
                 _value = bounded;
                 if (callEvent) ValueChanged?.Invoke(this, new EventArgs());
@@ -87,7 +89,7 @@ namespace EditorUITest
             }
         }
 
-        private void IntTextBox_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        public void Validate()
         {
             if (this.Text == "")
                 this.Text = "0";
@@ -99,6 +101,11 @@ namespace EditorUITest
             {
                 this.Value = 0;
             }
+        }
+
+        private void IntTextBox_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Validate();
         }
 
         private void IntTextBox_removenonint(object sender, EventArgs e)

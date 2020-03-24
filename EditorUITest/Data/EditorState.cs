@@ -9,6 +9,17 @@ namespace EditorUITest.Data
 {
     public class EditorState : ChangeableState
     {
+        public EditorState(object owner) : base()
+        {
+            Owner = owner;
+        }
+
+        /// <summary>
+        /// The object that owns this EditorState. In the Windows Forms
+        /// interface, this is the EditorWindow.
+        /// </summary>
+        public object Owner { get; } = null;
+
         /// <summary>
         /// The currently opened level.
         /// </summary>
@@ -33,7 +44,7 @@ namespace EditorUITest.Data
             }
         }
 
-        public int Temp
+        public uint Temp
         {
             get => _tmp;
             set
@@ -43,7 +54,7 @@ namespace EditorUITest.Data
             }
         }
 
-        private int _tmp = 1337;
+        private uint _tmp = 1337;
 
         private Level _currentLevel = null;
         private Segment _selectedSegment = null;

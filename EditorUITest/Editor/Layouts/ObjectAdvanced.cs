@@ -15,31 +15,21 @@ namespace EditorUITest.Editor.Layouts
     {
         public ObjectAdvanced()
         {
-            InitializeLayout();
+            InitializeComponent();
         }
 
-        public void InitializeLayout()
+        internal override void InitializeLayoutInternal() => InitializeComponent();
+
+        public override Type PickLayout(LayoutOrientation layout)
         {
-            this.Controls.Clear();
-            InitializeComponent();
-            switch (this.DialogLayout)
+            switch (layout)
             {
-                case LayoutOrientation.FLOATING:
                 case LayoutOrientation.VERTICAL:
                 case LayoutOrientation.VERTICAL_SS:
-                    this.CopyLayout(typeof(VerticalObjectAdvanced));
-                    break;
+                case LayoutOrientation.FLOATING:
+                    return typeof(VerticalObjectAdvanced);
             }
-        }
-
-        public override void OnLayoutUpdate()
-        {
-            InitializeLayout();
-        }
-
-        public override void SelfTest()
-        {
-            DoSelfTestFor(typeof(VerticalObjectAdvanced));
+            return null;
         }
     }
 }

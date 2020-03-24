@@ -15,31 +15,21 @@ namespace EditorUITest.Editor.Layouts
     {
         public PreferencesRenderer()
         {
-            InitializeLayout();
+            InitializeComponent();
         }
 
-        public void InitializeLayout()
+        internal override void InitializeLayoutInternal() => InitializeComponent();
+
+        public override Type PickLayout(LayoutOrientation layout)
         {
-            this.Controls.Clear();
-            InitializeComponent();
-            switch (this.DialogLayout)
+            switch (layout)
             {
                 case LayoutOrientation.VERTICAL:
                 case LayoutOrientation.VERTICAL_SS:
                 case LayoutOrientation.FLOATING:
-                    this.CopyLayout(typeof(VerticalPreferencesRenderer));
-                    break;
+                    return typeof(VerticalPreferencesRenderer);
             }
-        }
-
-        public override void OnLayoutUpdate()
-        {
-            InitializeLayout();
-        }
-
-        public override void SelfTest()
-        {
-            DoSelfTestFor(typeof(VerticalPreferencesRenderer));
+            return null;
         }
 
         private void prefsViewdistTrackBar_ValueChanged(object sender, EventArgs e)

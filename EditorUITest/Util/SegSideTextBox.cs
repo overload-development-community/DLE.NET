@@ -11,9 +11,23 @@ using System.Windows.Forms;
 namespace EditorUITest
 {
     [System.ComponentModel.DesignerCategory("Code")]
-    public class SegSideTextBox : TextBox
+    public class SegSideTextBox : TextBox, IValidatable
     {
         private SegmentSide _res;
+
+        /// <summary>
+        /// Whether the side is zero-based for this control (0-5 as opposed to 1-6).
+        /// </summary>
+        [Bindable(true)]
+        [Browsable(true)]
+        [Category("Behavior")]
+        [DefaultValue(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Description("Whether the side is zero-based for this control (0-5 as opposed to 1-6).")]
+        public bool ZeroBased { get; set; } = false;
+
+        public int MaxSegmentCount { get; set; } = 0;
+
         public SegSideTextBox() : base()
         {
             this.TextChanged += SegSideTextBox_removenonint;
@@ -33,6 +47,11 @@ namespace EditorUITest
 
         private void SegSideTextBox_Validating(object sender, System.ComponentModel.CancelEventArgs e)
         {
+            Validate();
+        }
+
+        public void Validate()
+        {
             this._res = ParseSegmentSide(this.Text);
         }
 
@@ -49,9 +68,9 @@ namespace EditorUITest
             {
                 if (uint.TryParse(commaSplit[0], out uint seg) && uint.TryParse(commaSplit[1], out uint side))
                 {
-                    ss.Valid = true; // TODO: true only if segment and side within bounds
                     ss.Segment = seg;
                     ss.Side = side;
+                    ss.Valid = (ZeroBased ? 0 <= side && side <= 5 : 1 <= side && side <= 6) && seg < MaxSegmentCount;
                 }
             }
 

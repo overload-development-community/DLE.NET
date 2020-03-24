@@ -14,6 +14,29 @@ namespace EditorUITest.Util
             return control is TextBox || control is ComboBox || control is ListBox;
         }
 
+        public static void ForceValidate(Control control, Control scapegoat)
+        {
+#if DEBUG
+            bool wasValidated = false;
+            EventHandler eh = (object sender, EventArgs e) =>
+            {
+                wasValidated = true;
+            };
+            control.Validated += eh;
+#endif
+            // jump focus back and forth to force validation on original control
+            scapegoat.Parent?.SuspendLayout();
+            scapegoat.Visible = scapegoat.TabStop = true;
+            scapegoat.Focus();
+            control.Focus();
+            scapegoat.Visible = scapegoat.TabStop = false;
+            scapegoat.Parent?.ResumeLayout(false);
+#if DEBUG
+            control.Validated -= eh;
+            System.Diagnostics.Debug.Assert(wasValidated, "ForceValidate should cause validation in control, but it isn't working properly");
+#endif
+        }
+
         internal static void SafeUp(Control control)
         {
             if (control is SparseTrackBar)

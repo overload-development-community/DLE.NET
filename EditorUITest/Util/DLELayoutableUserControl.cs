@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,7 +14,9 @@ namespace EditorUITest
 {
     public class DLELayoutableUserControl : DLEUserControl
     {
+        private static readonly bool OnWindows = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
         private LayoutOrientation _layout = LayoutOrientation.HORIZONTAL;
+        private bool firstUpdate = true;
         public LayoutOrientation DialogLayout
         {
             get
@@ -35,28 +39,61 @@ namespace EditorUITest
 
         public virtual void OnLayoutUpdate()
         {
-            throw new NotImplementedException("User controls with logic must reimplement OnLayoutUpdate. This is a coding error");
+            InitializeLayout();
         }
 
-        public virtual void SelfTest()
+        /// <summary>
+        /// Selects an alternative layout based on the given layout setting. Return null if the default layout should be used.
+        /// </summary>
+        /// <param name="layout">The current layout setting.</param>
+        /// <returns></returns>
+        public virtual Type PickLayout(LayoutOrientation layout)
         {
-            throw new NotImplementedException("User controls with logic must reimplement SelfTest and call DoSelfTestFor with appropriate alternative layouts. This is a coding error");
+            throw new NotImplementedException("User controls with logic must reimplement PickLayout. This is a coding error");
+        }
+
+        internal virtual void InitializeLayoutInternal()
+        {
+            throw new NotImplementedException("User controls with logic must reimplement InitializeLayoutInternal. This is a coding error");
+        }
+
+        #region --- layout management code
+
+        public void InitializeLayout()
+        {
+            if (!firstUpdate)
+            {
+                this.Controls.Clear();
+                InitializeLayoutInternal();
+            }
+            Type altLayout = PickLayout(this.DialogLayout);
+            if (altLayout != null)
+                CopyLayout(altLayout);
+            firstUpdate = false;
+        }
+
+        public void SelfTest()
+        {
+            ISet<Type> altLayouts = new HashSet<Type>();
+            Type altLayout;
+            foreach (LayoutOrientation opt in Enum.GetValues(typeof(LayoutOrientation)))
+            {
+                altLayout = PickLayout(opt);
+                if (altLayout != null)
+                    altLayouts.Add(altLayout);
+            }
+            DoSelfTestFor(altLayouts);
         }
 
         private void UnwindGroupBoxes(GroupBox delete, ControlCollection controls)
         {
-            if (delete != null)
-            {
-                delete.SuspendLayout();
-            }
-
             List<Control> controls_ = new List<Control>();
             controls_.AddRange(controls.OfType<Control>());
             foreach (Control c in controls_)
             {
                 if (delete != null)
                 {
-                    delete.Controls.Remove(c);
+                    //delete.Controls.Remove(c);
                     this.Controls.Add(c);
                 }
 
@@ -68,7 +105,7 @@ namespace EditorUITest
 
             if (delete != null)
             {
-                delete.ResumeLayout(false);
+                delete.Controls.Clear();
                 this.Controls.Remove(delete);
             }
         }
@@ -78,6 +115,7 @@ namespace EditorUITest
             UnwindGroupBoxes(null, Controls);
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void CopyPropertyIfExists(Control target, Control source, string property)
         {
             PropertyInfo targetProperty = target.GetType().GetProperty(property);
@@ -89,6 +127,7 @@ namespace EditorUITest
             }
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private void SetDialogLayout(DLELayoutableUserControl target, LayoutOrientation dialogLayout)
         {
             string controlName = target.Name;
@@ -111,6 +150,7 @@ namespace EditorUITest
                 CopyPropertyIfExists(target, source, "Text");
         }
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private GroupBox CloneGroupBox(GroupBox source)
         {
             GroupBox target = (GroupBox) Activator.CreateInstance(source.GetType());
@@ -130,9 +170,6 @@ namespace EditorUITest
                     GroupBox oldBox = (GroupBox)c;
                     GroupBox newBox = CloneGroupBox(oldBox);
 
-                    oldBox.SuspendLayout();
-                    newBox.SuspendLayout();
-
                     List<Control> children = CopyLayoutControls(oldBox.Controls);
 
                     foreach (Control c2 in children)
@@ -143,9 +180,6 @@ namespace EditorUITest
 
                     this.Controls.Add(newBox);
                     results.Add(newBox);
-
-                    oldBox.ResumeLayout(false);
-                    newBox.ResumeLayout(false);
                 }
                 else
                 {
@@ -166,7 +200,6 @@ namespace EditorUITest
                                     TabPage targetPage = target.TabPages[i];
                                     TabPage sourcePage = source.TabPages[i];
 
-                                    targetPage.SuspendLayout();
                                     source.SelectTab(i);
 
                                     List<Control> children = CopyLayoutControls(sourcePage.Controls);
@@ -179,8 +212,6 @@ namespace EditorUITest
                                             targetPage.Controls.Add(c2);
                                         }
                                     }
-                                    
-                                    targetPage.ResumeLayout(false);
                                 }
                             }
                             else
@@ -196,32 +227,53 @@ namespace EditorUITest
             return results;
         }
 
-        private Scapegoat CreateScapegoat(UserControl uc)
+        private readonly Scapegoat scapegoat = new Scapegoat() { Name = "Scapegoat" };
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void AddToScapegoat(UserControl uc)
         {
             // this creates an invisible form that hosts the user control and shows it
             // to make sure the Visible property works correctly
-            if (DesignMode) return null;
+            if (DesignMode) return;
 
-            Scapegoat f = new Scapegoat();
-            f.Name = "Scapegoat";
-            f.Controls.Add(uc);
+            scapegoat.Controls.Add(uc);
             uc.Show();
-            return f;
         }
 
-        private void DestroyScapegoat(Scapegoat f)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private void ClearScapegoat()
         {
-            if (f != null)
+            scapegoat.Controls.Clear();
+        }
+
+        private const int WM_SETREDRAW = 0x000B;
+
+        private void SuspendLayoutDraw(Control c)
+        {
+            if (OnWindows)
             {
-                f.Dispose();
+                Message msg = Message.Create(c.Handle, WM_SETREDRAW, IntPtr.Zero,  IntPtr.Zero);
+                NativeWindow window = NativeWindow.FromHandle(c.Handle);
+                window.DefWndProc(ref msg);
             }
+        }
+
+        private void ResumeLayoutDraw(Control c)
+        {
+            if (OnWindows)
+            {
+                Message msg = Message.Create(c.Handle, WM_SETREDRAW, new IntPtr(1), IntPtr.Zero);
+                NativeWindow window = NativeWindow.FromHandle(c.Handle);
+                window.DefWndProc(ref msg);
+            }
+            c.Refresh();
         }
 
         protected void CopyLayout(Type alternativeLayout)
         {
             if (typeof(AlternativeLayoutUserControl).IsAssignableFrom(alternativeLayout))
             {
-                this.SuspendLayout();
+                SuspendLayoutDraw(this);
 
                 // remove group boxes in this control, but dump their child controls
                 // back into the form (we don't want them gone)
@@ -229,15 +281,17 @@ namespace EditorUITest
 
                 // initialize instance of alternative layout
                 UserControl control = (UserControl) Activator.CreateInstance(alternativeLayout);
-                Scapegoat f = CreateScapegoat(control);
+                AddToScapegoat(control);
 
                 this.Size = control.Size;
 
                 // copy controls over
                 CopyLayoutControls(control.Controls);
 
-                DestroyScapegoat(f);
-                this.ResumeLayout(false);
+                ClearScapegoat();
+                this.PerformLayout();
+
+                ResumeLayoutDraw(this);
             }
             else
             {
@@ -246,6 +300,10 @@ namespace EditorUITest
                     this.Name + " to make sure they are copying from the correct class.");
             }
         }
+
+        #endregion
+
+        #region --- self test code
 
         private bool ExcludeControl(Control control)
         {
@@ -314,13 +372,16 @@ namespace EditorUITest
             SelfTest();
         }
 
-        protected void DoSelfTestFor(params Type[] altLayouts)
+        protected void DoSelfTestFor(IEnumerable<Type> altLayouts)
         {
             foreach (Type control in altLayouts)
             {
                 DoSelfTestForLayout(control);
             }
         }
+#endregion
+
+        #region --- unused
 
         /*
         private string VisSeq(Control c)
@@ -340,15 +401,16 @@ namespace EditorUITest
             if (!source.Visible && source is LayoutableUserControl)
                 throw new ArgumentException("Visible was unexpectedly false (" + VisSeq(source) + ")");
         */
+        #endregion
     }
 
+    // a control that always feigns being visible
     internal class Scapegoat : Control
     {
         public Scapegoat() : base()
         {
             this.Visible = true;
             this.CreateHandle();
-            System.Diagnostics.Debug.Assert(this.Visible);
         }
     }
 

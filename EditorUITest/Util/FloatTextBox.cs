@@ -11,7 +11,7 @@ using System.Windows.Forms;
 namespace EditorUITest
 {
     [System.ComponentModel.DesignerCategory("Code")]
-    public class FloatTextBox : TextBox
+    public class FloatTextBox : TextBox, IValidatable
     {
         private double _value;
         private double _minValue = Double.NegativeInfinity;
@@ -44,7 +44,9 @@ namespace EditorUITest
                 {
                     bounded = 0;
                 }
-                this.Text = bounded.ToString("F" + FractionalDigits);
+                this.TextChanged -= FloatTextBox_removenonfloat; // disable event temporarily; optimization
+                this.Text = bounded.ToString("F" + FractionalDigits, System.Globalization.CultureInfo.InvariantCulture);
+                this.TextChanged += FloatTextBox_removenonfloat;
                 bool callEvent = _value != bounded;
                 _value = bounded;
                 if (callEvent) ValueChanged?.Invoke(this, new EventArgs());
@@ -99,7 +101,7 @@ namespace EditorUITest
         [Description("The number of fractional digits to show.")]
         public uint FractionalDigits { get; set; } = 2;
 
-        private void FloatTextBox_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        public void Validate()
         {
             if (this.Text == "")
                 this.Text = "0.00";
@@ -111,6 +113,11 @@ namespace EditorUITest
             {
                 this.Value = 0;
             }
+        }
+
+        private void FloatTextBox_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            Validate();
         }
 
         private void FloatTextBox_removenonfloat(object sender, EventArgs e)

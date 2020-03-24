@@ -16,31 +16,21 @@ namespace EditorUITest.Editor.Layouts
     {
         public EffectFog()
         {
-            InitializeLayout();
+            InitializeComponent();
         }
 
-        public void InitializeLayout()
+        internal override void InitializeLayoutInternal() => InitializeComponent();
+
+        public override Type PickLayout(LayoutOrientation layout)
         {
-            this.Controls.Clear();
-            InitializeComponent();
-            switch (this.DialogLayout)
+            switch (layout)
             {
                 case LayoutOrientation.VERTICAL:
                 case LayoutOrientation.VERTICAL_SS:
                 case LayoutOrientation.FLOATING:
-                    this.CopyLayout(typeof(VerticalEffectFog));
-                    break;
+                    return typeof(VerticalEffectFog);
             }
-        }
-
-        public override void OnLayoutUpdate()
-        {
-            InitializeLayout();
-        }
-
-        public override void SelfTest()
-        {
-            DoSelfTestFor(typeof(VerticalEffectFog));
+            return null;
         }
     }
 }
