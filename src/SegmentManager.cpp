@@ -1,6 +1,7 @@
 // Segment.cpp
 
 #include "stdafx.h"
+#include "SegmentManager.h"
 
 CSegmentManager segmentManager;
 
@@ -52,6 +53,16 @@ return -Normal (*(pSegment->Vertex (key.m_nSide, 0)), *(pSegment->Vertex (key.m_
 // Returns - TRUE on success
 // ------------------------------------------------------------------------------ 
 
+CSide _const_* CSegmentManager::Side(CSideKey key) {
+	current->Get(key);
+	return m_segments[key.m_nSegment].m_sides + key.m_nSide;
+}
+
+void CSegmentManager::PutSide(CSideKey key, CSide& side) {
+	current->Get(key);
+	m_segments[key.m_nSegment].m_sides[key.m_nSide] = side;
+}
+
 CSide _const_ * CSegmentManager::BackSide (CSideKey key, CSideKey& back)
 {
 current->Get (key); 
@@ -76,6 +87,18 @@ return null;
 }
 
 // -----------------------------------------------------------------------------
+
+
+//inline CWall* Wall (short nSegment = -1, short nSide = -1) {
+
+CWall _const_* CSegmentManager::Wall(CSideKey key) {
+	current->Get(key);
+	CSide _const_* pSide;
+	pSide = Side(key);
+	return pSide->Wall();
+}
+
+CWall _const_* CSegmentManager::Wall(CSideKey* key) { return Wall((key == null) ? *current : *key); }
 
 bool CSegmentManager::IsExit (short nSegment)
 {
@@ -474,6 +497,8 @@ else {
 	}
 undoManager.End (__FUNCTION__);
 }
+
+CTagTunnelStart::CTagTunnelStart() : m_maxAngle(cos(Radians(22.5))), m_pStartSide(current->Side()) {}
 
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------

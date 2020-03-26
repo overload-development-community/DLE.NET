@@ -1,16 +1,6 @@
 #ifndef __vertman_h
 #define __vertman_h
 
-#include "define.h"
-#include "FileManager.h"
-#include "carray.h"
-#include "cstack.h"
-#include "Types.h"
-#include "Selection.h"
-#include "segmentManager.h"
-#include "FreeList.h"
-#include "ItemIterator.h"
-
 //------------------------------------------------------------------------
 
 #define MAX_VERTICES ((theMine == null) ? MAX_VERTICES_D2 : DLE.IsD1File () ? MAX_VERTICES_D1 : DLE.IsStdLevel () ? MAX_VERTICES_D2 : VERTEX_LIMIT)

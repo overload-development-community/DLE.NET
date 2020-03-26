@@ -1,14 +1,6 @@
 #ifndef __trigman_h
 #define __trigman_h
 
-#include "define.h"
-#include "FileManager.h"
-#include "carray.h"
-#include "trigger.h"
-#include "MineInfo.h"
-#include "FreeList.h"
-#include "ItemIterator.h"
-
 //------------------------------------------------------------------------
 
 #define MAX_TRIGGERS	((theMine == null) ? MAX_TRIGGERS_D2 : (DLE.IsD1File () || (DLE.LevelVersion () < 12)) ? MAX_TRIGGERS_D1 : MAX_TRIGGERS_D2)
@@ -57,16 +49,12 @@ class CTriggerManager : public ITriggerManager
 		reactorTriggerList	m_reactorTriggers;
 		CMineItemInfo			m_reactorInfo;
 		CReactorData			m_reactorData;
-		FREELIST(CTrigger)
 
 	public:
 		void ResetInfo (void) {
 			m_info [0].Reset ();
 			m_info [1].Reset ();
 			m_reactorInfo.Reset ();
-#if USE_FREELIST
-			m_free.Reset ();
-#endif
 			}
 
 		inline triggerList& TriggerList (int i) { return m_triggers [i]; }
@@ -162,11 +150,8 @@ class CTriggerManager : public ITriggerManager
 
 		bool HaveResources (void);
 
-#if USE_FREELIST
-		inline bool Full (void) { return m_free.Empty (); }
-#else
 		bool Full (void);
-#endif
+
 		virtual void ReadInfo (IFileManager* fp) { m_info [0].Read (fp); }
 
 		virtual void WriteInfo (IFileManager* fp) { m_info [0].Write (fp); }
@@ -188,9 +173,6 @@ class CTriggerManager : public ITriggerManager
 		CTriggerManager () {
 			ResetInfo ();
 			Clear ();
-#if USE_FREELIST
-			m_free.Create (WallTrigger (0), TRIGGER_LIMIT);
-#endif
 			}
 
 		CTrigger* AddToWall (short nWall, short type, bool bAddWall);

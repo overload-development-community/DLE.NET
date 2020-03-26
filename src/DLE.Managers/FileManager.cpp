@@ -12,6 +12,8 @@ COPYRIGHT 1993-1999 PARALLAX SOFTWARE CORPORATION.  ALL RIGHTS RESERVED.
 */
 
 #include "stdafx.h"
+#include "FileManager.h"
+#include "shlobj.h"
 
 #define INTEL_SHORT
 #define INTEL_INT
@@ -643,7 +645,7 @@ return RunOpenFileDialog (szFilename, cchFilename, &filter, 1, hWnd);
 
 // ----------------------------------------------------------------------------
 
-bool CFileManager::RunMultiOpenDialog (CArray <CString> &filenames, const char *szFilterText, const char *szExt, HWND hWnd)
+bool CFileManager::RunMultiOpenDialog (std::vector<std::string>& filenames, const char *szFilterText, const char *szExt, HWND hWnd)
 {
 	tFileFilter filter = { szFilterText, szExt };
 
@@ -661,10 +663,10 @@ return RunSaveFileDialog (szFilename, cchFilename, &filter, 1, hWnd);
 
 // ----------------------------------------------------------------------------
 
-size_t ConstructFilter (char *szFilter, const size_t cchFilter, const CString &filterText, const CString &filterExts)
+size_t ConstructFilter (char *szFilter, const size_t cchFilter, const std::string& filterText, const std::string& filterExts)
 {
-	const int extOffset = filterText.GetLength () + 1;
-	const int filterLength = filterText.GetLength () + filterExts.GetLength () + 2;
+	const int extOffset = filterText.length() + 1;
+	const int filterLength = filterText.length() + filterExts.length() + 2;
 
 memset (szFilter, 0, cchFilter * sizeof (char));
 
@@ -672,8 +674,8 @@ memset (szFilter, 0, cchFilter * sizeof (char));
 if ((size_t)filterLength > cchFilter)
 	return 0;
 
-strcpy_s (szFilter, cchFilter, filterText.GetString ());
-strcpy_s (szFilter + extOffset, cchFilter - extOffset, filterExts.GetString ());
+strcpy_s (szFilter, cchFilter, filterText.c_str());
+strcpy_s (szFilter + extOffset, cchFilter - extOffset, filterExts.c_str());
 return filterLength;
 }
 
@@ -685,7 +687,9 @@ void ConstructFilters (char *szFilters, const size_t cchFilters, const CFileMana
 	const char szAllFilesFilter [] = "All Files (*.*)\0*.*\0";
 	char *pszCurrentFilter = new char [cchFilters];
 	size_t cchCurrentFilter;
-	CString currentFilterText, currentFilterExts;
+	std::string currentFilterText, currentFilterExts;
+	char textBuf[64] = {}; // can hopefully get rid of these when VS gets std::format support
+	char extBuf[64] = {};
 
 if (pszCurrentFilter == NULL)
 	return; // allocation failed
@@ -697,10 +701,12 @@ if (bShowAllSupportedFilter) {
 	currentFilterText = "All Supported Files (";
 	currentFilterExts = "";
 	for (DWORD i = 0; i < nFilters; i++) {
-		currentFilterText.AppendFormat ((i < nFilters - 1) ? "*.%s; " : "*.%s", filters [i].szExt);
-		currentFilterExts.AppendFormat ((i < nFilters - 1) ? "*.%s;" : "*.%s", filters [i].szExt);
+		sprintf_s(textBuf, (i < nFilters - 1) ? "*.%s; " : "*.%s", filters[i].szExt);
+		sprintf_s(extBuf, (i < nFilters - 1) ? "*.%s;" : "*.%s", filters[i].szExt);
+		currentFilterText.append(textBuf);
+		currentFilterExts.append(extBuf);
 		}
-	currentFilterText.Append (")");
+	currentFilterText.append(")");
 	cchCurrentFilter = ConstructFilter (pszCurrentFilter, cchFilters, currentFilterText, currentFilterExts);
 	if (pszNextString + ARRAYSIZE (szAllFilesFilter) + cchCurrentFilter <= szFilters + cchFilters) {
 		memcpy_s (pszNextString, (szFilters + cchFilters - pszNextString) * sizeof (char), pszCurrentFilter, cchCurrentFilter * sizeof (char));
@@ -709,8 +715,10 @@ if (bShowAllSupportedFilter) {
 	}
 
 for (DWORD i = 0; i < nFilters; i++) {
-	currentFilterText.Format ("%s (*.%s)", filters [i].szFilterText, filters [i].szExt);
-	currentFilterExts.Format ("*.%s", filters [i].szExt);
+	sprintf_s(textBuf, "%s (*.%s)", filters[i].szFilterText, filters[i].szExt);
+	sprintf_s(extBuf, "*.%s", filters[i].szExt);
+	currentFilterText = textBuf;
+	currentFilterExts = extBuf;
 	cchCurrentFilter = ConstructFilter (pszCurrentFilter, cchFilters, currentFilterText, currentFilterExts);
 	// We need to leave space for the last filter (All Files) in preference to anything else
 	if (pszNextString + ARRAYSIZE (szAllFilesFilter) + cchCurrentFilter <= szFilters + cchFilters) {
@@ -750,7 +758,7 @@ return TRUE == GetOpenFileName (&ofn);
 
 // ----------------------------------------------------------------------------
 
-bool CFileManager::RunMultiOpenDialog (CArray <CString> &filenames, const tFileFilter *filters, const DWORD nFilters, HWND hWnd)
+bool CFileManager::RunMultiOpenDialog (std::vector<std::string>& filenames, const tFileFilter *filters, const DWORD nFilters, HWND hWnd)
 {
 	char szOfnFileBuf [512] = { 0 }; // buffer for ofn dialog, can be multiple files
 	char szFilePath [256] = { 0 }; // buffer for fp name
@@ -787,14 +795,14 @@ do {
 		// get first filename
 		pszFile = szOfnFileBuf + strlen (szOfnFileBuf) + 1;
 	if (pszFile >= szOfnFileBuf + ARRAYSIZE (szOfnFileBuf)) {
-		ErrorMsg ("Source file directory path too long.");
+		g_data.DoErrorMsg ("Source file directory path too long.");
 		return false;
 		}
 	if (!*szFilePath)
 		// multiple files, have to construct the next path
 		sprintf_s (szFilePath, ARRAYSIZE (szFilePath), "%s\\%s", szOfnFileBuf, pszFile);
 
-	filenames.Add (CString (szFilePath));
+	filenames.push_back(szFilePath);
 
 	// get next file path if any
 	if (pszFile) {

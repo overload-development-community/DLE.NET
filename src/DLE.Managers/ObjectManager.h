@@ -1,12 +1,6 @@
 #ifndef __objman_h
 #define __objman_h
 
-#include "define.h"
-#include "FileManager.h"
-#include "carray.h"
-#include "Selection.h"
-#include "MineInfo.h"
-
 //------------------------------------------------------------------------
 
 #define MAX_OBJECTS ((theMine == null) ? MAX_OBJECTS_D2 : DLE.IsStdLevel () ? MAX_OBJECTS_D1 : MAX_OBJECTS_D2)

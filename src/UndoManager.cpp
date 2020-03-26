@@ -151,7 +151,7 @@ if ((dataFlags & udDynamicLight) && !(m_dataFlags & udDynamicLight)) {
 	}
 
 if (!m_bSelections) {
-	memcpy (m_selections, selections, sizeof (selections));
+	//memcpy (m_selections, selections, sizeof (selections));
 	m_bSelections = true;
 	}
 m_dataFlags |= dataFlags;
@@ -183,7 +183,7 @@ m_textureColors.Restore ();
 m_vertexColors.Restore ();
 m_deltaIndices.Restore ();
 m_deltaValues.Restore ();
-memcpy (selections, m_selections, sizeof (selections));
+//memcpy (selections, m_selections, sizeof (selections));
 }
 
 //------------------------------------------------------------------------------

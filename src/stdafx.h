@@ -52,6 +52,8 @@ extern CDLCModule _Module;
 #include "matrix.h"
 #include "IFileManager.h"
 #include "carray.h"
+#include "SLL.h"
+#include "AVLTree.h"
 #include "GameItem.h"
 #include "types.h"
 #include "Vertex.h"
@@ -73,6 +75,9 @@ extern CDLCModule _Module;
 #include "Frustum.h"
 #include "FBO.h"
 #include "renderer.h"
+#include "ItemIterator.h"
+#include "trigger.h"
+#include "cstack.h"
 
 #include "mine.h"
 #include "DlcDoc.h"

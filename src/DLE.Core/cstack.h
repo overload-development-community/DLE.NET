@@ -115,12 +115,12 @@ class CStack : public CDynamicArray< _T > {
 				CQuickSort<_T>::SortDescending (this->m_data.buffer, left, (right >= 0) ? right : m_tos - 1);
 			}
 #ifdef _WIN32
-		inline void SortAscending (comparator compare, int left = 0, int right = -1) {
+		inline void SortAscending (CQuickSort<_T>::comparator compare, int left = 0, int right = -1) {
 			if (this->m_data.buffer)
 				CQuickSort<_T>::SortAscending (this->m_data.buffer, left, (right >= 0) ? right : m_tos - 1, compare);
 			}
 
-		inline void SortDescending (comparator compare, int left = 0, int right = -1) {
+		inline void SortDescending (CQuickSort<_T>::comparator compare, int left = 0, int right = -1) {
 			if (this->m_data.buffer)
 				CQuickSort<_T>::SortDescending (this->m_data.buffer, left, (right >= 0) ? right : m_tos - 1, compare);
 			}

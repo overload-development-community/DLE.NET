@@ -1,8 +1,6 @@
 #ifndef __undoman_h
 #define __undoman_h
 
-#include "mine.h"
-
 #define DLE_MAX_UNDOS	500
 #define DETAIL_BACKUP	0
 
@@ -153,7 +151,9 @@ public:
 	CUndoItem<CVertexColor>			m_vertexColors;
 	CUndoItem<CSecretExit>			m_secretExit;
 	CUndoItem<CReactorData>			m_reactorData;
-	CSelection							m_selections [2];
+	// This needs to work by UI hooking into the undo system.
+	// Just disabling it for now because we need a new undo implementation anyway.
+	//CSelection							m_selections [2];
 
 	bool	m_bSelections;
 	uint	m_nId;

@@ -1,16 +1,6 @@
 #ifndef __segman_h
 #define __segman_h
 
-#include "define.h"
-#include "FileManager.h"
-#include "carray.h"
-#include "Types.h"
-#include "Selection.h"
-#include "MineInfo.h"
-#include "FreeList.h"
-#include "SLL.h"
-#include "AVLTree.h"
-
 // -----------------------------------------------------------------------------
 
 #define MAX_SEGMENTS_D1				800  // descent 1 max # of cubes
@@ -133,19 +123,13 @@ class CSegmentManager : public ISegmentManager {
 
 		inline void PutSegment (_const_ int i, _const_ CSegment& seg) { m_segments [i] = seg; }
 
-		inline CSide _const_ * Side (CSideKey key) {
-			current->Get (key);
-			return m_segments [key.m_nSegment].m_sides + key.m_nSide;
-			}
+		CSide _const_* Side(CSideKey key);
 
 		inline CSide _const_ * Side (void) { return Side (CSideKey ()); }
 
 		inline CSide _const_ & GetSide (CSideKey key) { return *Side (key); }
 
-		inline void PutSide (CSideKey key, CSide& side) { 
-			current->Get (key);
-			m_segments [key.m_nSegment].m_sides [key.m_nSide] = side;
-			}
+		void PutSide(CSideKey key, CSide& side);
 
 		CSide _const_ * BackSide (CSideKey key, CSideKey& back);
 
@@ -153,14 +137,9 @@ class CSegmentManager : public ISegmentManager {
 		//CSide* OppositeSide (CSideKey opp, CSideKey& key, short nSegment = -1, short nSide = -1);
 
 		//inline CWall* Wall (short nSegment = -1, short nSide = -1) {
-		inline CWall _const_ * Wall (CSideKey key) { 
-			current->Get (key);
-			CSide _const_ * pSide;
-			pSide = Side (key);
-			return pSide->Wall (); 
-			}
+		CWall _const_* Wall(CSideKey key);
 
-		inline CWall _const_ * Wall (CSideKey* key = null) { return Wall ((key == null) ? *current : *key); }
+		CWall _const_* Wall(CSideKey* key = null);
 
 		bool IsExit (short nSegment);
 
@@ -566,7 +545,7 @@ class CTagTunnelStart : public CTaggingStrategy {
 		double	m_maxAngle;
 		CSide*	m_pStartSide;
 		
-		CTagTunnelStart () : m_maxAngle (cos (Radians (22.5))), m_pStartSide (current->Side ()) {}
+		CTagTunnelStart();
 
 		virtual bool Accept (void) { 
 			return (m_pChildSeg->IsTagged () || m_pChildSide->IsTagged ()) && !m_pChildSeg->HasChild (m_child.m_nSide) && (Dot (m_pChildSide->Normal (), m_pStartSide->Normal ()) >= m_maxAngle);

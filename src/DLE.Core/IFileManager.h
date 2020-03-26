@@ -11,7 +11,7 @@ public:
 	virtual int Seek(size_t offset, int whence = SEEK_SET) = 0;
 	virtual int Tell() = 0;
 	virtual int EoF() = 0;
-	virtual char* const Name() = 0;
+	virtual const char* Name() = 0;
 	virtual time_t Date(const char* filename) = 0;
 	virtual size_t Read(void* buf, size_t elsize, size_t nelem) = 0;
 	virtual int Write(const void* buf, int elsize, int nelem) = 0;

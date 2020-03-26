@@ -1,4 +1,10 @@
 #include "stdafx.h"
+#include "FileManager.h"
+#include "SegmentManager.h"
+#include "VertexManager.h"
+#include "ObjectManager.h"
+#include "TriggerManager.h"
+#include "UndoManager.h"
 
 CVertexManager vertexManager;
 
@@ -15,9 +21,9 @@ int CVertexManager::Overflow (int nVertices)
 { 
 if (nVertices < 0)
 	nVertices = Count ();
-return DLE.IsD1File () 
+return g_data.IsD1File () 
 		 ? (nVertices > MAX_VERTICES_D1) 
-		 : DLE.IsStdLevel () 
+		 : g_data.IsStdLevel ()
 			? (nVertices > MAX_VERTICES_D2) 
 			: (nVertices > VERTEX_LIMIT) 
 				? -1 

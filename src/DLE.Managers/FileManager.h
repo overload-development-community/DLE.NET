@@ -1,9 +1,6 @@
 #ifndef __fileman_h
 #define __fileman_h
 
-#include <sys/types.h>
-#include <afxtempl.h>
-
 // ----------------------------------------------------------------------------
 // the maximum length of a filename
 #define FILENAME_LEN			256
@@ -37,10 +34,10 @@ class CFilename {
 // ----------------------------------------------------------------------------
 
 typedef struct tFileInfo {
-	FILE*	file;
-	char*	name;
-	long	size;
-	long	position;
+	FILE* file;
+	const char* name;
+	long size;
+	long position;
 } tFileInfo;
 
 // ----------------------------------------------------------------------------
@@ -69,7 +66,7 @@ class CFileManager : public IFileManager {
 		int EoF (void);
 		int Error (void);
 		inline int Size (void) { return m_info.size; }
-		inline char* const Name (void) { return (m_info.name == null) ? "" : m_info.name; }
+		inline const char* Name (void) { return (m_info.name == null) ? "" : m_info.name; }
 
 		// prototypes for reading basic types from fp
 		int ReadInt32 (void);
@@ -154,8 +151,8 @@ class CFileManager : public IFileManager {
 		} tFileFilter;
 		static bool RunOpenFileDialog (char *szFilename, const size_t cchFilename, const char *szFilterText, const char *szExt, HWND hWnd = 0);
 		static bool RunOpenFileDialog (char *szFilename, const size_t cchFilename, const tFileFilter *filters, const DWORD nFilters, HWND hWnd = 0);
-		static bool RunMultiOpenDialog (CArray <CString> &filenames, const char *szFilterText, const char *szExt, HWND hWnd = 0);
-		static bool RunMultiOpenDialog (CArray <CString> &filenames, const tFileFilter *filters, const DWORD nFilters, HWND hWnd = 0);
+		static bool RunMultiOpenDialog(std::vector<std::string>& filenames, const char* szFilterText, const char* szExt, HWND hWnd = 0);
+		static bool RunMultiOpenDialog(std::vector<std::string>& filenames, const tFileFilter* filters, const DWORD nFilters, HWND hWnd = 0);
 		static bool RunSaveFileDialog (char *szFilename, const size_t cchFilename, const char *szFilterText, const char *szExt, HWND hWnd = 0);
 		static bool RunSaveFileDialog (char *szFilename, const size_t cchFilename, const tFileFilter *filters, const DWORD nFilters, HWND hWnd = 0);
 		static bool RunMultiSaveDialog (char *szPath, const size_t cchPath, const char *szPromptText, HWND hWnd = 0);

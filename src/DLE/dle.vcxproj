@@ -119,7 +119,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CallingConvention>FastCall</CallingConvention>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\DLE.Core;..\DLE.DataTypes</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\DLE.Core;..\DLE.DataTypes;..\DLE.Managers</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
@@ -172,7 +172,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CallingConvention>FastCall</CallingConvention>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\DLE.Core;..\DLE.DataTypes</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\DLE.Core;..\DLE.DataTypes;..\DLE.Managers</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
@@ -214,7 +214,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\DLE.Core;..\DLE.DataTypes</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\DLE.Core;..\DLE.DataTypes;..\DLE.Managers</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
@@ -254,7 +254,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\DLE.Core;..\DLE.DataTypes</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\DLE.Core;..\DLE.DataTypes;..\DLE.Managers</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
@@ -300,25 +300,19 @@
     <ClInclude Include="..\buildmodel.h" />
     <ClInclude Include="..\rendermodel.h" />
     <ClInclude Include="..\BlockManager.h" />
-    <ClInclude Include="..\FileManager.h" />
     <ClInclude Include="..\HogManager.h" />
     <ClInclude Include="..\LightManager.h" />
     <ClInclude Include="..\MemoryFile.h" />
     <ClInclude Include="..\ModelManager.h" />
-    <ClInclude Include="..\ObjectManager.h" />
     <ClInclude Include="..\oglmatrix.h" />
     <ClInclude Include="..\PaletteManager.h" />
     <ClInclude Include="..\ResourceManager.h" />
     <ClInclude Include="..\RobotManager.h" />
-    <ClInclude Include="..\SegmentManager.h" />
     <ClInclude Include="..\Selection.h" />
     <ClInclude Include="..\ShaderManager.h" />
     <ClInclude Include="..\TextureFilter.h" />
     <ClInclude Include="..\TextureManager.h" />
-    <ClInclude Include="..\TriggerManager.h" />
     <ClInclude Include="..\TunnelMaker.h" />
-    <ClInclude Include="..\UndoManager.h" />
-    <ClInclude Include="..\VertexManager.h" />
     <ClInclude Include="..\WallManager.h" />
     <ClInclude Include="..\TextureProjector.h" />
     <ClInclude Include="..\HogDialog.h" />
@@ -406,7 +400,6 @@
     <ClCompile Include="..\buildmodel.cpp" />
     <ClCompile Include="..\RenderModel.cpp" />
     <ClCompile Include="..\BlockManager.cpp" />
-    <ClCompile Include="..\FileManager.cpp" />
     <ClCompile Include="..\HogManager.cpp" />
     <ClCompile Include="..\LightManager.cpp" />
     <ClCompile Include="..\LightManager.Illuminate.cpp" />
@@ -434,7 +427,6 @@
     <ClCompile Include="..\TriggerManager.cpp" />
     <ClCompile Include="..\TunnelMaker.cpp" />
     <ClCompile Include="..\UndoManager.cpp" />
-    <ClCompile Include="..\VertexManager.cpp" />
     <ClCompile Include="..\WallManager.cpp" />
     <ClCompile Include="..\TextureProjector.cpp" />
     <ClCompile Include="..\HogDialog.cpp" />
@@ -1158,6 +1150,9 @@
     </ProjectReference>
     <ProjectReference Include="..\DLE.DataTypes\DLE.DataTypes.vcxproj">
       <Project>{d3b6e4e3-ec8a-4b81-bee1-e4e481d9939a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DLE.Managers\DLE.Managers.vcxproj">
+      <Project>{1a1bd677-4bfc-4b6d-9562-13f6dfb87dde}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
