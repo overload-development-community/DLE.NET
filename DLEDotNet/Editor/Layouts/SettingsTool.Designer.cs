@@ -230,6 +230,12 @@
             this.idcancelButton.TabIndex = 2;
             this.idcancelButton.Text = "cancel";
             this.idcancelButton.Click += new System.EventHandler(this.idcancelButton_Click);
+            this.tabPageFiles.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageLayout.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageRenderer.BackColor = System.Drawing.SystemColors.Control;
+        this.tabPageEditor.BackColor = System.Drawing.SystemColors.Control;
+        this.tabPageVisibility.BackColor = System.Drawing.SystemColors.Control;
+        this.tabPageMisc.BackColor = System.Drawing.SystemColors.Control;
             // 
             // SettingsTool
             // 

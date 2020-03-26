@@ -90,7 +90,7 @@
             // 
             this.splitContainerEditor.Panel2.Controls.Add(this.editorTabs);
             this.splitContainerEditor.Size = new System.Drawing.Size(1021, 600);
-            this.splitContainerEditor.SplitterDistance = 320;
+            this.splitContainerEditor.SplitterDistance = 340;
             this.splitContainerEditor.TabIndex = 0;
             // 
             // mineView

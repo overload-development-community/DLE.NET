@@ -76,8 +76,8 @@
             this.label1000 = new System.Windows.Forms.Label();
             this.label500 = new System.Windows.Forms.Label();
             this.label0 = new System.Windows.Forms.Label();
-            this.texlightAddButton = new System.Windows.Forms.Button();
-            this.texlightDeleteButton = new System.Windows.Forms.Button();
+            this.texlightAddButton = new DLEDotNet.Editor.DLEIconButton();
+            this.texlightDeleteButton = new DLEDotNet.Editor.DLEIconButton();
             this.labelHyphLightColorHyph = new System.Windows.Forms.Label();
             this.texlightPalettePictureBox = new System.Windows.Forms.PictureBox();
             this.texlightRgbcolorButton = new System.Windows.Forms.Button();
@@ -88,8 +88,11 @@
             this.texlightTimerUpDownControl = new DLEDotNet.Editor.UpDownControl();
             ((System.ComponentModel.ISupportInitialize)(this.texlightTimersliderTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.texlightShowPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.texlightAddButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.texlightDeleteButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.texlightPalettePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.texlightColorPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // texlight1RadioButton
@@ -588,23 +591,33 @@
             // 
             // texlightAddButton
             // 
-            this.texlightAddButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.texlightAddButton.ClickOnlyOnUp = true;
+            this.texlightAddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.texlightAddButton.ImageButton = global::DLEDotNet.Properties.Resources.PLUS;
+            this.texlightAddButton.ImageButtonDark = null;
+            this.texlightAddButton.ImageHeld = null;
+            this.texlightAddButton.ImageNotHeld = null;
             this.texlightAddButton.Location = new System.Drawing.Point(50, 98);
             this.texlightAddButton.Margin = new System.Windows.Forms.Padding(0);
             this.texlightAddButton.Name = "texlightAddButton";
-            this.texlightAddButton.Size = new System.Drawing.Size(22, 24);
+            this.texlightAddButton.Size = new System.Drawing.Size(24, 24);
             this.texlightAddButton.TabIndex = 49;
-            this.texlightAddButton.Text = "[ICON!]ADDLIGHT";
+            this.texlightAddButton.Text = "add variable light";
             // 
             // texlightDeleteButton
             // 
-            this.texlightDeleteButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.texlightDeleteButton.Location = new System.Drawing.Point(140, 98);
+            this.texlightDeleteButton.ClickOnlyOnUp = true;
+            this.texlightDeleteButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.texlightDeleteButton.ImageButton = global::DLEDotNet.Properties.Resources.MINUS;
+            this.texlightDeleteButton.ImageButtonDark = null;
+            this.texlightDeleteButton.ImageHeld = null;
+            this.texlightDeleteButton.ImageNotHeld = null;
+            this.texlightDeleteButton.Location = new System.Drawing.Point(138, 98);
             this.texlightDeleteButton.Margin = new System.Windows.Forms.Padding(0);
             this.texlightDeleteButton.Name = "texlightDeleteButton";
-            this.texlightDeleteButton.Size = new System.Drawing.Size(22, 24);
+            this.texlightDeleteButton.Size = new System.Drawing.Size(24, 24);
             this.texlightDeleteButton.TabIndex = 50;
-            this.texlightDeleteButton.Text = "[ICON!]DELLIGHT";
+            this.texlightDeleteButton.Text = "delete variable light";
             // 
             // labelHyphLightColorHyph
             // 
@@ -760,8 +773,11 @@
             this.Size = new System.Drawing.Size(386, 208);
             ((System.ComponentModel.ISupportInitialize)(this.texlightTimersliderTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.texlightShowPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.texlightAddButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.texlightDeleteButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.texlightPalettePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.texlightColorPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -817,8 +833,8 @@
         private System.Windows.Forms.Label label1000;
         private System.Windows.Forms.Label label500;
         private System.Windows.Forms.Label label0;
-        private System.Windows.Forms.Button texlightAddButton;
-        private System.Windows.Forms.Button texlightDeleteButton;
+        private DLEIconButton texlightAddButton;
+        private DLEIconButton texlightDeleteButton;
         private System.Windows.Forms.Label labelHyphLightColorHyph;
         private System.Windows.Forms.PictureBox texlightPalettePictureBox;
         private System.Windows.Forms.Button texlightRgbcolorButton;

@@ -108,7 +108,7 @@
             // 
             this.splitContainerMine.Panel2.Controls.Add(this.mineView);
             this.splitContainerMine.Size = new System.Drawing.Size(1200, 600);
-            this.splitContainerMine.SplitterDistance = 418;
+            this.splitContainerMine.SplitterDistance = 384;
             this.splitContainerMine.TabIndex = 3;
             // 
             // MainViewVerticalSS

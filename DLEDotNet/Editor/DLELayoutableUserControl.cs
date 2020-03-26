@@ -87,7 +87,7 @@ namespace DLEDotNet.Editor
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            SetupControls();
+            if (!DesignMode) SetupControls();
         }
 
         public void BeginInit()

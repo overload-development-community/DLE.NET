@@ -118,6 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="ALIGN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ALIGN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ALIGNALL" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ALIGNALL.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="BACKWARD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\BACKWARD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CYLINDER" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CYLINDER.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DOWN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\DOWN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="EDTGEO0" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EDTGEO0.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -147,6 +162,63 @@
   </data>
   <data name="EDTGEO9" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\EDTGEO9.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FITSIZE" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FITSIZE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FLIPH" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FLIPH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FLIPV" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FLIPV.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="FORWARD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\FORWARD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HSHRINK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HSHRINK.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="HSTRETCH" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\HSTRETCH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="LEFT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\LEFT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MINUS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MINUS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PLANAR" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PLANAR.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="PLUS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\PLUS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RESET" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RESET.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RESETM" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RESETM.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RIGHT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RIGHT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ROTBWD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ROTBWD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ROTDOWN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ROTDOWN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ROTFWD" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ROTFWD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ROTLEFT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ROTLEFT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ROTRIGHT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ROTRIGHT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ROTUP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ROTUP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="toolbarAddExtended" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\toolbarAddExtended.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -381,5 +453,20 @@
   </data>
   <data name="toolbarZoomOutDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\toolbarZoomOutDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VSHRINK" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VSHRINK.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="VSTRETCH" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\VSTRETCH.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ZOOMIN" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ZOOMIN.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ZOOMOUT" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ZOOMOUT.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

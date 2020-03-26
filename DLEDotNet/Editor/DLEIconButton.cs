@@ -50,7 +50,7 @@ namespace DLEDotNet.Editor
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [DefaultValue(IconButtonMode.Automatic)]
-        [Description("Controls whether one image is used for buttons (with held/not held rendered automatically) or two separate images for held/not held.")]
+        [Description("Controls whether one image is used for buttons (with held/not held rendered automatically; recommended option) or two separate images for held/not held.")]
         public IconButtonMode ImageMode { get; set; } = IconButtonMode.Automatic;
 
         static DLEIconButton()
@@ -68,9 +68,6 @@ namespace DLEDotNet.Editor
             this.myTooltip.Active = true;
             this.myTooltip.ShowAlways = true;
             this.myTooltip.OwnerDraw = false;
-            this.myTooltip.AutoPopDelay = 5000;
-            this.myTooltip.InitialDelay = 1000;
-            this.myTooltip.ReshowDelay = 500;
         }
 
         [Browsable(false)]
@@ -225,7 +222,12 @@ namespace DLEDotNet.Editor
             g.DrawRectangle(buttonBorderDownPen, 0, 0, sz.Width - 1, sz.Height - 1);
         }
 
-        public static Bitmap MakeUpImage(Image normal, Image dark, Size sz)
+        private static void DrawDisabledMask(Graphics g, Size sz)
+        {
+            g.FillRectangle(new SolidBrush(ControlUtilities.IsDark() ? Color.FromArgb(192, 64, 64, 64) : Color.FromArgb(128, 128, 128, 128)), 0, 0, sz.Width, sz.Height);
+        }
+
+        public static Bitmap MakeUpImage(Image normal, Image dark, Size sz, bool grayMask)
         {
             if (buttonMainBgBrush == null) InitColors();
             Bitmap bm = new Bitmap(sz.Width, sz.Height, PixelFormat.Format32bppPArgb);
@@ -241,12 +243,14 @@ namespace DLEDotNet.Editor
                     g.DrawImage(tmp, sz.Width * (1 / 8f), sz.Height * (1 / 8f));
                     tmp.Dispose();
                 }
+                if (grayMask)
+                    DrawDisabledMask(g, sz);
             }
 
             return bm;
         }
 
-        public static Bitmap MakeDownImage(Image normal, Image dark, Size sz)
+        public static Bitmap MakeDownImage(Image normal, Image dark, Size sz, bool grayMask)
         {
             if (buttonMainBgBrush == null) InitColors();
             Bitmap bm = new Bitmap(sz.Width, sz.Height, PixelFormat.Format32bppPArgb);
@@ -262,6 +266,8 @@ namespace DLEDotNet.Editor
                     g.DrawImage(tmp, sz.Width * (1 / 8f + 1 / 12f), sz.Height * (1 / 8f + 1 / 12f));
                     tmp.Dispose();
                 }
+                if (grayMask)
+                    DrawDisabledMask(g, sz);
             }
 
             return bm;
@@ -271,8 +277,8 @@ namespace DLEDotNet.Editor
         {
             if (ImageMode == IconButtonMode.Automatic)
             {
-                upImage = MakeUpImage(this.genImageControl, this.genImageControlDark ?? InvertColors(this.genImageControl), this.Size);
-                downImage = MakeDownImage(this.genImageControl, this.genImageControlDark ?? InvertColors(this.genImageControl), this.Size);
+                upImage = MakeUpImage(this.genImageControl, this.genImageControlDark ?? InvertColors(this.genImageControl), this.Size, !this.Enabled);
+                downImage = MakeDownImage(this.genImageControl, this.genImageControlDark ?? InvertColors(this.genImageControl), this.Size, !this.Enabled);
             }
             else if (ImageMode == IconButtonMode.Manual)
             {
@@ -309,6 +315,7 @@ namespace DLEDotNet.Editor
         protected override void OnEnabledChanged(EventArgs e)
         {
             base.OnEnabledChanged(e);
+            GetImages();
             if (!this.Enabled)
                 Pressed = false;
         }

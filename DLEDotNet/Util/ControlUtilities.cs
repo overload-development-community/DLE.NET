@@ -44,7 +44,7 @@ namespace DLEDotNet.Util
 
         public static bool IsDark()
         {
-            return Control.DefaultBackColor.GetBrightness() < 0.5;
+            return Control.DefaultBackColor.GetBrightness() < 0.45f;
         }
 
         internal static void SafeIncrement(TrackBar trackBar)

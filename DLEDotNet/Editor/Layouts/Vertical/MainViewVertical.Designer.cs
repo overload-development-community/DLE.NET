@@ -99,7 +99,7 @@
             // 
             this.splitContainerTexture.Panel2.Controls.Add(this.splitContainerEditor);
             this.splitContainerTexture.Size = new System.Drawing.Size(1200, 600);
-            this.splitContainerTexture.SplitterDistance = 418;
+            this.splitContainerTexture.SplitterDistance = 384;
             this.splitContainerTexture.TabIndex = 0;
             // 
             // editorTabs

@@ -13,9 +13,9 @@ namespace DLEDotNet.Editor
     public class RepeatingButton : Button
     {
         private const int INITIAL_DELAY = 500;
-        private const int TICK_RATE_SLOW = 107;
+        private const int TICK_RATE_SLOW = 100;
         private const int MAX_SLOW_TICKS = 14;
-        private const int TICK_RATE_FAST = 20;
+        private const int TICK_RATE_FAST = 17;
         private Timer timer;
         private bool timerFromMouse = false;
         public new event EventHandler Click;

@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.texprojectPlanarButton = new DLEDotNet.Editor.DLEIconButton();
-            this.texprojectCylinderButton = new DLEDotNet.Editor.DLEIconButton();
             this.texprojectResetoButton = new System.Windows.Forms.Button();
             this.texprojectResetdButton = new System.Windows.Forms.Button();
             this.texprojectResetsButton = new System.Windows.Forms.Button();
@@ -72,8 +70,8 @@
             this.texprojectVscaleTextBox = new DLEDotNet.Editor.FloatTextBox();
             this.texprojectVscaledownButton = new DLEDotNet.Editor.DLEIconButton();
             this.texprojectVscaleupButton = new DLEDotNet.Editor.DLEIconButton();
-            ((System.ComponentModel.ISupportInitialize)(this.texprojectPlanarButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.texprojectCylinderButton)).BeginInit();
+            this.texprojectPlanarButton = new DLEDotNet.Editor.DLEIconButton();
+            this.texprojectCylinderButton = new DLEDotNet.Editor.DLEIconButton();
             ((System.ComponentModel.ISupportInitialize)(this.texprojectOriginxdownButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.texprojectOriginxupButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.texprojectOriginydownButton)).BeginInit();
@@ -90,38 +88,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.texprojectUscaleupButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.texprojectVscaledownButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.texprojectVscaleupButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.texprojectPlanarButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.texprojectCylinderButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
-            // 
-            // texprojectPlanarButton
-            // 
-            this.texprojectPlanarButton.ClickOnlyOnUp = true;
-            this.texprojectPlanarButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.texprojectPlanarButton.ImageButton = null;
-            this.texprojectPlanarButton.ImageButtonDark = null;
-            this.texprojectPlanarButton.ImageHeld = null;
-            this.texprojectPlanarButton.ImageNotHeld = null;
-            this.texprojectPlanarButton.Location = new System.Drawing.Point(4, 5);
-            this.texprojectPlanarButton.Margin = new System.Windows.Forms.Padding(0);
-            this.texprojectPlanarButton.Name = "texprojectPlanarButton";
-            this.texprojectPlanarButton.Size = new System.Drawing.Size(24, 24);
-            this.texprojectPlanarButton.TabIndex = 0;
-            this.texprojectPlanarButton.Text = "[ICON!]PLANAR";
-            // 
-            // texprojectCylinderButton
-            // 
-            this.texprojectCylinderButton.ClickOnlyOnUp = true;
-            this.texprojectCylinderButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.texprojectCylinderButton.ImageButton = null;
-            this.texprojectCylinderButton.ImageButtonDark = null;
-            this.texprojectCylinderButton.ImageHeld = null;
-            this.texprojectCylinderButton.ImageNotHeld = null;
-            this.texprojectCylinderButton.Location = new System.Drawing.Point(30, 5);
-            this.texprojectCylinderButton.Margin = new System.Windows.Forms.Padding(0);
-            this.texprojectCylinderButton.Name = "texprojectCylinderButton";
-            this.texprojectCylinderButton.Size = new System.Drawing.Size(24, 24);
-            this.texprojectCylinderButton.TabIndex = 1;
-            this.texprojectCylinderButton.Text = "[ICON!]CYLINDER";
             // 
             // texprojectResetoButton
             // 
@@ -221,7 +191,7 @@
             this.texprojectOriginxTextBox.Location = new System.Drawing.Point(152, 6);
             this.texprojectOriginxTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectOriginxTextBox.Name = "texprojectOriginxTextBox";
-            this.texprojectOriginxTextBox.Size = new System.Drawing.Size(48, 19);
+            this.texprojectOriginxTextBox.Size = new System.Drawing.Size(48, 20);
             this.texprojectOriginxTextBox.TabIndex = 11;
             this.texprojectOriginxTextBox.TabStop = false;
             this.texprojectOriginxTextBox.Text = "0.00";
@@ -230,8 +200,9 @@
             // texprojectOriginxdownButton
             // 
             this.texprojectOriginxdownButton.ClickOnlyOnUp = true;
+            this.texprojectOriginxdownButton.Enabled = false;
             this.texprojectOriginxdownButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.texprojectOriginxdownButton.ImageButton = null;
+            this.texprojectOriginxdownButton.ImageButton = global::DLEDotNet.Properties.Resources.LEFT;
             this.texprojectOriginxdownButton.ImageButtonDark = null;
             this.texprojectOriginxdownButton.ImageHeld = null;
             this.texprojectOriginxdownButton.ImageNotHeld = null;
@@ -240,13 +211,14 @@
             this.texprojectOriginxdownButton.Name = "texprojectOriginxdownButton";
             this.texprojectOriginxdownButton.Size = new System.Drawing.Size(24, 24);
             this.texprojectOriginxdownButton.TabIndex = 12;
-            this.texprojectOriginxdownButton.Text = "[ICON!]LEFT";
+            this.texprojectOriginxdownButton.Text = "move left";
             // 
             // texprojectOriginxupButton
             // 
             this.texprojectOriginxupButton.ClickOnlyOnUp = true;
+            this.texprojectOriginxupButton.Enabled = false;
             this.texprojectOriginxupButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.texprojectOriginxupButton.ImageButton = null;
+            this.texprojectOriginxupButton.ImageButton = global::DLEDotNet.Properties.Resources.RIGHT;
             this.texprojectOriginxupButton.ImageButtonDark = null;
             this.texprojectOriginxupButton.ImageHeld = null;
             this.texprojectOriginxupButton.ImageNotHeld = null;
@@ -255,7 +227,7 @@
             this.texprojectOriginxupButton.Name = "texprojectOriginxupButton";
             this.texprojectOriginxupButton.Size = new System.Drawing.Size(24, 24);
             this.texprojectOriginxupButton.TabIndex = 13;
-            this.texprojectOriginxupButton.Text = "[ICON!]RIGHT";
+            this.texprojectOriginxupButton.Text = "move right";
             // 
             // labelY
             // 
@@ -274,7 +246,7 @@
             this.texprojectOriginyTextBox.Location = new System.Drawing.Point(152, 29);
             this.texprojectOriginyTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectOriginyTextBox.Name = "texprojectOriginyTextBox";
-            this.texprojectOriginyTextBox.Size = new System.Drawing.Size(48, 19);
+            this.texprojectOriginyTextBox.Size = new System.Drawing.Size(48, 20);
             this.texprojectOriginyTextBox.TabIndex = 15;
             this.texprojectOriginyTextBox.TabStop = false;
             this.texprojectOriginyTextBox.Text = "0.00";
@@ -283,8 +255,9 @@
             // texprojectOriginydownButton
             // 
             this.texprojectOriginydownButton.ClickOnlyOnUp = true;
+            this.texprojectOriginydownButton.Enabled = false;
             this.texprojectOriginydownButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.texprojectOriginydownButton.ImageButton = null;
+            this.texprojectOriginydownButton.ImageButton = global::DLEDotNet.Properties.Resources.DOWN;
             this.texprojectOriginydownButton.ImageButtonDark = null;
             this.texprojectOriginydownButton.ImageHeld = null;
             this.texprojectOriginydownButton.ImageNotHeld = null;
@@ -293,13 +266,14 @@
             this.texprojectOriginydownButton.Name = "texprojectOriginydownButton";
             this.texprojectOriginydownButton.Size = new System.Drawing.Size(24, 24);
             this.texprojectOriginydownButton.TabIndex = 16;
-            this.texprojectOriginydownButton.Text = "[ICON!]DOWN";
+            this.texprojectOriginydownButton.Text = "move down";
             // 
             // texprojectOriginyupButton
             // 
             this.texprojectOriginyupButton.ClickOnlyOnUp = true;
+            this.texprojectOriginyupButton.Enabled = false;
             this.texprojectOriginyupButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.texprojectOriginyupButton.ImageButton = null;
+            this.texprojectOriginyupButton.ImageButton = global::DLEDotNet.Properties.Resources.UP;
             this.texprojectOriginyupButton.ImageButtonDark = null;
             this.texprojectOriginyupButton.ImageHeld = null;
             this.texprojectOriginyupButton.ImageNotHeld = null;
@@ -308,7 +282,7 @@
             this.texprojectOriginyupButton.Name = "texprojectOriginyupButton";
             this.texprojectOriginyupButton.Size = new System.Drawing.Size(24, 24);
             this.texprojectOriginyupButton.TabIndex = 17;
-            this.texprojectOriginyupButton.Text = "[ICON!]UP";
+            this.texprojectOriginyupButton.Text = "move up";
             // 
             // labelZ
             // 
@@ -327,7 +301,7 @@
             this.texprojectOriginzTextBox.Location = new System.Drawing.Point(152, 52);
             this.texprojectOriginzTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectOriginzTextBox.Name = "texprojectOriginzTextBox";
-            this.texprojectOriginzTextBox.Size = new System.Drawing.Size(48, 19);
+            this.texprojectOriginzTextBox.Size = new System.Drawing.Size(48, 20);
             this.texprojectOriginzTextBox.TabIndex = 19;
             this.texprojectOriginzTextBox.TabStop = false;
             this.texprojectOriginzTextBox.Text = "0.00";
@@ -336,8 +310,9 @@
             // texprojectOriginzupButton
             // 
             this.texprojectOriginzupButton.ClickOnlyOnUp = true;
+            this.texprojectOriginzupButton.Enabled = false;
             this.texprojectOriginzupButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.texprojectOriginzupButton.ImageButton = null;
+            this.texprojectOriginzupButton.ImageButton = global::DLEDotNet.Properties.Resources.FORWARD;
             this.texprojectOriginzupButton.ImageButtonDark = null;
             this.texprojectOriginzupButton.ImageHeld = null;
             this.texprojectOriginzupButton.ImageNotHeld = null;
@@ -346,13 +321,14 @@
             this.texprojectOriginzupButton.Name = "texprojectOriginzupButton";
             this.texprojectOriginzupButton.Size = new System.Drawing.Size(24, 24);
             this.texprojectOriginzupButton.TabIndex = 20;
-            this.texprojectOriginzupButton.Text = "[ICON!]FWD";
+            this.texprojectOriginzupButton.Text = "move forward";
             // 
             // texprojectOriginzdownButton
             // 
             this.texprojectOriginzdownButton.ClickOnlyOnUp = true;
+            this.texprojectOriginzdownButton.Enabled = false;
             this.texprojectOriginzdownButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.texprojectOriginzdownButton.ImageButton = null;
+            this.texprojectOriginzdownButton.ImageButton = global::DLEDotNet.Properties.Resources.BACKWARD;
             this.texprojectOriginzdownButton.ImageButtonDark = null;
             this.texprojectOriginzdownButton.ImageHeld = null;
             this.texprojectOriginzdownButton.ImageNotHeld = null;
@@ -361,7 +337,7 @@
             this.texprojectOriginzdownButton.Name = "texprojectOriginzdownButton";
             this.texprojectOriginzdownButton.Size = new System.Drawing.Size(24, 24);
             this.texprojectOriginzdownButton.TabIndex = 21;
-            this.texprojectOriginzdownButton.Text = "[ICON!]BACK";
+            this.texprojectOriginzdownButton.Text = "move backward";
             // 
             // labelDirection
             // 
@@ -391,7 +367,7 @@
             this.texprojectRotpTextBox.Location = new System.Drawing.Point(152, 78);
             this.texprojectRotpTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectRotpTextBox.Name = "texprojectRotpTextBox";
-            this.texprojectRotpTextBox.Size = new System.Drawing.Size(48, 19);
+            this.texprojectRotpTextBox.Size = new System.Drawing.Size(48, 20);
             this.texprojectRotpTextBox.TabIndex = 24;
             this.texprojectRotpTextBox.TabStop = false;
             this.texprojectRotpTextBox.Text = "0.00";
@@ -400,8 +376,9 @@
             // texprojectRotpdownButton
             // 
             this.texprojectRotpdownButton.ClickOnlyOnUp = true;
+            this.texprojectRotpdownButton.Enabled = false;
             this.texprojectRotpdownButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.texprojectRotpdownButton.ImageButton = null;
+            this.texprojectRotpdownButton.ImageButton = global::DLEDotNet.Properties.Resources.ROTDOWN;
             this.texprojectRotpdownButton.ImageButtonDark = null;
             this.texprojectRotpdownButton.ImageHeld = null;
             this.texprojectRotpdownButton.ImageNotHeld = null;
@@ -410,13 +387,14 @@
             this.texprojectRotpdownButton.Name = "texprojectRotpdownButton";
             this.texprojectRotpdownButton.Size = new System.Drawing.Size(24, 24);
             this.texprojectRotpdownButton.TabIndex = 25;
-            this.texprojectRotpdownButton.Text = "[ICON!]ROTUP";
+            this.texprojectRotpdownButton.Text = "rotate down";
             // 
             // texprojectRotpupButton
             // 
             this.texprojectRotpupButton.ClickOnlyOnUp = true;
+            this.texprojectRotpupButton.Enabled = false;
             this.texprojectRotpupButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.texprojectRotpupButton.ImageButton = null;
+            this.texprojectRotpupButton.ImageButton = global::DLEDotNet.Properties.Resources.ROTUP;
             this.texprojectRotpupButton.ImageButtonDark = null;
             this.texprojectRotpupButton.ImageHeld = null;
             this.texprojectRotpupButton.ImageNotHeld = null;
@@ -425,7 +403,7 @@
             this.texprojectRotpupButton.Name = "texprojectRotpupButton";
             this.texprojectRotpupButton.Size = new System.Drawing.Size(24, 24);
             this.texprojectRotpupButton.TabIndex = 26;
-            this.texprojectRotpupButton.Text = "[ICON!]ROTDOWN";
+            this.texprojectRotpupButton.Text = "rotate up";
             // 
             // labelB
             // 
@@ -444,7 +422,7 @@
             this.texprojectRotbTextBox.Location = new System.Drawing.Point(152, 101);
             this.texprojectRotbTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectRotbTextBox.Name = "texprojectRotbTextBox";
-            this.texprojectRotbTextBox.Size = new System.Drawing.Size(48, 19);
+            this.texprojectRotbTextBox.Size = new System.Drawing.Size(48, 20);
             this.texprojectRotbTextBox.TabIndex = 28;
             this.texprojectRotbTextBox.TabStop = false;
             this.texprojectRotbTextBox.Text = "0.00";
@@ -453,8 +431,9 @@
             // texprojectRotbdownButton
             // 
             this.texprojectRotbdownButton.ClickOnlyOnUp = true;
+            this.texprojectRotbdownButton.Enabled = false;
             this.texprojectRotbdownButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.texprojectRotbdownButton.ImageButton = null;
+            this.texprojectRotbdownButton.ImageButton = global::DLEDotNet.Properties.Resources.ROTLEFT;
             this.texprojectRotbdownButton.ImageButtonDark = null;
             this.texprojectRotbdownButton.ImageHeld = null;
             this.texprojectRotbdownButton.ImageNotHeld = null;
@@ -463,13 +442,14 @@
             this.texprojectRotbdownButton.Name = "texprojectRotbdownButton";
             this.texprojectRotbdownButton.Size = new System.Drawing.Size(24, 24);
             this.texprojectRotbdownButton.TabIndex = 29;
-            this.texprojectRotbdownButton.Text = "[ICON!]ROTLEFT";
+            this.texprojectRotbdownButton.Text = "rotate counter-clockwise";
             // 
             // texprojectRotbupButton
             // 
             this.texprojectRotbupButton.ClickOnlyOnUp = true;
+            this.texprojectRotbupButton.Enabled = false;
             this.texprojectRotbupButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.texprojectRotbupButton.ImageButton = null;
+            this.texprojectRotbupButton.ImageButton = global::DLEDotNet.Properties.Resources.ROTRIGHT;
             this.texprojectRotbupButton.ImageButtonDark = null;
             this.texprojectRotbupButton.ImageHeld = null;
             this.texprojectRotbupButton.ImageNotHeld = null;
@@ -478,7 +458,7 @@
             this.texprojectRotbupButton.Name = "texprojectRotbupButton";
             this.texprojectRotbupButton.Size = new System.Drawing.Size(24, 24);
             this.texprojectRotbupButton.TabIndex = 30;
-            this.texprojectRotbupButton.Text = "[ICON!]ROTRIGHT";
+            this.texprojectRotbupButton.Text = "rotate clockwise";
             // 
             // labelH
             // 
@@ -497,7 +477,7 @@
             this.texprojectRothTextBox.Location = new System.Drawing.Point(152, 124);
             this.texprojectRothTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectRothTextBox.Name = "texprojectRothTextBox";
-            this.texprojectRothTextBox.Size = new System.Drawing.Size(48, 19);
+            this.texprojectRothTextBox.Size = new System.Drawing.Size(48, 20);
             this.texprojectRothTextBox.TabIndex = 32;
             this.texprojectRothTextBox.TabStop = false;
             this.texprojectRothTextBox.Text = "0.00";
@@ -506,8 +486,9 @@
             // texprojectRothupButton
             // 
             this.texprojectRothupButton.ClickOnlyOnUp = true;
+            this.texprojectRothupButton.Enabled = false;
             this.texprojectRothupButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.texprojectRothupButton.ImageButton = null;
+            this.texprojectRothupButton.ImageButton = global::DLEDotNet.Properties.Resources.ROTBWD;
             this.texprojectRothupButton.ImageButtonDark = null;
             this.texprojectRothupButton.ImageHeld = null;
             this.texprojectRothupButton.ImageNotHeld = null;
@@ -516,13 +497,14 @@
             this.texprojectRothupButton.Name = "texprojectRothupButton";
             this.texprojectRothupButton.Size = new System.Drawing.Size(24, 24);
             this.texprojectRothupButton.TabIndex = 33;
-            this.texprojectRothupButton.Text = "[ICON!]ROTBWD";
+            this.texprojectRothupButton.Text = "rotate left";
             // 
             // texprojectRothdownButton
             // 
             this.texprojectRothdownButton.ClickOnlyOnUp = true;
+            this.texprojectRothdownButton.Enabled = false;
             this.texprojectRothdownButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.texprojectRothdownButton.ImageButton = null;
+            this.texprojectRothdownButton.ImageButton = global::DLEDotNet.Properties.Resources.ROTFWD;
             this.texprojectRothdownButton.ImageButtonDark = null;
             this.texprojectRothdownButton.ImageHeld = null;
             this.texprojectRothdownButton.ImageNotHeld = null;
@@ -531,7 +513,7 @@
             this.texprojectRothdownButton.Name = "texprojectRothdownButton";
             this.texprojectRothdownButton.Size = new System.Drawing.Size(24, 24);
             this.texprojectRothdownButton.TabIndex = 34;
-            this.texprojectRothdownButton.Text = "[ICON!]ROTFWD";
+            this.texprojectRothdownButton.Text = "rotate right";
             // 
             // labelScaling
             // 
@@ -561,7 +543,7 @@
             this.texprojectUscaleTextBox.Location = new System.Drawing.Point(152, 150);
             this.texprojectUscaleTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectUscaleTextBox.Name = "texprojectUscaleTextBox";
-            this.texprojectUscaleTextBox.Size = new System.Drawing.Size(48, 19);
+            this.texprojectUscaleTextBox.Size = new System.Drawing.Size(48, 20);
             this.texprojectUscaleTextBox.TabIndex = 37;
             this.texprojectUscaleTextBox.TabStop = false;
             this.texprojectUscaleTextBox.Text = "0.00";
@@ -570,8 +552,9 @@
             // texprojectUscaledownButton
             // 
             this.texprojectUscaledownButton.ClickOnlyOnUp = true;
+            this.texprojectUscaledownButton.Enabled = false;
             this.texprojectUscaledownButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.texprojectUscaledownButton.ImageButton = null;
+            this.texprojectUscaledownButton.ImageButton = global::DLEDotNet.Properties.Resources.HSTRETCH;
             this.texprojectUscaledownButton.ImageButtonDark = null;
             this.texprojectUscaledownButton.ImageHeld = null;
             this.texprojectUscaledownButton.ImageNotHeld = null;
@@ -580,13 +563,14 @@
             this.texprojectUscaledownButton.Name = "texprojectUscaledownButton";
             this.texprojectUscaledownButton.Size = new System.Drawing.Size(24, 24);
             this.texprojectUscaledownButton.TabIndex = 38;
-            this.texprojectUscaledownButton.Text = "[ICON!]HSTRETCH";
+            this.texprojectUscaledownButton.Text = "stretch horizontally";
             // 
             // texprojectUscaleupButton
             // 
             this.texprojectUscaleupButton.ClickOnlyOnUp = true;
+            this.texprojectUscaleupButton.Enabled = false;
             this.texprojectUscaleupButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.texprojectUscaleupButton.ImageButton = null;
+            this.texprojectUscaleupButton.ImageButton = global::DLEDotNet.Properties.Resources.HSHRINK;
             this.texprojectUscaleupButton.ImageButtonDark = null;
             this.texprojectUscaleupButton.ImageHeld = null;
             this.texprojectUscaleupButton.ImageNotHeld = null;
@@ -595,7 +579,7 @@
             this.texprojectUscaleupButton.Name = "texprojectUscaleupButton";
             this.texprojectUscaleupButton.Size = new System.Drawing.Size(24, 24);
             this.texprojectUscaleupButton.TabIndex = 39;
-            this.texprojectUscaleupButton.Text = "[ICON!]HSHRINK";
+            this.texprojectUscaleupButton.Text = "shrink horizontally";
             // 
             // labelV
             // 
@@ -614,7 +598,7 @@
             this.texprojectVscaleTextBox.Location = new System.Drawing.Point(152, 172);
             this.texprojectVscaleTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectVscaleTextBox.Name = "texprojectVscaleTextBox";
-            this.texprojectVscaleTextBox.Size = new System.Drawing.Size(48, 19);
+            this.texprojectVscaleTextBox.Size = new System.Drawing.Size(48, 20);
             this.texprojectVscaleTextBox.TabIndex = 41;
             this.texprojectVscaleTextBox.TabStop = false;
             this.texprojectVscaleTextBox.Text = "0.00";
@@ -623,8 +607,9 @@
             // texprojectVscaledownButton
             // 
             this.texprojectVscaledownButton.ClickOnlyOnUp = true;
+            this.texprojectVscaledownButton.Enabled = false;
             this.texprojectVscaledownButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.texprojectVscaledownButton.ImageButton = null;
+            this.texprojectVscaledownButton.ImageButton = global::DLEDotNet.Properties.Resources.VSTRETCH;
             this.texprojectVscaledownButton.ImageButtonDark = null;
             this.texprojectVscaledownButton.ImageHeld = null;
             this.texprojectVscaledownButton.ImageNotHeld = null;
@@ -633,13 +618,14 @@
             this.texprojectVscaledownButton.Name = "texprojectVscaledownButton";
             this.texprojectVscaledownButton.Size = new System.Drawing.Size(24, 24);
             this.texprojectVscaledownButton.TabIndex = 42;
-            this.texprojectVscaledownButton.Text = "[ICON!]VSTRETCH";
+            this.texprojectVscaledownButton.Text = "stretch vertically";
             // 
             // texprojectVscaleupButton
             // 
             this.texprojectVscaleupButton.ClickOnlyOnUp = true;
+            this.texprojectVscaleupButton.Enabled = false;
             this.texprojectVscaleupButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.texprojectVscaleupButton.ImageButton = null;
+            this.texprojectVscaleupButton.ImageButton = global::DLEDotNet.Properties.Resources.VSHRINK;
             this.texprojectVscaleupButton.ImageButtonDark = null;
             this.texprojectVscaleupButton.ImageHeld = null;
             this.texprojectVscaleupButton.ImageNotHeld = null;
@@ -648,7 +634,37 @@
             this.texprojectVscaleupButton.Name = "texprojectVscaleupButton";
             this.texprojectVscaleupButton.Size = new System.Drawing.Size(24, 24);
             this.texprojectVscaleupButton.TabIndex = 43;
-            this.texprojectVscaleupButton.Text = "[ICON!]VSHRINK";
+            this.texprojectVscaleupButton.Text = "shrink vertically";
+            // 
+            // texprojectPlanarButton
+            // 
+            this.texprojectPlanarButton.ClickOnlyOnUp = true;
+            this.texprojectPlanarButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.texprojectPlanarButton.ImageButton = global::DLEDotNet.Properties.Resources.PLANAR;
+            this.texprojectPlanarButton.ImageButtonDark = null;
+            this.texprojectPlanarButton.ImageHeld = null;
+            this.texprojectPlanarButton.ImageNotHeld = null;
+            this.texprojectPlanarButton.Location = new System.Drawing.Point(4, 5);
+            this.texprojectPlanarButton.Margin = new System.Windows.Forms.Padding(0);
+            this.texprojectPlanarButton.Name = "texprojectPlanarButton";
+            this.texprojectPlanarButton.Size = new System.Drawing.Size(24, 24);
+            this.texprojectPlanarButton.TabIndex = 0;
+            this.texprojectPlanarButton.Text = "planar projection";
+            // 
+            // texprojectCylinderButton
+            // 
+            this.texprojectCylinderButton.ClickOnlyOnUp = true;
+            this.texprojectCylinderButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.texprojectCylinderButton.ImageButton = global::DLEDotNet.Properties.Resources.CYLINDER;
+            this.texprojectCylinderButton.ImageButtonDark = null;
+            this.texprojectCylinderButton.ImageHeld = null;
+            this.texprojectCylinderButton.ImageNotHeld = null;
+            this.texprojectCylinderButton.Location = new System.Drawing.Point(30, 5);
+            this.texprojectCylinderButton.Margin = new System.Windows.Forms.Padding(0);
+            this.texprojectCylinderButton.Name = "texprojectCylinderButton";
+            this.texprojectCylinderButton.Size = new System.Drawing.Size(24, 24);
+            this.texprojectCylinderButton.TabIndex = 1;
+            this.texprojectCylinderButton.Text = "cylindrical projection";
             // 
             // TextureProjection
             // 
@@ -701,8 +717,6 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "TextureProjection";
             this.Size = new System.Drawing.Size(252, 200);
-            ((System.ComponentModel.ISupportInitialize)(this.texprojectPlanarButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.texprojectCylinderButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.texprojectOriginxdownButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.texprojectOriginxupButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.texprojectOriginydownButton)).EndInit();
@@ -719,8 +733,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.texprojectUscaleupButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.texprojectVscaledownButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.texprojectVscaleupButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.texprojectPlanarButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.texprojectCylinderButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

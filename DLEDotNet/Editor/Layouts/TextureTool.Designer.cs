@@ -107,13 +107,13 @@
             // tabPageAlignment
             // 
             this.tabPageAlignment.AutoScroll = true;
+            this.tabPageAlignment.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageAlignment.Controls.Add(this.textureAlignment1);
             this.tabPageAlignment.Location = new System.Drawing.Point(23, 4);
             this.tabPageAlignment.Name = "tabPageAlignment";
             this.tabPageAlignment.Size = new System.Drawing.Size(678, 210);
             this.tabPageAlignment.TabIndex = 0;
             this.tabPageAlignment.Text = "Alignment";
-            this.tabPageAlignment.UseVisualStyleBackColor = true;
             // 
             // textureAlignment1
             // 
@@ -127,13 +127,13 @@
             // tabPageProjection
             // 
             this.tabPageProjection.AutoScroll = true;
+            this.tabPageProjection.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageProjection.Controls.Add(this.textureProjection1);
             this.tabPageProjection.Location = new System.Drawing.Point(23, 4);
             this.tabPageProjection.Name = "tabPageProjection";
             this.tabPageProjection.Size = new System.Drawing.Size(678, 210);
             this.tabPageProjection.TabIndex = 1;
             this.tabPageProjection.Text = "Projection";
-            this.tabPageProjection.UseVisualStyleBackColor = true;
             // 
             // textureProjection1
             // 
@@ -147,6 +147,7 @@
             // tabPageLighting
             // 
             this.tabPageLighting.AutoScroll = true;
+            this.tabPageLighting.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageLighting.Controls.Add(this.textureLighting1);
             this.tabPageLighting.Location = new System.Drawing.Point(23, 4);
             this.tabPageLighting.Margin = new System.Windows.Forms.Padding(0);
@@ -340,7 +341,7 @@
             this.textureShowframesCheckBox.Location = new System.Drawing.Point(32, 169);
             this.textureShowframesCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.textureShowframesCheckBox.Name = "textureShowframesCheckBox";
-            this.textureShowframesCheckBox.Size = new System.Drawing.Size(78, 18);
+            this.textureShowframesCheckBox.Size = new System.Drawing.Size(94, 18);
             this.textureShowframesCheckBox.TabIndex = 6;
             this.textureShowframesCheckBox.Text = "show frames";
             // 

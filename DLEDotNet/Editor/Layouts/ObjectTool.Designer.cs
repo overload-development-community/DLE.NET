@@ -447,6 +447,7 @@
             // 
             // tabPagePosition
             // 
+            this.tabPagePosition.BackColor = System.Drawing.SystemColors.Control;
             this.tabPagePosition.Controls.Add(this.objectPosition1);
             this.tabPagePosition.Location = new System.Drawing.Point(4, 22);
             this.tabPagePosition.Name = "tabPagePosition";
@@ -454,10 +455,10 @@
             this.tabPagePosition.Size = new System.Drawing.Size(624, 179);
             this.tabPagePosition.TabIndex = 0;
             this.tabPagePosition.Text = "Position";
-            this.tabPagePosition.UseVisualStyleBackColor = true;
             // 
             // tabPageAdvanced
             // 
+            this.tabPageAdvanced.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageAdvanced.Controls.Add(this.objectAdvanced1);
             this.tabPageAdvanced.Location = new System.Drawing.Point(4, 22);
             this.tabPageAdvanced.Name = "tabPageAdvanced";
@@ -465,7 +466,6 @@
             this.tabPageAdvanced.Size = new System.Drawing.Size(624, 179);
             this.tabPageAdvanced.TabIndex = 1;
             this.tabPageAdvanced.Text = "Advanced";
-            this.tabPageAdvanced.UseVisualStyleBackColor = true;
             // 
             // objectAdvanced1
             // 
@@ -478,13 +478,13 @@
             // 
             // tabPageOther
             // 
+            this.tabPageOther.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageOther.Controls.Add(this.somewhereElseLabel);
             this.tabPageOther.Location = new System.Drawing.Point(4, 22);
             this.tabPageOther.Name = "tabPageOther";
             this.tabPageOther.Size = new System.Drawing.Size(624, 179);
             this.tabPageOther.TabIndex = 2;
             this.tabPageOther.Text = "Other";
-            this.tabPageOther.UseVisualStyleBackColor = true;
             // 
             // ObjectTool
             // 
