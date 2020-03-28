@@ -10,8 +10,10 @@ namespace DLEDotNet.Data
 
     public abstract class ChangeableState
     {
-        private readonly Dictionary<string, PropertyInfo> propCache = new Dictionary<string, PropertyInfo>();
-        private readonly Dictionary<string, SubstateListener> substates = new Dictionary<string, SubstateListener>();
+        private object _stateLock = new object();
+        private readonly Dictionary<string, bool> _propCache = new Dictionary<string, bool>();
+        private readonly Dictionary<string, SubstateListener> _substates = new Dictionary<string, SubstateListener>();
+        private PausedStateDirtySet _pausedStateDirtySet = null;
 
         /// <summary>
         /// Called after a property has been changed. The new value is provided as a convenience.
@@ -25,44 +27,64 @@ namespace DLEDotNet.Data
         public event PropertyChangeEventHandler BeforePropertyChanged;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private PropertyInfo GetPropertyOrCache(string propertyName)
+        private bool ShouldUpdatePropertyAsSubstate(PropertyInfo prop)
         {
-            return propCache.ContainsKey(propertyName)
-                ? propCache[propertyName]
-                : propCache[propertyName] = this.GetType().GetProperty(propertyName);
+            return prop != null && typeof(ChangeableState).IsAssignableFrom(prop.PropertyType) && !Attribute.IsDefined(prop, typeof(NoSubstateAutoSubscribeAttribute));
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private bool ShouldUpdatePropertyAsSubstateCached(string propertyName)
+        {
+            return _propCache.ContainsKey(propertyName)
+                ? _propCache[propertyName]
+                : _propCache[propertyName] = ShouldUpdatePropertyAsSubstate(this.GetType().GetProperty(propertyName));
+        }
+
         private void OnPropertyChanged(string propertyName, dynamic newValue)
         {
-            PropertyInfo prop = GetPropertyOrCache(propertyName);
-            if (prop != null && typeof(ChangeableState).IsAssignableFrom(prop.PropertyType) && !Attribute.IsDefined(prop, typeof(NoSubstateAutoSubscribeAttribute)))
+            lock (_stateLock)
             {
-                OnSubstateChanged(propertyName, prop.GetValue(this) as ChangeableState);
+                bool shouldUpdateSubstate = ShouldUpdatePropertyAsSubstateCached(propertyName);
+                if (_pausedStateDirtySet != null) // paused?
+                {
+                    if (_substates.ContainsKey(propertyName)) // discard old substate
+                    {
+                        SubstateListener substate = _substates[propertyName];
+                        substate.State.PropertyChanged -= substate.Handler;
+                        _substates.Remove(propertyName);
+                    }
+                    _pausedStateDirtySet.Record(propertyName, newValue);
+                    return;
+                }
+
+                if (shouldUpdateSubstate)
+                    OnSubstateChanged(propertyName, newValue as ChangeableState);
+                PropertyChanged?.Invoke(this, new PropertyChangeEventArgs(propertyName, newValue));
             }
-            PropertyChanged?.Invoke(this, new PropertyChangeEventArgs(propertyName, newValue));
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         private void OnSubstateChanged(string propertyName, ChangeableState newSubstate)
         {
-            if (substates.ContainsKey(propertyName))
+            lock (_stateLock)
             {
-                SubstateListener substate = substates[propertyName];
-                substate.State.PropertyChanged -= substate.Handler;
-            }
-            if (newSubstate != null)
-            {
-                PropertyChangeEventHandler newHandler = (object sender, PropertyChangeEventArgs e) =>
+                if (_substates.ContainsKey(propertyName))
                 {
-                    this.OnPropertyChanged(propertyName + "." + e.PropertyName, e.NewValue);
-                };
-                substates[propertyName] = new SubstateListener(newSubstate, newHandler);
-                newSubstate.PropertyChanged += newHandler;
-            }
-            else
-            {
-                substates.Remove(propertyName);
+                    SubstateListener substate = _substates[propertyName];
+                    substate.State.PropertyChanged -= substate.Handler;
+                }
+                if (newSubstate != null)
+                {
+                    PropertyChangeEventHandler newHandler = (object sender, PropertyChangeEventArgs e) =>
+                    {
+                        this.OnPropertyChanged(propertyName + "." + e.PropertyName, e.NewValue);
+                    };
+                    _substates[propertyName] = new SubstateListener(newSubstate, newHandler);
+                    newSubstate.PropertyChanged += newHandler;
+                }
+                else
+                {
+                    _substates.Remove(propertyName);
+                }
             }
         }
 
@@ -94,7 +116,7 @@ namespace DLEDotNet.Data
         {
             T oldValue = variable;
             bool changed = !EqualityComparer<T>.Default.Equals(oldValue, newValue);
-            if (changed) this.BeforePropertyChanged?.Invoke(this, new PropertyChangeEventArgs(property, newValue));
+            if (changed && _pausedStateDirtySet != null) this.BeforePropertyChanged?.Invoke(this, new PropertyChangeEventArgs(property, newValue));
             variable = newValue;
             if (changed) OnPropertyChanged(property, newValue);
             return changed;
@@ -117,7 +139,7 @@ namespace DLEDotNet.Data
         {
             T oldValue = variable;
             bool changed = !EqualityComparer<T>.Default.Equals(oldValue, newValue);
-            if (changed) this.BeforePropertyChanged?.Invoke(this, new PropertyChangeEventArgs(property, newValue));
+            if (changed && _pausedStateDirtySet != null) this.BeforePropertyChanged?.Invoke(this, new PropertyChangeEventArgs(property, newValue));
             variable = newValue;
             if (changed) OnPropertyChanged(property, newValue);
             return changed;
@@ -136,6 +158,7 @@ namespace DLEDotNet.Data
         /// <returns></returns>
         protected void AssignAlways<T>(ref T variable, T newValue, [CallerMemberName] string property = null)
         {
+            if (_pausedStateDirtySet != null) this.BeforePropertyChanged?.Invoke(this, new PropertyChangeEventArgs(property, newValue));
             variable = newValue;
             OnPropertyChanged(property, newValue);
         }
@@ -154,8 +177,68 @@ namespace DLEDotNet.Data
         /// <returns></returns>
         protected void AssignAlwaysRename<T>(ref T variable, T newValue, string property)
         {
+            if (_pausedStateDirtySet != null) this.BeforePropertyChanged?.Invoke(this, new PropertyChangeEventArgs(property, newValue));
             variable = newValue;
             OnPropertyChanged(property, newValue);
+        }
+
+        /// <summary>
+        /// Causes all property change events to be suppressed until the next
+        /// ResumeStateEvents call.
+        /// </summary>
+        protected void PauseStateEvents()
+        {
+            lock (_stateLock)
+            {
+                if (_pausedStateDirtySet != null)
+                    throw new InvalidOperationException("The state is already paused.");
+                _pausedStateDirtySet = new PausedStateDirtySet();
+            }
+        }
+
+        /// <summary>
+        /// Unpauses property change events paused by the previous call to
+        /// PauseStateEvents, and raises events for all properties that have
+        /// been changed during the time the events were paused.
+        /// </summary>
+        protected void ResumeStateEvents()
+        {
+            lock (_stateLock)
+            {
+                PausedStateDirtySet set = _pausedStateDirtySet;
+                if (set == null)
+                    throw new InvalidOperationException("The state was not paused.");
+                _pausedStateDirtySet = null;
+                foreach ((string property, dynamic data) in set.RawSet.Select(x => (x.Key, x.Value)))
+                {
+                    OnPropertyChanged(property, data);
+                }
+            }
+        }
+    }
+
+    internal class PausedStateDirtySet
+    {
+        private Dictionary<string, dynamic> internalDict;
+
+        internal PausedStateDirtySet()
+        {
+            internalDict = new Dictionary<string, dynamic>();
+        }
+
+        internal IEnumerable<string> ChangedPropertyNames
+        {
+            get => internalDict.Keys;
+        }
+
+        internal Dictionary<string, dynamic> RawSet
+        {
+            get => internalDict;
+        }
+
+        internal void Record(string propertyName, dynamic newValue)
+        {
+            internalDict[propertyName] = newValue;
         }
     }
 

@@ -9,6 +9,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -108,6 +109,7 @@ namespace DLEDotNet.Editor
         private readonly PropertyNameTree tree;
         private readonly Dictionary<Component, ControlBind> controlBinds;
         private readonly EditorWindow window;
+        private object binderLock = new object();
 
         private EditorStateBinder(EditorState state)
         {
@@ -201,8 +203,9 @@ namespace DLEDotNet.Editor
             if (self != null && tmp != null)
                 pce = new PropertyCacheEntry(tmp.PropertyType, MakeGetter(self, tmp), MakeSetter(self, tmp));
 
-            if (Object.Equals(root, state))
-                tree.Cache(property, pce);
+            lock (binderLock)
+                if (Object.Equals(root, state))
+                    tree.Cache(property, pce);
             return pce;
         }
 
@@ -211,9 +214,12 @@ namespace DLEDotNet.Editor
             if (Object.Equals(root, state))
             {
                 // maybe lookup cache
-                if (tree.GetCachedEntry(property, out PropertyCacheEntry entry))
+                lock (binderLock)
                 {
-                    return entry;
+                    if (tree.GetCachedEntry(property, out PropertyCacheEntry entry))
+                    {
+                        return entry;
+                    }
                 }
             }
             return ResolvePropertyUncached(root, property);
@@ -225,7 +231,7 @@ namespace DLEDotNet.Editor
             return pce.Getter();
         }
 
-        private dynamic GetPropertyValue(dynamic root, string property)
+        public dynamic GetPropertyValue(dynamic root, string property)
         {
             PropertyCacheEntry pce = ResolveProperty(root, property);
             return pce.Getter();
@@ -250,7 +256,7 @@ namespace DLEDotNet.Editor
             }
         }
 
-        private bool SetPropertyValue(string property, dynamic value)
+        public bool SetPropertyValue(string property, dynamic value)
         {
             return SetPropertyValue(property, value, false);
         }
@@ -309,38 +315,30 @@ namespace DLEDotNet.Editor
             handler(this, new PropertyChangeEventArgs(property, GetPropertyValueUncached(state, property)));
         }
 
-        private void BindControl(Control control, string bindPropertyName, string handlerPropertyName, PropertyChangeEventHandler handler)
+        private void BindControl(Component control, string bindPropertyName, string handlerPropertyName, PropertyChangeEventHandler handler)
         {
-            if (controlBinds.ContainsKey(control))
+            lock (binderLock)
             {
-                if (controlBinds[control].Property == bindPropertyName) return;
-                throw new ArgumentException("Control '" + control.Name + "' is already bound to a property.");
+                if (controlBinds.ContainsKey(control))
+                {
+                    if (controlBinds[control].Property == bindPropertyName) return;
+                    throw new ArgumentException("Control is already bound to a property.");
+                }
+                controlBinds[control] = new ControlBind(bindPropertyName, handler);
+                AddToTreeAndCall(handlerPropertyName, handler);
             }
-            controlBinds[control] = new ControlBind(bindPropertyName, handler);
-            AddToTreeAndCall(handlerPropertyName, handler);
-        }
-
-        private void BindControl(ToolStripItem control, string bindPropertyName, string handlerPropertyName, PropertyChangeEventHandler handler)
-        {
-            if (controlBinds.ContainsKey(control))
-            {
-                if (controlBinds[control].Property == bindPropertyName) return;
-                throw new ArgumentException("Control '" + control.Name + "' is already bound to a property.");
-            }
-            controlBinds[control] = new ControlBind(bindPropertyName, handler);
-            AddToTreeAndCall(handlerPropertyName, handler);
         }
 
         private void BindControl(Control control, string propertyName, PropertyChangeEventHandler handler) => BindControl(control, propertyName, propertyName, handler);
-
-        #endregion
-
-        #region --- binders
 
         private void RefreshBind(ControlBind bind)
         {
             bind.Handler(this, new PropertyChangeEventArgs(bind.Property, GetPropertyValue(this.state, bind.Property)));
         }
+
+        #endregion
+
+        #region --- public interface incl. binding methods
 
         /// <summary>
         /// Triggers a simulated property change event to a bound control.
@@ -550,7 +548,6 @@ namespace DLEDotNet.Editor
         {
             bool debounce = false;
             int flagI = Convert.ToInt32(flag);
-            int test = 0;
             BindControl(checkBox, property, (object sender, PropertyChangeEventArgs e) =>
                 Debounce(ref debounce, () => {
                     if (e.PropertyName == property)
@@ -732,6 +729,22 @@ namespace DLEDotNet.Editor
             });
             tabControl.SelectedIndexChanged += (object sender, EventArgs e) =>
                 SetPropertyValue(property, tabControl.SelectedIndex);
+        }
+
+        /// <summary>
+        /// This method can be used to do "batch changes" to an editor state, i.e. commit large changes without
+        /// causing events for every large change. After a batch change has been completed, property change events
+        /// will be dispatched for all properties that were changed during the batch change.
+        /// </summary>
+        /// <param name="changes">The action for the actual changes taking place.</param>
+        public void BatchChange(Action Commit)
+        {
+            lock (binderLock)
+            {
+                state.PauseEditorStateEvents();
+                Commit();
+                state.ResumeEditorStateEvents();
+            }
         }
         #endregion
 

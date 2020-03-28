@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -135,5 +136,24 @@ namespace DLEDotNet.Data
         private bool _unsaved;
         private bool _useTexColors;
         private bool _fullScreen;
+
+        /// <summary>
+        /// Causes all property change events to be suppressed until the next
+        /// ResumeStateEvents call.
+        /// </summary>
+        public void PauseEditorStateEvents()
+        {
+            this.PauseStateEvents();
+        }
+
+        /// <summary>
+        /// Unpauses property change events paused by the previous call to
+        /// PauseStateEvents, and raises events for all properties that have
+        /// been changed during the time the events were paused.
+        /// </summary>
+        public void ResumeEditorStateEvents()
+        {
+            this.ResumeStateEvents();
+        }
     }
 }

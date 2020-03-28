@@ -55,7 +55,7 @@ namespace DLEDotNet.Editor
 
         internal void EditorWindowKeyDown(KeyEventArgs e)
         {
-            // don't handle anything if we are typing to something that can be typed
+            // don't handle key events if the active control can be typed into
             if (FocusedOnTypable()) return;
 
             if (keybinds.ContainsKey(e.KeyData))
@@ -153,6 +153,7 @@ namespace DLEDotNet.Editor
             RemoveKeybind(c);
             foreach (Keys keyBind in keyBinds)
                 AddKeybind(c, keyBind, false);
+            UpdateKeybindDescription(c);
         }
 
         internal void AddKeybind(Component c, Keys keyBind) => AddKeybind(c, keyBind, true);
@@ -215,7 +216,7 @@ namespace DLEDotNet.Editor
             AddKeybind(editorWindow.selectForwardSegmentToolStripMenuItem, Keys.Up);
             AddKeybind(editorWindow.selectBackwardsSegmentToolStripMenuItem, Keys.Down);
             AddKeybind(editorWindow.selectOtherSegmentToolStripMenuItem, Keys.Space);
-            AddKeybind(editorWindow.selectOtherSegmentToolStripMenuItem, Keys.S);
+            AddKeybind(editorWindow.selectNextSideToolStripMenuItem, Keys.S);
             AddKeybind(editorWindow.selectNextSideToolStripMenuItem, Keys.Right);
             AddKeybind(editorWindow.selectPreviousSideToolStripMenuItem, Keys.Left);
             AddKeybind(editorWindow.selectNextLineToolStripMenuItem, Keys.L);

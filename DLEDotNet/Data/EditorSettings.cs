@@ -189,7 +189,7 @@ namespace DLEDotNet.Data
 
         private IEnumerable<PropertyInfo> GetProperties()
         {
-            return this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanWrite && !Attribute.IsDefined(p, typeof(NoSettingTouchAttribute)));
+            return typeof(EditorSettings).GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanWrite && !Attribute.IsDefined(p, typeof(NoSettingTouchAttribute)));
         }
 
         public void ReloadFromFile()
