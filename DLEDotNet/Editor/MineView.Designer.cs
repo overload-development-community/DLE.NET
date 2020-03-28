@@ -1,4 +1,4 @@
-﻿namespace DLEDotNet
+﻿namespace DLEDotNet.Editor
 {
     partial class MineView
     {
@@ -37,6 +37,7 @@
             this.BackColor = System.Drawing.Color.Black;
             this.Name = "MineView";
             this.Size = new System.Drawing.Size(800, 600);
+            this.MouseClick += new System.Windows.Forms.MouseEventHandler(this.MineView_MouseClick);
             this.ResumeLayout(false);
 
         }

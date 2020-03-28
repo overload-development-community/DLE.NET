@@ -84,10 +84,10 @@
     <Compile Update="Dialogs\TextureEditDialog.Designer.cs">
       <DependentUpon>TextureEditDialog.cs</DependentUpon>
     </Compile>
-    <Compile Update="EditorWindow.cs">
+    <Compile Update="Editor\EditorWindow.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="EditorWindow.Designer.cs">
+    <Compile Update="Editor\EditorWindow.Designer.cs">
       <DependentUpon>EditorWindow.cs</DependentUpon>
     </Compile>
     <Compile Update="Editor\AlternativeLayoutUserControl.cs">
@@ -519,10 +519,10 @@
     <Compile Update="Editor\UpDownControl.Designer.cs">
       <DependentUpon>UpDownControl.cs</DependentUpon>
     </Compile>
-    <Compile Update="MineView.cs">
+    <Compile Update="Editor\MineView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="MineView.Designer.cs">
+    <Compile Update="Editor\MineView.Designer.cs">
       <DependentUpon>MineView.cs</DependentUpon>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
@@ -530,16 +530,16 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="TestForm.cs">
+    <Compile Update="Editor\TestForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="TestForm.Designer.cs">
+    <Compile Update="Editor\TestForm.Designer.cs">
       <DependentUpon>TestForm.cs</DependentUpon>
     </Compile>
-    <Compile Update="TextureList.cs">
+    <Compile Update="Editor\TextureList.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="TextureList.Designer.cs">
+    <Compile Update="Editor\TextureList.Designer.cs">
       <DependentUpon>TextureList.cs</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -573,7 +573,7 @@
     <EmbeddedResource Update="Dialogs\TextureEditDialog.resx">
       <DependentUpon>TextureEditDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Update="EditorWindow.resx">
+    <EmbeddedResource Update="Editor\EditorWindow.resx">
       <DependentUpon>EditorWindow.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Update="Editor\Layouts\DiagnosticsTool.resx">
@@ -783,13 +783,13 @@
     <EmbeddedResource Update="Editor\UpDownControl.resx">
       <DependentUpon>UpDownControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Update="MineView.resx">
+    <EmbeddedResource Update="Editor\MineView.resx">
       <DependentUpon>MineView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Update="TestForm.resx">
+    <EmbeddedResource Update="Editor\TestForm.resx">
       <DependentUpon>TestForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Update="TextureList.resx">
+    <EmbeddedResource Update="Editor\TextureList.resx">
       <DependentUpon>TextureList.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>

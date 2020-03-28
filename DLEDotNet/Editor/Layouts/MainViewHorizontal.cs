@@ -31,5 +31,10 @@ namespace DLEDotNet.Editor.Layouts
         {
             return editorTabs;
         }
+
+        public override void SetFullScreen(bool fullScreen)
+        {
+            splitContainerTexture.Panel1Collapsed = splitContainerEditor.Panel2Collapsed = fullScreen;
+        }
     }
 }

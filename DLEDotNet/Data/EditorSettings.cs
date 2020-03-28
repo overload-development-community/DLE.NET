@@ -56,9 +56,6 @@ namespace DLEDotNet.Data
         public double CameraMoveSpeed { get => _cameraMoveSpeed; set => AssignChanged(ref _cameraMoveSpeed, value); }
         public double CameraTurnSpeed { get => _cameraTurnSpeed; set => AssignChanged(ref _cameraTurnSpeed, value); }
         public bool ForceFirstPersonOnInputLock { get => _forceFirstPersonOnInputLock; set => AssignChanged(ref _forceFirstPersonOnInputLock, value); }
-        public bool EnableQuickSelection { get => _enableQuickSelection; set => AssignChanged(ref _enableQuickSelection, value); }
-        public QuickSelectionCandidateMode QuickSelectionCandidates { get => _showSelectionCandidates; set => AssignChanged(ref _showSelectionCandidates, value); }
-        public ElementMovementReferenceMode ElementMovementReference { get => _elementMovementReference; set => AssignChanged(ref _elementMovementReference, value); }
         public bool SortObjects { get => _sortObjects; set => AssignChanged(ref _sortObjects, value); }
         [NoSettingCopy]
         public bool AutoFixBugs { get => _autoFixBugs; set => AssignChanged(ref _autoFixBugs, value); }
@@ -93,9 +90,6 @@ namespace DLEDotNet.Data
         private double _cameraMoveSpeed = 50;
         private double _cameraTurnSpeed = 1;
         private bool _forceFirstPersonOnInputLock = true;
-        private bool _enableQuickSelection = true;
-        private QuickSelectionCandidateMode _showSelectionCandidates = QuickSelectionCandidateMode.Full;
-        private ElementMovementReferenceMode _elementMovementReference = ElementMovementReferenceMode.RelativeToCube;
         private bool _sortObjects = false;
         private bool _autoFixBugs = true;
         #endregion
@@ -142,7 +136,7 @@ namespace DLEDotNet.Data
             return d;
         }
 
-        private dynamic ConvertFromString(Type propertyType, string text, dynamic defaultValue)
+        private dynamic ConvertFromString(string text, Type propertyType, dynamic defaultValue)
         {
             if (text == null)
             {
@@ -161,6 +155,36 @@ namespace DLEDotNet.Data
                 else
                     throw new ArgumentException("The property type is currently not supported by ConvertFromString.");
             }
+        }
+
+        private dynamic ConvertFromXmlNode(XmlNode node, Type propertyType, dynamic defaultValue)
+        {
+            if (node == null)
+            {
+                return defaultValue;
+            }
+            else
+            {
+                if (typeof(List<string>) == propertyType)
+                    return node.SelectNodes("//Item").OfType<XmlNode>().Select(x => x.InnerText).ToList();
+                else
+                    return ConvertFromString(node.InnerText, propertyType, defaultValue);
+            }
+        }
+
+        private void ConvertToXmlNode(ref XmlNode node, Type propertyType, dynamic value)
+        {
+            if (typeof(List<string>) == propertyType)
+            {
+                foreach (string element in (List<string>)value)
+                {
+                    XmlNode childNode = node.OwnerDocument.CreateElement("Item");
+                    childNode.InnerText = element;
+                    node.AppendChild(childNode);
+                }
+            }
+            else
+                node.InnerText = value.ToString();
         }
 
         private IEnumerable<PropertyInfo> GetProperties()
@@ -182,7 +206,7 @@ namespace DLEDotNet.Data
             {
                 XmlNode configNode = xmlDoc.SelectSingleNode("//DLEConfig/" + property.Name);
                 dynamic defaultValue = property.GetValue(this);
-                property.SetValue(this, ConvertFromString(property.PropertyType, configNode?.InnerText, defaultValue));
+                property.SetValue(this, ConvertFromXmlNode(configNode, property.PropertyType, defaultValue));
             }
         }
 
@@ -195,7 +219,7 @@ namespace DLEDotNet.Data
             foreach (PropertyInfo property in GetProperties())
             {
                 XmlNode node = xmlDoc.CreateElement(property.Name);
-                node.InnerText = property.GetValue(this).ToString();
+                ConvertToXmlNode(ref node, property.PropertyType, property.GetValue(this));
                 rootNode.AppendChild(node);
             }
 

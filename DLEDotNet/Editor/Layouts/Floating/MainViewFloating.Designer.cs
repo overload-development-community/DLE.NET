@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.splitContainerTexture = new System.Windows.Forms.SplitContainer();
-            this.mineView = new DLEDotNet.MineView();
-            this.textureList = new DLEDotNet.TextureList();
+            this.mineView = new DLEDotNet.Editor.MineView();
+            this.textureList = new DLEDotNet.Editor.TextureList();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerTexture)).BeginInit();
             this.splitContainerTexture.Panel1.SuspendLayout();
             this.splitContainerTexture.Panel2.SuspendLayout();

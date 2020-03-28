@@ -32,5 +32,10 @@ namespace DLEDotNet.Editor.Layouts.Vertical
         {
             return editorTabs;
         }
+
+        public override void SetFullScreen(bool fullScreen)
+        {
+            splitContainerMine.Panel1Collapsed = fullScreen;
+        }
     }
 }

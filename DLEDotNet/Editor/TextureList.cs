@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DLEDotNet
+namespace DLEDotNet.Editor
 {
     public partial class TextureList : UserControl
     {
@@ -16,6 +16,8 @@ namespace DLEDotNet
         private const int TEXTURE_PADDING = 6;
         private const int OUTER_PADDING = 4;
         private int _textureCount = 0;
+
+        internal EditorWindow Owner { get; set; }
 
         public TextureList()
         {
@@ -54,6 +56,12 @@ namespace DLEDotNet
             textureVScrollBar.Enabled = textureVScrollBar.Minimum != textureVScrollBar.Maximum;
             textureVScrollBar.SmallChange = 1;
             textureVScrollBar.LargeChange = textureCountH;
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            // custom rendering
         }
 
         private void TextureList_Load(object sender, EventArgs e)

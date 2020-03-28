@@ -20,7 +20,9 @@ namespace DLEDotNet.Data
             ActiveEditorTab = ActiveTextureTab = ActiveObjectTab = ActiveSettingsTab = 0;
             SegmentAddMode = SegmentAddMode.Normal;
             SelectionMode = SelectMode.Side;
+            Unsaved = false;
             UseTexColors = false;
+            FullScreen = false;
         }
 
         /// <summary>
@@ -104,10 +106,22 @@ namespace DLEDotNet.Data
             set => AssignChanged(ref _selectMode, value);
         }
 
+        public bool Unsaved
+        {
+            get => _unsaved;
+            set => AssignChanged(ref _unsaved, value);
+        }
+
         public bool UseTexColors
         {
             get => _useTexColors;
             set => AssignChanged(ref _useTexColors, value);
+        }
+
+        public bool FullScreen
+        {
+            get => _fullScreen;
+            set => AssignChanged(ref _fullScreen, value);
         }
 
         private EditorSettingsSaved _editorSettings;
@@ -118,6 +132,8 @@ namespace DLEDotNet.Data
         private int _activeSettingsTab;
         private SegmentAddMode _segAddMode;
         private SelectMode _selectMode;
+        private bool _unsaved;
         private bool _useTexColors;
+        private bool _fullScreen;
     }
 }

@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.splitContainerTexture = new System.Windows.Forms.SplitContainer();
-            this.textureList = new DLEDotNet.TextureList();
+            this.textureList = new DLEDotNet.Editor.TextureList();
             this.splitContainerEditor = new System.Windows.Forms.SplitContainer();
-            this.mineView = new DLEDotNet.MineView();
+            this.mineView = new DLEDotNet.Editor.MineView();
             this.editorTabs = new DLEDotNet.Editor.Layouts.EditorTabContainer();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerTexture)).BeginInit();
             this.splitContainerTexture.Panel1.SuspendLayout();
@@ -99,7 +99,7 @@
             this.mineView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mineView.Location = new System.Drawing.Point(0, 0);
             this.mineView.Name = "mineView";
-            this.mineView.Size = new System.Drawing.Size(1017, 330);
+            this.mineView.Size = new System.Drawing.Size(1017, 336);
             this.mineView.TabIndex = 0;
             // 
             // editorTabs
@@ -108,7 +108,8 @@
             this.editorTabs.Location = new System.Drawing.Point(0, 0);
             this.editorTabs.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.editorTabs.Name = "editorTabs";
-            this.editorTabs.Size = new System.Drawing.Size(1017, 258);
+            this.editorTabs.SelectedTab = 0;
+            this.editorTabs.Size = new System.Drawing.Size(1017, 252);
             this.editorTabs.TabIndex = 0;
             // 
             // MainViewHorizontal

@@ -32,5 +32,10 @@ namespace DLEDotNet.Editor.Layouts.Floating
         {
             return null;
         }
+
+        public override void SetFullScreen(bool fullScreen)
+        {
+            splitContainerTexture.Panel1Collapsed = fullScreen;
+        }
     }
 }

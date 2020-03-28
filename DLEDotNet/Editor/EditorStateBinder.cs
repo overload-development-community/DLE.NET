@@ -14,6 +14,9 @@ using System.Windows.Forms;
 
 namespace DLEDotNet.Editor
 {
+    using PropGetter = Func<dynamic>;
+    using PropSetter = Action<dynamic>;
+
     internal delegate object GetPropertyValueUncachedDelegate(object root, string property);
 
     public class EditorStateBinder
@@ -145,6 +148,40 @@ namespace DLEDotNet.Editor
             tree.Call(e, GetPropertyValueUncached);
         }
 
+        private static PropGetter MakeGetterGeneric<T, R>(MethodInfo getter, T parent) where T : class
+        {
+            Func<T, R> typedGetter = (Func<T, R>)getter.CreateDelegate(typeof(Func<T, R>));
+            return () => typedGetter(parent);
+        }
+
+        private static PropSetter MakeSetterGeneric<T, V>(MethodInfo setter, T parent) where T : class
+        {
+            Action<T, V> typedSetter = (Action<T, V>)setter.CreateDelegate(typeof(Action<T, V>));
+            return (dynamic v) => typedSetter(parent, (V)v);
+        }
+
+        private static PropGetter MakeGetter(object parent, PropertyInfo prop)
+        {
+            MethodInfo getterMethod = prop.GetGetMethod();
+            if (getterMethod == null)
+                return () => throw new InvalidOperationException("The property " + prop.Name + " has no public getter");
+
+            MethodInfo genericHelper = typeof(EditorStateBinder).GetMethod(nameof(MakeGetterGeneric), BindingFlags.Static | BindingFlags.NonPublic);
+            MethodInfo genericizedHelper = genericHelper.MakeGenericMethod(parent.GetType(), prop.PropertyType);
+            return (PropGetter)genericizedHelper.Invoke(null, new object[] { getterMethod, parent });
+        }
+
+        private static PropSetter MakeSetter(object parent, PropertyInfo prop)
+        {
+            MethodInfo setterMethod = prop.GetSetMethod();
+            if (setterMethod == null)
+                return (dynamic v) => throw new InvalidOperationException("The property " + prop.Name + " has no public setter");
+
+            MethodInfo genericHelper = typeof(EditorStateBinder).GetMethod(nameof(MakeSetterGeneric), BindingFlags.Static | BindingFlags.NonPublic);
+            MethodInfo genericizedHelper = genericHelper.MakeGenericMethod(parent.GetType(), prop.PropertyType);
+            return (PropSetter)genericizedHelper.Invoke(null, new object[] { setterMethod, parent });
+        }
+
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private PropertyCacheEntry ResolvePropertyUncached(dynamic root, string property)
         {
@@ -162,7 +199,7 @@ namespace DLEDotNet.Editor
             }
 
             if (self != null && tmp != null)
-                pce = new PropertyCacheEntry(tmp, self);
+                pce = new PropertyCacheEntry(tmp.PropertyType, MakeGetter(self, tmp), MakeSetter(self, tmp));
 
             if (Object.Equals(root, state))
                 tree.Cache(property, pce);
@@ -185,26 +222,26 @@ namespace DLEDotNet.Editor
         private dynamic GetPropertyValueUncached(dynamic root, string property)
         {
             PropertyCacheEntry pce = ResolvePropertyUncached(root, property);
-            return pce.Property?.GetValue(pce.Parent);
+            return pce.Getter();
         }
 
         private dynamic GetPropertyValue(dynamic root, string property)
         {
             PropertyCacheEntry pce = ResolveProperty(root, property);
-            return pce.Property?.GetValue(pce.Parent);
+            return pce.Getter();
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private bool SetPropertyValue_i(string property, dynamic value, bool allowExplicitCast)
         {
             PropertyCacheEntry pce = ResolveProperty(state, property);
-            if (pce.Parent == null || pce.Property == null)
+            if (pce.PropertyType == null)
                 return false;
             if (!MaybeDoExplicitCast(value, out dynamic assignValue, allowExplicitCast, pce.PropertyType))
                 return false;
             try
             {
-                pce.Property.SetValue(pce.Parent, assignValue);
+                pce.Setter(assignValue);
                 return true;
             }
             catch (ArgumentException)
@@ -503,7 +540,7 @@ namespace DLEDotNet.Editor
         /// <summary>
         /// Binds a CheckBox to a (public) property with a flag enum type.
         /// </summary>
-        /// <typeparam name="T">The type of the flag enum.</typeparam>
+        /// <typeparam name="T">The type of the flag enum (should have type int).</typeparam>
         /// <param name="checkBox">The CheckBox to bind.</param>
         /// <param name="property">The name of the property under EditorState to bind; dots are allowed for nested properties. The property must have a flag enum type.</param>
         /// <param name="flag">The enum value to use as the "selected" flag.</param>
@@ -512,16 +549,17 @@ namespace DLEDotNet.Editor
         public void BindCheckBoxFlag<T>(CheckBox checkBox, string property, T flag, bool readOnly) where T : Enum
         {
             bool debounce = false;
-            ulong flagI = Convert.ToUInt64(flag);
+            int flagI = Convert.ToInt32(flag);
+            int test = 0;
             BindControl(checkBox, property, (object sender, PropertyChangeEventArgs e) =>
                 Debounce(ref debounce, () => {
                     if (e.PropertyName == property)
-                        checkBox.Checked = 0 != ((ulong)e.NewValue & flagI);
+                        checkBox.Checked = 0 != ((int)e.NewValue & flagI);
                 }));
             if (!readOnly)
                 checkBox.CheckedChanged += (object sender, EventArgs e) =>
-                    ApplyToPropertyValueDebounced(debounce, property,
-                        v => ForceUncheckedDynamicCast(typeof(T), checkBox.Checked ? ((ulong)v | flagI) : ((ulong)v & ~flagI)));
+                    ApplyToPropertyValueDebounced(false, property,
+                        v => (T)(object)(checkBox.Checked ? ((int)v | flagI) : ((int)v & ~flagI)));
         }
 
         /// <summary>
@@ -549,26 +587,6 @@ namespace DLEDotNet.Editor
                 }
             });
             radioButton.CheckedChanged += radioButton_CheckedChanged;
-        }
-
-        /// <summary>
-        /// Binds a ToolStripButton as if it were a RadioButton to a (public) property with a variable type, with the item being considered "selected" (held) if it is equal to a given value.
-        /// </summary>
-        /// <typeparam name="T">The type of the selected value; must be equality comparable and assignable to the type of the property, and thus must be compatible with it.</typeparam>
-        /// <param name="toolStripButton">The ToolStripButton to bind.</param>
-        /// <param name="property">The name of the property under EditorState to bind; dots are allowed for nested properties.</param>
-        /// <param name="selectedValue">The value for the property for which this radio button is "selected". Must be comparable in terms of equality to the type of the property.</param>
-        /// <param name="readOnly">Whether the radio button is read-only; if false, no listener for when its value changes will be registered.</param>
-        /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
-        public void BindToolStripButtonAsRadioButton<T>(ToolStripButton toolStripButton, string property, T selectedValue, bool readOnly)
-        {
-            EqualityComparer<T> equalityComparer = EqualityComparer<T>.Default;
-            BindControl(toolStripButton, property, property, (object sender, PropertyChangeEventArgs e) => {
-                if (e.PropertyName == property)
-                    toolStripButton.Checked = e.NewValue == null ? selectedValue == null : equalityComparer.Equals(selectedValue, e.NewValue);
-            });
-            if (!readOnly)
-                toolStripButton.Click += (object sender, EventArgs e) => SetPropertyValue(property, selectedValue);
         }
 
         /// <summary>
@@ -628,6 +646,80 @@ namespace DLEDotNet.Editor
         }
 
         /// <summary>
+        /// Binds a ToolStripButton as if it were a RadioButton to a (public) property with a variable type, with the item being considered "selected" (held) if it is equal to a given value.
+        /// </summary>
+        /// <typeparam name="T">The type of the selected value; must be equality comparable and assignable to the type of the property, and thus must be compatible with it.</typeparam>
+        /// <param name="toolStripButton">The ToolStripButton to bind.</param>
+        /// <param name="property">The name of the property under EditorState to bind; dots are allowed for nested properties.</param>
+        /// <param name="selectedValue">The value for the property for which this radio button is "selected". Must be comparable in terms of equality to the type of the property.</param>
+        /// <param name="readOnly">Whether the radio button is read-only; if false, no listener for when its value changes will be registered.</param>
+        /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
+        public void BindToolStripButtonAsRadioButton<T>(ToolStripButton toolStripButton, string property, T selectedValue, bool readOnly)
+        {
+            EqualityComparer<T> equalityComparer = EqualityComparer<T>.Default;
+            BindControl(toolStripButton, property, property, (object sender, PropertyChangeEventArgs e) => {
+                if (e.PropertyName == property)
+                    toolStripButton.Checked = e.NewValue == null ? selectedValue == null : equalityComparer.Equals(selectedValue, e.NewValue);
+            });
+            if (!readOnly)
+                toolStripButton.Click += (object sender, EventArgs e) => SetPropertyValue(property, selectedValue);
+        }
+
+        /// <summary>
+        /// Binds a ToolStripButton as if it were a CheckBox to a (public) property with a boolean type.
+        /// </summary>
+        /// <param name="toolStripButton">The ToolStripButton to bind.</param>
+        /// <param name="property">The name of the property under EditorState to bind; dots are allowed for nested properties. The property must have a boolean type.</param
+        /// <param name="readOnly">Whether the radio button is read-only; if false, no listener for when its value changes will be registered.</param>
+        /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
+        public void BindToolStripButtonAsCheckBox(ToolStripButton toolStripButton, string property, bool readOnly)
+        {
+            BindControl(toolStripButton, property, property, (object sender, PropertyChangeEventArgs e) => {
+                if (e.PropertyName == property)
+                    toolStripButton.Checked = e.NewValue;
+            });
+            if (!readOnly)
+                toolStripButton.Click += (object sender, EventArgs e) => SetPropertyValue(property, !toolStripButton.Checked);
+        }
+
+        /// <summary>
+        /// Binds a ToolStripButton as if it were a RadioButton to a (public) property with a variable type, with the item being considered "selected" (held) if it is equal to a given value.
+        /// </summary>
+        /// <typeparam name="T">The type of the selected value; must be equality comparable and assignable to the type of the property, and thus must be compatible with it.</typeparam>
+        /// <param name="toolStripButton">The ToolStripButton to bind.</param>
+        /// <param name="property">The name of the property under EditorState to bind; dots are allowed for nested properties.</param>
+        /// <param name="selectedValue">The value for the property for which this radio button is "selected". Must be comparable in terms of equality to the type of the property.</param>
+        /// <param name="readOnly">Whether the radio button is read-only; if false, no listener for when its value changes will be registered.</param>
+        /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
+        public void BindToolStripMenuItemAsRadioButton<T>(ToolStripMenuItem toolStripButton, string property, T selectedValue, bool readOnly)
+        {
+            EqualityComparer<T> equalityComparer = EqualityComparer<T>.Default;
+            BindControl(toolStripButton, property, property, (object sender, PropertyChangeEventArgs e) => {
+                if (e.PropertyName == property)
+                    toolStripButton.Checked = e.NewValue == null ? selectedValue == null : equalityComparer.Equals(selectedValue, e.NewValue);
+            });
+            if (!readOnly)
+                toolStripButton.Click += (object sender, EventArgs e) => SetPropertyValue(property, selectedValue);
+        }
+
+        /// <summary>
+        /// Binds a ToolStripButton as if it were a CheckBox to a (public) property with a boolean type.
+        /// </summary>
+        /// <param name="toolStripMenuItem">The ToolStripButton to bind.</param>
+        /// <param name="property">The name of the property under EditorState to bind; dots are allowed for nested properties. The property must have a boolean type.</param
+        /// <param name="readOnly">Whether the radio button is read-only; if false, no listener for when its value changes will be registered.</param>
+        /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
+        public void BindToolStripMenuItemAsCheckBox(ToolStripMenuItem toolStripMenuItem, string property, bool readOnly)
+        {
+            BindControl(toolStripMenuItem, property, property, (object sender, PropertyChangeEventArgs e) => {
+                if (e.PropertyName == property)
+                    toolStripMenuItem.Checked = e.NewValue;
+            });
+            if (!readOnly)
+                toolStripMenuItem.Click += (object sender, EventArgs e) => SetPropertyValue(property, !toolStripMenuItem.Checked);
+        }
+
+        /// <summary>
         /// Binds a tab control's selected tab index to a (public) property to avoid it from being lost on reload.
         /// </summary>
         /// <param name="tabControl">The tab control to bind.</param>
@@ -668,21 +760,15 @@ namespace DLEDotNet.Editor
 
     internal struct PropertyCacheEntry
     {
-        internal PropertyInfo Property { get; }
-        internal object Parent { get; }
+        internal Type PropertyType { get; }
+        internal PropGetter Getter { get; }
+        internal PropSetter Setter { get; }
 
-        internal PropertyCacheEntry(PropertyInfo property, object parent)
+        internal PropertyCacheEntry(Type type, PropGetter getter, PropSetter setter)
         {
-            Property = property;
-            Parent = parent;
-        }
-
-        internal Type PropertyType
-        {
-            get
-            {
-                return Property.PropertyType;
-            }
+            PropertyType = type;
+            Getter = getter;
+            Setter = setter;
         }
     }
 

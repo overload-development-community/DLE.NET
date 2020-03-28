@@ -30,8 +30,8 @@
         {
             this.splitEditorTexture = new System.Windows.Forms.SplitContainer();
             this.editorTabs = new DLEDotNet.Editor.Layouts.EditorTabContainer();
-            this.textureList = new DLEDotNet.TextureList();
-            this.mineView = new DLEDotNet.MineView();
+            this.textureList = new DLEDotNet.Editor.TextureList();
+            this.mineView = new DLEDotNet.Editor.MineView();
             this.splitContainerMine = new System.Windows.Forms.SplitContainer();
             ((System.ComponentModel.ISupportInitialize)(this.splitEditorTexture)).BeginInit();
             this.splitEditorTexture.Panel1.SuspendLayout();

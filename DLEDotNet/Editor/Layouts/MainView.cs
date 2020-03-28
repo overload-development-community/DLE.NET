@@ -31,5 +31,10 @@ namespace DLEDotNet.Editor.Layouts
         {
             throw new NotImplementedException();
         }
+
+        public virtual void SetFullScreen(bool fullScreen)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

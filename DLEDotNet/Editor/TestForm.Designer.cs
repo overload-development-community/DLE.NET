@@ -1,4 +1,4 @@
-﻿namespace DLEDotNet
+﻿namespace DLEDotNet.Editor
 {
     partial class TestForm
     {

@@ -57,7 +57,7 @@ namespace DLEDotNet.Editor
             if (node != null)
             {
                 entry = node.Cache;
-                return entry.Parent != null;
+                return entry.PropertyType != null;
             }
             return false;
         }

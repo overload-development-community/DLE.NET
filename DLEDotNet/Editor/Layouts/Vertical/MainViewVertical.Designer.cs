@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.splitContainerEditor = new System.Windows.Forms.SplitContainer();
-            this.mineView = new DLEDotNet.MineView();
-            this.textureList = new DLEDotNet.TextureList();
+            this.mineView = new DLEDotNet.Editor.MineView();
+            this.textureList = new DLEDotNet.Editor.TextureList();
             this.splitContainerTexture = new System.Windows.Forms.SplitContainer();
             this.editorTabs = new DLEDotNet.Editor.Layouts.EditorTabContainer();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainerEditor)).BeginInit();
