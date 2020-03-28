@@ -33,5 +33,13 @@ namespace DLEDotNet.Editor.Layouts
             }
             return null;
         }
+
+        protected override void SetupControls()
+        {
+            EditorStateBinder binder = EditorStateBinder.FromState(this.EditorState);
+            binder.BindStringTextBox(this.prefsPathD1PigTextBox, PROP(s => s.Prefs.D1PIGPath), false);
+            binder.BindStringTextBox(this.prefsPathD2PigTextBox, PROP(s => s.Prefs.D2PIGPath), false);
+            binder.BindStringTextBox(this.prefsPathMissionsTextBox, PROP(s => s.Prefs.MissionPath), false);
+        }
     }
 }

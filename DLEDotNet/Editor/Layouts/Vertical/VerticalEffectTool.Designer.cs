@@ -53,6 +53,11 @@
             this.tabPageSounds.SuspendLayout();
             this.tabPageWaypoints.SuspendLayout();
             this.tabPageFog.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.effectFog1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.effectLightning1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.effectParticle1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.effectSound1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.effectWaypoint1)).BeginInit();
             this.SuspendLayout();
             // 
             // effectObjectsComboBox
@@ -249,6 +254,11 @@
             // 
             // VerticalEffectTool
             // 
+            ((System.ComponentModel.ISupportInitialize)(this.effectFog1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.effectLightning1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.effectParticle1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.effectSound1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.effectWaypoint1)).EndInit();
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.effectTabControl);

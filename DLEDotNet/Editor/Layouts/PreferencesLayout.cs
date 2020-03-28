@@ -37,10 +37,10 @@ namespace DLEDotNet.Editor.Layouts
         protected override void SetupControls()
         {
             EditorStateBinder binder = EditorStateBinder.FromState(this.EditorState);
-            binder.BindRadioButton(this.prefsLayout0RadioButton, "SettingsCandidate.ActiveLayout", LayoutOrientation.HORIZONTAL, false);
-            binder.BindRadioButton(this.prefsLayout1RadioButton, "SettingsCandidate.ActiveLayout", LayoutOrientation.VERTICAL, false);
-            binder.BindRadioButton(this.prefsLayout2RadioButton, "SettingsCandidate.ActiveLayout", LayoutOrientation.FLOATING, false);
-            binder.BindRadioButton(this.prefsLayout3RadioButton, "SettingsCandidate.ActiveLayout", LayoutOrientation.VERTICAL_SS, false);
+            binder.BindRadioButton(this.prefsLayout0RadioButton, PROP(s => s.Prefs.ActiveLayout), LayoutOrientation.HORIZONTAL);
+            binder.BindRadioButton(this.prefsLayout1RadioButton, PROP(s => s.Prefs.ActiveLayout), LayoutOrientation.VERTICAL);
+            binder.BindRadioButton(this.prefsLayout2RadioButton, PROP(s => s.Prefs.ActiveLayout), LayoutOrientation.FLOATING);
+            binder.BindRadioButton(this.prefsLayout3RadioButton, PROP(s => s.Prefs.ActiveLayout), LayoutOrientation.VERTICAL_SS);
         }
     }
 }

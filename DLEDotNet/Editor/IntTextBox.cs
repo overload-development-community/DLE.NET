@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DLEDotNet.Util;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -40,7 +41,7 @@ namespace DLEDotNet.Editor
             }
             set
             {
-                int bounded = Math.Max(Math.Min(value, MaximumValue), MinimumValue);
+                int bounded = MathUtil.Clamp(value, MinimumValue, MaximumValue);
                 TextChanged -= IntTextBox_removenonint; // disable event temporarily; optimization
                 Text = bounded.ToString();
                 TextChanged += IntTextBox_removenonint;

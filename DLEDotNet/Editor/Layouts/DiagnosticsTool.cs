@@ -35,6 +35,9 @@ namespace DLEDotNet.Editor.Layouts
 
         protected override void SetupControls()
         {
+            EditorStateBinder binder = EditorStateBinder.FromState(this.EditorState);
+            binder.BindCheckBox(this.diagFixbugsCheckBox, PROP(s => s.SavedPrefs.AutoFixBugs), false);
+
             diagStatsListView.ListViewItemSorter = null;
         }
     }

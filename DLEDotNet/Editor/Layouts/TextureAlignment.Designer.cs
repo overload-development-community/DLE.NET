@@ -104,7 +104,7 @@
             // 
             // texalignHalignTextBox
             // 
-            this.texalignHalignTextBox.FractionalDigits = ((uint)(2u));
+            this.texalignHalignTextBox.FractionalDigits = 2;
             this.texalignHalignTextBox.Location = new System.Drawing.Point(178, 31);
             this.texalignHalignTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texalignHalignTextBox.Name = "texalignHalignTextBox";
@@ -116,7 +116,7 @@
             // 
             // texalignValignTextBox
             // 
-            this.texalignValignTextBox.FractionalDigits = ((uint)(2u));
+            this.texalignValignTextBox.FractionalDigits = 2;
             this.texalignValignTextBox.Location = new System.Drawing.Point(178, 54);
             this.texalignValignTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texalignValignTextBox.Name = "texalignValignTextBox";
@@ -128,7 +128,7 @@
             // 
             // texalignRalignTextBox
             // 
-            this.texalignRalignTextBox.FractionalDigits = ((uint)(2u));
+            this.texalignRalignTextBox.FractionalDigits = 2;
             this.texalignRalignTextBox.Location = new System.Drawing.Point(178, 76);
             this.texalignRalignTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texalignRalignTextBox.Name = "texalignRalignTextBox";

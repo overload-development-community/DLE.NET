@@ -10,6 +10,7 @@ namespace DLEDotNet.Data
 
     public abstract class ChangeableState
     {
+        private readonly Dictionary<string, PropertyInfo> propCache = new Dictionary<string, PropertyInfo>();
         private readonly Dictionary<string, SubstateListener> substates = new Dictionary<string, SubstateListener>();
 
         /// <summary>
@@ -18,24 +19,24 @@ namespace DLEDotNet.Data
         public event PropertyChangeEventHandler PropertyChanged;
 
         /// <summary>
-        /// 
+        /// Called before a property has been changed. Not necessarily called for all properties, but will be called
+        /// if the property can be changed *directly* by user input (i.e. the property has a setter).
         /// </summary>
         public event PropertyChangeEventHandler BeforePropertyChanged;
 
-        /// <summary>
-        /// Use this, when the value of a property has changed, in order to notify
-        /// controls bound to that particular value. It is recommended to use
-        /// AssignChanged instead whenever possible.
-        /// </summary>
-        /// <param name="propertyName">The property name. This should be the
-        /// plain property name (i.e. no nesting or dots).</param>
-        /// <param name="newValue">The new value.</param>
-        [MethodImpl(MethodImplOptions.Synchronized)]
-        protected void OnPropertyChanged(string propertyName, dynamic newValue)
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private PropertyInfo GetPropertyOrCache(string propertyName)
         {
-            PropertyInfo prop = this.GetType().GetProperty(propertyName);
-            BeforePropertyChanged?.Invoke(this, new PropertyChangeEventArgs(propertyName, newValue));
-            if (prop != null && typeof(ChangeableState).IsAssignableFrom(prop.PropertyType) && prop.GetCustomAttribute(typeof(NoSubstateAutoSubscribeAttribute)) != null)
+            return propCache.ContainsKey(propertyName)
+                ? propCache[propertyName]
+                : propCache[propertyName] = this.GetType().GetProperty(propertyName);
+        }
+
+        [MethodImpl(MethodImplOptions.Synchronized)]
+        private void OnPropertyChanged(string propertyName, dynamic newValue)
+        {
+            PropertyInfo prop = GetPropertyOrCache(propertyName);
+            if (prop != null && typeof(ChangeableState).IsAssignableFrom(prop.PropertyType) && !Attribute.IsDefined(prop, typeof(NoSubstateAutoSubscribeAttribute)))
             {
                 OnSubstateChanged(propertyName, prop.GetValue(this) as ChangeableState);
             }
@@ -63,6 +64,18 @@ namespace DLEDotNet.Data
             {
                 substates.Remove(propertyName);
             }
+        }
+
+        /// <summary>
+        /// Raises PropertyChanged without raising BeforePropertyChanged. Use this, if the value of an otherwise
+        /// read-only property is updated because of a change in value in another property. Use AssignChanged
+        /// instead of read/write properties.
+        /// </summary>
+        /// <param name="propertyName">The property name.</param>
+        /// <param name="newValue">The new value assigned, and the value that will be given to event handlers.</param>
+        protected void OnReadOnlyPropertyChanged(string propertyName, dynamic newValue)
+        {
+            OnPropertyChanged(propertyName, newValue);
         }
 
         /// <summary>

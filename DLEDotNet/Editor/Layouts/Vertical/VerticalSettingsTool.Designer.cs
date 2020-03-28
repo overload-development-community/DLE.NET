@@ -45,11 +45,17 @@
             this.preferencesMisc1 = new DLEDotNet.Editor.Layouts.PreferencesMisc();
             this.toolTabTabControl.SuspendLayout();
             this.tabPageFiles.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.preferencesFiles1)).BeginInit();
             this.tabPageLayout.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.preferencesLayout1)).BeginInit();
             this.tabPageRenderer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.preferencesRenderer1)).BeginInit();
             this.tabPageEditor.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.preferencesEditor1)).BeginInit();
             this.tabPageVisibility.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.preferencesVisibility1)).BeginInit();
             this.tabPageMisc.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.preferencesMisc1)).BeginInit();
             this.SuspendLayout();
             // 
             // idokButton
@@ -61,7 +67,7 @@
             this.idokButton.Size = new System.Drawing.Size(76, 20);
             this.idokButton.TabIndex = 1;
             this.idokButton.TabStop = false;
-            this.idokButton.Text = "apply";
+            this.idokButton.Text = "save";
             // 
             // idcancelButton
             // 
@@ -71,7 +77,7 @@
             this.idcancelButton.Name = "idcancelButton";
             this.idcancelButton.Size = new System.Drawing.Size(76, 20);
             this.idcancelButton.TabIndex = 2;
-            this.idcancelButton.Text = "cancel";
+            this.idcancelButton.Text = "revert";
             // 
             // toolTabTabControl
             // 
@@ -81,7 +87,7 @@
             this.toolTabTabControl.Controls.Add(this.tabPageEditor);
             this.toolTabTabControl.Controls.Add(this.tabPageVisibility);
             this.toolTabTabControl.Controls.Add(this.tabPageMisc);
-            this.toolTabTabControl.Location = new System.Drawing.Point(6, 18);
+            this.toolTabTabControl.Location = new System.Drawing.Point(6, 6);
             this.toolTabTabControl.Margin = new System.Windows.Forms.Padding(0);
             this.toolTabTabControl.Multiline = true;
             this.toolTabTabControl.Name = "toolTabTabControl";
@@ -234,11 +240,17 @@
             this.Size = new System.Drawing.Size(333, 429);
             this.toolTabTabControl.ResumeLayout(false);
             this.tabPageFiles.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.preferencesFiles1)).EndInit();
             this.tabPageLayout.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.preferencesLayout1)).EndInit();
             this.tabPageRenderer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.preferencesRenderer1)).EndInit();
             this.tabPageEditor.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.preferencesEditor1)).EndInit();
             this.tabPageVisibility.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.preferencesVisibility1)).EndInit();
             this.tabPageMisc.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.preferencesMisc1)).EndInit();
             this.ResumeLayout(false);
 
         }

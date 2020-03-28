@@ -130,7 +130,7 @@
             // 
             // segmentLightTextBox
             // 
-            this.segmentLightTextBox.FractionalDigits = ((uint)(2u));
+            this.segmentLightTextBox.FractionalDigits = 2;
             this.segmentLightTextBox.Location = new System.Drawing.Point(50, 70);
             this.segmentLightTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentLightTextBox.MinimumValue = 0D;
@@ -286,7 +286,7 @@
             // 
             // segmentPointxTextBox
             // 
-            this.segmentPointxTextBox.FractionalDigits = ((uint)(2u));
+            this.segmentPointxTextBox.FractionalDigits = 2;
             this.segmentPointxTextBox.Location = new System.Drawing.Point(63, 18);
             this.segmentPointxTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentPointxTextBox.Name = "segmentPointxTextBox";
@@ -298,7 +298,7 @@
             // 
             // segmentPointyTextBox
             // 
-            this.segmentPointyTextBox.FractionalDigits = ((uint)(2u));
+            this.segmentPointyTextBox.FractionalDigits = 2;
             this.segmentPointyTextBox.Location = new System.Drawing.Point(63, 39);
             this.segmentPointyTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentPointyTextBox.Name = "segmentPointyTextBox";
@@ -310,7 +310,7 @@
             // 
             // segmentPointzTextBox
             // 
-            this.segmentPointzTextBox.FractionalDigits = ((uint)(2u));
+            this.segmentPointzTextBox.FractionalDigits = 2;
             this.segmentPointzTextBox.Location = new System.Drawing.Point(63, 60);
             this.segmentPointzTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentPointzTextBox.Name = "segmentPointzTextBox";

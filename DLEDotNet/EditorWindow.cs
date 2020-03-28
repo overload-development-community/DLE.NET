@@ -21,13 +21,10 @@ namespace DLEDotNet
     public partial class EditorWindow : Form
     {
         /**
-         *  notes:
-         *    all menu item ShortcutKeys should work (only need to handle Click for menu items, not key events for those!)
-         *    perhaps the tool strip buttons Click events should just use the menu item click events too
-         * 
          *  TODO:
+         *    - context menu
+         *    - rewrite key event system (don't use ShortcutKeys, for one)
          *    - proxy stuff from LibDescent
-         *    - rest of the icons
          *    - rest of the settings
          *    - import settings from DLE.ini
          * 
@@ -47,21 +44,29 @@ namespace DLEDotNet
             editorTabs = new EditorTools(this);
         }
 
+        #region --- Program load & unload
         private void EditorWindow_Load(object sender, EventArgs e)
         {
 #if DEBUG
             editorTabs.SelfTest(); // must be called before assigning layout!!!
             // new TestForm() { EditorWindow = this, EditorState = this.EditorState }.Show(this);
 #endif
-            // a layout MUST be set on load. this will do it, since we listen to SettingChanged
-            // and it sets the ActiveLayout
+            EditorState.SavedPrefs.ReloadFromFile();
+            EditorState.Prefs.CopyFrom(EditorState.SavedPrefs);
+            // a layout MUST be set on load.
+            ActiveLayout = EditorState.SavedPrefs.ActiveLayout;
+            WindowState = ControlUtil.ConvertToFormWindowState(EditorState.SavedPrefs.StartupState);
             EditorState.SettingChanged += EditorState_SettingChanged;
-            EditorState.Settings.ReloadFromFile();
-            EditorState.SettingsCandidate.CopyFrom(EditorState.Settings);
 
             InitializeEvents();
             SetupToolbar();
         }
+
+        private void EditorWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            EditorState.SavedPrefs.SaveToFile();
+        }
+        #endregion
 
         #region --- Layout handling code
         internal LayoutOrientation ActiveLayout
@@ -100,7 +105,15 @@ namespace DLEDotNet
         {
             MainView newMainView;
 
-            mainPanel.Controls.Clear();
+            if (_activeMainView != null)
+            {
+                // we need to dispose of the old main view
+#if DEBUG
+                System.Diagnostics.Debug.Assert(mainPanel.Controls.Count == 1 && mainPanel.Controls[0] == _activeMainView);
+#endif
+                DisposeMainView(_activeMainView);
+                mainPanel.Controls.Clear();
+            }
 
             switch (_activeLayout)
             {
@@ -139,14 +152,21 @@ namespace DLEDotNet
             {
                 _activeMainView.Dispose();
             }
+            mineView = newMainView.GetMineView();
+            textureList = newMainView.GetTextureList();
             ActiveMainView = newMainView;
             mainPanel.PerformLayout();
         }
 
+        private void DisposeMainView(MainView mainView)
+        {
+            editorTabs.Detach();
+            mainView.Dispose(); // dispose whatever remains, which should be everything else
+        }
+
         private void OnMainViewUpdate(MainView newMainView, MainView oldMainView)
         {
-            UpdateMineView();
-            UpdateTextureList();
+            UpdateViews();
             GC.WaitForPendingFinalizers();
             GC.Collect();
         }
@@ -155,7 +175,7 @@ namespace DLEDotNet
         #region --- Tool strip handling (icons, binding...)
         private void SetupToolbarIcons()
         {
-            if (ControlUtilities.IsDark())
+            if (ControlUtil.IsDarkMode())
             {
                 this.openToolStripButton.Image = Properties.Resources.toolbarOpenFileDark;
                 this.saveToolStripButton.Image = Properties.Resources.toolbarSaveFileDark;
@@ -243,11 +263,13 @@ namespace DLEDotNet
 
         private void SetupToolbar()
         {
-            EditorStateBinder binder = EditorStateBinder.FromState(this.EditorState);
             SetupToolbarIcons();
+            EditorStateBinder binder = EditorStateBinder.FromState(this.EditorState);
+            
             binder.BindToolStripButtonAsRadioButton(this.addNormalToolStripButton, PROP(s => s.SegmentAddMode), SegmentAddMode.Normal, false);
             binder.BindToolStripButtonAsRadioButton(this.addExtendedToolStripButton, PROP(s => s.SegmentAddMode), SegmentAddMode.Extended, false);
             binder.BindToolStripButtonAsRadioButton(this.addMirroredToolStripButton, PROP(s => s.SegmentAddMode), SegmentAddMode.Mirrored, false);
+
             binder.BindToolStripButtonAsRadioButton(this.pointModeToolStripButton, PROP(s => s.SelectionMode), SelectMode.Point, false);
             binder.BindToolStripButtonAsRadioButton(this.lineModeToolStripButton, PROP(s => s.SelectionMode), SelectMode.Line, false);
             binder.BindToolStripButtonAsRadioButton(this.sideModeToolStripButton, PROP(s => s.SelectionMode), SelectMode.Side, false);
@@ -273,6 +295,12 @@ namespace DLEDotNet
         #endregion
 
         #region --- View update code
+        private void UpdateViews()
+        {
+            UpdateMineView();
+            UpdateTextureList();
+        }
+
         private void UpdateMineView()
         {
             // ...
@@ -286,16 +314,22 @@ namespace DLEDotNet
         }
         #endregion
 
+        // Most of the event listeners below should be as few lines as possible;
+        // it's ideal to place logic on other classes
+        // the main menu is the "canonical" event handler; thus tool strip
+        // and key event handlers just point back there for most of them
+
         #region --- Handling key events (those not handled by ShortcutKeys)
         public bool FocusedOnTypable()
         {
             Control active = GetActiveControl();
-            return ControlUtilities.IsTypableControl(active);
+            return ControlUtil.IsTypableControl(active);
         }
 
         private Control GetActiveMostControl(Control root)
         {
             Control c = root;
+            if (c == null) return null;
             do
             {
                 c = ((ContainerControl)c).ActiveControl;
@@ -427,7 +461,38 @@ namespace DLEDotNet
         #endregion
 
         #region --- Events for the tool strip
-
+        // these should mostly just PerformClick on menu buttons below for more complex actions
+        // like zooming, moving, rotating etc.
+        private void openToolStripButton_Click(object sender, EventArgs e) => fileOpenToolStripMenuItem.PerformClick();
+        private void saveToolStripButton_Click(object sender, EventArgs e) => fileSaveToolStripMenuItem.PerformClick();
+        private void checkMineToolStripButton_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Diagnostics); // TODO also run check
+        private void lightToolToolStripButton_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Lights);
+        private void textureToolToolStripButton_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Textures);
+        private void segmentToolToolStripButton_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Segments);
+        private void wallToolToolStripButton_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Walls);
+        private void objectToolToolStripButton_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Objects);
+        private void preferencesToolStripButton_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Settings);
+        private void zoomInToolStripButton_Click(object sender, EventArgs e) => zoomInToolStripMenuItem.PerformClick();
+        private void zoomOutToolStripButton_Click(object sender, EventArgs e) => zoomOutToolStripMenuItem.PerformClick();
+        private void fitMineToolStripButton_Click(object sender, EventArgs e) => fitToViewToolStripMenuItem.PerformClick();
+        private void panLeftToolStripButton_Click(object sender, EventArgs e) => panLeftToolStripButton.PerformClick();
+        private void panRightToolStripButton_Click(object sender, EventArgs e) => panRightToolStripButton.PerformClick();
+        private void panUpToolStripButton_Click(object sender, EventArgs e) => panUpToolStripButton.PerformClick();
+        private void panDownToolStripButton_Click(object sender, EventArgs e) => panDownToolStripButton.PerformClick();
+        private void rotateXMToolStripButton_Click(object sender, EventArgs e) => rotateHorizontallyRightToolStripMenuItem.PerformClick();
+        private void rotateXPToolStripButton_Click(object sender, EventArgs e) => rotateHorizontallyLeftToolStripMenuItem.PerformClick();
+        private void rotateYMToolStripButton_Click(object sender, EventArgs e) => rotateVerticallyDownToolStripMenuItem.PerformClick();
+        private void rotateYPToolStripButton_Click(object sender, EventArgs e) => rotateVerticallyUpToolStripMenuItem.PerformClick();
+        private void rotateZMToolStripButton_Click(object sender, EventArgs e) => rotateClockwiseToolStripMenuItem.PerformClick();
+        private void rotateZPToolStripButton_Click(object sender, EventArgs e) => rotateCounterClockwiseToolStripMenuItem.PerformClick();
+        private void joinPointsToolStripButton_Click(object sender, EventArgs e) => joinPointsToolStripMenuItem.PerformClick();
+        private void splitPointsToolStripButton_Click(object sender, EventArgs e) => separatePointsToolStripMenuItem.PerformClick();
+        private void joinLinesToolStripButton_Click(object sender, EventArgs e) => joinLinesToolStripMenuItem.PerformClick();
+        private void splitLinesToolStripButton_Click(object sender, EventArgs e) => separateLinesToolStripMenuItem.PerformClick();
+        private void joinSidesToolStripButton_Click(object sender, EventArgs e) => joinSidesToolStripMenuItem.PerformClick();
+        private void splitSidesToolStripButton_Click(object sender, EventArgs e) => separateSidesToolStripMenuItem.PerformClick();
+        // mode and full screen buttons are bound
+        private void redrawMineToolStripButton_Click(object sender, EventArgs e) => UpdateViews();
         #endregion
 
         #region --- Events for the File menu

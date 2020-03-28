@@ -143,7 +143,7 @@ namespace DLEDotNet.Editor
 
         internal void CallAllRecursive(string basePath, object rootValue, GetPropertyValueUncachedDelegate GetPropertyValueUncached, bool top)
         {
-            PropertyChangeEventArgs e = new PropertyChangeEventArgs(basePath + "." + this.Name, top ? rootValue : GetPropertyValueUncached(rootValue, this.Name));
+            PropertyChangeEventArgs e = new PropertyChangeEventArgs(top ? basePath : basePath + "." + this.Name, top ? rootValue : GetPropertyValueUncached(rootValue, this.Name));
             if (!top) // since the root changed, we must invalidate cache
                 this.InvalidateCache();
             foreach (PropertyChangeEventHandler EventHandler in this.Leaves)

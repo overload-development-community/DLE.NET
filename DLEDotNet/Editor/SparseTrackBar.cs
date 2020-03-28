@@ -36,7 +36,7 @@ namespace DLEDotNet.Editor
                 base.Minimum = base.Minimum * _smallChange / value;
                 base.Maximum = base.Maximum * _smallChange / value;
                 base.TickFrequency = base.TickFrequency * _smallChange / value;
-                base.Value = MathUtilities.RoundDiv2(2 * base.Value * _smallChange / value);
+                base.Value = MathUtil.RoundDiv2(2 * base.Value * _smallChange / value);
                 base.SmallChange = 1;
                 _smallChange = value;
             }
@@ -98,7 +98,7 @@ namespace DLEDotNet.Editor
             }
             set
             {
-                base.Value = MathUtilities.RoundDiv2(2 * value / _smallChange);
+                base.Value = MathUtil.RoundDiv2(2 * value / _smallChange);
             }
         }
     }

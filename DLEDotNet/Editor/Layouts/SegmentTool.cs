@@ -36,7 +36,7 @@ namespace DLEDotNet.Editor.Layouts
         protected override void SetupControls()
         {
             EditorStateBinder binder = EditorStateBinder.FromState(this.EditorState);
-            binder.BindIntTextBox(this.segmentEnergyDamageTextBox, PROP(s => s.Temp), false);
+            
         }
 
         private void segmentAddButton_Click(object sender, EventArgs e)

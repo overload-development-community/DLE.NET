@@ -74,7 +74,7 @@ namespace DLEDotNet.Editor
         {
             if (!firstUpdate)
             {
-                Controls.Clear();
+                ControlUtil.DeleteAllChildControls(this);
                 ResetLayout();
                 SetupControls();
             }
@@ -87,31 +87,19 @@ namespace DLEDotNet.Editor
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            if (!DesignMode) SetupControls();
+            if (!DesignMode)
+                SetupControls();
         }
 
-        public void BeginInit()
+        public void BeginInit() // ISupportInitialize
         {
             // optimization: prevent layout changes from InitializeComponent, except in design mode
             IgnoreLayoutChanges = !this.DesignMode;
         }
 
-        public void EndInit()
+        public void EndInit() // ISupportInitialize
         {
             IgnoreLayoutChanges = false;
-        }
-
-        public void SelfTest()
-        {
-            ISet<Type> altLayouts = new HashSet<Type>();
-            Type altLayout;
-            foreach (LayoutOrientation opt in Enum.GetValues(typeof(LayoutOrientation)))
-            {
-                altLayout = PickLayout(opt);
-                if (altLayout != null)
-                    altLayouts.Add(altLayout);
-            }
-            DoSelfTestFor(altLayouts);
         }
 
         private void UnwindGroupBoxes(GroupBox delete, ControlCollection controls)
@@ -136,6 +124,7 @@ namespace DLEDotNet.Editor
             {
                 delete.Controls.Clear();
                 Controls.Remove(delete);
+                delete.Dispose();
             }
         }
 
@@ -171,13 +160,15 @@ namespace DLEDotNet.Editor
             source.Parent?.PerformLayout();
             foreach (string p in copiablePropertiesPre)
                 CopyPropertyIfExists(target, source, p);
+            if (target is DLEUserControl)
+                (target as DLEUserControl).Owner = this.Owner;
             if (target is DLELayoutableUserControl)
                 SetDialogLayout(target as DLELayoutableUserControl, DialogLayout);
             foreach (string p in copiablePropertiesPost)
                 CopyPropertyIfExists(target, source, p);
-            if (!ControlUtilities.IsTypableControl(target))
+            if (!ControlUtil.IsTypableControl(target))
                 CopyPropertyIfExists(target, source, "Text");
-            target.Visible = !MathUtilities.RectangleOutside(target.Bounds, this.ClientRectangle);
+            target.Visible = !MathUtil.RectangleOutside(target.Bounds, this.ClientRectangle);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -261,7 +252,7 @@ namespace DLEDotNet.Editor
 
         private void SuspendLayoutDraw(Control c)
         {
-            if (ControlUtilities.OnWindows)
+            if (ControlUtil.OnWindows)
             {
                 Message msg = Message.Create(c.Handle, WM_SETREDRAW, IntPtr.Zero, IntPtr.Zero);
                 NativeWindow window = NativeWindow.FromHandle(c.Handle);
@@ -271,7 +262,7 @@ namespace DLEDotNet.Editor
 
         private void ResumeLayoutDraw(Control c)
         {
-            if (ControlUtilities.OnWindows)
+            if (ControlUtil.OnWindows)
             {
                 Message msg = Message.Create(c.Handle, WM_SETREDRAW, new IntPtr(1), IntPtr.Zero);
                 NativeWindow window = NativeWindow.FromHandle(c.Handle);
@@ -282,6 +273,9 @@ namespace DLEDotNet.Editor
 
         protected void CopyLayout(Type alternativeLayout)
         {
+            if (!IsInDesignMode && this.Owner == null)
+                throw new InvalidOperationException("Must have an owning EditorWindow in order to copy the layout");
+
             if (typeof(AlternativeLayoutUserControl).IsAssignableFrom(alternativeLayout))
             {
                 SuspendLayoutDraw(this);
@@ -300,6 +294,7 @@ namespace DLEDotNet.Editor
                 PerformLayout();
 
                 ResumeLayoutDraw(this);
+                control.Dispose();
             }
             else
             {
@@ -386,6 +381,19 @@ namespace DLEDotNet.Editor
             {
                 DoSelfTestForLayout(control);
             }
+        }
+
+        public void SelfTest()
+        {
+            ISet<Type> altLayouts = new HashSet<Type>();
+            Type altLayout;
+            foreach (LayoutOrientation opt in Enum.GetValues(typeof(LayoutOrientation)))
+            {
+                altLayout = PickLayout(opt);
+                if (altLayout != null)
+                    altLayouts.Add(altLayout);
+            }
+            DoSelfTestFor(altLayouts);
         }
         #endregion
 

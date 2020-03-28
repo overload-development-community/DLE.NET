@@ -66,6 +66,7 @@ namespace DLEDotNet.Editor
             if (parent is Form)
             {
                 (parent as Form).Close();
+                parent.Dispose();
             }
         }
 

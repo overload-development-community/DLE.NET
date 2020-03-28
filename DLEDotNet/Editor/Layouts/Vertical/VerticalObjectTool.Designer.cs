@@ -72,6 +72,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.objSpawnQtyNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.objShowSpawnPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.objShowPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.objectPosition1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.objectAdvanced1)).BeginInit();
             this.objectTabControl.SuspendLayout();
             this.tabPagePosition.SuspendLayout();
             this.tabPageAdvanced.SuspendLayout();
@@ -480,6 +482,8 @@
             // 
             // VerticalObjectTool
             // 
+            ((System.ComponentModel.ISupportInitialize)(this.objectPosition1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.objectAdvanced1)).EndInit();
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.objectTabControl);

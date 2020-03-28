@@ -262,7 +262,7 @@
             // 
             // lightEditIlluminateTextBox
             // 
-            this.lightEditIlluminateTextBox.FractionalDigits = ((uint)(2u));
+            this.lightEditIlluminateTextBox.FractionalDigits = 2;
             this.lightEditIlluminateTextBox.Location = new System.Drawing.Point(255, 13);
             this.lightEditIlluminateTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightEditIlluminateTextBox.MaximumValue = 200D;
@@ -300,7 +300,7 @@
             // 
             // lightEditScaleTextBox
             // 
-            this.lightEditScaleTextBox.FractionalDigits = ((uint)(2u));
+            this.lightEditScaleTextBox.FractionalDigits = 2;
             this.lightEditScaleTextBox.Location = new System.Drawing.Point(255, 54);
             this.lightEditScaleTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightEditScaleTextBox.MaximumValue = 200D;
@@ -338,7 +338,7 @@
             // 
             // lightEditCubelightTextBox
             // 
-            this.lightEditCubelightTextBox.FractionalDigits = ((uint)(2u));
+            this.lightEditCubelightTextBox.FractionalDigits = 2;
             this.lightEditCubelightTextBox.Location = new System.Drawing.Point(255, 73);
             this.lightEditCubelightTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightEditCubelightTextBox.MaximumValue = 100D;
@@ -376,7 +376,7 @@
             // 
             // lightEditDeltaTextBox
             // 
-            this.lightEditDeltaTextBox.FractionalDigits = ((uint)(2u));
+            this.lightEditDeltaTextBox.FractionalDigits = 2;
             this.lightEditDeltaTextBox.Location = new System.Drawing.Point(255, 107);
             this.lightEditDeltaTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightEditDeltaTextBox.MaximumValue = 100D;
@@ -614,7 +614,7 @@
             // 
             // lightVertexlightTextBox
             // 
-            this.lightVertexlightTextBox.FractionalDigits = ((uint)(2u));
+            this.lightVertexlightTextBox.FractionalDigits = 2;
             this.lightVertexlightTextBox.Location = new System.Drawing.Point(22, 29);
             this.lightVertexlightTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightVertexlightTextBox.MinimumValue = 0D;

@@ -68,6 +68,9 @@
             this.textureLighting1 = new DLEDotNet.Editor.Layouts.TextureLighting();
             ((System.ComponentModel.ISupportInitialize)(this.textureBrightsliderTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textureShowPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textureAlignment1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textureProjection1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textureLighting1)).BeginInit();
             this.alignableGroupBoxTextureEditing.SuspendLayout();
             this.textureSubTabControl.SuspendLayout();
             this.tabPageAlignment.SuspendLayout();
@@ -509,6 +512,9 @@
             this.Size = new System.Drawing.Size(333, 632);
             ((System.ComponentModel.ISupportInitialize)(this.textureBrightsliderTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textureShowPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textureAlignment1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textureProjection1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textureLighting1)).EndInit();
             this.alignableGroupBoxTextureEditing.ResumeLayout(false);
             this.alignableGroupBoxTextureEditing.PerformLayout();
             this.textureSubTabControl.ResumeLayout(false);

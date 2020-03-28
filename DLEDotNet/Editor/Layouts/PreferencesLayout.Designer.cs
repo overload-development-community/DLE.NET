@@ -32,6 +32,7 @@
             this.prefsLayout1RadioButton = new System.Windows.Forms.RadioButton();
             this.prefsLayout2RadioButton = new System.Windows.Forms.RadioButton();
             this.prefsLayout3RadioButton = new System.Windows.Forms.RadioButton();
+            this.labelChangesOnlyApply = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,10 +80,19 @@
             this.prefsLayout3RadioButton.TabStop = true;
             this.prefsLayout3RadioButton.Text = "vertical (space saving)";
             // 
+            // labelChangesOnlyApply
+            // 
+            this.labelChangesOnlyApply.Location = new System.Drawing.Point(12, 115);
+            this.labelChangesOnlyApply.Name = "labelChangesOnlyApply";
+            this.labelChangesOnlyApply.Size = new System.Drawing.Size(208, 30);
+            this.labelChangesOnlyApply.TabIndex = 10;
+            this.labelChangesOnlyApply.Text = "Changes here only apply on save.";
+            // 
             // PreferencesLayout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.labelChangesOnlyApply);
             this.Controls.Add(this.prefsLayout0RadioButton);
             this.Controls.Add(this.prefsLayout1RadioButton);
             this.Controls.Add(this.prefsLayout2RadioButton);
@@ -101,5 +111,6 @@
         private System.Windows.Forms.RadioButton prefsLayout1RadioButton;
         private System.Windows.Forms.RadioButton prefsLayout2RadioButton;
         private System.Windows.Forms.RadioButton prefsLayout3RadioButton;
+        private System.Windows.Forms.Label labelChangesOnlyApply;
     }
 }

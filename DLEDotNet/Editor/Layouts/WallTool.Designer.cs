@@ -151,7 +151,7 @@
             // 
             // wallStrengthTextBox
             // 
-            this.wallStrengthTextBox.FractionalDigits = ((uint)(1u));
+            this.wallStrengthTextBox.FractionalDigits = 1;
             this.wallStrengthTextBox.Location = new System.Drawing.Point(288, 20);
             this.wallStrengthTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallStrengthTextBox.Name = "wallStrengthTextBox";
@@ -163,7 +163,7 @@
             // 
             // wallCloakTextBox
             // 
-            this.wallCloakTextBox.FractionalDigits = ((uint)(1u));
+            this.wallCloakTextBox.FractionalDigits = 1;
             this.wallCloakTextBox.Location = new System.Drawing.Point(288, 46);
             this.wallCloakTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallCloakTextBox.Name = "wallCloakTextBox";

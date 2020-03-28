@@ -263,7 +263,7 @@
             // 
             // textureLight1TextBox
             // 
-            this.textureLight1TextBox.FractionalDigits = ((uint)(2u));
+            this.textureLight1TextBox.FractionalDigits = 2;
             this.textureLight1TextBox.Location = new System.Drawing.Point(30, 10);
             this.textureLight1TextBox.Margin = new System.Windows.Forms.Padding(0);
             this.textureLight1TextBox.MaximumValue = 100D;
@@ -277,7 +277,7 @@
             // 
             // textureLight2TextBox
             // 
-            this.textureLight2TextBox.FractionalDigits = ((uint)(2u));
+            this.textureLight2TextBox.FractionalDigits = 2;
             this.textureLight2TextBox.Location = new System.Drawing.Point(72, 10);
             this.textureLight2TextBox.Margin = new System.Windows.Forms.Padding(0);
             this.textureLight2TextBox.MaximumValue = 100D;
@@ -291,7 +291,7 @@
             // 
             // textureLight3TextBox
             // 
-            this.textureLight3TextBox.FractionalDigits = ((uint)(2u));
+            this.textureLight3TextBox.FractionalDigits = 2;
             this.textureLight3TextBox.Location = new System.Drawing.Point(30, 102);
             this.textureLight3TextBox.Margin = new System.Windows.Forms.Padding(0);
             this.textureLight3TextBox.MaximumValue = 100D;
@@ -305,7 +305,7 @@
             // 
             // textureLight4TextBox
             // 
-            this.textureLight4TextBox.FractionalDigits = ((uint)(2u));
+            this.textureLight4TextBox.FractionalDigits = 2;
             this.textureLight4TextBox.Location = new System.Drawing.Point(72, 102);
             this.textureLight4TextBox.Margin = new System.Windows.Forms.Padding(0);
             this.textureLight4TextBox.MaximumValue = 100D;

@@ -1,5 +1,6 @@
 ﻿using DLEDotNet.Data;
 using DLEDotNet.Editor.Layouts;
+using DLEDotNet.Util;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -43,8 +44,9 @@ namespace DLEDotNet.Editor
         }
 
         private static T CastTo<T>(dynamic o) => (T)o;
+        private static T UncheckedCastTo<T>(dynamic o) => unchecked((T)o);
 
-        private static bool DynamicCast(Type type, dynamic toCast, out dynamic casted)
+        private static bool DynamicCast(Type type, dynamic toCast, out dynamic casted, bool isUnchecked = false)
         {
             if (typeof(IConvertible).IsAssignableFrom(type) && typeof(IConvertible).IsAssignableFrom(toCast.GetType()))
             {
@@ -56,7 +58,7 @@ namespace DLEDotNet.Editor
                 catch (InvalidCastException) { }
             }
 
-            var methodInfo = typeof(EditorStateBinder).GetMethod(nameof(CastTo), BindingFlags.Static | BindingFlags.NonPublic);
+            var methodInfo = typeof(EditorStateBinder).GetMethod(isUnchecked ? nameof(UncheckedCastTo) : nameof(CastTo), BindingFlags.Static | BindingFlags.NonPublic);
             var genericArguments = new[] { type };
             var genericMethodInfo = methodInfo?.MakeGenericMethod(genericArguments);
             try
@@ -73,6 +75,13 @@ namespace DLEDotNet.Editor
                 }
                 throw;
             }
+        }
+
+        private static dynamic ForceUncheckedDynamicCast(Type type, dynamic toCast)
+        {
+            if (!DynamicCast(type, toCast, out dynamic result, true))
+                throw new InvalidCastException();
+            return result;
         }
 
         private static bool MaybeDoExplicitCast(dynamic value, out dynamic destinationValue, bool allowExplicitCast, Type destType)
@@ -220,6 +229,11 @@ namespace DLEDotNet.Editor
             return success;
         }
 
+        private bool ApplyToPropertyValue(string property, Func<dynamic, dynamic> func)
+        {
+            return SetPropertyValue(property, func(GetPropertyValue(state, property)));
+        }
+
         private void AddToTreeAndCall(string property, PropertyChangeEventHandler handler)
         {
             tree.Add(property, handler);
@@ -309,11 +323,31 @@ namespace DLEDotNet.Editor
         }
 
         /// <summary>
+        /// Binds a Label to a (public) property with any type convertable to a string.
+        /// </summary>
+        /// <param name="label">The Label to bind.</param>
+        /// <param name="property">The name of the property under EditorState to bind; dots are allowed for nested properties.</param>
+        /// <param name="formatString">A format string to use; parameter 0 ({0}) will be the value of the property. Omit or supply null to not use custom formatting.</param>
+        /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
+        public void BindLabel(Label label, string property, string formatString = null)
+        {
+            BindControl(label, property, (object sender, PropertyChangeEventArgs e) => {
+                if (e.PropertyName == property)
+                {
+                    if (formatString != null)
+                        label.Text = String.Format(formatString, e.NewValue);
+                    else
+                        label.Text = Convert.ToString(e.NewValue);
+                }
+            });
+        }
+
+        /// <summary>
         /// Binds an IntTextBox to a (public) property with an integer type.
         /// </summary>
         /// <param name="textBox">The IntTextBox to bind.</param>
         /// <param name="property">The name of the property under EditorState to bind; dots are allowed for nested properties. The property must have an integer type.</param>
-        /// <param name="readOnly">Whether the text box is read-only; if false, no listener for when its value changes will be registered.</param>
+        /// <param name="readOnly">Whether the text box is read-only; if false, no listener for when its value changes will be registered. The control should not even accept user input if true.</param>
         /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
         public void BindIntTextBox(IntTextBox textBox, string property, bool readOnly)
         {
@@ -326,7 +360,8 @@ namespace DLEDotNet.Editor
                         textBox.Text = "";
                 }
             });
-            if (!readOnly) textBox.ValueChanged += (object sender, EventArgs e) => { SetPropertyValue(property, textBox.Value, true); };
+            if (!readOnly)
+                textBox.ValueChanged += (object sender, EventArgs e) => { SetPropertyValue(property, textBox.Value, true); };
         }
 
         /// <summary>
@@ -334,7 +369,7 @@ namespace DLEDotNet.Editor
         /// </summary>
         /// <param name="textBox">The FloatTextBox to bind.</param>
         /// <param name="property">The name of the property under EditorState to bind; dots are allowed for nested properties. The property must have a numeric type.</param>
-        /// <param name="readOnly">Whether the text box is read-only; if false, no listener for when its value changes will be registered.</param>
+        /// <param name="readOnly">Whether the text box is read-only; if false, no listener for when its value changes will be registered. The control should not even accept user input if true.</param>
         /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
         public void BindFloatTextBox(FloatTextBox textBox, string property, bool readOnly)
         {
@@ -347,7 +382,8 @@ namespace DLEDotNet.Editor
                         textBox.Text = "";
                 }
             });
-            if (!readOnly) textBox.ValueChanged += (object sender, EventArgs e) => SetPropertyValue(property, textBox.Value, true);
+            if (!readOnly)
+                textBox.ValueChanged += (object sender, EventArgs e) => SetPropertyValue(property, textBox.Value, true);
         }
 
         /// <summary>
@@ -355,7 +391,7 @@ namespace DLEDotNet.Editor
         /// </summary>
         /// <param name="textBox">The StringTextBox to bind.</param>
         /// <param name="property">The name of the property under EditorState to bind; dots are allowed for nested properties. The property must have a string type.</param>
-        /// <param name="readOnly">Whether the text box is read-only; if false, no listener for when its value changes will be registered.</param>
+        /// <param name="readOnly">Whether the text box is read-only; if false, no listener for when its value changes will be registered. The control should not even accept user input if true.</param>
         /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
         public void BindStringTextBox(StringTextBox textBox, string property, bool readOnly)
         {
@@ -368,7 +404,8 @@ namespace DLEDotNet.Editor
                         textBox.Text = "";
                 }
             });
-            if (!readOnly) textBox.ValueChanged += (object sender, EventArgs e) => SetPropertyValue(property, textBox.Value);
+            if (!readOnly)
+                textBox.ValueChanged += (object sender, EventArgs e) => SetPropertyValue(property, textBox.Value);
         }
 
         /// <summary>
@@ -387,11 +424,26 @@ namespace DLEDotNet.Editor
         }
 
         /// <summary>
+        /// Binds a TrackBar to a (public) property with an integer type.
+        /// </summary>
+        /// <param name="trackBar">The TrackBar to bind.</param>
+        /// <param name="property">The name of the property under EditorState to bind; dots are allowed for nested properties. The property must have an integer type.</param>
+        /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
+        public void BindTrackBar(TrackBar trackBar, string property)
+        {
+            BindControl(trackBar, property, (object sender, PropertyChangeEventArgs e) => {
+                if (e.PropertyName == property)
+                    trackBar.Value = Convert.ToInt32(e.NewValue);
+            });
+            trackBar.ValueChanged += (object sender, EventArgs e) => SetPropertyValue(property, trackBar.Value);
+        }
+
+        /// <summary>
         /// Binds a CheckBox to a (public) property with a boolean type.
         /// </summary>
         /// <param name="checkBox">The CheckBox to bind.</param>
         /// <param name="property">The name of the property under EditorState to bind; dots are allowed for nested properties. The property must have a boolean type.</param>
-        /// <param name="readOnly">Whether the text box is read-only; if false, no listener for when its value changes will be registered.</param>
+        /// <param name="readOnly">Whether the text box is read-only; if false, no listener for when its value changes will be registered. The control should not even accept user input if true.</param>
         /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
         public void BindCheckBox(CheckBox checkBox, string property, bool readOnly)
         {
@@ -399,7 +451,30 @@ namespace DLEDotNet.Editor
                 if (e.PropertyName == property) 
                     checkBox.Checked = (bool)e.NewValue;
             });
-            if (!readOnly) checkBox.CheckedChanged += (object sender, EventArgs e) => SetPropertyValue(property, checkBox.Checked);
+            if (!readOnly)
+                checkBox.CheckedChanged += (object sender, EventArgs e) => SetPropertyValue(property, checkBox.Checked);
+        }
+
+        /// <summary>
+        /// Binds a CheckBox to a (public) property with a flag enum type.
+        /// </summary>
+        /// <typeparam name="T">The type of the flag enum.</typeparam>
+        /// <param name="checkBox">The CheckBox to bind.</param>
+        /// <param name="property">The name of the property under EditorState to bind; dots are allowed for nested properties. The property must have a flag enum type.</param>
+        /// <param name="flag">The enum value to use as the "selected" flag.</param>
+        /// <param name="readOnly">Whether the text box is read-only; if false, no listener for when its value changes will be registered. The control should not even accept user input if true.</param>
+        /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
+        public void BindCheckBoxFlag<T>(CheckBox checkBox, string property, T flag, bool readOnly) where T : Enum
+        {
+            ulong flagI = Convert.ToUInt64(flag);
+            BindControl(checkBox, property, (object sender, PropertyChangeEventArgs e) => {
+                if (e.PropertyName == property)
+                    checkBox.Checked = 0 != ((ulong)e.NewValue & flagI);
+            });
+            if (!readOnly)
+                checkBox.CheckedChanged += (object sender, EventArgs e) => 
+                    ApplyToPropertyValue(property, 
+                        v => ForceUncheckedDynamicCast(typeof(T), checkBox.Checked ? ((ulong)v | flagI) : ((ulong)v & ~flagI)));
         }
 
         /// <summary>
@@ -409,21 +484,18 @@ namespace DLEDotNet.Editor
         /// <param name="radioButton">The RadioButton to bind.</param>
         /// <param name="property">The name of the property under EditorState to bind; dots are allowed for nested properties.</param>
         /// <param name="selectedValue">The value for the property for which this radio button is "selected". Must be comparable in terms of equality to the type of the property.</param>
-        /// <param name="readOnly">Whether the radio button is read-only; if false, no listener for when its value changes will be registered.</param>
         /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
-        public void BindRadioButton<T>(RadioButton radioButton, string property, T selectedValue, bool readOnly)
+        public void BindRadioButton<T>(RadioButton radioButton, string property, T selectedValue)
         {
             EqualityComparer<T> equalityComparer = EqualityComparer<T>.Default;
             BindControl(radioButton, property, (object sender, PropertyChangeEventArgs e) => {
                 if (e.PropertyName == property)
                     radioButton.Checked = e.NewValue == null ? selectedValue == null : equalityComparer.Equals(selectedValue, e.NewValue);
             });
-            if (!readOnly) {
-                radioButton.CheckedChanged += (object sender, EventArgs e) => {
-                    if (radioButton.Checked)
-                        SetPropertyValue(property, selectedValue);
-                };
-            }
+            radioButton.CheckedChanged += (object sender, EventArgs e) => {
+                if (radioButton.Checked)
+                    SetPropertyValue(property, selectedValue);
+            };
         }
 
         /// <summary>
@@ -438,14 +510,12 @@ namespace DLEDotNet.Editor
         public void BindToolStripButtonAsRadioButton<T>(ToolStripButton toolStripButton, string property, T selectedValue, bool readOnly)
         {
             EqualityComparer<T> equalityComparer = EqualityComparer<T>.Default;
-            BindControl(toolStripButton, property, property,(object sender, PropertyChangeEventArgs e) => {
+            BindControl(toolStripButton, property, property, (object sender, PropertyChangeEventArgs e) => {
                 if (e.PropertyName == property)
                     toolStripButton.Checked = e.NewValue == null ? selectedValue == null : equalityComparer.Equals(selectedValue, e.NewValue);
             });
             if (!readOnly)
-            {
                 toolStripButton.Click += (object sender, EventArgs e) => SetPropertyValue(property, selectedValue);
-            }
         }
 
         /// <summary>
@@ -478,28 +548,41 @@ namespace DLEDotNet.Editor
                 }
             });
             if (selectedProperty != null)
-                comboBox.SelectedIndexChanged += (object sender, EventArgs e) => {
+                comboBox.SelectedIndexChanged += (object sender, EventArgs e) =>
                     SetPropertyValue(selectedProperty, comboBox.SelectedItem);
-                };
         }
 
         /// <summary>
-        /// Binds a tab control's selected tab index into a (public) property to avoid it from being lost on reload.
+        /// Binds a combo box to a (public) property with an enum type.
+        /// </summary>
+        /// <typeparam name="T">The type of the enum.</typeparam>
+        /// <param name="comboBox">The combo box to bind.</param>
+        /// <param name="property">The name of the property under EditorState to bind; dots are allowed for nested properties. The property must have an enum type T.</param>
+        public void BindComboBox<T>(ComboBox comboBox, string property) where T : Enum
+        {
+            comboBox.Items.Clear();
+            comboBox.DataSource = Enum.GetValues(typeof(T));
+            BindControl(comboBox, property, (object sender, PropertyChangeEventArgs e) => {
+                if (e.PropertyName == property)
+                    comboBox.SelectedItem = e.NewValue;
+            });
+            comboBox.SelectedIndexChanged += (object sender, EventArgs e) =>
+                SetPropertyValue(property, comboBox.SelectedItem);
+        }
+
+        /// <summary>
+        /// Binds a tab control's selected tab index to a (public) property to avoid it from being lost on reload.
         /// </summary>
         /// <param name="tabControl">The tab control to bind.</param>
-        /// <param name="propertyName">The name of the property under EditorState to bind; dots are allowed for nested properties.</param>
-        public void BindTabControlBacking(TabControl tabControl, string propertyName)
+        /// <param name="property">The name of the property under EditorState to bind; dots are allowed for nested properties.</param>
+        public void BindTabControlBacking(TabControl tabControl, string property)
         {
-            BindControl(tabControl, propertyName, (object sender, PropertyChangeEventArgs e) => {
-                if (e.PropertyName == propertyName)
-                {
-                    tabControl.SelectedIndex = Math.Max(-1, Math.Min(e.NewValue, tabControl.TabCount - 1));
-                }
+            BindControl(tabControl, property, (object sender, PropertyChangeEventArgs e) => {
+                if (e.PropertyName == property)
+                    tabControl.SelectedIndex = MathUtil.Clamp(e.NewValue, -1, tabControl.TabCount - 1);
             });
             tabControl.SelectedIndexChanged += (object sender, EventArgs e) =>
-            {
-                SetPropertyValue(propertyName, tabControl.SelectedIndex);
-            };
+                SetPropertyValue(property, tabControl.SelectedIndex);
         }
         #endregion
 

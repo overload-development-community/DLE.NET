@@ -17,6 +17,8 @@ namespace DLEDotNet.Editor
         private double _value;
         private double _minValue = double.NegativeInfinity;
         private double _maxValue = double.PositiveInfinity;
+        private int _fractionalDigits = 2;
+        private string formatString = "{0:0.##}";
         public FloatTextBox() : base()
         {
             TextChanged += FloatTextBox_removenonfloat;
@@ -41,13 +43,16 @@ namespace DLEDotNet.Editor
             }
             set
             {
-                double bounded = Math.Max(Math.Min(value, MaximumValue), MinimumValue);
-                if (!MathUtilities.IsFinite(bounded))
+                double bounded = MathUtil.Clamp(value, MinimumValue, MaximumValue);
+                if (!MathUtil.IsFinite(bounded))
                 {
                     bounded = 0;
                 }
                 TextChanged -= FloatTextBox_removenonfloat; // disable event temporarily; optimization
-                Text = bounded.ToString("F" + FractionalDigits, CultureInfo.InvariantCulture);
+                if (ZeroPadFraction)
+                    Text = bounded.ToString("F" + FractionalDigits, CultureInfo.InvariantCulture);
+                else
+                    Text = String.Format(CultureInfo.InvariantCulture, formatString, bounded);
                 TextChanged += FloatTextBox_removenonfloat;
                 bool callEvent = _value != bounded;
                 _value = bounded;
@@ -98,10 +103,30 @@ namespace DLEDotNet.Editor
         [Bindable(true)]
         [Browsable(true)]
         [Category("Appearance")]
+        [DefaultValue(true)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [Description("Whether to always display as many fractional digits as configured.")]
+        public bool ZeroPadFraction { get; set; } = true;
+
+        [Bindable(true)]
+        [Browsable(true)]
+        [Category("Appearance")]
         [DefaultValue(2)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         [Description("The number of fractional digits to show.")]
-        public uint FractionalDigits { get; set; } = 2;
+        public int FractionalDigits
+        {
+            get => _fractionalDigits;
+            set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentOutOfRangeException("FractionalDigits");
+                }
+                _fractionalDigits = value;
+                formatString = value > 0 ? "{0:0." + new string('#', value) + "}" : "{0:0}";
+            }
+        }
 
         public override void Validate()
         {

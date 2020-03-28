@@ -48,10 +48,11 @@
             this.prefsViewEffectsCheckBox = new System.Windows.Forms.CheckBox();
             this.prefsViewObjectsAllButton = new System.Windows.Forms.Button();
             this.prefsViewObjectsNoneButton = new System.Windows.Forms.Button();
-            this.alignableGroupBoxGeometry = new AlignableGroupBox();
-            this.alignableGroupBoxObjects = new AlignableGroupBox();
+            this.alignableGroupBoxGeometry = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxObjects = new DLEDotNet.Editor.AlignableGroupBox();
             this.alignableGroupBoxGeometry.SuspendLayout();
             this.alignableGroupBoxObjects.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // prefsViewWallsCheckBox
@@ -144,6 +145,7 @@
             this.prefsViewMineAllButton.TabIndex = 8;
             this.prefsViewMineAllButton.TabStop = false;
             this.prefsViewMineAllButton.Text = "all";
+            this.prefsViewMineAllButton.Click += new System.EventHandler(this.prefsViewMineAllButton_Click);
             // 
             // prefsViewMineNoneButton
             // 
@@ -154,6 +156,7 @@
             this.prefsViewMineNoneButton.Size = new System.Drawing.Size(38, 20);
             this.prefsViewMineNoneButton.TabIndex = 9;
             this.prefsViewMineNoneButton.Text = "none";
+            this.prefsViewMineNoneButton.Click += new System.EventHandler(this.prefsViewMineNoneButton_Click);
             // 
             // prefsViewRobotsCheckBox
             // 
@@ -245,6 +248,7 @@
             this.prefsViewObjectsAllButton.TabIndex = 8;
             this.prefsViewObjectsAllButton.TabStop = false;
             this.prefsViewObjectsAllButton.Text = "all";
+            this.prefsViewObjectsAllButton.Click += new System.EventHandler(this.prefsViewObjectsAllButton_Click);
             // 
             // prefsViewObjectsNoneButton
             // 
@@ -255,6 +259,7 @@
             this.prefsViewObjectsNoneButton.Size = new System.Drawing.Size(38, 18);
             this.prefsViewObjectsNoneButton.TabIndex = 9;
             this.prefsViewObjectsNoneButton.Text = "none";
+            this.prefsViewObjectsNoneButton.Click += new System.EventHandler(this.prefsViewObjectsNoneButton_Click);
             // 
             // alignableGroupBoxGeometry
             // 
@@ -309,6 +314,7 @@
             this.Size = new System.Drawing.Size(618, 162);
             this.alignableGroupBoxGeometry.ResumeLayout(false);
             this.alignableGroupBoxObjects.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
         }

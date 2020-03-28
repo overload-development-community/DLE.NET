@@ -30,109 +30,108 @@
         {
             this.prefsExpertmodeCheckBox = new System.Windows.Forms.CheckBox();
             this.prefsSplashscreenCheckBox = new System.Windows.Forms.CheckBox();
-            this.prefsPlayerTextBox = new System.Windows.Forms.TextBox();
+            this.prefsPlayerTextBox = new StringTextBox();
             this.prefsUsetexcolorsCheckBox = new System.Windows.Forms.CheckBox();
-            this.alignableGroupBoxVerbosity = new AlignableGroupBox();
-            this.alignableGroupBoxPlayerProfile = new AlignableGroupBox();
-            this.alignableGroupBoxFaceLightSettings = new AlignableGroupBox();
+            this.alignableGroupBoxVerbosity = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxPlayerProfile = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxFaceLightSettings = new DLEDotNet.Editor.AlignableGroupBox();
             this.alignableGroupBoxVerbosity.SuspendLayout();
             this.alignableGroupBoxPlayerProfile.SuspendLayout();
             this.alignableGroupBoxFaceLightSettings.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // prefsExpertmodeCheckBox
             // 
-            prefsExpertmodeCheckBox.AutoSize = false;
-            prefsExpertmodeCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            prefsExpertmodeCheckBox.Location = new System.Drawing.Point(8, 13);
-            prefsExpertmodeCheckBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            prefsExpertmodeCheckBox.Name = "prefsExpertmodeCheckBox";
-            prefsExpertmodeCheckBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            prefsExpertmodeCheckBox.Size = new System.Drawing.Size(149, 11);
-            prefsExpertmodeCheckBox.TabStop = true;
-            prefsExpertmodeCheckBox.Text = "stop askin' those questions all the time! ;-)";
+            this.prefsExpertmodeCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.prefsExpertmodeCheckBox.Location = new System.Drawing.Point(12, 21);
+            this.prefsExpertmodeCheckBox.Margin = new System.Windows.Forms.Padding(0);
+            this.prefsExpertmodeCheckBox.Name = "prefsExpertmodeCheckBox";
+            this.prefsExpertmodeCheckBox.Size = new System.Drawing.Size(220, 18);
+            this.prefsExpertmodeCheckBox.TabIndex = 0;
+            this.prefsExpertmodeCheckBox.Text = "stop askin\' those questions all the time! ;-)";
             // 
             // prefsSplashscreenCheckBox
             // 
-            prefsSplashscreenCheckBox.AutoSize = false;
-            prefsSplashscreenCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            prefsSplashscreenCheckBox.Location = new System.Drawing.Point(8, 25);
-            prefsSplashscreenCheckBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            prefsSplashscreenCheckBox.Name = "prefsSplashscreenCheckBox";
-            prefsSplashscreenCheckBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            prefsSplashscreenCheckBox.Size = new System.Drawing.Size(137, 11);
-            prefsSplashscreenCheckBox.TabStop = true;
-            prefsSplashscreenCheckBox.Text = "show splash screen on program start";
+            this.prefsSplashscreenCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.prefsSplashscreenCheckBox.Location = new System.Drawing.Point(12, 41);
+            this.prefsSplashscreenCheckBox.Margin = new System.Windows.Forms.Padding(0);
+            this.prefsSplashscreenCheckBox.Name = "prefsSplashscreenCheckBox";
+            this.prefsSplashscreenCheckBox.Size = new System.Drawing.Size(206, 18);
+            this.prefsSplashscreenCheckBox.TabIndex = 1;
+            this.prefsSplashscreenCheckBox.Text = "show splash screen on program start";
             // 
             // prefsPlayerTextBox
             // 
-            prefsPlayerTextBox.AutoSize = false;
-            prefsPlayerTextBox.Location = new System.Drawing.Point(4, 17);
-            prefsPlayerTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            prefsPlayerTextBox.Name = "prefsPlayerTextBox";
-            prefsPlayerTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            prefsPlayerTextBox.Size = new System.Drawing.Size(64, 13);
-            prefsPlayerTextBox.TabStop = false;
-            prefsPlayerTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.prefsPlayerTextBox.Location = new System.Drawing.Point(6, 28);
+            this.prefsPlayerTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.prefsPlayerTextBox.Name = "prefsPlayerTextBox";
+            this.prefsPlayerTextBox.Size = new System.Drawing.Size(94, 19);
+            this.prefsPlayerTextBox.TabIndex = 0;
+            this.prefsPlayerTextBox.TabStop = false;
+            this.prefsPlayerTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // prefsUsetexcolorsCheckBox
             // 
-            prefsUsetexcolorsCheckBox.AutoSize = false;
-            prefsUsetexcolorsCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            prefsUsetexcolorsCheckBox.Location = new System.Drawing.Point(9, 18);
-            prefsUsetexcolorsCheckBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            prefsUsetexcolorsCheckBox.Name = "prefsUsetexcolorsCheckBox";
-            prefsUsetexcolorsCheckBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            prefsUsetexcolorsCheckBox.Size = new System.Drawing.Size(58, 10);
-            prefsUsetexcolorsCheckBox.TabStop = true;
-            prefsUsetexcolorsCheckBox.Text = "apply globally";
+            this.prefsUsetexcolorsCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.prefsUsetexcolorsCheckBox.Location = new System.Drawing.Point(14, 29);
+            this.prefsUsetexcolorsCheckBox.Margin = new System.Windows.Forms.Padding(0);
+            this.prefsUsetexcolorsCheckBox.Name = "prefsUsetexcolorsCheckBox";
+            this.prefsUsetexcolorsCheckBox.Size = new System.Drawing.Size(87, 16);
+            this.prefsUsetexcolorsCheckBox.TabIndex = 0;
+            this.prefsUsetexcolorsCheckBox.Text = "apply globally";
             // 
             // alignableGroupBoxVerbosity
             // 
-            alignableGroupBoxVerbosity.AutoSize = false;
-            alignableGroupBoxVerbosity.Location = new System.Drawing.Point(5, 46);
-            alignableGroupBoxVerbosity.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            alignableGroupBoxVerbosity.Name = "alignableGroupBoxVerbosity";
-            alignableGroupBoxVerbosity.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            alignableGroupBoxVerbosity.Size = new System.Drawing.Size(157, 41);
-            alignableGroupBoxVerbosity.Text = "Verbosity";
-            alignableGroupBoxVerbosity.Controls.Add(this.prefsExpertmodeCheckBox);
-            alignableGroupBoxVerbosity.Controls.Add(this.prefsSplashscreenCheckBox);
+            this.alignableGroupBoxVerbosity.Controls.Add(this.prefsExpertmodeCheckBox);
+            this.alignableGroupBoxVerbosity.Controls.Add(this.prefsSplashscreenCheckBox);
+            this.alignableGroupBoxVerbosity.Location = new System.Drawing.Point(8, 75);
+            this.alignableGroupBoxVerbosity.Margin = new System.Windows.Forms.Padding(0);
+            this.alignableGroupBoxVerbosity.Name = "alignableGroupBoxVerbosity";
+            this.alignableGroupBoxVerbosity.Padding = new System.Windows.Forms.Padding(0);
+            this.alignableGroupBoxVerbosity.Size = new System.Drawing.Size(236, 67);
+            this.alignableGroupBoxVerbosity.TabIndex = 0;
+            this.alignableGroupBoxVerbosity.TabStop = false;
+            this.alignableGroupBoxVerbosity.Text = "Verbosity";
             // 
             // alignableGroupBoxPlayerProfile
             // 
-            alignableGroupBoxPlayerProfile.AutoSize = false;
-            alignableGroupBoxPlayerProfile.Location = new System.Drawing.Point(6, 3);
-            alignableGroupBoxPlayerProfile.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            alignableGroupBoxPlayerProfile.Name = "alignableGroupBoxPlayerProfile";
-            alignableGroupBoxPlayerProfile.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            alignableGroupBoxPlayerProfile.Size = new System.Drawing.Size(76, 41);
-            alignableGroupBoxPlayerProfile.Text = "player profile";
-            alignableGroupBoxPlayerProfile.Controls.Add(this.prefsPlayerTextBox);
+            this.alignableGroupBoxPlayerProfile.Controls.Add(this.prefsPlayerTextBox);
+            this.alignableGroupBoxPlayerProfile.Location = new System.Drawing.Point(9, 5);
+            this.alignableGroupBoxPlayerProfile.Margin = new System.Windows.Forms.Padding(0);
+            this.alignableGroupBoxPlayerProfile.Name = "alignableGroupBoxPlayerProfile";
+            this.alignableGroupBoxPlayerProfile.Padding = new System.Windows.Forms.Padding(0);
+            this.alignableGroupBoxPlayerProfile.Size = new System.Drawing.Size(114, 67);
+            this.alignableGroupBoxPlayerProfile.TabIndex = 1;
+            this.alignableGroupBoxPlayerProfile.TabStop = false;
+            this.alignableGroupBoxPlayerProfile.Text = "player profile";
             // 
             // alignableGroupBoxFaceLightSettings
             // 
-            alignableGroupBoxFaceLightSettings.AutoSize = false;
-            alignableGroupBoxFaceLightSettings.Location = new System.Drawing.Point(86, 3);
-            alignableGroupBoxFaceLightSettings.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            alignableGroupBoxFaceLightSettings.Name = "alignableGroupBoxFaceLightSettings";
-            alignableGroupBoxFaceLightSettings.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            alignableGroupBoxFaceLightSettings.Size = new System.Drawing.Size(76, 41);
-            alignableGroupBoxFaceLightSettings.Text = "face light settings";
-            alignableGroupBoxFaceLightSettings.Controls.Add(this.prefsUsetexcolorsCheckBox);
+            this.alignableGroupBoxFaceLightSettings.Controls.Add(this.prefsUsetexcolorsCheckBox);
+            this.alignableGroupBoxFaceLightSettings.Location = new System.Drawing.Point(129, 5);
+            this.alignableGroupBoxFaceLightSettings.Margin = new System.Windows.Forms.Padding(0);
+            this.alignableGroupBoxFaceLightSettings.Name = "alignableGroupBoxFaceLightSettings";
+            this.alignableGroupBoxFaceLightSettings.Padding = new System.Windows.Forms.Padding(0);
+            this.alignableGroupBoxFaceLightSettings.Size = new System.Drawing.Size(114, 67);
+            this.alignableGroupBoxFaceLightSettings.TabIndex = 2;
+            this.alignableGroupBoxFaceLightSettings.TabStop = false;
+            this.alignableGroupBoxFaceLightSettings.Text = "face light settings";
             // 
             // PreferencesMisc
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(4F, 8F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.alignableGroupBoxVerbosity);
             this.Controls.Add(this.alignableGroupBoxPlayerProfile);
             this.Controls.Add(this.alignableGroupBoxFaceLightSettings);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Name = "PreferencesMisc";
+            this.Size = new System.Drawing.Size(618, 162);
             this.alignableGroupBoxVerbosity.ResumeLayout(false);
             this.alignableGroupBoxPlayerProfile.ResumeLayout(false);
             this.alignableGroupBoxFaceLightSettings.ResumeLayout(false);
-            this.Name = "PreferencesMisc";
-            this.Size = new System.Drawing.Size(412, 100);
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -141,7 +140,7 @@
 
         private System.Windows.Forms.CheckBox prefsExpertmodeCheckBox;
         private System.Windows.Forms.CheckBox prefsSplashscreenCheckBox;
-        private System.Windows.Forms.TextBox prefsPlayerTextBox;
+        private StringTextBox prefsPlayerTextBox;
         private System.Windows.Forms.CheckBox prefsUsetexcolorsCheckBox;
         private AlignableGroupBox alignableGroupBoxVerbosity;
         private AlignableGroupBox alignableGroupBoxPlayerProfile;

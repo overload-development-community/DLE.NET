@@ -73,6 +73,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.textureShowPictureBox)).BeginInit();
             this.groupBoxTextureEditing.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textureBrightsliderTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textureAlignment1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textureLighting1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textureProjection1)).BeginInit();
             this.SuspendLayout();
             // 
             // label0Percent
@@ -502,6 +505,9 @@
             // 
             // FloatingTextureTool
             // 
+            ((System.ComponentModel.ISupportInitialize)(this.textureAlignment1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textureLighting1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.textureProjection1)).EndInit();
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.textureSubTabControl);

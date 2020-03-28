@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fileNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -219,7 +220,15 @@
             this.curveGeneratorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mainToolStrip = new System.Windows.Forms.ToolStrip();
+            this.mainPanel = new System.Windows.Forms.Panel();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabelInfo = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelCurrent = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelAction = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelInsertMode = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelSelectMode = new System.Windows.Forms.ToolStripStatusLabel();
+            this.mineViewContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.mainToolStrip = new DLEDotNet.Editor.ClickThroughToolStrip();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.saveToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -265,16 +274,9 @@
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.redrawMineToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.fullScreenToolStripButton = new System.Windows.Forms.ToolStripButton();
-            this.mainPanel = new System.Windows.Forms.Panel();
-            this.statusStrip = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabelInfo = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabelCurrent = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabelAction = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabelInsertMode = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabelSelectMode = new System.Windows.Forms.ToolStripStatusLabel();
             this.mainMenuStrip.SuspendLayout();
-            this.mainToolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
+            this.mainToolStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainMenuStrip
@@ -1711,483 +1713,6 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.aboutToolStripMenuItem.Text = "&About...";
             // 
-            // mainToolStrip
-            // 
-            this.mainToolStrip.AutoSize = false;
-            this.mainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.openToolStripButton,
-            this.saveToolStripButton,
-            this.toolStripSeparator1,
-            this.checkMineToolStripButton,
-            this.lightToolToolStripButton,
-            this.textureToolToolStripButton,
-            this.segmentToolToolStripButton,
-            this.wallToolToolStripButton,
-            this.objectToolToolStripButton,
-            this.preferencesToolStripButton,
-            this.toolStripSeparator2,
-            this.zoomInToolStripButton,
-            this.zoomOutToolStripButton,
-            this.fitMineToolStripButton,
-            this.panLeftToolStripButton,
-            this.panRightToolStripButton,
-            this.panUpToolStripButton,
-            this.panDownToolStripButton,
-            this.rotateXMToolStripButton,
-            this.rotateXPToolStripButton,
-            this.rotateYMToolStripButton,
-            this.rotateYPToolStripButton,
-            this.rotateZMToolStripButton,
-            this.rotateZPToolStripButton,
-            this.toolStripSeparator3,
-            this.joinPointsToolStripButton,
-            this.splitPointsToolStripButton,
-            this.joinLinesToolStripButton,
-            this.splitLinesToolStripButton,
-            this.joinSidesToolStripButton,
-            this.splitSidesToolStripButton,
-            this.toolStripSeparator4,
-            this.addNormalToolStripButton,
-            this.addExtendedToolStripButton,
-            this.addMirroredToolStripButton,
-            this.toolStripSeparator5,
-            this.pointModeToolStripButton,
-            this.lineModeToolStripButton,
-            this.sideModeToolStripButton,
-            this.segmentModeToolStripButton,
-            this.objectModeToolStripButton,
-            this.blockModeToolStripButton,
-            this.toolStripSeparator6,
-            this.redrawMineToolStripButton,
-            this.fullScreenToolStripButton});
-            this.mainToolStrip.Location = new System.Drawing.Point(0, 24);
-            this.mainToolStrip.Name = "mainToolStrip";
-            this.mainToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.mainToolStrip.Size = new System.Drawing.Size(1424, 28);
-            this.mainToolStrip.TabIndex = 1;
-            this.mainToolStrip.Text = "toolStrip1";
-            this.mainToolStrip.BackColorChanged += new System.EventHandler(this.mainToolStrip_BackColorChanged);
-            // 
-            // openToolStripButton
-            // 
-            this.openToolStripButton.AutoSize = false;
-            this.openToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.openToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.openToolStripButton.Name = "openToolStripButton";
-            this.openToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.openToolStripButton.Text = "Open";
-            // 
-            // saveToolStripButton
-            // 
-            this.saveToolStripButton.AutoSize = false;
-            this.saveToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.saveToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.saveToolStripButton.Name = "saveToolStripButton";
-            this.saveToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.saveToolStripButton.Text = "Save";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 28);
-            // 
-            // checkMineToolStripButton
-            // 
-            this.checkMineToolStripButton.AutoSize = false;
-            this.checkMineToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.checkMineToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.checkMineToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.checkMineToolStripButton.Name = "checkMineToolStripButton";
-            this.checkMineToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.checkMineToolStripButton.Text = "check mine";
-            // 
-            // lightToolToolStripButton
-            // 
-            this.lightToolToolStripButton.AutoSize = false;
-            this.lightToolToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.lightToolToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.lightToolToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.lightToolToolStripButton.Name = "lightToolToolStripButton";
-            this.lightToolToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.lightToolToolStripButton.Text = "open light tool";
-            // 
-            // textureToolToolStripButton
-            // 
-            this.textureToolToolStripButton.AutoSize = false;
-            this.textureToolToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.textureToolToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.textureToolToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.textureToolToolStripButton.Name = "textureToolToolStripButton";
-            this.textureToolToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.textureToolToolStripButton.Text = "open texture tool";
-            // 
-            // segmentToolToolStripButton
-            // 
-            this.segmentToolToolStripButton.AutoSize = false;
-            this.segmentToolToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.segmentToolToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.segmentToolToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.segmentToolToolStripButton.Name = "segmentToolToolStripButton";
-            this.segmentToolToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.segmentToolToolStripButton.Text = "open segment tool";
-            // 
-            // wallToolToolStripButton
-            // 
-            this.wallToolToolStripButton.AutoSize = false;
-            this.wallToolToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.wallToolToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.wallToolToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.wallToolToolStripButton.Name = "wallToolToolStripButton";
-            this.wallToolToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.wallToolToolStripButton.Text = "open wall tool";
-            // 
-            // objectToolToolStripButton
-            // 
-            this.objectToolToolStripButton.AutoSize = false;
-            this.objectToolToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.objectToolToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.objectToolToolStripButton.ImageTransparentColor = System.Drawing.Color.BlueViolet;
-            this.objectToolToolStripButton.Name = "objectToolToolStripButton";
-            this.objectToolToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.objectToolToolStripButton.Text = "open object tool";
-            // 
-            // preferencesToolStripButton
-            // 
-            this.preferencesToolStripButton.AutoSize = false;
-            this.preferencesToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.preferencesToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.preferencesToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.preferencesToolStripButton.Name = "preferencesToolStripButton";
-            this.preferencesToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.preferencesToolStripButton.Text = "edit preferences";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 28);
-            // 
-            // zoomInToolStripButton
-            // 
-            this.zoomInToolStripButton.AutoSize = false;
-            this.zoomInToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.zoomInToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.zoomInToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.zoomInToolStripButton.Name = "zoomInToolStripButton";
-            this.zoomInToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.zoomInToolStripButton.Text = "Zoom in";
-            // 
-            // zoomOutToolStripButton
-            // 
-            this.zoomOutToolStripButton.AutoSize = false;
-            this.zoomOutToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.zoomOutToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.zoomOutToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.zoomOutToolStripButton.Name = "zoomOutToolStripButton";
-            this.zoomOutToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.zoomOutToolStripButton.Text = "Zoom out";
-            // 
-            // fitMineToolStripButton
-            // 
-            this.fitMineToolStripButton.AutoSize = false;
-            this.fitMineToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.fitMineToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.fitMineToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.fitMineToolStripButton.Name = "fitMineToolStripButton";
-            this.fitMineToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.fitMineToolStripButton.Text = "Fit mine to view";
-            // 
-            // panLeftToolStripButton
-            // 
-            this.panLeftToolStripButton.AutoSize = false;
-            this.panLeftToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.panLeftToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.panLeftToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.panLeftToolStripButton.Name = "panLeftToolStripButton";
-            this.panLeftToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.panLeftToolStripButton.Text = "pan left";
-            // 
-            // panRightToolStripButton
-            // 
-            this.panRightToolStripButton.AutoSize = false;
-            this.panRightToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.panRightToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.panRightToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.panRightToolStripButton.Name = "panRightToolStripButton";
-            this.panRightToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.panRightToolStripButton.Text = "pan right";
-            // 
-            // panUpToolStripButton
-            // 
-            this.panUpToolStripButton.AutoSize = false;
-            this.panUpToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.panUpToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.panUpToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.panUpToolStripButton.Name = "panUpToolStripButton";
-            this.panUpToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.panUpToolStripButton.Text = "pan up";
-            // 
-            // panDownToolStripButton
-            // 
-            this.panDownToolStripButton.AutoSize = false;
-            this.panDownToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.panDownToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.panDownToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.panDownToolStripButton.Name = "panDownToolStripButton";
-            this.panDownToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.panDownToolStripButton.Text = "pan down";
-            // 
-            // rotateXMToolStripButton
-            // 
-            this.rotateXMToolStripButton.AutoSize = false;
-            this.rotateXMToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.rotateXMToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.rotateXMToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.rotateXMToolStripButton.Name = "rotateXMToolStripButton";
-            this.rotateXMToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.rotateXMToolStripButton.Text = "rotate X-";
-            // 
-            // rotateXPToolStripButton
-            // 
-            this.rotateXPToolStripButton.AutoSize = false;
-            this.rotateXPToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.rotateXPToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.rotateXPToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.rotateXPToolStripButton.Name = "rotateXPToolStripButton";
-            this.rotateXPToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.rotateXPToolStripButton.Text = "rotate X+";
-            // 
-            // rotateYMToolStripButton
-            // 
-            this.rotateYMToolStripButton.AutoSize = false;
-            this.rotateYMToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.rotateYMToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.rotateYMToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.rotateYMToolStripButton.Name = "rotateYMToolStripButton";
-            this.rotateYMToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.rotateYMToolStripButton.Text = "rotate Y-";
-            // 
-            // rotateYPToolStripButton
-            // 
-            this.rotateYPToolStripButton.AutoSize = false;
-            this.rotateYPToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.rotateYPToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.rotateYPToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.rotateYPToolStripButton.Name = "rotateYPToolStripButton";
-            this.rotateYPToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.rotateYPToolStripButton.Text = "rotate Y+";
-            // 
-            // rotateZMToolStripButton
-            // 
-            this.rotateZMToolStripButton.AutoSize = false;
-            this.rotateZMToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.rotateZMToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.rotateZMToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.rotateZMToolStripButton.Name = "rotateZMToolStripButton";
-            this.rotateZMToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.rotateZMToolStripButton.Text = "rotate Z-";
-            // 
-            // rotateZPToolStripButton
-            // 
-            this.rotateZPToolStripButton.AutoSize = false;
-            this.rotateZPToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.rotateZPToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.rotateZPToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.rotateZPToolStripButton.Name = "rotateZPToolStripButton";
-            this.rotateZPToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.rotateZPToolStripButton.Text = "rotate Z+";
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 28);
-            // 
-            // joinPointsToolStripButton
-            // 
-            this.joinPointsToolStripButton.AutoSize = false;
-            this.joinPointsToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.joinPointsToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.joinPointsToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.joinPointsToolStripButton.Name = "joinPointsToolStripButton";
-            this.joinPointsToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.joinPointsToolStripButton.Text = "join points";
-            // 
-            // splitPointsToolStripButton
-            // 
-            this.splitPointsToolStripButton.AutoSize = false;
-            this.splitPointsToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.splitPointsToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.splitPointsToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.splitPointsToolStripButton.Name = "splitPointsToolStripButton";
-            this.splitPointsToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.splitPointsToolStripButton.Text = "split points";
-            // 
-            // joinLinesToolStripButton
-            // 
-            this.joinLinesToolStripButton.AutoSize = false;
-            this.joinLinesToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.joinLinesToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.joinLinesToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.joinLinesToolStripButton.Name = "joinLinesToolStripButton";
-            this.joinLinesToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.joinLinesToolStripButton.Text = "join lines";
-            // 
-            // splitLinesToolStripButton
-            // 
-            this.splitLinesToolStripButton.AutoSize = false;
-            this.splitLinesToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.splitLinesToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.splitLinesToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.splitLinesToolStripButton.Name = "splitLinesToolStripButton";
-            this.splitLinesToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.splitLinesToolStripButton.Text = "split lines";
-            // 
-            // joinSidesToolStripButton
-            // 
-            this.joinSidesToolStripButton.AutoSize = false;
-            this.joinSidesToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.joinSidesToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.joinSidesToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.joinSidesToolStripButton.Name = "joinSidesToolStripButton";
-            this.joinSidesToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.joinSidesToolStripButton.Text = "join sides";
-            // 
-            // splitSidesToolStripButton
-            // 
-            this.splitSidesToolStripButton.AutoSize = false;
-            this.splitSidesToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.splitSidesToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.splitSidesToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.splitSidesToolStripButton.Name = "splitSidesToolStripButton";
-            this.splitSidesToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.splitSidesToolStripButton.Text = "split sides";
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 28);
-            // 
-            // addNormalToolStripButton
-            // 
-            this.addNormalToolStripButton.AutoSize = false;
-            this.addNormalToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addNormalToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.addNormalToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addNormalToolStripButton.Name = "addNormalToolStripButton";
-            this.addNormalToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.addNormalToolStripButton.Text = "add normal cubes";
-            // 
-            // addExtendedToolStripButton
-            // 
-            this.addExtendedToolStripButton.AutoSize = false;
-            this.addExtendedToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addExtendedToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.addExtendedToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addExtendedToolStripButton.Name = "addExtendedToolStripButton";
-            this.addExtendedToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.addExtendedToolStripButton.Text = "add extended cubes";
-            // 
-            // addMirroredToolStripButton
-            // 
-            this.addMirroredToolStripButton.AutoSize = false;
-            this.addMirroredToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.addMirroredToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.addMirroredToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.addMirroredToolStripButton.Name = "addMirroredToolStripButton";
-            this.addMirroredToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.addMirroredToolStripButton.Text = "add mirrored cubes";
-            // 
-            // toolStripSeparator5
-            // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 28);
-            // 
-            // pointModeToolStripButton
-            // 
-            this.pointModeToolStripButton.AutoSize = false;
-            this.pointModeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.pointModeToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.pointModeToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.pointModeToolStripButton.Name = "pointModeToolStripButton";
-            this.pointModeToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.pointModeToolStripButton.Text = "set point mode";
-            // 
-            // lineModeToolStripButton
-            // 
-            this.lineModeToolStripButton.AutoSize = false;
-            this.lineModeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.lineModeToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.lineModeToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.lineModeToolStripButton.Name = "lineModeToolStripButton";
-            this.lineModeToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.lineModeToolStripButton.Text = "set line mode";
-            // 
-            // sideModeToolStripButton
-            // 
-            this.sideModeToolStripButton.AutoSize = false;
-            this.sideModeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.sideModeToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.sideModeToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.sideModeToolStripButton.Name = "sideModeToolStripButton";
-            this.sideModeToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.sideModeToolStripButton.Text = "set side mode";
-            // 
-            // segmentModeToolStripButton
-            // 
-            this.segmentModeToolStripButton.AutoSize = false;
-            this.segmentModeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.segmentModeToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.segmentModeToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.segmentModeToolStripButton.Name = "segmentModeToolStripButton";
-            this.segmentModeToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.segmentModeToolStripButton.Text = "set cube mode";
-            // 
-            // objectModeToolStripButton
-            // 
-            this.objectModeToolStripButton.AutoSize = false;
-            this.objectModeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.objectModeToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.objectModeToolStripButton.ImageTransparentColor = System.Drawing.Color.BlueViolet;
-            this.objectModeToolStripButton.Name = "objectModeToolStripButton";
-            this.objectModeToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.objectModeToolStripButton.Text = "set object mode";
-            // 
-            // blockModeToolStripButton
-            // 
-            this.blockModeToolStripButton.AutoSize = false;
-            this.blockModeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.blockModeToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.blockModeToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.blockModeToolStripButton.Name = "blockModeToolStripButton";
-            this.blockModeToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.blockModeToolStripButton.Text = "set block mode";
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 28);
-            // 
-            // redrawMineToolStripButton
-            // 
-            this.redrawMineToolStripButton.AutoSize = false;
-            this.redrawMineToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.redrawMineToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.redrawMineToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.redrawMineToolStripButton.Name = "redrawMineToolStripButton";
-            this.redrawMineToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.redrawMineToolStripButton.Text = "redraw mine";
-            // 
-            // fullScreenToolStripButton
-            // 
-            this.fullScreenToolStripButton.AutoSize = false;
-            this.fullScreenToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.fullScreenToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.fullScreenToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.fullScreenToolStripButton.Name = "fullScreenToolStripButton";
-            this.fullScreenToolStripButton.Size = new System.Drawing.Size(26, 25);
-            this.fullScreenToolStripButton.Text = "toggle full screen";
-            // 
             // mainPanel
             // 
             this.mainPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
@@ -2276,47 +1801,558 @@
             this.toolStripStatusLabelSelectMode.Text = "select: ";
             this.toolStripStatusLabelSelectMode.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // mineViewContextMenuStrip
+            // 
+            this.mineViewContextMenuStrip.Name = "mineViewContextMenuStrip";
+            this.mineViewContextMenuStrip.Size = new System.Drawing.Size(61, 4);
+            // 
+            // mainToolStrip
+            // 
+            this.mainToolStrip.AutoSize = false;
+            this.mainToolStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openToolStripButton,
+            this.saveToolStripButton,
+            this.toolStripSeparator1,
+            this.checkMineToolStripButton,
+            this.lightToolToolStripButton,
+            this.textureToolToolStripButton,
+            this.segmentToolToolStripButton,
+            this.wallToolToolStripButton,
+            this.objectToolToolStripButton,
+            this.preferencesToolStripButton,
+            this.toolStripSeparator2,
+            this.zoomInToolStripButton,
+            this.zoomOutToolStripButton,
+            this.fitMineToolStripButton,
+            this.panLeftToolStripButton,
+            this.panRightToolStripButton,
+            this.panUpToolStripButton,
+            this.panDownToolStripButton,
+            this.rotateXMToolStripButton,
+            this.rotateXPToolStripButton,
+            this.rotateYMToolStripButton,
+            this.rotateYPToolStripButton,
+            this.rotateZMToolStripButton,
+            this.rotateZPToolStripButton,
+            this.toolStripSeparator3,
+            this.joinPointsToolStripButton,
+            this.splitPointsToolStripButton,
+            this.joinLinesToolStripButton,
+            this.splitLinesToolStripButton,
+            this.joinSidesToolStripButton,
+            this.splitSidesToolStripButton,
+            this.toolStripSeparator4,
+            this.addNormalToolStripButton,
+            this.addExtendedToolStripButton,
+            this.addMirroredToolStripButton,
+            this.toolStripSeparator5,
+            this.pointModeToolStripButton,
+            this.lineModeToolStripButton,
+            this.sideModeToolStripButton,
+            this.segmentModeToolStripButton,
+            this.objectModeToolStripButton,
+            this.blockModeToolStripButton,
+            this.toolStripSeparator6,
+            this.redrawMineToolStripButton,
+            this.fullScreenToolStripButton});
+            this.mainToolStrip.Location = new System.Drawing.Point(0, 24);
+            this.mainToolStrip.Name = "mainToolStrip";
+            this.mainToolStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.mainToolStrip.Size = new System.Drawing.Size(1424, 28);
+            this.mainToolStrip.TabIndex = 1;
+            this.mainToolStrip.Text = "toolStrip1";
+            this.mainToolStrip.BackColorChanged += new System.EventHandler(this.mainToolStrip_BackColorChanged);
+            // 
+            // openToolStripButton
+            // 
+            this.openToolStripButton.AutoSize = false;
+            this.openToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.openToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarOpenFile;
+            this.openToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.openToolStripButton.Name = "openToolStripButton";
+            this.openToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.openToolStripButton.Text = "Open";
+            this.openToolStripButton.Click += new System.EventHandler(this.openToolStripButton_Click);
+            // 
+            // saveToolStripButton
+            // 
+            this.saveToolStripButton.AutoSize = false;
+            this.saveToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.saveToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarSaveFile;
+            this.saveToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saveToolStripButton.Name = "saveToolStripButton";
+            this.saveToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.saveToolStripButton.Text = "Save";
+            this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripButton_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 28);
+            // 
+            // checkMineToolStripButton
+            // 
+            this.checkMineToolStripButton.AutoSize = false;
+            this.checkMineToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.checkMineToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarCheckMine;
+            this.checkMineToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.checkMineToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.checkMineToolStripButton.Name = "checkMineToolStripButton";
+            this.checkMineToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.checkMineToolStripButton.Text = "check mine";
+            this.checkMineToolStripButton.Click += new System.EventHandler(this.checkMineToolStripButton_Click);
+            // 
+            // lightToolToolStripButton
+            // 
+            this.lightToolToolStripButton.AutoSize = false;
+            this.lightToolToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.lightToolToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarLightTool;
+            this.lightToolToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.lightToolToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.lightToolToolStripButton.Name = "lightToolToolStripButton";
+            this.lightToolToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.lightToolToolStripButton.Text = "open light tool";
+            this.lightToolToolStripButton.Click += new System.EventHandler(this.lightToolToolStripButton_Click);
+            // 
+            // textureToolToolStripButton
+            // 
+            this.textureToolToolStripButton.AutoSize = false;
+            this.textureToolToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.textureToolToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarTextureTool;
+            this.textureToolToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.textureToolToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.textureToolToolStripButton.Name = "textureToolToolStripButton";
+            this.textureToolToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.textureToolToolStripButton.Text = "open texture tool";
+            this.textureToolToolStripButton.Click += new System.EventHandler(this.textureToolToolStripButton_Click);
+            // 
+            // segmentToolToolStripButton
+            // 
+            this.segmentToolToolStripButton.AutoSize = false;
+            this.segmentToolToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.segmentToolToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarSegmentTool;
+            this.segmentToolToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.segmentToolToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.segmentToolToolStripButton.Name = "segmentToolToolStripButton";
+            this.segmentToolToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.segmentToolToolStripButton.Text = "open segment tool";
+            this.segmentToolToolStripButton.Click += new System.EventHandler(this.segmentToolToolStripButton_Click);
+            // 
+            // wallToolToolStripButton
+            // 
+            this.wallToolToolStripButton.AutoSize = false;
+            this.wallToolToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.wallToolToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarWallTool;
+            this.wallToolToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.wallToolToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.wallToolToolStripButton.Name = "wallToolToolStripButton";
+            this.wallToolToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.wallToolToolStripButton.Text = "open wall tool";
+            this.wallToolToolStripButton.Click += new System.EventHandler(this.wallToolToolStripButton_Click);
+            // 
+            // objectToolToolStripButton
+            // 
+            this.objectToolToolStripButton.AutoSize = false;
+            this.objectToolToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.objectToolToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarObjectTool;
+            this.objectToolToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.objectToolToolStripButton.ImageTransparentColor = System.Drawing.Color.BlueViolet;
+            this.objectToolToolStripButton.Name = "objectToolToolStripButton";
+            this.objectToolToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.objectToolToolStripButton.Text = "open object tool";
+            this.objectToolToolStripButton.Click += new System.EventHandler(this.objectToolToolStripButton_Click);
+            // 
+            // preferencesToolStripButton
+            // 
+            this.preferencesToolStripButton.AutoSize = false;
+            this.preferencesToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.preferencesToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarPrefsTool;
+            this.preferencesToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.preferencesToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.preferencesToolStripButton.Name = "preferencesToolStripButton";
+            this.preferencesToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.preferencesToolStripButton.Text = "edit preferences";
+            this.preferencesToolStripButton.Click += new System.EventHandler(this.preferencesToolStripButton_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 28);
+            // 
+            // zoomInToolStripButton
+            // 
+            this.zoomInToolStripButton.AutoSize = false;
+            this.zoomInToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.zoomInToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarZoomIn;
+            this.zoomInToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.zoomInToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.zoomInToolStripButton.Name = "zoomInToolStripButton";
+            this.zoomInToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.zoomInToolStripButton.Text = "Zoom in";
+            this.zoomInToolStripButton.Click += new System.EventHandler(this.zoomInToolStripButton_Click);
+            // 
+            // zoomOutToolStripButton
+            // 
+            this.zoomOutToolStripButton.AutoSize = false;
+            this.zoomOutToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.zoomOutToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarZoomOut;
+            this.zoomOutToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.zoomOutToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.zoomOutToolStripButton.Name = "zoomOutToolStripButton";
+            this.zoomOutToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.zoomOutToolStripButton.Text = "Zoom out";
+            this.zoomOutToolStripButton.Click += new System.EventHandler(this.zoomOutToolStripButton_Click);
+            // 
+            // fitMineToolStripButton
+            // 
+            this.fitMineToolStripButton.AutoSize = false;
+            this.fitMineToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.fitMineToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarFitMine;
+            this.fitMineToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.fitMineToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.fitMineToolStripButton.Name = "fitMineToolStripButton";
+            this.fitMineToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.fitMineToolStripButton.Text = "Fit mine to view";
+            this.fitMineToolStripButton.Click += new System.EventHandler(this.fitMineToolStripButton_Click);
+            // 
+            // panLeftToolStripButton
+            // 
+            this.panLeftToolStripButton.AutoSize = false;
+            this.panLeftToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.panLeftToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarPanLeft;
+            this.panLeftToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.panLeftToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.panLeftToolStripButton.Name = "panLeftToolStripButton";
+            this.panLeftToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.panLeftToolStripButton.Text = "pan left";
+            this.panLeftToolStripButton.Click += new System.EventHandler(this.panLeftToolStripButton_Click);
+            // 
+            // panRightToolStripButton
+            // 
+            this.panRightToolStripButton.AutoSize = false;
+            this.panRightToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.panRightToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarPanRight;
+            this.panRightToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.panRightToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.panRightToolStripButton.Name = "panRightToolStripButton";
+            this.panRightToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.panRightToolStripButton.Text = "pan right";
+            this.panRightToolStripButton.Click += new System.EventHandler(this.panRightToolStripButton_Click);
+            // 
+            // panUpToolStripButton
+            // 
+            this.panUpToolStripButton.AutoSize = false;
+            this.panUpToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.panUpToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarPanUp;
+            this.panUpToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.panUpToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.panUpToolStripButton.Name = "panUpToolStripButton";
+            this.panUpToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.panUpToolStripButton.Text = "pan up";
+            this.panUpToolStripButton.Click += new System.EventHandler(this.panUpToolStripButton_Click);
+            // 
+            // panDownToolStripButton
+            // 
+            this.panDownToolStripButton.AutoSize = false;
+            this.panDownToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.panDownToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarPanDown;
+            this.panDownToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.panDownToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.panDownToolStripButton.Name = "panDownToolStripButton";
+            this.panDownToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.panDownToolStripButton.Text = "pan down";
+            this.panDownToolStripButton.Click += new System.EventHandler(this.panDownToolStripButton_Click);
+            // 
+            // rotateXMToolStripButton
+            // 
+            this.rotateXMToolStripButton.AutoSize = false;
+            this.rotateXMToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.rotateXMToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarRotateXM;
+            this.rotateXMToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.rotateXMToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.rotateXMToolStripButton.Name = "rotateXMToolStripButton";
+            this.rotateXMToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.rotateXMToolStripButton.Text = "rotate X-";
+            this.rotateXMToolStripButton.Click += new System.EventHandler(this.rotateXMToolStripButton_Click);
+            // 
+            // rotateXPToolStripButton
+            // 
+            this.rotateXPToolStripButton.AutoSize = false;
+            this.rotateXPToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.rotateXPToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarRotateXP;
+            this.rotateXPToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.rotateXPToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.rotateXPToolStripButton.Name = "rotateXPToolStripButton";
+            this.rotateXPToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.rotateXPToolStripButton.Text = "rotate X+";
+            this.rotateXPToolStripButton.Click += new System.EventHandler(this.rotateXPToolStripButton_Click);
+            // 
+            // rotateYMToolStripButton
+            // 
+            this.rotateYMToolStripButton.AutoSize = false;
+            this.rotateYMToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.rotateYMToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarRotateYM;
+            this.rotateYMToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.rotateYMToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.rotateYMToolStripButton.Name = "rotateYMToolStripButton";
+            this.rotateYMToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.rotateYMToolStripButton.Text = "rotate Y-";
+            this.rotateYMToolStripButton.Click += new System.EventHandler(this.rotateYMToolStripButton_Click);
+            // 
+            // rotateYPToolStripButton
+            // 
+            this.rotateYPToolStripButton.AutoSize = false;
+            this.rotateYPToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.rotateYPToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarRotateYP;
+            this.rotateYPToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.rotateYPToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.rotateYPToolStripButton.Name = "rotateYPToolStripButton";
+            this.rotateYPToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.rotateYPToolStripButton.Text = "rotate Y+";
+            this.rotateYPToolStripButton.Click += new System.EventHandler(this.rotateYPToolStripButton_Click);
+            // 
+            // rotateZMToolStripButton
+            // 
+            this.rotateZMToolStripButton.AutoSize = false;
+            this.rotateZMToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.rotateZMToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarRotateZM;
+            this.rotateZMToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.rotateZMToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.rotateZMToolStripButton.Name = "rotateZMToolStripButton";
+            this.rotateZMToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.rotateZMToolStripButton.Text = "rotate Z-";
+            this.rotateZMToolStripButton.Click += new System.EventHandler(this.rotateZMToolStripButton_Click);
+            // 
+            // rotateZPToolStripButton
+            // 
+            this.rotateZPToolStripButton.AutoSize = false;
+            this.rotateZPToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.rotateZPToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarRotateZP;
+            this.rotateZPToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.rotateZPToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.rotateZPToolStripButton.Name = "rotateZPToolStripButton";
+            this.rotateZPToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.rotateZPToolStripButton.Text = "rotate Z+";
+            this.rotateZPToolStripButton.Click += new System.EventHandler(this.rotateZPToolStripButton_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 28);
+            // 
+            // joinPointsToolStripButton
+            // 
+            this.joinPointsToolStripButton.AutoSize = false;
+            this.joinPointsToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.joinPointsToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarJoinPoints;
+            this.joinPointsToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.joinPointsToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.joinPointsToolStripButton.Name = "joinPointsToolStripButton";
+            this.joinPointsToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.joinPointsToolStripButton.Text = "join points";
+            this.joinPointsToolStripButton.Click += new System.EventHandler(this.joinPointsToolStripButton_Click);
+            // 
+            // splitPointsToolStripButton
+            // 
+            this.splitPointsToolStripButton.AutoSize = false;
+            this.splitPointsToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.splitPointsToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarSplitPoints;
+            this.splitPointsToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.splitPointsToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.splitPointsToolStripButton.Name = "splitPointsToolStripButton";
+            this.splitPointsToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.splitPointsToolStripButton.Text = "split points";
+            this.splitPointsToolStripButton.Click += new System.EventHandler(this.splitPointsToolStripButton_Click);
+            // 
+            // joinLinesToolStripButton
+            // 
+            this.joinLinesToolStripButton.AutoSize = false;
+            this.joinLinesToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.joinLinesToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarJoinLines;
+            this.joinLinesToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.joinLinesToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.joinLinesToolStripButton.Name = "joinLinesToolStripButton";
+            this.joinLinesToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.joinLinesToolStripButton.Text = "join lines";
+            this.joinLinesToolStripButton.Click += new System.EventHandler(this.joinLinesToolStripButton_Click);
+            // 
+            // splitLinesToolStripButton
+            // 
+            this.splitLinesToolStripButton.AutoSize = false;
+            this.splitLinesToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.splitLinesToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarSplitLines;
+            this.splitLinesToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.splitLinesToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.splitLinesToolStripButton.Name = "splitLinesToolStripButton";
+            this.splitLinesToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.splitLinesToolStripButton.Text = "split lines";
+            this.splitLinesToolStripButton.Click += new System.EventHandler(this.splitLinesToolStripButton_Click);
+            // 
+            // joinSidesToolStripButton
+            // 
+            this.joinSidesToolStripButton.AutoSize = false;
+            this.joinSidesToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.joinSidesToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarJoinSides;
+            this.joinSidesToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.joinSidesToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.joinSidesToolStripButton.Name = "joinSidesToolStripButton";
+            this.joinSidesToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.joinSidesToolStripButton.Text = "join sides";
+            this.joinSidesToolStripButton.Click += new System.EventHandler(this.joinSidesToolStripButton_Click);
+            // 
+            // splitSidesToolStripButton
+            // 
+            this.splitSidesToolStripButton.AutoSize = false;
+            this.splitSidesToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.splitSidesToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarSplitSides;
+            this.splitSidesToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.splitSidesToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.splitSidesToolStripButton.Name = "splitSidesToolStripButton";
+            this.splitSidesToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.splitSidesToolStripButton.Text = "split sides";
+            this.splitSidesToolStripButton.Click += new System.EventHandler(this.splitSidesToolStripButton_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 28);
+            // 
+            // addNormalToolStripButton
+            // 
+            this.addNormalToolStripButton.AutoSize = false;
+            this.addNormalToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addNormalToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarAddNormal;
+            this.addNormalToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.addNormalToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addNormalToolStripButton.Name = "addNormalToolStripButton";
+            this.addNormalToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.addNormalToolStripButton.Text = "add normal cubes";
+            // 
+            // addExtendedToolStripButton
+            // 
+            this.addExtendedToolStripButton.AutoSize = false;
+            this.addExtendedToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addExtendedToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarAddExtended;
+            this.addExtendedToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.addExtendedToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addExtendedToolStripButton.Name = "addExtendedToolStripButton";
+            this.addExtendedToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.addExtendedToolStripButton.Text = "add extended cubes";
+            // 
+            // addMirroredToolStripButton
+            // 
+            this.addMirroredToolStripButton.AutoSize = false;
+            this.addMirroredToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.addMirroredToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarAddMirrored;
+            this.addMirroredToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.addMirroredToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.addMirroredToolStripButton.Name = "addMirroredToolStripButton";
+            this.addMirroredToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.addMirroredToolStripButton.Text = "add mirrored cubes";
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 28);
+            // 
+            // pointModeToolStripButton
+            // 
+            this.pointModeToolStripButton.AutoSize = false;
+            this.pointModeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.pointModeToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarPointMode;
+            this.pointModeToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.pointModeToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.pointModeToolStripButton.Name = "pointModeToolStripButton";
+            this.pointModeToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.pointModeToolStripButton.Text = "set point mode";
+            // 
+            // lineModeToolStripButton
+            // 
+            this.lineModeToolStripButton.AutoSize = false;
+            this.lineModeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.lineModeToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarLineMode;
+            this.lineModeToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.lineModeToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.lineModeToolStripButton.Name = "lineModeToolStripButton";
+            this.lineModeToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.lineModeToolStripButton.Text = "set line mode";
+            // 
+            // sideModeToolStripButton
+            // 
+            this.sideModeToolStripButton.AutoSize = false;
+            this.sideModeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.sideModeToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarSideMode;
+            this.sideModeToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.sideModeToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.sideModeToolStripButton.Name = "sideModeToolStripButton";
+            this.sideModeToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.sideModeToolStripButton.Text = "set side mode";
+            // 
+            // segmentModeToolStripButton
+            // 
+            this.segmentModeToolStripButton.AutoSize = false;
+            this.segmentModeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.segmentModeToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarSegmentMode;
+            this.segmentModeToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.segmentModeToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.segmentModeToolStripButton.Name = "segmentModeToolStripButton";
+            this.segmentModeToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.segmentModeToolStripButton.Text = "set cube mode";
+            // 
+            // objectModeToolStripButton
+            // 
+            this.objectModeToolStripButton.AutoSize = false;
+            this.objectModeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.objectModeToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarObjectMode;
+            this.objectModeToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.objectModeToolStripButton.ImageTransparentColor = System.Drawing.Color.BlueViolet;
+            this.objectModeToolStripButton.Name = "objectModeToolStripButton";
+            this.objectModeToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.objectModeToolStripButton.Text = "set object mode";
+            // 
+            // blockModeToolStripButton
+            // 
+            this.blockModeToolStripButton.AutoSize = false;
+            this.blockModeToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.blockModeToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarBlockMode;
+            this.blockModeToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.blockModeToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.blockModeToolStripButton.Name = "blockModeToolStripButton";
+            this.blockModeToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.blockModeToolStripButton.Text = "set block mode";
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 28);
+            // 
+            // redrawMineToolStripButton
+            // 
+            this.redrawMineToolStripButton.AutoSize = false;
+            this.redrawMineToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.redrawMineToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarRedrawMine;
+            this.redrawMineToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.redrawMineToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.redrawMineToolStripButton.Name = "redrawMineToolStripButton";
+            this.redrawMineToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.redrawMineToolStripButton.Text = "redraw mine";
+            this.redrawMineToolStripButton.Click += new System.EventHandler(this.redrawMineToolStripButton_Click);
+            // 
+            // fullScreenToolStripButton
+            // 
+            this.fullScreenToolStripButton.AutoSize = false;
+            this.fullScreenToolStripButton.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.fullScreenToolStripButton.Image = global::DLEDotNet.Properties.Resources.toolbarFullScreen;
+            this.fullScreenToolStripButton.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.fullScreenToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.fullScreenToolStripButton.Name = "fullScreenToolStripButton";
+            this.fullScreenToolStripButton.Size = new System.Drawing.Size(26, 25);
+            this.fullScreenToolStripButton.Text = "toggle full screen";
+            // 
             // EditorWindow
             // 
-            this.openToolStripButton.Image = Properties.Resources.toolbarOpenFile;
-            this.saveToolStripButton.Image = Properties.Resources.toolbarSaveFile;
-            this.checkMineToolStripButton.Image = Properties.Resources.toolbarCheckMine;
-            this.lightToolToolStripButton.Image = Properties.Resources.toolbarLightTool;
-            this.textureToolToolStripButton.Image = Properties.Resources.toolbarTextureTool;
-            this.segmentToolToolStripButton.Image = Properties.Resources.toolbarSegmentTool;
-            this.wallToolToolStripButton.Image = Properties.Resources.toolbarWallTool;
-            this.objectToolToolStripButton.Image = Properties.Resources.toolbarObjectTool;
-            this.preferencesToolStripButton.Image = Properties.Resources.toolbarPrefsTool;
-            this.zoomInToolStripButton.Image = Properties.Resources.toolbarZoomIn;
-            this.zoomOutToolStripButton.Image = Properties.Resources.toolbarZoomOut;
-            this.fitMineToolStripButton.Image = Properties.Resources.toolbarFitMine;
-            this.panLeftToolStripButton.Image = Properties.Resources.toolbarPanLeft;
-            this.panRightToolStripButton.Image = Properties.Resources.toolbarPanRight;
-            this.panUpToolStripButton.Image = Properties.Resources.toolbarPanUp;
-            this.panDownToolStripButton.Image = Properties.Resources.toolbarPanDown;
-            this.rotateXMToolStripButton.Image = Properties.Resources.toolbarRotateXM;
-            this.rotateXPToolStripButton.Image = Properties.Resources.toolbarRotateXP;
-            this.rotateYMToolStripButton.Image = Properties.Resources.toolbarRotateYM;
-            this.rotateYPToolStripButton.Image = Properties.Resources.toolbarRotateYP;
-            this.rotateZMToolStripButton.Image = Properties.Resources.toolbarRotateZM;
-            this.rotateZPToolStripButton.Image = Properties.Resources.toolbarRotateZP;
-            this.joinPointsToolStripButton.Image = Properties.Resources.toolbarJoinPoints;
-            this.splitPointsToolStripButton.Image = Properties.Resources.toolbarSplitPoints;
-            this.joinLinesToolStripButton.Image = Properties.Resources.toolbarJoinLines;
-            this.splitLinesToolStripButton.Image = Properties.Resources.toolbarSplitLines;
-            this.joinSidesToolStripButton.Image = Properties.Resources.toolbarJoinSides;
-            this.splitSidesToolStripButton.Image = Properties.Resources.toolbarSplitSides;
-            this.addNormalToolStripButton.Image = Properties.Resources.toolbarAddNormal;
-            this.addExtendedToolStripButton.Image = Properties.Resources.toolbarAddExtended;
-            this.addMirroredToolStripButton.Image = Properties.Resources.toolbarAddMirrored;
-            this.pointModeToolStripButton.Image = Properties.Resources.toolbarPointMode;
-            this.lineModeToolStripButton.Image = Properties.Resources.toolbarLineMode;
-            this.sideModeToolStripButton.Image = Properties.Resources.toolbarSideMode;
-            this.segmentModeToolStripButton.Image = Properties.Resources.toolbarSegmentMode;
-            this.objectModeToolStripButton.Image = Properties.Resources.toolbarObjectMode;
-            this.blockModeToolStripButton.Image = Properties.Resources.toolbarBlockMode;
-            this.redrawMineToolStripButton.Image = Properties.Resources.toolbarRedrawMine;
-            this.fullScreenToolStripButton.Image = Properties.Resources.toolbarFullScreen;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1424, 728);
@@ -2328,15 +2364,16 @@
             this.MainMenuStrip = this.mainMenuStrip;
             this.Name = "EditorWindow";
             this.Text = "UI shell";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditorWindow_FormClosing);
             this.Load += new System.EventHandler(this.EditorWindow_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditorWindow_KeyDown);
             this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.EditorWindow_PreviewKeyDown);
             this.mainMenuStrip.ResumeLayout(false);
             this.mainMenuStrip.PerformLayout();
-            this.mainToolStrip.ResumeLayout(false);
-            this.mainToolStrip.PerformLayout();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
+            this.mainToolStrip.ResumeLayout(false);
+            this.mainToolStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2353,7 +2390,7 @@
         private System.Windows.Forms.ToolStripMenuItem joinSeparateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStrip mainToolStrip;
+        private DLEDotNet.Editor.ClickThroughToolStrip mainToolStrip;
         private System.Windows.Forms.ToolStripButton openToolStripButton;
         private System.Windows.Forms.ToolStripButton saveToolStripButton;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
@@ -2587,6 +2624,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator25;
         private System.Windows.Forms.ToolStripMenuItem selectNextPointToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem selectPreviousPointToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip mineViewContextMenuStrip;
     }
 }
 

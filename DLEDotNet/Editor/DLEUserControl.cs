@@ -13,35 +13,18 @@ namespace DLEDotNet.Editor
     [ToolboxItem(false)]
     public class DLEUserControl : UserControl
     {
-        public EditorWindow Owner { get; internal set; }
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
+        internal EditorWindow Owner { get; set; }
 
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public EditorState EditorState
         {
             get
             {
-                if (Owner == null) TryFindMyOwner();
                 return Owner.EditorState;
             }
-        }
-
-        private void TryFindMyOwner()
-        {
-            Control parent = this;
-
-            do
-            {
-                parent = parent.Parent;
-                if (parent is DLELayoutableUserControl d)
-                {
-                    if (d.Owner != null)
-                    {
-                        Owner = d.Owner;
-                        return;
-                    }
-                }
-            } while (parent != null);
-
-            throw new InvalidOperationException("Control could not find its owner EditorWindow.");
         }
 
         /// <summary>
@@ -71,6 +54,46 @@ namespace DLEDotNet.Editor
 
             var result = mexpr.ToString();
             return result.Substring(result.IndexOf('.') + 1);
+        }
+
+        private void TryFindOwner()
+        {
+            Control c = this;
+            do
+            {
+                c = c?.Parent;
+                if (c is DLEUserControl t)
+                {
+                    if (t.Owner != null)
+                    {
+                        Owner = t.Owner;
+                        return;
+                    }
+                }
+            } while (c != null);
+        }
+
+        protected bool IsInDesignMode
+        {
+            get => DesignMode || LicenseManager.UsageMode == LicenseUsageMode.Designtime;
+        }
+
+        private void CopyOwner()
+        {
+            if (Owner == null) TryFindOwner();
+            if (Owner == null) throw new InvalidOperationException("The user control tried to obtain editor state without being attached to a control with editor state.");
+            foreach (Control c in this.Controls)
+            {
+                if (c is DLEUserControl dc)
+                    dc.Owner = Owner;
+            }
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            if (!IsInDesignMode)
+                CopyOwner();
+            base.OnLoad(e);
         }
     }
 }

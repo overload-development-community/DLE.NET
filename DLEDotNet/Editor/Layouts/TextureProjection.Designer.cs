@@ -187,7 +187,7 @@
             // 
             // texprojectOriginxTextBox
             // 
-            this.texprojectOriginxTextBox.FractionalDigits = ((uint)(2u));
+            this.texprojectOriginxTextBox.FractionalDigits = 2;
             this.texprojectOriginxTextBox.Location = new System.Drawing.Point(152, 6);
             this.texprojectOriginxTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectOriginxTextBox.Name = "texprojectOriginxTextBox";
@@ -242,7 +242,7 @@
             // 
             // texprojectOriginyTextBox
             // 
-            this.texprojectOriginyTextBox.FractionalDigits = ((uint)(2u));
+            this.texprojectOriginyTextBox.FractionalDigits = 2;
             this.texprojectOriginyTextBox.Location = new System.Drawing.Point(152, 29);
             this.texprojectOriginyTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectOriginyTextBox.Name = "texprojectOriginyTextBox";
@@ -297,7 +297,7 @@
             // 
             // texprojectOriginzTextBox
             // 
-            this.texprojectOriginzTextBox.FractionalDigits = ((uint)(2u));
+            this.texprojectOriginzTextBox.FractionalDigits = 2;
             this.texprojectOriginzTextBox.Location = new System.Drawing.Point(152, 52);
             this.texprojectOriginzTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectOriginzTextBox.Name = "texprojectOriginzTextBox";
@@ -363,7 +363,7 @@
             // 
             // texprojectRotpTextBox
             // 
-            this.texprojectRotpTextBox.FractionalDigits = ((uint)(2u));
+            this.texprojectRotpTextBox.FractionalDigits = 2;
             this.texprojectRotpTextBox.Location = new System.Drawing.Point(152, 78);
             this.texprojectRotpTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectRotpTextBox.Name = "texprojectRotpTextBox";
@@ -418,7 +418,7 @@
             // 
             // texprojectRotbTextBox
             // 
-            this.texprojectRotbTextBox.FractionalDigits = ((uint)(2u));
+            this.texprojectRotbTextBox.FractionalDigits = 2;
             this.texprojectRotbTextBox.Location = new System.Drawing.Point(152, 101);
             this.texprojectRotbTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectRotbTextBox.Name = "texprojectRotbTextBox";
@@ -473,7 +473,7 @@
             // 
             // texprojectRothTextBox
             // 
-            this.texprojectRothTextBox.FractionalDigits = ((uint)(2u));
+            this.texprojectRothTextBox.FractionalDigits = 2;
             this.texprojectRothTextBox.Location = new System.Drawing.Point(152, 124);
             this.texprojectRothTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectRothTextBox.Name = "texprojectRothTextBox";
@@ -539,7 +539,7 @@
             // 
             // texprojectUscaleTextBox
             // 
-            this.texprojectUscaleTextBox.FractionalDigits = ((uint)(2u));
+            this.texprojectUscaleTextBox.FractionalDigits = 2;
             this.texprojectUscaleTextBox.Location = new System.Drawing.Point(152, 150);
             this.texprojectUscaleTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectUscaleTextBox.Name = "texprojectUscaleTextBox";
@@ -594,7 +594,7 @@
             // 
             // texprojectVscaleTextBox
             // 
-            this.texprojectVscaleTextBox.FractionalDigits = ((uint)(2u));
+            this.texprojectVscaleTextBox.FractionalDigits = 2;
             this.texprojectVscaleTextBox.Location = new System.Drawing.Point(152, 172);
             this.texprojectVscaleTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectVscaleTextBox.Name = "texprojectVscaleTextBox";

@@ -79,6 +79,7 @@
             // tabPageFiles
             // 
             this.tabPageFiles.AutoScroll = true;
+            this.tabPageFiles.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageFiles.Controls.Add(this.preferencesFiles1);
             this.tabPageFiles.Location = new System.Drawing.Point(4, 22);
             this.tabPageFiles.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -86,7 +87,6 @@
             this.tabPageFiles.Size = new System.Drawing.Size(772, 182);
             this.tabPageFiles.TabIndex = 0;
             this.tabPageFiles.Text = "Files";
-            this.tabPageFiles.UseVisualStyleBackColor = true;
             // 
             // preferencesFiles1
             // 
@@ -101,6 +101,7 @@
             // tabPageLayout
             // 
             this.tabPageLayout.AutoScroll = true;
+            this.tabPageLayout.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageLayout.Controls.Add(this.preferencesLayout1);
             this.tabPageLayout.Location = new System.Drawing.Point(4, 22);
             this.tabPageLayout.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -108,7 +109,6 @@
             this.tabPageLayout.Size = new System.Drawing.Size(772, 182);
             this.tabPageLayout.TabIndex = 1;
             this.tabPageLayout.Text = "Layout";
-            this.tabPageLayout.UseVisualStyleBackColor = true;
             // 
             // preferencesLayout1
             // 
@@ -123,6 +123,7 @@
             // tabPageRenderer
             // 
             this.tabPageRenderer.AutoScroll = true;
+            this.tabPageRenderer.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageRenderer.Controls.Add(this.preferencesRenderer1);
             this.tabPageRenderer.Location = new System.Drawing.Point(4, 22);
             this.tabPageRenderer.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -130,7 +131,6 @@
             this.tabPageRenderer.Size = new System.Drawing.Size(772, 182);
             this.tabPageRenderer.TabIndex = 2;
             this.tabPageRenderer.Text = "Renderer";
-            this.tabPageRenderer.UseVisualStyleBackColor = true;
             // 
             // preferencesRenderer1
             // 
@@ -145,6 +145,7 @@
             // tabPageEditor
             // 
             this.tabPageEditor.AutoScroll = true;
+            this.tabPageEditor.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageEditor.Controls.Add(this.preferencesEditor1);
             this.tabPageEditor.Location = new System.Drawing.Point(4, 22);
             this.tabPageEditor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -152,7 +153,6 @@
             this.tabPageEditor.Size = new System.Drawing.Size(772, 182);
             this.tabPageEditor.TabIndex = 3;
             this.tabPageEditor.Text = "Editor";
-            this.tabPageEditor.UseVisualStyleBackColor = true;
             // 
             // preferencesEditor1
             // 
@@ -167,6 +167,7 @@
             // tabPageVisibility
             // 
             this.tabPageVisibility.AutoScroll = true;
+            this.tabPageVisibility.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageVisibility.Controls.Add(this.preferencesVisibility1);
             this.tabPageVisibility.Location = new System.Drawing.Point(4, 22);
             this.tabPageVisibility.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -174,7 +175,6 @@
             this.tabPageVisibility.Size = new System.Drawing.Size(772, 182);
             this.tabPageVisibility.TabIndex = 4;
             this.tabPageVisibility.Text = "Visibility";
-            this.tabPageVisibility.UseVisualStyleBackColor = true;
             // 
             // preferencesVisibility1
             // 
@@ -189,6 +189,7 @@
             // tabPageMisc
             // 
             this.tabPageMisc.AutoScroll = true;
+            this.tabPageMisc.BackColor = System.Drawing.SystemColors.Control;
             this.tabPageMisc.Controls.Add(this.preferencesMisc1);
             this.tabPageMisc.Location = new System.Drawing.Point(4, 22);
             this.tabPageMisc.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -196,7 +197,6 @@
             this.tabPageMisc.Size = new System.Drawing.Size(772, 182);
             this.tabPageMisc.TabIndex = 5;
             this.tabPageMisc.Text = "Misc";
-            this.tabPageMisc.UseVisualStyleBackColor = true;
             // 
             // preferencesMisc1
             // 
@@ -217,7 +217,7 @@
             this.idokButton.Size = new System.Drawing.Size(76, 20);
             this.idokButton.TabIndex = 1;
             this.idokButton.TabStop = false;
-            this.idokButton.Text = "apply";
+            this.idokButton.Text = "save";
             this.idokButton.Click += new System.EventHandler(this.idokButton_Click);
             // 
             // idcancelButton
@@ -228,14 +228,8 @@
             this.idcancelButton.Name = "idcancelButton";
             this.idcancelButton.Size = new System.Drawing.Size(76, 20);
             this.idcancelButton.TabIndex = 2;
-            this.idcancelButton.Text = "cancel";
+            this.idcancelButton.Text = "revert";
             this.idcancelButton.Click += new System.EventHandler(this.idcancelButton_Click);
-            this.tabPageFiles.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPageLayout.BackColor = System.Drawing.SystemColors.Control;
-            this.tabPageRenderer.BackColor = System.Drawing.SystemColors.Control;
-        this.tabPageEditor.BackColor = System.Drawing.SystemColors.Control;
-        this.tabPageVisibility.BackColor = System.Drawing.SystemColors.Control;
-        this.tabPageMisc.BackColor = System.Drawing.SystemColors.Control;
             // 
             // SettingsTool
             // 

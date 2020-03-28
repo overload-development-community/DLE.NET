@@ -78,7 +78,7 @@
             // 
             // objLocxTextBox
             // 
-            this.objLocxTextBox.FractionalDigits = ((uint)(2u));
+            this.objLocxTextBox.FractionalDigits = 2;
             this.objLocxTextBox.Location = new System.Drawing.Point(30, 21);
             this.objLocxTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.objLocxTextBox.Name = "objLocxTextBox";
@@ -101,7 +101,7 @@
             // 
             // objLocyTextBox
             // 
-            this.objLocyTextBox.FractionalDigits = ((uint)(2u));
+            this.objLocyTextBox.FractionalDigits = 2;
             this.objLocyTextBox.Location = new System.Drawing.Point(30, 44);
             this.objLocyTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.objLocyTextBox.Name = "objLocyTextBox";
@@ -124,7 +124,7 @@
             // 
             // objLoczTextBox
             // 
-            this.objLoczTextBox.FractionalDigits = ((uint)(2u));
+            this.objLoczTextBox.FractionalDigits = 2;
             this.objLoczTextBox.Location = new System.Drawing.Point(30, 67);
             this.objLoczTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.objLoczTextBox.Name = "objLoczTextBox";
@@ -164,7 +164,7 @@
             // 
             // objRotpTextBox
             // 
-            this.objRotpTextBox.FractionalDigits = ((uint)(2u));
+            this.objRotpTextBox.FractionalDigits = 2;
             this.objRotpTextBox.Location = new System.Drawing.Point(56, 21);
             this.objRotpTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.objRotpTextBox.Name = "objRotpTextBox";
@@ -187,7 +187,7 @@
             // 
             // objRotbTextBox
             // 
-            this.objRotbTextBox.FractionalDigits = ((uint)(2u));
+            this.objRotbTextBox.FractionalDigits = 2;
             this.objRotbTextBox.Location = new System.Drawing.Point(56, 44);
             this.objRotbTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.objRotbTextBox.Name = "objRotbTextBox";
@@ -210,7 +210,7 @@
             // 
             // objRothTextBox
             // 
-            this.objRothTextBox.FractionalDigits = ((uint)(2u));
+            this.objRothTextBox.FractionalDigits = 2;
             this.objRothTextBox.Location = new System.Drawing.Point(56, 67);
             this.objRothTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.objRothTextBox.Name = "objRothTextBox";

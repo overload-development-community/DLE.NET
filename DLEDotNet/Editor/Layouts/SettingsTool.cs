@@ -38,10 +38,10 @@ namespace DLEDotNet.Editor.Layouts
 
         private void idokButton_Click(object sender, EventArgs e)
         {
-            EditorState.Settings.CopyFrom(EditorState.SettingsCandidate);
-            EditorState.Settings.SaveToFile();
+            EditorState.SavedPrefs.CopyFrom(EditorState.Prefs);
+            EditorState.SavedPrefs.SaveToFile();
         }
-        private void idcancelButton_Click(object sender, EventArgs e) => EditorState.SettingsCandidate.CopyFrom(EditorState.Settings);
+        private void idcancelButton_Click(object sender, EventArgs e) => EditorState.Prefs.CopyFrom(EditorState.SavedPrefs);
 
         protected override void SetupControls()
         {

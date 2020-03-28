@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PreferencesFiles));
-            this.prefsPathD1PigTextBox = new System.Windows.Forms.TextBox();
-            this.prefsPathD2PigTextBox = new System.Windows.Forms.TextBox();
-            this.prefsPathMissionsTextBox = new System.Windows.Forms.TextBox();
+            this.prefsPathD1PigTextBox = new DLEDotNet.Editor.StringTextBox();
+            this.prefsPathD2PigTextBox = new DLEDotNet.Editor.StringTextBox();
+            this.prefsPathMissionsTextBox = new DLEDotNet.Editor.StringTextBox();
             this.prefsBrowseD1PigButton = new System.Windows.Forms.Button();
             this.prefsBrowseD2PigButton = new System.Windows.Forms.Button();
             this.prefsBrowseMissionsButton = new System.Windows.Forms.Button();
@@ -40,6 +40,7 @@
             this.labelD2Pig = new System.Windows.Forms.Label();
             this.labelMissions = new System.Windows.Forms.Label();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.labelChangesOnlyApply = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,6 +52,7 @@
             this.prefsPathD1PigTextBox.Size = new System.Drawing.Size(300, 20);
             this.prefsPathD1PigTextBox.TabIndex = 0;
             this.prefsPathD1PigTextBox.TabStop = false;
+            this.prefsPathD1PigTextBox.Value = "";
             // 
             // prefsPathD2PigTextBox
             // 
@@ -60,6 +62,7 @@
             this.prefsPathD2PigTextBox.Size = new System.Drawing.Size(300, 20);
             this.prefsPathD2PigTextBox.TabIndex = 1;
             this.prefsPathD2PigTextBox.TabStop = false;
+            this.prefsPathD2PigTextBox.Value = "";
             // 
             // prefsPathMissionsTextBox
             // 
@@ -69,6 +72,7 @@
             this.prefsPathMissionsTextBox.Size = new System.Drawing.Size(300, 20);
             this.prefsPathMissionsTextBox.TabIndex = 2;
             this.prefsPathMissionsTextBox.TabStop = false;
+            this.prefsPathMissionsTextBox.Value = "";
             // 
             // prefsBrowseD1PigButton
             // 
@@ -133,10 +137,19 @@
             this.labelMissions.TabStop = true;
             this.labelMissions.Text = "Missions:";
             // 
+            // labelChangesOnlyApply
+            // 
+            this.labelChangesOnlyApply.Location = new System.Drawing.Point(12, 115);
+            this.labelChangesOnlyApply.Name = "labelChangesOnlyApply";
+            this.labelChangesOnlyApply.Size = new System.Drawing.Size(208, 30);
+            this.labelChangesOnlyApply.TabIndex = 9;
+            this.labelChangesOnlyApply.Text = "Changes here only apply on save.";
+            // 
             // PreferencesFiles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.labelChangesOnlyApply);
             this.Controls.Add(this.prefsPathD1PigTextBox);
             this.Controls.Add(this.prefsPathD2PigTextBox);
             this.Controls.Add(this.prefsPathMissionsTextBox);
@@ -157,9 +170,9 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox prefsPathD1PigTextBox;
-        private System.Windows.Forms.TextBox prefsPathD2PigTextBox;
-        private System.Windows.Forms.TextBox prefsPathMissionsTextBox;
+        private StringTextBox prefsPathD1PigTextBox;
+        private StringTextBox prefsPathD2PigTextBox;
+        private StringTextBox prefsPathMissionsTextBox;
         private System.Windows.Forms.Button prefsBrowseD1PigButton;
         private System.Windows.Forms.Button prefsBrowseD2PigButton;
         private System.Windows.Forms.Button prefsBrowseMissionsButton;
@@ -167,5 +180,6 @@
         private System.Windows.Forms.Label labelD2Pig;
         private System.Windows.Forms.Label labelMissions;
         private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.Label labelChangesOnlyApply;
     }
 }

@@ -14,14 +14,13 @@ namespace DLEDotNet.Data
         {
             // default values should be inited here, not in the property or variable
             Owner = owner;
-            Settings = new EditorSettings();
-            Settings.PropertyChanged += (object sender, PropertyChangeEventArgs e) => SettingChanged?.Invoke(this, e);
-            SettingsCandidate = new EditorSettings();
+            SavedPrefs = new EditorSettingsSaved();
+            SavedPrefs.PropertyChanged += (object sender, PropertyChangeEventArgs e) => SettingChanged?.Invoke(this, e);
+            Prefs = new EditorSettings();
             ActiveEditorTab = ActiveTextureTab = ActiveObjectTab = ActiveSettingsTab = 0;
-            this.SegmentAddMode = SegmentAddMode.Normal;
-            this.SelectionMode = SelectMode.Side;
-
-            Temp = 1337;
+            SegmentAddMode = SegmentAddMode.Normal;
+            SelectionMode = SelectMode.Side;
+            UseTexColors = false;
         }
 
         /// <summary>
@@ -31,10 +30,9 @@ namespace DLEDotNet.Data
         public object Owner { get; }
 
         /// <summary>
-        /// The current editor settings.
+        /// The saved editor settings.
         /// </summary>
-        [NoSubstateAutoSubscribe]
-        public EditorSettings Settings
+        public EditorSettingsSaved SavedPrefs
         {
             get => _editorSettings;
             private set
@@ -45,10 +43,10 @@ namespace DLEDotNet.Data
         }
 
         /// <summary>
-        /// The candidate editor settings; that is, the settings live
-        /// as they are being edited under the Settings tool.
+        /// The live editor settings, as they are being edited under the
+        /// Settings tool or through some menu options.
         /// </summary>
-        public EditorSettings SettingsCandidate
+        public EditorSettings Prefs
         {
             get => _editorSettingsCandidate;
             private set => AssignChanged(ref _editorSettingsCandidate, value);
@@ -106,7 +104,13 @@ namespace DLEDotNet.Data
             set => AssignChanged(ref _selectMode, value);
         }
 
-        private EditorSettings _editorSettings;
+        public bool UseTexColors
+        {
+            get => _useTexColors;
+            set => AssignChanged(ref _useTexColors, value);
+        }
+
+        private EditorSettingsSaved _editorSettings;
         private EditorSettings _editorSettingsCandidate;
         private int _activeEditorTab;
         private int _activeTextureTab;
@@ -114,17 +118,6 @@ namespace DLEDotNet.Data
         private int _activeSettingsTab;
         private SegmentAddMode _segAddMode;
         private SelectMode _selectMode;
-
-        public uint Temp
-        {
-            get => _tmp;
-            set
-            {
-                if (AssignChanged(ref _tmp, value))
-                    System.Diagnostics.Debug.WriteLine("New value for _tmp = " + value);
-            }
-        }
-
-        private uint _tmp;
+        private bool _useTexColors;
     }
 }

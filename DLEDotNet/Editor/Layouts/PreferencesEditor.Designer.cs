@@ -30,17 +30,17 @@
         {
             this.prefsRotateRateSliderTrackBar = new System.Windows.Forms.TrackBar();
             this.tPrefsRotateRateLabel = new System.Windows.Forms.Label();
-            this.alignableGroupBoxRotateRate = new AlignableGroupBox();
-            this.prefsRotateRateSliderLeftRightControl = new LeftRightControl();
-            this.prefsMoverateTextBox = new IntTextBox();
-            this.prefsViewMoverateTextBox = new IntTextBox();
-            this.alignableGroupBoxMoveRateUnits = new AlignableGroupBox();
+            this.alignableGroupBoxRotateRate = new DLEDotNet.Editor.AlignableGroupBox();
+            this.prefsRotateRateSliderLeftRightControl = new DLEDotNet.Editor.LeftRightControl();
+            this.prefsMoverateTextBox = new DLEDotNet.Editor.FloatTextBox();
+            this.prefsViewMoverateTextBox = new DLEDotNet.Editor.FloatTextBox();
+            this.alignableGroupBoxMoveRateUnits = new DLEDotNet.Editor.AlignableGroupBox();
             this.labelMine = new System.Windows.Forms.Label();
             this.labelView = new System.Windows.Forms.Label();
-            this.prefsUndoTextBox = new IntTextBox();
+            this.prefsUndoTextBox = new DLEDotNet.Editor.IntTextBox();
             this.labelUndos0Hyph500 = new System.Windows.Forms.Label();
-            this.alignableGroupBoxUndo = new AlignableGroupBox();
-            this.alignableGroupBoxMisc = new AlignableGroupBox();
+            this.alignableGroupBoxUndo = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxMisc = new DLEDotNet.Editor.AlignableGroupBox();
             this.prefsAllowobjectoverlapCheckBox = new System.Windows.Forms.CheckBox();
             this.prefsUpdatetexalignCheckBox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.prefsRotateRateSliderTrackBar)).BeginInit();
@@ -48,6 +48,7 @@
             this.alignableGroupBoxMoveRateUnits.SuspendLayout();
             this.alignableGroupBoxUndo.SuspendLayout();
             this.alignableGroupBoxMisc.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // prefsRotateRateSliderTrackBar
@@ -55,12 +56,12 @@
             this.prefsRotateRateSliderTrackBar.AutoSize = false;
             this.prefsRotateRateSliderTrackBar.Location = new System.Drawing.Point(6, 15);
             this.prefsRotateRateSliderTrackBar.Margin = new System.Windows.Forms.Padding(0);
-            this.prefsRotateRateSliderTrackBar.Maximum = 4;
-            this.prefsRotateRateSliderTrackBar.Minimum = -4;
+            this.prefsRotateRateSliderTrackBar.Maximum = 8;
             this.prefsRotateRateSliderTrackBar.Name = "prefsRotateRateSliderTrackBar";
             this.prefsRotateRateSliderTrackBar.Size = new System.Drawing.Size(136, 26);
             this.prefsRotateRateSliderTrackBar.TabIndex = 0;
             this.prefsRotateRateSliderTrackBar.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.prefsRotateRateSliderTrackBar.Value = 4;
             // 
             // tPrefsRotateRateLabel
             // 
@@ -72,6 +73,7 @@
             this.tPrefsRotateRateLabel.TabIndex = 1;
             this.tPrefsRotateRateLabel.TabStop = true;
             this.tPrefsRotateRateLabel.Text = "######";
+            this.tPrefsRotateRateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // alignableGroupBoxRotateRate
             // 
@@ -99,27 +101,31 @@
             // 
             // prefsMoverateTextBox
             // 
+            this.prefsMoverateTextBox.FractionalDigits = 3;
             this.prefsMoverateTextBox.Location = new System.Drawing.Point(50, 20);
             this.prefsMoverateTextBox.Margin = new System.Windows.Forms.Padding(0);
-            this.prefsMoverateTextBox.MinimumValue = 0;
+            this.prefsMoverateTextBox.MinimumValue = 0D;
             this.prefsMoverateTextBox.Name = "prefsMoverateTextBox";
             this.prefsMoverateTextBox.Size = new System.Drawing.Size(49, 20);
             this.prefsMoverateTextBox.TabIndex = 0;
             this.prefsMoverateTextBox.TabStop = false;
             this.prefsMoverateTextBox.Text = "0";
             this.prefsMoverateTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.prefsMoverateTextBox.ZeroPadFraction = false;
             // 
             // prefsViewMoverateTextBox
             // 
+            this.prefsViewMoverateTextBox.FractionalDigits = 3;
             this.prefsViewMoverateTextBox.Location = new System.Drawing.Point(50, 41);
             this.prefsViewMoverateTextBox.Margin = new System.Windows.Forms.Padding(0);
-            this.prefsViewMoverateTextBox.MinimumValue = 0;
+            this.prefsViewMoverateTextBox.MinimumValue = 0D;
             this.prefsViewMoverateTextBox.Name = "prefsViewMoverateTextBox";
             this.prefsViewMoverateTextBox.Size = new System.Drawing.Size(49, 20);
             this.prefsViewMoverateTextBox.TabIndex = 1;
             this.prefsViewMoverateTextBox.TabStop = false;
             this.prefsViewMoverateTextBox.Text = "0";
             this.prefsViewMoverateTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.prefsViewMoverateTextBox.ZeroPadFraction = false;
             // 
             // alignableGroupBoxMoveRateUnits
             // 
@@ -177,10 +183,10 @@
             this.labelUndos0Hyph500.Location = new System.Drawing.Point(54, 32);
             this.labelUndos0Hyph500.Margin = new System.Windows.Forms.Padding(0);
             this.labelUndos0Hyph500.Name = "labelUndos0Hyph500";
-            this.labelUndos0Hyph500.Size = new System.Drawing.Size(76, 15);
+            this.labelUndos0Hyph500.Size = new System.Drawing.Size(86, 15);
             this.labelUndos0Hyph500.TabIndex = 1;
             this.labelUndos0Hyph500.TabStop = true;
-            this.labelUndos0Hyph500.Text = "undos (0 - 500)";
+            this.labelUndos0Hyph500.Text = "undos (0 - #)";
             // 
             // alignableGroupBoxUndo
             // 
@@ -246,6 +252,7 @@
             this.alignableGroupBoxUndo.ResumeLayout(false);
             this.alignableGroupBoxUndo.PerformLayout();
             this.alignableGroupBoxMisc.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -255,8 +262,8 @@
         private System.Windows.Forms.TrackBar prefsRotateRateSliderTrackBar;
         private System.Windows.Forms.Label tPrefsRotateRateLabel;
         private AlignableGroupBox alignableGroupBoxRotateRate;
-        private IntTextBox prefsMoverateTextBox;
-        private IntTextBox prefsViewMoverateTextBox;
+        private FloatTextBox prefsMoverateTextBox;
+        private FloatTextBox prefsViewMoverateTextBox;
         private AlignableGroupBox alignableGroupBoxMoveRateUnits;
         private System.Windows.Forms.Label labelMine;
         private System.Windows.Forms.Label labelView;

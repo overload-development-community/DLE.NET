@@ -37,6 +37,7 @@
             this.labelD1Pig = new System.Windows.Forms.Label();
             this.labelD2Pig = new System.Windows.Forms.Label();
             this.labelMissions = new System.Windows.Forms.Label();
+            this.labelChangesOnlyApply = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // prefsBrowseD1PigButton
@@ -123,10 +124,20 @@
             this.labelMissions.TabStop = true;
             this.labelMissions.Text = "Missions:";
             // 
+            // labelChangesOnlyApply
+            // 
+            this.labelChangesOnlyApply.Location = new System.Drawing.Point(30, 193);
+            this.labelChangesOnlyApply.Name = "labelChangesOnlyApply";
+            this.labelChangesOnlyApply.Size = new System.Drawing.Size(240, 30);
+            this.labelChangesOnlyApply.TabIndex = 12;
+            this.labelChangesOnlyApply.Text = "Changes here only apply on save.";
+            this.labelChangesOnlyApply.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // VerticalPreferencesFiles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.labelChangesOnlyApply);
             this.Controls.Add(this.prefsBrowseD1PigButton);
             this.Controls.Add(this.prefsBrowseD2PigButton);
             this.Controls.Add(this.prefsBrowseMissionsButton);
@@ -155,6 +166,6 @@
         private System.Windows.Forms.Label labelD1Pig;
         private System.Windows.Forms.Label labelD2Pig;
         private System.Windows.Forms.Label labelMissions;
-
+        private System.Windows.Forms.Label labelChangesOnlyApply;
     }
 }

@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace DLEDotNet.Util
 {
-    static class MathUtilities
+    static class MathUtil
     {
+        private const double DEG_PER_RAD = 180 / Math.PI;
+
         /// <summary>
         /// Returns whether the given floating-point number is a normal, finite number, including zero, but not including infinities or NaN.
         /// </summary>
@@ -58,6 +60,26 @@ namespace DLEDotNet.Util
         }
 
         /// <summary>
+        /// Returns the given angle (in degrees) converted into radians.
+        /// </summary>
+        /// <param name="angleDegrees">The angle in degrees.</param>
+        /// <returns></returns>
+        public static double ToRadians(double angleDegrees)
+        {
+            return angleDegrees / DEG_PER_RAD;
+        }
+
+        /// <summary>
+        /// Returns the given angle (in radians) converted into degrees.
+        /// </summary>
+        /// <param name="angleRadians">The angle in radians.</param>
+        /// <returns></returns>
+        public static double ToDegrees(double angleRadians)
+        {
+            return angleRadians * DEG_PER_RAD;
+        }
+
+        /// <summary>
         /// Returns whether a bit at a given index is set in the value.
         /// </summary>
         /// <param name="value">The value to check.</param>
@@ -66,6 +88,54 @@ namespace DLEDotNet.Util
         public static bool GetBit(long value, int bitIndex)
         {
             return 0 != (value & (1L << bitIndex));
+        }
+
+        /// <summary>
+        /// Returns the value clamped to the [minimum, maximum] range.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="minimum"></param>
+        /// <param name="maximum"></param>
+        /// <returns></returns>
+        public static int Clamp(int value, int minimum, int maximum)
+        {
+            return Math.Min(maximum, Math.Max(minimum, value));
+        }
+
+        /// <summary>
+        /// Returns the value clamped to the [minimum, maximum] range.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="minimum"></param>
+        /// <param name="maximum"></param>
+        /// <returns></returns>
+        public static double Clamp(double value, double minimum, double maximum)
+        {
+            return Math.Min(maximum, Math.Max(minimum, value));
+        }
+
+        /// <summary>
+        /// Returns the value clamped to the [minimum, maximum] range.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="minimum"></param>
+        /// <param name="maximum"></param>
+        /// <returns></returns>
+        public static decimal Clamp(decimal value, decimal minimum, decimal maximum)
+        {
+            return Math.Min(maximum, Math.Max(minimum, value));
+        }
+
+        /// <summary>
+        /// Returns the value clamped to the [minimum, maximum] range.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="minimum"></param>
+        /// <param name="maximum"></param>
+        /// <returns></returns>
+        public static LibDescent.Data.Fix Clamp(LibDescent.Data.Fix value, LibDescent.Data.Fix minimum, LibDescent.Data.Fix maximum)
+        {
+            return Math.Min(maximum, Math.Max(minimum, value));
         }
     }
 }

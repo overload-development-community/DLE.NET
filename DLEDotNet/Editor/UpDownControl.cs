@@ -28,7 +28,7 @@ namespace DLEDotNet.Editor
         {
             InitializeComponent();
             UpdateButtonSize();
-            if (UseNumericUpDown && ControlUtilities.OnWindows)
+            if (UseNumericUpDown && ControlUtil.OnWindows)
             {
                 upButton.Visible = false;
                 downButton.Visible = false;
@@ -60,30 +60,30 @@ namespace DLEDotNet.Editor
         {
             Control control = LinkedControl;
             if (control is SparseTrackBar)
-                ControlUtilities.SafeIncrement(control as SparseTrackBar);
+                ControlUtil.SafeIncrement(control as SparseTrackBar);
             else if (control is TrackBar)
-                ControlUtilities.SafeIncrement(control as TrackBar);
+                ControlUtil.SafeIncrement(control as TrackBar);
             else if (control is ListBox)
-                ControlUtilities.SafeDecrement(control as ListBox);
+                ControlUtil.SafeDecrement(control as ListBox);
             else if (control is ComboBox)
-                ControlUtilities.SafeDecrement(control as ComboBox);
+                ControlUtil.SafeDecrement(control as ComboBox);
             else if (control is NumericUpDown)
-                ControlUtilities.SafeIncrement(control as NumericUpDown);
+                ControlUtil.SafeIncrement(control as NumericUpDown);
         }
 
         private void DoDown()
         {
             Control control = LinkedControl;
             if (control is SparseTrackBar)
-                ControlUtilities.SafeDecrement(control as SparseTrackBar);
+                ControlUtil.SafeDecrement(control as SparseTrackBar);
             else if (control is TrackBar)
-                ControlUtilities.SafeDecrement(control as TrackBar);
+                ControlUtil.SafeDecrement(control as TrackBar);
             else if (control is ListBox)
-                ControlUtilities.SafeIncrement(control as ListBox);
+                ControlUtil.SafeIncrement(control as ListBox);
             else if (control is ComboBox)
-                ControlUtilities.SafeIncrement(control as ComboBox);
+                ControlUtil.SafeIncrement(control as ComboBox);
             else if (control is NumericUpDown)
-                ControlUtilities.SafeDecrement(control as NumericUpDown);
+                ControlUtil.SafeDecrement(control as NumericUpDown);
         }
 
         private void numericUpDown_ValueChanged(object sender, EventArgs e)

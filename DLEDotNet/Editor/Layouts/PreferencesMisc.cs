@@ -33,5 +33,14 @@ namespace DLEDotNet.Editor.Layouts
             }
             return null;
         }
+
+        protected override void SetupControls()
+        {
+            EditorStateBinder binder = EditorStateBinder.FromState(this.EditorState);
+            binder.BindStringTextBox(this.prefsPlayerTextBox, PROP(s => s.Prefs.PlayerProfile), false);
+            binder.BindCheckBox(this.prefsUsetexcolorsCheckBox, PROP(s => s.UseTexColors), false);
+            binder.BindCheckBox(this.prefsExpertmodeCheckBox, PROP(s => s.Prefs.ExpertMode), false);
+            binder.BindCheckBox(this.prefsSplashscreenCheckBox, PROP(s => s.Prefs.ShowSplash), false);
+        }
     }
 }

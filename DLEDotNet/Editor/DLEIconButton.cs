@@ -194,7 +194,7 @@ namespace DLEDotNet.Editor
 
         private static void InitColors()
         {
-            bool isDark = ControlUtilities.IsDark();
+            bool isDark = ControlUtil.IsDarkMode();
             buttonMainBgBrush = new SolidBrush(isDark ? buttonMainBgColorDark : buttonMainBgColorBright);
             buttonShineBgBrush = new SolidBrush(isDark ? buttonShineBgColorDark : buttonShineBgColorBright);
             buttonShadeBgBrush = new SolidBrush(isDark ? buttonShadeBgColorDark : buttonShadeBgColorBright);
@@ -224,7 +224,7 @@ namespace DLEDotNet.Editor
 
         private static void DrawDisabledMask(Graphics g, Size sz)
         {
-            g.FillRectangle(new SolidBrush(ControlUtilities.IsDark() ? Color.FromArgb(192, 64, 64, 64) : Color.FromArgb(128, 128, 128, 128)), 0, 0, sz.Width, sz.Height);
+            g.FillRectangle(new SolidBrush(ControlUtil.IsDarkMode() ? Color.FromArgb(192, 64, 64, 64) : Color.FromArgb(128, 128, 128, 128)), 0, 0, sz.Width, sz.Height);
         }
 
         public static Bitmap MakeUpImage(Image normal, Image dark, Size sz, bool grayMask)
@@ -234,7 +234,7 @@ namespace DLEDotNet.Editor
 
             using (var g = Graphics.FromImage(bm))
             {
-                Bitmap tmp = ResizeImage(ControlUtilities.IsDark() ? dark : normal, new Size(sz.Width * 3 / 4, sz.Height * 3 / 4));
+                Bitmap tmp = ResizeImage(ControlUtil.IsDarkMode() ? dark : normal, new Size(sz.Width * 3 / 4, sz.Height * 3 / 4));
                 DrawUpFrame(g, sz);
                 g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
                 g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
@@ -257,7 +257,7 @@ namespace DLEDotNet.Editor
 
             using (var g = Graphics.FromImage(bm))
             {
-                Bitmap tmp = ResizeImage(ControlUtilities.IsDark() ? dark : normal, new Size(sz.Width * 3 / 4, sz.Height * 3 / 4));
+                Bitmap tmp = ResizeImage(ControlUtil.IsDarkMode() ? dark : normal, new Size(sz.Width * 3 / 4, sz.Height * 3 / 4));
                 DrawDownFrame(g, sz);
                 g.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
                 g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
