@@ -218,7 +218,6 @@ namespace DLEDotNet.Editor
             return SetPropertyValue(property, value, false);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private bool SetPropertyValue(string property, dynamic value, bool allowExplicitCast)
         {
             bool success = SetPropertyValue_i(property, value, allowExplicitCast);
@@ -233,6 +232,39 @@ namespace DLEDotNet.Editor
         {
             return SetPropertyValue(property, func(GetPropertyValue(state, property)));
         }
+
+        #region --- debounced functions (call above if debounce = false, else return true immediately)
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private bool SetPropertyValueDebounced(bool debounce, string property, dynamic value)
+        {
+            return debounce || SetPropertyValue(property, value, false);
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private bool SetPropertyValueDebounced(bool debounce, string property, dynamic value, bool allowExplicitCast)
+        {
+            bool success = debounce || SetPropertyValue_i(property, value, allowExplicitCast);
+            if (!success)
+            {
+                if (DebugMode) System.Diagnostics.Debug.WriteLine(new UnableToSetPropertyWarningException(property, value));
+            }
+            return success;
+        }
+
+        private bool ApplyToPropertyValueDebounced(bool debounce, string property, Func<dynamic, dynamic> func)
+        {
+            return debounce || SetPropertyValue(property, func(GetPropertyValue(state, property)));
+        }
+
+        private void Debounce(ref bool debounce, Action impl)
+        {
+            debounce = true;
+            impl();
+            debounce = false;
+        }
+
+        #endregion
 
         private void AddToTreeAndCall(string property, PropertyChangeEventHandler handler)
         {
@@ -351,17 +383,20 @@ namespace DLEDotNet.Editor
         /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
         public void BindIntTextBox(IntTextBox textBox, string property, bool readOnly)
         {
-            BindControl(textBox, property, (object sender, PropertyChangeEventArgs e) => {
-                if (e.PropertyName == property)
+            bool debounce = false;
+            BindControl(textBox, property, (object sender, PropertyChangeEventArgs e) =>
+                Debounce(ref debounce, () =>
                 {
-                    if (textBox.Enabled = e.NewValue != null)
-                        textBox.Value = Convert.ToInt32(e.NewValue);
-                    else
-                        textBox.Text = "";
-                }
-            });
+                    if (e.PropertyName == property)
+                    {
+                        if (textBox.Enabled = e.NewValue != null)
+                            textBox.Value = Convert.ToInt32(e.NewValue);
+                        else
+                            textBox.Text = "";
+                    }
+                }));
             if (!readOnly)
-                textBox.ValueChanged += (object sender, EventArgs e) => { SetPropertyValue(property, textBox.Value, true); };
+                textBox.ValueChanged += (object sender, EventArgs e) => SetPropertyValueDebounced(debounce, property, textBox.Value, true);
         }
 
         /// <summary>
@@ -373,17 +408,19 @@ namespace DLEDotNet.Editor
         /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
         public void BindFloatTextBox(FloatTextBox textBox, string property, bool readOnly)
         {
-            BindControl(textBox, property, (object sender, PropertyChangeEventArgs e) => {
-                if (e.PropertyName == property)
-                {
-                    if (textBox.Enabled = e.NewValue != null)
-                        textBox.Value = (double)(e.NewValue);
-                    else
-                        textBox.Text = "";
-                }
-            });
+            bool debounce = false;
+            BindControl(textBox, property, (object sender, PropertyChangeEventArgs e) => 
+                Debounce(ref debounce, () => {
+                    if (e.PropertyName == property)
+                    {
+                        if (textBox.Enabled = e.NewValue != null)
+                            textBox.Value = (double)(e.NewValue);
+                        else
+                            textBox.Text = "";
+                    }
+                }));
             if (!readOnly)
-                textBox.ValueChanged += (object sender, EventArgs e) => SetPropertyValue(property, textBox.Value, true);
+                textBox.ValueChanged += (object sender, EventArgs e) => SetPropertyValueDebounced(debounce, property, textBox.Value, true);
         }
 
         /// <summary>
@@ -395,17 +432,19 @@ namespace DLEDotNet.Editor
         /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
         public void BindStringTextBox(StringTextBox textBox, string property, bool readOnly)
         {
-            BindControl(textBox, property, (object sender, PropertyChangeEventArgs e) => {
-                if (e.PropertyName == property)
-                {
-                    if (textBox.Enabled = e.NewValue != null)
-                        textBox.Value = Convert.ToString(e.NewValue);
-                    else
-                        textBox.Text = "";
-                }
-            });
+            bool debounce = false;
+            BindControl(textBox, property, (object sender, PropertyChangeEventArgs e) => 
+                Debounce(ref debounce, () => {
+                    if (e.PropertyName == property)
+                    {
+                        if (textBox.Enabled = e.NewValue != null)
+                            textBox.Value = Convert.ToString(e.NewValue);
+                        else
+                            textBox.Text = "";
+                    }
+                }));
             if (!readOnly)
-                textBox.ValueChanged += (object sender, EventArgs e) => SetPropertyValue(property, textBox.Value);
+                textBox.ValueChanged += (object sender, EventArgs e) => SetPropertyValueDebounced(debounce, property, textBox.Value);
         }
 
         /// <summary>
@@ -431,11 +470,14 @@ namespace DLEDotNet.Editor
         /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
         public void BindTrackBar(TrackBar trackBar, string property)
         {
-            BindControl(trackBar, property, (object sender, PropertyChangeEventArgs e) => {
-                if (e.PropertyName == property)
-                    trackBar.Value = Convert.ToInt32(e.NewValue);
-            });
-            trackBar.ValueChanged += (object sender, EventArgs e) => SetPropertyValue(property, trackBar.Value);
+            bool debounce = false;
+            BindControl(trackBar, property, (object sender, PropertyChangeEventArgs e) => 
+                Debounce(ref debounce, () => {
+                    if (e.PropertyName == property)
+                        trackBar.Value = Convert.ToInt32(e.NewValue);
+                }));
+            trackBar.ValueChanged += (object sender, EventArgs e) =>
+                SetPropertyValueDebounced(debounce, property, trackBar.Value);
         }
 
         /// <summary>
@@ -447,12 +489,15 @@ namespace DLEDotNet.Editor
         /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
         public void BindCheckBox(CheckBox checkBox, string property, bool readOnly)
         {
-            BindControl(checkBox, property, (object sender, PropertyChangeEventArgs e) => {
-                if (e.PropertyName == property) 
-                    checkBox.Checked = (bool)e.NewValue;
-            });
+            bool debounce = false;
+            BindControl(checkBox, property, (object sender, PropertyChangeEventArgs e) => 
+                Debounce(ref debounce, () => {
+                    if (e.PropertyName == property)
+                        checkBox.Checked = (bool)e.NewValue;
+                }));
             if (!readOnly)
-                checkBox.CheckedChanged += (object sender, EventArgs e) => SetPropertyValue(property, checkBox.Checked);
+                checkBox.CheckedChanged += (object sender, EventArgs e) =>
+                    SetPropertyValueDebounced(debounce, property, checkBox.Checked);
         }
 
         /// <summary>
@@ -466,14 +511,16 @@ namespace DLEDotNet.Editor
         /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
         public void BindCheckBoxFlag<T>(CheckBox checkBox, string property, T flag, bool readOnly) where T : Enum
         {
+            bool debounce = false;
             ulong flagI = Convert.ToUInt64(flag);
-            BindControl(checkBox, property, (object sender, PropertyChangeEventArgs e) => {
-                if (e.PropertyName == property)
-                    checkBox.Checked = 0 != ((ulong)e.NewValue & flagI);
-            });
+            BindControl(checkBox, property, (object sender, PropertyChangeEventArgs e) =>
+                Debounce(ref debounce, () => {
+                    if (e.PropertyName == property)
+                        checkBox.Checked = 0 != ((ulong)e.NewValue & flagI);
+                }));
             if (!readOnly)
-                checkBox.CheckedChanged += (object sender, EventArgs e) => 
-                    ApplyToPropertyValue(property, 
+                checkBox.CheckedChanged += (object sender, EventArgs e) =>
+                    ApplyToPropertyValueDebounced(debounce, property,
                         v => ForceUncheckedDynamicCast(typeof(T), checkBox.Checked ? ((ulong)v | flagI) : ((ulong)v & ~flagI)));
         }
 
@@ -487,15 +534,21 @@ namespace DLEDotNet.Editor
         /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
         public void BindRadioButton<T>(RadioButton radioButton, string property, T selectedValue)
         {
-            EqualityComparer<T> equalityComparer = EqualityComparer<T>.Default;
-            BindControl(radioButton, property, (object sender, PropertyChangeEventArgs e) => {
-                if (e.PropertyName == property)
-                    radioButton.Checked = e.NewValue == null ? selectedValue == null : equalityComparer.Equals(selectedValue, e.NewValue);
-            });
-            radioButton.CheckedChanged += (object sender, EventArgs e) => {
+            EventHandler radioButton_CheckedChanged = (object sender, EventArgs e) =>
+            {
                 if (radioButton.Checked)
                     SetPropertyValue(property, selectedValue);
             };
+            EqualityComparer<T> equalityComparer = EqualityComparer<T>.Default;
+            BindControl(radioButton, property, (object sender, PropertyChangeEventArgs e) => {
+                if (e.PropertyName == property)
+                {
+                    radioButton.CheckedChanged -= radioButton_CheckedChanged; // debounce
+                    radioButton.Checked = e.NewValue == null ? selectedValue == null : equalityComparer.Equals(selectedValue, e.NewValue);
+                    radioButton.CheckedChanged += radioButton_CheckedChanged;
+                }
+            });
+            radioButton.CheckedChanged += radioButton_CheckedChanged;
         }
 
         /// <summary>
@@ -527,9 +580,13 @@ namespace DLEDotNet.Editor
         /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
         public void BindComboBox(ComboBox comboBox, string listProperty, string selectedProperty)
         {
+            EventHandler comboBox_SelectedIndexChanged = null;
+            if (selectedProperty != null)
+                comboBox_SelectedIndexChanged = (object sender, EventArgs e) => SetPropertyValue(selectedProperty, comboBox.SelectedItem);
             BindControl(comboBox, selectedProperty ?? listProperty, listProperty, (object sender, PropertyChangeEventArgs e) => {
                 if (e.PropertyName == listProperty)
                 {
+                    if (comboBox_SelectedIndexChanged != null) comboBox.SelectedIndexChanged -= comboBox_SelectedIndexChanged;
                     List<IListBoxable> copiedList = new List<IListBoxable>();
                     IEnumerable<IListBoxable> sourceList = (IEnumerable<IListBoxable>)e.NewValue;
                     if (comboBox.Enabled = sourceList != null)
@@ -545,11 +602,11 @@ namespace DLEDotNet.Editor
                     {
                         comboBox.DataSource = null;
                     }
+                    if (comboBox_SelectedIndexChanged != null) comboBox.SelectedIndexChanged += comboBox_SelectedIndexChanged;
                 }
             });
-            if (selectedProperty != null)
-                comboBox.SelectedIndexChanged += (object sender, EventArgs e) =>
-                    SetPropertyValue(selectedProperty, comboBox.SelectedItem);
+            if (comboBox_SelectedIndexChanged != null)
+                comboBox.SelectedIndexChanged += comboBox_SelectedIndexChanged;
         }
 
         /// <summary>
