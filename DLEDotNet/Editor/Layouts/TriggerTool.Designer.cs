@@ -31,10 +31,10 @@
             this.triggerStandardRadioButton = new System.Windows.Forms.RadioButton();
             this.triggerObjectRadioButton = new System.Windows.Forms.RadioButton();
             this.triggerTriggernoComboBox = new System.Windows.Forms.ComboBox();
-            this.triggerStrengthTextBox = new IntTextBox();
-            this.triggerTimeTextBox = new IntTextBox();
+            this.triggerStrengthTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.triggerTimeTextBox = new DLEDotNet.Editor.IntTextBox();
             this.triggerD2TypeComboBox = new System.Windows.Forms.ComboBox();
-            this.triggerSliderTrackBar = new SparseTrackBar();
+            this.triggerSliderTrackBar = new DLEDotNet.Editor.SparseTrackBar();
             this.triggerTexture1ComboBox = new System.Windows.Forms.ComboBox();
             this.triggerTexture2ComboBox = new System.Windows.Forms.ComboBox();
             this.triggerControldoorsCheckBox = new System.Windows.Forms.CheckBox();
@@ -56,7 +56,7 @@
             this.triggerSetOrientCheckBox = new System.Windows.Forms.CheckBox();
             this.triggerAutoplayCheckBox = new System.Windows.Forms.CheckBox();
             this.triggerSilentCheckBox = new System.Windows.Forms.CheckBox();
-            this.triggerTargetTextBox = new SegSideTextBox();
+            this.triggerTargetTextBox = new DLEDotNet.Editor.SegSideTextBox();
             this.triggerAddtgtButton = new System.Windows.Forms.Button();
             this.triggerDeltgtButton = new System.Windows.Forms.Button();
             this.triggerAddwalltgtButton = new System.Windows.Forms.Button();
@@ -77,19 +77,19 @@
             this.labelTriggerNum = new System.Windows.Forms.Label();
             this.labelSegmentSideActivated = new System.Windows.Forms.Label();
             this.labelEnterSegmentSide = new System.Windows.Forms.Label();
-            this.alignableGroupBoxDescent1Types = new AlignableGroupBox();
-            this.alignableGroupBoxDescent2Types = new AlignableGroupBox();
+            this.alignableGroupBoxDescent1Types = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxDescent2Types = new DLEDotNet.Editor.AlignableGroupBox();
             this.triggerSliderTextLabel = new System.Windows.Forms.Label();
             this.triggerShowTexturePictureBox = new System.Windows.Forms.PictureBox();
-            this.alignableGroupBoxTriggerTargets = new AlignableGroupBox();
+            this.alignableGroupBoxTriggerTargets = new DLEDotNet.Editor.AlignableGroupBox();
             this.triggerShowPictureBox = new System.Windows.Forms.PictureBox();
-            this.alignableGroupBoxTriggerData = new AlignableGroupBox();
+            this.alignableGroupBoxTriggerData = new DLEDotNet.Editor.AlignableGroupBox();
             this.triggerShowObjPictureBox = new System.Windows.Forms.PictureBox();
             this.triggerStrengthText2Label = new System.Windows.Forms.Label();
             this.labelTime = new System.Windows.Forms.Label();
-            this.alignableGroupBoxAddTrigger = new AlignableGroupBox();
-            this.alignableGroupBoxD2Properties = new AlignableGroupBox();
-            this.alignableGroupBoxD2XHyphXlProps = new AlignableGroupBox();
+            this.alignableGroupBoxAddTrigger = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxD2Properties = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxD2XHyphXlProps = new DLEDotNet.Editor.AlignableGroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.triggerSliderTrackBar)).BeginInit();
             this.alignableGroupBoxDescent1Types.SuspendLayout();
             this.alignableGroupBoxDescent2Types.SuspendLayout();
@@ -101,6 +101,7 @@
             this.alignableGroupBoxAddTrigger.SuspendLayout();
             this.alignableGroupBoxD2Properties.SuspendLayout();
             this.alignableGroupBoxD2XHyphXlProps.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // triggerStandardRadioButton
@@ -126,6 +127,7 @@
             // 
             // triggerTriggernoComboBox
             // 
+            this.triggerTriggernoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.triggerTriggernoComboBox.Location = new System.Drawing.Point(51, 55);
             this.triggerTriggernoComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerTriggernoComboBox.Name = "triggerTriggernoComboBox";
@@ -395,6 +397,7 @@
             // 
             this.triggerTargetTextBox.Location = new System.Drawing.Point(12, 29);
             this.triggerTargetTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.triggerTargetTextBox.MaxSegmentCount = 0;
             this.triggerTargetTextBox.Name = "triggerTargetTextBox";
             this.triggerTargetTextBox.Size = new System.Drawing.Size(72, 20);
             this.triggerTargetTextBox.TabIndex = 0;
@@ -836,6 +839,7 @@
             this.alignableGroupBoxAddTrigger.ResumeLayout(false);
             this.alignableGroupBoxD2Properties.ResumeLayout(false);
             this.alignableGroupBoxD2XHyphXlProps.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
         }

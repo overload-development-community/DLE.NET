@@ -4,6 +4,7 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net471</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
+    <Version>0.0.1-alpha</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(TargetFramework)', '^net\d'))">
@@ -796,6 +797,7 @@
   
   <ItemGroup>
     <Folder Include="Data\Proxies\" />
+    <Folder Include="Logic\" />
   </ItemGroup>
 
 </Project>

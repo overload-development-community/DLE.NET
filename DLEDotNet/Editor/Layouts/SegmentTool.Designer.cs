@@ -109,10 +109,12 @@
             this.groupBoxProperties.SuspendLayout();
             this.groupBoxSegmentGroups.SuspendLayout();
             this.groupBoxDamageData.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // segmentIdComboBox
             // 
+            this.segmentIdComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.segmentIdComboBox.Location = new System.Drawing.Point(48, 21);
             this.segmentIdComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentIdComboBox.Name = "segmentIdComboBox";
@@ -130,7 +132,6 @@
             // 
             // segmentLightTextBox
             // 
-            this.segmentLightTextBox.FractionalDigits = 2;
             this.segmentLightTextBox.Location = new System.Drawing.Point(50, 70);
             this.segmentLightTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentLightTextBox.MinimumValue = 0D;
@@ -286,7 +287,6 @@
             // 
             // segmentPointxTextBox
             // 
-            this.segmentPointxTextBox.FractionalDigits = 2;
             this.segmentPointxTextBox.Location = new System.Drawing.Point(63, 18);
             this.segmentPointxTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentPointxTextBox.Name = "segmentPointxTextBox";
@@ -298,7 +298,6 @@
             // 
             // segmentPointyTextBox
             // 
-            this.segmentPointyTextBox.FractionalDigits = 2;
             this.segmentPointyTextBox.Location = new System.Drawing.Point(63, 39);
             this.segmentPointyTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentPointyTextBox.Name = "segmentPointyTextBox";
@@ -310,7 +309,6 @@
             // 
             // segmentPointzTextBox
             // 
-            this.segmentPointzTextBox.FractionalDigits = 2;
             this.segmentPointzTextBox.Location = new System.Drawing.Point(63, 60);
             this.segmentPointzTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentPointzTextBox.Name = "segmentPointzTextBox";
@@ -1021,6 +1019,7 @@
             this.groupBoxSegmentGroups.PerformLayout();
             this.groupBoxDamageData.ResumeLayout(false);
             this.groupBoxDamageData.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -389,12 +389,14 @@
             this.fileSaveToolStripMenuItem.Name = "fileSaveToolStripMenuItem";
             this.fileSaveToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.fileSaveToolStripMenuItem.Text = "&Save";
+            this.fileSaveToolStripMenuItem.Click += new System.EventHandler(this.fileSaveToolStripMenuItem_Click);
             // 
             // fileSaveAsToolStripMenuItem
             // 
             this.fileSaveAsToolStripMenuItem.Name = "fileSaveAsToolStripMenuItem";
             this.fileSaveAsToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.fileSaveAsToolStripMenuItem.Text = "Save &As...";
+            this.fileSaveAsToolStripMenuItem.Click += new System.EventHandler(this.fileSaveAsToolStripMenuItem_Click);
             // 
             // editMissionFileToolStripMenuItem
             // 
@@ -2607,7 +2609,7 @@
             this.KeyPreview = true;
             this.MainMenuStrip = this.mainMenuStrip;
             this.Name = "EditorWindow";
-            this.Text = "UI shell";
+            this.Text = "DLE.NET";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditorWindow_FormClosing);
             this.Load += new System.EventHandler(this.EditorWindow_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.EditorWindow_KeyDown);

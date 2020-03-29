@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,7 @@ namespace DLEDotNet.Editor
         private EditorTools editorTabs;
         private EditorToolDialog editorTools = new EditorToolDialog();
         private EditorKeyBinds editorKeyBinds;
+        private string programName;
         public EditorState EditorState { get; }
 
         public EditorWindow()
@@ -42,6 +44,7 @@ namespace DLEDotNet.Editor
             EditorState = new EditorState(this);
             editorTabs = new EditorTools(this);
             editorKeyBinds = new EditorKeyBinds(this);
+            programName = this.Text;
         }
 
         #region --- Program load & unload
@@ -59,6 +62,7 @@ namespace DLEDotNet.Editor
             WindowState = ControlUtil.ConvertToFormWindowState(EditorState.SavedPrefs.StartupState);
 
             InitializeEvents();
+            UpdateTitle();
             SetupToolbar();
             SetupContextMenu();
             SetupRecentFilesMenu();
@@ -68,6 +72,7 @@ namespace DLEDotNet.Editor
         private void EditorWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             EditorState.SavedPrefs.SaveToFile();
+            e.Cancel |= DisplayUnsavedDialog();
         }
         #endregion
 
@@ -101,14 +106,18 @@ namespace DLEDotNet.Editor
 
         private void EditorState_SettingChanged(object sender, PropertyChangeEventArgs e)
         {
-            if (e.PropertyName == "ActiveLayout")
+            if (e.PropertyName == nameof(EditorSettings.ActiveLayout))
                 this.ActiveLayout = e.NewValue;
         }
 
         private void EditorState_PropertyChanged(object sender, PropertyChangeEventArgs e)
         {
-            if (e.PropertyName == "FullScreen")
+            if (e.PropertyName == nameof(EditorState.FullScreen))
                 ActiveMainView.SetFullScreen(EditorState.FullScreen);
+            else if (e.PropertyName == nameof(EditorState.Unsaved) || e.PropertyName == nameof(EditorState.FilePath))
+                UpdateTitle();
+            // this should at one point use PropertyUtil.IsAncestralProperty to check for changes in the level
+            // and set Unsaved to true
         }
 
         private void UpdateLayoutMainView()
@@ -181,6 +190,58 @@ namespace DLEDotNet.Editor
             GC.WaitForPendingFinalizers();
             GC.Collect();
         }
+
+        private void UpdateTitle()
+        {
+            string fileName = EditorState.FileName ?? "(untitled)";
+            string version = Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion.ToString();
+            this.Text = (EditorState.Unsaved ? "*" : "") + fileName + " - " + programName + " " + version;
+        }
+        #endregion
+
+        #region --- Load & save UI and some logic
+
+        // return true if we actually tried to save something (false if user cancelled)
+        private bool SaveFileAs()
+        {
+            // display dialog
+            //      if the user selected a file, assign its path to 
+            //          EditorState.FilePath and then return whatever SaveFile() returns
+            //      if the user cancelled, return false
+            _TODO("SaveFileAs");
+            return true;
+        }
+
+        // return true if we actually tried to save something
+        private bool SaveFile()
+        {
+            if (EditorState.FilePath == null)
+            {
+                return SaveFileAs();
+            }
+
+            // EditorState.Level.Save(); ???????
+            EditorState.Unsaved = false;
+            return true;
+        }
+
+        // returns whether we should prevent closing (true if so, false if not)
+        private bool DisplayUnsavedDialog()
+        {
+            if (!EditorState.Unsaved) return false;
+            Form dialog = new ConfirmSaveDialog();
+            var result = dialog.ShowDialog(this);
+
+            if (result == DialogResult.Yes)
+            {
+                return !SaveFile();
+            }
+            else
+            {
+                return result == DialogResult.Cancel;
+            }
+        }
+
         #endregion
 
         #region --- Tool strip & context menu handling (icons, binding...)
@@ -477,6 +538,8 @@ namespace DLEDotNet.Editor
         #endregion
 
         #region --- Events for the File menu
+        private void fileSaveToolStripMenuItem_Click(object sender, EventArgs e) => SaveFile();
+        private void fileSaveAsToolStripMenuItem_Click(object sender, EventArgs e) => SaveFileAs();
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) => this.Close();
         #endregion
 

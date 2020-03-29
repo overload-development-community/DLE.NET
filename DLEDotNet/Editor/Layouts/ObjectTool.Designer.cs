@@ -83,6 +83,7 @@
             // 
             // objObjnoComboBox
             // 
+            this.objObjnoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.objObjnoComboBox.Location = new System.Drawing.Point(36, 3);
             this.objObjnoComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.objObjnoComboBox.Name = "objObjnoComboBox";

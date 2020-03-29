@@ -87,7 +87,7 @@
             this.idiOldIconPictureBox.Location = new System.Drawing.Point(26, 14);
             this.idiOldIconPictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.idiOldIconPictureBox.Name = "idiOldIconPictureBox";
-            this.idiOldIconPictureBox.Size = new System.Drawing.Size(32, 32);
+            this.idiOldIconPictureBox.Size = new System.Drawing.Size(36, 36);
             this.idiOldIconPictureBox.TabIndex = 4;
             this.idiOldIconPictureBox.TabStop = false;
             // 

@@ -87,10 +87,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.particleBrightnessSliderTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.particleBrightnessNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.particleColorPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // particleTypeComboBox
             // 
+            this.particleTypeComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.particleTypeComboBox.Location = new System.Drawing.Point(40, 6);
             this.particleTypeComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.particleTypeComboBox.Name = "particleTypeComboBox";
@@ -590,6 +592,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.particleBrightnessSliderTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.particleBrightnessNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.particleColorPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
         }

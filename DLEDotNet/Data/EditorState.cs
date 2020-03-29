@@ -21,8 +21,9 @@ namespace DLEDotNet.Data
             ActiveEditorTab = ActiveTextureTab = ActiveObjectTab = ActiveSettingsTab = 0;
             SegmentAddMode = SegmentAddMode.Normal;
             SelectionMode = SelectMode.Side;
+            FilePath = null;
             Unsaved = false;
-            UseTexColors = false;
+            UseTexColors = true;
             FullScreen = false;
         }
 
@@ -95,34 +96,67 @@ namespace DLEDotNet.Data
             set => AssignChanged(ref _activeSettingsTab, value);
         }
 
+        /// <summary>
+        /// The current segment addition mode.
+        /// </summary>
         public SegmentAddMode SegmentAddMode
         {
             get => _segAddMode;
             set => AssignChanged(ref _segAddMode, value);
         }
 
+        /// <summary>
+        /// The current selection mode (points, lines, sides, segments, objects or blocks).
+        /// </summary>
         public SelectMode SelectionMode
         {
             get => _selectMode;
             set => AssignChanged(ref _selectMode, value);
         }
-
+        
+        /// <summary>
+        /// Whether the current file is unsaved (needs saving on disk), or in the case
+        /// that FilePath is null (new file), whether the user has modified the level at all.
+        /// </summary>
         public bool Unsaved
         {
             get => _unsaved;
             set => AssignChanged(ref _unsaved, value);
         }
 
+        /// <summary>
+        /// The currently opened file as a full path, or null if a new file.
+        /// </summary>
+        public string FilePath
+        {
+            get => _filePath;
+            set => AssignChanged(ref _filePath, value);
+        }
+
+        /// <summary>
+        /// Whether to apply face light settings globally.
+        /// </summary>
         public bool UseTexColors
         {
             get => _useTexColors;
             set => AssignChanged(ref _useTexColors, value);
         }
 
+        /// <summary>
+        /// Whether the editor is currently in full screen mode (tool view and texture list hidden).
+        /// </summary>
         public bool FullScreen
         {
             get => _fullScreen;
             set => AssignChanged(ref _fullScreen, value);
+        }
+
+        /// <summary>
+        /// The currently opened file as a full name, or null if a new file.
+        /// </summary>
+        public string FileName
+        {
+            get => FilePath != null ? System.IO.Path.GetFileName(FilePath) : FilePath;
         }
 
         private EditorSettingsSaved _editorSettings;
@@ -134,6 +168,7 @@ namespace DLEDotNet.Data
         private SegmentAddMode _segAddMode;
         private SelectMode _selectMode;
         private bool _unsaved;
+        private string _filePath;
         private bool _useTexColors;
         private bool _fullScreen;
 

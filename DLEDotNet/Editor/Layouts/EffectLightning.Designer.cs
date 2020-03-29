@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lightningIdTextBox = new IntTextBox();
-            this.lightningTargetTextBox = new IntTextBox();
+            this.lightningIdTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.lightningTargetTextBox = new DLEDotNet.Editor.IntTextBox();
             this.lightningBoltsNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.lightningNodesNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.lightningChildrenNumericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -41,7 +41,7 @@
             this.lightningSpeedNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.lightningOffsetNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.lightningAngleNumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.lightningWaypointTextBox = new IntTextBox();
+            this.lightningWaypointTextBox = new DLEDotNet.Editor.IntTextBox();
             this.lightningSmootheCheckBox = new System.Windows.Forms.CheckBox();
             this.lightningClampCheckBox = new System.Windows.Forms.CheckBox();
             this.lightningPlasmaCheckBox = new System.Windows.Forms.CheckBox();
@@ -104,6 +104,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.lightningAlphaSliderTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lightningAlphaNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lightningColorPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // lightningIdTextBox
@@ -429,6 +430,7 @@
             // 
             // lightningStyleComboBox
             // 
+            this.lightningStyleComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.lightningStyleComboBox.Location = new System.Drawing.Point(411, 119);
             this.lightningStyleComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightningStyleComboBox.Name = "lightningStyleComboBox";
@@ -909,6 +911,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.lightningAlphaSliderTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lightningAlphaNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lightningColorPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

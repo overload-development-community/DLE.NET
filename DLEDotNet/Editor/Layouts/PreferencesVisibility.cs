@@ -48,14 +48,14 @@ namespace DLEDotNet.Editor.Layouts
             binder.BindCheckBoxFlag<GeometryVisibilityFlags>(this.prefsViewSkyboxCheckBox, PROP(s => s.Prefs.GeometryVisibility), GeometryVisibilityFlags.SkyBox, false);
             binder.BindCheckBoxFlag<TextureVisibilityFlags>(this.prefsViewAlltexturesCheckBox, PROP(s => s.Prefs.TextureVisibility), TextureVisibilityFlags.UsedTextures, false);
 
-            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewRobotsCheckBox, PROP(s => s.Prefs.GeometryVisibility), ObjectVisibilityFlags.Robots, false);
-            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewPlayersCheckBox, PROP(s => s.Prefs.GeometryVisibility), ObjectVisibilityFlags.Players, false);
-            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewWeaponsCheckBox, PROP(s => s.Prefs.GeometryVisibility), ObjectVisibilityFlags.Weapons, false);
-            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewPowerupsCheckBox, PROP(s => s.Prefs.GeometryVisibility), ObjectVisibilityFlags.Powerups, false);
-            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewKeysCheckBox, PROP(s => s.Prefs.GeometryVisibility), ObjectVisibilityFlags.Keys, false);
-            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewHostagesCheckBox, PROP(s => s.Prefs.GeometryVisibility), ObjectVisibilityFlags.Hostages, false);
-            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewReactorCheckBox, PROP(s => s.Prefs.GeometryVisibility), ObjectVisibilityFlags.Reactor, false);
-            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewEffectsCheckBox, PROP(s => s.Prefs.GeometryVisibility), ObjectVisibilityFlags.Effects, false);
+            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewRobotsCheckBox, PROP(s => s.Prefs.ObjectVisibility), ObjectVisibilityFlags.Robots, false);
+            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewPlayersCheckBox, PROP(s => s.Prefs.ObjectVisibility), ObjectVisibilityFlags.Players, false);
+            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewWeaponsCheckBox, PROP(s => s.Prefs.ObjectVisibility), ObjectVisibilityFlags.Weapons, false);
+            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewPowerupsCheckBox, PROP(s => s.Prefs.ObjectVisibility), ObjectVisibilityFlags.Powerups, false);
+            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewKeysCheckBox, PROP(s => s.Prefs.ObjectVisibility), ObjectVisibilityFlags.Keys, false);
+            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewHostagesCheckBox, PROP(s => s.Prefs.ObjectVisibility), ObjectVisibilityFlags.Hostages, false);
+            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewReactorCheckBox, PROP(s => s.Prefs.ObjectVisibility), ObjectVisibilityFlags.Reactor, false);
+            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewEffectsCheckBox, PROP(s => s.Prefs.ObjectVisibility), ObjectVisibilityFlags.Effects, false);
         }
 
         private void prefsViewMineAllButton_Click(object sender, EventArgs e)

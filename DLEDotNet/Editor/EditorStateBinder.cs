@@ -127,17 +127,12 @@ namespace DLEDotNet.Editor
             state.BeforePropertyChanged += State_BeforePropertyChanged;
         }
 
-        private static bool IsAncestralProperty(string ancestor, string child)
-        {
-            return child.StartsWith(ancestor + ".");
-        }
-
         private void State_BeforePropertyChanged(object sender, PropertyChangeEventArgs e)
         {
             Control c = window.GetActiveControl();
             if (c != null && controlBinds.ContainsKey(c) && c is IValidatable v)
             {
-                if (IsAncestralProperty(e.PropertyName, controlBinds[c].Property))
+                if (PropertyUtil.IsAncestralProperty(e.PropertyName, controlBinds[c].Property))
                 {
                     // validate to submit changed value before the parent changes
                     v.Validate();
@@ -364,7 +359,7 @@ namespace DLEDotNet.Editor
             string listenedPropertyName = thisBind.Property;
             this.state.SettingChanged += (object sender, PropertyChangeEventArgs e) =>
             {
-                if (IsAncestralProperty(settingProperty, e.PropertyName))
+                if (PropertyUtil.IsAncestralProperty(settingProperty, e.PropertyName))
                     RefreshBind(thisBind);
             };
         }

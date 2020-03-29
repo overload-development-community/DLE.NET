@@ -32,9 +32,9 @@
             this.wallTypeComboBox = new System.Windows.Forms.ComboBox();
             this.wallClipnoComboBox = new System.Windows.Forms.ComboBox();
             this.wallBothsidesCheckBox = new System.Windows.Forms.CheckBox();
-            this.wallTranspSliderTrackBar = new SparseTrackBar();
-            this.wallStrengthTextBox = new FloatTextBox();
-            this.wallCloakTextBox = new FloatTextBox();
+            this.wallTranspSliderTrackBar = new DLEDotNet.Editor.SparseTrackBar();
+            this.wallStrengthTextBox = new DLEDotNet.Editor.FloatTextBox();
+            this.wallCloakTextBox = new DLEDotNet.Editor.FloatTextBox();
             this.wallNokeyRadioButton = new System.Windows.Forms.RadioButton();
             this.wallBluekeyRadioButton = new System.Windows.Forms.RadioButton();
             this.wallGoldkeyRadioButton = new System.Windows.Forms.RadioButton();
@@ -77,18 +77,18 @@
             this.labelStrength = new System.Windows.Forms.Label();
             this.labelWallNo = new System.Windows.Forms.Label();
             this.labelCloak = new System.Windows.Forms.Label();
-            this.alignableGroupBoxKey = new AlignableGroupBox();
-            this.alignableGroupBoxFlags = new AlignableGroupBox();
-            this.alignableGroupBoxWallData = new AlignableGroupBox();
+            this.alignableGroupBoxKey = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxFlags = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxWallData = new DLEDotNet.Editor.AlignableGroupBox();
             this.labelPercentA = new System.Windows.Forms.Label();
             this.labelPercentB = new System.Windows.Forms.Label();
             this.wallShowPictureBox = new System.Windows.Forms.PictureBox();
-            this.alignableGroupBoxTransparency = new AlignableGroupBox();
+            this.alignableGroupBoxTransparency = new DLEDotNet.Editor.AlignableGroupBox();
             this.wallTranspTextLabel = new System.Windows.Forms.Label();
-            this.wallTranspSliderLeftRightControl = new LeftRightControl();
+            this.wallTranspSliderLeftRightControl = new DLEDotNet.Editor.LeftRightControl();
             this.wallMsgTextBox = new System.Windows.Forms.TextBox();
-            this.alignableGroupBoxAddDoor = new AlignableGroupBox();
-            this.alignableGroupBoxAddWall = new AlignableGroupBox();
+            this.alignableGroupBoxAddDoor = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxAddWall = new DLEDotNet.Editor.AlignableGroupBox();
             this.wallShowTextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.wallTranspSliderTrackBar)).BeginInit();
             this.alignableGroupBoxKey.SuspendLayout();
@@ -98,10 +98,12 @@
             this.alignableGroupBoxTransparency.SuspendLayout();
             this.alignableGroupBoxAddDoor.SuspendLayout();
             this.alignableGroupBoxAddWall.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // wallWallnoComboBox
             // 
+            this.wallWallnoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.wallWallnoComboBox.Location = new System.Drawing.Point(138, 20);
             this.wallWallnoComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallWallnoComboBox.Name = "wallWallnoComboBox";
@@ -120,6 +122,7 @@
             // 
             // wallClipnoComboBox
             // 
+            this.wallClipnoComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.wallClipnoComboBox.Location = new System.Drawing.Point(138, 65);
             this.wallClipnoComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallClipnoComboBox.Name = "wallClipnoComboBox";
@@ -844,6 +847,7 @@
             this.alignableGroupBoxTransparency.ResumeLayout(false);
             this.alignableGroupBoxAddDoor.ResumeLayout(false);
             this.alignableGroupBoxAddWall.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

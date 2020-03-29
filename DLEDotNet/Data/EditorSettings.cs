@@ -83,7 +83,7 @@ namespace DLEDotNet.Data
         private TextureVisibilityFlags _textureVisibility = TextureVisibilityFlags.Default;
         private string _playerProfile = "";
         private bool _depthTest = true;
-        private bool _expertMode = false;
+        private bool _expertMode = true;
         private bool _splashScreen = true;
         private StartupWindowState _startupWindowState = StartupWindowState.Windowed;
         private CameraMovementMode _movementMode = CameraMovementMode.Continuous;
