@@ -5,11 +5,11 @@ VisualStudioVersion = 16.0.29609.76
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DLEDotNet", "DLEDotNet\DLEDotNet.csproj", "{71FF3377-2D3B-4911-8D00-66F910FA8B90}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibDescent.Data", "Descent2Workshop\LibDescent\Data\LibDescent.Data.csproj", "{2575E719-599F-457F-BD42-58DC8466B0A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibDescent.Data", "LibDescent\Data\LibDescent.Data.csproj", "{2575E719-599F-457F-BD42-58DC8466B0A5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibDescent.Edit", "Descent2Workshop\LibDescent\Edit\LibDescent.Edit.csproj", "{1B55BB54-B400-407D-BCD0-2077CC73300B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibDescent.Edit", "LibDescent\Edit\LibDescent.Edit.csproj", "{1B55BB54-B400-407D-BCD0-2077CC73300B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibDescent.Tests", "Descent2Workshop\LibDescent\Tests\LibDescent.Tests.csproj", "{A0CC055D-1B69-40B4-8557-3B5031171A5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LibDescent.Tests", "LibDescent\Tests\LibDescent.Tests.csproj", "{A0CC055D-1B69-40B4-8557-3B5031171A5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
