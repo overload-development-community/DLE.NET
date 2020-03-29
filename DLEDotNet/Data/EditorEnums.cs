@@ -49,6 +49,11 @@ namespace DLEDotNet.Data
         RelativeToCube, RelativeToCamera
     }
 
+    public enum LevelGameKind
+    {
+        D1, D2, D2Vertigo, D2XXL
+    }
+
     [Flags]
     public enum GeometryVisibilityFlags : int
     {

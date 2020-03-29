@@ -22,6 +22,7 @@ namespace DLEDotNet.Data
             SegmentAddMode = SegmentAddMode.Normal;
             SelectionMode = SelectMode.Side;
             FilePath = null;
+            LevelFileName = null;
             Unsaved = false;
             UseTexColors = true;
             FullScreen = false;
@@ -134,6 +135,16 @@ namespace DLEDotNet.Data
         }
 
         /// <summary>
+        /// The "inner" file name of the current level, if we have opened a HOG.
+        /// Set to null if that is not the case.
+        /// </summary>
+        public string LevelFileName
+        {
+            get => _innerFileName;
+            set => AssignChanged(ref _innerFileName, value);
+        }
+
+        /// <summary>
         /// Whether to apply face light settings globally.
         /// </summary>
         public bool UseTexColors
@@ -169,6 +180,7 @@ namespace DLEDotNet.Data
         private SelectMode _selectMode;
         private bool _unsaved;
         private string _filePath;
+        private string _innerFileName;
         private bool _useTexColors;
         private bool _fullScreen;
 

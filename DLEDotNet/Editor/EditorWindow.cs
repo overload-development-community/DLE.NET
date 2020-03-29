@@ -201,15 +201,60 @@ namespace DLEDotNet.Editor
 
         #region --- Load & save UI and some logic
 
+        private void CreateNewLevel(string name, LevelGameKind type)
+        {
+            System.Diagnostics.Debug.WriteLine("'" + name + "', " + type);
+            _TODO("CreateNewLevel");
+        }
+
+        // return true if we actually created a new level
+        private bool NewFile()
+        {
+            if (DisplayUnsavedDialog()) return false;
+
+            var dialog = new NewFileDialog();
+            var result = dialog.ShowDialog(this);
+            if (result != DialogResult.OK) return false;
+
+            CreateNewLevel(dialog.LevelName, dialog.LevelType);
+            return true;
+        }
+
+        // return true if we actually tried to open something (false if user cancelled)
+        private bool OpenFile()
+        {
+            if (DisplayUnsavedDialog()) return false;
+
+            var result = levelOpenFileDialog.ShowDialog();
+            bool willOpen = result == DialogResult.OK;
+            if (willOpen)
+            {
+                string fileName = levelOpenFileDialog.FileName;
+                _TODO("OpenFile");
+                // EditorState.Level.Open(); ???????
+                // maybe don't do anything below if opening the file fails
+                // make sure to add a ShowDialog thing here to show the HOG dialog
+                EditorState.FilePath = fileName;
+                // EditorState.LevelFileName = "whatever.rl2"; // if we have a HOG
+                EditorState.Unsaved = false;
+                PushNewRecentFile(EditorState.FilePath);
+            }
+            return willOpen;
+        }
+
         // return true if we actually tried to save something (false if user cancelled)
         private bool SaveFileAs()
         {
-            // display dialog
-            //      if the user selected a file, assign its path to 
-            //          EditorState.FilePath and then return whatever SaveFile() returns
-            //      if the user cancelled, return false
-            _TODO("SaveFileAs");
-            return true;
+            var result = levelSaveFileDialog.ShowDialog();
+            bool willSave = result == DialogResult.OK;
+            if (willSave)
+            {
+                EditorState.FilePath = levelSaveFileDialog.FileName;
+                // TODO: is the above a HOG? we might need something else below if so
+                EditorState.LevelFileName = null;
+                return SaveFile();
+            }
+            return willSave;
         }
 
         // return true if we actually tried to save something
@@ -220,17 +265,20 @@ namespace DLEDotNet.Editor
                 return SaveFileAs();
             }
 
-            // EditorState.Level.Save(); ???????
+            _TODO("SaveFile");
+            // use EditorState.FilePath for HOG/RL2/RDL and EditorState.LevelFileName for RL2/RDL in HOG
             EditorState.Unsaved = false;
+            PushNewRecentFile(EditorState.FilePath);
             return true;
         }
 
-        // returns whether we should prevent closing (true if so, false if not)
+        // returns whether we should let the user continue what they were doing
+        // be that closing the program, opening a file, creating a new one etc.
+        // true if we should stop the user, false if not
         private bool DisplayUnsavedDialog()
         {
             if (!EditorState.Unsaved) return false;
-            Form dialog = new ConfirmSaveDialog();
-            var result = dialog.ShowDialog(this);
+            var result = new ConfirmSaveDialog().ShowDialog(this);
 
             if (result == DialogResult.Yes)
             {
@@ -461,6 +509,7 @@ namespace DLEDotNet.Editor
         private void PushNewRecentFile(string path)
         {
             int maxRecentFiles = recentFileControls.Length;
+            EditorState.SavedPrefs.RecentFiles.Remove(path); // make sure it won't get duplicated
             EditorState.SavedPrefs.RecentFiles.Insert(0, path);
             int newRecentFiles = EditorState.SavedPrefs.RecentFiles.Count;
             if (newRecentFiles > maxRecentFiles)
@@ -538,8 +587,11 @@ namespace DLEDotNet.Editor
         #endregion
 
         #region --- Events for the File menu
+        private void fileNewToolStripMenuItem_Click(object sender, EventArgs e) => NewFile();
+        private void fileOpenToolStripMenuItem_Click(object sender, EventArgs e) => OpenFile();
         private void fileSaveToolStripMenuItem_Click(object sender, EventArgs e) => SaveFile();
         private void fileSaveAsToolStripMenuItem_Click(object sender, EventArgs e) => SaveFileAs();
+        private void editMissionFileToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Mission);
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) => this.Close();
         #endregion
 

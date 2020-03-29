@@ -38,8 +38,8 @@ namespace DLEDotNet.Dialogs
             this.idokButton = new System.Windows.Forms.Button();
             this.idcancelButton = new System.Windows.Forms.Button();
             this.labelEnterTheTitleOfTheMineAsShownInDescentSAutoHyphMapView = new System.Windows.Forms.Label();
-            this.alignableGroupBoxMineType = new AlignableGroupBox();
-            this.alignableGroupBoxMineName = new AlignableGroupBox();
+            this.alignableGroupBoxMineType = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxMineName = new DLEDotNet.Editor.AlignableGroupBox();
             this.alignableGroupBoxMineType.SuspendLayout();
             this.alignableGroupBoxMineName.SuspendLayout();
             this.SuspendLayout();
@@ -63,11 +63,11 @@ namespace DLEDotNet.Dialogs
             this.d1LevelRadioButton.Name = "d1LevelRadioButton";
             this.d1LevelRadioButton.Size = new System.Drawing.Size(75, 18);
             this.d1LevelRadioButton.TabIndex = 0;
-            this.d1LevelRadioButton.TabStop = true;
             this.d1LevelRadioButton.Text = "Descent 1";
             // 
             // d2LevelRadioButton
             // 
+            this.d2LevelRadioButton.Checked = true;
             this.d2LevelRadioButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.d2LevelRadioButton.Location = new System.Drawing.Point(40, 41);
             this.d2LevelRadioButton.Margin = new System.Windows.Forms.Padding(0);
@@ -85,7 +85,6 @@ namespace DLEDotNet.Dialogs
             this.d2VlevelRadioButton.Name = "d2VlevelRadioButton";
             this.d2VlevelRadioButton.Size = new System.Drawing.Size(74, 18);
             this.d2VlevelRadioButton.TabIndex = 2;
-            this.d2VlevelRadioButton.TabStop = true;
             this.d2VlevelRadioButton.Text = "D2 Vertigo";
             // 
             // d2XlevelRadioButton
@@ -96,7 +95,6 @@ namespace DLEDotNet.Dialogs
             this.d2XlevelRadioButton.Name = "d2XlevelRadioButton";
             this.d2XlevelRadioButton.Size = new System.Drawing.Size(74, 18);
             this.d2XlevelRadioButton.TabIndex = 3;
-            this.d2XlevelRadioButton.TabStop = true;
             this.d2XlevelRadioButton.Text = "D2X-XL";
             // 
             // idokButton
@@ -110,6 +108,7 @@ namespace DLEDotNet.Dialogs
             this.idokButton.TabIndex = 0;
             this.idokButton.TabStop = false;
             this.idokButton.Text = "OK";
+            this.idokButton.Click += new System.EventHandler(this.idokButton_Click);
             // 
             // idcancelButton
             // 

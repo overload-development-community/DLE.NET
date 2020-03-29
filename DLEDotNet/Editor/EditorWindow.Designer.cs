@@ -312,6 +312,8 @@
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.redrawMineToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.fullScreenToolStripButton = new System.Windows.Forms.ToolStripButton();
+            this.levelOpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.levelSaveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.mainMenuStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
             this.mineViewContextMenuStrip.SuspendLayout();
@@ -377,12 +379,14 @@
             this.fileNewToolStripMenuItem.Name = "fileNewToolStripMenuItem";
             this.fileNewToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.fileNewToolStripMenuItem.Text = "&New...";
+            this.fileNewToolStripMenuItem.Click += new System.EventHandler(this.fileNewToolStripMenuItem_Click);
             // 
             // fileOpenToolStripMenuItem
             // 
             this.fileOpenToolStripMenuItem.Name = "fileOpenToolStripMenuItem";
             this.fileOpenToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.fileOpenToolStripMenuItem.Text = "&Open...";
+            this.fileOpenToolStripMenuItem.Click += new System.EventHandler(this.fileOpenToolStripMenuItem_Click);
             // 
             // fileSaveToolStripMenuItem
             // 
@@ -403,6 +407,7 @@
             this.editMissionFileToolStripMenuItem.Name = "editMissionFileToolStripMenuItem";
             this.editMissionFileToolStripMenuItem.Size = new System.Drawing.Size(184, 22);
             this.editMissionFileToolStripMenuItem.Text = "&Edit Mission File";
+            this.editMissionFileToolStripMenuItem.Click += new System.EventHandler(this.editMissionFileToolStripMenuItem_Click);
             // 
             // editMissionHOGToolStripMenuItem
             // 
@@ -2597,6 +2602,17 @@
             this.fullScreenToolStripButton.Size = new System.Drawing.Size(26, 25);
             this.fullScreenToolStripButton.Text = "toggle full screen";
             // 
+            // levelOpenFileDialog
+            // 
+            this.levelOpenFileDialog.Filter = "all levels (*.hog;*.rl2;*.rdl)|*.hog;*.rdl;*.rl2|mission files (*.hog)|*.hog|all " +
+    "files (*.*)|*";
+            this.levelOpenFileDialog.FilterIndex = 2;
+            // 
+            // levelSaveFileDialog
+            // 
+            this.levelSaveFileDialog.Filter = "all levels (*.hog;*.rl2;*.rdl)|*.hog;*.rdl;*.rl2|mission files (*.hog)|*.hog|all " +
+    "files (*.*)|*";
+            // 
             // EditorWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2910,6 +2926,8 @@
         private System.Windows.Forms.ToolStripMenuItem recentFileToolStripMenuItem7;
         private System.Windows.Forms.ToolStripMenuItem recentFileToolStripMenuItem8;
         private System.Windows.Forms.ToolStripMenuItem recentFileToolStripMenuItem9;
+        private System.Windows.Forms.OpenFileDialog levelOpenFileDialog;
+        private System.Windows.Forms.SaveFileDialog levelSaveFileDialog;
     }
 }
 
