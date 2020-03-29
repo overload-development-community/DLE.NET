@@ -25,7 +25,7 @@ namespace DLEDotNet.Editor
     {
         /**
          *  TODO:
-         *    - proxy stuff from LibDescent
+         *    - split EditorStateBinder
          * 
          */
         private LayoutOrientation _activeLayout;
