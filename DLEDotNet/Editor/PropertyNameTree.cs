@@ -1,4 +1,5 @@
 ﻿using DLEDotNet.Data;
+using LibDescent.Edit;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;

@@ -32,8 +32,8 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\Descent2Workshop\LibDescent\Data\LibDescent.Data.csproj" />
-    <ProjectReference Include="..\Descent2Workshop\LibDescent\Edit\LibDescent.Edit.csproj" />
+    <ProjectReference Include="..\LibDescent\Data\LibDescent.Data.csproj" />
+    <ProjectReference Include="..\LibDescent\Edit\LibDescent.Edit.csproj" />
   </ItemGroup>
   
   <ItemGroup>

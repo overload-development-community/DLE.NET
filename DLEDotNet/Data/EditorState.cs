@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibDescent.Edit;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -18,14 +19,14 @@ namespace DLEDotNet.Data
             SavedPrefs = new EditorSettingsSaved();
             SavedPrefs.PropertyChanged += (object sender, PropertyChangeEventArgs e) => SettingChanged?.Invoke(this, e);
             Prefs = new EditorSettings();
+            DefaultPrefs = new EditorSettingsSaved();
             ActiveEditorTab = ActiveTextureTab = ActiveObjectTab = ActiveSettingsTab = 0;
             SegmentAddMode = SegmentAddMode.Normal;
             SelectionMode = SelectMode.Side;
+            Toggles = new EditorToggles();
             FilePath = null;
             LevelFileName = null;
             Unsaved = false;
-            UseTexColors = true;
-            FullScreen = false;
         }
 
         /// <summary>
@@ -55,6 +56,23 @@ namespace DLEDotNet.Data
         {
             get => _editorSettingsCandidate;
             private set => AssignChanged(ref _editorSettingsCandidate, value);
+        }
+
+        internal EditorSettingsSaved DefaultPrefs
+        {
+            get => _editorSettingsDefault;
+            private set => AssignChanged(ref _editorSettingsDefault, value);
+        }
+
+        /// <summary>
+        /// Contains various user-toggleable settings. Note that settings
+        /// which can be saved or stored permanently should be in Prefs or
+        /// SavedPrefs instead.
+        /// </summary>
+        public EditorToggles Toggles
+        {
+            get => _editorToggles;
+            private set => AssignChanged(ref _editorToggles, value);
         }
 
         /// <summary>
@@ -145,24 +163,6 @@ namespace DLEDotNet.Data
         }
 
         /// <summary>
-        /// Whether to apply face light settings globally.
-        /// </summary>
-        public bool UseTexColors
-        {
-            get => _useTexColors;
-            set => AssignChanged(ref _useTexColors, value);
-        }
-
-        /// <summary>
-        /// Whether the editor is currently in full screen mode (tool view and texture list hidden).
-        /// </summary>
-        public bool FullScreen
-        {
-            get => _fullScreen;
-            set => AssignChanged(ref _fullScreen, value);
-        }
-
-        /// <summary>
         /// The currently opened file as a full name, or null if a new file.
         /// </summary>
         public string FileName
@@ -172,6 +172,8 @@ namespace DLEDotNet.Data
 
         private EditorSettingsSaved _editorSettings;
         private EditorSettings _editorSettingsCandidate;
+        private EditorSettingsSaved _editorSettingsDefault;
+        private EditorToggles _editorToggles;
         private int _activeEditorTab;
         private int _activeTextureTab;
         private int _activeObjectTab;
@@ -181,8 +183,6 @@ namespace DLEDotNet.Data
         private bool _unsaved;
         private string _filePath;
         private string _innerFileName;
-        private bool _useTexColors;
-        private bool _fullScreen;
 
         /// <summary>
         /// Causes all property change events to be suppressed until the next

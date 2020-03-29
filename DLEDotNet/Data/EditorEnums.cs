@@ -14,7 +14,7 @@ namespace DLEDotNet.Data
         Point, Line, Side, Segment, Object, Block
     }
 
-    public enum RendererMode
+    public enum PerspectiveMode
     {
         ThirdPerson, FirstPerson
     }
@@ -78,7 +78,7 @@ namespace DLEDotNet.Data
         Default = None,
 
         UsedTextures = 32,
-        None = 0
+        None = 0, All = 32
     }
 
     [Flags]

@@ -5,6 +5,7 @@ using DLEDotNet.Editor.Layouts;
 using DLEDotNet.Editor.Layouts.Floating;
 using DLEDotNet.Editor.Layouts.Vertical;
 using DLEDotNet.Util;
+using LibDescent.Edit;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,7 +25,6 @@ namespace DLEDotNet.Editor
     {
         /**
          *  TODO:
-         *    - import settings from DLE.ini
          *    - proxy stuff from LibDescent
          * 
          */
@@ -64,8 +64,8 @@ namespace DLEDotNet.Editor
             InitializeEvents();
             UpdateTitle();
             SetupToolbar();
+            SetupMenus();
             SetupContextMenu();
-            SetupRecentFilesMenu();
             editorKeyBinds.InitializeDefaultKeybinds();
         }
 
@@ -107,13 +107,15 @@ namespace DLEDotNet.Editor
         private void EditorState_SettingChanged(object sender, PropertyChangeEventArgs e)
         {
             if (e.PropertyName == nameof(EditorSettings.ActiveLayout))
-                this.ActiveLayout = e.NewValue;
+                this.ActiveLayout = (LayoutOrientation)e.NewValue;
         }
+
+        private static readonly string fullScreenToggle = PROP(s => s.Toggles.FullScreen);
 
         private void EditorState_PropertyChanged(object sender, PropertyChangeEventArgs e)
         {
-            if (e.PropertyName == nameof(EditorState.FullScreen))
-                ActiveMainView.SetFullScreen(EditorState.FullScreen);
+            if (e.PropertyName == fullScreenToggle)
+                ActiveMainView.SetFullScreen(EditorState.Toggles.FullScreen);
             else if (e.PropertyName == nameof(EditorState.Unsaved) || e.PropertyName == nameof(EditorState.FilePath))
                 UpdateTitle();
             // this should at one point use PropertyUtil.IsAncestralProperty to check for changes in the level
@@ -155,7 +157,7 @@ namespace DLEDotNet.Editor
             mainPanel.Controls.Add(newMainView);
             newMainView.Dock = DockStyle.Fill;
             newMainView.Size = mainPanel.ClientSize;
-            newMainView.SetFullScreen(EditorState.FullScreen);
+            newMainView.SetFullScreen(EditorState.Toggles.FullScreen);
 
             EditorTabContainer editorTabContainer = newMainView.GetEditorTabs();
             if (editorTabContainer == null)
@@ -199,7 +201,7 @@ namespace DLEDotNet.Editor
         }
         #endregion
 
-        #region --- Load & save UI and some logic
+        #region --- Load & save UI and logic
 
         private void CreateNewLevel(string name, LevelGameKind type)
         {
@@ -398,7 +400,7 @@ namespace DLEDotNet.Editor
             binder.BindToolStripButtonAsRadioButton(this.objectModeToolStripButton, PROP(s => s.SelectionMode), SelectMode.Object, false);
             binder.BindToolStripButtonAsRadioButton(this.blockModeToolStripButton, PROP(s => s.SelectionMode), SelectMode.Block, false);
 
-            binder.BindToolStripButtonAsCheckBox(this.fullScreenToolStripButton, PROP(s => s.FullScreen), false);
+            binder.BindToolStripButtonAsCheckBox(this.fullScreenToolStripButton, PROP(s => s.Toggles.FullScreen), false);
         }
 
         private void SetupContextMenu()
@@ -416,6 +418,21 @@ namespace DLEDotNet.Editor
             binder.BindToolStripMenuItemAsRadioButton(this.selectionCandidatesFullToolStripMenuItem, PROP(s => s.SavedPrefs.QuickSelectionCandidates), QuickSelectionCandidateMode.Full, false);
             binder.BindToolStripMenuItemAsCheckBox(this.enableQuickSelectionToolStripMenuItem, PROP(s => s.SavedPrefs.EnableQuickSelection), false);
             binder.BindToolStripMenuItemAsCheckBox(this.moveAlongViewerAxesToolStripMenuItem, PROP(s => s.SavedPrefs.ElementMovementReferenceFormatted), false);
+        }
+
+        private void SetupMenus()
+        {
+            EditorStateBinder binder = EditorStateBinder.FromState(EditorState);
+
+            SetupFileMenu(binder);
+            SetupEditMenu(binder);
+            SetupViewMenu(binder);
+            SetupSelectMenu(binder);
+            SetupInsertMenu(binder);
+            SetupDeleteMenu(binder);
+            SetupJoinSeparateMenu(binder);
+            SetupToolsMenu(binder);
+            SetupHelpMenu(binder);
         }
 
         private void mainToolStrip_BackColorChanged(object sender, EventArgs e)
@@ -586,19 +603,51 @@ namespace DLEDotNet.Editor
         private void redrawMineToolStripButton_Click(object sender, EventArgs e) => UpdateViews();
         #endregion
 
-        #region --- Events for the File menu
+        #region --- Events & binds for the File menu
+        private void SetupFileMenu(EditorStateBinder binder)
+        {
+            SetupRecentFilesMenu();
+        }
+
         private void fileNewToolStripMenuItem_Click(object sender, EventArgs e) => NewFile();
         private void fileOpenToolStripMenuItem_Click(object sender, EventArgs e) => OpenFile();
         private void fileSaveToolStripMenuItem_Click(object sender, EventArgs e) => SaveFile();
         private void fileSaveAsToolStripMenuItem_Click(object sender, EventArgs e) => SaveFileAs();
         private void editMissionFileToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Mission);
+        private void checkMineToolStripMenuItem_Click(object sender, EventArgs e) => checkMineToolStripMenuItem.PerformClick();
+        private void preferencesToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Settings);
+        private void informationToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Diagnostics);
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) => this.Close();
         #endregion
 
-        #region --- Events for the Edit menu
+        #region --- Events & binds for the Edit menu
+        private void SetupEditMenu(EditorStateBinder binder)
+        {
+
+        }
+
         #endregion
 
-        #region --- Events for the View menu
+        #region --- Events & binds for the View menu
+        private void SetupViewMenu(EditorStateBinder binder)
+        {
+            binder.BindToolStripMenuItemAsCheckBox(this.fullScreenToolStripMenuItem, PROP(s => s.Toggles.FullScreen), false);
+            binder.BindToolStripMenuItemAsCheckBoxFlag<TextureVisibilityFlags>(this.viewUsedTexturesToolStripMenuItem, PROP(s => s.SavedPrefs.TextureVisibility), TextureVisibilityFlags.UsedTextures, false);
+            binder.BindToolStripMenuItemAsCheckBoxFlag<GeometryVisibilityFlags>(this.viewWallsToolStripMenuItem, PROP(s => s.SavedPrefs.GeometryVisibility), GeometryVisibilityFlags.Walls, false);
+            binder.BindToolStripMenuItemAsCheckBoxFlag<GeometryVisibilityFlags>(this.viewSpecialCubesToolStripMenuItem, PROP(s => s.SavedPrefs.GeometryVisibility), GeometryVisibilityFlags.SpecialSegments, false);
+            binder.BindToolStripMenuItemAsCheckBoxFlag<GeometryVisibilityFlags>(this.viewLightsToolStripMenuItem, PROP(s => s.SavedPrefs.GeometryVisibility), GeometryVisibilityFlags.Lights, false);
+            binder.BindToolStripMenuItemAsCheckBoxFlag<GeometryVisibilityFlags>(this.viewShadingToolStripMenuItem, PROP(s => s.SavedPrefs.GeometryVisibility), GeometryVisibilityFlags.Shading, false);
+            binder.BindToolStripMenuItemAsCheckBoxFlag<GeometryVisibilityFlags>(this.viewDeltaShadingToolStripMenuItem, PROP(s => s.SavedPrefs.GeometryVisibility), GeometryVisibilityFlags.DeltaShading, false);
+
+            binder.BindToolStripMenuItemAsCheckBoxFlag<ObjectVisibilityFlags>(this.viewObjectsRobotsToolStripMenuItem, PROP(s => s.SavedPrefs.ObjectVisibility), ObjectVisibilityFlags.Robots, false);
+            binder.BindToolStripMenuItemAsCheckBoxFlag<ObjectVisibilityFlags>(this.viewObjectsPlayersToolStripMenuItem, PROP(s => s.SavedPrefs.ObjectVisibility), ObjectVisibilityFlags.Players, false);
+            binder.BindToolStripMenuItemAsCheckBoxFlag<ObjectVisibilityFlags>(this.viewObjectsWeaponsToolStripMenuItem, PROP(s => s.SavedPrefs.ObjectVisibility), ObjectVisibilityFlags.Weapons, false);
+            binder.BindToolStripMenuItemAsCheckBoxFlag<ObjectVisibilityFlags>(this.viewObjectsPowerUpsToolStripMenuItem, PROP(s => s.SavedPrefs.ObjectVisibility), ObjectVisibilityFlags.Powerups, false);
+            binder.BindToolStripMenuItemAsCheckBoxFlag<ObjectVisibilityFlags>(this.viewObjectsKeysToolStripMenuItem, PROP(s => s.SavedPrefs.ObjectVisibility), ObjectVisibilityFlags.Keys, false);
+            binder.BindToolStripMenuItemAsCheckBoxFlag<ObjectVisibilityFlags>(this.viewObjectsHostagesToolStripMenuItem, PROP(s => s.SavedPrefs.ObjectVisibility), ObjectVisibilityFlags.Hostages, false);
+            binder.BindToolStripMenuItemAsCheckBoxFlag<ObjectVisibilityFlags>(this.viewObjectsControlCenterToolStripMenuItem, PROP(s => s.SavedPrefs.ObjectVisibility), ObjectVisibilityFlags.Reactor, false);
+        }
+
         private void toolbarToolStripMenuItem_Click(object sender, EventArgs e) => mainToolStrip.Visible = !mainToolStrip.Visible;
         private void editorToolBarToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -606,21 +655,48 @@ namespace DLEDotNet.Editor
             else editorTools.Hide();
         }
         private void statusBarToolStripMenuItem_Click(object sender, EventArgs e) => statusStrip.Visible = !statusStrip.Visible;
+        private void viewAllObjectsToolStripMenuItem_Click(object sender, EventArgs e) => EditorState.SavedPrefs.ObjectVisibility = ObjectVisibilityFlags.All;
+        private void viewNoObjectsToolStripMenuItem_Click(object sender, EventArgs e) => EditorState.SavedPrefs.ObjectVisibility = ObjectVisibilityFlags.None;
         #endregion
 
-        #region --- Events for the Select menu
+        #region --- Events & binds for the Select menu
+        private void SetupSelectMenu(EditorStateBinder binder)
+        {
+
+        }
+
         #endregion
 
-        #region --- Events for the Insert menu
+        #region --- Events & binds for the Insert menu
+        private void SetupInsertMenu(EditorStateBinder binder)
+        {
+
+        }
+
         #endregion
 
-        #region --- Events for the Delete menu
+        #region --- Events & binds for the Delete menu
+        private void SetupDeleteMenu(EditorStateBinder binder)
+        {
+
+        }
+
         #endregion
 
-        #region --- Events for the Join/Separate menu
+        #region --- Events & binds for the Join/Separate menu
+        private void SetupJoinSeparateMenu(EditorStateBinder binder)
+        {
+
+        }
+
         #endregion
 
-        #region --- Events for the Tools menu
+        #region --- Events & binds for the Tools menu
+        private void SetupToolsMenu(EditorStateBinder binder)
+        {
+
+        }
+
         private void textureEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Textures);
         private void segmentEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Segments);
         private void wallEditToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Walls);
@@ -635,7 +711,12 @@ namespace DLEDotNet.Editor
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Settings);
         #endregion
 
-        #region --- Events for the Help menu
+        #region --- Events & binds for the Help menu
+        private void SetupHelpMenu(EditorStateBinder binder)
+        {
+
+        }
+
         #endregion
 
         #region --- Events for the context menu

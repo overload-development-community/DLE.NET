@@ -38,6 +38,7 @@ namespace DLEDotNet.Editor.Layouts
         {
             EditorStateBinder binder = EditorStateBinder.FromState(this.EditorState);
             binder.BindTabControlBacking(this.objectTabControl, PROP(s => s.ActiveObjectTab));
+            binder.BindCheckBox(this.objSortCheckBox, PROP(s => s.SavedPrefs.SortObjects), false);
         }
     }
 }

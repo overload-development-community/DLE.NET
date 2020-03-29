@@ -1,4 +1,5 @@
 ﻿using DLEDotNet.Util;
+using LibDescent.Edit;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -17,19 +18,19 @@ namespace DLEDotNet.Data
         public const int MaximumMineRenderDepth = 60;
         public static readonly double[] RotateRates = { 1.40625, 2.8125, 5.625, 7.5, 11.25, 15, 22.5, 30, 45 };
 
+        // this is where settings that only save with a separate "save" button go.
+        // the rest (always saving) go to EditorSettingsSaved
+
         #region --- Properties (with no extra logic, if possible)
         public LayoutOrientation ActiveLayout { get => _layoutOrientation; set => AssignChanged(ref _layoutOrientation, value); }
         public string D1PIGPath { get => _d1PIGPath; set => AssignChanged(ref _d1PIGPath, value); }
         public string D2PIGPath { get => _d2PIGPath; set => AssignChanged(ref _d2PIGPath, value); }
-        public string MissionPath { get => _MissionsPath; set => AssignChanged(ref _MissionsPath, value); }
-        public RendererMode Renderer { get => _renderer; set => AssignChanged(ref _renderer, value); }
+        public string LevelsPath { get => _MissionsPath; set => AssignChanged(ref _MissionsPath, value); }
+        public PerspectiveMode Perspective { get => _renderer; set => AssignChanged(ref _renderer, value); }
         public DetailLevel DepthPerception { get => _depthPrediction; set => AssignChanged(ref _depthPrediction, value); }
         public MineCenterDisplayShape MineCenterDisplay { get => _mineCenterDisplay; set => AssignChanged(ref _mineCenterDisplay, value); }
-        public GeometryVisibilityFlags GeometryVisibility { get => _geometryVisibility; set => AssignChanged(ref _geometryVisibility, value); }
-        public ObjectVisibilityFlags ObjectVisibility { get => _objectVisibility; set => AssignChanged(ref _objectVisibility, value); }
-        public TextureVisibilityFlags TextureVisibility { get => _textureVisibility; set => AssignChanged(ref _textureVisibility, value); }
         public string PlayerProfile { get => _playerProfile; set => AssignChanged(ref _playerProfile, StringUtil.Truncate(value, 8)); }
-        public int MineRenderDepth { get => _mineRenderDepth; set => AssignChanged(ref _mineRenderDepth, MathUtil.Clamp(value, 0, MaximumMineRenderDepth)); }
+        public int ViewDepth { get => _mineRenderDepth; set => AssignChanged(ref _mineRenderDepth, MathUtil.Clamp(value, 0, MaximumMineRenderDepth)); }
         public int UndoCount { get => _undoCount; set => AssignChanged(ref _undoCount, MathUtil.Clamp(value, 0, MaximumUndoCount)); }
         public int RotateRateIndex {
             get => _rotateRateIndex; 
@@ -41,9 +42,9 @@ namespace DLEDotNet.Data
         }
         [NoSettingTouch]
         public Angle RotateRate { get => Angle.FromDegrees(RotateRates[RotateRateIndex]); }
-        public double MoveRate { get => _moveRate; set => AssignChanged(ref _moveRate, value); }
-        public double ViewRate { get => _viewRate; set => AssignChanged(ref _viewRate, value); }
-        public double BumpRate { get => _bumpIncrement; set => AssignChanged(ref _bumpIncrement, value); }
+        public double MoveRate { get => _moveRate; set => AssignChanged(ref _moveRate, MathUtil.Clamp(value, 0.001, 1000)); }
+        public double ViewRate { get => _viewRate; set => AssignChanged(ref _viewRate, MathUtil.Clamp(value, 0.001, 1000)); }
+        public double BumpRate { get => _bumpIncrement; set => AssignChanged(ref _bumpIncrement, MathUtil.Clamp(value, 0.001, 1000)); }
         public bool AllowObjectOverlap { get => _allowObjectOverlap; set => AssignChanged(ref _allowObjectOverlap, value); }
         [NoSettingTouch]
         public bool BumpCoincident { get => !AllowObjectOverlap; set => AssignChanged(ref _allowObjectOverlap, !value); }
@@ -53,12 +54,9 @@ namespace DLEDotNet.Data
         public bool DepthTest { get => _depthTest; set => AssignChanged(ref _depthTest, value); }
         public StartupWindowState StartupState { get => _startupWindowState; set => AssignChanged(ref _startupWindowState, value); }
         public CameraMovementMode MovementMode { get => _movementMode; set => AssignChanged(ref _movementMode, value); }
-        public double CameraMoveSpeed { get => _cameraMoveSpeed; set => AssignChanged(ref _cameraMoveSpeed, value); }
-        public double CameraTurnSpeed { get => _cameraTurnSpeed; set => AssignChanged(ref _cameraTurnSpeed, value); }
+        public double CameraMoveSpeed { get => _cameraMoveSpeed; set => AssignChanged(ref _cameraMoveSpeed, MathUtil.Clamp(value, 0.001, 1000)); }
+        public double CameraTurnSpeed { get => _cameraTurnSpeed; set => AssignChanged(ref _cameraTurnSpeed, MathUtil.Clamp(value, 0.001, 1000)); }
         public bool ForceFirstPersonOnInputLock { get => _forceFirstPersonOnInputLock; set => AssignChanged(ref _forceFirstPersonOnInputLock, value); }
-        public bool SortObjects { get => _sortObjects; set => AssignChanged(ref _sortObjects, value); }
-        [NoSettingCopy]
-        public bool AutoFixBugs { get => _autoFixBugs; set => AssignChanged(ref _autoFixBugs, value); }
 
         #endregion
 
@@ -67,8 +65,8 @@ namespace DLEDotNet.Data
         private string _d1PIGPath = "Enter a full path to a DESCENT.PIG here";
         private string _d2PIGPath = "Enter a full path to a Descent II .PIG here";
         private string _MissionsPath = "Enter a full path to your mission folder here";
-        private RendererMode _renderer = RendererMode.ThirdPerson;
-        private DetailLevel _depthPrediction = DetailLevel.High;
+        private PerspectiveMode _renderer = PerspectiveMode.ThirdPerson;
+        private DetailLevel _depthPrediction = DetailLevel.Medium;
         private MineCenterDisplayShape _mineCenterDisplay = MineCenterDisplayShape.None;
         private int _mineRenderDepth = 0;
         private double _moveRate = 1;
@@ -78,9 +76,6 @@ namespace DLEDotNet.Data
         private bool _allowObjectOverlap = true;
         private double _bumpIncrement = 3.0;
         private bool _adjustTextureAlignment = true;
-        private GeometryVisibilityFlags _geometryVisibility = GeometryVisibilityFlags.Default;
-        private ObjectVisibilityFlags _objectVisibility = ObjectVisibilityFlags.Default;
-        private TextureVisibilityFlags _textureVisibility = TextureVisibilityFlags.Default;
         private string _playerProfile = "";
         private bool _depthTest = true;
         private bool _expertMode = true;
@@ -90,8 +85,6 @@ namespace DLEDotNet.Data
         private double _cameraMoveSpeed = 50;
         private double _cameraTurnSpeed = 1;
         private bool _forceFirstPersonOnInputLock = true;
-        private bool _sortObjects = false;
-        private bool _autoFixBugs = true;
         #endregion
 
         #region --- Implementation: reloading, saving, copying settings
@@ -189,18 +182,44 @@ namespace DLEDotNet.Data
 
         private IEnumerable<PropertyInfo> GetProperties()
         {
-            return typeof(EditorSettings).GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanWrite && !Attribute.IsDefined(p, typeof(NoSettingTouchAttribute)));
+            return this.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance).Where(p => p.CanWrite && !Attribute.IsDefined(p, typeof(NoSettingTouchAttribute)));
         }
 
-        public void ReloadFromFile()
+        private void RaiseSettingEventsOnCurrent()
+        {
+            foreach (PropertyInfo property in GetProperties())
+            {
+                property.SetValue(this, property.GetValue(this));
+            }
+        }
+
+        public bool ReloadFromFile()
+        {
+            return ReloadFromFile(SettingsPath);
+        }
+
+        public void ResetDefaults(EditorState state)
+        {
+            CopyFrom(state.DefaultPrefs);
+        }
+
+        public bool ReloadFromFile(string fileName)
         {
             XmlDocument xmlDoc = new XmlDocument();
             try
             {
-                xmlDoc.Load(SettingsPath);
+                xmlDoc.Load(fileName);
             }
-            catch (FileNotFoundException) { }
-            catch (XmlException) { }
+            catch (FileNotFoundException)
+            {
+                RaiseSettingEventsOnCurrent();
+                return false;
+            }
+            catch (XmlException)
+            {
+                RaiseSettingEventsOnCurrent();
+                return false;
+            }
             
             foreach (PropertyInfo property in GetProperties())
             {
@@ -208,9 +227,16 @@ namespace DLEDotNet.Data
                 dynamic defaultValue = property.GetValue(this);
                 property.SetValue(this, ConvertFromXmlNode(configNode, property.PropertyType, defaultValue));
             }
+
+            return true;
         }
 
         public void SaveToFile()
+        {
+            SaveToFile(SettingsPath);
+        }
+
+        public void SaveToFile(string fileName)
         {
             XmlDocument xmlDoc = new XmlDocument();
             XmlNode rootNode = xmlDoc.CreateElement("DLEConfig");
@@ -223,14 +249,14 @@ namespace DLEDotNet.Data
                 rootNode.AppendChild(node);
             }
 
-            xmlDoc.Save(SettingsPath);
+            xmlDoc.Save(fileName);
         }
 
         public void CopyFrom(EditorSettings e)
         {
             foreach (PropertyInfo property in GetProperties())
             {
-                if (!Attribute.IsDefined(property, typeof(NoSettingCopyAttribute)))
+                if (!Attribute.IsDefined(property, typeof(NoSettingCopyAttribute)) && property.DeclaringType.IsAssignableFrom(e.GetType()))
                     property.SetValue(this, property.GetValue(e));
             }
         }
@@ -249,7 +275,8 @@ namespace DLEDotNet.Data
     /// <summary>
     /// Use this to signify that a property should not be copied
     /// between the settings on disk and the settings in memory. Used
-    /// for settings that don't need to be saved.
+    /// for settings that don't need to be saved separately with the
+    /// "save" button.
     /// </summary>
     public class NoSettingCopyAttribute : Attribute
     {

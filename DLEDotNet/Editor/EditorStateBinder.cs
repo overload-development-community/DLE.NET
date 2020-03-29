@@ -1,6 +1,7 @@
 ﻿using DLEDotNet.Data;
 using DLEDotNet.Editor.Layouts;
 using DLEDotNet.Util;
+using LibDescent.Edit;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -127,22 +128,36 @@ namespace DLEDotNet.Editor
             state.BeforePropertyChanged += State_BeforePropertyChanged;
         }
 
-        private void State_BeforePropertyChanged(object sender, PropertyChangeEventArgs e)
+        private void State_BeforePropertyChanged(object sender, BeforePropertyChangeEventArgs e)
         {
-            Control c = window.GetActiveControl();
-            if (c != null && controlBinds.ContainsKey(c) && c is IValidatable v)
-            {
-                if (PropertyUtil.IsAncestralProperty(e.PropertyName, controlBinds[c].Property))
-                {
-                    // validate to submit changed value before the parent changes
-                    v.Validate();
-                }
-            }
+            ValidateActiveControl(e.PropertyName);
         }
 
         private void State_PropertyChanged(object sender, PropertyChangeEventArgs e)
         {
             tree.Call(e, GetPropertyValueUncached);
+        }
+
+        private void ValidateActiveControl()
+        {
+            Control c = window.GetActiveControl();
+            if (c != null && controlBinds.ContainsKey(c) && c is IValidatable v)
+            {
+                v.Validate();
+            }
+        }
+
+        private void ValidateActiveControl(string changedPropertyName)
+        {
+            Control c = window.GetActiveControl();
+            if (c != null && controlBinds.ContainsKey(c) && c is IValidatable v)
+            {
+                if (PropertyUtil.IsAncestralProperty(changedPropertyName, controlBinds[c].Property))
+                {
+                    // validate to submit changed value before the parent changes
+                    v.Validate();
+                }
+            }
         }
 
         private static PropGetter MakeGetterGeneric<T, R>(MethodInfo getter, T parent) where T : class
@@ -488,7 +503,7 @@ namespace DLEDotNet.Editor
             BindControl(textBox, property, (object sender, PropertyChangeEventArgs e) => {
                 if (e.PropertyName == property) 
                     if (textBox.Enabled = e.NewValue != null)
-                        textBox.MaxSegmentCount = Convert.ToUInt32(e.NewValue);
+                        textBox.MaxSegmentCount = Convert.ToInt32(e.NewValue);
             });
         }
 
@@ -550,7 +565,7 @@ namespace DLEDotNet.Editor
                 }));
             if (!readOnly)
                 checkBox.CheckedChanged += (object sender, EventArgs e) =>
-                    ApplyToPropertyValueDebounced(false, property,
+                    ApplyToPropertyValueDebounced(debounce, property,
                         v => (T)(object)(checkBox.Checked ? ((int)v | flagI) : ((int)v & ~flagI)));
         }
 
@@ -574,7 +589,7 @@ namespace DLEDotNet.Editor
                 if (e.PropertyName == property)
                 {
                     radioButton.CheckedChanged -= radioButton_CheckedChanged; // debounce
-                    radioButton.Checked = e.NewValue == null ? selectedValue == null : equalityComparer.Equals(selectedValue, e.NewValue);
+                    radioButton.Checked = e.NewValue == null ? selectedValue == null : equalityComparer.Equals(selectedValue, (T)e.NewValue);
                     radioButton.CheckedChanged += radioButton_CheckedChanged;
                 }
             });
@@ -651,7 +666,7 @@ namespace DLEDotNet.Editor
             EqualityComparer<T> equalityComparer = EqualityComparer<T>.Default;
             BindControl(toolStripButton, property, property, (object sender, PropertyChangeEventArgs e) => {
                 if (e.PropertyName == property)
-                    toolStripButton.Checked = e.NewValue == null ? selectedValue == null : equalityComparer.Equals(selectedValue, e.NewValue);
+                    toolStripButton.Checked = e.NewValue == null ? selectedValue == null : equalityComparer.Equals(selectedValue, (T)e.NewValue);
             });
             if (!readOnly)
                 toolStripButton.Click += (object sender, EventArgs e) => SetPropertyValue(property, selectedValue);
@@ -668,7 +683,7 @@ namespace DLEDotNet.Editor
         {
             BindControl(toolStripButton, property, property, (object sender, PropertyChangeEventArgs e) => {
                 if (e.PropertyName == property)
-                    toolStripButton.Checked = e.NewValue;
+                    toolStripButton.Checked = (Boolean)e.NewValue;
             });
             if (!readOnly)
                 toolStripButton.Click += (object sender, EventArgs e) => SetPropertyValue(property, !toolStripButton.Checked);
@@ -688,16 +703,16 @@ namespace DLEDotNet.Editor
             EqualityComparer<T> equalityComparer = EqualityComparer<T>.Default;
             BindControl(toolStripButton, property, property, (object sender, PropertyChangeEventArgs e) => {
                 if (e.PropertyName == property)
-                    toolStripButton.Checked = e.NewValue == null ? selectedValue == null : equalityComparer.Equals(selectedValue, e.NewValue);
+                    toolStripButton.Checked = e.NewValue == null ? selectedValue == null : equalityComparer.Equals(selectedValue, (T)e.NewValue);
             });
             if (!readOnly)
                 toolStripButton.Click += (object sender, EventArgs e) => SetPropertyValue(property, selectedValue);
         }
 
         /// <summary>
-        /// Binds a ToolStripButton as if it were a CheckBox to a (public) property with a boolean type.
+        /// Binds a ToolStripMenuItem as if it were a CheckBox to a (public) property with a boolean type.
         /// </summary>
-        /// <param name="toolStripMenuItem">The ToolStripButton to bind.</param>
+        /// <param name="toolStripMenuItem">The ToolStripMenuItem to bind.</param>
         /// <param name="property">The name of the property under EditorState to bind; dots are allowed for nested properties. The property must have a boolean type.</param
         /// <param name="readOnly">Whether the radio button is read-only; if false, no listener for when its value changes will be registered.</param>
         /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
@@ -705,10 +720,31 @@ namespace DLEDotNet.Editor
         {
             BindControl(toolStripMenuItem, property, property, (object sender, PropertyChangeEventArgs e) => {
                 if (e.PropertyName == property)
-                    toolStripMenuItem.Checked = e.NewValue;
+                    toolStripMenuItem.Checked = (Boolean)e.NewValue;
             });
             if (!readOnly)
                 toolStripMenuItem.Click += (object sender, EventArgs e) => SetPropertyValue(property, !toolStripMenuItem.Checked);
+        }
+
+        /// <summary>
+        /// Binds a ToolStripMenuItem as if it were a CheckBox to a (public) property with a boolean type.
+        /// </summary>
+        /// <param name="toolStripMenuItem">The ToolStripMenuItem to bind.</param>
+        /// <param name="property">The name of the property under EditorState to bind; dots are allowed for nested properties. The property must have a flag enum type.</param>
+        /// <param name="flag">The enum value to use as the "selected" flag.</param>
+        /// <param name="readOnly">Whether the text box is read-only; if false, no listener for when its value changes will be registered. The control should not even accept user input if true.</param>
+        /// <exception cref="ArgumentException">If the given control has already been bound to a property.</exception>
+        public void BindToolStripMenuItemAsCheckBoxFlag<T>(ToolStripMenuItem toolStripMenuItem, string property, T flag, bool readOnly) where T : Enum
+        {
+            int flagI = Convert.ToInt32(flag);
+            BindControl(toolStripMenuItem, property, property, (object sender, PropertyChangeEventArgs e) => {
+                if (e.PropertyName == property)
+                    toolStripMenuItem.Checked = 0 != ((int)e.NewValue & flagI);
+            });
+            if (!readOnly)
+                toolStripMenuItem.Click += (object sender, EventArgs e) =>
+                    ApplyToPropertyValue(property,
+                        v => (T)(object)(toolStripMenuItem.Checked ? ((int)v | flagI) : ((int)v & ~flagI)));
         }
 
         /// <summary>
@@ -720,7 +756,7 @@ namespace DLEDotNet.Editor
         {
             BindControl(tabControl, property, (object sender, PropertyChangeEventArgs e) => {
                 if (e.PropertyName == property)
-                    tabControl.SelectedIndex = MathUtil.Clamp(e.NewValue, -1, tabControl.TabCount - 1);
+                    tabControl.SelectedIndex = MathUtil.Clamp((Int32)e.NewValue, -1, tabControl.TabCount - 1);
             });
             tabControl.SelectedIndexChanged += (object sender, EventArgs e) =>
                 SetPropertyValue(property, tabControl.SelectedIndex);
@@ -731,11 +767,12 @@ namespace DLEDotNet.Editor
         /// causing events for every large change. After a batch change has been completed, property change events
         /// will be dispatched for all properties that were changed during the batch change.
         /// </summary>
-        /// <param name="changes">The action for the actual changes taking place.</param>
+        /// <param name="Commit">The action that does the actual changes.</param>
         public void BatchChange(Action Commit)
         {
             lock (binderLock)
             {
+                ValidateActiveControl();
                 state.PauseEditorStateEvents();
                 Commit();
                 state.ResumeEditorStateEvents();

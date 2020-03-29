@@ -39,43 +39,43 @@ namespace DLEDotNet.Editor.Layouts
         {
             EditorStateBinder binder = EditorStateBinder.FromState(this.EditorState);
 
-            binder.BindCheckBoxFlag<GeometryVisibilityFlags>(this.prefsViewWallsCheckBox, PROP(s => s.Prefs.GeometryVisibility), GeometryVisibilityFlags.Walls, false);
-            binder.BindCheckBoxFlag<GeometryVisibilityFlags>(this.prefsViewSpecialCheckBox, PROP(s => s.Prefs.GeometryVisibility), GeometryVisibilityFlags.SpecialSegments, false);
-            binder.BindCheckBoxFlag<GeometryVisibilityFlags>(this.prefsViewLightsCheckBox, PROP(s => s.Prefs.GeometryVisibility), GeometryVisibilityFlags.Lights, false);
-            binder.BindCheckBoxFlag<GeometryVisibilityFlags>(this.prefsViewShadingCheckBox, PROP(s => s.Prefs.GeometryVisibility), GeometryVisibilityFlags.Shading, false);
-            binder.BindCheckBoxFlag<GeometryVisibilityFlags>(this.prefsViewDeltalightsCheckBox, PROP(s => s.Prefs.GeometryVisibility), GeometryVisibilityFlags.DeltaShading, false);
-            binder.BindCheckBoxFlag<GeometryVisibilityFlags>(this.prefsViewHideTaggedCheckBox, PROP(s => s.Prefs.GeometryVisibility), GeometryVisibilityFlags.HideMarked, false);
-            binder.BindCheckBoxFlag<GeometryVisibilityFlags>(this.prefsViewSkyboxCheckBox, PROP(s => s.Prefs.GeometryVisibility), GeometryVisibilityFlags.SkyBox, false);
-            binder.BindCheckBoxFlag<TextureVisibilityFlags>(this.prefsViewAlltexturesCheckBox, PROP(s => s.Prefs.TextureVisibility), TextureVisibilityFlags.UsedTextures, false);
+            binder.BindCheckBoxFlag<GeometryVisibilityFlags>(this.prefsViewWallsCheckBox, PROP(s => s.SavedPrefs.GeometryVisibility), GeometryVisibilityFlags.Walls, false);
+            binder.BindCheckBoxFlag<GeometryVisibilityFlags>(this.prefsViewSpecialCheckBox, PROP(s => s.SavedPrefs.GeometryVisibility), GeometryVisibilityFlags.SpecialSegments, false);
+            binder.BindCheckBoxFlag<GeometryVisibilityFlags>(this.prefsViewLightsCheckBox, PROP(s => s.SavedPrefs.GeometryVisibility), GeometryVisibilityFlags.Lights, false);
+            binder.BindCheckBoxFlag<GeometryVisibilityFlags>(this.prefsViewShadingCheckBox, PROP(s => s.SavedPrefs.GeometryVisibility), GeometryVisibilityFlags.Shading, false);
+            binder.BindCheckBoxFlag<GeometryVisibilityFlags>(this.prefsViewDeltalightsCheckBox, PROP(s => s.SavedPrefs.GeometryVisibility), GeometryVisibilityFlags.DeltaShading, false);
+            binder.BindCheckBoxFlag<GeometryVisibilityFlags>(this.prefsViewHideTaggedCheckBox, PROP(s => s.SavedPrefs.GeometryVisibility), GeometryVisibilityFlags.HideMarked, false);
+            binder.BindCheckBoxFlag<GeometryVisibilityFlags>(this.prefsViewSkyboxCheckBox, PROP(s => s.SavedPrefs.GeometryVisibility), GeometryVisibilityFlags.SkyBox, false);
+            binder.BindCheckBoxFlag<TextureVisibilityFlags>(this.prefsViewAlltexturesCheckBox, PROP(s => s.SavedPrefs.TextureVisibility), TextureVisibilityFlags.UsedTextures, false);
 
-            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewRobotsCheckBox, PROP(s => s.Prefs.ObjectVisibility), ObjectVisibilityFlags.Robots, false);
-            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewPlayersCheckBox, PROP(s => s.Prefs.ObjectVisibility), ObjectVisibilityFlags.Players, false);
-            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewWeaponsCheckBox, PROP(s => s.Prefs.ObjectVisibility), ObjectVisibilityFlags.Weapons, false);
-            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewPowerupsCheckBox, PROP(s => s.Prefs.ObjectVisibility), ObjectVisibilityFlags.Powerups, false);
-            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewKeysCheckBox, PROP(s => s.Prefs.ObjectVisibility), ObjectVisibilityFlags.Keys, false);
-            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewHostagesCheckBox, PROP(s => s.Prefs.ObjectVisibility), ObjectVisibilityFlags.Hostages, false);
-            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewReactorCheckBox, PROP(s => s.Prefs.ObjectVisibility), ObjectVisibilityFlags.Reactor, false);
-            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewEffectsCheckBox, PROP(s => s.Prefs.ObjectVisibility), ObjectVisibilityFlags.Effects, false);
+            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewRobotsCheckBox, PROP(s => s.SavedPrefs.ObjectVisibility), ObjectVisibilityFlags.Robots, false);
+            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewPlayersCheckBox, PROP(s => s.SavedPrefs.ObjectVisibility), ObjectVisibilityFlags.Players, false);
+            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewWeaponsCheckBox, PROP(s => s.SavedPrefs.ObjectVisibility), ObjectVisibilityFlags.Weapons, false);
+            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewPowerupsCheckBox, PROP(s => s.SavedPrefs.ObjectVisibility), ObjectVisibilityFlags.Powerups, false);
+            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewKeysCheckBox, PROP(s => s.SavedPrefs.ObjectVisibility), ObjectVisibilityFlags.Keys, false);
+            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewHostagesCheckBox, PROP(s => s.SavedPrefs.ObjectVisibility), ObjectVisibilityFlags.Hostages, false);
+            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewReactorCheckBox, PROP(s => s.SavedPrefs.ObjectVisibility), ObjectVisibilityFlags.Reactor, false);
+            binder.BindCheckBoxFlag<ObjectVisibilityFlags>(this.prefsViewEffectsCheckBox, PROP(s => s.SavedPrefs.ObjectVisibility), ObjectVisibilityFlags.Effects, false);
         }
 
         private void prefsViewMineAllButton_Click(object sender, EventArgs e)
         {
-            EditorState.Prefs.GeometryVisibility |= GeometryVisibilityFlags.Walls | GeometryVisibilityFlags.SpecialSegments | GeometryVisibilityFlags.Lights | GeometryVisibilityFlags.DeltaShading;
+            EditorState.SavedPrefs.GeometryVisibility |= GeometryVisibilityFlags.Walls | GeometryVisibilityFlags.SpecialSegments | GeometryVisibilityFlags.Lights | GeometryVisibilityFlags.DeltaShading;
         }
 
         private void prefsViewMineNoneButton_Click(object sender, EventArgs e)
         {
-            EditorState.Prefs.GeometryVisibility &= ~(GeometryVisibilityFlags.Walls | GeometryVisibilityFlags.SpecialSegments | GeometryVisibilityFlags.Lights | GeometryVisibilityFlags.DeltaShading);
+            EditorState.SavedPrefs.GeometryVisibility &= ~(GeometryVisibilityFlags.Walls | GeometryVisibilityFlags.SpecialSegments | GeometryVisibilityFlags.Lights | GeometryVisibilityFlags.DeltaShading);
         }
 
         private void prefsViewObjectsAllButton_Click(object sender, EventArgs e)
         {
-            EditorState.Prefs.ObjectVisibility = ObjectVisibilityFlags.All;
+            EditorState.SavedPrefs.ObjectVisibility = ObjectVisibilityFlags.All;
         }
 
         private void prefsViewObjectsNoneButton_Click(object sender, EventArgs e)
         {
-            EditorState.Prefs.ObjectVisibility = ObjectVisibilityFlags.None;
+            EditorState.SavedPrefs.ObjectVisibility = ObjectVisibilityFlags.None;
         }
     }
 }

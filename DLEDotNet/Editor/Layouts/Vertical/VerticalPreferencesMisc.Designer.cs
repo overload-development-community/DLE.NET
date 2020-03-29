@@ -32,12 +32,18 @@
             this.prefsSplashscreenCheckBox = new System.Windows.Forms.CheckBox();
             this.prefsPlayerTextBox = new System.Windows.Forms.TextBox();
             this.prefsUsetexcolorsCheckBox = new System.Windows.Forms.CheckBox();
-            this.alignableGroupBoxVerbosity = new AlignableGroupBox();
-            this.alignableGroupBoxPlayerProfile = new AlignableGroupBox();
-            this.alignableGroupBoxFaceLightSettings = new AlignableGroupBox();
+            this.alignableGroupBoxVerbosity = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxPlayerProfile = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxFaceLightSettings = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBox1 = new DLEDotNet.Editor.AlignableGroupBox();
+            this.buttonImportINI = new System.Windows.Forms.Button();
+            this.buttonExportXML = new System.Windows.Forms.Button();
+            this.buttonImportXML = new System.Windows.Forms.Button();
+            this.buttonResetDefaults = new System.Windows.Forms.Button();
             this.alignableGroupBoxVerbosity.SuspendLayout();
             this.alignableGroupBoxPlayerProfile.SuspendLayout();
             this.alignableGroupBoxFaceLightSettings.SuspendLayout();
+            this.alignableGroupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // prefsExpertmodeCheckBox
@@ -65,7 +71,7 @@
             this.prefsPlayerTextBox.Location = new System.Drawing.Point(6, 28);
             this.prefsPlayerTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.prefsPlayerTextBox.Name = "prefsPlayerTextBox";
-            this.prefsPlayerTextBox.Size = new System.Drawing.Size(94, 19);
+            this.prefsPlayerTextBox.Size = new System.Drawing.Size(94, 20);
             this.prefsPlayerTextBox.TabIndex = 0;
             this.prefsPlayerTextBox.TabStop = false;
             this.prefsPlayerTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -117,10 +123,60 @@
             this.alignableGroupBoxFaceLightSettings.TabStop = false;
             this.alignableGroupBoxFaceLightSettings.Text = "face light settings";
             // 
+            // alignableGroupBox1
+            // 
+            this.alignableGroupBox1.Controls.Add(this.buttonResetDefaults);
+            this.alignableGroupBox1.Controls.Add(this.buttonImportINI);
+            this.alignableGroupBox1.Controls.Add(this.buttonExportXML);
+            this.alignableGroupBox1.Controls.Add(this.buttonImportXML);
+            this.alignableGroupBox1.Location = new System.Drawing.Point(32, 250);
+            this.alignableGroupBox1.Name = "alignableGroupBox1";
+            this.alignableGroupBox1.Size = new System.Drawing.Size(235, 88);
+            this.alignableGroupBox1.TabIndex = 5;
+            this.alignableGroupBox1.TabStop = false;
+            this.alignableGroupBox1.Text = "setting management";
+            // 
+            // buttonImportINI
+            // 
+            this.buttonImportINI.Location = new System.Drawing.Point(9, 53);
+            this.buttonImportINI.Name = "buttonImportINI";
+            this.buttonImportINI.Size = new System.Drawing.Size(106, 23);
+            this.buttonImportINI.TabIndex = 5;
+            this.buttonImportINI.Text = "Import DLE.INI";
+            this.buttonImportINI.UseVisualStyleBackColor = true;
+            // 
+            // buttonExportXML
+            // 
+            this.buttonExportXML.Location = new System.Drawing.Point(120, 26);
+            this.buttonExportXML.Name = "buttonExportXML";
+            this.buttonExportXML.Size = new System.Drawing.Size(106, 23);
+            this.buttonExportXML.TabIndex = 4;
+            this.buttonExportXML.Text = "Export settings";
+            this.buttonExportXML.UseVisualStyleBackColor = true;
+            // 
+            // buttonImportXML
+            // 
+            this.buttonImportXML.Location = new System.Drawing.Point(9, 26);
+            this.buttonImportXML.Name = "buttonImportXML";
+            this.buttonImportXML.Size = new System.Drawing.Size(106, 23);
+            this.buttonImportXML.TabIndex = 3;
+            this.buttonImportXML.Text = "Import settings";
+            this.buttonImportXML.UseVisualStyleBackColor = true;
+            // 
+            // buttonResetDefaults
+            // 
+            this.buttonResetDefaults.Location = new System.Drawing.Point(120, 53);
+            this.buttonResetDefaults.Name = "buttonResetDefaults";
+            this.buttonResetDefaults.Size = new System.Drawing.Size(106, 23);
+            this.buttonResetDefaults.TabIndex = 7;
+            this.buttonResetDefaults.Text = "Reset defaults";
+            this.buttonResetDefaults.UseVisualStyleBackColor = true;
+            // 
             // VerticalPreferencesMisc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.alignableGroupBox1);
             this.Controls.Add(this.alignableGroupBoxVerbosity);
             this.Controls.Add(this.alignableGroupBoxPlayerProfile);
             this.Controls.Add(this.alignableGroupBoxFaceLightSettings);
@@ -129,7 +185,9 @@
             this.Size = new System.Drawing.Size(300, 341);
             this.alignableGroupBoxVerbosity.ResumeLayout(false);
             this.alignableGroupBoxPlayerProfile.ResumeLayout(false);
+            this.alignableGroupBoxPlayerProfile.PerformLayout();
             this.alignableGroupBoxFaceLightSettings.ResumeLayout(false);
+            this.alignableGroupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -143,6 +201,10 @@
         private AlignableGroupBox alignableGroupBoxVerbosity;
         private AlignableGroupBox alignableGroupBoxPlayerProfile;
         private AlignableGroupBox alignableGroupBoxFaceLightSettings;
-
+        private AlignableGroupBox alignableGroupBox1;
+        private System.Windows.Forms.Button buttonImportINI;
+        private System.Windows.Forms.Button buttonExportXML;
+        private System.Windows.Forms.Button buttonImportXML;
+        private System.Windows.Forms.Button buttonResetDefaults;
     }
 }

@@ -30,14 +30,20 @@
         {
             this.prefsExpertmodeCheckBox = new System.Windows.Forms.CheckBox();
             this.prefsSplashscreenCheckBox = new System.Windows.Forms.CheckBox();
-            this.prefsPlayerTextBox = new StringTextBox();
+            this.prefsPlayerTextBox = new DLEDotNet.Editor.StringTextBox();
             this.prefsUsetexcolorsCheckBox = new System.Windows.Forms.CheckBox();
             this.alignableGroupBoxVerbosity = new DLEDotNet.Editor.AlignableGroupBox();
             this.alignableGroupBoxPlayerProfile = new DLEDotNet.Editor.AlignableGroupBox();
             this.alignableGroupBoxFaceLightSettings = new DLEDotNet.Editor.AlignableGroupBox();
+            this.buttonImportXML = new System.Windows.Forms.Button();
+            this.buttonExportXML = new System.Windows.Forms.Button();
+            this.buttonImportINI = new System.Windows.Forms.Button();
+            this.buttonResetDefaults = new System.Windows.Forms.Button();
+            this.alignableGroupBox1 = new DLEDotNet.Editor.AlignableGroupBox();
             this.alignableGroupBoxVerbosity.SuspendLayout();
             this.alignableGroupBoxPlayerProfile.SuspendLayout();
             this.alignableGroupBoxFaceLightSettings.SuspendLayout();
+            this.alignableGroupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -66,10 +72,11 @@
             this.prefsPlayerTextBox.Location = new System.Drawing.Point(6, 28);
             this.prefsPlayerTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.prefsPlayerTextBox.Name = "prefsPlayerTextBox";
-            this.prefsPlayerTextBox.Size = new System.Drawing.Size(94, 19);
+            this.prefsPlayerTextBox.Size = new System.Drawing.Size(94, 20);
             this.prefsPlayerTextBox.TabIndex = 0;
             this.prefsPlayerTextBox.TabStop = false;
             this.prefsPlayerTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.prefsPlayerTextBox.Value = "";
             // 
             // prefsUsetexcolorsCheckBox
             // 
@@ -118,10 +125,64 @@
             this.alignableGroupBoxFaceLightSettings.TabStop = false;
             this.alignableGroupBoxFaceLightSettings.Text = "face light settings";
             // 
+            // buttonImportXML
+            // 
+            this.buttonImportXML.Location = new System.Drawing.Point(13, 22);
+            this.buttonImportXML.Name = "buttonImportXML";
+            this.buttonImportXML.Size = new System.Drawing.Size(112, 23);
+            this.buttonImportXML.TabIndex = 3;
+            this.buttonImportXML.Text = "Import settings";
+            this.buttonImportXML.UseVisualStyleBackColor = true;
+            this.buttonImportXML.Click += new System.EventHandler(this.buttonImportXML_Click);
+            // 
+            // buttonExportXML
+            // 
+            this.buttonExportXML.Location = new System.Drawing.Point(13, 47);
+            this.buttonExportXML.Name = "buttonExportXML";
+            this.buttonExportXML.Size = new System.Drawing.Size(112, 23);
+            this.buttonExportXML.TabIndex = 4;
+            this.buttonExportXML.Text = "Export settings";
+            this.buttonExportXML.UseVisualStyleBackColor = true;
+            this.buttonExportXML.Click += new System.EventHandler(this.buttonExportXML_Click);
+            // 
+            // buttonImportINI
+            // 
+            this.buttonImportINI.Location = new System.Drawing.Point(13, 73);
+            this.buttonImportINI.Name = "buttonImportINI";
+            this.buttonImportINI.Size = new System.Drawing.Size(112, 23);
+            this.buttonImportINI.TabIndex = 5;
+            this.buttonImportINI.Text = "Import DLE.INI";
+            this.buttonImportINI.UseVisualStyleBackColor = true;
+            this.buttonImportINI.Click += new System.EventHandler(this.buttonImportINI_Click);
+            // 
+            // buttonResetDefaults
+            // 
+            this.buttonResetDefaults.Location = new System.Drawing.Point(13, 99);
+            this.buttonResetDefaults.Name = "buttonResetDefaults";
+            this.buttonResetDefaults.Size = new System.Drawing.Size(112, 23);
+            this.buttonResetDefaults.TabIndex = 6;
+            this.buttonResetDefaults.Text = "Reset defaults";
+            this.buttonResetDefaults.UseVisualStyleBackColor = true;
+            this.buttonResetDefaults.Click += new System.EventHandler(this.buttonResetDefaults_Click);
+            // 
+            // alignableGroupBox1
+            // 
+            this.alignableGroupBox1.Controls.Add(this.buttonResetDefaults);
+            this.alignableGroupBox1.Controls.Add(this.buttonImportINI);
+            this.alignableGroupBox1.Controls.Add(this.buttonExportXML);
+            this.alignableGroupBox1.Controls.Add(this.buttonImportXML);
+            this.alignableGroupBox1.Location = new System.Drawing.Point(479, 5);
+            this.alignableGroupBox1.Name = "alignableGroupBox1";
+            this.alignableGroupBox1.Size = new System.Drawing.Size(136, 137);
+            this.alignableGroupBox1.TabIndex = 4;
+            this.alignableGroupBox1.TabStop = false;
+            this.alignableGroupBox1.Text = "setting management";
+            // 
             // PreferencesMisc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.alignableGroupBox1);
             this.Controls.Add(this.alignableGroupBoxVerbosity);
             this.Controls.Add(this.alignableGroupBoxPlayerProfile);
             this.Controls.Add(this.alignableGroupBoxFaceLightSettings);
@@ -130,7 +191,9 @@
             this.Size = new System.Drawing.Size(618, 162);
             this.alignableGroupBoxVerbosity.ResumeLayout(false);
             this.alignableGroupBoxPlayerProfile.ResumeLayout(false);
+            this.alignableGroupBoxPlayerProfile.PerformLayout();
             this.alignableGroupBoxFaceLightSettings.ResumeLayout(false);
+            this.alignableGroupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
@@ -145,6 +208,10 @@
         private AlignableGroupBox alignableGroupBoxVerbosity;
         private AlignableGroupBox alignableGroupBoxPlayerProfile;
         private AlignableGroupBox alignableGroupBoxFaceLightSettings;
-
+        private System.Windows.Forms.Button buttonImportXML;
+        private System.Windows.Forms.Button buttonExportXML;
+        private System.Windows.Forms.Button buttonImportINI;
+        private System.Windows.Forms.Button buttonResetDefaults;
+        private AlignableGroupBox alignableGroupBox1;
     }
 }

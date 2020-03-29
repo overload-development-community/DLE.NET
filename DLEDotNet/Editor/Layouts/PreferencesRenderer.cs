@@ -49,14 +49,14 @@ namespace DLEDotNet.Editor.Layouts
             EditorStateBinder binder = EditorStateBinder.FromState(this.EditorState);
             prefsViewdistTrackBar.Maximum = EditorSettings.MaximumMineRenderDepth;
 
-            binder.BindRadioButton(this.prefsRenderer3RdPersonRadioButton, PROP(s => s.Prefs.Renderer), RendererMode.ThirdPerson);
-            binder.BindRadioButton(this.prefsRenderer3RdPersonRadioButton, PROP(s => s.Prefs.Renderer), RendererMode.FirstPerson);
+            binder.BindRadioButton(this.prefsRenderer3RdPersonRadioButton, PROP(s => s.Prefs.Perspective), PerspectiveMode.ThirdPerson);
+            binder.BindRadioButton(this.prefsRenderer3RdPersonRadioButton, PROP(s => s.Prefs.Perspective), PerspectiveMode.FirstPerson);
             binder.BindRadioButton(this.prefsDepthOffRadioButton, PROP(s => s.Prefs.DepthPerception), DetailLevel.None);
             binder.BindRadioButton(this.prefsDepthLowRadioButton, PROP(s => s.Prefs.DepthPerception), DetailLevel.Low);
             binder.BindRadioButton(this.prefsDepthMediumRadioButton, PROP(s => s.Prefs.DepthPerception), DetailLevel.Medium);
             binder.BindRadioButton(this.prefsDepthHighRadioButton, PROP(s => s.Prefs.DepthPerception), DetailLevel.High);
             binder.BindComboBox<MineCenterDisplayShape>(this.prefsMinecenterComboBox, PROP(s => s.Prefs.MineCenterDisplay));
-            binder.BindTrackBar(this.prefsViewdistTrackBar, PROP(s => s.Prefs.MineRenderDepth));
+            binder.BindTrackBar(this.prefsViewdistTrackBar, PROP(s => s.Prefs.ViewDepth));
         }
     }
 }
