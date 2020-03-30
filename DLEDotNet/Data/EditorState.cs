@@ -27,6 +27,7 @@ namespace DLEDotNet.Data
             FilePath = null;
             LevelFileName = null;
             Unsaved = false;
+            Unsafe = new UnsafeEditorStateMethods(this);
         }
 
         /// <summary>
@@ -47,6 +48,7 @@ namespace DLEDotNet.Data
                     _editorSettings.PropertyChanged += (object sender, PropertyChangeEventArgs e) => this.SettingChanged?.Invoke(sender, e);
             }
         }
+        private EditorSettingsSaved _editorSettings;
 
         /// <summary>
         /// The live editor settings, as they are being edited under the
@@ -57,12 +59,14 @@ namespace DLEDotNet.Data
             get => _editorSettingsCandidate;
             private set => AssignChanged(ref _editorSettingsCandidate, value);
         }
+        private EditorSettings _editorSettingsCandidate;
 
         internal EditorSettingsSaved DefaultPrefs
         {
             get => _editorSettingsDefault;
             private set => AssignChanged(ref _editorSettingsDefault, value);
         }
+        private EditorSettingsSaved _editorSettingsDefault;
 
         /// <summary>
         /// Contains various user-toggleable settings. Note that settings
@@ -74,6 +78,7 @@ namespace DLEDotNet.Data
             get => _editorToggles;
             private set => AssignChanged(ref _editorToggles, value);
         }
+        private EditorToggles _editorToggles;
 
         /// <summary>
         /// The tab index of the currently active tab of the editor tool tabs.
@@ -84,6 +89,7 @@ namespace DLEDotNet.Data
             get => _activeEditorTab;
             set => AssignChanged(ref _activeEditorTab, value);
         }
+        private int _activeEditorTab;
 
         /// <summary>
         /// The tab index of the currently active tab of the texture tool tabs.
@@ -94,6 +100,7 @@ namespace DLEDotNet.Data
             get => _activeTextureTab;
             set => AssignChanged(ref _activeTextureTab, value);
         }
+        private int _activeTextureTab;
 
         /// <summary>
         /// The tab index of the currently active tab of the object tool tabs.
@@ -104,6 +111,7 @@ namespace DLEDotNet.Data
             get => _activeObjectTab;
             set => AssignChanged(ref _activeObjectTab, value);
         }
+        private int _activeObjectTab;
 
         /// <summary>
         /// The tab index of the currently active tab of the setting tabs.
@@ -114,6 +122,7 @@ namespace DLEDotNet.Data
             get => _activeSettingsTab;
             set => AssignChanged(ref _activeSettingsTab, value);
         }
+        private int _activeSettingsTab;
 
         /// <summary>
         /// The current segment addition mode.
@@ -123,6 +132,7 @@ namespace DLEDotNet.Data
             get => _segAddMode;
             set => AssignChanged(ref _segAddMode, value);
         }
+        private SegmentAddMode _segAddMode;
 
         /// <summary>
         /// The current selection mode (points, lines, sides, segments, objects or blocks).
@@ -132,7 +142,8 @@ namespace DLEDotNet.Data
             get => _selectMode;
             set => AssignChanged(ref _selectMode, value);
         }
-        
+        private SelectMode _selectMode;
+
         /// <summary>
         /// Whether the current file is unsaved (needs saving on disk), or in the case
         /// that FilePath is null (new file), whether the user has modified the level at all.
@@ -142,6 +153,7 @@ namespace DLEDotNet.Data
             get => _unsaved;
             set => AssignChanged(ref _unsaved, value);
         }
+        private bool _unsaved;
 
         /// <summary>
         /// The currently opened file as a full path, or null if a new file.
@@ -151,6 +163,14 @@ namespace DLEDotNet.Data
             get => _filePath;
             set => AssignChanged(ref _filePath, value);
         }
+        /// <summary>
+        /// The currently opened file as a full name, or null if a new file.
+        /// </summary>
+        public string FileName
+        {
+            get => FilePath != null ? System.IO.Path.GetFileName(FilePath) : FilePath;
+        }
+        private string _filePath;
 
         /// <summary>
         /// The "inner" file name of the current level, if we have opened a HOG.
@@ -161,46 +181,50 @@ namespace DLEDotNet.Data
             get => _innerFileName;
             set => AssignChanged(ref _innerFileName, value);
         }
-
-        /// <summary>
-        /// The currently opened file as a full name, or null if a new file.
-        /// </summary>
-        public string FileName
-        {
-            get => FilePath != null ? System.IO.Path.GetFileName(FilePath) : FilePath;
-        }
-
-        private EditorSettingsSaved _editorSettings;
-        private EditorSettings _editorSettingsCandidate;
-        private EditorSettingsSaved _editorSettingsDefault;
-        private EditorToggles _editorToggles;
-        private int _activeEditorTab;
-        private int _activeTextureTab;
-        private int _activeObjectTab;
-        private int _activeSettingsTab;
-        private SegmentAddMode _segAddMode;
-        private SelectMode _selectMode;
-        private bool _unsaved;
-        private string _filePath;
         private string _innerFileName;
 
-        /// <summary>
-        /// Causes all property change events to be suppressed until the next
-        /// ResumeStateEvents call.
-        /// </summary>
-        public void PauseEditorStateEvents()
+        public LibDescent.Data.Fix FixTest
         {
-            this.PauseStateEvents();
+            get => fixTest;
+            set => AssignChanged(ref fixTest, value);
         }
+        private LibDescent.Data.Fix fixTest = 1.0/7;
 
         /// <summary>
-        /// Unpauses property change events paused by the previous call to
-        /// PauseStateEvents, and raises events for all properties that have
-        /// been changed during the time the events were paused.
+        /// Contains methods that should not be used outside EditorStateBinder.
         /// </summary>
-        public void ResumeEditorStateEvents()
+        internal UnsafeEditorStateMethods Unsafe { get; private set; } = null;
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        internal class UnsafeEditorStateMethods
         {
-            this.ResumeStateEvents();
+            private EditorState state;
+
+            internal UnsafeEditorStateMethods(EditorState state)
+            {
+                this.state = state;
+            }
+
+            /// <summary>
+            /// Causes all property change events to be suppressed until the next
+            /// ResumeStateEvents call.
+            /// </summary>
+            /// <seealso cref="DLEDotNet.Editor.EditorStateBinder.BatchChange()"/>
+            internal void PauseEditorStateEvents()
+            {
+                state.PauseStateEvents();
+            }
+
+            /// <summary>
+            /// Unpauses property change events paused by the previous call to
+            /// PauseStateEvents, and raises events for all properties that have
+            /// been changed during the time the events were paused.
+            /// </summary>
+            /// <seealso cref="DLEDotNet.Editor.EditorStateBinder.BatchChange()"/>
+            internal void ResumeEditorStateEvents()
+            {
+                state.ResumeStateEvents();
+            }
         }
     }
 }

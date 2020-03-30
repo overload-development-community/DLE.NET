@@ -118,7 +118,7 @@
             this.segmentIdComboBox.Location = new System.Drawing.Point(48, 21);
             this.segmentIdComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentIdComboBox.Name = "segmentIdComboBox";
-            this.segmentIdComboBox.Size = new System.Drawing.Size(67, 21);
+            this.segmentIdComboBox.Size = new System.Drawing.Size(68, 21);
             this.segmentIdComboBox.TabIndex = 0;
             // 
             // segmentFunctionComboBox
@@ -132,11 +132,11 @@
             // 
             // segmentLightTextBox
             // 
-            this.segmentLightTextBox.Location = new System.Drawing.Point(50, 70);
+            this.segmentLightTextBox.Location = new System.Drawing.Point(48, 70);
             this.segmentLightTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentLightTextBox.MinimumValue = 0D;
             this.segmentLightTextBox.Name = "segmentLightTextBox";
-            this.segmentLightTextBox.Size = new System.Drawing.Size(50, 20);
+            this.segmentLightTextBox.Size = new System.Drawing.Size(52, 20);
             this.segmentLightTextBox.TabIndex = 2;
             this.segmentLightTextBox.TabStop = false;
             this.segmentLightTextBox.Text = "0.00";
@@ -192,7 +192,7 @@
             // 
             this.segmentSide3RadioButton.Appearance = System.Windows.Forms.Appearance.Button;
             this.segmentSide3RadioButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.segmentSide3RadioButton.Location = new System.Drawing.Point(15, 49);
+            this.segmentSide3RadioButton.Location = new System.Drawing.Point(15, 48);
             this.segmentSide3RadioButton.Margin = new System.Windows.Forms.Padding(0);
             this.segmentSide3RadioButton.Name = "segmentSide3RadioButton";
             this.segmentSide3RadioButton.Size = new System.Drawing.Size(26, 18);
@@ -204,7 +204,7 @@
             // 
             this.segmentSide4RadioButton.Appearance = System.Windows.Forms.Appearance.Button;
             this.segmentSide4RadioButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.segmentSide4RadioButton.Location = new System.Drawing.Point(15, 65);
+            this.segmentSide4RadioButton.Location = new System.Drawing.Point(15, 64);
             this.segmentSide4RadioButton.Margin = new System.Windows.Forms.Padding(0);
             this.segmentSide4RadioButton.Name = "segmentSide4RadioButton";
             this.segmentSide4RadioButton.Size = new System.Drawing.Size(26, 18);
@@ -216,7 +216,7 @@
             // 
             this.segmentSide5RadioButton.Appearance = System.Windows.Forms.Appearance.Button;
             this.segmentSide5RadioButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.segmentSide5RadioButton.Location = new System.Drawing.Point(15, 81);
+            this.segmentSide5RadioButton.Location = new System.Drawing.Point(15, 80);
             this.segmentSide5RadioButton.Margin = new System.Windows.Forms.Padding(0);
             this.segmentSide5RadioButton.Name = "segmentSide5RadioButton";
             this.segmentSide5RadioButton.Size = new System.Drawing.Size(26, 18);
@@ -228,7 +228,7 @@
             // 
             this.segmentSide6RadioButton.Appearance = System.Windows.Forms.Appearance.Button;
             this.segmentSide6RadioButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.segmentSide6RadioButton.Location = new System.Drawing.Point(15, 98);
+            this.segmentSide6RadioButton.Location = new System.Drawing.Point(15, 96);
             this.segmentSide6RadioButton.Margin = new System.Windows.Forms.Padding(0);
             this.segmentSide6RadioButton.Name = "segmentSide6RadioButton";
             this.segmentSide6RadioButton.Size = new System.Drawing.Size(26, 18);
@@ -277,7 +277,7 @@
             // 
             this.segmentPoint4RadioButton.Appearance = System.Windows.Forms.Appearance.Button;
             this.segmentPoint4RadioButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.segmentPoint4RadioButton.Location = new System.Drawing.Point(10, 67);
+            this.segmentPoint4RadioButton.Location = new System.Drawing.Point(10, 66);
             this.segmentPoint4RadioButton.Margin = new System.Windows.Forms.Padding(0);
             this.segmentPoint4RadioButton.Name = "segmentPoint4RadioButton";
             this.segmentPoint4RadioButton.Size = new System.Drawing.Size(26, 18);
@@ -342,10 +342,10 @@
             // 
             this.segmentWaterCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.segmentWaterCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.segmentWaterCheckBox.Location = new System.Drawing.Point(30, 16);
+            this.segmentWaterCheckBox.Location = new System.Drawing.Point(30, 15);
             this.segmentWaterCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentWaterCheckBox.Name = "segmentWaterCheckBox";
-            this.segmentWaterCheckBox.Size = new System.Drawing.Size(46, 20);
+            this.segmentWaterCheckBox.Size = new System.Drawing.Size(47, 20);
             this.segmentWaterCheckBox.TabIndex = 0;
             this.segmentWaterCheckBox.Text = "water";
             this.segmentWaterCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -366,7 +366,7 @@
             // 
             this.segmentBlockedCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.segmentBlockedCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.segmentBlockedCheckBox.Location = new System.Drawing.Point(122, 13);
+            this.segmentBlockedCheckBox.Location = new System.Drawing.Point(121, 15);
             this.segmentBlockedCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentBlockedCheckBox.Name = "segmentBlockedCheckBox";
             this.segmentBlockedCheckBox.Size = new System.Drawing.Size(60, 20);
@@ -378,7 +378,7 @@
             // 
             this.segmentNodamageCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.segmentNodamageCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.segmentNodamageCheckBox.Location = new System.Drawing.Point(102, 31);
+            this.segmentNodamageCheckBox.Location = new System.Drawing.Point(102, 32);
             this.segmentNodamageCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentNodamageCheckBox.Name = "segmentNodamageCheckBox";
             this.segmentNodamageCheckBox.Size = new System.Drawing.Size(79, 20);
@@ -402,10 +402,10 @@
             // 
             this.segmentEndofexitCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.segmentEndofexitCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.segmentEndofexitCheckBox.Location = new System.Drawing.Point(76, 67);
+            this.segmentEndofexitCheckBox.Location = new System.Drawing.Point(76, 66);
             this.segmentEndofexitCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentEndofexitCheckBox.Name = "segmentEndofexitCheckBox";
-            this.segmentEndofexitCheckBox.Size = new System.Drawing.Size(105, 18);
+            this.segmentEndofexitCheckBox.Size = new System.Drawing.Size(105, 20);
             this.segmentEndofexitCheckBox.TabIndex = 5;
             this.segmentEndofexitCheckBox.Text = "end of exit tunnel";
             this.segmentEndofexitCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -449,7 +449,7 @@
             // segmentDelbotButton
             // 
             this.segmentDelbotButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.segmentDelbotButton.Location = new System.Drawing.Point(6, 127);
+            this.segmentDelbotButton.Location = new System.Drawing.Point(5, 127);
             this.segmentDelbotButton.Margin = new System.Windows.Forms.Padding(0);
             this.segmentDelbotButton.Name = "segmentDelbotButton";
             this.segmentDelbotButton.Size = new System.Drawing.Size(128, 18);
@@ -604,7 +604,7 @@
             // 
             // segmentAvailbotsListBox
             // 
-            this.segmentAvailbotsListBox.Location = new System.Drawing.Point(138, 28);
+            this.segmentAvailbotsListBox.Location = new System.Drawing.Point(139, 28);
             this.segmentAvailbotsListBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentAvailbotsListBox.Name = "segmentAvailbotsListBox";
             this.segmentAvailbotsListBox.Size = new System.Drawing.Size(126, 95);
@@ -657,7 +657,7 @@
             // labelAvailableBots
             // 
             this.labelAvailableBots.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelAvailableBots.Location = new System.Drawing.Point(141, 15);
+            this.labelAvailableBots.Location = new System.Drawing.Point(142, 15);
             this.labelAvailableBots.Margin = new System.Windows.Forms.Padding(0);
             this.labelAvailableBots.Name = "labelAvailableBots";
             this.labelAvailableBots.Size = new System.Drawing.Size(123, 15);
@@ -873,7 +873,7 @@
             // 
             this.segmentDenseFogCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.segmentDenseFogCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.segmentDenseFogCheckBox.Location = new System.Drawing.Point(3, 65);
+            this.segmentDenseFogCheckBox.Location = new System.Drawing.Point(3, 66);
             this.segmentDenseFogCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentDenseFogCheckBox.Name = "segmentDenseFogCheckBox";
             this.segmentDenseFogCheckBox.Size = new System.Drawing.Size(74, 20);
@@ -888,7 +888,7 @@
             this.segmentLightFogCheckBox.Location = new System.Drawing.Point(12, 49);
             this.segmentLightFogCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentLightFogCheckBox.Name = "segmentLightFogCheckBox";
-            this.segmentLightFogCheckBox.Size = new System.Drawing.Size(64, 20);
+            this.segmentLightFogCheckBox.Size = new System.Drawing.Size(65, 20);
             this.segmentLightFogCheckBox.TabIndex = 6;
             this.segmentLightFogCheckBox.Text = "light fog";
             this.segmentLightFogCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;

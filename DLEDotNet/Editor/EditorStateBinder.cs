@@ -16,20 +16,9 @@ using System.Windows.Forms;
 
 namespace DLEDotNet.Editor
 {
-    using PropGetter = Func<dynamic>;
-    using PropSetter = Action<dynamic>;
-
-    internal delegate object GetPropertyValueUncachedDelegate(object root, string property);
-
-    public class EditorStateBinder
+    public sealed class EditorStateBinder
     {
         #region --- static
-
-#if DEBUG
-        private const bool DebugMode = true;
-#else
-        private const bool DebugMode = false;
-#endif
 
         private static object _binderInitializeLock = new object();
         private static Dictionary<EditorState, EditorStateBinder> _binderCache = new Dictionary<EditorState, EditorStateBinder>();
@@ -47,10 +36,11 @@ namespace DLEDotNet.Editor
                 return newBinder;
             }
         }
-
         private static T CastTo<T>(dynamic o) => (T)o;
         private static T UncheckedCastTo<T>(dynamic o) => unchecked((T)o);
 
+        // return true if cast successful with casted being the casted object
+        // return false if cast unsuccessful, casted = null or an exception if a debug build
         private static bool DynamicCast(Type type, dynamic toCast, out dynamic casted, bool isUnchecked = false)
         {
             if (typeof(IConvertible).IsAssignableFrom(type) && typeof(IConvertible).IsAssignableFrom(toCast.GetType()))
@@ -73,41 +63,33 @@ namespace DLEDotNet.Editor
             }
             catch (TargetInvocationException tie)
             {
+#if !DEBUG
                 if (tie.InnerException is InvalidCastException)
                 {
                     casted = null;
                     return false;
                 }
-                throw;
+#endif
+                throw tie;
             }
         }
 
-        private static dynamic ForceUncheckedDynamicCast(Type type, dynamic toCast)
+        private static dynamic DynamicCast(Type type, dynamic toCast, bool isUnchecked)
         {
-            if (!DynamicCast(type, toCast, out dynamic result, true))
+            if (!DynamicCast(type, toCast, out object result, isUnchecked))
                 throw new InvalidCastException();
             return result;
         }
 
-        private static bool MaybeDoExplicitCast(dynamic value, out dynamic destinationValue, bool allowExplicitCast, Type destType)
-        {
-            if (allowExplicitCast)
-            {
-                return DynamicCast(destType, value, out destinationValue);
-            }
-            else
-            {
-                destinationValue = value;
-                return true;
-            }
-        }
+        private static dynamic DynamicCast(Type type, dynamic toCast) => DynamicCast(type, toCast, false);
+
 
         #endregion
 
         #region --- implementation
 
         private readonly EditorState state;
-        private readonly PropertyNameTree tree;
+        private readonly RootStateEventListener rsel;
         private readonly Dictionary<Component, ControlBind> controlBinds;
         private readonly EditorWindow window;
         private object binderLock = new object();
@@ -120,22 +102,16 @@ namespace DLEDotNet.Editor
                 throw new ArgumentException("The EditorState that an EditorStateBinder is attached to must be an EditorWindow.");
             }
 
-            this.tree = new PropertyNameTree();
+            this.rsel = new RootStateEventListener(this.state);
             this.controlBinds = new Dictionary<Component, ControlBind>();
             this.window = (EditorWindow)state.Owner;
 
-            state.PropertyChanged += State_PropertyChanged;
             state.BeforePropertyChanged += State_BeforePropertyChanged;
         }
 
         private void State_BeforePropertyChanged(object sender, BeforePropertyChangeEventArgs e)
         {
             ValidateActiveControl(e.PropertyName);
-        }
-
-        private void State_PropertyChanged(object sender, PropertyChangeEventArgs e)
-        {
-            tree.Call(e, GetPropertyValueUncached);
         }
 
         private void ValidateActiveControl()
@@ -160,170 +136,60 @@ namespace DLEDotNet.Editor
             }
         }
 
-        private static PropGetter MakeGetterGeneric<T, R>(MethodInfo getter, T parent) where T : class
+        private dynamic Unbox(object boxed)
         {
-            Func<T, R> typedGetter = (Func<T, R>)getter.CreateDelegate(typeof(Func<T, R>));
-            return () => typedGetter(parent);
+            if (boxed == null)
+                return null;
+            return DynamicCast(boxed.GetType(), boxed);
         }
 
-        private static PropSetter MakeSetterGeneric<T, V>(MethodInfo setter, T parent) where T : class
+        #region --- RootStateEventListener wrappers & debounced methods
+
+        private bool SetPropertyValue(string property, dynamic value, bool allowExplicitCast = false, bool allowUncheckedCast = false)
         {
-            Action<T, V> typedSetter = (Action<T, V>)setter.CreateDelegate(typeof(Action<T, V>));
-            return (dynamic v) => typedSetter(parent, (V)v);
-        }
-
-        private static PropGetter MakeGetter(object parent, PropertyInfo prop)
-        {
-            MethodInfo getterMethod = prop.GetGetMethod();
-            if (getterMethod == null)
-                return () => throw new InvalidOperationException("The property " + prop.Name + " has no public getter");
-
-            MethodInfo genericHelper = typeof(EditorStateBinder).GetMethod(nameof(MakeGetterGeneric), BindingFlags.Static | BindingFlags.NonPublic);
-            MethodInfo genericizedHelper = genericHelper.MakeGenericMethod(parent.GetType(), prop.PropertyType);
-            return (PropGetter)genericizedHelper.Invoke(null, new object[] { getterMethod, parent });
-        }
-
-        private static PropSetter MakeSetter(object parent, PropertyInfo prop)
-        {
-            MethodInfo setterMethod = prop.GetSetMethod();
-            if (setterMethod == null)
-                return (dynamic v) => throw new InvalidOperationException("The property " + prop.Name + " has no public setter");
-
-            MethodInfo genericHelper = typeof(EditorStateBinder).GetMethod(nameof(MakeSetterGeneric), BindingFlags.Static | BindingFlags.NonPublic);
-            MethodInfo genericizedHelper = genericHelper.MakeGenericMethod(parent.GetType(), prop.PropertyType);
-            return (PropSetter)genericizedHelper.Invoke(null, new object[] { setterMethod, parent });
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private PropertyCacheEntry ResolvePropertyUncached(dynamic root, string property)
-        {
-            object self = root;
-            PropertyInfo tmp = null;
-            PropertyCacheEntry pce = new PropertyCacheEntry();
-
-            foreach (string tok in property.Split('.'))
-            {
-                if (tok == "") continue;
-                if (tmp != null) self = tmp.GetValue(self);
-                if (self == null) break;
-                tmp = self.GetType().GetProperty(tok);
-                if (tmp == null) break;
-            }
-
-            if (self != null && tmp != null)
-                pce = new PropertyCacheEntry(tmp.PropertyType, MakeGetter(self, tmp), MakeSetter(self, tmp));
-
-            lock (binderLock)
-                if (Object.Equals(root, state))
-                    tree.Cache(property, pce);
-            return pce;
-        }
-
-        private PropertyCacheEntry ResolveProperty(dynamic root, string property)
-        {
-            if (Object.Equals(root, state))
-            {
-                // maybe lookup cache
-                lock (binderLock)
-                {
-                    if (tree.GetCachedEntry(property, out PropertyCacheEntry entry))
-                    {
-                        return entry;
-                    }
-                }
-            }
-            return ResolvePropertyUncached(root, property);
-        }
-
-        private dynamic GetPropertyValueUncached(dynamic root, string property)
-        {
-            PropertyCacheEntry pce = ResolvePropertyUncached(root, property);
-            return pce.Getter();
-        }
-
-        public dynamic GetPropertyValue(dynamic root, string property)
-        {
-            PropertyCacheEntry pce = ResolveProperty(root, property);
-            return pce.Getter();
-        }
-
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private bool SetPropertyValue_i(string property, dynamic value, bool allowExplicitCast)
-        {
-            PropertyCacheEntry pce = ResolveProperty(state, property);
-            if (pce.PropertyType == null)
-                return false;
-            if (!MaybeDoExplicitCast(value, out dynamic assignValue, allowExplicitCast, pce.PropertyType))
-                return false;
-            try
-            {
-                pce.Setter(assignValue);
-                return true;
-            }
-            catch (ArgumentException)
-            {
-                return false;
-            }
-        }
-
-        public bool SetPropertyValue(string property, dynamic value)
-        {
-            return SetPropertyValue(property, value, false);
-        }
-
-        private bool SetPropertyValue(string property, dynamic value, bool allowExplicitCast)
-        {
-            bool success = SetPropertyValue_i(property, value, allowExplicitCast);
-            if (!success)
-            {
-                if (DebugMode) System.Diagnostics.Debug.WriteLine(new UnableToSetPropertyWarningException(property, value));
-            }
-            return success;
+            if (allowExplicitCast)
+                return DynamicCast(rsel.GetPropertyType(property), value, out dynamic assignValue, allowUncheckedCast)
+                    && rsel.SetPropertyValue(property, assignValue);
+            else
+                return rsel.SetPropertyValue(property, value);
         }
 
         private bool ApplyToPropertyValue(string property, Func<dynamic, dynamic> func)
         {
-            return SetPropertyValue(property, func(GetPropertyValue(state, property)));
+            return rsel.ApplyToPropertyValue(property, func);
         }
-
-        #region --- debounced functions (call above if debounce = false, else return true immediately)
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private bool SetPropertyValueDebounced(bool debounce, string property, dynamic value)
         {
-            return debounce || SetPropertyValue(property, value, false);
+            return debounce || SetPropertyValue(property, value);
         }
-
+        
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private bool SetPropertyValueDebounced(bool debounce, string property, dynamic value, bool allowExplicitCast)
         {
-            bool success = debounce || SetPropertyValue_i(property, value, allowExplicitCast);
-            if (!success)
-            {
-                if (DebugMode) System.Diagnostics.Debug.WriteLine(new UnableToSetPropertyWarningException(property, value));
-            }
-            return success;
+            return debounce || SetPropertyValue(property, value, allowExplicitCast);
         }
-
+        
         private bool ApplyToPropertyValueDebounced(bool debounce, string property, Func<dynamic, dynamic> func)
         {
-            return debounce || SetPropertyValue(property, func(GetPropertyValue(state, property)));
+            return debounce || ApplyToPropertyValue(property, func(rsel.GetPropertyValue(property)));
         }
 
         private void Debounce(ref bool debounce, Action impl)
         {
             debounce = true;
-            impl();
-            debounce = false;
+            try
+            {
+                impl();
+            }
+            finally
+            {
+                debounce = false;
+            }
         }
 
         #endregion
-
-        private void AddToTreeAndCall(string property, PropertyChangeEventHandler handler)
-        {
-            tree.Add(property, handler);
-            handler(this, new PropertyChangeEventArgs(property, GetPropertyValueUncached(state, property)));
-        }
 
         private void BindControl(Component control, string bindPropertyName, string handlerPropertyName, PropertyChangeEventHandler handler)
         {
@@ -335,7 +201,7 @@ namespace DLEDotNet.Editor
                     throw new ArgumentException("Control is already bound to a property.");
                 }
                 controlBinds[control] = new ControlBind(bindPropertyName, handler);
-                AddToTreeAndCall(handlerPropertyName, handler);
+                rsel.RegisterAndCall(handlerPropertyName, handler);
             }
         }
 
@@ -343,7 +209,7 @@ namespace DLEDotNet.Editor
 
         private void RefreshBind(ControlBind bind)
         {
-            bind.Handler(this, new PropertyChangeEventArgs(bind.Property, GetPropertyValue(this.state, bind.Property)));
+            bind.Handler(this, new PropertyChangeEventArgs(bind.Property, rsel.GetPropertyValue(bind.Property)));
         }
 
         #endregion
@@ -390,7 +256,7 @@ namespace DLEDotNet.Editor
             if (!controlBinds.ContainsKey(control))
                 throw new ArgumentException("Control '" + control.Name + "' has not been bound to a property.");
             ControlBind thisBind = controlBinds[control];
-            tree.Add(property, (object sender, PropertyChangeEventArgs e) =>
+            rsel.Register(property, (object sender, PropertyChangeEventArgs e) =>
             {
                 if (e.PropertyName == property)
                 {
@@ -435,7 +301,7 @@ namespace DLEDotNet.Editor
                     if (e.PropertyName == property)
                     {
                         if (textBox.Enabled = e.NewValue != null)
-                            textBox.Value = Convert.ToInt32(e.NewValue);
+                            textBox.Value = (int)Unbox(e.NewValue);
                         else
                             textBox.Text = "";
                     }
@@ -459,7 +325,7 @@ namespace DLEDotNet.Editor
                     if (e.PropertyName == property)
                     {
                         if (textBox.Enabled = e.NewValue != null)
-                            textBox.Value = (double)(e.NewValue);
+                            textBox.Value = (double)Unbox(e.NewValue);
                         else
                             textBox.Text = "";
                     }
@@ -756,10 +622,10 @@ namespace DLEDotNet.Editor
         {
             BindControl(tabControl, property, (object sender, PropertyChangeEventArgs e) => {
                 if (e.PropertyName == property)
-                    tabControl.SelectedIndex = MathUtil.Clamp((Int32)e.NewValue, -1, tabControl.TabCount - 1);
+                    tabControl.SelectedIndex = MathUtil.Clamp(Convert.ToInt32((object)e.NewValue), -1, tabControl.TabCount - 1);
             });
             tabControl.SelectedIndexChanged += (object sender, EventArgs e) =>
-                SetPropertyValue(property, tabControl.SelectedIndex);
+                SetPropertyValue(property, Convert.ChangeType(tabControl.SelectedIndex, rsel.GetPropertyType(property)));
         }
 
         /// <summary>
@@ -773,49 +639,15 @@ namespace DLEDotNet.Editor
             lock (binderLock)
             {
                 ValidateActiveControl();
-                state.PauseEditorStateEvents();
+                state.Unsafe.PauseEditorStateEvents();
                 Commit();
-                state.ResumeEditorStateEvents();
+                state.Unsafe.ResumeEditorStateEvents();
             }
-        }
-        #endregion
-
-        #region --- unused
-        /* Unused for now.
-        private Type GetPropertyType(string property)
-        {
-            object self = state;
-            PropertyInfo tmp = null;
-            foreach (string tok in property.Split('.'))
-            {
-                tmp = tmp.PropertyType.GetType().GetProperty(tok);
-                if (tmp == null) return null;
-                self = tmp.GetValue(self);
-            }
-            return tmp?.PropertyType;
-        }*/
-
-        private EditorStateBinder() : this(null)
-        {
         }
         #endregion
     }
 
     #region --- utility and exception classes
-
-    internal struct PropertyCacheEntry
-    {
-        internal Type PropertyType { get; }
-        internal PropGetter Getter { get; }
-        internal PropSetter Setter { get; }
-
-        internal PropertyCacheEntry(Type type, PropGetter getter, PropSetter setter)
-        {
-            PropertyType = type;
-            Getter = getter;
-            Setter = setter;
-        }
-    }
 
     internal struct ControlBind
     {
@@ -826,18 +658,6 @@ namespace DLEDotNet.Editor
         {
             Property = property;
             Handler = handler;
-        }
-    }
-
-    [Serializable]
-    public class UnableToSetPropertyWarningException : System.ComponentModel.WarningException
-    {
-        public UnableToSetPropertyWarningException() : base("Unable to assign new value to property.")
-        {
-        }
-
-        public UnableToSetPropertyWarningException(string property, object value) : base("Unable to assign new value (" + (value?.ToString() ?? "null") + ") to property '" + property + "'.")
-        {
         }
     }
 

@@ -23,11 +23,6 @@ namespace DLEDotNet.Editor
 {
     public partial class EditorWindow : Form
     {
-        /**
-         *  TODO:
-         *    - split EditorStateBinder
-         * 
-         */
         private LayoutOrientation _activeLayout;
         private MainView _activeMainView = null;
         private MineView mineView;
