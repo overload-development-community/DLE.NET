@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.triggerStandardRadioButton = new System.Windows.Forms.RadioButton();
             this.triggerObjectRadioButton = new System.Windows.Forms.RadioButton();
             this.triggerTriggernoComboBox = new System.Windows.Forms.ComboBox();
@@ -90,6 +91,7 @@
             this.alignableGroupBoxAddTrigger = new DLEDotNet.Editor.AlignableGroupBox();
             this.alignableGroupBoxD2Properties = new DLEDotNet.Editor.AlignableGroupBox();
             this.alignableGroupBoxD2XHyphXlProps = new DLEDotNet.Editor.AlignableGroupBox();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.triggerSliderTrackBar)).BeginInit();
             this.alignableGroupBoxDescent1Types.SuspendLayout();
             this.alignableGroupBoxDescent2Types.SuspendLayout();
@@ -114,6 +116,7 @@
             this.triggerStandardRadioButton.TabIndex = 0;
             this.triggerStandardRadioButton.TabStop = true;
             this.triggerStandardRadioButton.Text = "standard trigger";
+            this.helpToolTip.SetToolTip(this.triggerStandardRadioButton, "standard trigger connected to a wall");
             // 
             // triggerObjectRadioButton
             // 
@@ -124,6 +127,7 @@
             this.triggerObjectRadioButton.Size = new System.Drawing.Size(98, 18);
             this.triggerObjectRadioButton.TabIndex = 1;
             this.triggerObjectRadioButton.Text = "object trigger";
+            this.helpToolTip.SetToolTip(this.triggerObjectRadioButton, "trigger tied to an object (XL only)");
             // 
             // triggerTriggernoComboBox
             // 
@@ -145,6 +149,7 @@
             this.triggerStrengthTextBox.TabStop = false;
             this.triggerStrengthTextBox.Text = "0";
             this.triggerStrengthTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.helpToolTip.SetToolTip(this.triggerStrengthTextBox, "trigger effect strength (D1 or XL only)");
             // 
             // triggerTimeTextBox
             // 
@@ -157,6 +162,7 @@
             this.triggerTimeTextBox.TabStop = false;
             this.triggerTimeTextBox.Text = "0";
             this.triggerTimeTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.helpToolTip.SetToolTip(this.triggerTimeTextBox, "trigger activation time (XL only)");
             // 
             // triggerD2TypeComboBox
             // 
@@ -181,6 +187,7 @@
             this.triggerSliderTrackBar.SmallChange = 10;
             this.triggerSliderTrackBar.TabIndex = 1;
             this.triggerSliderTrackBar.TickFrequency = 10;
+            this.helpToolTip.SetToolTip(this.triggerSliderTrackBar, "speed boost power (XL only)");
             this.triggerSliderTrackBar.Value = 10;
             // 
             // triggerTexture1ComboBox
@@ -204,32 +211,35 @@
             // triggerControldoorsCheckBox
             // 
             this.triggerControldoorsCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.triggerControldoorsCheckBox.Location = new System.Drawing.Point(6, 15);
+            this.triggerControldoorsCheckBox.Location = new System.Drawing.Point(6, 18);
             this.triggerControldoorsCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerControldoorsCheckBox.Name = "triggerControldoorsCheckBox";
-            this.triggerControldoorsCheckBox.Size = new System.Drawing.Size(87, 18);
+            this.triggerControldoorsCheckBox.Size = new System.Drawing.Size(80, 15);
             this.triggerControldoorsCheckBox.TabIndex = 0;
             this.triggerControldoorsCheckBox.Text = "control doors";
+            this.helpToolTip.SetToolTip(this.triggerControldoorsCheckBox, "opens doors, including locked doors");
             // 
             // triggerShielddrainCheckBox
             // 
             this.triggerShielddrainCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.triggerShielddrainCheckBox.Location = new System.Drawing.Point(6, 29);
+            this.triggerShielddrainCheckBox.Location = new System.Drawing.Point(6, 32);
             this.triggerShielddrainCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerShielddrainCheckBox.Name = "triggerShielddrainCheckBox";
-            this.triggerShielddrainCheckBox.Size = new System.Drawing.Size(78, 18);
+            this.triggerShielddrainCheckBox.Size = new System.Drawing.Size(80, 15);
             this.triggerShielddrainCheckBox.TabIndex = 1;
             this.triggerShielddrainCheckBox.Text = "shield drain";
+            this.helpToolTip.SetToolTip(this.triggerShielddrainCheckBox, "remove shields from the player");
             // 
             // triggerEnergydrainCheckBox
             // 
             this.triggerEnergydrainCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.triggerEnergydrainCheckBox.Location = new System.Drawing.Point(6, 46);
+            this.triggerEnergydrainCheckBox.Location = new System.Drawing.Point(6, 47);
             this.triggerEnergydrainCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerEnergydrainCheckBox.Name = "triggerEnergydrainCheckBox";
-            this.triggerEnergydrainCheckBox.Size = new System.Drawing.Size(84, 18);
+            this.triggerEnergydrainCheckBox.Size = new System.Drawing.Size(80, 15);
             this.triggerEnergydrainCheckBox.TabIndex = 2;
             this.triggerEnergydrainCheckBox.Text = "energy drain";
+            this.helpToolTip.SetToolTip(this.triggerEnergydrainCheckBox, "remove energy from the player");
             // 
             // triggerEndlevelCheckBox
             // 
@@ -237,9 +247,10 @@
             this.triggerEndlevelCheckBox.Location = new System.Drawing.Point(6, 62);
             this.triggerEndlevelCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerEndlevelCheckBox.Name = "triggerEndlevelCheckBox";
-            this.triggerEndlevelCheckBox.Size = new System.Drawing.Size(42, 18);
+            this.triggerEndlevelCheckBox.Size = new System.Drawing.Size(80, 15);
             this.triggerEndlevelCheckBox.TabIndex = 3;
             this.triggerEndlevelCheckBox.Text = "exit";
+            this.helpToolTip.SetToolTip(this.triggerEndlevelCheckBox, "end the current level");
             // 
             // triggerSecretexitCheckBox
             // 
@@ -250,6 +261,7 @@
             this.triggerSecretexitCheckBox.Size = new System.Drawing.Size(80, 15);
             this.triggerSecretexitCheckBox.TabIndex = 4;
             this.triggerSecretexitCheckBox.Text = "secret exit";
+            this.helpToolTip.SetToolTip(this.triggerSecretexitCheckBox, "end the current level and proceed to secret level");
             // 
             // triggerActiveCheckBox
             // 
@@ -257,9 +269,10 @@
             this.triggerActiveCheckBox.Location = new System.Drawing.Point(6, 91);
             this.triggerActiveCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerActiveCheckBox.Name = "triggerActiveCheckBox";
-            this.triggerActiveCheckBox.Size = new System.Drawing.Size(54, 18);
+            this.triggerActiveCheckBox.Size = new System.Drawing.Size(80, 15);
             this.triggerActiveCheckBox.TabIndex = 5;
             this.triggerActiveCheckBox.Text = "active";
+            this.helpToolTip.SetToolTip(this.triggerActiveCheckBox, "whether the trigger is active (unused)");
             // 
             // triggerOneshotd1CheckBox
             // 
@@ -267,9 +280,10 @@
             this.triggerOneshotd1CheckBox.Location = new System.Drawing.Point(96, 18);
             this.triggerOneshotd1CheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerOneshotd1CheckBox.Name = "triggerOneshotd1CheckBox";
-            this.triggerOneshotd1CheckBox.Size = new System.Drawing.Size(68, 15);
+            this.triggerOneshotd1CheckBox.Size = new System.Drawing.Size(80, 15);
             this.triggerOneshotd1CheckBox.TabIndex = 6;
             this.triggerOneshotd1CheckBox.Text = "one shot";
+            this.helpToolTip.SetToolTip(this.triggerOneshotd1CheckBox, "whether the trigger can only be activated once (XL only)");
             // 
             // triggerRobotmakerCheckBox
             // 
@@ -280,6 +294,7 @@
             this.triggerRobotmakerCheckBox.Size = new System.Drawing.Size(80, 15);
             this.triggerRobotmakerCheckBox.TabIndex = 7;
             this.triggerRobotmakerCheckBox.Text = "robot maker";
+            this.helpToolTip.SetToolTip(this.triggerRobotmakerCheckBox, "activate a robot maker and cause it to spawn robots");
             // 
             // triggerIllusionoffCheckBox
             // 
@@ -290,6 +305,7 @@
             this.triggerIllusionoffCheckBox.Size = new System.Drawing.Size(80, 15);
             this.triggerIllusionoffCheckBox.TabIndex = 8;
             this.triggerIllusionoffCheckBox.Text = "illusion off";
+            this.helpToolTip.SetToolTip(this.triggerIllusionoffCheckBox, "disable illusion (XL only)");
             // 
             // triggerIllusiononCheckBox
             // 
@@ -300,6 +316,7 @@
             this.triggerIllusiononCheckBox.Size = new System.Drawing.Size(80, 15);
             this.triggerIllusiononCheckBox.TabIndex = 9;
             this.triggerIllusiononCheckBox.Text = "illusion on";
+            this.helpToolTip.SetToolTip(this.triggerIllusiononCheckBox, "enable illusion (XL only)");
             // 
             // triggerOpenwallCheckBox
             // 
@@ -310,6 +327,7 @@
             this.triggerOpenwallCheckBox.Size = new System.Drawing.Size(80, 15);
             this.triggerOpenwallCheckBox.TabIndex = 10;
             this.triggerOpenwallCheckBox.Text = "open wall";
+            this.helpToolTip.SetToolTip(this.triggerOpenwallCheckBox, "XL only");
             // 
             // triggerClosewallCheckBox
             // 
@@ -320,6 +338,7 @@
             this.triggerClosewallCheckBox.Size = new System.Drawing.Size(80, 15);
             this.triggerClosewallCheckBox.TabIndex = 11;
             this.triggerClosewallCheckBox.Text = "close wall";
+            this.helpToolTip.SetToolTip(this.triggerClosewallCheckBox, "XL only");
             // 
             // triggerNomessageCheckBox
             // 
@@ -330,6 +349,7 @@
             this.triggerNomessageCheckBox.Size = new System.Drawing.Size(80, 18);
             this.triggerNomessageCheckBox.TabIndex = 0;
             this.triggerNomessageCheckBox.Text = "no message";
+            this.helpToolTip.SetToolTip(this.triggerNomessageCheckBox, "disable the trigger effect message that appears if attached to an overlay wall");
             // 
             // triggerOneshotCheckBox
             // 
@@ -340,47 +360,54 @@
             this.triggerOneshotCheckBox.Size = new System.Drawing.Size(66, 18);
             this.triggerOneshotCheckBox.TabIndex = 1;
             this.triggerOneshotCheckBox.Text = "one shot";
+            this.helpToolTip.SetToolTip(this.triggerOneshotCheckBox, "make the trigger disable itself after it has been activated once");
             // 
             // triggerPermanentCheckBox
             // 
             this.triggerPermanentCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.triggerPermanentCheckBox.Location = new System.Drawing.Point(4, 18);
+            this.triggerPermanentCheckBox.Location = new System.Drawing.Point(4, 14);
             this.triggerPermanentCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerPermanentCheckBox.Name = "triggerPermanentCheckBox";
             this.triggerPermanentCheckBox.Size = new System.Drawing.Size(75, 18);
             this.triggerPermanentCheckBox.TabIndex = 0;
             this.triggerPermanentCheckBox.Text = "permanent";
+            this.helpToolTip.SetToolTip(this.triggerPermanentCheckBox, "make the trigger permanent; if connected to an overlay wall, the monitor/switch w" +
+        "ill not be destroyed on hit");
             // 
             // triggerAlternateCheckBox
             // 
             this.triggerAlternateCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.triggerAlternateCheckBox.Location = new System.Drawing.Point(4, 31);
+            this.triggerAlternateCheckBox.Location = new System.Drawing.Point(4, 28);
             this.triggerAlternateCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerAlternateCheckBox.Name = "triggerAlternateCheckBox";
             this.triggerAlternateCheckBox.Size = new System.Drawing.Size(75, 18);
             this.triggerAlternateCheckBox.TabIndex = 1;
             this.triggerAlternateCheckBox.Text = "alternating";
+            this.helpToolTip.SetToolTip(this.triggerAlternateCheckBox, "convert the trigger to perform the inverse action every time after it has been tr" +
+        "iggered");
             // 
             // triggerSetOrientCheckBox
             // 
             this.triggerSetOrientCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.triggerSetOrientCheckBox.Location = new System.Drawing.Point(4, 44);
+            this.triggerSetOrientCheckBox.Location = new System.Drawing.Point(4, 42);
             this.triggerSetOrientCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerSetOrientCheckBox.Name = "triggerSetOrientCheckBox";
             this.triggerSetOrientCheckBox.Size = new System.Drawing.Size(69, 18);
             this.triggerSetOrientCheckBox.TabIndex = 2;
             this.triggerSetOrientCheckBox.Text = "set orient";
+            this.helpToolTip.SetToolTip(this.triggerSetOrientCheckBox, "set the player orientation on trigger");
             // 
             // triggerAutoplayCheckBox
             // 
             this.triggerAutoplayCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.triggerAutoplayCheckBox.Location = new System.Drawing.Point(4, 57);
+            this.triggerAutoplayCheckBox.Location = new System.Drawing.Point(4, 56);
             this.triggerAutoplayCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerAutoplayCheckBox.Name = "triggerAutoplayCheckBox";
             this.triggerAutoplayCheckBox.Size = new System.Drawing.Size(66, 18);
             this.triggerAutoplayCheckBox.TabIndex = 3;
             this.triggerAutoplayCheckBox.TabStop = false;
             this.triggerAutoplayCheckBox.Text = "autoplay";
+            this.helpToolTip.SetToolTip(this.triggerAutoplayCheckBox, "automatically trigger on level load");
             // 
             // triggerSilentCheckBox
             // 
@@ -392,10 +419,11 @@
             this.triggerSilentCheckBox.TabIndex = 4;
             this.triggerSilentCheckBox.TabStop = false;
             this.triggerSilentCheckBox.Text = "no sound";
+            this.helpToolTip.SetToolTip(this.triggerSilentCheckBox, "disable the sound normally played with some effects");
             // 
             // triggerTargetTextBox
             // 
-            this.triggerTargetTextBox.Location = new System.Drawing.Point(12, 29);
+            this.triggerTargetTextBox.Location = new System.Drawing.Point(13, 29);
             this.triggerTargetTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerTargetTextBox.MaxSegmentCount = 0;
             this.triggerTargetTextBox.Name = "triggerTargetTextBox";
@@ -433,6 +461,7 @@
             this.triggerAddwalltgtButton.Size = new System.Drawing.Size(74, 18);
             this.triggerAddwalltgtButton.TabIndex = 3;
             this.triggerAddwalltgtButton.Text = "add wall";
+            this.helpToolTip.SetToolTip(this.triggerAddwalltgtButton, "add the selected side of the other segment");
             // 
             // triggerAddobjtgtButton
             // 
@@ -443,6 +472,7 @@
             this.triggerAddobjtgtButton.Size = new System.Drawing.Size(74, 18);
             this.triggerAddobjtgtButton.TabIndex = 4;
             this.triggerAddobjtgtButton.Text = "add object";
+            this.helpToolTip.SetToolTip(this.triggerAddobjtgtButton, "add the currently selected object (XL only)");
             // 
             // triggerTargetlistListBox
             // 
@@ -521,6 +551,7 @@
             this.triggerAddOpendoorButton.Size = new System.Drawing.Size(78, 21);
             this.triggerAddOpendoorButton.TabIndex = 0;
             this.triggerAddOpendoorButton.Text = "&open door";
+            this.helpToolTip.SetToolTip(this.triggerAddOpendoorButton, "standard open door trigger");
             // 
             // triggerAddRobotmakerButton
             // 
@@ -531,6 +562,7 @@
             this.triggerAddRobotmakerButton.Size = new System.Drawing.Size(78, 21);
             this.triggerAddRobotmakerButton.TabIndex = 1;
             this.triggerAddRobotmakerButton.Text = "&robot maker";
+            this.helpToolTip.SetToolTip(this.triggerAddRobotmakerButton, "robot maker activation trigger");
             // 
             // triggerAddShielddrainButton
             // 
@@ -541,6 +573,7 @@
             this.triggerAddShielddrainButton.Size = new System.Drawing.Size(78, 21);
             this.triggerAddShielddrainButton.TabIndex = 2;
             this.triggerAddShielddrainButton.Text = "&shield drain";
+            this.helpToolTip.SetToolTip(this.triggerAddShielddrainButton, "shield drain trigger (D1 or XL only)");
             // 
             // triggerAddEnergydrainButton
             // 
@@ -551,6 +584,7 @@
             this.triggerAddEnergydrainButton.Size = new System.Drawing.Size(78, 21);
             this.triggerAddEnergydrainButton.TabIndex = 3;
             this.triggerAddEnergydrainButton.Text = "&energy drain";
+            this.helpToolTip.SetToolTip(this.triggerAddEnergydrainButton, "energy drain trigger (D1 or XL only)");
             // 
             // triggerAddControlpanelButton
             // 
@@ -561,6 +595,7 @@
             this.triggerAddControlpanelButton.Size = new System.Drawing.Size(78, 21);
             this.triggerAddControlpanelButton.TabIndex = 4;
             this.triggerAddControlpanelButton.Text = "con&trol panel";
+            this.helpToolTip.SetToolTip(this.triggerAddControlpanelButton, "control panel that activates a trigger when destroyed (D2 or XL only)");
             // 
             // triggerStrengthTextLabel
             // 
@@ -791,11 +826,11 @@
             // alignableGroupBoxD2XHyphXlProps
             // 
             this.alignableGroupBoxD2XHyphXlProps.Alignment = System.Windows.Forms.HorizontalAlignment.Right;
-            this.alignableGroupBoxD2XHyphXlProps.Controls.Add(this.triggerPermanentCheckBox);
-            this.alignableGroupBoxD2XHyphXlProps.Controls.Add(this.triggerAlternateCheckBox);
-            this.alignableGroupBoxD2XHyphXlProps.Controls.Add(this.triggerSetOrientCheckBox);
-            this.alignableGroupBoxD2XHyphXlProps.Controls.Add(this.triggerAutoplayCheckBox);
             this.alignableGroupBoxD2XHyphXlProps.Controls.Add(this.triggerSilentCheckBox);
+            this.alignableGroupBoxD2XHyphXlProps.Controls.Add(this.triggerAutoplayCheckBox);
+            this.alignableGroupBoxD2XHyphXlProps.Controls.Add(this.triggerSetOrientCheckBox);
+            this.alignableGroupBoxD2XHyphXlProps.Controls.Add(this.triggerAlternateCheckBox);
+            this.alignableGroupBoxD2XHyphXlProps.Controls.Add(this.triggerPermanentCheckBox);
             this.alignableGroupBoxD2XHyphXlProps.Location = new System.Drawing.Point(345, 115);
             this.alignableGroupBoxD2XHyphXlProps.Margin = new System.Windows.Forms.Padding(0);
             this.alignableGroupBoxD2XHyphXlProps.Name = "alignableGroupBoxD2XHyphXlProps";
@@ -907,5 +942,6 @@
         private System.Windows.Forms.PictureBox triggerShowTexturePictureBox;
         private System.Windows.Forms.PictureBox triggerShowObjPictureBox;
         private System.Windows.Forms.PictureBox triggerShowPictureBox;
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

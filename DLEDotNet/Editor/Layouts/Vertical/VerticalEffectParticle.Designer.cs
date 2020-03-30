@@ -165,7 +165,7 @@
             // 
             // particleSpeedNumericUpDown
             // 
-            this.particleSpeedNumericUpDown.Location = new System.Drawing.Point(230, 124);
+            this.particleSpeedNumericUpDown.Location = new System.Drawing.Point(230, 125);
             this.particleSpeedNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.particleSpeedNumericUpDown.Name = "particleSpeedNumericUpDown";
             this.particleSpeedNumericUpDown.Size = new System.Drawing.Size(52, 20);
@@ -184,7 +184,7 @@
             // 
             // particleDriftNumericUpDown
             // 
-            this.particleDriftNumericUpDown.Location = new System.Drawing.Point(230, 148);
+            this.particleDriftNumericUpDown.Location = new System.Drawing.Point(230, 150);
             this.particleDriftNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.particleDriftNumericUpDown.Name = "particleDriftNumericUpDown";
             this.particleDriftNumericUpDown.Size = new System.Drawing.Size(52, 20);
@@ -203,7 +203,7 @@
             // 
             // particleBrightnessNumericUpDown
             // 
-            this.particleBrightnessNumericUpDown.Location = new System.Drawing.Point(230, 174);
+            this.particleBrightnessNumericUpDown.Location = new System.Drawing.Point(230, 175);
             this.particleBrightnessNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.particleBrightnessNumericUpDown.Name = "particleBrightnessNumericUpDown";
             this.particleBrightnessNumericUpDown.Size = new System.Drawing.Size(52, 20);
@@ -221,6 +221,7 @@
             this.labelLifeTime.TabIndex = 19;
             this.labelLifeTime.TabStop = true;
             this.labelLifeTime.Text = "life time:";
+            this.labelLifeTime.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelParticleSize
             // 
@@ -232,6 +233,7 @@
             this.labelParticleSize.TabIndex = 20;
             this.labelParticleSize.TabStop = true;
             this.labelParticleSize.Text = "particle size:";
+            this.labelParticleSize.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelDensity
             // 
@@ -243,6 +245,7 @@
             this.labelDensity.TabIndex = 21;
             this.labelDensity.TabStop = true;
             this.labelDensity.Text = "density:";
+            this.labelDensity.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelSpeed
             // 
@@ -254,6 +257,7 @@
             this.labelSpeed.TabIndex = 22;
             this.labelSpeed.TabStop = true;
             this.labelSpeed.Text = "speed:";
+            this.labelSpeed.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelDrift
             // 
@@ -265,6 +269,7 @@
             this.labelDrift.TabIndex = 23;
             this.labelDrift.TabStop = true;
             this.labelDrift.Text = "drift:";
+            this.labelDrift.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelBrightness
             // 
@@ -276,6 +281,7 @@
             this.labelBrightness.TabIndex = 24;
             this.labelBrightness.TabStop = true;
             this.labelBrightness.Text = "brightness:";
+            this.labelBrightness.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelRed
             // 
@@ -287,6 +293,7 @@
             this.labelRed.TabIndex = 25;
             this.labelRed.TabStop = true;
             this.labelRed.Text = "red:";
+            this.labelRed.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelGreen
             // 
@@ -298,6 +305,7 @@
             this.labelGreen.TabIndex = 26;
             this.labelGreen.TabStop = true;
             this.labelGreen.Text = "green:";
+            this.labelGreen.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelBlue
             // 
@@ -309,6 +317,7 @@
             this.labelBlue.TabIndex = 27;
             this.labelBlue.TabStop = true;
             this.labelBlue.Text = "blue:";
+            this.labelBlue.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelAlpha
             // 
@@ -320,6 +329,7 @@
             this.labelAlpha.TabIndex = 28;
             this.labelAlpha.TabStop = true;
             this.labelAlpha.Text = "alpha:";
+            this.labelAlpha.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelSide
             // 
@@ -342,6 +352,7 @@
             this.labelType.TabIndex = 30;
             this.labelType.TabStop = true;
             this.labelType.Text = "type:";
+            this.labelType.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // particleRedSliderTrackBar
             // 
@@ -373,7 +384,7 @@
             // 
             // particleGreenNumericUpDown
             // 
-            this.particleGreenNumericUpDown.Location = new System.Drawing.Point(229, 245);
+            this.particleGreenNumericUpDown.Location = new System.Drawing.Point(229, 246);
             this.particleGreenNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.particleGreenNumericUpDown.Name = "particleGreenNumericUpDown";
             this.particleGreenNumericUpDown.Size = new System.Drawing.Size(53, 20);

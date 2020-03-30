@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.prefsRotateRateSliderTrackBar = new System.Windows.Forms.TrackBar();
             this.tPrefsRotateRateLabel = new System.Windows.Forms.Label();
             this.alignableGroupBoxRotateRate = new DLEDotNet.Editor.AlignableGroupBox();
@@ -43,6 +44,7 @@
             this.alignableGroupBoxMisc = new DLEDotNet.Editor.AlignableGroupBox();
             this.prefsAllowobjectoverlapCheckBox = new System.Windows.Forms.CheckBox();
             this.prefsUpdatetexalignCheckBox = new System.Windows.Forms.CheckBox();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.prefsRotateRateSliderTrackBar)).BeginInit();
             this.alignableGroupBoxRotateRate.SuspendLayout();
             this.alignableGroupBoxMoveRateUnits.SuspendLayout();
@@ -223,6 +225,7 @@
             this.prefsAllowobjectoverlapCheckBox.Size = new System.Drawing.Size(135, 18);
             this.prefsAllowobjectoverlapCheckBox.TabIndex = 0;
             this.prefsAllowobjectoverlapCheckBox.Text = "Allow objects to overlap";
+            this.helpToolTip.SetToolTip(this.prefsAllowobjectoverlapCheckBox, "if not checked, coincident objects will be bumped");
             // 
             // prefsUpdatetexalignCheckBox
             // 
@@ -274,5 +277,6 @@
         private System.Windows.Forms.CheckBox prefsAllowobjectoverlapCheckBox;
         private System.Windows.Forms.CheckBox prefsUpdatetexalignCheckBox;
         private LeftRightControl prefsRotateRateSliderLeftRightControl;
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

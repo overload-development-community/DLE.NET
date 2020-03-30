@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.texprojectResetoButton = new System.Windows.Forms.Button();
             this.texprojectResetdButton = new System.Windows.Forms.Button();
             this.texprojectResetsButton = new System.Windows.Forms.Button();
@@ -72,6 +73,7 @@
             this.texprojectVscaleupButton = new DLEDotNet.Editor.DLEIconButton();
             this.texprojectPlanarButton = new DLEDotNet.Editor.DLEIconButton();
             this.texprojectCylinderButton = new DLEDotNet.Editor.DLEIconButton();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.texprojectOriginxdownButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.texprojectOriginxupButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.texprojectOriginydownButton)).BeginInit();
@@ -187,7 +189,6 @@
             // 
             // texprojectOriginxTextBox
             // 
-            this.texprojectOriginxTextBox.FractionalDigits = 2;
             this.texprojectOriginxTextBox.Location = new System.Drawing.Point(152, 6);
             this.texprojectOriginxTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectOriginxTextBox.Name = "texprojectOriginxTextBox";
@@ -242,7 +243,6 @@
             // 
             // texprojectOriginyTextBox
             // 
-            this.texprojectOriginyTextBox.FractionalDigits = 2;
             this.texprojectOriginyTextBox.Location = new System.Drawing.Point(152, 29);
             this.texprojectOriginyTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectOriginyTextBox.Name = "texprojectOriginyTextBox";
@@ -297,7 +297,6 @@
             // 
             // texprojectOriginzTextBox
             // 
-            this.texprojectOriginzTextBox.FractionalDigits = 2;
             this.texprojectOriginzTextBox.Location = new System.Drawing.Point(152, 52);
             this.texprojectOriginzTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectOriginzTextBox.Name = "texprojectOriginzTextBox";
@@ -363,7 +362,6 @@
             // 
             // texprojectRotpTextBox
             // 
-            this.texprojectRotpTextBox.FractionalDigits = 2;
             this.texprojectRotpTextBox.Location = new System.Drawing.Point(152, 78);
             this.texprojectRotpTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectRotpTextBox.Name = "texprojectRotpTextBox";
@@ -418,7 +416,6 @@
             // 
             // texprojectRotbTextBox
             // 
-            this.texprojectRotbTextBox.FractionalDigits = 2;
             this.texprojectRotbTextBox.Location = new System.Drawing.Point(152, 101);
             this.texprojectRotbTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectRotbTextBox.Name = "texprojectRotbTextBox";
@@ -473,7 +470,6 @@
             // 
             // texprojectRothTextBox
             // 
-            this.texprojectRothTextBox.FractionalDigits = 2;
             this.texprojectRothTextBox.Location = new System.Drawing.Point(152, 124);
             this.texprojectRothTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectRothTextBox.Name = "texprojectRothTextBox";
@@ -539,7 +535,6 @@
             // 
             // texprojectUscaleTextBox
             // 
-            this.texprojectUscaleTextBox.FractionalDigits = 2;
             this.texprojectUscaleTextBox.Location = new System.Drawing.Point(152, 150);
             this.texprojectUscaleTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectUscaleTextBox.Name = "texprojectUscaleTextBox";
@@ -594,7 +589,6 @@
             // 
             // texprojectVscaleTextBox
             // 
-            this.texprojectVscaleTextBox.FractionalDigits = 2;
             this.texprojectVscaleTextBox.Location = new System.Drawing.Point(152, 172);
             this.texprojectVscaleTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texprojectVscaleTextBox.Name = "texprojectVscaleTextBox";
@@ -787,6 +781,6 @@
         private FloatTextBox texprojectVscaleTextBox;
         private DLEDotNet.Editor.DLEIconButton texprojectVscaledownButton;
         private DLEDotNet.Editor.DLEIconButton texprojectVscaleupButton;
-
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

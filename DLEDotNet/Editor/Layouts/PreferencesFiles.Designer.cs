@@ -39,7 +39,7 @@
             this.labelD1Pig = new System.Windows.Forms.Label();
             this.labelD2Pig = new System.Windows.Forms.Label();
             this.labelMissions = new System.Windows.Forms.Label();
-            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.labelChangesOnlyApply = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
@@ -52,6 +52,7 @@
             this.prefsPathD1PigTextBox.Size = new System.Drawing.Size(300, 20);
             this.prefsPathD1PigTextBox.TabIndex = 0;
             this.prefsPathD1PigTextBox.TabStop = false;
+            this.helpToolTip.SetToolTip(this.prefsPathD1PigTextBox, "a full absolute or relative path to DESCENT.PIG from Descent 1");
             this.prefsPathD1PigTextBox.Value = "";
             // 
             // prefsPathD2PigTextBox
@@ -62,6 +63,8 @@
             this.prefsPathD2PigTextBox.Size = new System.Drawing.Size(300, 20);
             this.prefsPathD2PigTextBox.TabIndex = 1;
             this.prefsPathD2PigTextBox.TabStop = false;
+            this.helpToolTip.SetToolTip(this.prefsPathD2PigTextBox, "a full absolute or relative path to any of the .PIG files from Descent 2; use thi" +
+        "s to change level palette");
             this.prefsPathD2PigTextBox.Value = "";
             // 
             // prefsPathMissionsTextBox
@@ -72,6 +75,8 @@
             this.prefsPathMissionsTextBox.Size = new System.Drawing.Size(300, 20);
             this.prefsPathMissionsTextBox.TabIndex = 2;
             this.prefsPathMissionsTextBox.TabStop = false;
+            this.helpToolTip.SetToolTip(this.prefsPathMissionsTextBox, "path to missions, will be used as default in dialogs and to help with loading ass" +
+        "ociated mission files");
             this.prefsPathMissionsTextBox.Value = "";
             // 
             // prefsBrowseD1PigButton
@@ -82,7 +87,7 @@
             this.prefsBrowseD1PigButton.Name = "prefsBrowseD1PigButton";
             this.prefsBrowseD1PigButton.Size = new System.Drawing.Size(22, 24);
             this.prefsBrowseD1PigButton.TabIndex = 3;
-            this.toolTip.SetToolTip(this.prefsBrowseD1PigButton, "Browse...");
+            this.helpToolTip.SetToolTip(this.prefsBrowseD1PigButton, "Browse...");
             // 
             // prefsBrowseD2PigButton
             // 
@@ -92,7 +97,7 @@
             this.prefsBrowseD2PigButton.Name = "prefsBrowseD2PigButton";
             this.prefsBrowseD2PigButton.Size = new System.Drawing.Size(22, 24);
             this.prefsBrowseD2PigButton.TabIndex = 4;
-            this.toolTip.SetToolTip(this.prefsBrowseD2PigButton, "Browse...");
+            this.helpToolTip.SetToolTip(this.prefsBrowseD2PigButton, "Browse...");
             // 
             // prefsBrowseMissionsButton
             // 
@@ -102,7 +107,7 @@
             this.prefsBrowseMissionsButton.Name = "prefsBrowseMissionsButton";
             this.prefsBrowseMissionsButton.Size = new System.Drawing.Size(22, 24);
             this.prefsBrowseMissionsButton.TabIndex = 5;
-            this.toolTip.SetToolTip(this.prefsBrowseMissionsButton, "Browse...");
+            this.helpToolTip.SetToolTip(this.prefsBrowseMissionsButton, "Browse...");
             // 
             // labelD1Pig
             // 
@@ -179,7 +184,7 @@
         private System.Windows.Forms.Label labelD1Pig;
         private System.Windows.Forms.Label labelD2Pig;
         private System.Windows.Forms.Label labelMissions;
-        private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.ToolTip helpToolTip;
         private System.Windows.Forms.Label labelChangesOnlyApply;
     }
 }

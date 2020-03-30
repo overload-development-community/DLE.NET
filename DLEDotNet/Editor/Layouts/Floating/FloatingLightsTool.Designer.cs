@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.lightShowdeltaButton = new System.Windows.Forms.Button();
-            this.alignableGroupBoxLightValues = new AlignableGroupBox();
+            this.alignableGroupBoxLightValues = new DLEDotNet.Editor.AlignableGroupBox();
             this.labelFactor = new System.Windows.Forms.Label();
             this.tLightRenderDepthLabel = new System.Windows.Forms.Label();
             this.lightRenderDepthSliderTrackBar = new System.Windows.Forms.TrackBar();
@@ -37,20 +37,20 @@
             this.lightDeltaRenderDepthSliderTrackBar = new System.Windows.Forms.TrackBar();
             this.tLightDeltaFramerateLabel = new System.Windows.Forms.Label();
             this.lightDeltaFramerateSliderTrackBar = new System.Windows.Forms.TrackBar();
-            this.lightDeltaFramerateLeftRightControl = new LeftRightControl();
-            this.lightDeltaRenderDepthLeftRightControl = new LeftRightControl();
-            this.lightRenderDepthLeftRightControl = new LeftRightControl();
+            this.lightDeltaFramerateLeftRightControl = new DLEDotNet.Editor.LeftRightControl();
+            this.lightDeltaRenderDepthLeftRightControl = new DLEDotNet.Editor.LeftRightControl();
+            this.lightRenderDepthLeftRightControl = new DLEDotNet.Editor.LeftRightControl();
             this.lightIlluminateCheckBox = new System.Windows.Forms.CheckBox();
-            this.lightEditIlluminateTextBox = new FloatTextBox();
+            this.lightEditIlluminateTextBox = new DLEDotNet.Editor.FloatTextBox();
             this.lightAvgcornerlightCheckBox = new System.Windows.Forms.CheckBox();
             this.lightScaleCheckBox = new System.Windows.Forms.CheckBox();
-            this.lightEditScaleTextBox = new FloatTextBox();
+            this.lightEditScaleTextBox = new DLEDotNet.Editor.FloatTextBox();
             this.lightCopytexlightsCheckBox = new System.Windows.Forms.CheckBox();
             this.lightCubelightCheckBox = new System.Windows.Forms.CheckBox();
-            this.lightEditCubelightTextBox = new FloatTextBox();
+            this.lightEditCubelightTextBox = new DLEDotNet.Editor.FloatTextBox();
             this.lightDyncubelightsCheckBox = new System.Windows.Forms.CheckBox();
             this.lightCalcdeltaCheckBox = new System.Windows.Forms.CheckBox();
-            this.lightEditDeltaTextBox = new FloatTextBox();
+            this.lightEditDeltaTextBox = new DLEDotNet.Editor.FloatTextBox();
             this.lightDeltaAllRadioButton = new System.Windows.Forms.RadioButton();
             this.lightDeltaNotstaticlightsRadioButton = new System.Windows.Forms.RadioButton();
             this.lightDeltaNotlavaRadioButton = new System.Windows.Forms.RadioButton();
@@ -70,11 +70,11 @@
             this.label10C = new System.Windows.Forms.Label();
             this.label100 = new System.Windows.Forms.Label();
             this.defaultLightAndColorButton = new System.Windows.Forms.Button();
-            this.alignableGroupBoxVertexLight = new AlignableGroupBox();
-            this.lightVertexlightTextBox = new FloatTextBox();
+            this.alignableGroupBoxVertexLight = new DLEDotNet.Editor.AlignableGroupBox();
+            this.lightVertexlightTextBox = new DLEDotNet.Editor.FloatTextBox();
             this.lightSetVertexlightButton = new System.Windows.Forms.Button();
             this.labelPercentE = new System.Windows.Forms.Label();
-            this.alignableGroupBox1 = new AlignableGroupBox();
+            this.alignableGroupBox1 = new DLEDotNet.Editor.AlignableGroupBox();
             this.idokButton = new System.Windows.Forms.Button();
             this.idcancelButton = new System.Windows.Forms.Button();
             this.alignableGroupBoxLightValues.SuspendLayout();
@@ -87,10 +87,10 @@
             // lightShowdeltaButton
             // 
             this.lightShowdeltaButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.lightShowdeltaButton.Location = new System.Drawing.Point(628, 51);
+            this.lightShowdeltaButton.Location = new System.Drawing.Point(626, 50);
             this.lightShowdeltaButton.Margin = new System.Windows.Forms.Padding(0);
             this.lightShowdeltaButton.Name = "lightShowdeltaButton";
-            this.lightShowdeltaButton.Size = new System.Drawing.Size(84, 21);
+            this.lightShowdeltaButton.Size = new System.Drawing.Size(86, 21);
             this.lightShowdeltaButton.TabIndex = 9;
             this.lightShowdeltaButton.Text = "animate";
             // 
@@ -262,7 +262,6 @@
             // 
             // lightEditIlluminateTextBox
             // 
-            this.lightEditIlluminateTextBox.FractionalDigits = 2;
             this.lightEditIlluminateTextBox.Location = new System.Drawing.Point(255, 13);
             this.lightEditIlluminateTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightEditIlluminateTextBox.MaximumValue = 200D;
@@ -300,7 +299,6 @@
             // 
             // lightEditScaleTextBox
             // 
-            this.lightEditScaleTextBox.FractionalDigits = 2;
             this.lightEditScaleTextBox.Location = new System.Drawing.Point(255, 54);
             this.lightEditScaleTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightEditScaleTextBox.MaximumValue = 200D;
@@ -338,7 +336,6 @@
             // 
             // lightEditCubelightTextBox
             // 
-            this.lightEditCubelightTextBox.FractionalDigits = 2;
             this.lightEditCubelightTextBox.Location = new System.Drawing.Point(255, 73);
             this.lightEditCubelightTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightEditCubelightTextBox.MaximumValue = 100D;
@@ -354,7 +351,7 @@
             // 
             this.lightDyncubelightsCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lightDyncubelightsCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.lightDyncubelightsCheckBox.Location = new System.Drawing.Point(337, 81);
+            this.lightDyncubelightsCheckBox.Location = new System.Drawing.Point(338, 81);
             this.lightDyncubelightsCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightDyncubelightsCheckBox.Name = "lightDyncubelightsCheckBox";
             this.lightDyncubelightsCheckBox.Size = new System.Drawing.Size(198, 18);
@@ -366,7 +363,7 @@
             // 
             this.lightCalcdeltaCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lightCalcdeltaCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.lightCalcdeltaCheckBox.Location = new System.Drawing.Point(24, 109);
+            this.lightCalcdeltaCheckBox.Location = new System.Drawing.Point(22, 107);
             this.lightCalcdeltaCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightCalcdeltaCheckBox.Name = "lightCalcdeltaCheckBox";
             this.lightCalcdeltaCheckBox.Size = new System.Drawing.Size(224, 20);
@@ -376,7 +373,6 @@
             // 
             // lightEditDeltaTextBox
             // 
-            this.lightEditDeltaTextBox.FractionalDigits = 2;
             this.lightEditDeltaTextBox.Location = new System.Drawing.Point(255, 107);
             this.lightEditDeltaTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightEditDeltaTextBox.MaximumValue = 100D;
@@ -590,10 +586,10 @@
             // defaultLightAndColorButton
             // 
             this.defaultLightAndColorButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.defaultLightAndColorButton.Location = new System.Drawing.Point(628, 70);
+            this.defaultLightAndColorButton.Location = new System.Drawing.Point(626, 70);
             this.defaultLightAndColorButton.Margin = new System.Windows.Forms.Padding(0);
             this.defaultLightAndColorButton.Name = "defaultLightAndColorButton";
-            this.defaultLightAndColorButton.Size = new System.Drawing.Size(84, 23);
+            this.defaultLightAndColorButton.Size = new System.Drawing.Size(86, 23);
             this.defaultLightAndColorButton.TabIndex = 13;
             this.defaultLightAndColorButton.TabStop = false;
             this.defaultLightAndColorButton.Text = "reset light+color";
@@ -614,7 +610,6 @@
             // 
             // lightVertexlightTextBox
             // 
-            this.lightVertexlightTextBox.FractionalDigits = 2;
             this.lightVertexlightTextBox.Location = new System.Drawing.Point(22, 29);
             this.lightVertexlightTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightVertexlightTextBox.MinimumValue = 0D;
@@ -670,7 +665,7 @@
             // idcancelButton
             // 
             this.idcancelButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.idcancelButton.Location = new System.Drawing.Point(626, 31);
+            this.idcancelButton.Location = new System.Drawing.Point(626, 30);
             this.idcancelButton.Margin = new System.Windows.Forms.Padding(0);
             this.idcancelButton.Name = "idcancelButton";
             this.idcancelButton.Size = new System.Drawing.Size(86, 21);

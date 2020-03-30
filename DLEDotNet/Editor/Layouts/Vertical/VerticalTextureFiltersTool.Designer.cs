@@ -44,8 +44,8 @@
             this.txtLavaCheckBox = new System.Windows.Forms.CheckBox();
             this.txtNatureAllButton = new System.Windows.Forms.Button();
             this.txtNatureNoneButton = new System.Windows.Forms.Button();
-            this.alignableGroupBoxRock = new AlignableGroupBox();
-            this.alignableGroupBoxOtherNaturalMaterials = new AlignableGroupBox();
+            this.alignableGroupBoxRock = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxOtherNaturalMaterials = new DLEDotNet.Editor.AlignableGroupBox();
             this.txtSteelCheckBox = new System.Windows.Forms.CheckBox();
             this.txtConcreteCheckBox = new System.Windows.Forms.CheckBox();
             this.txtTarmacCheckBox = new System.Windows.Forms.CheckBox();
@@ -57,8 +57,8 @@
             this.txtFanCheckBox = new System.Windows.Forms.CheckBox();
             this.txtBuildingAllButton = new System.Windows.Forms.Button();
             this.txtBuildingNoneButton = new System.Windows.Forms.Button();
-            this.alignableGroupBoxBuildingMaterials = new AlignableGroupBox();
-            this.alignableGroupBoxOtherBuildingMaterials = new AlignableGroupBox();
+            this.alignableGroupBoxBuildingMaterials = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxOtherBuildingMaterials = new DLEDotNet.Editor.AlignableGroupBox();
             this.txtDoorCheckBox = new System.Windows.Forms.CheckBox();
             this.txtOtherAllButton = new System.Windows.Forms.Button();
             this.txtOtherNoneButton = new System.Windows.Forms.Button();
@@ -73,9 +73,9 @@
             this.txtStripesCheckBox = new System.Windows.Forms.CheckBox();
             this.txtSignAllButton = new System.Windows.Forms.Button();
             this.txtSignNoneButton = new System.Windows.Forms.Button();
-            this.alignableGroupBoxTechnicalMaterials = new AlignableGroupBox();
+            this.alignableGroupBoxTechnicalMaterials = new DLEDotNet.Editor.AlignableGroupBox();
             this.txtSwitchCheckBox = new System.Windows.Forms.CheckBox();
-            this.alignableGroupBoxSigns = new AlignableGroupBox();
+            this.alignableGroupBoxSigns = new DLEDotNet.Editor.AlignableGroupBox();
             this.txtAllButton = new System.Windows.Forms.Button();
             this.txtNoneButton = new System.Windows.Forms.Button();
             this.txtInvertButton = new System.Windows.Forms.Button();
@@ -150,7 +150,7 @@
             // txtRockAllButton
             // 
             this.txtRockAllButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtRockAllButton.Location = new System.Drawing.Point(10, 136);
+            this.txtRockAllButton.Location = new System.Drawing.Point(6, 136);
             this.txtRockAllButton.Margin = new System.Windows.Forms.Padding(0);
             this.txtRockAllButton.Name = "txtRockAllButton";
             this.txtRockAllButton.Size = new System.Drawing.Size(56, 21);
@@ -160,7 +160,7 @@
             // txtRockNoneButton
             // 
             this.txtRockNoneButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtRockNoneButton.Location = new System.Drawing.Point(68, 136);
+            this.txtRockNoneButton.Location = new System.Drawing.Point(66, 136);
             this.txtRockNoneButton.Margin = new System.Windows.Forms.Padding(0);
             this.txtRockNoneButton.Name = "txtRockNoneButton";
             this.txtRockNoneButton.Size = new System.Drawing.Size(56, 21);
@@ -170,7 +170,7 @@
             // txtIceCheckBox
             // 
             this.txtIceCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtIceCheckBox.Location = new System.Drawing.Point(33, 21);
+            this.txtIceCheckBox.Location = new System.Drawing.Point(33, 17);
             this.txtIceCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.txtIceCheckBox.Name = "txtIceCheckBox";
             this.txtIceCheckBox.Size = new System.Drawing.Size(69, 18);
@@ -180,7 +180,7 @@
             // txtSandCheckBox
             // 
             this.txtSandCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtSandCheckBox.Location = new System.Drawing.Point(33, 41);
+            this.txtSandCheckBox.Location = new System.Drawing.Point(33, 37);
             this.txtSandCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.txtSandCheckBox.Name = "txtSandCheckBox";
             this.txtSandCheckBox.Size = new System.Drawing.Size(69, 18);
@@ -190,7 +190,7 @@
             // txtGrassCheckBox
             // 
             this.txtGrassCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtGrassCheckBox.Location = new System.Drawing.Point(33, 60);
+            this.txtGrassCheckBox.Location = new System.Drawing.Point(33, 56);
             this.txtGrassCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.txtGrassCheckBox.Name = "txtGrassCheckBox";
             this.txtGrassCheckBox.Size = new System.Drawing.Size(69, 18);
@@ -200,7 +200,7 @@
             // txtStonesCheckBox
             // 
             this.txtStonesCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtStonesCheckBox.Location = new System.Drawing.Point(33, 80);
+            this.txtStonesCheckBox.Location = new System.Drawing.Point(33, 76);
             this.txtStonesCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.txtStonesCheckBox.Name = "txtStonesCheckBox";
             this.txtStonesCheckBox.Size = new System.Drawing.Size(69, 18);
@@ -210,7 +210,7 @@
             // txtWaterCheckBox
             // 
             this.txtWaterCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtWaterCheckBox.Location = new System.Drawing.Point(33, 99);
+            this.txtWaterCheckBox.Location = new System.Drawing.Point(33, 95);
             this.txtWaterCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.txtWaterCheckBox.Name = "txtWaterCheckBox";
             this.txtWaterCheckBox.Size = new System.Drawing.Size(69, 18);
@@ -220,7 +220,7 @@
             // txtLavaCheckBox
             // 
             this.txtLavaCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtLavaCheckBox.Location = new System.Drawing.Point(33, 119);
+            this.txtLavaCheckBox.Location = new System.Drawing.Point(33, 115);
             this.txtLavaCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.txtLavaCheckBox.Name = "txtLavaCheckBox";
             this.txtLavaCheckBox.Size = new System.Drawing.Size(69, 18);
@@ -240,7 +240,7 @@
             // txtNatureNoneButton
             // 
             this.txtNatureNoneButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtNatureNoneButton.Location = new System.Drawing.Point(63, 136);
+            this.txtNatureNoneButton.Location = new System.Drawing.Point(66, 136);
             this.txtNatureNoneButton.Margin = new System.Windows.Forms.Padding(0);
             this.txtNatureNoneButton.Name = "txtNatureNoneButton";
             this.txtNatureNoneButton.Size = new System.Drawing.Size(56, 21);
@@ -360,7 +360,7 @@
             // txtGrateCheckBox
             // 
             this.txtGrateCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtGrateCheckBox.Location = new System.Drawing.Point(33, 21);
+            this.txtGrateCheckBox.Location = new System.Drawing.Point(28, 21);
             this.txtGrateCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.txtGrateCheckBox.Name = "txtGrateCheckBox";
             this.txtGrateCheckBox.Size = new System.Drawing.Size(82, 18);
@@ -370,7 +370,7 @@
             // txtFanCheckBox
             // 
             this.txtFanCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtFanCheckBox.Location = new System.Drawing.Point(33, 41);
+            this.txtFanCheckBox.Location = new System.Drawing.Point(28, 41);
             this.txtFanCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.txtFanCheckBox.Name = "txtFanCheckBox";
             this.txtFanCheckBox.Size = new System.Drawing.Size(82, 18);
@@ -380,7 +380,7 @@
             // txtBuildingAllButton
             // 
             this.txtBuildingAllButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtBuildingAllButton.Location = new System.Drawing.Point(8, 159);
+            this.txtBuildingAllButton.Location = new System.Drawing.Point(6, 160);
             this.txtBuildingAllButton.Margin = new System.Windows.Forms.Padding(0);
             this.txtBuildingAllButton.Name = "txtBuildingAllButton";
             this.txtBuildingAllButton.Size = new System.Drawing.Size(56, 21);
@@ -390,7 +390,7 @@
             // txtBuildingNoneButton
             // 
             this.txtBuildingNoneButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtBuildingNoneButton.Location = new System.Drawing.Point(64, 159);
+            this.txtBuildingNoneButton.Location = new System.Drawing.Point(66, 160);
             this.txtBuildingNoneButton.Margin = new System.Windows.Forms.Padding(0);
             this.txtBuildingNoneButton.Name = "txtBuildingNoneButton";
             this.txtBuildingNoneButton.Size = new System.Drawing.Size(56, 21);
@@ -438,7 +438,7 @@
             // txtDoorCheckBox
             // 
             this.txtDoorCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtDoorCheckBox.Location = new System.Drawing.Point(33, 60);
+            this.txtDoorCheckBox.Location = new System.Drawing.Point(28, 60);
             this.txtDoorCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.txtDoorCheckBox.Name = "txtDoorCheckBox";
             this.txtDoorCheckBox.Size = new System.Drawing.Size(82, 18);
@@ -448,7 +448,7 @@
             // txtOtherAllButton
             // 
             this.txtOtherAllButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtOtherAllButton.Location = new System.Drawing.Point(8, 159);
+            this.txtOtherAllButton.Location = new System.Drawing.Point(6, 160);
             this.txtOtherAllButton.Margin = new System.Windows.Forms.Padding(0);
             this.txtOtherAllButton.Name = "txtOtherAllButton";
             this.txtOtherAllButton.Size = new System.Drawing.Size(56, 21);
@@ -458,7 +458,7 @@
             // txtOtherNoneButton
             // 
             this.txtOtherNoneButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtOtherNoneButton.Location = new System.Drawing.Point(64, 159);
+            this.txtOtherNoneButton.Location = new System.Drawing.Point(66, 160);
             this.txtOtherNoneButton.Margin = new System.Windows.Forms.Padding(0);
             this.txtOtherNoneButton.Name = "txtOtherNoneButton";
             this.txtOtherNoneButton.Size = new System.Drawing.Size(56, 21);
@@ -468,7 +468,7 @@
             // txtLightCheckBox
             // 
             this.txtLightCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtLightCheckBox.Location = new System.Drawing.Point(28, 24);
+            this.txtLightCheckBox.Location = new System.Drawing.Point(23, 18);
             this.txtLightCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.txtLightCheckBox.Name = "txtLightCheckBox";
             this.txtLightCheckBox.Size = new System.Drawing.Size(92, 18);
@@ -478,7 +478,7 @@
             // txtEnergyCheckBox
             // 
             this.txtEnergyCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtEnergyCheckBox.Location = new System.Drawing.Point(28, 44);
+            this.txtEnergyCheckBox.Location = new System.Drawing.Point(23, 38);
             this.txtEnergyCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.txtEnergyCheckBox.Name = "txtEnergyCheckBox";
             this.txtEnergyCheckBox.Size = new System.Drawing.Size(92, 18);
@@ -488,7 +488,7 @@
             // txtForcefieldCheckBox
             // 
             this.txtForcefieldCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtForcefieldCheckBox.Location = new System.Drawing.Point(28, 63);
+            this.txtForcefieldCheckBox.Location = new System.Drawing.Point(23, 57);
             this.txtForcefieldCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.txtForcefieldCheckBox.Name = "txtForcefieldCheckBox";
             this.txtForcefieldCheckBox.Size = new System.Drawing.Size(92, 18);
@@ -498,7 +498,7 @@
             // txtTechCheckBox
             // 
             this.txtTechCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtTechCheckBox.Location = new System.Drawing.Point(28, 83);
+            this.txtTechCheckBox.Location = new System.Drawing.Point(23, 77);
             this.txtTechCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.txtTechCheckBox.Name = "txtTechCheckBox";
             this.txtTechCheckBox.Size = new System.Drawing.Size(92, 18);
@@ -508,7 +508,7 @@
             // txtTechAllButton
             // 
             this.txtTechAllButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtTechAllButton.Location = new System.Drawing.Point(9, 127);
+            this.txtTechAllButton.Location = new System.Drawing.Point(6, 128);
             this.txtTechAllButton.Margin = new System.Windows.Forms.Padding(0);
             this.txtTechAllButton.Name = "txtTechAllButton";
             this.txtTechAllButton.Size = new System.Drawing.Size(56, 21);
@@ -518,7 +518,7 @@
             // txtTechNoneButton
             // 
             this.txtTechNoneButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtTechNoneButton.Location = new System.Drawing.Point(66, 127);
+            this.txtTechNoneButton.Location = new System.Drawing.Point(66, 128);
             this.txtTechNoneButton.Margin = new System.Windows.Forms.Padding(0);
             this.txtTechNoneButton.Name = "txtTechNoneButton";
             this.txtTechNoneButton.Size = new System.Drawing.Size(56, 21);
@@ -528,7 +528,7 @@
             // txtLabelCheckBox
             // 
             this.txtLabelCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtLabelCheckBox.Location = new System.Drawing.Point(32, 18);
+            this.txtLabelCheckBox.Location = new System.Drawing.Point(28, 18);
             this.txtLabelCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.txtLabelCheckBox.Name = "txtLabelCheckBox";
             this.txtLabelCheckBox.Size = new System.Drawing.Size(78, 18);
@@ -538,7 +538,7 @@
             // txtMonitorCheckBox
             // 
             this.txtMonitorCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtMonitorCheckBox.Location = new System.Drawing.Point(32, 39);
+            this.txtMonitorCheckBox.Location = new System.Drawing.Point(28, 39);
             this.txtMonitorCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.txtMonitorCheckBox.Name = "txtMonitorCheckBox";
             this.txtMonitorCheckBox.Size = new System.Drawing.Size(78, 18);
@@ -548,7 +548,7 @@
             // txtStripesCheckBox
             // 
             this.txtStripesCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtStripesCheckBox.Location = new System.Drawing.Point(32, 57);
+            this.txtStripesCheckBox.Location = new System.Drawing.Point(28, 57);
             this.txtStripesCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.txtStripesCheckBox.Name = "txtStripesCheckBox";
             this.txtStripesCheckBox.Size = new System.Drawing.Size(74, 18);
@@ -558,7 +558,7 @@
             // txtSignAllButton
             // 
             this.txtSignAllButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtSignAllButton.Location = new System.Drawing.Point(8, 127);
+            this.txtSignAllButton.Location = new System.Drawing.Point(6, 128);
             this.txtSignAllButton.Margin = new System.Windows.Forms.Padding(0);
             this.txtSignAllButton.Name = "txtSignAllButton";
             this.txtSignAllButton.Size = new System.Drawing.Size(56, 21);
@@ -568,7 +568,7 @@
             // txtSignNoneButton
             // 
             this.txtSignNoneButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtSignNoneButton.Location = new System.Drawing.Point(64, 127);
+            this.txtSignNoneButton.Location = new System.Drawing.Point(66, 128);
             this.txtSignNoneButton.Margin = new System.Windows.Forms.Padding(0);
             this.txtSignNoneButton.Name = "txtSignNoneButton";
             this.txtSignNoneButton.Size = new System.Drawing.Size(56, 21);
@@ -597,7 +597,7 @@
             // txtSwitchCheckBox
             // 
             this.txtSwitchCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtSwitchCheckBox.Location = new System.Drawing.Point(28, 102);
+            this.txtSwitchCheckBox.Location = new System.Drawing.Point(23, 96);
             this.txtSwitchCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.txtSwitchCheckBox.Name = "txtSwitchCheckBox";
             this.txtSwitchCheckBox.Size = new System.Drawing.Size(92, 18);

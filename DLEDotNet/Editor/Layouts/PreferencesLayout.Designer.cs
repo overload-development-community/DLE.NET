@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.prefsLayout0RadioButton = new System.Windows.Forms.RadioButton();
             this.prefsLayout1RadioButton = new System.Windows.Forms.RadioButton();
             this.prefsLayout2RadioButton = new System.Windows.Forms.RadioButton();
             this.prefsLayout3RadioButton = new System.Windows.Forms.RadioButton();
             this.labelChangesOnlyApply = new System.Windows.Forms.Label();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,6 +70,7 @@
             this.prefsLayout2RadioButton.TabIndex = 2;
             this.prefsLayout2RadioButton.TabStop = true;
             this.prefsLayout2RadioButton.Text = "floating";
+            this.helpToolTip.SetToolTip(this.prefsLayout2RadioButton, "every tool is in its own dialog");
             // 
             // prefsLayout3RadioButton
             // 
@@ -112,5 +115,6 @@
         private System.Windows.Forms.RadioButton prefsLayout2RadioButton;
         private System.Windows.Forms.RadioButton prefsLayout3RadioButton;
         private System.Windows.Forms.Label labelChangesOnlyApply;
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

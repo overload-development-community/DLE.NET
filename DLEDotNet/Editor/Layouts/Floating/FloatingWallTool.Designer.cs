@@ -77,17 +77,17 @@
             this.labelStrength = new System.Windows.Forms.Label();
             this.labelWallNo = new System.Windows.Forms.Label();
             this.labelCloak = new System.Windows.Forms.Label();
-            this.alignableGroupBoxKey = new AlignableGroupBox();
-            this.alignableGroupBoxFlags = new AlignableGroupBox();
-            this.alignableGroupBoxWallData = new AlignableGroupBox();
-            this.wallTranspSliderLeftRightControl = new LeftRightControl();
+            this.alignableGroupBoxKey = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxFlags = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxWallData = new DLEDotNet.Editor.AlignableGroupBox();
             this.labelPercentA = new System.Windows.Forms.Label();
             this.labelPercentB = new System.Windows.Forms.Label();
             this.wallShowPictureBox = new System.Windows.Forms.PictureBox();
+            this.wallTranspSliderLeftRightControl = new DLEDotNet.Editor.LeftRightControl();
             this.wallMsgTextBox = new System.Windows.Forms.TextBox();
-            this.alignableGroupBoxAddDoor = new AlignableGroupBox();
-            this.alignableGroupBoxAddWall = new AlignableGroupBox();
-            this.alignableGroupBoxTransparency = new AlignableGroupBox();
+            this.alignableGroupBoxAddDoor = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxAddWall = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxTransparency = new DLEDotNet.Editor.AlignableGroupBox();
             this.wallTranspTextLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.wallTranspSliderTrackBar)).BeginInit();
             this.alignableGroupBoxKey.SuspendLayout();
@@ -166,7 +166,7 @@
             // wallNokeyRadioButton
             // 
             this.wallNokeyRadioButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.wallNokeyRadioButton.Location = new System.Drawing.Point(12, 21);
+            this.wallNokeyRadioButton.Location = new System.Drawing.Point(12, 20);
             this.wallNokeyRadioButton.Margin = new System.Windows.Forms.Padding(0);
             this.wallNokeyRadioButton.Name = "wallNokeyRadioButton";
             this.wallNokeyRadioButton.Size = new System.Drawing.Size(51, 18);
@@ -207,7 +207,7 @@
             // wallBlastedCheckBox
             // 
             this.wallBlastedCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.wallBlastedCheckBox.Location = new System.Drawing.Point(9, 20);
+            this.wallBlastedCheckBox.Location = new System.Drawing.Point(9, 18);
             this.wallBlastedCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallBlastedCheckBox.Name = "wallBlastedCheckBox";
             this.wallBlastedCheckBox.Size = new System.Drawing.Size(60, 18);
@@ -217,7 +217,7 @@
             // wallDooropenCheckBox
             // 
             this.wallDooropenCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.wallDooropenCheckBox.Location = new System.Drawing.Point(9, 36);
+            this.wallDooropenCheckBox.Location = new System.Drawing.Point(9, 33);
             this.wallDooropenCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallDooropenCheckBox.Name = "wallDooropenCheckBox";
             this.wallDooropenCheckBox.Size = new System.Drawing.Size(75, 18);
@@ -227,7 +227,7 @@
             // wallDoorlockedCheckBox
             // 
             this.wallDoorlockedCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.wallDoorlockedCheckBox.Location = new System.Drawing.Point(9, 50);
+            this.wallDoorlockedCheckBox.Location = new System.Drawing.Point(9, 48);
             this.wallDoorlockedCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallDoorlockedCheckBox.Name = "wallDoorlockedCheckBox";
             this.wallDoorlockedCheckBox.Size = new System.Drawing.Size(84, 18);
@@ -237,7 +237,7 @@
             // wallDoorautoCheckBox
             // 
             this.wallDoorautoCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.wallDoorautoCheckBox.Location = new System.Drawing.Point(9, 65);
+            this.wallDoorautoCheckBox.Location = new System.Drawing.Point(9, 63);
             this.wallDoorautoCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallDoorautoCheckBox.Name = "wallDoorautoCheckBox";
             this.wallDoorautoCheckBox.Size = new System.Drawing.Size(72, 18);
@@ -247,7 +247,7 @@
             // wallIllusionoffCheckBox
             // 
             this.wallIllusionoffCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.wallIllusionoffCheckBox.Location = new System.Drawing.Point(9, 80);
+            this.wallIllusionoffCheckBox.Location = new System.Drawing.Point(9, 78);
             this.wallIllusionoffCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallIllusionoffCheckBox.Name = "wallIllusionoffCheckBox";
             this.wallIllusionoffCheckBox.Size = new System.Drawing.Size(72, 18);
@@ -257,7 +257,7 @@
             // wallSwitchCheckBox
             // 
             this.wallSwitchCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.wallSwitchCheckBox.Location = new System.Drawing.Point(9, 94);
+            this.wallSwitchCheckBox.Location = new System.Drawing.Point(9, 93);
             this.wallSwitchCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallSwitchCheckBox.Name = "wallSwitchCheckBox";
             this.wallSwitchCheckBox.Size = new System.Drawing.Size(57, 18);
@@ -267,7 +267,7 @@
             // wallBuddyproofCheckBox
             // 
             this.wallBuddyproofCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.wallBuddyproofCheckBox.Location = new System.Drawing.Point(9, 109);
+            this.wallBuddyproofCheckBox.Location = new System.Drawing.Point(9, 108);
             this.wallBuddyproofCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallBuddyproofCheckBox.Name = "wallBuddyproofCheckBox";
             this.wallBuddyproofCheckBox.Size = new System.Drawing.Size(82, 18);
@@ -277,7 +277,7 @@
             // wallRenderAdditiveCheckBox
             // 
             this.wallRenderAdditiveCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.wallRenderAdditiveCheckBox.Location = new System.Drawing.Point(9, 125);
+            this.wallRenderAdditiveCheckBox.Location = new System.Drawing.Point(9, 123);
             this.wallRenderAdditiveCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallRenderAdditiveCheckBox.Name = "wallRenderAdditiveCheckBox";
             this.wallRenderAdditiveCheckBox.Size = new System.Drawing.Size(64, 18);
@@ -287,7 +287,7 @@
             // wallIgnoreMarkerCheckBox
             // 
             this.wallIgnoreMarkerCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.wallIgnoreMarkerCheckBox.Location = new System.Drawing.Point(9, 140);
+            this.wallIgnoreMarkerCheckBox.Location = new System.Drawing.Point(9, 138);
             this.wallIgnoreMarkerCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallIgnoreMarkerCheckBox.Name = "wallIgnoreMarkerCheckBox";
             this.wallIgnoreMarkerCheckBox.Size = new System.Drawing.Size(86, 18);
@@ -297,7 +297,7 @@
             // wallFlythroughCheckBox
             // 
             this.wallFlythroughCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.wallFlythroughCheckBox.Location = new System.Drawing.Point(9, 154);
+            this.wallFlythroughCheckBox.Location = new System.Drawing.Point(9, 153);
             this.wallFlythroughCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallFlythroughCheckBox.Name = "wallFlythroughCheckBox";
             this.wallFlythroughCheckBox.Size = new System.Drawing.Size(74, 18);
@@ -626,16 +626,16 @@
             // alignableGroupBoxFlags
             // 
             this.alignableGroupBoxFlags.Alignment = System.Windows.Forms.HorizontalAlignment.Right;
-            this.alignableGroupBoxFlags.Controls.Add(this.wallBlastedCheckBox);
-            this.alignableGroupBoxFlags.Controls.Add(this.wallDooropenCheckBox);
-            this.alignableGroupBoxFlags.Controls.Add(this.wallDoorlockedCheckBox);
-            this.alignableGroupBoxFlags.Controls.Add(this.wallDoorautoCheckBox);
-            this.alignableGroupBoxFlags.Controls.Add(this.wallIllusionoffCheckBox);
-            this.alignableGroupBoxFlags.Controls.Add(this.wallSwitchCheckBox);
-            this.alignableGroupBoxFlags.Controls.Add(this.wallBuddyproofCheckBox);
-            this.alignableGroupBoxFlags.Controls.Add(this.wallRenderAdditiveCheckBox);
-            this.alignableGroupBoxFlags.Controls.Add(this.wallIgnoreMarkerCheckBox);
             this.alignableGroupBoxFlags.Controls.Add(this.wallFlythroughCheckBox);
+            this.alignableGroupBoxFlags.Controls.Add(this.wallIgnoreMarkerCheckBox);
+            this.alignableGroupBoxFlags.Controls.Add(this.wallRenderAdditiveCheckBox);
+            this.alignableGroupBoxFlags.Controls.Add(this.wallBuddyproofCheckBox);
+            this.alignableGroupBoxFlags.Controls.Add(this.wallSwitchCheckBox);
+            this.alignableGroupBoxFlags.Controls.Add(this.wallIllusionoffCheckBox);
+            this.alignableGroupBoxFlags.Controls.Add(this.wallDoorautoCheckBox);
+            this.alignableGroupBoxFlags.Controls.Add(this.wallDoorlockedCheckBox);
+            this.alignableGroupBoxFlags.Controls.Add(this.wallDooropenCheckBox);
+            this.alignableGroupBoxFlags.Controls.Add(this.wallBlastedCheckBox);
             this.alignableGroupBoxFlags.Location = new System.Drawing.Point(360, 0);
             this.alignableGroupBoxFlags.Margin = new System.Windows.Forms.Padding(0);
             this.alignableGroupBoxFlags.Name = "alignableGroupBoxFlags";
@@ -677,16 +677,6 @@
             this.alignableGroupBoxWallData.TabStop = false;
             this.alignableGroupBoxWallData.Text = "wall data";
             // 
-            // wallTranspSliderLeftRightControl
-            // 
-            this.wallTranspSliderLeftRightControl.LinkedControl = this.wallTranspSliderTrackBar;
-            this.wallTranspSliderLeftRightControl.Location = new System.Drawing.Point(93, 20);
-            this.wallTranspSliderLeftRightControl.MaximumSize = new System.Drawing.Size(30, 23);
-            this.wallTranspSliderLeftRightControl.MinimumSize = new System.Drawing.Size(30, 23);
-            this.wallTranspSliderLeftRightControl.Name = "wallTranspSliderLeftRightControl";
-            this.wallTranspSliderLeftRightControl.Size = new System.Drawing.Size(30, 23);
-            this.wallTranspSliderLeftRightControl.TabIndex = 24;
-            // 
             // labelPercentA
             // 
             this.labelPercentA.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -719,6 +709,16 @@
             this.wallShowPictureBox.Size = new System.Drawing.Size(68, 68);
             this.wallShowPictureBox.TabIndex = 21;
             this.wallShowPictureBox.TabStop = false;
+            // 
+            // wallTranspSliderLeftRightControl
+            // 
+            this.wallTranspSliderLeftRightControl.LinkedControl = this.wallTranspSliderTrackBar;
+            this.wallTranspSliderLeftRightControl.Location = new System.Drawing.Point(93, 20);
+            this.wallTranspSliderLeftRightControl.MaximumSize = new System.Drawing.Size(30, 23);
+            this.wallTranspSliderLeftRightControl.MinimumSize = new System.Drawing.Size(30, 23);
+            this.wallTranspSliderLeftRightControl.Name = "wallTranspSliderLeftRightControl";
+            this.wallTranspSliderLeftRightControl.Size = new System.Drawing.Size(30, 23);
+            this.wallTranspSliderLeftRightControl.TabIndex = 24;
             // 
             // wallMsgTextBox
             // 

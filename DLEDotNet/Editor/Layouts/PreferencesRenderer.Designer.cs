@@ -32,26 +32,29 @@ namespace DLEDotNet.Editor.Layouts
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.prefsDepthOffRadioButton = new System.Windows.Forms.RadioButton();
             this.prefsDepthLowRadioButton = new System.Windows.Forms.RadioButton();
             this.prefsDepthMediumRadioButton = new System.Windows.Forms.RadioButton();
             this.prefsDepthHighRadioButton = new System.Windows.Forms.RadioButton();
             this.prefsViewdistTrackBar = new System.Windows.Forms.TrackBar();
             this.prefsMinecenterComboBox = new System.Windows.Forms.ComboBox();
-            this.alignableGroupBoxDepthPerception = new AlignableGroupBox();
+            this.alignableGroupBoxDepthPerception = new DLEDotNet.Editor.AlignableGroupBox();
             this.labelMin = new System.Windows.Forms.Label();
             this.labelMax = new System.Windows.Forms.Label();
-            this.alignableGroupBoxMineRenderDepth = new AlignableGroupBox();
+            this.alignableGroupBoxMineRenderDepth = new DLEDotNet.Editor.AlignableGroupBox();
             this.prefsViewdistTextLabel = new System.Windows.Forms.Label();
-            this.alignableGroupBoxMineCenterDisplay = new AlignableGroupBox();
-            this.alignableGroupBoxRenderer = new AlignableGroupBox();
+            this.alignableGroupBoxMineCenterDisplay = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxRenderer = new DLEDotNet.Editor.AlignableGroupBox();
             this.prefsRenderer3RdPersonRadioButton = new System.Windows.Forms.RadioButton();
             this.prefsRenderer1StPersonRadioButton = new System.Windows.Forms.RadioButton();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.prefsViewdistTrackBar)).BeginInit();
             this.alignableGroupBoxDepthPerception.SuspendLayout();
             this.alignableGroupBoxMineRenderDepth.SuspendLayout();
             this.alignableGroupBoxMineCenterDisplay.SuspendLayout();
             this.alignableGroupBoxRenderer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // prefsDepthOffRadioButton
@@ -118,6 +121,7 @@ namespace DLEDotNet.Editor.Layouts
             this.prefsMinecenterComboBox.Name = "prefsMinecenterComboBox";
             this.prefsMinecenterComboBox.Size = new System.Drawing.Size(103, 21);
             this.prefsMinecenterComboBox.TabIndex = 0;
+            this.helpToolTip.SetToolTip(this.prefsMinecenterComboBox, "what to display in the middle of the viewport");
             // 
             // alignableGroupBoxDepthPerception
             // 
@@ -245,6 +249,7 @@ namespace DLEDotNet.Editor.Layouts
             this.alignableGroupBoxMineRenderDepth.ResumeLayout(false);
             this.alignableGroupBoxMineCenterDisplay.ResumeLayout(false);
             this.alignableGroupBoxRenderer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -266,6 +271,6 @@ namespace DLEDotNet.Editor.Layouts
         private AlignableGroupBox alignableGroupBoxRenderer;
         private System.Windows.Forms.RadioButton prefsRenderer3RdPersonRadioButton;
         private System.Windows.Forms.RadioButton prefsRenderer1StPersonRadioButton;
-
+        private ToolTip helpToolTip;
     }
 }

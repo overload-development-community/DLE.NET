@@ -10,7 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -173,6 +175,21 @@ namespace DLEDotNet.Editor
             textureList = newMainView.GetTextureList();
             ActiveMainView = newMainView;
             mainPanel.PerformLayout();
+        }
+
+        private void EditorWindow_Shown(object sender, EventArgs e)
+        {
+            ShowSplashScreen();
+        }
+
+        private void ShowSplashScreen()
+        {
+            if (EditorState.SavedPrefs.ShowSplash)
+            {
+                var splash = new SplashScreen();
+                splash.Show(this);
+                splash.Focus();
+            }
         }
 
         private void DisposeMainView(MainView mainView)
@@ -709,9 +726,24 @@ namespace DLEDotNet.Editor
         #region --- Events & binds for the Help menu
         private void SetupHelpMenu(EditorStateBinder binder)
         {
-
         }
 
+        private void htmlHelpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "Help", "index.html"),
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(this, "Could not open the HTML help. Make sure it is present with your installation.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) => new AboutDialog().Show(this);
         #endregion
 
         #region --- Events for the context menu

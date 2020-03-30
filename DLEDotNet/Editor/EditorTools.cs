@@ -1,9 +1,5 @@
 ﻿using DLEDotNet.Editor.Layouts;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace DLEDotNet.Editor
@@ -91,7 +87,7 @@ namespace DLEDotNet.Editor
             {
                 DLELayoutableUserControl tab = AllTools[i];
                 TabPage tabPage = tabControl.TabPages[i];
-                
+
                 tabPage.Controls.Add(tab);
                 tab.Location = new System.Drawing.Point(0, 0);
                 tab.DialogLayout = layout;

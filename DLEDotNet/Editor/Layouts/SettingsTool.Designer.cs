@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.toolTabTabControl = new System.Windows.Forms.TabControl();
             this.tabPageFiles = new System.Windows.Forms.TabPage();
             this.preferencesFiles1 = new DLEDotNet.Editor.Layouts.PreferencesFiles();
@@ -43,6 +44,7 @@
             this.preferencesMisc1 = new DLEDotNet.Editor.Layouts.PreferencesMisc();
             this.idokButton = new System.Windows.Forms.Button();
             this.idcancelButton = new System.Windows.Forms.Button();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.toolTabTabControl.SuspendLayout();
             this.tabPageFiles.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.preferencesFiles1)).BeginInit();
@@ -277,5 +279,6 @@
         private PreferencesEditor preferencesEditor1;
         private PreferencesVisibility preferencesVisibility1;
         private PreferencesMisc preferencesMisc1;
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

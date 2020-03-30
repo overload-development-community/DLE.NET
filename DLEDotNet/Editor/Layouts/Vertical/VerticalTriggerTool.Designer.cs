@@ -72,7 +72,7 @@
             this.triggerAddEnergydrainButton = new System.Windows.Forms.Button();
             this.triggerAddControlpanelButton = new System.Windows.Forms.Button();
             this.triggerAutoaddwallCheckBox = new System.Windows.Forms.CheckBox();
-            this.alignableGroupBoxTriggerData = new AlignableGroupBox();
+            this.alignableGroupBoxTriggerData = new DLEDotNet.Editor.AlignableGroupBox();
             this.triggerStrengthTextLabel = new System.Windows.Forms.Label();
             this.labelTriggerNum = new System.Windows.Forms.Label();
             this.triggerStrengthText2Label = new System.Windows.Forms.Label();
@@ -80,16 +80,16 @@
             this.triggerShowObjPictureBox = new System.Windows.Forms.PictureBox();
             this.labelSegmentSideActivated = new System.Windows.Forms.Label();
             this.labelEnterSegmentSide = new System.Windows.Forms.Label();
-            this.alignableGroupBoxDescent1Types = new AlignableGroupBox();
-            this.alignableGroupBoxDescent2Types = new AlignableGroupBox();
+            this.alignableGroupBoxDescent1Types = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxDescent2Types = new DLEDotNet.Editor.AlignableGroupBox();
             this.triggerSliderTextLabel = new System.Windows.Forms.Label();
             this.triggerShowTexturePictureBox = new System.Windows.Forms.PictureBox();
-            this.alignableGroupBoxTriggerTargets = new AlignableGroupBox();
+            this.alignableGroupBoxTriggerTargets = new DLEDotNet.Editor.AlignableGroupBox();
             this.triggerShowPictureBox = new System.Windows.Forms.PictureBox();
             this.triggerAddobjtgtButton = new System.Windows.Forms.Button();
-            this.alignableGroupBoxAddPredefined = new AlignableGroupBox();
-            this.alignableGroupBoxDescent2Props = new AlignableGroupBox();
-            this.alignableGroupBoxD2XHyphXlProps = new AlignableGroupBox();
+            this.alignableGroupBoxAddPredefined = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxDescent2Props = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxD2XHyphXlProps = new DLEDotNet.Editor.AlignableGroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.triggerSliderTrackBar)).BeginInit();
             this.alignableGroupBoxTriggerData.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.triggerShowObjPictureBox)).BeginInit();
@@ -137,7 +137,7 @@
             this.triggerStrengthTextBox.Location = new System.Drawing.Point(136, 42);
             this.triggerStrengthTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerStrengthTextBox.Name = "triggerStrengthTextBox";
-            this.triggerStrengthTextBox.Size = new System.Drawing.Size(54, 19);
+            this.triggerStrengthTextBox.Size = new System.Drawing.Size(54, 20);
             this.triggerStrengthTextBox.TabIndex = 3;
             this.triggerStrengthTextBox.TabStop = false;
             this.triggerStrengthTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -147,7 +147,7 @@
             this.triggerTimeTextBox.Location = new System.Drawing.Point(136, 67);
             this.triggerTimeTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerTimeTextBox.Name = "triggerTimeTextBox";
-            this.triggerTimeTextBox.Size = new System.Drawing.Size(54, 19);
+            this.triggerTimeTextBox.Size = new System.Drawing.Size(54, 20);
             this.triggerTimeTextBox.TabIndex = 4;
             this.triggerTimeTextBox.TabStop = false;
             this.triggerTimeTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -191,7 +191,7 @@
             // triggerControldoorsCheckBox
             // 
             this.triggerControldoorsCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.triggerControldoorsCheckBox.Location = new System.Drawing.Point(4, 16);
+            this.triggerControldoorsCheckBox.Location = new System.Drawing.Point(4, 13);
             this.triggerControldoorsCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerControldoorsCheckBox.Name = "triggerControldoorsCheckBox";
             this.triggerControldoorsCheckBox.Size = new System.Drawing.Size(87, 18);
@@ -201,7 +201,7 @@
             // triggerShielddrainCheckBox
             // 
             this.triggerShielddrainCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.triggerShielddrainCheckBox.Location = new System.Drawing.Point(4, 31);
+            this.triggerShielddrainCheckBox.Location = new System.Drawing.Point(4, 28);
             this.triggerShielddrainCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerShielddrainCheckBox.Name = "triggerShielddrainCheckBox";
             this.triggerShielddrainCheckBox.Size = new System.Drawing.Size(78, 18);
@@ -211,7 +211,7 @@
             // triggerEnergydrainCheckBox
             // 
             this.triggerEnergydrainCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.triggerEnergydrainCheckBox.Location = new System.Drawing.Point(4, 46);
+            this.triggerEnergydrainCheckBox.Location = new System.Drawing.Point(4, 43);
             this.triggerEnergydrainCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerEnergydrainCheckBox.Name = "triggerEnergydrainCheckBox";
             this.triggerEnergydrainCheckBox.Size = new System.Drawing.Size(84, 18);
@@ -221,7 +221,7 @@
             // triggerEndlevelCheckBox
             // 
             this.triggerEndlevelCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.triggerEndlevelCheckBox.Location = new System.Drawing.Point(4, 60);
+            this.triggerEndlevelCheckBox.Location = new System.Drawing.Point(4, 58);
             this.triggerEndlevelCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerEndlevelCheckBox.Name = "triggerEndlevelCheckBox";
             this.triggerEndlevelCheckBox.Size = new System.Drawing.Size(42, 18);
@@ -231,7 +231,7 @@
             // triggerSecretexitCheckBox
             // 
             this.triggerSecretexitCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.triggerSecretexitCheckBox.Location = new System.Drawing.Point(4, 75);
+            this.triggerSecretexitCheckBox.Location = new System.Drawing.Point(4, 73);
             this.triggerSecretexitCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerSecretexitCheckBox.Name = "triggerSecretexitCheckBox";
             this.triggerSecretexitCheckBox.Size = new System.Drawing.Size(80, 15);
@@ -251,7 +251,7 @@
             // triggerOneshotd1CheckBox
             // 
             this.triggerOneshotd1CheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.triggerOneshotd1CheckBox.Location = new System.Drawing.Point(4, 104);
+            this.triggerOneshotd1CheckBox.Location = new System.Drawing.Point(4, 103);
             this.triggerOneshotd1CheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerOneshotd1CheckBox.Name = "triggerOneshotd1CheckBox";
             this.triggerOneshotd1CheckBox.Size = new System.Drawing.Size(68, 15);
@@ -261,7 +261,7 @@
             // triggerRobotmakerCheckBox
             // 
             this.triggerRobotmakerCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.triggerRobotmakerCheckBox.Location = new System.Drawing.Point(4, 119);
+            this.triggerRobotmakerCheckBox.Location = new System.Drawing.Point(4, 118);
             this.triggerRobotmakerCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerRobotmakerCheckBox.Name = "triggerRobotmakerCheckBox";
             this.triggerRobotmakerCheckBox.Size = new System.Drawing.Size(80, 15);
@@ -291,7 +291,7 @@
             // triggerOpenwallCheckBox
             // 
             this.triggerOpenwallCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.triggerOpenwallCheckBox.Location = new System.Drawing.Point(4, 164);
+            this.triggerOpenwallCheckBox.Location = new System.Drawing.Point(4, 163);
             this.triggerOpenwallCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerOpenwallCheckBox.Name = "triggerOpenwallCheckBox";
             this.triggerOpenwallCheckBox.Size = new System.Drawing.Size(80, 15);
@@ -301,7 +301,7 @@
             // triggerClosewallCheckBox
             // 
             this.triggerClosewallCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.triggerClosewallCheckBox.Location = new System.Drawing.Point(4, 179);
+            this.triggerClosewallCheckBox.Location = new System.Drawing.Point(4, 178);
             this.triggerClosewallCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerClosewallCheckBox.Name = "triggerClosewallCheckBox";
             this.triggerClosewallCheckBox.Size = new System.Drawing.Size(80, 15);
@@ -382,10 +382,10 @@
             // 
             // triggerTargetTextBox
             // 
-            this.triggerTargetTextBox.Location = new System.Drawing.Point(42, 28);
+            this.triggerTargetTextBox.Location = new System.Drawing.Point(43, 28);
             this.triggerTargetTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerTargetTextBox.Name = "triggerTargetTextBox";
-            this.triggerTargetTextBox.Size = new System.Drawing.Size(72, 19);
+            this.triggerTargetTextBox.Size = new System.Drawing.Size(72, 20);
             this.triggerTargetTextBox.TabIndex = 0;
             this.triggerTargetTextBox.TabStop = false;
             this.triggerTargetTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -640,18 +640,18 @@
             // alignableGroupBoxDescent1Types
             // 
             this.alignableGroupBoxDescent1Types.Alignment = System.Windows.Forms.HorizontalAlignment.Right;
-            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerControldoorsCheckBox);
-            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerShielddrainCheckBox);
-            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerEnergydrainCheckBox);
-            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerEndlevelCheckBox);
-            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerSecretexitCheckBox);
-            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerActiveCheckBox);
-            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerOneshotd1CheckBox);
-            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerRobotmakerCheckBox);
-            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerIllusionoffCheckBox);
-            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerIllusiononCheckBox);
-            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerOpenwallCheckBox);
             this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerClosewallCheckBox);
+            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerOpenwallCheckBox);
+            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerIllusiononCheckBox);
+            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerIllusionoffCheckBox);
+            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerRobotmakerCheckBox);
+            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerOneshotd1CheckBox);
+            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerActiveCheckBox);
+            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerSecretexitCheckBox);
+            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerEndlevelCheckBox);
+            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerEnergydrainCheckBox);
+            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerShielddrainCheckBox);
+            this.alignableGroupBoxDescent1Types.Controls.Add(this.triggerControldoorsCheckBox);
             this.alignableGroupBoxDescent1Types.Location = new System.Drawing.Point(120, 99);
             this.alignableGroupBoxDescent1Types.Margin = new System.Windows.Forms.Padding(0);
             this.alignableGroupBoxDescent1Types.Name = "alignableGroupBoxDescent1Types";
@@ -813,11 +813,13 @@
             this.Size = new System.Drawing.Size(333, 632);
             ((System.ComponentModel.ISupportInitialize)(this.triggerSliderTrackBar)).EndInit();
             this.alignableGroupBoxTriggerData.ResumeLayout(false);
+            this.alignableGroupBoxTriggerData.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.triggerShowObjPictureBox)).EndInit();
             this.alignableGroupBoxDescent1Types.ResumeLayout(false);
             this.alignableGroupBoxDescent2Types.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.triggerShowTexturePictureBox)).EndInit();
             this.alignableGroupBoxTriggerTargets.ResumeLayout(false);
+            this.alignableGroupBoxTriggerTargets.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.triggerShowPictureBox)).EndInit();
             this.alignableGroupBoxAddPredefined.ResumeLayout(false);
             this.alignableGroupBoxDescent2Props.ResumeLayout(false);

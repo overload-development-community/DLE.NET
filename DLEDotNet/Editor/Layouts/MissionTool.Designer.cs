@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.missionNameTextBox = new StringTextBox();
-            this.levelNameTextBox = new StringTextBox();
-            this.missionLeveleditTextBox = new StringTextBox();
+            this.components = new System.ComponentModel.Container();
+            this.missionNameTextBox = new DLEDotNet.Editor.StringTextBox();
+            this.levelNameTextBox = new DLEDotNet.Editor.StringTextBox();
+            this.missionLeveleditTextBox = new DLEDotNet.Editor.StringTextBox();
             this.missionAddButton = new System.Windows.Forms.Button();
             this.missionLevellistListBox = new System.Windows.Forms.ListBox();
             this.missionDeleteButton = new System.Windows.Forms.Button();
@@ -46,27 +47,27 @@
             this.missionCoopCheckBox = new System.Windows.Forms.CheckBox();
             this.missionCtfCheckBox = new System.Windows.Forms.CheckBox();
             this.missionHoardCheckBox = new System.Windows.Forms.CheckBox();
-            this.missionEditorsTextBox = new StringTextBox();
-            this.missionBuildtimeTextBox = new StringTextBox();
-            this.missionDateTextBox = new StringTextBox();
-            this.missionVersionTextBox = new StringTextBox();
-            this.missionAuthorTextBox = new StringTextBox();
-            this.missionEmailTextBox = new StringTextBox();
-            this.missionWebsiteTextBox = new StringTextBox();
-            this.missionBriefingTextBox = new StringTextBox();
+            this.missionEditorsTextBox = new DLEDotNet.Editor.StringTextBox();
+            this.missionBuildtimeTextBox = new DLEDotNet.Editor.StringTextBox();
+            this.missionDateTextBox = new DLEDotNet.Editor.StringTextBox();
+            this.missionVersionTextBox = new DLEDotNet.Editor.StringTextBox();
+            this.missionAuthorTextBox = new DLEDotNet.Editor.StringTextBox();
+            this.missionEmailTextBox = new DLEDotNet.Editor.StringTextBox();
+            this.missionWebsiteTextBox = new DLEDotNet.Editor.StringTextBox();
+            this.missionBriefingTextBox = new DLEDotNet.Editor.StringTextBox();
             this.missionMultiauthorCheckBox = new System.Windows.Forms.CheckBox();
             this.missionFeedbackCheckBox = new System.Windows.Forms.CheckBox();
-            this.missionCommentTextBox = new StringTextBox();
+            this.missionCommentTextBox = new DLEDotNet.Editor.StringTextBox();
             this.missionPogCheckBox = new System.Windows.Forms.CheckBox();
             this.missionHxmCheckBox = new System.Windows.Forms.CheckBox();
             this.missionHmpCheckBox = new System.Windows.Forms.CheckBox();
             this.idokButton = new System.Windows.Forms.Button();
             this.idcancelButton = new System.Windows.Forms.Button();
             this.labelMissionName = new System.Windows.Forms.Label();
-            this.alignableGroupBoxMissionType = new AlignableGroupBox();
+            this.alignableGroupBoxMissionType = new DLEDotNet.Editor.AlignableGroupBox();
             this.labelLevelsLevelSecretExitLevel = new System.Windows.Forms.Label();
-            this.alignableGroupBoxBuiltFor = new AlignableGroupBox();
-            this.alignableGroupBoxAuthorInfo = new AlignableGroupBox();
+            this.alignableGroupBoxBuiltFor = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxAuthorInfo = new DLEDotNet.Editor.AlignableGroupBox();
             this.labelEditorS = new System.Windows.Forms.Label();
             this.labelBuildTime = new System.Windows.Forms.Label();
             this.labelDate = new System.Windows.Forms.Label();
@@ -75,14 +76,16 @@
             this.labelEHyphMail = new System.Windows.Forms.Label();
             this.labelWebSite = new System.Windows.Forms.Label();
             this.labelBriefing = new System.Windows.Forms.Label();
-            this.alignableGroupBoxComment = new AlignableGroupBox();
-            this.alignableGroupBoxCustomData = new AlignableGroupBox();
+            this.alignableGroupBoxComment = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxCustomData = new DLEDotNet.Editor.AlignableGroupBox();
             this.labelLevelName = new System.Windows.Forms.Label();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.alignableGroupBoxMissionType.SuspendLayout();
             this.alignableGroupBoxBuiltFor.SuspendLayout();
             this.alignableGroupBoxAuthorInfo.SuspendLayout();
             this.alignableGroupBoxComment.SuspendLayout();
             this.alignableGroupBoxCustomData.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // missionNameTextBox
@@ -95,6 +98,7 @@
             this.missionNameTextBox.TabIndex = 0;
             this.missionNameTextBox.TabStop = false;
             this.missionNameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.missionNameTextBox.Value = "";
             // 
             // levelNameTextBox
             // 
@@ -106,6 +110,7 @@
             this.levelNameTextBox.TabIndex = 1;
             this.levelNameTextBox.TabStop = false;
             this.levelNameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.levelNameTextBox.Value = "";
             // 
             // missionLeveleditTextBox
             // 
@@ -116,6 +121,7 @@
             this.missionLeveleditTextBox.TabIndex = 2;
             this.missionLeveleditTextBox.TabStop = false;
             this.missionLeveleditTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.missionLeveleditTextBox.Value = "";
             // 
             // missionAddButton
             // 
@@ -126,6 +132,7 @@
             this.missionAddButton.Size = new System.Drawing.Size(76, 21);
             this.missionAddButton.TabIndex = 3;
             this.missionAddButton.Text = "insert";
+            this.helpToolTip.SetToolTip(this.missionAddButton, "add the input as a level to the end of the current mission");
             // 
             // missionLevellistListBox
             // 
@@ -145,6 +152,7 @@
             this.missionDeleteButton.TabIndex = 5;
             this.missionDeleteButton.TabStop = false;
             this.missionDeleteButton.Text = "delete";
+            this.helpToolTip.SetToolTip(this.missionDeleteButton, "delete the selected level from mission");
             // 
             // missionRenameButton
             // 
@@ -155,6 +163,7 @@
             this.missionRenameButton.Size = new System.Drawing.Size(76, 20);
             this.missionRenameButton.TabIndex = 6;
             this.missionRenameButton.Text = "rename";
+            this.helpToolTip.SetToolTip(this.missionRenameButton, "rename the current level in the list to the text in the box below");
             // 
             // missionUpButton
             // 
@@ -165,6 +174,7 @@
             this.missionUpButton.Size = new System.Drawing.Size(76, 20);
             this.missionUpButton.TabIndex = 7;
             this.missionUpButton.Text = "move up";
+            this.helpToolTip.SetToolTip(this.missionUpButton, "move the currently selected level up in the list");
             // 
             // missionDownButton
             // 
@@ -175,6 +185,7 @@
             this.missionDownButton.Size = new System.Drawing.Size(76, 20);
             this.missionDownButton.TabIndex = 8;
             this.missionDownButton.Text = "move down";
+            this.helpToolTip.SetToolTip(this.missionDownButton, "move the currently selected level down in the list");
             // 
             // missionFromhogButton
             // 
@@ -185,6 +196,7 @@
             this.missionFromhogButton.Size = new System.Drawing.Size(76, 20);
             this.missionFromhogButton.TabIndex = 9;
             this.missionFromhogButton.Text = "get from hog";
+            this.helpToolTip.SetToolTip(this.missionFromhogButton, "fill the list with level files from the .HOG");
             // 
             // missionMultiplayerRadioButton
             // 
@@ -196,6 +208,7 @@
             this.missionMultiplayerRadioButton.TabIndex = 0;
             this.missionMultiplayerRadioButton.TabStop = true;
             this.missionMultiplayerRadioButton.Text = "multi player (anarchy)";
+            this.helpToolTip.SetToolTip(this.missionMultiplayerRadioButton, "designed for multiplayer game modes");
             // 
             // missionSingleplayerRadioButton
             // 
@@ -206,6 +219,7 @@
             this.missionSingleplayerRadioButton.Size = new System.Drawing.Size(128, 18);
             this.missionSingleplayerRadioButton.TabIndex = 1;
             this.missionSingleplayerRadioButton.Text = "single player (normal)";
+            this.helpToolTip.SetToolTip(this.missionSingleplayerRadioButton, "designed for singleplayer game modes");
             // 
             // missionNormalCheckBox
             // 
@@ -216,6 +230,7 @@
             this.missionNormalCheckBox.Size = new System.Drawing.Size(122, 18);
             this.missionNormalCheckBox.TabIndex = 0;
             this.missionNormalCheckBox.Text = "normal";
+            this.helpToolTip.SetToolTip(this.missionNormalCheckBox, "singleplayer game mode");
             // 
             // missionAnarchyCheckBox
             // 
@@ -226,6 +241,7 @@
             this.missionAnarchyCheckBox.Size = new System.Drawing.Size(122, 18);
             this.missionAnarchyCheckBox.TabIndex = 1;
             this.missionAnarchyCheckBox.Text = "anarchy";
+            this.helpToolTip.SetToolTip(this.missionAnarchyCheckBox, "free-for-all multiplayer mode");
             // 
             // missionRoboanarchyCheckBox
             // 
@@ -236,6 +252,7 @@
             this.missionRoboanarchyCheckBox.Size = new System.Drawing.Size(122, 18);
             this.missionRoboanarchyCheckBox.TabIndex = 2;
             this.missionRoboanarchyCheckBox.Text = "robot anarchy";
+            this.helpToolTip.SetToolTip(this.missionRoboanarchyCheckBox, "free-for-all multiplayer mode with hostile robots");
             // 
             // missionCoopCheckBox
             // 
@@ -246,6 +263,7 @@
             this.missionCoopCheckBox.Size = new System.Drawing.Size(122, 18);
             this.missionCoopCheckBox.TabIndex = 3;
             this.missionCoopCheckBox.Text = "cooperative";
+            this.helpToolTip.SetToolTip(this.missionCoopCheckBox, "for co-operative multiplayer");
             // 
             // missionCtfCheckBox
             // 
@@ -256,6 +274,7 @@
             this.missionCtfCheckBox.Size = new System.Drawing.Size(122, 18);
             this.missionCtfCheckBox.TabIndex = 4;
             this.missionCtfCheckBox.Text = "capture the flag";
+            this.helpToolTip.SetToolTip(this.missionCtfCheckBox, "special multiplayer game mode, requires flags");
             // 
             // missionHoardCheckBox
             // 
@@ -266,6 +285,7 @@
             this.missionHoardCheckBox.Size = new System.Drawing.Size(122, 18);
             this.missionHoardCheckBox.TabIndex = 5;
             this.missionHoardCheckBox.Text = "hoard";
+            this.helpToolTip.SetToolTip(this.missionHoardCheckBox, "(XL only) special multiplayer game mode, requires robot makers");
             // 
             // missionEditorsTextBox
             // 
@@ -276,6 +296,7 @@
             this.missionEditorsTextBox.TabIndex = 0;
             this.missionEditorsTextBox.TabStop = false;
             this.missionEditorsTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.missionEditorsTextBox.Value = "";
             // 
             // missionBuildtimeTextBox
             // 
@@ -286,6 +307,7 @@
             this.missionBuildtimeTextBox.TabIndex = 1;
             this.missionBuildtimeTextBox.TabStop = false;
             this.missionBuildtimeTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.missionBuildtimeTextBox.Value = "";
             // 
             // missionDateTextBox
             // 
@@ -296,6 +318,7 @@
             this.missionDateTextBox.TabIndex = 2;
             this.missionDateTextBox.TabStop = false;
             this.missionDateTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.missionDateTextBox.Value = "";
             // 
             // missionVersionTextBox
             // 
@@ -306,6 +329,7 @@
             this.missionVersionTextBox.TabIndex = 3;
             this.missionVersionTextBox.TabStop = false;
             this.missionVersionTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.missionVersionTextBox.Value = "";
             // 
             // missionAuthorTextBox
             // 
@@ -316,6 +340,7 @@
             this.missionAuthorTextBox.TabIndex = 4;
             this.missionAuthorTextBox.TabStop = false;
             this.missionAuthorTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.missionAuthorTextBox.Value = "";
             // 
             // missionEmailTextBox
             // 
@@ -326,6 +351,7 @@
             this.missionEmailTextBox.TabIndex = 5;
             this.missionEmailTextBox.TabStop = false;
             this.missionEmailTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.missionEmailTextBox.Value = "";
             // 
             // missionWebsiteTextBox
             // 
@@ -336,6 +362,7 @@
             this.missionWebsiteTextBox.TabIndex = 6;
             this.missionWebsiteTextBox.TabStop = false;
             this.missionWebsiteTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.missionWebsiteTextBox.Value = "";
             // 
             // missionBriefingTextBox
             // 
@@ -346,6 +373,8 @@
             this.missionBriefingTextBox.TabIndex = 7;
             this.missionBriefingTextBox.TabStop = false;
             this.missionBriefingTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.helpToolTip.SetToolTip(this.missionBriefingTextBox, "briefing file name without extension");
+            this.missionBriefingTextBox.Value = "";
             // 
             // missionMultiauthorCheckBox
             // 
@@ -376,6 +405,7 @@
             this.missionCommentTextBox.Size = new System.Drawing.Size(306, 139);
             this.missionCommentTextBox.TabIndex = 0;
             this.missionCommentTextBox.TabStop = false;
+            this.missionCommentTextBox.Value = "";
             // 
             // missionPogCheckBox
             // 
@@ -386,6 +416,7 @@
             this.missionPogCheckBox.Size = new System.Drawing.Size(64, 18);
             this.missionPogCheckBox.TabIndex = 0;
             this.missionPogCheckBox.Text = "textures";
+            this.helpToolTip.SetToolTip(this.missionPogCheckBox, "does the mission have custom textures?");
             // 
             // missionHxmCheckBox
             // 
@@ -396,6 +427,7 @@
             this.missionHxmCheckBox.Size = new System.Drawing.Size(56, 18);
             this.missionHxmCheckBox.TabIndex = 1;
             this.missionHxmCheckBox.Text = "robots";
+            this.helpToolTip.SetToolTip(this.missionHxmCheckBox, "does the mission have custom robots?");
             // 
             // missionHmpCheckBox
             // 
@@ -406,6 +438,7 @@
             this.missionHmpCheckBox.Size = new System.Drawing.Size(56, 18);
             this.missionHmpCheckBox.TabIndex = 2;
             this.missionHmpCheckBox.Text = "music";
+            this.helpToolTip.SetToolTip(this.missionHmpCheckBox, "does the mission have custom music?");
             // 
             // idokButton
             // 
@@ -416,7 +449,8 @@
             this.idokButton.Size = new System.Drawing.Size(76, 20);
             this.idokButton.TabIndex = 10;
             this.idokButton.TabStop = false;
-            this.idokButton.Text = "accept";
+            this.idokButton.Text = "save";
+            this.helpToolTip.SetToolTip(this.idokButton, "save the mission file with these details");
             // 
             // idcancelButton
             // 
@@ -426,7 +460,8 @@
             this.idcancelButton.Name = "idcancelButton";
             this.idcancelButton.Size = new System.Drawing.Size(76, 20);
             this.idcancelButton.TabIndex = 11;
-            this.idcancelButton.Text = "cancel";
+            this.idcancelButton.Text = "revert";
+            this.helpToolTip.SetToolTip(this.idcancelButton, "revert to the current mission file");
             // 
             // labelMissionName
             // 
@@ -679,6 +714,7 @@
             this.alignableGroupBoxComment.ResumeLayout(false);
             this.alignableGroupBoxComment.PerformLayout();
             this.alignableGroupBoxCustomData.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -735,6 +771,6 @@
         private AlignableGroupBox alignableGroupBoxComment;
         private AlignableGroupBox alignableGroupBoxCustomData;
         private System.Windows.Forms.Label labelLevelName;
-
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

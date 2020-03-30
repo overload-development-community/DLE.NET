@@ -77,17 +77,17 @@
             this.labelStrength = new System.Windows.Forms.Label();
             this.labelWallNo = new System.Windows.Forms.Label();
             this.labelCloak = new System.Windows.Forms.Label();
-            this.alignableGroupBoxKey = new AlignableGroupBox();
-            this.alignableGroupBoxFlags = new AlignableGroupBox();
-            this.alignableGroupBoxWallData = new AlignableGroupBox();
+            this.alignableGroupBoxKey = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxFlags = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxWallData = new DLEDotNet.Editor.AlignableGroupBox();
+            this.wallTranspSliderLeftRightControl = new DLEDotNet.Editor.LeftRightControl();
             this.labelPercentA = new System.Windows.Forms.Label();
             this.labelPercentB = new System.Windows.Forms.Label();
             this.wallShowPictureBox = new System.Windows.Forms.PictureBox();
             this.wallTranspTextLabel = new System.Windows.Forms.Label();
             this.wallMsgTextBox = new System.Windows.Forms.TextBox();
-            this.alignableGroupBoxAddDoor = new AlignableGroupBox();
-            this.alignableGroupBoxAddWall = new AlignableGroupBox();
-            this.wallTranspSliderLeftRightControl = new LeftRightControl();
+            this.alignableGroupBoxAddDoor = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxAddWall = new DLEDotNet.Editor.AlignableGroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.wallTranspSliderTrackBar)).BeginInit();
             this.alignableGroupBoxKey.SuspendLayout();
             this.alignableGroupBoxFlags.SuspendLayout();
@@ -137,7 +137,7 @@
             this.wallStrengthTextBox.Location = new System.Drawing.Point(190, 109);
             this.wallStrengthTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallStrengthTextBox.Name = "wallStrengthTextBox";
-            this.wallStrengthTextBox.Size = new System.Drawing.Size(42, 19);
+            this.wallStrengthTextBox.Size = new System.Drawing.Size(42, 20);
             this.wallStrengthTextBox.TabIndex = 4;
             this.wallStrengthTextBox.TabStop = false;
             this.wallStrengthTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -147,7 +147,7 @@
             this.wallCloakTextBox.Location = new System.Drawing.Point(190, 132);
             this.wallCloakTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallCloakTextBox.Name = "wallCloakTextBox";
-            this.wallCloakTextBox.Size = new System.Drawing.Size(42, 19);
+            this.wallCloakTextBox.Size = new System.Drawing.Size(42, 20);
             this.wallCloakTextBox.TabIndex = 5;
             this.wallCloakTextBox.TabStop = false;
             this.wallCloakTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -205,7 +205,7 @@
             // wallBlastedCheckBox
             // 
             this.wallBlastedCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.wallBlastedCheckBox.Location = new System.Drawing.Point(12, 23);
+            this.wallBlastedCheckBox.Location = new System.Drawing.Point(12, 20);
             this.wallBlastedCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallBlastedCheckBox.Name = "wallBlastedCheckBox";
             this.wallBlastedCheckBox.Size = new System.Drawing.Size(60, 18);
@@ -215,7 +215,7 @@
             // wallDooropenCheckBox
             // 
             this.wallDooropenCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.wallDooropenCheckBox.Location = new System.Drawing.Point(12, 41);
+            this.wallDooropenCheckBox.Location = new System.Drawing.Point(12, 38);
             this.wallDooropenCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallDooropenCheckBox.Name = "wallDooropenCheckBox";
             this.wallDooropenCheckBox.Size = new System.Drawing.Size(75, 18);
@@ -225,7 +225,7 @@
             // wallDoorlockedCheckBox
             // 
             this.wallDoorlockedCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.wallDoorlockedCheckBox.Location = new System.Drawing.Point(12, 57);
+            this.wallDoorlockedCheckBox.Location = new System.Drawing.Point(12, 56);
             this.wallDoorlockedCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallDoorlockedCheckBox.Name = "wallDoorlockedCheckBox";
             this.wallDoorlockedCheckBox.Size = new System.Drawing.Size(84, 18);
@@ -235,7 +235,7 @@
             // wallDoorautoCheckBox
             // 
             this.wallDoorautoCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.wallDoorautoCheckBox.Location = new System.Drawing.Point(12, 75);
+            this.wallDoorautoCheckBox.Location = new System.Drawing.Point(12, 74);
             this.wallDoorautoCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallDoorautoCheckBox.Name = "wallDoorautoCheckBox";
             this.wallDoorautoCheckBox.Size = new System.Drawing.Size(72, 18);
@@ -245,7 +245,7 @@
             // wallIllusionoffCheckBox
             // 
             this.wallIllusionoffCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.wallIllusionoffCheckBox.Location = new System.Drawing.Point(12, 89);
+            this.wallIllusionoffCheckBox.Location = new System.Drawing.Point(12, 92);
             this.wallIllusionoffCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallIllusionoffCheckBox.Name = "wallIllusionoffCheckBox";
             this.wallIllusionoffCheckBox.Size = new System.Drawing.Size(72, 18);
@@ -255,7 +255,7 @@
             // wallSwitchCheckBox
             // 
             this.wallSwitchCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.wallSwitchCheckBox.Location = new System.Drawing.Point(96, 24);
+            this.wallSwitchCheckBox.Location = new System.Drawing.Point(96, 20);
             this.wallSwitchCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallSwitchCheckBox.Name = "wallSwitchCheckBox";
             this.wallSwitchCheckBox.Size = new System.Drawing.Size(57, 18);
@@ -265,7 +265,7 @@
             // wallBuddyproofCheckBox
             // 
             this.wallBuddyproofCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.wallBuddyproofCheckBox.Location = new System.Drawing.Point(96, 42);
+            this.wallBuddyproofCheckBox.Location = new System.Drawing.Point(96, 38);
             this.wallBuddyproofCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallBuddyproofCheckBox.Name = "wallBuddyproofCheckBox";
             this.wallBuddyproofCheckBox.Size = new System.Drawing.Size(82, 18);
@@ -275,7 +275,7 @@
             // wallRenderAdditiveCheckBox
             // 
             this.wallRenderAdditiveCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.wallRenderAdditiveCheckBox.Location = new System.Drawing.Point(96, 58);
+            this.wallRenderAdditiveCheckBox.Location = new System.Drawing.Point(96, 56);
             this.wallRenderAdditiveCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallRenderAdditiveCheckBox.Name = "wallRenderAdditiveCheckBox";
             this.wallRenderAdditiveCheckBox.Size = new System.Drawing.Size(64, 18);
@@ -285,7 +285,7 @@
             // wallIgnoreMarkerCheckBox
             // 
             this.wallIgnoreMarkerCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.wallIgnoreMarkerCheckBox.Location = new System.Drawing.Point(96, 75);
+            this.wallIgnoreMarkerCheckBox.Location = new System.Drawing.Point(96, 74);
             this.wallIgnoreMarkerCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallIgnoreMarkerCheckBox.Name = "wallIgnoreMarkerCheckBox";
             this.wallIgnoreMarkerCheckBox.Size = new System.Drawing.Size(86, 18);
@@ -295,7 +295,7 @@
             // wallFlythroughCheckBox
             // 
             this.wallFlythroughCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.wallFlythroughCheckBox.Location = new System.Drawing.Point(96, 91);
+            this.wallFlythroughCheckBox.Location = new System.Drawing.Point(96, 92);
             this.wallFlythroughCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallFlythroughCheckBox.Name = "wallFlythroughCheckBox";
             this.wallFlythroughCheckBox.Size = new System.Drawing.Size(74, 18);
@@ -492,7 +492,7 @@
             this.wallCubeTextBox.Location = new System.Drawing.Point(51, 16);
             this.wallCubeTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallCubeTextBox.Name = "wallCubeTextBox";
-            this.wallCubeTextBox.Size = new System.Drawing.Size(36, 19);
+            this.wallCubeTextBox.Size = new System.Drawing.Size(36, 20);
             this.wallCubeTextBox.TabIndex = 8;
             this.wallCubeTextBox.TabStop = false;
             this.wallCubeTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -502,7 +502,7 @@
             this.wallSideTextBox.Location = new System.Drawing.Point(51, 36);
             this.wallSideTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallSideTextBox.Name = "wallSideTextBox";
-            this.wallSideTextBox.Size = new System.Drawing.Size(36, 19);
+            this.wallSideTextBox.Size = new System.Drawing.Size(36, 20);
             this.wallSideTextBox.TabIndex = 9;
             this.wallSideTextBox.TabStop = false;
             this.wallSideTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -512,7 +512,7 @@
             this.wallTriggerTextBox.Location = new System.Drawing.Point(51, 55);
             this.wallTriggerTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallTriggerTextBox.Name = "wallTriggerTextBox";
-            this.wallTriggerTextBox.Size = new System.Drawing.Size(36, 19);
+            this.wallTriggerTextBox.Size = new System.Drawing.Size(36, 20);
             this.wallTriggerTextBox.TabIndex = 10;
             this.wallTriggerTextBox.TabStop = false;
             this.wallTriggerTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -678,6 +678,16 @@
             this.alignableGroupBoxWallData.TabStop = false;
             this.alignableGroupBoxWallData.Text = "wall data";
             // 
+            // wallTranspSliderLeftRightControl
+            // 
+            this.wallTranspSliderLeftRightControl.LinkedControl = this.wallTranspSliderTrackBar;
+            this.wallTranspSliderLeftRightControl.Location = new System.Drawing.Point(111, 164);
+            this.wallTranspSliderLeftRightControl.MaximumSize = new System.Drawing.Size(30, 23);
+            this.wallTranspSliderLeftRightControl.MinimumSize = new System.Drawing.Size(30, 23);
+            this.wallTranspSliderLeftRightControl.Name = "wallTranspSliderLeftRightControl";
+            this.wallTranspSliderLeftRightControl.Size = new System.Drawing.Size(30, 23);
+            this.wallTranspSliderLeftRightControl.TabIndex = 23;
+            // 
             // labelPercentA
             // 
             this.labelPercentA.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -727,7 +737,7 @@
             this.wallMsgTextBox.Location = new System.Drawing.Point(33, 520);
             this.wallMsgTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.wallMsgTextBox.Name = "wallMsgTextBox";
-            this.wallMsgTextBox.Size = new System.Drawing.Size(264, 19);
+            this.wallMsgTextBox.Size = new System.Drawing.Size(264, 20);
             this.wallMsgTextBox.TabIndex = 8;
             this.wallMsgTextBox.TabStop = false;
             this.wallMsgTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -768,16 +778,6 @@
             this.alignableGroupBoxAddWall.TabStop = false;
             this.alignableGroupBoxAddWall.Text = "add wall";
             // 
-            // wallTranspSliderLeftRightControl
-            // 
-            this.wallTranspSliderLeftRightControl.LinkedControl = this.wallTranspSliderTrackBar;
-            this.wallTranspSliderLeftRightControl.Location = new System.Drawing.Point(111, 164);
-            this.wallTranspSliderLeftRightControl.MaximumSize = new System.Drawing.Size(30, 23);
-            this.wallTranspSliderLeftRightControl.MinimumSize = new System.Drawing.Size(30, 23);
-            this.wallTranspSliderLeftRightControl.Name = "wallTranspSliderLeftRightControl";
-            this.wallTranspSliderLeftRightControl.Size = new System.Drawing.Size(30, 23);
-            this.wallTranspSliderLeftRightControl.TabIndex = 23;
-            // 
             // VerticalWallTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -800,10 +800,12 @@
             this.alignableGroupBoxKey.ResumeLayout(false);
             this.alignableGroupBoxFlags.ResumeLayout(false);
             this.alignableGroupBoxWallData.ResumeLayout(false);
+            this.alignableGroupBoxWallData.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.wallShowPictureBox)).EndInit();
             this.alignableGroupBoxAddDoor.ResumeLayout(false);
             this.alignableGroupBoxAddWall.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

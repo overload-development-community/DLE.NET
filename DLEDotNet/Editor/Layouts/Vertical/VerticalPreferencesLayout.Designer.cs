@@ -60,7 +60,7 @@
             // prefsLayout2RadioButton
             // 
             this.prefsLayout2RadioButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.prefsLayout2RadioButton.Location = new System.Drawing.Point(86, 57);
+            this.prefsLayout2RadioButton.Location = new System.Drawing.Point(86, 56);
             this.prefsLayout2RadioButton.Margin = new System.Windows.Forms.Padding(0);
             this.prefsLayout2RadioButton.Name = "prefsLayout2RadioButton";
             this.prefsLayout2RadioButton.Size = new System.Drawing.Size(60, 21);
@@ -71,7 +71,7 @@
             // prefsLayout3RadioButton
             // 
             this.prefsLayout3RadioButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.prefsLayout3RadioButton.Location = new System.Drawing.Point(86, 75);
+            this.prefsLayout3RadioButton.Location = new System.Drawing.Point(86, 76);
             this.prefsLayout3RadioButton.Margin = new System.Windows.Forms.Padding(0);
             this.prefsLayout3RadioButton.Name = "prefsLayout3RadioButton";
             this.prefsLayout3RadioButton.Size = new System.Drawing.Size(152, 24);

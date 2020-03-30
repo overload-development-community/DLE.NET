@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lightningIdTextBox = new DLEDotNet.Editor.IntTextBox();
             this.lightningTargetTextBox = new DLEDotNet.Editor.IntTextBox();
             this.lightningBoltsNumericUpDown = new System.Windows.Forms.NumericUpDown();
@@ -84,6 +85,7 @@
             this.labelAlpha = new System.Windows.Forms.Label();
             this.lightningSelectColorButton = new System.Windows.Forms.Button();
             this.lightningColorPictureBox = new System.Windows.Forms.PictureBox();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.lightningBoltsNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lightningNodesNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lightningChildrenNumericUpDown)).BeginInit();
@@ -121,11 +123,11 @@
             // 
             // lightningTargetTextBox
             // 
-            this.lightningTargetTextBox.Location = new System.Drawing.Point(84, 32);
+            this.lightningTargetTextBox.Location = new System.Drawing.Point(84, 30);
             this.lightningTargetTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightningTargetTextBox.MinimumValue = 0;
             this.lightningTargetTextBox.Name = "lightningTargetTextBox";
-            this.lightningTargetTextBox.Size = new System.Drawing.Size(40, 20);
+            this.lightningTargetTextBox.Size = new System.Drawing.Size(42, 20);
             this.lightningTargetTextBox.TabIndex = 1;
             this.lightningTargetTextBox.TabStop = false;
             this.lightningTargetTextBox.Text = "0";
@@ -158,7 +160,7 @@
             // 
             // lightningNodesNumericUpDown
             // 
-            this.lightningNodesNumericUpDown.Location = new System.Drawing.Point(84, 70);
+            this.lightningNodesNumericUpDown.Location = new System.Drawing.Point(84, 69);
             this.lightningNodesNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.lightningNodesNumericUpDown.Maximum = new decimal(new int[] {
             1000,
@@ -183,7 +185,7 @@
             // 
             // lightningChildrenNumericUpDown
             // 
-            this.lightningChildrenNumericUpDown.Location = new System.Drawing.Point(84, 93);
+            this.lightningChildrenNumericUpDown.Location = new System.Drawing.Point(84, 89);
             this.lightningChildrenNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.lightningChildrenNumericUpDown.Maximum = new decimal(new int[] {
             1000,
@@ -191,14 +193,14 @@
             0,
             0});
             this.lightningChildrenNumericUpDown.Name = "lightningChildrenNumericUpDown";
-            this.lightningChildrenNumericUpDown.Size = new System.Drawing.Size(57, 20);
+            this.lightningChildrenNumericUpDown.Size = new System.Drawing.Size(58, 20);
             this.lightningChildrenNumericUpDown.TabIndex = 7;
             this.lightningChildrenNumericUpDown.TabStop = false;
             this.lightningChildrenNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lightningLifeNumericUpDown
             // 
-            this.lightningLifeNumericUpDown.Location = new System.Drawing.Point(70, 112);
+            this.lightningLifeNumericUpDown.Location = new System.Drawing.Point(70, 110);
             this.lightningLifeNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.lightningLifeNumericUpDown.Maximum = new decimal(new int[] {
             1000000000,
@@ -206,14 +208,14 @@
             0,
             0});
             this.lightningLifeNumericUpDown.Name = "lightningLifeNumericUpDown";
-            this.lightningLifeNumericUpDown.Size = new System.Drawing.Size(71, 20);
+            this.lightningLifeNumericUpDown.Size = new System.Drawing.Size(72, 20);
             this.lightningLifeNumericUpDown.TabIndex = 9;
             this.lightningLifeNumericUpDown.TabStop = false;
             this.lightningLifeNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lightningDelayNumericUpDown
             // 
-            this.lightningDelayNumericUpDown.Location = new System.Drawing.Point(71, 130);
+            this.lightningDelayNumericUpDown.Location = new System.Drawing.Point(70, 130);
             this.lightningDelayNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.lightningDelayNumericUpDown.Maximum = new decimal(new int[] {
             10000000,
@@ -221,7 +223,7 @@
             0,
             0});
             this.lightningDelayNumericUpDown.Name = "lightningDelayNumericUpDown";
-            this.lightningDelayNumericUpDown.Size = new System.Drawing.Size(70, 20);
+            this.lightningDelayNumericUpDown.Size = new System.Drawing.Size(72, 20);
             this.lightningDelayNumericUpDown.TabIndex = 11;
             this.lightningDelayNumericUpDown.TabStop = false;
             this.lightningDelayNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -298,7 +300,7 @@
             // 
             // lightningSpeedNumericUpDown
             // 
-            this.lightningSpeedNumericUpDown.Location = new System.Drawing.Point(230, 70);
+            this.lightningSpeedNumericUpDown.Location = new System.Drawing.Point(231, 70);
             this.lightningSpeedNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.lightningSpeedNumericUpDown.Minimum = new decimal(new int[] {
             1,
@@ -306,7 +308,7 @@
             0,
             0});
             this.lightningSpeedNumericUpDown.Name = "lightningSpeedNumericUpDown";
-            this.lightningSpeedNumericUpDown.Size = new System.Drawing.Size(61, 20);
+            this.lightningSpeedNumericUpDown.Size = new System.Drawing.Size(60, 20);
             this.lightningSpeedNumericUpDown.TabIndex = 19;
             this.lightningSpeedNumericUpDown.TabStop = false;
             this.lightningSpeedNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -318,7 +320,7 @@
             // 
             // lightningOffsetNumericUpDown
             // 
-            this.lightningOffsetNumericUpDown.Location = new System.Drawing.Point(230, 89);
+            this.lightningOffsetNumericUpDown.Location = new System.Drawing.Point(231, 88);
             this.lightningOffsetNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.lightningOffsetNumericUpDown.Maximum = new decimal(new int[] {
             1000,
@@ -331,7 +333,7 @@
             0,
             0});
             this.lightningOffsetNumericUpDown.Name = "lightningOffsetNumericUpDown";
-            this.lightningOffsetNumericUpDown.Size = new System.Drawing.Size(61, 20);
+            this.lightningOffsetNumericUpDown.Size = new System.Drawing.Size(60, 20);
             this.lightningOffsetNumericUpDown.TabIndex = 21;
             this.lightningOffsetNumericUpDown.TabStop = false;
             this.lightningOffsetNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -343,7 +345,7 @@
             // 
             // lightningAngleNumericUpDown
             // 
-            this.lightningAngleNumericUpDown.Location = new System.Drawing.Point(228, 109);
+            this.lightningAngleNumericUpDown.Location = new System.Drawing.Point(231, 109);
             this.lightningAngleNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.lightningAngleNumericUpDown.Maximum = new decimal(new int[] {
             360,
@@ -351,18 +353,18 @@
             0,
             0});
             this.lightningAngleNumericUpDown.Name = "lightningAngleNumericUpDown";
-            this.lightningAngleNumericUpDown.Size = new System.Drawing.Size(63, 20);
+            this.lightningAngleNumericUpDown.Size = new System.Drawing.Size(60, 20);
             this.lightningAngleNumericUpDown.TabIndex = 23;
             this.lightningAngleNumericUpDown.TabStop = false;
             this.lightningAngleNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lightningWaypointTextBox
             // 
-            this.lightningWaypointTextBox.Location = new System.Drawing.Point(230, 130);
+            this.lightningWaypointTextBox.Location = new System.Drawing.Point(231, 130);
             this.lightningWaypointTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightningWaypointTextBox.MinimumValue = 0;
             this.lightningWaypointTextBox.Name = "lightningWaypointTextBox";
-            this.lightningWaypointTextBox.Size = new System.Drawing.Size(40, 20);
+            this.lightningWaypointTextBox.Size = new System.Drawing.Size(44, 20);
             this.lightningWaypointTextBox.TabIndex = 24;
             this.lightningWaypointTextBox.TabStop = false;
             this.lightningWaypointTextBox.Text = "0";
@@ -975,6 +977,6 @@
         private System.Windows.Forms.Label labelAlpha;
         private System.Windows.Forms.Button lightningSelectColorButton;
         private System.Windows.Forms.PictureBox lightningColorPictureBox;
-
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

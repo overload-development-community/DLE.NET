@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.waterFogTranspSliderTrackBar = new System.Windows.Forms.TrackBar();
             this.waterFogPickColorButton = new System.Windows.Forms.Button();
             this.waterFogColorPictureBox = new System.Windows.Forms.PictureBox();
@@ -41,17 +42,18 @@
             this.denseFogPickColorButton = new System.Windows.Forms.Button();
             this.denseFogColorPictureBox = new System.Windows.Forms.PictureBox();
             this.waterFogTranspTextLabel = new System.Windows.Forms.Label();
-            this.alignableGroupBoxWaterTint = new AlignableGroupBox();
-            this.waterFogTranspSliderLeftRightControl = new LeftRightControl();
+            this.alignableGroupBoxWaterTint = new DLEDotNet.Editor.AlignableGroupBox();
+            this.waterFogTranspSliderLeftRightControl = new DLEDotNet.Editor.LeftRightControl();
             this.lavaFogTranspTextLabel = new System.Windows.Forms.Label();
-            this.alignableGroupBoxLavaHaze = new AlignableGroupBox();
-            this.lavaFogTranspSliderLeftRightControl = new LeftRightControl();
+            this.alignableGroupBoxLavaHaze = new DLEDotNet.Editor.AlignableGroupBox();
+            this.lavaFogTranspSliderLeftRightControl = new DLEDotNet.Editor.LeftRightControl();
             this.lightFogTranspTextLabel = new System.Windows.Forms.Label();
-            this.alignableGroupBoxLightFog = new AlignableGroupBox();
-            this.lightFogTranspSliderLeftRightControl = new LeftRightControl();
+            this.alignableGroupBoxLightFog = new DLEDotNet.Editor.AlignableGroupBox();
+            this.lightFogTranspSliderLeftRightControl = new DLEDotNet.Editor.LeftRightControl();
             this.denseFogTranspTextLabel = new System.Windows.Forms.Label();
-            this.alignableGroupBoxDenseFog = new AlignableGroupBox();
-            this.denseFogTranspSliderLeftRightControl = new LeftRightControl();
+            this.alignableGroupBoxDenseFog = new DLEDotNet.Editor.AlignableGroupBox();
+            this.denseFogTranspSliderLeftRightControl = new DLEDotNet.Editor.LeftRightControl();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.waterFogTranspSliderTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.waterFogColorPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lavaFogTranspSliderTrackBar)).BeginInit();
@@ -64,6 +66,7 @@
             this.alignableGroupBoxLavaHaze.SuspendLayout();
             this.alignableGroupBoxLightFog.SuspendLayout();
             this.alignableGroupBoxDenseFog.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // waterFogTranspSliderTrackBar
@@ -82,10 +85,10 @@
             // waterFogPickColorButton
             // 
             this.waterFogPickColorButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.waterFogPickColorButton.Location = new System.Drawing.Point(216, 18);
+            this.waterFogPickColorButton.Location = new System.Drawing.Point(214, 18);
             this.waterFogPickColorButton.Margin = new System.Windows.Forms.Padding(0);
             this.waterFogPickColorButton.Name = "waterFogPickColorButton";
-            this.waterFogPickColorButton.Size = new System.Drawing.Size(52, 21);
+            this.waterFogPickColorButton.Size = new System.Drawing.Size(56, 21);
             this.waterFogPickColorButton.TabIndex = 2;
             this.waterFogPickColorButton.Text = "pick color";
             // 
@@ -116,10 +119,10 @@
             // lavaFogPickColorButton
             // 
             this.lavaFogPickColorButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.lavaFogPickColorButton.Location = new System.Drawing.Point(216, 18);
+            this.lavaFogPickColorButton.Location = new System.Drawing.Point(214, 18);
             this.lavaFogPickColorButton.Margin = new System.Windows.Forms.Padding(0);
             this.lavaFogPickColorButton.Name = "lavaFogPickColorButton";
-            this.lavaFogPickColorButton.Size = new System.Drawing.Size(52, 21);
+            this.lavaFogPickColorButton.Size = new System.Drawing.Size(56, 21);
             this.lavaFogPickColorButton.TabIndex = 2;
             this.lavaFogPickColorButton.Text = "pick color";
             // 
@@ -127,7 +130,7 @@
             // 
             this.lavaFogColorPictureBox.BackColor = System.Drawing.Color.Black;
             this.lavaFogColorPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lavaFogColorPictureBox.Location = new System.Drawing.Point(214, 41);
+            this.lavaFogColorPictureBox.Location = new System.Drawing.Point(214, 42);
             this.lavaFogColorPictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.lavaFogColorPictureBox.Name = "lavaFogColorPictureBox";
             this.lavaFogColorPictureBox.Size = new System.Drawing.Size(56, 23);
@@ -150,7 +153,7 @@
             // lightFogPickColorButton
             // 
             this.lightFogPickColorButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.lightFogPickColorButton.Location = new System.Drawing.Point(218, 20);
+            this.lightFogPickColorButton.Location = new System.Drawing.Point(214, 18);
             this.lightFogPickColorButton.Margin = new System.Windows.Forms.Padding(0);
             this.lightFogPickColorButton.Name = "lightFogPickColorButton";
             this.lightFogPickColorButton.Size = new System.Drawing.Size(56, 21);
@@ -161,10 +164,10 @@
             // 
             this.lightFogColorPictureBox.BackColor = System.Drawing.Color.Black;
             this.lightFogColorPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lightFogColorPictureBox.Location = new System.Drawing.Point(216, 42);
+            this.lightFogColorPictureBox.Location = new System.Drawing.Point(214, 42);
             this.lightFogColorPictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightFogColorPictureBox.Name = "lightFogColorPictureBox";
-            this.lightFogColorPictureBox.Size = new System.Drawing.Size(60, 23);
+            this.lightFogColorPictureBox.Size = new System.Drawing.Size(56, 23);
             this.lightFogColorPictureBox.TabIndex = 3;
             this.lightFogColorPictureBox.TabStop = false;
             // 
@@ -184,7 +187,7 @@
             // denseFogPickColorButton
             // 
             this.denseFogPickColorButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.denseFogPickColorButton.Location = new System.Drawing.Point(218, 18);
+            this.denseFogPickColorButton.Location = new System.Drawing.Point(214, 18);
             this.denseFogPickColorButton.Margin = new System.Windows.Forms.Padding(0);
             this.denseFogPickColorButton.Name = "denseFogPickColorButton";
             this.denseFogPickColorButton.Size = new System.Drawing.Size(56, 21);
@@ -195,20 +198,20 @@
             // 
             this.denseFogColorPictureBox.BackColor = System.Drawing.Color.Black;
             this.denseFogColorPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.denseFogColorPictureBox.Location = new System.Drawing.Point(216, 41);
+            this.denseFogColorPictureBox.Location = new System.Drawing.Point(214, 42);
             this.denseFogColorPictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.denseFogColorPictureBox.Name = "denseFogColorPictureBox";
-            this.denseFogColorPictureBox.Size = new System.Drawing.Size(60, 23);
+            this.denseFogColorPictureBox.Size = new System.Drawing.Size(56, 23);
             this.denseFogColorPictureBox.TabIndex = 3;
             this.denseFogColorPictureBox.TabStop = false;
             // 
             // waterFogTranspTextLabel
             // 
             this.waterFogTranspTextLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.waterFogTranspTextLabel.Location = new System.Drawing.Point(2, 18);
+            this.waterFogTranspTextLabel.Location = new System.Drawing.Point(9, 18);
             this.waterFogTranspTextLabel.Margin = new System.Windows.Forms.Padding(0);
             this.waterFogTranspTextLabel.Name = "waterFogTranspTextLabel";
-            this.waterFogTranspTextLabel.Size = new System.Drawing.Size(168, 15);
+            this.waterFogTranspTextLabel.Size = new System.Drawing.Size(156, 15);
             this.waterFogTranspTextLabel.TabIndex = 4;
             this.waterFogTranspTextLabel.TabStop = true;
             this.waterFogTranspTextLabel.Text = "view range (standard cubes):";
@@ -242,10 +245,10 @@
             // lavaFogTranspTextLabel
             // 
             this.lavaFogTranspTextLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.lavaFogTranspTextLabel.Location = new System.Drawing.Point(6, 16);
+            this.lavaFogTranspTextLabel.Location = new System.Drawing.Point(9, 18);
             this.lavaFogTranspTextLabel.Margin = new System.Windows.Forms.Padding(0);
             this.lavaFogTranspTextLabel.Name = "lavaFogTranspTextLabel";
-            this.lavaFogTranspTextLabel.Size = new System.Drawing.Size(160, 15);
+            this.lavaFogTranspTextLabel.Size = new System.Drawing.Size(156, 15);
             this.lavaFogTranspTextLabel.TabIndex = 4;
             this.lavaFogTranspTextLabel.TabStop = true;
             this.lavaFogTranspTextLabel.Text = "view range (standard cubes):";
@@ -319,7 +322,7 @@
             this.denseFogTranspTextLabel.Location = new System.Drawing.Point(9, 18);
             this.denseFogTranspTextLabel.Margin = new System.Windows.Forms.Padding(0);
             this.denseFogTranspTextLabel.Name = "denseFogTranspTextLabel";
-            this.denseFogTranspTextLabel.Size = new System.Drawing.Size(154, 15);
+            this.denseFogTranspTextLabel.Size = new System.Drawing.Size(156, 15);
             this.denseFogTranspTextLabel.TabIndex = 4;
             this.denseFogTranspTextLabel.TabStop = true;
             this.denseFogTranspTextLabel.Text = "view range (standard cubes):";
@@ -373,6 +376,7 @@
             this.alignableGroupBoxLavaHaze.ResumeLayout(false);
             this.alignableGroupBoxLightFog.ResumeLayout(false);
             this.alignableGroupBoxDenseFog.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -403,5 +407,6 @@
         private LeftRightControl lavaFogTranspSliderLeftRightControl;
         private LeftRightControl lightFogTranspSliderLeftRightControl;
         private LeftRightControl denseFogTranspSliderLeftRightControl;
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

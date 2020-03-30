@@ -28,38 +28,43 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.reactorTargetTextBox = new SegSideTextBox();
+            this.components = new System.ComponentModel.Container();
+            this.reactorTargetTextBox = new DLEDotNet.Editor.SegSideTextBox();
             this.reactorAddtgtButton = new System.Windows.Forms.Button();
             this.reactorDeltgtButton = new System.Windows.Forms.Button();
             this.reactorAddwalltgtButton = new System.Windows.Forms.Button();
             this.reactorDelwalltgtButton = new System.Windows.Forms.Button();
             this.reactorTargetlistListBox = new System.Windows.Forms.ListBox();
-            this.reactorCountdownTextBox = new IntTextBox();
-            this.reactorSecretreturnTextBox = new IntTextBox();
+            this.reactorCountdownTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.reactorSecretreturnTextBox = new DLEDotNet.Editor.IntTextBox();
             this.labelSegmentSideActivated = new System.Windows.Forms.Label();
             this.labelEnterSegmentSide = new System.Windows.Forms.Label();
-            this.alignableGroupBoxTriggeredWhenReactorBlowsUp = new AlignableGroupBox();
-            this.alignableGroupBoxDescent2Options = new AlignableGroupBox();
+            this.alignableGroupBoxTriggeredWhenReactorBlowsUp = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxDescent2Options = new DLEDotNet.Editor.AlignableGroupBox();
             this.labelCountdown = new System.Windows.Forms.Label();
             this.labelInsaneX1AceX15HotshotX2RookieX25TraineeX3 = new System.Windows.Forms.Label();
             this.labelSec = new System.Windows.Forms.Label();
             this.labelSegmentToReturnToAfterSecretLevel = new System.Windows.Forms.Label();
             this.labelReactorStrength = new System.Windows.Forms.Label();
-            this.reactorStrengthTextBox = new IntTextBox();
+            this.reactorStrengthTextBox = new DLEDotNet.Editor.IntTextBox();
             this.reactorStrengthdefaultCheckBox = new System.Windows.Forms.CheckBox();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.alignableGroupBoxTriggeredWhenReactorBlowsUp.SuspendLayout();
             this.alignableGroupBoxDescent2Options.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // reactorTargetTextBox
             // 
-            this.reactorTargetTextBox.Location = new System.Drawing.Point(12, 29);
+            this.reactorTargetTextBox.Location = new System.Drawing.Point(13, 29);
             this.reactorTargetTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.reactorTargetTextBox.MaxSegmentCount = 0;
             this.reactorTargetTextBox.Name = "reactorTargetTextBox";
             this.reactorTargetTextBox.Size = new System.Drawing.Size(72, 20);
             this.reactorTargetTextBox.TabIndex = 0;
             this.reactorTargetTextBox.TabStop = false;
             this.reactorTargetTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.helpToolTip.SetToolTip(this.reactorTargetTextBox, "segment, side to add");
             // 
             // reactorAddtgtButton
             // 
@@ -81,6 +86,7 @@
             this.reactorDeltgtButton.Size = new System.Drawing.Size(74, 18);
             this.reactorDeltgtButton.TabIndex = 2;
             this.reactorDeltgtButton.Text = "<-- del";
+            this.helpToolTip.SetToolTip(this.reactorDeltgtButton, "delete selected from list");
             // 
             // reactorAddwalltgtButton
             // 
@@ -91,6 +97,7 @@
             this.reactorAddwalltgtButton.Size = new System.Drawing.Size(74, 18);
             this.reactorAddwalltgtButton.TabIndex = 3;
             this.reactorAddwalltgtButton.Text = "add wall";
+            this.helpToolTip.SetToolTip(this.reactorAddwalltgtButton, "add the selected side of the other segment");
             // 
             // reactorDelwalltgtButton
             // 
@@ -101,6 +108,7 @@
             this.reactorDelwalltgtButton.Size = new System.Drawing.Size(74, 18);
             this.reactorDelwalltgtButton.TabIndex = 4;
             this.reactorDelwalltgtButton.Text = "delete wall";
+            this.helpToolTip.SetToolTip(this.reactorDelwalltgtButton, "remove the selected side of the other segment");
             // 
             // reactorTargetlistListBox
             // 
@@ -109,6 +117,7 @@
             this.reactorTargetlistListBox.Name = "reactorTargetlistListBox";
             this.reactorTargetlistListBox.Size = new System.Drawing.Size(114, 108);
             this.reactorTargetlistListBox.TabIndex = 5;
+            this.helpToolTip.SetToolTip(this.reactorTargetlistListBox, "list of doors to open on level countdown");
             // 
             // reactorCountdownTextBox
             // 
@@ -209,6 +218,7 @@
             this.labelCountdown.TabIndex = 2;
             this.labelCountdown.TabStop = true;
             this.labelCountdown.Text = "Countdown:";
+            this.labelCountdown.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelInsaneX1AceX15HotshotX2RookieX25TraineeX3
             // 
@@ -241,6 +251,7 @@
             this.labelSegmentToReturnToAfterSecretLevel.TabIndex = 5;
             this.labelSegmentToReturnToAfterSecretLevel.TabStop = true;
             this.labelSegmentToReturnToAfterSecretLevel.Text = "Segment to return to after secret level:";
+            this.labelSegmentToReturnToAfterSecretLevel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelReactorStrength
             // 
@@ -252,6 +263,7 @@
             this.labelReactorStrength.TabIndex = 6;
             this.labelReactorStrength.TabStop = true;
             this.labelReactorStrength.Text = "Reactor strength:";
+            this.labelReactorStrength.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // reactorStrengthTextBox
             // 
@@ -290,6 +302,7 @@
             this.alignableGroupBoxTriggeredWhenReactorBlowsUp.PerformLayout();
             this.alignableGroupBoxDescent2Options.ResumeLayout(false);
             this.alignableGroupBoxDescent2Options.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -315,6 +328,6 @@
         private System.Windows.Forms.Label labelReactorStrength;
         private IntTextBox reactorStrengthTextBox;
         private System.Windows.Forms.CheckBox reactorStrengthdefaultCheckBox;
-
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

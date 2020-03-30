@@ -39,7 +39,7 @@
             this.prefsViewDepthtestCheckBox = new System.Windows.Forms.CheckBox();
             this.prefsViewMineAllButton = new System.Windows.Forms.Button();
             this.prefsViewMineNoneButton = new System.Windows.Forms.Button();
-            this.alignableGroupBoxGeometry = new AlignableGroupBox();
+            this.alignableGroupBoxGeometry = new DLEDotNet.Editor.AlignableGroupBox();
             this.prefsViewRobotsCheckBox = new System.Windows.Forms.CheckBox();
             this.prefsViewPlayersCheckBox = new System.Windows.Forms.CheckBox();
             this.prefsViewWeaponsCheckBox = new System.Windows.Forms.CheckBox();
@@ -50,7 +50,7 @@
             this.prefsViewEffectsCheckBox = new System.Windows.Forms.CheckBox();
             this.prefsViewObjectsAllButton = new System.Windows.Forms.Button();
             this.prefsViewObjectsNoneButton = new System.Windows.Forms.Button();
-            this.alignableGroupBoxObjects = new AlignableGroupBox();
+            this.alignableGroupBoxObjects = new DLEDotNet.Editor.AlignableGroupBox();
             this.alignableGroupBoxGeometry.SuspendLayout();
             this.alignableGroupBoxObjects.SuspendLayout();
             this.SuspendLayout();
@@ -71,7 +71,7 @@
             this.prefsViewSpecialCheckBox.Location = new System.Drawing.Point(9, 37);
             this.prefsViewSpecialCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.prefsViewSpecialCheckBox.Name = "prefsViewSpecialCheckBox";
-            this.prefsViewSpecialCheckBox.Size = new System.Drawing.Size(107, 15);
+            this.prefsViewSpecialCheckBox.Size = new System.Drawing.Size(105, 15);
             this.prefsViewSpecialCheckBox.TabIndex = 1;
             this.prefsViewSpecialCheckBox.Text = "special segments";
             // 
@@ -168,6 +168,8 @@
             // 
             // alignableGroupBoxGeometry
             // 
+            this.alignableGroupBoxGeometry.Controls.Add(this.prefsViewMineAllButton);
+            this.alignableGroupBoxGeometry.Controls.Add(this.prefsViewMineNoneButton);
             this.alignableGroupBoxGeometry.Controls.Add(this.prefsViewWallsCheckBox);
             this.alignableGroupBoxGeometry.Controls.Add(this.prefsViewSpecialCheckBox);
             this.alignableGroupBoxGeometry.Controls.Add(this.prefsViewLightsCheckBox);
@@ -177,8 +179,6 @@
             this.alignableGroupBoxGeometry.Controls.Add(this.prefsViewSkyboxCheckBox);
             this.alignableGroupBoxGeometry.Controls.Add(this.prefsViewAlltexturesCheckBox);
             this.alignableGroupBoxGeometry.Controls.Add(this.prefsViewDepthtestCheckBox);
-            this.alignableGroupBoxGeometry.Controls.Add(this.prefsViewMineAllButton);
-            this.alignableGroupBoxGeometry.Controls.Add(this.prefsViewMineNoneButton);
             this.alignableGroupBoxGeometry.Location = new System.Drawing.Point(68, 6);
             this.alignableGroupBoxGeometry.Margin = new System.Windows.Forms.Padding(0);
             this.alignableGroupBoxGeometry.Name = "alignableGroupBoxGeometry";

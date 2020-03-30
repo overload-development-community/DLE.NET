@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.texalignShowtextureCheckBox = new System.Windows.Forms.CheckBox();
             this.texalignShowchildrenCheckBox = new System.Windows.Forms.CheckBox();
             this.texalignHalignTextBox = new DLEDotNet.Editor.FloatTextBox();
@@ -60,6 +61,7 @@
             this.texalignHflipButton = new DLEDotNet.Editor.DLEIconButton();
             this.texalignVflipButton = new DLEDotNet.Editor.DLEIconButton();
             this.texalignShowPictureBox = new System.Windows.Forms.PictureBox();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.texalignStretch2FitButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.texalignResetButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.texalignResetTaggedButton)).BeginInit();
@@ -91,6 +93,7 @@
             this.texalignShowtextureCheckBox.Size = new System.Drawing.Size(56, 18);
             this.texalignShowtextureCheckBox.TabIndex = 0;
             this.texalignShowtextureCheckBox.Text = "texture";
+            this.helpToolTip.SetToolTip(this.texalignShowtextureCheckBox, "show current texture in alignment grid");
             // 
             // texalignShowchildrenCheckBox
             // 
@@ -101,10 +104,10 @@
             this.texalignShowchildrenCheckBox.Size = new System.Drawing.Size(60, 18);
             this.texalignShowchildrenCheckBox.TabIndex = 1;
             this.texalignShowchildrenCheckBox.Text = "children";
+            this.helpToolTip.SetToolTip(this.texalignShowchildrenCheckBox, "show neighboring \"child\" segments in alignment view");
             // 
             // texalignHalignTextBox
             // 
-            this.texalignHalignTextBox.FractionalDigits = 2;
             this.texalignHalignTextBox.Location = new System.Drawing.Point(178, 31);
             this.texalignHalignTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texalignHalignTextBox.Name = "texalignHalignTextBox";
@@ -116,7 +119,6 @@
             // 
             // texalignValignTextBox
             // 
-            this.texalignValignTextBox.FractionalDigits = 2;
             this.texalignValignTextBox.Location = new System.Drawing.Point(178, 54);
             this.texalignValignTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texalignValignTextBox.Name = "texalignValignTextBox";
@@ -128,7 +130,6 @@
             // 
             // texalignRalignTextBox
             // 
-            this.texalignRalignTextBox.FractionalDigits = 2;
             this.texalignRalignTextBox.Location = new System.Drawing.Point(178, 76);
             this.texalignRalignTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.texalignRalignTextBox.Name = "texalignRalignTextBox";
@@ -303,6 +304,7 @@
             this.texalignIgnoreplaneCheckBox.Size = new System.Drawing.Size(86, 18);
             this.texalignIgnoreplaneCheckBox.TabIndex = 27;
             this.texalignIgnoreplaneCheckBox.Text = "align all sides";
+            this.helpToolTip.SetToolTip(this.texalignIgnoreplaneCheckBox, "apply \"align textures on child sides\" to non-touching/planar sides");
             // 
             // texalignZoomoutButton
             // 
@@ -590,6 +592,6 @@
         private DLEDotNet.Editor.DLEIconButton texalignHflipButton;
         private DLEDotNet.Editor.DLEIconButton texalignVflipButton;
         private System.Windows.Forms.CheckBox texalignIgnoreplaneCheckBox;
-
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

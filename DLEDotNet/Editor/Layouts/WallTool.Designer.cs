@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.wallWallnoComboBox = new System.Windows.Forms.ComboBox();
             this.wallTypeComboBox = new System.Windows.Forms.ComboBox();
             this.wallClipnoComboBox = new System.Windows.Forms.ComboBox();
@@ -90,6 +91,7 @@
             this.alignableGroupBoxAddDoor = new DLEDotNet.Editor.AlignableGroupBox();
             this.alignableGroupBoxAddWall = new DLEDotNet.Editor.AlignableGroupBox();
             this.wallShowTextBox = new System.Windows.Forms.TextBox();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.wallTranspSliderTrackBar)).BeginInit();
             this.alignableGroupBoxKey.SuspendLayout();
             this.alignableGroupBoxFlags.SuspendLayout();
@@ -226,6 +228,7 @@
             this.wallBlastedCheckBox.Size = new System.Drawing.Size(60, 18);
             this.wallBlastedCheckBox.TabIndex = 0;
             this.wallBlastedCheckBox.Text = "Blasted";
+            this.helpToolTip.SetToolTip(this.wallBlastedCheckBox, "whether this blastable wall is already blasted");
             // 
             // wallDooropenCheckBox
             // 
@@ -236,6 +239,7 @@
             this.wallDooropenCheckBox.Size = new System.Drawing.Size(75, 18);
             this.wallDooropenCheckBox.TabIndex = 1;
             this.wallDooropenCheckBox.Text = "Door open";
+            this.helpToolTip.SetToolTip(this.wallDooropenCheckBox, "whether this door is open (might also use correct frame)");
             // 
             // wallDoorlockedCheckBox
             // 
@@ -246,6 +250,7 @@
             this.wallDoorlockedCheckBox.Size = new System.Drawing.Size(81, 18);
             this.wallDoorlockedCheckBox.TabIndex = 2;
             this.wallDoorlockedCheckBox.Text = "Door locked";
+            this.helpToolTip.SetToolTip(this.wallDoorlockedCheckBox, "whether this door is locked (cannot be opened by the player or robots)");
             // 
             // wallDoorautoCheckBox
             // 
@@ -256,6 +261,7 @@
             this.wallDoorautoCheckBox.Size = new System.Drawing.Size(72, 18);
             this.wallDoorautoCheckBox.TabIndex = 3;
             this.wallDoorautoCheckBox.Text = "Door auto";
+            this.helpToolTip.SetToolTip(this.wallDoorautoCheckBox, "whether this door closes automatically after it has been opened");
             // 
             // wallIllusionoffCheckBox
             // 
@@ -266,6 +272,7 @@
             this.wallIllusionoffCheckBox.Size = new System.Drawing.Size(72, 18);
             this.wallIllusionoffCheckBox.TabIndex = 4;
             this.wallIllusionoffCheckBox.Text = "Illusion off";
+            this.helpToolTip.SetToolTip(this.wallIllusionoffCheckBox, "whether this illusion wall is off (invisible)");
             // 
             // wallSwitchCheckBox
             // 
@@ -276,6 +283,8 @@
             this.wallSwitchCheckBox.Size = new System.Drawing.Size(57, 18);
             this.wallSwitchCheckBox.TabIndex = 5;
             this.wallSwitchCheckBox.Text = "Switch";
+            this.helpToolTip.SetToolTip(this.wallSwitchCheckBox, "whether the current wall is a switch; this flag is unused and has no effect in-ga" +
+        "me");
             // 
             // wallBuddyproofCheckBox
             // 
@@ -286,6 +295,7 @@
             this.wallBuddyproofCheckBox.Size = new System.Drawing.Size(82, 18);
             this.wallBuddyproofCheckBox.TabIndex = 6;
             this.wallBuddyproofCheckBox.Text = "Buddy proof";
+            this.helpToolTip.SetToolTip(this.wallBuddyproofCheckBox, "prevents the guide-bot from opening this door");
             // 
             // wallRenderAdditiveCheckBox
             // 
@@ -296,6 +306,7 @@
             this.wallRenderAdditiveCheckBox.Size = new System.Drawing.Size(64, 18);
             this.wallRenderAdditiveCheckBox.TabIndex = 7;
             this.wallRenderAdditiveCheckBox.Text = "Additive";
+            this.helpToolTip.SetToolTip(this.wallRenderAdditiveCheckBox, "(XL only) use additive filtering with this Colored/Cloaked wall");
             // 
             // wallIgnoreMarkerCheckBox
             // 
@@ -306,6 +317,7 @@
             this.wallIgnoreMarkerCheckBox.Size = new System.Drawing.Size(86, 18);
             this.wallIgnoreMarkerCheckBox.TabIndex = 8;
             this.wallIgnoreMarkerCheckBox.Text = "Ignore marker";
+            this.helpToolTip.SetToolTip(this.wallIgnoreMarkerCheckBox, "(XL only) make the door close even if a marker is placed in its way");
             // 
             // wallFlythroughCheckBox
             // 
@@ -316,6 +328,7 @@
             this.wallFlythroughCheckBox.Size = new System.Drawing.Size(74, 18);
             this.wallFlythroughCheckBox.TabIndex = 9;
             this.wallFlythroughCheckBox.Text = "Fly through";
+            this.helpToolTip.SetToolTip(this.wallFlythroughCheckBox, "(XL only) whether this Colored wall can be flied through");
             // 
             // wallAddButton
             // 
@@ -391,6 +404,7 @@
             this.wallAddDoorExitButton.TabIndex = 1;
             this.wallAddDoorExitButton.TabStop = false;
             this.wallAddDoorExitButton.Text = "e&xit";
+            this.helpToolTip.SetToolTip(this.wallAddDoorExitButton, "exit door + exit trigger");
             // 
             // wallAddDoorSecretexitButton
             // 
@@ -402,6 +416,7 @@
             this.wallAddDoorSecretexitButton.TabIndex = 2;
             this.wallAddDoorSecretexitButton.TabStop = false;
             this.wallAddDoorSecretexitButton.Text = "&secret exit";
+            this.helpToolTip.SetToolTip(this.wallAddDoorSecretexitButton, "D1: exit door with secret exit trigger. D2: secret exit entrance portal");
             // 
             // wallAddDoorPrisonButton
             // 
@@ -413,6 +428,7 @@
             this.wallAddDoorPrisonButton.TabIndex = 3;
             this.wallAddDoorPrisonButton.TabStop = false;
             this.wallAddDoorPrisonButton.Text = "&prison";
+            this.helpToolTip.SetToolTip(this.wallAddDoorPrisonButton, "hostage prison door");
             // 
             // wallAddDoorGuidebotButton
             // 
@@ -424,6 +440,7 @@
             this.wallAddDoorGuidebotButton.TabIndex = 4;
             this.wallAddDoorGuidebotButton.TabStop = false;
             this.wallAddDoorGuidebotButton.Text = "&guide bot";
+            this.helpToolTip.SetToolTip(this.wallAddDoorGuidebotButton, "guide bot prison door (D2 only)");
             // 
             // wallAddWallFuelcellButton
             // 
@@ -435,6 +452,7 @@
             this.wallAddWallFuelcellButton.TabIndex = 0;
             this.wallAddWallFuelcellButton.TabStop = false;
             this.wallAddWallFuelcellButton.Text = "fuel &cells";
+            this.helpToolTip.SetToolTip(this.wallAddWallFuelcellButton, "energy center fuel cells (illusion)");
             // 
             // wallAddWallIllusionButton
             // 
@@ -446,6 +464,7 @@
             this.wallAddWallIllusionButton.TabIndex = 1;
             this.wallAddWallIllusionButton.TabStop = false;
             this.wallAddWallIllusionButton.Text = "&illusion";
+            this.helpToolTip.SetToolTip(this.wallAddWallIllusionButton, "standard illusion wall");
             // 
             // wallAddWallForcefieldButton
             // 
@@ -457,6 +476,7 @@
             this.wallAddWallForcefieldButton.TabIndex = 2;
             this.wallAddWallForcefieldButton.TabStop = false;
             this.wallAddWallForcefieldButton.Text = "f&orce field";
+            this.helpToolTip.SetToolTip(this.wallAddWallForcefieldButton, "force field (D2 only)");
             // 
             // wallAddWallFanButton
             // 
@@ -468,6 +488,7 @@
             this.wallAddWallFanButton.TabIndex = 3;
             this.wallAddWallFanButton.TabStop = false;
             this.wallAddWallFanButton.Text = "&fan";
+            this.helpToolTip.SetToolTip(this.wallAddWallFanButton, "fan wall (close)");
             // 
             // wallAddWallGrateButton
             // 
@@ -479,6 +500,7 @@
             this.wallAddWallGrateButton.TabIndex = 4;
             this.wallAddWallGrateButton.TabStop = false;
             this.wallAddWallGrateButton.Text = "&grate";
+            this.helpToolTip.SetToolTip(this.wallAddWallGrateButton, "grate wall (close)");
             // 
             // wallAddWallWaterfallButton
             // 
@@ -490,6 +512,7 @@
             this.wallAddWallWaterfallButton.TabIndex = 5;
             this.wallAddWallWaterfallButton.TabStop = false;
             this.wallAddWallWaterfallButton.Text = "&water fall";
+            this.helpToolTip.SetToolTip(this.wallAddWallWaterfallButton, "D2 only: waterfall (illusion)");
             // 
             // wallAddWallLavafallButton
             // 
@@ -501,6 +524,7 @@
             this.wallAddWallLavafallButton.TabIndex = 6;
             this.wallAddWallLavafallButton.TabStop = false;
             this.wallAddWallLavafallButton.Text = "la&va fall";
+            this.helpToolTip.SetToolTip(this.wallAddWallLavafallButton, "D2 only: lavafall (illusion)");
             // 
             // wallCubeTextBox
             // 
@@ -916,5 +940,6 @@
         private System.Windows.Forms.PictureBox wallShowPictureBox;
         private LeftRightControl wallTranspSliderLeftRightControl;
         private System.Windows.Forms.Label wallTranspTextLabel;
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

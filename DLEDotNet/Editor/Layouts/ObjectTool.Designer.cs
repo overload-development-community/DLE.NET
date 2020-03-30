@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.objObjnoComboBox = new System.Windows.Forms.ComboBox();
             this.objTypeComboBox = new System.Windows.Forms.ComboBox();
             this.objIdComboBox = new System.Windows.Forms.ComboBox();
@@ -67,6 +68,7 @@
             this.tabPageAdvanced = new System.Windows.Forms.TabPage();
             this.objectAdvanced1 = new DLEDotNet.Editor.Layouts.ObjectAdvanced();
             this.tabPageOther = new System.Windows.Forms.TabPage();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.objShowTexturePictureBox)).BeginInit();
             this.alignableGroupBoxThisRobotSpawns.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objShowSpawnPictureBox)).BeginInit();
@@ -107,6 +109,7 @@
             this.objIdComboBox.Size = new System.Drawing.Size(110, 21);
             this.objIdComboBox.Sorted = true;
             this.objIdComboBox.TabIndex = 2;
+            this.helpToolTip.SetToolTip(this.objIdComboBox, "object-type specific ID");
             // 
             // objAiComboBox
             // 
@@ -115,6 +118,7 @@
             this.objAiComboBox.Name = "objAiComboBox";
             this.objAiComboBox.Size = new System.Drawing.Size(110, 21);
             this.objAiComboBox.TabIndex = 3;
+            this.helpToolTip.SetToolTip(this.objAiComboBox, "current AI mode");
             // 
             // objTextureComboBox
             // 
@@ -132,6 +136,7 @@
             this.objSortCheckBox.Name = "objSortCheckBox";
             this.objSortCheckBox.Size = new System.Drawing.Size(15, 18);
             this.objSortCheckBox.TabIndex = 5;
+            this.helpToolTip.SetToolTip(this.objSortCheckBox, "automatically re-sort objects by type");
             // 
             // objMultiplayerCheckBox
             // 
@@ -142,6 +147,7 @@
             this.objMultiplayerCheckBox.Size = new System.Drawing.Size(74, 16);
             this.objMultiplayerCheckBox.TabIndex = 6;
             this.objMultiplayerCheckBox.Text = "Multiplayer";
+            this.helpToolTip.SetToolTip(this.objMultiplayerCheckBox, "make this object only appear in multiplayer modes");
             // 
             // objSpawnTypeComboBox
             // 
@@ -169,6 +175,7 @@
             this.objAddButton.Size = new System.Drawing.Size(68, 18);
             this.objAddButton.TabIndex = 7;
             this.objAddButton.Text = "Add";
+            this.helpToolTip.SetToolTip(this.objAddButton, "add another copy of the currently selected object to the current segment");
             // 
             // objDeleteButton
             // 
@@ -179,6 +186,7 @@
             this.objDeleteButton.Size = new System.Drawing.Size(68, 20);
             this.objDeleteButton.TabIndex = 8;
             this.objDeleteButton.Text = "Delete";
+            this.helpToolTip.SetToolTip(this.objDeleteButton, "delete the currently selected object");
             // 
             // objDeleteallButton
             // 
@@ -189,6 +197,7 @@
             this.objDeleteallButton.Size = new System.Drawing.Size(68, 20);
             this.objDeleteallButton.TabIndex = 9;
             this.objDeleteallButton.Text = "Delete all";
+            this.helpToolTip.SetToolTip(this.objDeleteallButton, "delete all objects of this type");
             // 
             // objMoveButton
             // 
@@ -199,6 +208,7 @@
             this.objMoveButton.Size = new System.Drawing.Size(68, 18);
             this.objMoveButton.TabIndex = 10;
             this.objMoveButton.Text = "Move";
+            this.helpToolTip.SetToolTip(this.objMoveButton, "move object to the center of the currently selected segment");
             // 
             // objResetButton
             // 
@@ -209,6 +219,7 @@
             this.objResetButton.Size = new System.Drawing.Size(68, 18);
             this.objResetButton.TabIndex = 11;
             this.objResetButton.Text = "Reset";
+            this.helpToolTip.SetToolTip(this.objResetButton, "resets orientation and advanced settings");
             // 
             // objDefaultButton
             // 
@@ -219,6 +230,7 @@
             this.objDefaultButton.Size = new System.Drawing.Size(68, 18);
             this.objDefaultButton.TabIndex = 12;
             this.objDefaultButton.Text = "Default";
+            this.helpToolTip.SetToolTip(this.objDefaultButton, "resets custom HXM properties for this robot type");
             // 
             // objShowTexturePictureBox
             // 
@@ -242,6 +254,7 @@
             this.labelObject.TabIndex = 14;
             this.labelObject.TabStop = true;
             this.labelObject.Text = "Object";
+            this.labelObject.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelTypeA
             // 
@@ -253,6 +266,7 @@
             this.labelTypeA.TabIndex = 15;
             this.labelTypeA.TabStop = true;
             this.labelTypeA.Text = "Type";
+            this.labelTypeA.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelIdA
             // 
@@ -264,6 +278,7 @@
             this.labelIdA.TabIndex = 16;
             this.labelIdA.TabStop = true;
             this.labelIdA.Text = "Id";
+            this.labelIdA.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelTexture
             // 
@@ -275,6 +290,7 @@
             this.labelTexture.TabIndex = 17;
             this.labelTexture.TabStop = true;
             this.labelTexture.Text = "Texture";
+            this.labelTexture.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelTypeB
             // 
@@ -341,7 +357,7 @@
             // 
             // objSpawnQtyNumericUpDown
             // 
-            this.objSpawnQtyNumericUpDown.Location = new System.Drawing.Point(29, 62);
+            this.objSpawnQtyNumericUpDown.Location = new System.Drawing.Point(30, 64);
             this.objSpawnQtyNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.objSpawnQtyNumericUpDown.Name = "objSpawnQtyNumericUpDown";
             this.objSpawnQtyNumericUpDown.Size = new System.Drawing.Size(57, 20);
@@ -416,6 +432,7 @@
             this.labelAi.TabIndex = 24;
             this.labelAi.TabStop = true;
             this.labelAi.Text = "AI";
+            this.labelAi.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // somewhereElseLabel
             // 
@@ -579,5 +596,6 @@
         private System.Windows.Forms.TabPage tabPageAdvanced;
         private System.Windows.Forms.TabPage tabPageOther;
         private Editor.Layouts.ObjectAdvanced objectAdvanced1;
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

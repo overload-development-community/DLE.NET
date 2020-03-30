@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.txtGrayRockCheckBox = new System.Windows.Forms.CheckBox();
             this.txtBrownRockCheckBox = new System.Windows.Forms.CheckBox();
             this.txtRedRockCheckBox = new System.Windows.Forms.CheckBox();
@@ -79,6 +80,7 @@
             this.txtOtherAllButton = new System.Windows.Forms.Button();
             this.txtOtherNoneButton = new System.Windows.Forms.Button();
             this.txtInvertButton = new System.Windows.Forms.Button();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.alignableGroupBoxRock.SuspendLayout();
             this.alignableGroupBoxOtherNaturalMaterials.SuspendLayout();
             this.alignableGroupBoxBuildingMaterials.SuspendLayout();
@@ -244,7 +246,7 @@
             // txtNatureNoneButton
             // 
             this.txtNatureNoneButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtNatureNoneButton.Location = new System.Drawing.Point(63, 166);
+            this.txtNatureNoneButton.Location = new System.Drawing.Point(65, 166);
             this.txtNatureNoneButton.Margin = new System.Windows.Forms.Padding(0);
             this.txtNatureNoneButton.Name = "txtNatureNoneButton";
             this.txtNatureNoneButton.Size = new System.Drawing.Size(56, 21);
@@ -345,7 +347,7 @@
             // txtBuildingAllButton
             // 
             this.txtBuildingAllButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtBuildingAllButton.Location = new System.Drawing.Point(8, 166);
+            this.txtBuildingAllButton.Location = new System.Drawing.Point(6, 166);
             this.txtBuildingAllButton.Margin = new System.Windows.Forms.Padding(0);
             this.txtBuildingAllButton.Name = "txtBuildingAllButton";
             this.txtBuildingAllButton.Size = new System.Drawing.Size(56, 21);
@@ -356,7 +358,7 @@
             // txtBuildingNoneButton
             // 
             this.txtBuildingNoneButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtBuildingNoneButton.Location = new System.Drawing.Point(64, 166);
+            this.txtBuildingNoneButton.Location = new System.Drawing.Point(69, 166);
             this.txtBuildingNoneButton.Margin = new System.Windows.Forms.Padding(0);
             this.txtBuildingNoneButton.Name = "txtBuildingNoneButton";
             this.txtBuildingNoneButton.Size = new System.Drawing.Size(56, 21);
@@ -407,7 +409,7 @@
             // txtTechAllButton
             // 
             this.txtTechAllButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtTechAllButton.Location = new System.Drawing.Point(9, 166);
+            this.txtTechAllButton.Location = new System.Drawing.Point(6, 166);
             this.txtTechAllButton.Margin = new System.Windows.Forms.Padding(0);
             this.txtTechAllButton.Name = "txtTechAllButton";
             this.txtTechAllButton.Size = new System.Drawing.Size(56, 21);
@@ -418,7 +420,7 @@
             // txtTechNoneButton
             // 
             this.txtTechNoneButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtTechNoneButton.Location = new System.Drawing.Point(66, 166);
+            this.txtTechNoneButton.Location = new System.Drawing.Point(67, 166);
             this.txtTechNoneButton.Margin = new System.Windows.Forms.Padding(0);
             this.txtTechNoneButton.Name = "txtTechNoneButton";
             this.txtTechNoneButton.Size = new System.Drawing.Size(56, 21);
@@ -470,7 +472,7 @@
             // txtSignNoneButton
             // 
             this.txtSignNoneButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtSignNoneButton.Location = new System.Drawing.Point(63, 166);
+            this.txtSignNoneButton.Location = new System.Drawing.Point(65, 166);
             this.txtSignNoneButton.Margin = new System.Windows.Forms.Padding(0);
             this.txtSignNoneButton.Name = "txtSignNoneButton";
             this.txtSignNoneButton.Size = new System.Drawing.Size(56, 21);
@@ -637,7 +639,7 @@
             // txtOtherAllButton
             // 
             this.txtOtherAllButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtOtherAllButton.Location = new System.Drawing.Point(9, 166);
+            this.txtOtherAllButton.Location = new System.Drawing.Point(6, 166);
             this.txtOtherAllButton.Margin = new System.Windows.Forms.Padding(0);
             this.txtOtherAllButton.Name = "txtOtherAllButton";
             this.txtOtherAllButton.Size = new System.Drawing.Size(56, 21);
@@ -648,7 +650,7 @@
             // txtOtherNoneButton
             // 
             this.txtOtherNoneButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.txtOtherNoneButton.Location = new System.Drawing.Point(66, 166);
+            this.txtOtherNoneButton.Location = new System.Drawing.Point(68, 166);
             this.txtOtherNoneButton.Margin = new System.Windows.Forms.Padding(0);
             this.txtOtherNoneButton.Name = "txtOtherNoneButton";
             this.txtOtherNoneButton.Size = new System.Drawing.Size(56, 21);
@@ -747,6 +749,6 @@
         private System.Windows.Forms.Button txtOtherNoneButton;
         private System.Windows.Forms.CheckBox txtSwitchCheckBox;
         private System.Windows.Forms.Button txtInvertButton;
-
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

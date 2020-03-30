@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.particleTypeComboBox = new System.Windows.Forms.ComboBox();
             this.labelRed = new System.Windows.Forms.Label();
             this.labelGreen = new System.Windows.Forms.Label();
@@ -65,6 +66,7 @@
             this.labelBrightness = new System.Windows.Forms.Label();
             this.particleSelectColorButton = new System.Windows.Forms.Button();
             this.particleColorPictureBox = new System.Windows.Forms.PictureBox();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.particleRedSliderTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.particleRedNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.particleGreenSliderTrackBar)).BeginInit();
@@ -204,7 +206,7 @@
             // 
             // particleGreenNumericUpDown
             // 
-            this.particleGreenNumericUpDown.Location = new System.Drawing.Point(663, 26);
+            this.particleGreenNumericUpDown.Location = new System.Drawing.Point(663, 28);
             this.particleGreenNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.particleGreenNumericUpDown.Maximum = new decimal(new int[] {
             255,
@@ -230,7 +232,7 @@
             // 
             // particleBlueNumericUpDown
             // 
-            this.particleBlueNumericUpDown.Location = new System.Drawing.Point(663, 50);
+            this.particleBlueNumericUpDown.Location = new System.Drawing.Point(663, 51);
             this.particleBlueNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.particleBlueNumericUpDown.Maximum = new decimal(new int[] {
             255,
@@ -256,7 +258,7 @@
             // 
             // particleAlphaNumericUpDown
             // 
-            this.particleAlphaNumericUpDown.Location = new System.Drawing.Point(661, 76);
+            this.particleAlphaNumericUpDown.Location = new System.Drawing.Point(663, 76);
             this.particleAlphaNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.particleAlphaNumericUpDown.Maximum = new decimal(new int[] {
             255,
@@ -264,7 +266,7 @@
             0,
             0});
             this.particleAlphaNumericUpDown.Name = "particleAlphaNumericUpDown";
-            this.particleAlphaNumericUpDown.Size = new System.Drawing.Size(51, 20);
+            this.particleAlphaNumericUpDown.Size = new System.Drawing.Size(49, 20);
             this.particleAlphaNumericUpDown.TabIndex = 18;
             this.particleAlphaNumericUpDown.TabStop = false;
             this.particleAlphaNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -305,7 +307,7 @@
             // 
             // particleSizeNumericUpDown
             // 
-            this.particleSizeNumericUpDown.Location = new System.Drawing.Point(389, 29);
+            this.particleSizeNumericUpDown.Location = new System.Drawing.Point(389, 33);
             this.particleSizeNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.particleSizeNumericUpDown.Maximum = new decimal(new int[] {
             10,
@@ -329,7 +331,7 @@
             // 
             // particleLifeNumericUpDown
             // 
-            this.particleLifeNumericUpDown.Location = new System.Drawing.Point(389, 5);
+            this.particleLifeNumericUpDown.Location = new System.Drawing.Point(389, 8);
             this.particleLifeNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.particleLifeNumericUpDown.Maximum = new decimal(new int[] {
             10,
@@ -353,7 +355,7 @@
             // 
             // particleDensityNumericUpDown
             // 
-            this.particleDensityNumericUpDown.Location = new System.Drawing.Point(389, 54);
+            this.particleDensityNumericUpDown.Location = new System.Drawing.Point(389, 58);
             this.particleDensityNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.particleDensityNumericUpDown.Maximum = new decimal(new int[] {
             10,
@@ -377,7 +379,7 @@
             // 
             // particleSpeedNumericUpDown
             // 
-            this.particleSpeedNumericUpDown.Location = new System.Drawing.Point(389, 76);
+            this.particleSpeedNumericUpDown.Location = new System.Drawing.Point(389, 82);
             this.particleSpeedNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.particleSpeedNumericUpDown.Maximum = new decimal(new int[] {
             10,
@@ -401,7 +403,7 @@
             // 
             // particleDriftNumericUpDown
             // 
-            this.particleDriftNumericUpDown.Location = new System.Drawing.Point(390, 101);
+            this.particleDriftNumericUpDown.Location = new System.Drawing.Point(389, 106);
             this.particleDriftNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.particleDriftNumericUpDown.Maximum = new decimal(new int[] {
             10,
@@ -409,7 +411,7 @@
             0,
             0});
             this.particleDriftNumericUpDown.Name = "particleDriftNumericUpDown";
-            this.particleDriftNumericUpDown.Size = new System.Drawing.Size(51, 20);
+            this.particleDriftNumericUpDown.Size = new System.Drawing.Size(52, 20);
             this.particleDriftNumericUpDown.TabIndex = 36;
             this.particleDriftNumericUpDown.TabStop = false;
             this.particleDriftNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -425,7 +427,7 @@
             // 
             // particleBrightnessNumericUpDown
             // 
-            this.particleBrightnessNumericUpDown.Location = new System.Drawing.Point(390, 127);
+            this.particleBrightnessNumericUpDown.Location = new System.Drawing.Point(389, 131);
             this.particleBrightnessNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.particleBrightnessNumericUpDown.Maximum = new decimal(new int[] {
             10,
@@ -433,7 +435,7 @@
             0,
             0});
             this.particleBrightnessNumericUpDown.Name = "particleBrightnessNumericUpDown";
-            this.particleBrightnessNumericUpDown.Size = new System.Drawing.Size(51, 20);
+            this.particleBrightnessNumericUpDown.Size = new System.Drawing.Size(52, 20);
             this.particleBrightnessNumericUpDown.TabIndex = 39;
             this.particleBrightnessNumericUpDown.TabStop = false;
             this.particleBrightnessNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -530,6 +532,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.particleDriftNumericUpDown);
+            this.Controls.Add(this.particleBrightnessNumericUpDown);
             this.Controls.Add(this.particleTypeComboBox);
             this.Controls.Add(this.labelRed);
             this.Controls.Add(this.labelGreen);
@@ -556,9 +560,7 @@
             this.Controls.Add(this.particleSpeedSliderTrackBar);
             this.Controls.Add(this.particleSpeedNumericUpDown);
             this.Controls.Add(this.particleDriftSliderTrackBar);
-            this.Controls.Add(this.particleDriftNumericUpDown);
             this.Controls.Add(this.particleBrightnessSliderTrackBar);
-            this.Controls.Add(this.particleBrightnessNumericUpDown);
             this.Controls.Add(this.labelLifeTime);
             this.Controls.Add(this.labelParticleSize);
             this.Controls.Add(this.labelDensity);
@@ -636,6 +638,6 @@
         private System.Windows.Forms.Label labelBrightness;
         private System.Windows.Forms.Button particleSelectColorButton;
         private System.Windows.Forms.PictureBox particleColorPictureBox;
-
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

@@ -37,8 +37,8 @@
             this.reactorCountdownTextBox = new System.Windows.Forms.TextBox();
             this.labelSegmentSideActivated = new System.Windows.Forms.Label();
             this.labelEnterSegmentSide = new System.Windows.Forms.Label();
-            this.alignableGroupBoxTriggeredWhenReactorBlowsUp = new AlignableGroupBox();
-            this.alignableGroupBoxDescent2Options = new AlignableGroupBox();
+            this.alignableGroupBoxTriggeredWhenReactorBlowsUp = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxDescent2Options = new DLEDotNet.Editor.AlignableGroupBox();
             this.labelCountdown = new System.Windows.Forms.Label();
             this.labelInsaneX1AceX15HotshotX2RookieX25TraineeX3 = new System.Windows.Forms.Label();
             this.labelSec = new System.Windows.Forms.Label();
@@ -53,10 +53,10 @@
             // 
             // reactorTargetTextBox
             // 
-            this.reactorTargetTextBox.Location = new System.Drawing.Point(12, 29);
+            this.reactorTargetTextBox.Location = new System.Drawing.Point(13, 29);
             this.reactorTargetTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.reactorTargetTextBox.Name = "reactorTargetTextBox";
-            this.reactorTargetTextBox.Size = new System.Drawing.Size(72, 19);
+            this.reactorTargetTextBox.Size = new System.Drawing.Size(72, 20);
             this.reactorTargetTextBox.TabIndex = 0;
             this.reactorTargetTextBox.TabStop = false;
             this.reactorTargetTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -106,15 +106,15 @@
             this.reactorTargetlistListBox.Location = new System.Drawing.Point(90, 29);
             this.reactorTargetlistListBox.Margin = new System.Windows.Forms.Padding(0);
             this.reactorTargetlistListBox.Name = "reactorTargetlistListBox";
-            this.reactorTargetlistListBox.Size = new System.Drawing.Size(114, 43);
+            this.reactorTargetlistListBox.Size = new System.Drawing.Size(114, 95);
             this.reactorTargetlistListBox.TabIndex = 5;
             // 
             // reactorCountdownTextBox
             // 
-            this.reactorCountdownTextBox.Location = new System.Drawing.Point(78, 47);
+            this.reactorCountdownTextBox.Location = new System.Drawing.Point(77, 46);
             this.reactorCountdownTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.reactorCountdownTextBox.Name = "reactorCountdownTextBox";
-            this.reactorCountdownTextBox.Size = new System.Drawing.Size(36, 19);
+            this.reactorCountdownTextBox.Size = new System.Drawing.Size(36, 20);
             this.reactorCountdownTextBox.TabIndex = 0;
             this.reactorCountdownTextBox.TabStop = false;
             this.reactorCountdownTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -220,7 +220,7 @@
             this.reactorSecretreturnTextBox.Location = new System.Drawing.Point(154, 119);
             this.reactorSecretreturnTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.reactorSecretreturnTextBox.Name = "reactorSecretreturnTextBox";
-            this.reactorSecretreturnTextBox.Size = new System.Drawing.Size(36, 19);
+            this.reactorSecretreturnTextBox.Size = new System.Drawing.Size(36, 20);
             this.reactorSecretreturnTextBox.TabIndex = 4;
             this.reactorSecretreturnTextBox.TabStop = false;
             this.reactorSecretreturnTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -252,7 +252,7 @@
             this.reactorStrengthTextBox.Location = new System.Drawing.Point(92, 94);
             this.reactorStrengthTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.reactorStrengthTextBox.Name = "reactorStrengthTextBox";
-            this.reactorStrengthTextBox.Size = new System.Drawing.Size(55, 19);
+            this.reactorStrengthTextBox.Size = new System.Drawing.Size(55, 20);
             this.reactorStrengthTextBox.TabIndex = 7;
             this.reactorStrengthTextBox.TabStop = false;
             this.reactorStrengthTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -277,7 +277,9 @@
             this.Name = "VerticalReactorTool";
             this.Size = new System.Drawing.Size(333, 632);
             this.alignableGroupBoxTriggeredWhenReactorBlowsUp.ResumeLayout(false);
+            this.alignableGroupBoxTriggeredWhenReactorBlowsUp.PerformLayout();
             this.alignableGroupBoxDescent2Options.ResumeLayout(false);
+            this.alignableGroupBoxDescent2Options.PerformLayout();
             this.ResumeLayout(false);
 
         }

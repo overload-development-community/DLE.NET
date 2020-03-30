@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.texlight1RadioButton = new System.Windows.Forms.RadioButton();
             this.texlight2RadioButton = new System.Windows.Forms.RadioButton();
             this.texlight3RadioButton = new System.Windows.Forms.RadioButton();
@@ -86,6 +87,7 @@
             this.texlightColorPictureBox = new System.Windows.Forms.PictureBox();
             this.texlightTimerNumericTextBox = new DLEDotNet.Editor.IntTextBox();
             this.texlightTimerUpDownControl = new DLEDotNet.Editor.UpDownControl();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.texlightTimersliderTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.texlightShowPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.texlightAddButton)).BeginInit();
@@ -418,53 +420,58 @@
             // texlightOffRadioButton
             // 
             this.texlightOffRadioButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.texlightOffRadioButton.Location = new System.Drawing.Point(86, 26);
+            this.texlightOffRadioButton.Location = new System.Drawing.Point(86, 25);
             this.texlightOffRadioButton.Margin = new System.Windows.Forms.Padding(0);
             this.texlightOffRadioButton.Name = "texlightOffRadioButton";
             this.texlightOffRadioButton.Size = new System.Drawing.Size(38, 15);
             this.texlightOffRadioButton.TabIndex = 32;
             this.texlightOffRadioButton.TabStop = true;
             this.texlightOffRadioButton.Text = "off";
+            this.helpToolTip.SetToolTip(this.texlightOffRadioButton, "default pattern: light is off");
             // 
             // texlightStrobe4RadioButton
             // 
             this.texlightStrobe4RadioButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.texlightStrobe4RadioButton.Location = new System.Drawing.Point(86, 40);
+            this.texlightStrobe4RadioButton.Location = new System.Drawing.Point(86, 39);
             this.texlightStrobe4RadioButton.Margin = new System.Windows.Forms.Padding(0);
             this.texlightStrobe4RadioButton.Name = "texlightStrobe4RadioButton";
             this.texlightStrobe4RadioButton.Size = new System.Drawing.Size(68, 15);
             this.texlightStrobe4RadioButton.TabIndex = 33;
             this.texlightStrobe4RadioButton.Text = "strobe /4";
+            this.helpToolTip.SetToolTip(this.texlightStrobe4RadioButton, "default pattern: light flickers between on/off every 4 dots");
             // 
             // texlightStrobe8RadioButton
             // 
             this.texlightStrobe8RadioButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.texlightStrobe8RadioButton.Location = new System.Drawing.Point(86, 52);
+            this.texlightStrobe8RadioButton.Location = new System.Drawing.Point(86, 53);
             this.texlightStrobe8RadioButton.Margin = new System.Windows.Forms.Padding(0);
             this.texlightStrobe8RadioButton.Name = "texlightStrobe8RadioButton";
             this.texlightStrobe8RadioButton.Size = new System.Drawing.Size(68, 15);
             this.texlightStrobe8RadioButton.TabIndex = 34;
             this.texlightStrobe8RadioButton.Text = "strobe /8";
+            this.helpToolTip.SetToolTip(this.texlightStrobe8RadioButton, "default pattern: light flickers between on/off every 8 dots");
             // 
             // texlightFlickerRadioButton
             // 
             this.texlightFlickerRadioButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.texlightFlickerRadioButton.Location = new System.Drawing.Point(86, 66);
+            this.texlightFlickerRadioButton.Location = new System.Drawing.Point(86, 67);
             this.texlightFlickerRadioButton.Margin = new System.Windows.Forms.Padding(0);
             this.texlightFlickerRadioButton.Name = "texlightFlickerRadioButton";
             this.texlightFlickerRadioButton.Size = new System.Drawing.Size(50, 15);
             this.texlightFlickerRadioButton.TabIndex = 35;
             this.texlightFlickerRadioButton.Text = "flicker";
+            this.helpToolTip.SetToolTip(this.texlightFlickerRadioButton, "default pattern: light flickers between on/off rapidly");
             // 
             // texlightOnRadioButton
             // 
             this.texlightOnRadioButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.texlightOnRadioButton.Location = new System.Drawing.Point(86, 78);
+            this.texlightOnRadioButton.Location = new System.Drawing.Point(86, 82);
             this.texlightOnRadioButton.Margin = new System.Windows.Forms.Padding(0);
             this.texlightOnRadioButton.Name = "texlightOnRadioButton";
             this.texlightOnRadioButton.Size = new System.Drawing.Size(38, 15);
             this.texlightOnRadioButton.TabIndex = 36;
             this.texlightOnRadioButton.Text = "on";
+            this.helpToolTip.SetToolTip(this.texlightOnRadioButton, "default pattern: light is on");
             // 
             // texlightEditTextBox
             // 
@@ -475,6 +482,7 @@
             this.texlightEditTextBox.TabIndex = 37;
             this.texlightEditTextBox.TabStop = false;
             this.texlightEditTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.helpToolTip.SetToolTip(this.texlightEditTextBox, "current light pattern: 0 for off, 1 for on");
             // 
             // texlightTimersliderTrackBar
             // 
@@ -489,6 +497,7 @@
             this.texlightTimersliderTrackBar.SmallChange = 50;
             this.texlightTimersliderTrackBar.TabIndex = 38;
             this.texlightTimersliderTrackBar.TickFrequency = 50;
+            this.helpToolTip.SetToolTip(this.texlightTimersliderTrackBar, "milliseconds per dot, must be above 0");
             // 
             // texlightShowPictureBox
             // 
@@ -640,6 +649,8 @@
             this.texlightPalettePictureBox.Size = new System.Drawing.Size(108, 164);
             this.texlightPalettePictureBox.TabIndex = 52;
             this.texlightPalettePictureBox.TabStop = false;
+            this.helpToolTip.SetToolTip(this.texlightPalettePictureBox, "select light color from palette (colored light support, such as XL, needed for ef" +
+        "fect)");
             // 
             // texlightRgbcolorButton
             // 
@@ -695,6 +706,7 @@
             this.texlightTimerNumericTextBox.TabIndex = 57;
             this.texlightTimerNumericTextBox.Text = "0";
             this.texlightTimerNumericTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.helpToolTip.SetToolTip(this.texlightTimerNumericTextBox, "milliseconds per dot, must be above 0");
             // 
             // texlightTimerUpDownControl
             // 
@@ -710,6 +722,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.texlightOnRadioButton);
+            this.Controls.Add(this.texlightStrobe8RadioButton);
+            this.Controls.Add(this.texlightStrobe4RadioButton);
             this.Controls.Add(this.texlightTimerNumericTextBox);
             this.Controls.Add(this.texlightTimerUpDownControl);
             this.Controls.Add(this.texlight1RadioButton);
@@ -745,10 +760,7 @@
             this.Controls.Add(this.texlight31RadioButton);
             this.Controls.Add(this.texlight32RadioButton);
             this.Controls.Add(this.texlightOffRadioButton);
-            this.Controls.Add(this.texlightStrobe4RadioButton);
-            this.Controls.Add(this.texlightStrobe8RadioButton);
             this.Controls.Add(this.texlightFlickerRadioButton);
-            this.Controls.Add(this.texlightOnRadioButton);
             this.Controls.Add(this.texlightEditTextBox);
             this.Controls.Add(this.texlightTimersliderTrackBar);
             this.Controls.Add(this.texlightShowPictureBox);
@@ -843,5 +855,6 @@
         private System.Windows.Forms.PictureBox texlightColorPictureBox;
         private IntTextBox texlightTimerNumericTextBox;
         private UpDownControl texlightTimerUpDownControl;
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.prefsViewWallsCheckBox = new System.Windows.Forms.CheckBox();
             this.prefsViewSpecialCheckBox = new System.Windows.Forms.CheckBox();
             this.prefsViewLightsCheckBox = new System.Windows.Forms.CheckBox();
@@ -50,6 +51,7 @@
             this.prefsViewObjectsNoneButton = new System.Windows.Forms.Button();
             this.alignableGroupBoxGeometry = new DLEDotNet.Editor.AlignableGroupBox();
             this.alignableGroupBoxObjects = new DLEDotNet.Editor.AlignableGroupBox();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.alignableGroupBoxGeometry.SuspendLayout();
             this.alignableGroupBoxObjects.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
@@ -64,6 +66,7 @@
             this.prefsViewWallsCheckBox.Size = new System.Drawing.Size(50, 15);
             this.prefsViewWallsCheckBox.TabIndex = 0;
             this.prefsViewWallsCheckBox.Text = "walls";
+            this.helpToolTip.SetToolTip(this.prefsViewWallsCheckBox, "show walls as crosses in mine view");
             // 
             // prefsViewSpecialCheckBox
             // 
@@ -74,6 +77,7 @@
             this.prefsViewSpecialCheckBox.Size = new System.Drawing.Size(103, 15);
             this.prefsViewSpecialCheckBox.TabIndex = 1;
             this.prefsViewSpecialCheckBox.Text = "special segments";
+            this.helpToolTip.SetToolTip(this.prefsViewSpecialCheckBox, "highlight special segments with colors when lines are visible");
             // 
             // prefsViewLightsCheckBox
             // 
@@ -84,6 +88,7 @@
             this.prefsViewLightsCheckBox.Size = new System.Drawing.Size(56, 15);
             this.prefsViewLightsCheckBox.TabIndex = 2;
             this.prefsViewLightsCheckBox.Text = "lights";
+            this.helpToolTip.SetToolTip(this.prefsViewLightsCheckBox, "show light sprite with custom lights");
             // 
             // prefsViewShadingCheckBox
             // 
@@ -94,6 +99,7 @@
             this.prefsViewShadingCheckBox.Size = new System.Drawing.Size(62, 15);
             this.prefsViewShadingCheckBox.TabIndex = 3;
             this.prefsViewShadingCheckBox.Text = "shading";
+            this.helpToolTip.SetToolTip(this.prefsViewShadingCheckBox, "display light levels in mine view");
             // 
             // prefsViewDeltalightsCheckBox
             // 
@@ -104,6 +110,7 @@
             this.prefsViewDeltalightsCheckBox.Size = new System.Drawing.Size(86, 15);
             this.prefsViewDeltalightsCheckBox.TabIndex = 4;
             this.prefsViewDeltalightsCheckBox.Text = "delta shading";
+            this.helpToolTip.SetToolTip(this.prefsViewDeltalightsCheckBox, "animate light levels in mine view");
             // 
             // prefsViewHideTaggedCheckBox
             // 
@@ -124,6 +131,7 @@
             this.prefsViewSkyboxCheckBox.Size = new System.Drawing.Size(86, 15);
             this.prefsViewSkyboxCheckBox.TabIndex = 6;
             this.prefsViewSkyboxCheckBox.Text = "sky box";
+            this.helpToolTip.SetToolTip(this.prefsViewSkyboxCheckBox, "render sky boxes in mine view (XL only)");
             // 
             // prefsViewAlltexturesCheckBox
             // 
@@ -134,6 +142,7 @@
             this.prefsViewAlltexturesCheckBox.Size = new System.Drawing.Size(86, 15);
             this.prefsViewAlltexturesCheckBox.TabIndex = 7;
             this.prefsViewAlltexturesCheckBox.Text = "used textures";
+            this.helpToolTip.SetToolTip(this.prefsViewAlltexturesCheckBox, "only show textures already used in the level in the texture list");
             // 
             // prefsViewMineAllButton
             // 
@@ -343,6 +352,6 @@
         private System.Windows.Forms.Button prefsViewObjectsNoneButton;
         private AlignableGroupBox alignableGroupBoxGeometry;
         private AlignableGroupBox alignableGroupBoxObjects;
-
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

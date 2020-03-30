@@ -108,20 +108,20 @@
             // 
             // lightningIdTextBox
             // 
-            this.lightningIdTextBox.Location = new System.Drawing.Point(84, 8);
+            this.lightningIdTextBox.Location = new System.Drawing.Point(84, 5);
             this.lightningIdTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightningIdTextBox.Name = "lightningIdTextBox";
-            this.lightningIdTextBox.Size = new System.Drawing.Size(42, 19);
+            this.lightningIdTextBox.Size = new System.Drawing.Size(42, 20);
             this.lightningIdTextBox.TabIndex = 0;
             this.lightningIdTextBox.TabStop = false;
             this.lightningIdTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // lightningTargetTextBox
             // 
-            this.lightningTargetTextBox.Location = new System.Drawing.Point(84, 29);
+            this.lightningTargetTextBox.Location = new System.Drawing.Point(84, 26);
             this.lightningTargetTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightningTargetTextBox.Name = "lightningTargetTextBox";
-            this.lightningTargetTextBox.Size = new System.Drawing.Size(40, 19);
+            this.lightningTargetTextBox.Size = new System.Drawing.Size(42, 20);
             this.lightningTargetTextBox.TabIndex = 1;
             this.lightningTargetTextBox.TabStop = false;
             this.lightningTargetTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -131,7 +131,7 @@
             this.lightningBoltsNumericUpDown.Location = new System.Drawing.Point(84, 46);
             this.lightningBoltsNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.lightningBoltsNumericUpDown.Name = "lightningBoltsNumericUpDown";
-            this.lightningBoltsNumericUpDown.Size = new System.Drawing.Size(58, 20);
+            this.lightningBoltsNumericUpDown.Size = new System.Drawing.Size(60, 20);
             this.lightningBoltsNumericUpDown.TabIndex = 3;
             this.lightningBoltsNumericUpDown.TabStop = false;
             this.lightningBoltsNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -141,7 +141,7 @@
             this.lightningNodesNumericUpDown.Location = new System.Drawing.Point(84, 67);
             this.lightningNodesNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.lightningNodesNumericUpDown.Name = "lightningNodesNumericUpDown";
-            this.lightningNodesNumericUpDown.Size = new System.Drawing.Size(58, 20);
+            this.lightningNodesNumericUpDown.Size = new System.Drawing.Size(60, 20);
             this.lightningNodesNumericUpDown.TabIndex = 5;
             this.lightningNodesNumericUpDown.TabStop = false;
             this.lightningNodesNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -151,7 +151,7 @@
             this.lightningChildrenNumericUpDown.Location = new System.Drawing.Point(84, 89);
             this.lightningChildrenNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.lightningChildrenNumericUpDown.Name = "lightningChildrenNumericUpDown";
-            this.lightningChildrenNumericUpDown.Size = new System.Drawing.Size(57, 20);
+            this.lightningChildrenNumericUpDown.Size = new System.Drawing.Size(60, 20);
             this.lightningChildrenNumericUpDown.TabIndex = 7;
             this.lightningChildrenNumericUpDown.TabStop = false;
             this.lightningChildrenNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -181,7 +181,7 @@
             this.lightningLengthNumericUpDown.Location = new System.Drawing.Point(84, 148);
             this.lightningLengthNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.lightningLengthNumericUpDown.Name = "lightningLengthNumericUpDown";
-            this.lightningLengthNumericUpDown.Size = new System.Drawing.Size(58, 20);
+            this.lightningLengthNumericUpDown.Size = new System.Drawing.Size(60, 20);
             this.lightningLengthNumericUpDown.TabIndex = 13;
             this.lightningLengthNumericUpDown.TabStop = false;
             this.lightningLengthNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -191,7 +191,7 @@
             this.lightningWidthNumericUpDown.Location = new System.Drawing.Point(84, 166);
             this.lightningWidthNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.lightningWidthNumericUpDown.Name = "lightningWidthNumericUpDown";
-            this.lightningWidthNumericUpDown.Size = new System.Drawing.Size(58, 20);
+            this.lightningWidthNumericUpDown.Size = new System.Drawing.Size(60, 20);
             this.lightningWidthNumericUpDown.TabIndex = 15;
             this.lightningWidthNumericUpDown.TabStop = false;
             this.lightningWidthNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -201,7 +201,7 @@
             this.lightningAmplitudeNumericUpDown.Location = new System.Drawing.Point(84, 185);
             this.lightningAmplitudeNumericUpDown.Margin = new System.Windows.Forms.Padding(0);
             this.lightningAmplitudeNumericUpDown.Name = "lightningAmplitudeNumericUpDown";
-            this.lightningAmplitudeNumericUpDown.Size = new System.Drawing.Size(58, 20);
+            this.lightningAmplitudeNumericUpDown.Size = new System.Drawing.Size(60, 20);
             this.lightningAmplitudeNumericUpDown.TabIndex = 17;
             this.lightningAmplitudeNumericUpDown.TabStop = false;
             this.lightningAmplitudeNumericUpDown.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -241,7 +241,7 @@
             this.lightningWaypointTextBox.Location = new System.Drawing.Point(82, 265);
             this.lightningWaypointTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightningWaypointTextBox.Name = "lightningWaypointTextBox";
-            this.lightningWaypointTextBox.Size = new System.Drawing.Size(40, 19);
+            this.lightningWaypointTextBox.Size = new System.Drawing.Size(40, 20);
             this.lightningWaypointTextBox.TabIndex = 24;
             this.lightningWaypointTextBox.TabStop = false;
             this.lightningWaypointTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -372,7 +372,7 @@
             // labelUnitsB
             // 
             this.labelUnitsB.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelUnitsB.Location = new System.Drawing.Point(144, 188);
+            this.labelUnitsB.Location = new System.Drawing.Point(147, 188);
             this.labelUnitsB.Margin = new System.Windows.Forms.Padding(0);
             this.labelUnitsB.Name = "labelUnitsB";
             this.labelUnitsB.Size = new System.Drawing.Size(28, 15);
@@ -504,7 +504,7 @@
             // labelId
             // 
             this.labelId.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelId.Location = new System.Drawing.Point(68, 11);
+            this.labelId.Location = new System.Drawing.Point(68, 8);
             this.labelId.Margin = new System.Windows.Forms.Padding(0);
             this.labelId.Name = "labelId";
             this.labelId.Size = new System.Drawing.Size(14, 15);
@@ -515,7 +515,7 @@
             // labelTarget
             // 
             this.labelTarget.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelTarget.Location = new System.Drawing.Point(48, 31);
+            this.labelTarget.Location = new System.Drawing.Point(48, 28);
             this.labelTarget.Margin = new System.Windows.Forms.Padding(0);
             this.labelTarget.Name = "labelTarget";
             this.labelTarget.Size = new System.Drawing.Size(33, 15);
@@ -575,7 +575,7 @@
             // lightningBlueSliderTrackBar
             // 
             this.lightningBlueSliderTrackBar.AutoSize = false;
-            this.lightningBlueSliderTrackBar.Location = new System.Drawing.Point(46, 344);
+            this.lightningBlueSliderTrackBar.Location = new System.Drawing.Point(46, 347);
             this.lightningBlueSliderTrackBar.Margin = new System.Windows.Forms.Padding(0);
             this.lightningBlueSliderTrackBar.Name = "lightningBlueSliderTrackBar";
             this.lightningBlueSliderTrackBar.Size = new System.Drawing.Size(153, 24);
@@ -594,7 +594,7 @@
             // lightningAlphaSliderTrackBar
             // 
             this.lightningAlphaSliderTrackBar.AutoSize = false;
-            this.lightningAlphaSliderTrackBar.Location = new System.Drawing.Point(46, 367);
+            this.lightningAlphaSliderTrackBar.Location = new System.Drawing.Point(46, 372);
             this.lightningAlphaSliderTrackBar.Margin = new System.Windows.Forms.Padding(0);
             this.lightningAlphaSliderTrackBar.Name = "lightningAlphaSliderTrackBar";
             this.lightningAlphaSliderTrackBar.Size = new System.Drawing.Size(153, 24);
@@ -624,7 +624,7 @@
             // labelGreen
             // 
             this.labelGreen.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelGreen.Location = new System.Drawing.Point(18, 322);
+            this.labelGreen.Location = new System.Drawing.Point(18, 323);
             this.labelGreen.Margin = new System.Windows.Forms.Padding(0);
             this.labelGreen.Name = "labelGreen";
             this.labelGreen.Size = new System.Drawing.Size(33, 15);
@@ -635,7 +635,7 @@
             // labelBlue
             // 
             this.labelBlue.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelBlue.Location = new System.Drawing.Point(26, 346);
+            this.labelBlue.Location = new System.Drawing.Point(26, 348);
             this.labelBlue.Margin = new System.Windows.Forms.Padding(0);
             this.labelBlue.Name = "labelBlue";
             this.labelBlue.Size = new System.Drawing.Size(26, 15);
@@ -646,7 +646,7 @@
             // labelAlpha
             // 
             this.labelAlpha.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelAlpha.Location = new System.Drawing.Point(20, 370);
+            this.labelAlpha.Location = new System.Drawing.Point(20, 374);
             this.labelAlpha.Margin = new System.Windows.Forms.Padding(0);
             this.labelAlpha.Name = "labelAlpha";
             this.labelAlpha.Size = new System.Drawing.Size(32, 15);
@@ -769,6 +769,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.lightningRedNumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lightningColorPictureBox)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

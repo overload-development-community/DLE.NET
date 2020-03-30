@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lightIlluminateCheckBox = new System.Windows.Forms.CheckBox();
             this.lightEditIlluminateTextBox = new DLEDotNet.Editor.FloatTextBox();
             this.lightRenderDepthSliderTrackBar = new System.Windows.Forms.TrackBar();
@@ -55,6 +56,7 @@
             this.lightVertexlightTextBox = new DLEDotNet.Editor.FloatTextBox();
             this.lightSetVertexlightButton = new System.Windows.Forms.Button();
             this.alignableGroupBoxLightValues = new DLEDotNet.Editor.AlignableGroupBox();
+            this.label10A = new System.Windows.Forms.Label();
             this.labelFactor = new System.Windows.Forms.Label();
             this.lightDeltaFramerateLeftRightControl = new DLEDotNet.Editor.LeftRightControl();
             this.lightDeltaRenderDepthLeftRightControl = new DLEDotNet.Editor.LeftRightControl();
@@ -67,7 +69,6 @@
             this.labelRenderDepthB = new System.Windows.Forms.Label();
             this.labelApply = new System.Windows.Forms.Label();
             this.label1A = new System.Windows.Forms.Label();
-            this.label10A = new System.Windows.Forms.Label();
             this.label1B = new System.Windows.Forms.Label();
             this.label10B = new System.Windows.Forms.Label();
             this.labelFrameRate = new System.Windows.Forms.Label();
@@ -77,11 +78,13 @@
             this.alignableGroupBoxVertexLight = new DLEDotNet.Editor.AlignableGroupBox();
             this.labelPercentE = new System.Windows.Forms.Label();
             this.defaultLightAndColorButton = new System.Windows.Forms.Button();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.lightRenderDepthSliderTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lightDeltaRenderDepthSliderTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lightDeltaFramerateSliderTrackBar)).BeginInit();
             this.alignableGroupBoxLightValues.SuspendLayout();
             this.alignableGroupBoxVertexLight.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // lightIlluminateCheckBox
@@ -98,10 +101,9 @@
             // 
             // lightEditIlluminateTextBox
             // 
-            this.lightEditIlluminateTextBox.FractionalDigits = 2;
             this.lightEditIlluminateTextBox.Location = new System.Drawing.Point(255, 13);
             this.lightEditIlluminateTextBox.Margin = new System.Windows.Forms.Padding(0);
-            this.lightEditIlluminateTextBox.MaximumValue = 200D;
+            this.lightEditIlluminateTextBox.MaximumValue = 1000D;
             this.lightEditIlluminateTextBox.MinimumValue = 0D;
             this.lightEditIlluminateTextBox.Name = "lightEditIlluminateTextBox";
             this.lightEditIlluminateTextBox.Size = new System.Drawing.Size(44, 20);
@@ -144,6 +146,7 @@
             this.lightAvgcornerlightCheckBox.TabIndex = 5;
             this.lightAvgcornerlightCheckBox.Text = "smoothe lighting";
             this.lightAvgcornerlightCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.helpToolTip.SetToolTip(this.lightAvgcornerlightCheckBox, "averages light around corners");
             // 
             // lightScaleCheckBox
             // 
@@ -156,10 +159,10 @@
             this.lightScaleCheckBox.TabIndex = 6;
             this.lightScaleCheckBox.Text = "scale lighting (0%: no light, 200%: very bright)";
             this.lightScaleCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.helpToolTip.SetToolTip(this.lightScaleCheckBox, "multiplies final lighting by constant factor");
             // 
             // lightEditScaleTextBox
             // 
-            this.lightEditScaleTextBox.FractionalDigits = 2;
             this.lightEditScaleTextBox.Location = new System.Drawing.Point(255, 54);
             this.lightEditScaleTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightEditScaleTextBox.MaximumValue = 200D;
@@ -194,10 +197,10 @@
             this.lightCubelightCheckBox.TabIndex = 9;
             this.lightCubelightCheckBox.Text = "set segment light (player/robot brightness)";
             this.lightCubelightCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.helpToolTip.SetToolTip(this.lightCubelightCheckBox, "applies a light for segments containing players or robots");
             // 
             // lightEditCubelightTextBox
             // 
-            this.lightEditCubelightTextBox.FractionalDigits = 2;
             this.lightEditCubelightTextBox.Location = new System.Drawing.Point(255, 73);
             this.lightEditCubelightTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightEditCubelightTextBox.MaximumValue = 100D;
@@ -213,32 +216,33 @@
             // 
             this.lightDyncubelightsCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lightDyncubelightsCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.lightDyncubelightsCheckBox.Location = new System.Drawing.Point(337, 81);
+            this.lightDyncubelightsCheckBox.Location = new System.Drawing.Point(338, 81);
             this.lightDyncubelightsCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightDyncubelightsCheckBox.Name = "lightDyncubelightsCheckBox";
             this.lightDyncubelightsCheckBox.Size = new System.Drawing.Size(198, 18);
             this.lightDyncubelightsCheckBox.TabIndex = 11;
             this.lightDyncubelightsCheckBox.Text = "dynamic segment light calculation";
             this.lightDyncubelightsCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.helpToolTip.SetToolTip(this.lightDyncubelightsCheckBox, "factors neighboring segments to object light computation");
             // 
             // lightCalcdeltaCheckBox
             // 
             this.lightCalcdeltaCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lightCalcdeltaCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.lightCalcdeltaCheckBox.Location = new System.Drawing.Point(24, 109);
+            this.lightCalcdeltaCheckBox.Location = new System.Drawing.Point(22, 107);
             this.lightCalcdeltaCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightCalcdeltaCheckBox.Name = "lightCalcdeltaCheckBox";
             this.lightCalcdeltaCheckBox.Size = new System.Drawing.Size(224, 20);
             this.lightCalcdeltaCheckBox.TabIndex = 12;
             this.lightCalcdeltaCheckBox.Text = "calculate exploding/blinking lights, factor =";
             this.lightCalcdeltaCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.helpToolTip.SetToolTip(this.lightCalcdeltaCheckBox, "whether to calculate delta light frames");
             // 
             // lightEditDeltaTextBox
             // 
-            this.lightEditDeltaTextBox.FractionalDigits = 2;
             this.lightEditDeltaTextBox.Location = new System.Drawing.Point(255, 107);
             this.lightEditDeltaTextBox.Margin = new System.Windows.Forms.Padding(0);
-            this.lightEditDeltaTextBox.MaximumValue = 100D;
+            this.lightEditDeltaTextBox.MaximumValue = 1000D;
             this.lightEditDeltaTextBox.MinimumValue = 0D;
             this.lightEditDeltaTextBox.Name = "lightEditDeltaTextBox";
             this.lightEditDeltaTextBox.Size = new System.Drawing.Size(44, 20);
@@ -341,6 +345,8 @@
             this.lightQualityCheckBox.TabIndex = 23;
             this.lightQualityCheckBox.Text = "classic illumination";
             this.lightQualityCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.helpToolTip.SetToolTip(this.lightQualityCheckBox, "lower quality light computation, usually brighter but with less contrast, faster " +
+        "to compute");
             // 
             // idokButton
             // 
@@ -365,16 +371,15 @@
             // lightShowdeltaButton
             // 
             this.lightShowdeltaButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.lightShowdeltaButton.Location = new System.Drawing.Point(626, 49);
+            this.lightShowdeltaButton.Location = new System.Drawing.Point(624, 49);
             this.lightShowdeltaButton.Margin = new System.Windows.Forms.Padding(0);
             this.lightShowdeltaButton.Name = "lightShowdeltaButton";
-            this.lightShowdeltaButton.Size = new System.Drawing.Size(84, 21);
+            this.lightShowdeltaButton.Size = new System.Drawing.Size(86, 21);
             this.lightShowdeltaButton.TabIndex = 2;
             this.lightShowdeltaButton.Text = "animate";
             // 
             // lightVertexlightTextBox
             // 
-            this.lightVertexlightTextBox.FractionalDigits = 2;
             this.lightVertexlightTextBox.Location = new System.Drawing.Point(22, 29);
             this.lightVertexlightTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightVertexlightTextBox.MaximumValue = 100D;
@@ -398,6 +403,7 @@
             // 
             // alignableGroupBoxLightValues
             // 
+            this.alignableGroupBoxLightValues.Controls.Add(this.label10A);
             this.alignableGroupBoxLightValues.Controls.Add(this.labelFactor);
             this.alignableGroupBoxLightValues.Controls.Add(this.tLightRenderDepthLabel);
             this.alignableGroupBoxLightValues.Controls.Add(this.tLightDeltaRenderDepthLabel);
@@ -431,7 +437,6 @@
             this.alignableGroupBoxLightValues.Controls.Add(this.labelRenderDepthB);
             this.alignableGroupBoxLightValues.Controls.Add(this.labelApply);
             this.alignableGroupBoxLightValues.Controls.Add(this.label1A);
-            this.alignableGroupBoxLightValues.Controls.Add(this.label10A);
             this.alignableGroupBoxLightValues.Controls.Add(this.label1B);
             this.alignableGroupBoxLightValues.Controls.Add(this.label10B);
             this.alignableGroupBoxLightValues.Controls.Add(this.labelFrameRate);
@@ -445,6 +450,17 @@
             this.alignableGroupBoxLightValues.TabIndex = 3;
             this.alignableGroupBoxLightValues.TabStop = false;
             this.alignableGroupBoxLightValues.Text = "light values";
+            // 
+            // label10A
+            // 
+            this.label10A.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.label10A.Location = new System.Drawing.Point(538, 34);
+            this.label10A.Margin = new System.Windows.Forms.Padding(0);
+            this.label10A.Name = "label10A";
+            this.label10A.Size = new System.Drawing.Size(14, 15);
+            this.label10A.TabIndex = 32;
+            this.label10A.TabStop = true;
+            this.label10A.Text = "10";
             // 
             // labelFactor
             // 
@@ -460,7 +476,7 @@
             // lightDeltaFramerateLeftRightControl
             // 
             this.lightDeltaFramerateLeftRightControl.LinkedControl = this.lightDeltaFramerateSliderTrackBar;
-            this.lightDeltaFramerateLeftRightControl.Location = new System.Drawing.Point(578, 145);
+            this.lightDeltaFramerateLeftRightControl.Location = new System.Drawing.Point(577, 145);
             this.lightDeltaFramerateLeftRightControl.MaximumSize = new System.Drawing.Size(30, 23);
             this.lightDeltaFramerateLeftRightControl.MinimumSize = new System.Drawing.Size(30, 23);
             this.lightDeltaFramerateLeftRightControl.Name = "lightDeltaFramerateLeftRightControl";
@@ -575,17 +591,6 @@
             this.label1A.TabStop = true;
             this.label1A.Text = "1";
             // 
-            // label10A
-            // 
-            this.label10A.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.label10A.Location = new System.Drawing.Point(538, 34);
-            this.label10A.Margin = new System.Windows.Forms.Padding(0);
-            this.label10A.Name = "label10A";
-            this.label10A.Size = new System.Drawing.Size(14, 15);
-            this.label10A.TabIndex = 32;
-            this.label10A.TabStop = true;
-            this.label10A.Text = "10";
-            // 
             // label1B
             // 
             this.label1B.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -680,10 +685,10 @@
             // defaultLightAndColorButton
             // 
             this.defaultLightAndColorButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.defaultLightAndColorButton.Location = new System.Drawing.Point(626, 68);
+            this.defaultLightAndColorButton.Location = new System.Drawing.Point(624, 68);
             this.defaultLightAndColorButton.Margin = new System.Windows.Forms.Padding(0);
             this.defaultLightAndColorButton.Name = "defaultLightAndColorButton";
-            this.defaultLightAndColorButton.Size = new System.Drawing.Size(84, 23);
+            this.defaultLightAndColorButton.Size = new System.Drawing.Size(86, 23);
             this.defaultLightAndColorButton.TabIndex = 6;
             this.defaultLightAndColorButton.TabStop = false;
             this.defaultLightAndColorButton.Text = "reset light+color";
@@ -710,6 +715,7 @@
             this.alignableGroupBoxLightValues.PerformLayout();
             this.alignableGroupBoxVertexLight.ResumeLayout(false);
             this.alignableGroupBoxVertexLight.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -764,5 +770,6 @@
         private LeftRightControl lightDeltaRenderDepthLeftRightControl;
         private LeftRightControl lightRenderDepthLeftRightControl;
         private System.Windows.Forms.Label labelFactor;
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

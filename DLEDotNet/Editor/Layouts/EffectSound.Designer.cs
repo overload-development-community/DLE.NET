@@ -30,15 +30,18 @@ namespace DLEDotNet.Editor.Layouts
         /// </summary>
         private void InitializeComponent()
         {
-            this.soundFileTextBox = new StringTextBox();
-            this.soundVolumeSliderTrackBar = new SparseTrackBar();
+            this.components = new System.ComponentModel.Container();
+            this.soundFileTextBox = new DLEDotNet.Editor.StringTextBox();
+            this.soundVolumeSliderTrackBar = new DLEDotNet.Editor.SparseTrackBar();
             this.labelWav = new System.Windows.Forms.Label();
             this.labelSoundFile = new System.Windows.Forms.Label();
             this.labelVolume = new System.Windows.Forms.Label();
             this.tSoundVolumeLabel = new System.Windows.Forms.Label();
             this.effectEnabledCheckBox = new System.Windows.Forms.CheckBox();
-            this.leftRightControl1 = new LeftRightControl();
+            this.leftRightControl1 = new DLEDotNet.Editor.LeftRightControl();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.soundVolumeSliderTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // soundFileTextBox
@@ -49,6 +52,7 @@ namespace DLEDotNet.Editor.Layouts
             this.soundFileTextBox.Size = new System.Drawing.Size(193, 20);
             this.soundFileTextBox.TabIndex = 0;
             this.soundFileTextBox.TabStop = false;
+            this.soundFileTextBox.Value = "";
             // 
             // soundVolumeSliderTrackBar
             // 
@@ -144,6 +148,7 @@ namespace DLEDotNet.Editor.Layouts
             this.Name = "EffectSound";
             this.Size = new System.Drawing.Size(720, 162);
             ((System.ComponentModel.ISupportInitialize)(this.soundVolumeSliderTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -159,5 +164,6 @@ namespace DLEDotNet.Editor.Layouts
         private System.Windows.Forms.Label tSoundVolumeLabel;
         private System.Windows.Forms.CheckBox effectEnabledCheckBox;
         private LeftRightControl leftRightControl1;
+        private ToolTip helpToolTip;
     }
 }

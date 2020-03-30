@@ -50,12 +50,13 @@
             this.textureLighting1 = new DLEDotNet.Editor.Layouts.TextureLighting();
             this.textureShowPictureBox = new System.Windows.Forms.PictureBox();
             this.groupBoxTextureEditing = new DLEDotNet.Editor.AlignableGroupBox();
+            this.textureBrightUpDownControl = new DLEDotNet.Editor.UpDownControl();
+            this.textureBrightsliderTrackBar = new System.Windows.Forms.TrackBar();
             this.texturePastetouchingButton = new System.Windows.Forms.Button();
             this.textureReplaceButton = new System.Windows.Forms.Button();
             this.textureTagPlaneButton = new System.Windows.Forms.Button();
             this.textureTagTexturesButton = new System.Windows.Forms.Button();
             this.textureCleanupButton = new System.Windows.Forms.Button();
-            this.textureBrightsliderTrackBar = new System.Windows.Forms.TrackBar();
             this.textureBrightnessTextBox = new System.Windows.Forms.TextBox();
             this.texturePaste1StCheckBox = new System.Windows.Forms.CheckBox();
             this.texturePaste2NdCheckBox = new System.Windows.Forms.CheckBox();
@@ -65,17 +66,16 @@
             this.labelLightB = new System.Windows.Forms.Label();
             this.labelBrightness = new System.Windows.Forms.Label();
             this.labelPercent = new System.Windows.Forms.Label();
-            this.textureBrightUpDownControl = new DLEDotNet.Editor.UpDownControl();
             this.textureSubTabControl.SuspendLayout();
             this.tabPageAlignment.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.textureAlignment1)).BeginInit();
             this.tabPageProjection.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.textureProjection1)).BeginInit();
             this.tabPageLighting.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.textureLighting1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textureShowPictureBox)).BeginInit();
             this.groupBoxTextureEditing.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.textureBrightsliderTrackBar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textureAlignment1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textureLighting1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textureProjection1)).BeginInit();
             this.SuspendLayout();
             // 
             // label0Percent
@@ -153,19 +153,19 @@
             // 
             // texture1StComboBox
             // 
-            this.texture1StComboBox.Location = new System.Drawing.Point(28, 124);
+            this.texture1StComboBox.Location = new System.Drawing.Point(30, 124);
             this.texture1StComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.texture1StComboBox.Name = "texture1StComboBox";
-            this.texture1StComboBox.Size = new System.Drawing.Size(86, 21);
+            this.texture1StComboBox.Size = new System.Drawing.Size(84, 21);
             this.texture1StComboBox.Sorted = true;
             this.texture1StComboBox.TabIndex = 4;
             // 
             // texture2NdComboBox
             // 
-            this.texture2NdComboBox.Location = new System.Drawing.Point(28, 145);
+            this.texture2NdComboBox.Location = new System.Drawing.Point(30, 145);
             this.texture2NdComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.texture2NdComboBox.Name = "texture2NdComboBox";
-            this.texture2NdComboBox.Size = new System.Drawing.Size(86, 21);
+            this.texture2NdComboBox.Size = new System.Drawing.Size(84, 21);
             this.texture2NdComboBox.Sorted = true;
             this.texture2NdComboBox.TabIndex = 5;
             // 
@@ -338,6 +338,25 @@
             this.groupBoxTextureEditing.TabStop = false;
             this.groupBoxTextureEditing.Text = "texture editing";
             // 
+            // textureBrightUpDownControl
+            // 
+            this.textureBrightUpDownControl.LinkedControl = this.textureBrightsliderTrackBar;
+            this.textureBrightUpDownControl.Location = new System.Drawing.Point(151, 183);
+            this.textureBrightUpDownControl.MaximumSize = new System.Drawing.Size(20, 20);
+            this.textureBrightUpDownControl.MinimumSize = new System.Drawing.Size(20, 20);
+            this.textureBrightUpDownControl.Name = "textureBrightUpDownControl";
+            this.textureBrightUpDownControl.Size = new System.Drawing.Size(20, 20);
+            this.textureBrightUpDownControl.TabIndex = 33;
+            // 
+            // textureBrightsliderTrackBar
+            // 
+            this.textureBrightsliderTrackBar.AutoSize = false;
+            this.textureBrightsliderTrackBar.Location = new System.Drawing.Point(52, 184);
+            this.textureBrightsliderTrackBar.Margin = new System.Windows.Forms.Padding(0);
+            this.textureBrightsliderTrackBar.Name = "textureBrightsliderTrackBar";
+            this.textureBrightsliderTrackBar.Size = new System.Drawing.Size(104, 24);
+            this.textureBrightsliderTrackBar.TabIndex = 15;
+            // 
             // texturePastetouchingButton
             // 
             this.texturePastetouchingButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -351,7 +370,7 @@
             // textureReplaceButton
             // 
             this.textureReplaceButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.textureReplaceButton.Location = new System.Drawing.Point(126, 80);
+            this.textureReplaceButton.Location = new System.Drawing.Point(126, 79);
             this.textureReplaceButton.Margin = new System.Windows.Forms.Padding(0);
             this.textureReplaceButton.Name = "textureReplaceButton";
             this.textureReplaceButton.Size = new System.Drawing.Size(82, 18);
@@ -361,7 +380,7 @@
             // textureTagPlaneButton
             // 
             this.textureTagPlaneButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.textureTagPlaneButton.Location = new System.Drawing.Point(126, 98);
+            this.textureTagPlaneButton.Location = new System.Drawing.Point(126, 95);
             this.textureTagPlaneButton.Margin = new System.Windows.Forms.Padding(0);
             this.textureTagPlaneButton.Name = "textureTagPlaneButton";
             this.textureTagPlaneButton.Size = new System.Drawing.Size(82, 18);
@@ -371,7 +390,7 @@
             // textureTagTexturesButton
             // 
             this.textureTagTexturesButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.textureTagTexturesButton.Location = new System.Drawing.Point(126, 114);
+            this.textureTagTexturesButton.Location = new System.Drawing.Point(126, 111);
             this.textureTagTexturesButton.Margin = new System.Windows.Forms.Padding(0);
             this.textureTagTexturesButton.Name = "textureTagTexturesButton";
             this.textureTagTexturesButton.Size = new System.Drawing.Size(82, 18);
@@ -381,21 +400,12 @@
             // textureCleanupButton
             // 
             this.textureCleanupButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.textureCleanupButton.Location = new System.Drawing.Point(126, 130);
+            this.textureCleanupButton.Location = new System.Drawing.Point(126, 127);
             this.textureCleanupButton.Margin = new System.Windows.Forms.Padding(0);
             this.textureCleanupButton.Name = "textureCleanupButton";
             this.textureCleanupButton.Size = new System.Drawing.Size(82, 18);
             this.textureCleanupButton.TabIndex = 14;
             this.textureCleanupButton.Text = "clean&up";
-            // 
-            // textureBrightsliderTrackBar
-            // 
-            this.textureBrightsliderTrackBar.AutoSize = false;
-            this.textureBrightsliderTrackBar.Location = new System.Drawing.Point(52, 184);
-            this.textureBrightsliderTrackBar.Margin = new System.Windows.Forms.Padding(0);
-            this.textureBrightsliderTrackBar.Name = "textureBrightsliderTrackBar";
-            this.textureBrightsliderTrackBar.Size = new System.Drawing.Size(104, 24);
-            this.textureBrightsliderTrackBar.TabIndex = 15;
             // 
             // textureBrightnessTextBox
             // 
@@ -440,6 +450,7 @@
             this.label1st.Size = new System.Drawing.Size(22, 15);
             this.label1st.TabIndex = 21;
             this.label1st.Text = "1st:";
+            this.label1st.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label2nd
             // 
@@ -450,16 +461,18 @@
             this.label2nd.Size = new System.Drawing.Size(22, 15);
             this.label2nd.TabIndex = 22;
             this.label2nd.Text = "2nd:";
+            this.label2nd.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelLightA
             // 
             this.labelLightA.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelLightA.Location = new System.Drawing.Point(6, 13);
+            this.labelLightA.Location = new System.Drawing.Point(4, 13);
             this.labelLightA.Margin = new System.Windows.Forms.Padding(0);
             this.labelLightA.Name = "labelLightA";
             this.labelLightA.Size = new System.Drawing.Size(26, 15);
             this.labelLightA.TabIndex = 23;
             this.labelLightA.Text = "light:";
+            this.labelLightA.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelLightB
             // 
@@ -470,6 +483,7 @@
             this.labelLightB.Size = new System.Drawing.Size(26, 15);
             this.labelLightB.TabIndex = 24;
             this.labelLightB.Text = "light:";
+            this.labelLightB.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelBrightness
             // 
@@ -493,21 +507,8 @@
             this.labelPercent.TabStop = true;
             this.labelPercent.Text = "%";
             // 
-            // textureBrightUpDownControl
-            // 
-            this.textureBrightUpDownControl.LinkedControl = this.textureBrightsliderTrackBar;
-            this.textureBrightUpDownControl.Location = new System.Drawing.Point(151, 183);
-            this.textureBrightUpDownControl.MaximumSize = new System.Drawing.Size(20, 20);
-            this.textureBrightUpDownControl.MinimumSize = new System.Drawing.Size(20, 20);
-            this.textureBrightUpDownControl.Name = "textureBrightUpDownControl";
-            this.textureBrightUpDownControl.Size = new System.Drawing.Size(20, 20);
-            this.textureBrightUpDownControl.TabIndex = 33;
-            // 
             // FloatingTextureTool
             // 
-            ((System.ComponentModel.ISupportInitialize)(this.textureAlignment1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textureLighting1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textureProjection1)).EndInit();
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.textureSubTabControl);
@@ -517,8 +518,11 @@
             this.Size = new System.Drawing.Size(705, 211);
             this.textureSubTabControl.ResumeLayout(false);
             this.tabPageAlignment.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.textureAlignment1)).EndInit();
             this.tabPageProjection.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.textureProjection1)).EndInit();
             this.tabPageLighting.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.textureLighting1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textureShowPictureBox)).EndInit();
             this.groupBoxTextureEditing.ResumeLayout(false);
             this.groupBoxTextureEditing.PerformLayout();

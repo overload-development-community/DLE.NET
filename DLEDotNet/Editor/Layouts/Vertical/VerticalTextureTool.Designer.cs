@@ -68,14 +68,14 @@
             this.textureLighting1 = new DLEDotNet.Editor.Layouts.TextureLighting();
             ((System.ComponentModel.ISupportInitialize)(this.textureBrightsliderTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.textureShowPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textureAlignment1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textureProjection1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textureLighting1)).BeginInit();
             this.alignableGroupBoxTextureEditing.SuspendLayout();
             this.textureSubTabControl.SuspendLayout();
             this.tabPageAlignment.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.textureAlignment1)).BeginInit();
             this.tabPageProjection.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.textureProjection1)).BeginInit();
             this.tabPageLighting.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.textureLighting1)).BeginInit();
             this.SuspendLayout();
             // 
             // textureLight1TextBox
@@ -149,7 +149,7 @@
             // textureEditButton
             // 
             this.textureEditButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.textureEditButton.Location = new System.Drawing.Point(136, 20);
+            this.textureEditButton.Location = new System.Drawing.Point(136, 18);
             this.textureEditButton.Margin = new System.Windows.Forms.Padding(0);
             this.textureEditButton.Name = "textureEditButton";
             this.textureEditButton.Size = new System.Drawing.Size(82, 18);
@@ -160,7 +160,7 @@
             // textureCopyButton
             // 
             this.textureCopyButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.textureCopyButton.Location = new System.Drawing.Point(136, 37);
+            this.textureCopyButton.Location = new System.Drawing.Point(136, 36);
             this.textureCopyButton.Margin = new System.Windows.Forms.Padding(0);
             this.textureCopyButton.Name = "textureCopyButton";
             this.textureCopyButton.Size = new System.Drawing.Size(82, 18);
@@ -171,7 +171,7 @@
             // texturePastesideButton
             // 
             this.texturePastesideButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.texturePastesideButton.Location = new System.Drawing.Point(136, 55);
+            this.texturePastesideButton.Location = new System.Drawing.Point(136, 54);
             this.texturePastesideButton.Margin = new System.Windows.Forms.Padding(0);
             this.texturePastesideButton.Name = "texturePastesideButton";
             this.texturePastesideButton.Size = new System.Drawing.Size(82, 18);
@@ -191,7 +191,7 @@
             // textureReplaceButton
             // 
             this.textureReplaceButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.textureReplaceButton.Location = new System.Drawing.Point(136, 88);
+            this.textureReplaceButton.Location = new System.Drawing.Point(136, 90);
             this.textureReplaceButton.Margin = new System.Windows.Forms.Padding(0);
             this.textureReplaceButton.Name = "textureReplaceButton";
             this.textureReplaceButton.Size = new System.Drawing.Size(82, 18);
@@ -201,7 +201,7 @@
             // textureTagPlaneButton
             // 
             this.textureTagPlaneButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.textureTagPlaneButton.Location = new System.Drawing.Point(136, 106);
+            this.textureTagPlaneButton.Location = new System.Drawing.Point(136, 108);
             this.textureTagPlaneButton.Margin = new System.Windows.Forms.Padding(0);
             this.textureTagPlaneButton.Name = "textureTagPlaneButton";
             this.textureTagPlaneButton.Size = new System.Drawing.Size(82, 18);
@@ -211,7 +211,7 @@
             // textureTagTexturesButton
             // 
             this.textureTagTexturesButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.textureTagTexturesButton.Location = new System.Drawing.Point(136, 124);
+            this.textureTagTexturesButton.Location = new System.Drawing.Point(136, 126);
             this.textureTagTexturesButton.Margin = new System.Windows.Forms.Padding(0);
             this.textureTagTexturesButton.Name = "textureTagTexturesButton";
             this.textureTagTexturesButton.Size = new System.Drawing.Size(82, 18);
@@ -221,7 +221,7 @@
             // textureCleanupButton
             // 
             this.textureCleanupButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.textureCleanupButton.Location = new System.Drawing.Point(136, 140);
+            this.textureCleanupButton.Location = new System.Drawing.Point(136, 144);
             this.textureCleanupButton.Margin = new System.Windows.Forms.Padding(0);
             this.textureCleanupButton.Name = "textureCleanupButton";
             this.textureCleanupButton.Size = new System.Drawing.Size(82, 18);
@@ -230,6 +230,7 @@
             // 
             // texturePaste1StCheckBox
             // 
+            this.texturePaste1StCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.texturePaste1StCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.texturePaste1StCheckBox.Location = new System.Drawing.Point(158, 169);
             this.texturePaste1StCheckBox.Margin = new System.Windows.Forms.Padding(0);
@@ -237,16 +238,19 @@
             this.texturePaste1StCheckBox.Size = new System.Drawing.Size(56, 15);
             this.texturePaste1StCheckBox.TabIndex = 15;
             this.texturePaste1StCheckBox.Text = "use 1st";
+            this.texturePaste1StCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // texturePaste2NdCheckBox
             // 
+            this.texturePaste2NdCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.texturePaste2NdCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.texturePaste2NdCheckBox.Location = new System.Drawing.Point(153, 185);
+            this.texturePaste2NdCheckBox.Location = new System.Drawing.Point(154, 185);
             this.texturePaste2NdCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.texturePaste2NdCheckBox.Name = "texturePaste2NdCheckBox";
             this.texturePaste2NdCheckBox.Size = new System.Drawing.Size(60, 15);
             this.texturePaste2NdCheckBox.TabIndex = 16;
             this.texturePaste2NdCheckBox.Text = "use 2nd";
+            this.texturePaste2NdCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // textureBrightsliderTrackBar
             // 
@@ -288,6 +292,7 @@
             this.label1st.Size = new System.Drawing.Size(22, 15);
             this.label1st.TabIndex = 21;
             this.label1st.Text = "1st:";
+            this.label1st.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label2nd
             // 
@@ -298,26 +303,29 @@
             this.label2nd.Size = new System.Drawing.Size(22, 15);
             this.label2nd.TabIndex = 22;
             this.label2nd.Text = "2nd:";
+            this.label2nd.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelLightA
             // 
             this.labelLightA.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelLightA.Location = new System.Drawing.Point(15, 20);
+            this.labelLightA.Location = new System.Drawing.Point(14, 18);
             this.labelLightA.Margin = new System.Windows.Forms.Padding(0);
             this.labelLightA.Name = "labelLightA";
             this.labelLightA.Size = new System.Drawing.Size(26, 15);
             this.labelLightA.TabIndex = 23;
             this.labelLightA.Text = "light:";
+            this.labelLightA.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelLightB
             // 
             this.labelLightB.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelLightB.Location = new System.Drawing.Point(12, 110);
+            this.labelLightB.Location = new System.Drawing.Point(12, 111);
             this.labelLightB.Margin = new System.Windows.Forms.Padding(0);
             this.labelLightB.Name = "labelLightB";
             this.labelLightB.Size = new System.Drawing.Size(28, 15);
             this.labelLightB.TabIndex = 24;
             this.labelLightB.Text = "light:";
+            this.labelLightB.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // alignableGroupBoxTextureEditing
             // 
@@ -512,15 +520,15 @@
             this.Size = new System.Drawing.Size(333, 632);
             ((System.ComponentModel.ISupportInitialize)(this.textureBrightsliderTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.textureShowPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textureAlignment1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textureProjection1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textureLighting1)).EndInit();
             this.alignableGroupBoxTextureEditing.ResumeLayout(false);
             this.alignableGroupBoxTextureEditing.PerformLayout();
             this.textureSubTabControl.ResumeLayout(false);
             this.tabPageAlignment.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.textureAlignment1)).EndInit();
             this.tabPageProjection.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.textureProjection1)).EndInit();
             this.tabPageLighting.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.textureLighting1)).EndInit();
             this.ResumeLayout(false);
 
         }

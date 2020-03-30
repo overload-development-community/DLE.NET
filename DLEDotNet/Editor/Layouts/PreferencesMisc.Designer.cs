@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.prefsExpertmodeCheckBox = new System.Windows.Forms.CheckBox();
             this.prefsSplashscreenCheckBox = new System.Windows.Forms.CheckBox();
             this.prefsPlayerTextBox = new DLEDotNet.Editor.StringTextBox();
@@ -40,6 +41,7 @@
             this.buttonImportINI = new System.Windows.Forms.Button();
             this.buttonResetDefaults = new System.Windows.Forms.Button();
             this.alignableGroupBox1 = new DLEDotNet.Editor.AlignableGroupBox();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.alignableGroupBoxVerbosity.SuspendLayout();
             this.alignableGroupBoxPlayerProfile.SuspendLayout();
             this.alignableGroupBoxFaceLightSettings.SuspendLayout();
@@ -69,7 +71,7 @@
             // 
             // prefsPlayerTextBox
             // 
-            this.prefsPlayerTextBox.Location = new System.Drawing.Point(6, 28);
+            this.prefsPlayerTextBox.Location = new System.Drawing.Point(10, 27);
             this.prefsPlayerTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.prefsPlayerTextBox.Name = "prefsPlayerTextBox";
             this.prefsPlayerTextBox.Size = new System.Drawing.Size(94, 20);
@@ -213,5 +215,6 @@
         private System.Windows.Forms.Button buttonImportINI;
         private System.Windows.Forms.Button buttonResetDefaults;
         private AlignableGroupBox alignableGroupBox1;
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

@@ -36,10 +36,10 @@
             this.alignableGroupBoxPlayerProfile = new DLEDotNet.Editor.AlignableGroupBox();
             this.alignableGroupBoxFaceLightSettings = new DLEDotNet.Editor.AlignableGroupBox();
             this.alignableGroupBox1 = new DLEDotNet.Editor.AlignableGroupBox();
+            this.buttonResetDefaults = new System.Windows.Forms.Button();
             this.buttonImportINI = new System.Windows.Forms.Button();
             this.buttonExportXML = new System.Windows.Forms.Button();
             this.buttonImportXML = new System.Windows.Forms.Button();
-            this.buttonResetDefaults = new System.Windows.Forms.Button();
             this.alignableGroupBoxVerbosity.SuspendLayout();
             this.alignableGroupBoxPlayerProfile.SuspendLayout();
             this.alignableGroupBoxFaceLightSettings.SuspendLayout();
@@ -68,7 +68,7 @@
             // 
             // prefsPlayerTextBox
             // 
-            this.prefsPlayerTextBox.Location = new System.Drawing.Point(6, 28);
+            this.prefsPlayerTextBox.Location = new System.Drawing.Point(11, 29);
             this.prefsPlayerTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.prefsPlayerTextBox.Name = "prefsPlayerTextBox";
             this.prefsPlayerTextBox.Size = new System.Drawing.Size(94, 20);
@@ -136,6 +136,15 @@
             this.alignableGroupBox1.TabStop = false;
             this.alignableGroupBox1.Text = "setting management";
             // 
+            // buttonResetDefaults
+            // 
+            this.buttonResetDefaults.Location = new System.Drawing.Point(120, 53);
+            this.buttonResetDefaults.Name = "buttonResetDefaults";
+            this.buttonResetDefaults.Size = new System.Drawing.Size(106, 23);
+            this.buttonResetDefaults.TabIndex = 7;
+            this.buttonResetDefaults.Text = "Reset defaults";
+            this.buttonResetDefaults.UseVisualStyleBackColor = true;
+            // 
             // buttonImportINI
             // 
             this.buttonImportINI.Location = new System.Drawing.Point(9, 53);
@@ -162,15 +171,6 @@
             this.buttonImportXML.TabIndex = 3;
             this.buttonImportXML.Text = "Import settings";
             this.buttonImportXML.UseVisualStyleBackColor = true;
-            // 
-            // buttonResetDefaults
-            // 
-            this.buttonResetDefaults.Location = new System.Drawing.Point(120, 53);
-            this.buttonResetDefaults.Name = "buttonResetDefaults";
-            this.buttonResetDefaults.Size = new System.Drawing.Size(106, 23);
-            this.buttonResetDefaults.TabIndex = 7;
-            this.buttonResetDefaults.Text = "Reset defaults";
-            this.buttonResetDefaults.UseVisualStyleBackColor = true;
             // 
             // VerticalPreferencesMisc
             // 

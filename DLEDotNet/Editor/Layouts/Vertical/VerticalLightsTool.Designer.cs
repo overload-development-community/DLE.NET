@@ -54,8 +54,8 @@
             this.lightSetVertexlightButton = new System.Windows.Forms.Button();
             this.idokButton = new System.Windows.Forms.Button();
             this.idcancelButton = new System.Windows.Forms.Button();
-            this.alignableGroupBoxStaticIllumination = new AlignableGroupBox();
-            this.lightRenderDepthLeftRightControl = new LeftRightControl();
+            this.alignableGroupBoxStaticIllumination = new DLEDotNet.Editor.AlignableGroupBox();
+            this.lightRenderDepthLeftRightControl = new DLEDotNet.Editor.LeftRightControl();
             this.labelPercentA = new System.Windows.Forms.Label();
             this.labelPercentB = new System.Windows.Forms.Label();
             this.labelPercentC = new System.Windows.Forms.Label();
@@ -64,9 +64,9 @@
             this.label10A = new System.Windows.Forms.Label();
             this.labelPercentD = new System.Windows.Forms.Label();
             this.labelRenderDepthB = new System.Windows.Forms.Label();
-            this.alignableGroupBoxExplodingDivBlinkingLights = new AlignableGroupBox();
-            this.lightDeltaFramerateLeftRightControl = new LeftRightControl();
-            this.lightDeltaRenderDepthLeftRightControl = new LeftRightControl();
+            this.alignableGroupBoxExplodingDivBlinkingLights = new DLEDotNet.Editor.AlignableGroupBox();
+            this.lightDeltaFramerateLeftRightControl = new DLEDotNet.Editor.LeftRightControl();
+            this.lightDeltaRenderDepthLeftRightControl = new DLEDotNet.Editor.LeftRightControl();
             this.labelApply = new System.Windows.Forms.Label();
             this.label1B = new System.Windows.Forms.Label();
             this.label10B = new System.Windows.Forms.Label();
@@ -74,7 +74,7 @@
             this.label10C = new System.Windows.Forms.Label();
             this.label100 = new System.Windows.Forms.Label();
             this.labelFactor = new System.Windows.Forms.Label();
-            this.alignableGroupBoxVertexLight = new AlignableGroupBox();
+            this.alignableGroupBoxVertexLight = new DLEDotNet.Editor.AlignableGroupBox();
             this.labelPercentE = new System.Windows.Forms.Label();
             this.defaultLightAndColorButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.lightRenderDepthSliderTrackBar)).BeginInit();
@@ -89,7 +89,7 @@
             // 
             this.lightIlluminateCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lightIlluminateCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.lightIlluminateCheckBox.Location = new System.Drawing.Point(52, 20);
+            this.lightIlluminateCheckBox.Location = new System.Drawing.Point(52, 18);
             this.lightIlluminateCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightIlluminateCheckBox.Name = "lightIlluminateCheckBox";
             this.lightIlluminateCheckBox.Size = new System.Drawing.Size(130, 18);
@@ -111,7 +111,7 @@
             // 
             this.lightAvgcornerlightCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lightAvgcornerlightCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.lightAvgcornerlightCheckBox.Location = new System.Drawing.Point(81, 39);
+            this.lightAvgcornerlightCheckBox.Location = new System.Drawing.Point(80, 39);
             this.lightAvgcornerlightCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightAvgcornerlightCheckBox.Name = "lightAvgcornerlightCheckBox";
             this.lightAvgcornerlightCheckBox.Size = new System.Drawing.Size(102, 18);
@@ -123,7 +123,7 @@
             // 
             this.lightScaleCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lightScaleCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.lightScaleCheckBox.Location = new System.Drawing.Point(34, 57);
+            this.lightScaleCheckBox.Location = new System.Drawing.Point(34, 59);
             this.lightScaleCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightScaleCheckBox.Name = "lightScaleCheckBox";
             this.lightScaleCheckBox.Size = new System.Drawing.Size(148, 20);
@@ -145,7 +145,7 @@
             // 
             this.lightCubelightCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.lightCubelightCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.lightCubelightCheckBox.Location = new System.Drawing.Point(34, 83);
+            this.lightCubelightCheckBox.Location = new System.Drawing.Point(34, 82);
             this.lightCubelightCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.lightCubelightCheckBox.Name = "lightCubelightCheckBox";
             this.lightCubelightCheckBox.Size = new System.Drawing.Size(148, 20);

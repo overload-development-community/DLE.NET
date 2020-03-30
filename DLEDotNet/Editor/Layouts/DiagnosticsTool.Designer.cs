@@ -28,20 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.diagBuglistListBox = new System.Windows.Forms.ListBox();
             this.diagCheckButton = new System.Windows.Forms.Button();
             this.diagShowButton = new System.Windows.Forms.Button();
             this.diagClearButton = new System.Windows.Forms.Button();
             this.diagFixbugsCheckBox = new System.Windows.Forms.CheckBox();
             this.diagWarningsCheckBox = new System.Windows.Forms.CheckBox();
-            this.alignableGroupBoxProblemReport = new AlignableGroupBox();
-            this.alignableGroupBoxStatistics = new AlignableGroupBox();
+            this.alignableGroupBoxProblemReport = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxStatistics = new DLEDotNet.Editor.AlignableGroupBox();
             this.diagStatsListView = new System.Windows.Forms.ListView();
             this.columnHeaderItem = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderCount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderMax = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.alignableGroupBoxProblemReport.SuspendLayout();
             this.alignableGroupBoxStatistics.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // diagBuglistListBox
@@ -62,6 +65,7 @@
             this.diagCheckButton.TabIndex = 0;
             this.diagCheckButton.TabStop = false;
             this.diagCheckButton.Text = "&check mine";
+            this.helpToolTip.SetToolTip(this.diagCheckButton, "check the mine for various issues");
             // 
             // diagShowButton
             // 
@@ -73,6 +77,7 @@
             this.diagShowButton.TabIndex = 1;
             this.diagShowButton.TabStop = false;
             this.diagShowButton.Text = "&show problem";
+            this.helpToolTip.SetToolTip(this.diagShowButton, "show the location of the currently selected problem");
             // 
             // diagClearButton
             // 
@@ -84,6 +89,7 @@
             this.diagClearButton.TabIndex = 2;
             this.diagClearButton.TabStop = false;
             this.diagClearButton.Text = "c&lear list";
+            this.helpToolTip.SetToolTip(this.diagClearButton, "clear the list of problems");
             // 
             // diagFixbugsCheckBox
             // 
@@ -94,6 +100,7 @@
             this.diagFixbugsCheckBox.Size = new System.Drawing.Size(82, 18);
             this.diagFixbugsCheckBox.TabIndex = 3;
             this.diagFixbugsCheckBox.Text = "auto fix bugs";
+            this.helpToolTip.SetToolTip(this.diagFixbugsCheckBox, "whether errors or warnings that can be automatically fixed should be");
             // 
             // diagWarningsCheckBox
             // 
@@ -104,6 +111,7 @@
             this.diagWarningsCheckBox.Size = new System.Drawing.Size(90, 18);
             this.diagWarningsCheckBox.TabIndex = 4;
             this.diagWarningsCheckBox.Text = "show warnings";
+            this.helpToolTip.SetToolTip(this.diagWarningsCheckBox, "whether to show warnings in the problem report");
             // 
             // alignableGroupBoxProblemReport
             // 
@@ -178,6 +186,7 @@
             this.Size = new System.Drawing.Size(930, 211);
             this.alignableGroupBoxProblemReport.ResumeLayout(false);
             this.alignableGroupBoxStatistics.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -195,5 +204,6 @@
         internal System.Windows.Forms.ColumnHeader columnHeaderItem;
         internal System.Windows.Forms.ColumnHeader columnHeaderCount;
         internal System.Windows.Forms.ColumnHeader columnHeaderMax;
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

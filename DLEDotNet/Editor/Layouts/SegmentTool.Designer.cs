@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.segmentIdComboBox = new System.Windows.Forms.ComboBox();
             this.segmentFunctionComboBox = new System.Windows.Forms.ComboBox();
             this.segmentLightTextBox = new DLEDotNet.Editor.FloatTextBox();
@@ -101,6 +102,7 @@
             this.segmentSplitIn8Button = new System.Windows.Forms.Button();
             this.segmentCreateWedgeButton = new System.Windows.Forms.Button();
             this.segmentCreatePyramidButton = new System.Windows.Forms.Button();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.groupBoxRobotMakerData.SuspendLayout();
             this.groupBoxTriggerData.SuspendLayout();
             this.groupBoxSegmentData.SuspendLayout();
@@ -141,6 +143,7 @@
             this.segmentLightTextBox.TabStop = false;
             this.segmentLightTextBox.Text = "0.00";
             this.segmentLightTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.helpToolTip.SetToolTip(this.segmentLightTextBox, "static light in this segment");
             // 
             // segmentOwnerComboBox
             // 
@@ -327,6 +330,7 @@
             this.segmentSetcoordButton.Size = new System.Drawing.Size(52, 20);
             this.segmentSetcoordButton.TabIndex = 7;
             this.segmentSetcoordButton.Text = "apply";
+            this.helpToolTip.SetToolTip(this.segmentSetcoordButton, "apply new point coordinates");
             // 
             // segmentResetcoordButton
             // 
@@ -337,6 +341,7 @@
             this.segmentResetcoordButton.Size = new System.Drawing.Size(52, 20);
             this.segmentResetcoordButton.TabIndex = 8;
             this.segmentResetcoordButton.Text = "reset";
+            this.helpToolTip.SetToolTip(this.segmentResetcoordButton, "revert points back to how they are now");
             // 
             // segmentWaterCheckBox
             // 
@@ -349,6 +354,7 @@
             this.segmentWaterCheckBox.TabIndex = 0;
             this.segmentWaterCheckBox.Text = "water";
             this.segmentWaterCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.helpToolTip.SetToolTip(this.segmentWaterCheckBox, "whether this segment behaves like water (XL only)");
             // 
             // segmentLavaCheckBox
             // 
@@ -361,6 +367,7 @@
             this.segmentLavaCheckBox.TabIndex = 1;
             this.segmentLavaCheckBox.Text = "lava";
             this.segmentLavaCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.helpToolTip.SetToolTip(this.segmentLavaCheckBox, "whether this segment behaves like lava (XL only)");
             // 
             // segmentBlockedCheckBox
             // 
@@ -373,6 +380,7 @@
             this.segmentBlockedCheckBox.TabIndex = 2;
             this.segmentBlockedCheckBox.Text = "blocked";
             this.segmentBlockedCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.helpToolTip.SetToolTip(this.segmentBlockedCheckBox, "whether this segment is inaccessible to players and objects (XL only)");
             // 
             // segmentNodamageCheckBox
             // 
@@ -385,6 +393,8 @@
             this.segmentNodamageCheckBox.TabIndex = 3;
             this.segmentNodamageCheckBox.Text = "no damage";
             this.segmentNodamageCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.helpToolTip.SetToolTip(this.segmentNodamageCheckBox, "whether this segment prevents damage to players, robots as well as weapons from f" +
+        "iring (XL only)");
             // 
             // segmentOutdoorsCheckBox
             // 
@@ -397,6 +407,8 @@
             this.segmentOutdoorsCheckBox.TabIndex = 4;
             this.segmentOutdoorsCheckBox.Text = "self-illuminate";
             this.segmentOutdoorsCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.helpToolTip.SetToolTip(this.segmentOutdoorsCheckBox, "whether this segment is automatically bright; used mainly for outdoor spaces (XL " +
+        "only)");
             // 
             // segmentEndofexitCheckBox
             // 
@@ -409,18 +421,21 @@
             this.segmentEndofexitCheckBox.TabIndex = 5;
             this.segmentEndofexitCheckBox.Text = "end of exit tunnel";
             this.segmentEndofexitCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.helpToolTip.SetToolTip(this.segmentEndofexitCheckBox, "whether the current side is removed from the segment; required at the end of exit" +
+        " tunnels for cutscene");
             // 
             // segmentSetdeftextureCheckBox
             // 
             this.segmentSetdeftextureCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.segmentSetdeftextureCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.segmentSetdeftextureCheckBox.Location = new System.Drawing.Point(4, 98);
+            this.segmentSetdeftextureCheckBox.Location = new System.Drawing.Point(9, 96);
             this.segmentSetdeftextureCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentSetdeftextureCheckBox.Name = "segmentSetdeftextureCheckBox";
             this.segmentSetdeftextureCheckBox.Size = new System.Drawing.Size(104, 18);
             this.segmentSetdeftextureCheckBox.TabIndex = 0;
             this.segmentSetdeftextureCheckBox.Text = "set default texture";
             this.segmentSetdeftextureCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.helpToolTip.SetToolTip(this.segmentSetdeftextureCheckBox, "set default textures for special cubes");
             // 
             // segmentShieldDamageTextBox
             // 
@@ -433,6 +448,7 @@
             this.segmentShieldDamageTextBox.TabStop = false;
             this.segmentShieldDamageTextBox.Text = "0";
             this.segmentShieldDamageTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.helpToolTip.SetToolTip(this.segmentShieldDamageTextBox, "shield data for segment in entropy multiplayer mode (XL only)");
             // 
             // segmentEnergyDamageTextBox
             // 
@@ -445,6 +461,7 @@
             this.segmentEnergyDamageTextBox.TabStop = false;
             this.segmentEnergyDamageTextBox.Text = "0";
             this.segmentEnergyDamageTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.helpToolTip.SetToolTip(this.segmentEnergyDamageTextBox, "energy data for segment in entropy multiplayer mode (XL only)");
             // 
             // segmentDelbotButton
             // 
@@ -496,12 +513,13 @@
             this.segmentAddButton.TabIndex = 1;
             this.segmentAddButton.TabStop = false;
             this.segmentAddButton.Text = "&add";
+            this.helpToolTip.SetToolTip(this.segmentAddButton, "add new segment from currently selected side");
             this.segmentAddButton.Click += new System.EventHandler(this.segmentAddButton_Click);
             // 
             // segmentDelButton
             // 
             this.segmentDelButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.segmentDelButton.Location = new System.Drawing.Point(824, 6);
+            this.segmentDelButton.Location = new System.Drawing.Point(825, 6);
             this.segmentDelButton.Margin = new System.Windows.Forms.Padding(0);
             this.segmentDelButton.Name = "segmentDelButton";
             this.segmentDelButton.Size = new System.Drawing.Size(92, 21);
@@ -528,6 +546,7 @@
             this.segmentSplitIn7Button.TabIndex = 4;
             this.segmentSplitIn7Button.TabStop = false;
             this.segmentSplitIn7Button.Text = "split [&7 segs]";
+            this.helpToolTip.SetToolTip(this.segmentSplitIn7Button, "split segment to 7 segments with small central segment and six frustum segments");
             // 
             // segmentAddMatcenButton
             // 
@@ -550,6 +569,7 @@
             this.segmentAddEquipmakerButton.TabIndex = 6;
             this.segmentAddEquipmakerButton.TabStop = false;
             this.segmentAddEquipmakerButton.Text = "add e&quip maker";
+            this.helpToolTip.SetToolTip(this.segmentAddEquipmakerButton, "XL only");
             // 
             // segmentAddProducerButton
             // 
@@ -572,6 +592,7 @@
             this.segmentAddRepaircenButton.TabIndex = 8;
             this.segmentAddRepaircenButton.TabStop = false;
             this.segmentAddRepaircenButton.Text = "add re&pair center";
+            this.helpToolTip.SetToolTip(this.segmentAddRepaircenButton, "XL only");
             // 
             // segmentAddControlcenButton
             // 
@@ -601,6 +622,7 @@
             this.segmentUsedbotsListBox.Size = new System.Drawing.Size(126, 95);
             this.segmentUsedbotsListBox.Sorted = true;
             this.segmentUsedbotsListBox.TabIndex = 2;
+            this.helpToolTip.SetToolTip(this.segmentUsedbotsListBox, "the list of objects that can currently be generated by this maker");
             // 
             // segmentAvailbotsListBox
             // 
@@ -610,6 +632,7 @@
             this.segmentAvailbotsListBox.Size = new System.Drawing.Size(126, 95);
             this.segmentAvailbotsListBox.Sorted = true;
             this.segmentAvailbotsListBox.TabIndex = 3;
+            this.helpToolTip.SetToolTip(this.segmentAvailbotsListBox, "the list of objects that could currently be generated by this maker");
             // 
             // labelSegNum
             // 
@@ -713,6 +736,7 @@
             // groupBoxSegmentData
             // 
             this.groupBoxSegmentData.Alignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.groupBoxSegmentData.Controls.Add(this.segmentSetdeftextureCheckBox);
             this.groupBoxSegmentData.Controls.Add(this.segmentFunctionUpDownControl);
             this.groupBoxSegmentData.Controls.Add(this.segmentIdUpDownControl);
             this.groupBoxSegmentData.Controls.Add(this.segmentIdComboBox);
@@ -880,6 +904,7 @@
             this.segmentDenseFogCheckBox.TabIndex = 7;
             this.segmentDenseFogCheckBox.Text = "dense fog";
             this.segmentDenseFogCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.helpToolTip.SetToolTip(this.segmentDenseFogCheckBox, "whether this segment has dense fog (XL only)");
             // 
             // segmentLightFogCheckBox
             // 
@@ -892,6 +917,7 @@
             this.segmentLightFogCheckBox.TabIndex = 6;
             this.segmentLightFogCheckBox.Text = "light fog";
             this.segmentLightFogCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.helpToolTip.SetToolTip(this.segmentLightFogCheckBox, "whether this segment has light fog (XL only)");
             // 
             // labelShields
             // 
@@ -955,6 +981,7 @@
             this.segmentSplitIn8Button.TabIndex = 18;
             this.segmentSplitIn8Button.TabStop = false;
             this.segmentSplitIn8Button.Text = "split [&8 segs]";
+            this.helpToolTip.SetToolTip(this.segmentSplitIn8Button, "split segment to 2x2x2 cubes");
             // 
             // segmentCreateWedgeButton
             // 
@@ -966,6 +993,7 @@
             this.segmentCreateWedgeButton.TabIndex = 19;
             this.segmentCreateWedgeButton.TabStop = false;
             this.segmentCreateWedgeButton.Text = "make &wedge";
+            this.helpToolTip.SetToolTip(this.segmentCreateWedgeButton, "XL only");
             // 
             // segmentCreatePyramidButton
             // 
@@ -977,12 +1005,12 @@
             this.segmentCreatePyramidButton.TabIndex = 20;
             this.segmentCreatePyramidButton.TabStop = false;
             this.segmentCreatePyramidButton.Text = "make &pyramid";
+            this.helpToolTip.SetToolTip(this.segmentCreatePyramidButton, "XL only");
             // 
             // SegmentTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.segmentSetdeftextureCheckBox);
             this.Controls.Add(this.segmentAddButton);
             this.Controls.Add(this.segmentDelButton);
             this.Controls.Add(this.segmentOtherButton);
@@ -1100,5 +1128,6 @@
 
         private UpDownControl segmentFunctionUpDownControl;
         private UpDownControl segmentIdUpDownControl;
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

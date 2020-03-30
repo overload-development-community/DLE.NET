@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.waypointIdTextBox = new System.Windows.Forms.TextBox();
             this.waypointSuccTextBox = new System.Windows.Forms.TextBox();
             this.waypointSpeedTextBox = new System.Windows.Forms.TextBox();
@@ -35,92 +36,86 @@
             this.labelId = new System.Windows.Forms.Label();
             this.labelSuccessor = new System.Windows.Forms.Label();
             this.effectEnabledCheckBox = new System.Windows.Forms.CheckBox();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // waypointIdTextBox
             // 
-            waypointIdTextBox.AutoSize = false;
-            waypointIdTextBox.Location = new System.Drawing.Point(97, 25);
-            waypointIdTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            waypointIdTextBox.Name = "waypointIdTextBox";
-            waypointIdTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            waypointIdTextBox.Size = new System.Drawing.Size(29, 13);
-            waypointIdTextBox.TabStop = false;
-            waypointIdTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.waypointIdTextBox.Location = new System.Drawing.Point(146, 41);
+            this.waypointIdTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.waypointIdTextBox.Name = "waypointIdTextBox";
+            this.waypointIdTextBox.Size = new System.Drawing.Size(42, 19);
+            this.waypointIdTextBox.TabIndex = 0;
+            this.waypointIdTextBox.TabStop = false;
+            this.waypointIdTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // waypointSuccTextBox
             // 
-            waypointSuccTextBox.AutoSize = false;
-            waypointSuccTextBox.Location = new System.Drawing.Point(97, 38);
-            waypointSuccTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            waypointSuccTextBox.Name = "waypointSuccTextBox";
-            waypointSuccTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            waypointSuccTextBox.Size = new System.Drawing.Size(28, 13);
-            waypointSuccTextBox.TabStop = false;
-            waypointSuccTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.waypointSuccTextBox.Location = new System.Drawing.Point(146, 62);
+            this.waypointSuccTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.waypointSuccTextBox.Name = "waypointSuccTextBox";
+            this.waypointSuccTextBox.Size = new System.Drawing.Size(42, 19);
+            this.waypointSuccTextBox.TabIndex = 1;
+            this.waypointSuccTextBox.TabStop = false;
+            this.waypointSuccTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // waypointSpeedTextBox
             // 
-            waypointSpeedTextBox.AutoSize = false;
-            waypointSpeedTextBox.Location = new System.Drawing.Point(97, 51);
-            waypointSpeedTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            waypointSpeedTextBox.Name = "waypointSpeedTextBox";
-            waypointSpeedTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            waypointSpeedTextBox.Size = new System.Drawing.Size(28, 13);
-            waypointSpeedTextBox.TabStop = false;
-            waypointSpeedTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.waypointSpeedTextBox.Location = new System.Drawing.Point(146, 83);
+            this.waypointSpeedTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.waypointSpeedTextBox.Name = "waypointSpeedTextBox";
+            this.waypointSpeedTextBox.Size = new System.Drawing.Size(42, 19);
+            this.waypointSpeedTextBox.TabIndex = 2;
+            this.waypointSpeedTextBox.TabStop = false;
+            this.waypointSpeedTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // labelSpeed
             // 
-            labelSpeed.AutoSize = false;
-            labelSpeed.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelSpeed.Location = new System.Drawing.Point(75, 52);
-            labelSpeed.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelSpeed.Name = "labelSpeed";
-            labelSpeed.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelSpeed.Size = new System.Drawing.Size(23, 9);
-            labelSpeed.TabStop = true;
-            labelSpeed.Text = "speed:";
+            this.labelSpeed.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelSpeed.Location = new System.Drawing.Point(112, 84);
+            this.labelSpeed.Margin = new System.Windows.Forms.Padding(0);
+            this.labelSpeed.Name = "labelSpeed";
+            this.labelSpeed.Size = new System.Drawing.Size(34, 15);
+            this.labelSpeed.TabIndex = 3;
+            this.labelSpeed.TabStop = true;
+            this.labelSpeed.Text = "speed:";
             // 
             // labelId
             // 
-            labelId.AutoSize = false;
-            labelId.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelId.Location = new System.Drawing.Point(87, 28);
-            labelId.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelId.Name = "labelId";
-            labelId.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelId.Size = new System.Drawing.Size(9, 9);
-            labelId.TabStop = true;
-            labelId.Text = "id:";
+            this.labelId.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelId.Location = new System.Drawing.Point(130, 46);
+            this.labelId.Margin = new System.Windows.Forms.Padding(0);
+            this.labelId.Name = "labelId";
+            this.labelId.Size = new System.Drawing.Size(14, 15);
+            this.labelId.TabIndex = 4;
+            this.labelId.TabStop = true;
+            this.labelId.Text = "id:";
             // 
             // labelSuccessor
             // 
-            labelSuccessor.AutoSize = false;
-            labelSuccessor.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelSuccessor.Location = new System.Drawing.Point(61, 40);
-            labelSuccessor.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelSuccessor.Name = "labelSuccessor";
-            labelSuccessor.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelSuccessor.Size = new System.Drawing.Size(36, 9);
-            labelSuccessor.TabStop = true;
-            labelSuccessor.Text = "successor:";
+            this.labelSuccessor.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelSuccessor.Location = new System.Drawing.Point(92, 65);
+            this.labelSuccessor.Margin = new System.Windows.Forms.Padding(0);
+            this.labelSuccessor.Name = "labelSuccessor";
+            this.labelSuccessor.Size = new System.Drawing.Size(54, 15);
+            this.labelSuccessor.TabIndex = 5;
+            this.labelSuccessor.TabStop = true;
+            this.labelSuccessor.Text = "successor:";
             // 
             // effectEnabledCheckBox
             // 
-            effectEnabledCheckBox.AutoSize = false;
-            effectEnabledCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            effectEnabledCheckBox.Location = new System.Drawing.Point(438, 88);
-            effectEnabledCheckBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            effectEnabledCheckBox.Name = "effectEnabledCheckBox";
-            effectEnabledCheckBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            effectEnabledCheckBox.Size = new System.Drawing.Size(39, 11);
-            effectEnabledCheckBox.TabStop = true;
-            effectEnabledCheckBox.Text = "enabled";
+            this.effectEnabledCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.effectEnabledCheckBox.Location = new System.Drawing.Point(657, 143);
+            this.effectEnabledCheckBox.Margin = new System.Windows.Forms.Padding(0);
+            this.effectEnabledCheckBox.Name = "effectEnabledCheckBox";
+            this.effectEnabledCheckBox.Size = new System.Drawing.Size(58, 18);
+            this.effectEnabledCheckBox.TabIndex = 6;
+            this.effectEnabledCheckBox.Text = "enabled";
             // 
             // EffectWaypoint
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(4F, 8F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.waypointIdTextBox);
             this.Controls.Add(this.waypointSuccTextBox);
@@ -129,8 +124,10 @@
             this.Controls.Add(this.labelId);
             this.Controls.Add(this.labelSuccessor);
             this.Controls.Add(this.effectEnabledCheckBox);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "EffectWaypoint";
-            this.Size = new System.Drawing.Size(480, 100);
+            this.Size = new System.Drawing.Size(720, 162);
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -144,6 +141,6 @@
         private System.Windows.Forms.Label labelId;
         private System.Windows.Forms.Label labelSuccessor;
         private System.Windows.Forms.CheckBox effectEnabledCheckBox;
-
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

@@ -28,28 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.advobjMassTextBox = new IntTextBox();
-            this.advobjDragTextBox = new IntTextBox();
-            this.advobjBrakesTextBox = new IntTextBox();
-            this.advobjTurnrollTextBox = new IntTextBox();
-            this.advobjFlagsTextBox = new IntTextBox();
-            this.advobjSizeTextBox = new IntTextBox();
-            this.advobjShieldTextBox = new IntTextBox();
-            this.advobjVxTextBox = new IntTextBox();
-            this.advobjVyTextBox = new IntTextBox();
-            this.advobjVzTextBox = new IntTextBox();
-            this.advobjTxTextBox = new IntTextBox();
-            this.advobjTyTextBox = new IntTextBox();
-            this.advobjTzTextBox = new IntTextBox();
-            this.advobjRvxTextBox = new IntTextBox();
-            this.advobjRvyTextBox = new IntTextBox();
-            this.advobjRvzTextBox = new IntTextBox();
-            this.advobjRtxTextBox = new IntTextBox();
-            this.advobjRtyTextBox = new IntTextBox();
-            this.advobjRtzTextBox = new IntTextBox();
-            this.advobjModelTextBox = new IntTextBox();
-            this.advobjFrameTextBox = new IntTextBox();
-            this.advobjFramenoTextBox = new IntTextBox();
+            this.components = new System.ComponentModel.Container();
+            this.advobjMassTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.advobjDragTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.advobjBrakesTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.advobjTurnrollTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.advobjFlagsTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.advobjSizeTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.advobjShieldTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.advobjVxTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.advobjVyTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.advobjVzTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.advobjTxTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.advobjTyTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.advobjTzTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.advobjRvxTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.advobjRvyTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.advobjRvzTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.advobjRtxTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.advobjRtyTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.advobjRtzTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.advobjModelTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.advobjFrameTextBox = new DLEDotNet.Editor.IntTextBox();
+            this.advobjFramenoTextBox = new DLEDotNet.Editor.IntTextBox();
             this.labelMass = new System.Windows.Forms.Label();
             this.labelDrag = new System.Windows.Forms.Label();
             this.labelBrakes = new System.Windows.Forms.Label();
@@ -67,457 +68,459 @@
             this.labelX = new System.Windows.Forms.Label();
             this.labelY = new System.Windows.Forms.Label();
             this.labelZ = new System.Windows.Forms.Label();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // advobjMassTextBox
             // 
-            advobjMassTextBox.AutoSize = false;
-            advobjMassTextBox.Location = new System.Drawing.Point(32, 16);
-            advobjMassTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjMassTextBox.Name = "advobjMassTextBox";
-            advobjMassTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjMassTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjMassTextBox.TabStop = false;
-            advobjMassTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjMassTextBox.Location = new System.Drawing.Point(48, 26);
+            this.advobjMassTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjMassTextBox.Name = "advobjMassTextBox";
+            this.advobjMassTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjMassTextBox.TabIndex = 0;
+            this.advobjMassTextBox.TabStop = false;
+            this.advobjMassTextBox.Text = "0";
+            this.advobjMassTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // advobjDragTextBox
             // 
-            advobjDragTextBox.AutoSize = false;
-            advobjDragTextBox.Location = new System.Drawing.Point(32, 28);
-            advobjDragTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjDragTextBox.Name = "advobjDragTextBox";
-            advobjDragTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjDragTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjDragTextBox.TabStop = false;
-            advobjDragTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjDragTextBox.Location = new System.Drawing.Point(48, 46);
+            this.advobjDragTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjDragTextBox.Name = "advobjDragTextBox";
+            this.advobjDragTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjDragTextBox.TabIndex = 1;
+            this.advobjDragTextBox.TabStop = false;
+            this.advobjDragTextBox.Text = "0";
+            this.advobjDragTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // advobjBrakesTextBox
             // 
-            advobjBrakesTextBox.AutoSize = false;
-            advobjBrakesTextBox.Location = new System.Drawing.Point(32, 40);
-            advobjBrakesTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjBrakesTextBox.Name = "advobjBrakesTextBox";
-            advobjBrakesTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjBrakesTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjBrakesTextBox.TabStop = false;
-            advobjBrakesTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjBrakesTextBox.Location = new System.Drawing.Point(48, 65);
+            this.advobjBrakesTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjBrakesTextBox.Name = "advobjBrakesTextBox";
+            this.advobjBrakesTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjBrakesTextBox.TabIndex = 2;
+            this.advobjBrakesTextBox.TabStop = false;
+            this.advobjBrakesTextBox.Text = "0";
+            this.advobjBrakesTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // advobjTurnrollTextBox
             // 
-            advobjTurnrollTextBox.AutoSize = false;
-            advobjTurnrollTextBox.Location = new System.Drawing.Point(32, 52);
-            advobjTurnrollTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjTurnrollTextBox.Name = "advobjTurnrollTextBox";
-            advobjTurnrollTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjTurnrollTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjTurnrollTextBox.TabStop = false;
-            advobjTurnrollTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjTurnrollTextBox.Location = new System.Drawing.Point(48, 84);
+            this.advobjTurnrollTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjTurnrollTextBox.Name = "advobjTurnrollTextBox";
+            this.advobjTurnrollTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjTurnrollTextBox.TabIndex = 3;
+            this.advobjTurnrollTextBox.TabStop = false;
+            this.advobjTurnrollTextBox.Text = "0";
+            this.advobjTurnrollTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // advobjFlagsTextBox
             // 
-            advobjFlagsTextBox.AutoSize = false;
-            advobjFlagsTextBox.Location = new System.Drawing.Point(32, 64);
-            advobjFlagsTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjFlagsTextBox.Name = "advobjFlagsTextBox";
-            advobjFlagsTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjFlagsTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjFlagsTextBox.TabStop = false;
-            advobjFlagsTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjFlagsTextBox.Location = new System.Drawing.Point(48, 104);
+            this.advobjFlagsTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjFlagsTextBox.Name = "advobjFlagsTextBox";
+            this.advobjFlagsTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjFlagsTextBox.TabIndex = 4;
+            this.advobjFlagsTextBox.TabStop = false;
+            this.advobjFlagsTextBox.Text = "0";
+            this.advobjFlagsTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // advobjSizeTextBox
             // 
-            advobjSizeTextBox.AutoSize = false;
-            advobjSizeTextBox.Location = new System.Drawing.Point(131, 16);
-            advobjSizeTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjSizeTextBox.Name = "advobjSizeTextBox";
-            advobjSizeTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjSizeTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjSizeTextBox.TabStop = false;
-            advobjSizeTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjSizeTextBox.Location = new System.Drawing.Point(196, 26);
+            this.advobjSizeTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjSizeTextBox.Name = "advobjSizeTextBox";
+            this.advobjSizeTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjSizeTextBox.TabIndex = 5;
+            this.advobjSizeTextBox.TabStop = false;
+            this.advobjSizeTextBox.Text = "0";
+            this.advobjSizeTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // advobjShieldTextBox
             // 
-            advobjShieldTextBox.AutoSize = false;
-            advobjShieldTextBox.Location = new System.Drawing.Point(131, 28);
-            advobjShieldTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjShieldTextBox.Name = "advobjShieldTextBox";
-            advobjShieldTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjShieldTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjShieldTextBox.TabStop = false;
-            advobjShieldTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjShieldTextBox.Location = new System.Drawing.Point(196, 46);
+            this.advobjShieldTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjShieldTextBox.Name = "advobjShieldTextBox";
+            this.advobjShieldTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjShieldTextBox.TabIndex = 6;
+            this.advobjShieldTextBox.TabStop = false;
+            this.advobjShieldTextBox.Text = "0";
+            this.advobjShieldTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // advobjVxTextBox
             // 
-            advobjVxTextBox.AutoSize = false;
-            advobjVxTextBox.Location = new System.Drawing.Point(250, 16);
-            advobjVxTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjVxTextBox.Name = "advobjVxTextBox";
-            advobjVxTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjVxTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjVxTextBox.TabStop = false;
-            advobjVxTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjVxTextBox.Location = new System.Drawing.Point(375, 26);
+            this.advobjVxTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjVxTextBox.Name = "advobjVxTextBox";
+            this.advobjVxTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjVxTextBox.TabIndex = 7;
+            this.advobjVxTextBox.TabStop = false;
+            this.advobjVxTextBox.Text = "0";
+            this.advobjVxTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // advobjVyTextBox
             // 
-            advobjVyTextBox.AutoSize = false;
-            advobjVyTextBox.Location = new System.Drawing.Point(302, 16);
-            advobjVyTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjVyTextBox.Name = "advobjVyTextBox";
-            advobjVyTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjVyTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjVyTextBox.TabStop = false;
-            advobjVyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjVyTextBox.Location = new System.Drawing.Point(453, 26);
+            this.advobjVyTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjVyTextBox.Name = "advobjVyTextBox";
+            this.advobjVyTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjVyTextBox.TabIndex = 8;
+            this.advobjVyTextBox.TabStop = false;
+            this.advobjVyTextBox.Text = "0";
+            this.advobjVyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // advobjVzTextBox
             // 
-            advobjVzTextBox.AutoSize = false;
-            advobjVzTextBox.Location = new System.Drawing.Point(354, 16);
-            advobjVzTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjVzTextBox.Name = "advobjVzTextBox";
-            advobjVzTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjVzTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjVzTextBox.TabStop = false;
-            advobjVzTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjVzTextBox.Location = new System.Drawing.Point(531, 26);
+            this.advobjVzTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjVzTextBox.Name = "advobjVzTextBox";
+            this.advobjVzTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjVzTextBox.TabIndex = 9;
+            this.advobjVzTextBox.TabStop = false;
+            this.advobjVzTextBox.Text = "0";
+            this.advobjVzTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // advobjTxTextBox
             // 
-            advobjTxTextBox.AutoSize = false;
-            advobjTxTextBox.Location = new System.Drawing.Point(250, 28);
-            advobjTxTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjTxTextBox.Name = "advobjTxTextBox";
-            advobjTxTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjTxTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjTxTextBox.TabStop = false;
-            advobjTxTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjTxTextBox.Location = new System.Drawing.Point(375, 46);
+            this.advobjTxTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjTxTextBox.Name = "advobjTxTextBox";
+            this.advobjTxTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjTxTextBox.TabIndex = 10;
+            this.advobjTxTextBox.TabStop = false;
+            this.advobjTxTextBox.Text = "0";
+            this.advobjTxTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // advobjTyTextBox
             // 
-            advobjTyTextBox.AutoSize = false;
-            advobjTyTextBox.Location = new System.Drawing.Point(302, 28);
-            advobjTyTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjTyTextBox.Name = "advobjTyTextBox";
-            advobjTyTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjTyTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjTyTextBox.TabStop = false;
-            advobjTyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjTyTextBox.Location = new System.Drawing.Point(453, 46);
+            this.advobjTyTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjTyTextBox.Name = "advobjTyTextBox";
+            this.advobjTyTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjTyTextBox.TabIndex = 11;
+            this.advobjTyTextBox.TabStop = false;
+            this.advobjTyTextBox.Text = "0";
+            this.advobjTyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // advobjTzTextBox
             // 
-            advobjTzTextBox.AutoSize = false;
-            advobjTzTextBox.Location = new System.Drawing.Point(354, 28);
-            advobjTzTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjTzTextBox.Name = "advobjTzTextBox";
-            advobjTzTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjTzTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjTzTextBox.TabStop = false;
-            advobjTzTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjTzTextBox.Location = new System.Drawing.Point(531, 46);
+            this.advobjTzTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjTzTextBox.Name = "advobjTzTextBox";
+            this.advobjTzTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjTzTextBox.TabIndex = 12;
+            this.advobjTzTextBox.TabStop = false;
+            this.advobjTzTextBox.Text = "0";
+            this.advobjTzTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // advobjRvxTextBox
             // 
-            advobjRvxTextBox.AutoSize = false;
-            advobjRvxTextBox.Location = new System.Drawing.Point(250, 40);
-            advobjRvxTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjRvxTextBox.Name = "advobjRvxTextBox";
-            advobjRvxTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjRvxTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjRvxTextBox.TabStop = false;
-            advobjRvxTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjRvxTextBox.Location = new System.Drawing.Point(375, 65);
+            this.advobjRvxTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjRvxTextBox.Name = "advobjRvxTextBox";
+            this.advobjRvxTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjRvxTextBox.TabIndex = 13;
+            this.advobjRvxTextBox.TabStop = false;
+            this.advobjRvxTextBox.Text = "0";
+            this.advobjRvxTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // advobjRvyTextBox
             // 
-            advobjRvyTextBox.AutoSize = false;
-            advobjRvyTextBox.Location = new System.Drawing.Point(302, 40);
-            advobjRvyTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjRvyTextBox.Name = "advobjRvyTextBox";
-            advobjRvyTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjRvyTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjRvyTextBox.TabStop = false;
-            advobjRvyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjRvyTextBox.Location = new System.Drawing.Point(453, 65);
+            this.advobjRvyTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjRvyTextBox.Name = "advobjRvyTextBox";
+            this.advobjRvyTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjRvyTextBox.TabIndex = 14;
+            this.advobjRvyTextBox.TabStop = false;
+            this.advobjRvyTextBox.Text = "0";
+            this.advobjRvyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // advobjRvzTextBox
             // 
-            advobjRvzTextBox.AutoSize = false;
-            advobjRvzTextBox.Location = new System.Drawing.Point(354, 40);
-            advobjRvzTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjRvzTextBox.Name = "advobjRvzTextBox";
-            advobjRvzTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjRvzTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjRvzTextBox.TabStop = false;
-            advobjRvzTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjRvzTextBox.Location = new System.Drawing.Point(531, 65);
+            this.advobjRvzTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjRvzTextBox.Name = "advobjRvzTextBox";
+            this.advobjRvzTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjRvzTextBox.TabIndex = 15;
+            this.advobjRvzTextBox.TabStop = false;
+            this.advobjRvzTextBox.Text = "0";
+            this.advobjRvzTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // advobjRtxTextBox
             // 
-            advobjRtxTextBox.AutoSize = false;
-            advobjRtxTextBox.Location = new System.Drawing.Point(250, 52);
-            advobjRtxTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjRtxTextBox.Name = "advobjRtxTextBox";
-            advobjRtxTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjRtxTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjRtxTextBox.TabStop = false;
-            advobjRtxTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjRtxTextBox.Location = new System.Drawing.Point(375, 84);
+            this.advobjRtxTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjRtxTextBox.Name = "advobjRtxTextBox";
+            this.advobjRtxTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjRtxTextBox.TabIndex = 16;
+            this.advobjRtxTextBox.TabStop = false;
+            this.advobjRtxTextBox.Text = "0";
+            this.advobjRtxTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // advobjRtyTextBox
             // 
-            advobjRtyTextBox.AutoSize = false;
-            advobjRtyTextBox.Location = new System.Drawing.Point(302, 52);
-            advobjRtyTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjRtyTextBox.Name = "advobjRtyTextBox";
-            advobjRtyTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjRtyTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjRtyTextBox.TabStop = false;
-            advobjRtyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjRtyTextBox.Location = new System.Drawing.Point(453, 84);
+            this.advobjRtyTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjRtyTextBox.Name = "advobjRtyTextBox";
+            this.advobjRtyTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjRtyTextBox.TabIndex = 17;
+            this.advobjRtyTextBox.TabStop = false;
+            this.advobjRtyTextBox.Text = "0";
+            this.advobjRtyTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // advobjRtzTextBox
             // 
-            advobjRtzTextBox.AutoSize = false;
-            advobjRtzTextBox.Location = new System.Drawing.Point(354, 52);
-            advobjRtzTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjRtzTextBox.Name = "advobjRtzTextBox";
-            advobjRtzTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjRtzTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjRtzTextBox.TabStop = false;
-            advobjRtzTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjRtzTextBox.Location = new System.Drawing.Point(531, 84);
+            this.advobjRtzTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjRtzTextBox.Name = "advobjRtzTextBox";
+            this.advobjRtzTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjRtzTextBox.TabIndex = 18;
+            this.advobjRtzTextBox.TabStop = false;
+            this.advobjRtzTextBox.Text = "0";
+            this.advobjRtzTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // advobjModelTextBox
             // 
-            advobjModelTextBox.AutoSize = false;
-            advobjModelTextBox.Location = new System.Drawing.Point(131, 48);
-            advobjModelTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjModelTextBox.Name = "advobjModelTextBox";
-            advobjModelTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjModelTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjModelTextBox.TabStop = false;
-            advobjModelTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjModelTextBox.Location = new System.Drawing.Point(196, 78);
+            this.advobjModelTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjModelTextBox.Name = "advobjModelTextBox";
+            this.advobjModelTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjModelTextBox.TabIndex = 19;
+            this.advobjModelTextBox.TabStop = false;
+            this.advobjModelTextBox.Text = "0";
+            this.advobjModelTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // advobjFrameTextBox
             // 
-            advobjFrameTextBox.AutoSize = false;
-            advobjFrameTextBox.Location = new System.Drawing.Point(131, 60);
-            advobjFrameTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjFrameTextBox.Name = "advobjFrameTextBox";
-            advobjFrameTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjFrameTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjFrameTextBox.TabStop = false;
-            advobjFrameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjFrameTextBox.Location = new System.Drawing.Point(196, 98);
+            this.advobjFrameTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjFrameTextBox.Name = "advobjFrameTextBox";
+            this.advobjFrameTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjFrameTextBox.TabIndex = 20;
+            this.advobjFrameTextBox.TabStop = false;
+            this.advobjFrameTextBox.Text = "0";
+            this.advobjFrameTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // advobjFramenoTextBox
             // 
-            advobjFramenoTextBox.AutoSize = false;
-            advobjFramenoTextBox.Location = new System.Drawing.Point(131, 72);
-            advobjFramenoTextBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjFramenoTextBox.Name = "advobjFramenoTextBox";
-            advobjFramenoTextBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            advobjFramenoTextBox.Size = new System.Drawing.Size(49, 13);
-            advobjFramenoTextBox.TabStop = false;
-            advobjFramenoTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.advobjFramenoTextBox.Location = new System.Drawing.Point(196, 117);
+            this.advobjFramenoTextBox.Margin = new System.Windows.Forms.Padding(0);
+            this.advobjFramenoTextBox.Name = "advobjFramenoTextBox";
+            this.advobjFramenoTextBox.Size = new System.Drawing.Size(72, 20);
+            this.advobjFramenoTextBox.TabIndex = 21;
+            this.advobjFramenoTextBox.TabStop = false;
+            this.advobjFramenoTextBox.Text = "0";
+            this.advobjFramenoTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // labelMass
             // 
-            labelMass.AutoSize = false;
-            labelMass.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelMass.Location = new System.Drawing.Point(12, 18);
-            labelMass.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelMass.Name = "labelMass";
-            labelMass.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelMass.Size = new System.Drawing.Size(20, 9);
-            labelMass.TabStop = true;
-            labelMass.Text = "mass:";
+            this.labelMass.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelMass.Location = new System.Drawing.Point(18, 29);
+            this.labelMass.Margin = new System.Windows.Forms.Padding(0);
+            this.labelMass.Name = "labelMass";
+            this.labelMass.Size = new System.Drawing.Size(30, 15);
+            this.labelMass.TabIndex = 22;
+            this.labelMass.TabStop = true;
+            this.labelMass.Text = "mass:";
+            this.labelMass.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelDrag
             // 
-            labelDrag.AutoSize = false;
-            labelDrag.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelDrag.Location = new System.Drawing.Point(16, 30);
-            labelDrag.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelDrag.Name = "labelDrag";
-            labelDrag.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelDrag.Size = new System.Drawing.Size(16, 9);
-            labelDrag.TabStop = true;
-            labelDrag.Text = "drag:";
+            this.labelDrag.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelDrag.Location = new System.Drawing.Point(24, 49);
+            this.labelDrag.Margin = new System.Windows.Forms.Padding(0);
+            this.labelDrag.Name = "labelDrag";
+            this.labelDrag.Size = new System.Drawing.Size(24, 15);
+            this.labelDrag.TabIndex = 23;
+            this.labelDrag.TabStop = true;
+            this.labelDrag.Text = "drag:";
+            this.labelDrag.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelBrakes
             // 
-            labelBrakes.AutoSize = false;
-            labelBrakes.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelBrakes.Location = new System.Drawing.Point(4, 42);
-            labelBrakes.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelBrakes.Name = "labelBrakes";
-            labelBrakes.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelBrakes.Size = new System.Drawing.Size(28, 9);
-            labelBrakes.TabStop = true;
-            labelBrakes.Text = "brakes:";
+            this.labelBrakes.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelBrakes.Location = new System.Drawing.Point(6, 68);
+            this.labelBrakes.Margin = new System.Windows.Forms.Padding(0);
+            this.labelBrakes.Name = "labelBrakes";
+            this.labelBrakes.Size = new System.Drawing.Size(42, 15);
+            this.labelBrakes.TabIndex = 24;
+            this.labelBrakes.TabStop = true;
+            this.labelBrakes.Text = "brakes:";
+            this.labelBrakes.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelTurnRoll
             // 
-            labelTurnRoll.AutoSize = false;
-            labelTurnRoll.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelTurnRoll.Location = new System.Drawing.Point(4, 54);
-            labelTurnRoll.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelTurnRoll.Name = "labelTurnRoll";
-            labelTurnRoll.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelTurnRoll.Size = new System.Drawing.Size(28, 9);
-            labelTurnRoll.TabStop = true;
-            labelTurnRoll.Text = "turn roll:";
+            this.labelTurnRoll.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelTurnRoll.Location = new System.Drawing.Point(6, 88);
+            this.labelTurnRoll.Margin = new System.Windows.Forms.Padding(0);
+            this.labelTurnRoll.Name = "labelTurnRoll";
+            this.labelTurnRoll.Size = new System.Drawing.Size(42, 15);
+            this.labelTurnRoll.TabIndex = 25;
+            this.labelTurnRoll.TabStop = true;
+            this.labelTurnRoll.Text = "turn roll:";
+            this.labelTurnRoll.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelSize
             // 
-            labelSize.AutoSize = false;
-            labelSize.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelSize.Location = new System.Drawing.Point(115, 18);
-            labelSize.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelSize.Name = "labelSize";
-            labelSize.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelSize.Size = new System.Drawing.Size(16, 9);
-            labelSize.TabStop = true;
-            labelSize.Text = "size:";
+            this.labelSize.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelSize.Location = new System.Drawing.Point(172, 29);
+            this.labelSize.Margin = new System.Windows.Forms.Padding(0);
+            this.labelSize.Name = "labelSize";
+            this.labelSize.Size = new System.Drawing.Size(24, 15);
+            this.labelSize.TabIndex = 26;
+            this.labelSize.TabStop = true;
+            this.labelSize.Text = "size:";
+            this.labelSize.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelFlags
             // 
-            labelFlags.AutoSize = false;
-            labelFlags.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelFlags.Location = new System.Drawing.Point(12, 66);
-            labelFlags.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelFlags.Name = "labelFlags";
-            labelFlags.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelFlags.Size = new System.Drawing.Size(20, 9);
-            labelFlags.TabStop = true;
-            labelFlags.Text = "flags:";
+            this.labelFlags.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelFlags.Location = new System.Drawing.Point(18, 107);
+            this.labelFlags.Margin = new System.Windows.Forms.Padding(0);
+            this.labelFlags.Name = "labelFlags";
+            this.labelFlags.Size = new System.Drawing.Size(30, 15);
+            this.labelFlags.TabIndex = 27;
+            this.labelFlags.TabStop = true;
+            this.labelFlags.Text = "flags:";
+            this.labelFlags.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelShield
             // 
-            labelShield.AutoSize = false;
-            labelShield.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelShield.Location = new System.Drawing.Point(111, 30);
-            labelShield.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelShield.Name = "labelShield";
-            labelShield.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelShield.Size = new System.Drawing.Size(20, 9);
-            labelShield.TabStop = true;
-            labelShield.Text = "shield:";
+            this.labelShield.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelShield.Location = new System.Drawing.Point(166, 49);
+            this.labelShield.Margin = new System.Windows.Forms.Padding(0);
+            this.labelShield.Name = "labelShield";
+            this.labelShield.Size = new System.Drawing.Size(30, 15);
+            this.labelShield.TabIndex = 28;
+            this.labelShield.TabStop = true;
+            this.labelShield.Text = "shield:";
+            this.labelShield.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelVelocity
             // 
-            labelVelocity.AutoSize = false;
-            labelVelocity.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelVelocity.Location = new System.Drawing.Point(218, 18);
-            labelVelocity.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelVelocity.Name = "labelVelocity";
-            labelVelocity.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelVelocity.Size = new System.Drawing.Size(32, 9);
-            labelVelocity.TabStop = true;
-            labelVelocity.Text = "velocity:";
+            this.labelVelocity.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelVelocity.Location = new System.Drawing.Point(327, 29);
+            this.labelVelocity.Margin = new System.Windows.Forms.Padding(0);
+            this.labelVelocity.Name = "labelVelocity";
+            this.labelVelocity.Size = new System.Drawing.Size(48, 15);
+            this.labelVelocity.TabIndex = 29;
+            this.labelVelocity.TabStop = true;
+            this.labelVelocity.Text = "velocity:";
+            this.labelVelocity.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelThrust
             // 
-            labelThrust.AutoSize = false;
-            labelThrust.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelThrust.Location = new System.Drawing.Point(226, 30);
-            labelThrust.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelThrust.Name = "labelThrust";
-            labelThrust.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelThrust.Size = new System.Drawing.Size(24, 9);
-            labelThrust.TabStop = true;
-            labelThrust.Text = "thrust:";
+            this.labelThrust.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelThrust.Location = new System.Drawing.Point(339, 49);
+            this.labelThrust.Margin = new System.Windows.Forms.Padding(0);
+            this.labelThrust.Name = "labelThrust";
+            this.labelThrust.Size = new System.Drawing.Size(36, 15);
+            this.labelThrust.TabIndex = 30;
+            this.labelThrust.TabStop = true;
+            this.labelThrust.Text = "thrust:";
+            this.labelThrust.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelRotationVelocity
             // 
-            labelRotationVelocity.AutoSize = false;
-            labelRotationVelocity.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelRotationVelocity.Location = new System.Drawing.Point(198, 42);
-            labelRotationVelocity.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelRotationVelocity.Name = "labelRotationVelocity";
-            labelRotationVelocity.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelRotationVelocity.Size = new System.Drawing.Size(52, 9);
-            labelRotationVelocity.TabStop = true;
-            labelRotationVelocity.Text = "rotation velocity:";
+            this.labelRotationVelocity.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelRotationVelocity.Location = new System.Drawing.Point(297, 68);
+            this.labelRotationVelocity.Margin = new System.Windows.Forms.Padding(0);
+            this.labelRotationVelocity.Name = "labelRotationVelocity";
+            this.labelRotationVelocity.Size = new System.Drawing.Size(78, 15);
+            this.labelRotationVelocity.TabIndex = 31;
+            this.labelRotationVelocity.TabStop = true;
+            this.labelRotationVelocity.Text = "rotation velocity:";
+            this.labelRotationVelocity.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelRotationThrust
             // 
-            labelRotationThrust.AutoSize = false;
-            labelRotationThrust.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelRotationThrust.Location = new System.Drawing.Point(202, 54);
-            labelRotationThrust.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelRotationThrust.Name = "labelRotationThrust";
-            labelRotationThrust.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelRotationThrust.Size = new System.Drawing.Size(48, 9);
-            labelRotationThrust.TabStop = true;
-            labelRotationThrust.Text = "rotation thrust:";
+            this.labelRotationThrust.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelRotationThrust.Location = new System.Drawing.Point(303, 88);
+            this.labelRotationThrust.Margin = new System.Windows.Forms.Padding(0);
+            this.labelRotationThrust.Name = "labelRotationThrust";
+            this.labelRotationThrust.Size = new System.Drawing.Size(72, 15);
+            this.labelRotationThrust.TabIndex = 32;
+            this.labelRotationThrust.TabStop = true;
+            this.labelRotationThrust.Text = "rotation thrust:";
+            this.labelRotationThrust.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelModelDivClip
             // 
-            labelModelDivClip.AutoSize = false;
-            labelModelDivClip.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelModelDivClip.Location = new System.Drawing.Point(95, 50);
-            labelModelDivClip.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelModelDivClip.Name = "labelModelDivClip";
-            labelModelDivClip.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelModelDivClip.Size = new System.Drawing.Size(36, 9);
-            labelModelDivClip.TabStop = true;
-            labelModelDivClip.Text = "model/clip:";
+            this.labelModelDivClip.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelModelDivClip.Location = new System.Drawing.Point(142, 81);
+            this.labelModelDivClip.Margin = new System.Windows.Forms.Padding(0);
+            this.labelModelDivClip.Name = "labelModelDivClip";
+            this.labelModelDivClip.Size = new System.Drawing.Size(54, 15);
+            this.labelModelDivClip.TabIndex = 33;
+            this.labelModelDivClip.TabStop = true;
+            this.labelModelDivClip.Text = "model/clip:";
+            this.labelModelDivClip.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelFrame
             // 
-            labelFrame.AutoSize = false;
-            labelFrame.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelFrame.Location = new System.Drawing.Point(107, 62);
-            labelFrame.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelFrame.Name = "labelFrame";
-            labelFrame.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelFrame.Size = new System.Drawing.Size(24, 9);
-            labelFrame.TabStop = true;
-            labelFrame.Text = "frame:";
+            this.labelFrame.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelFrame.Location = new System.Drawing.Point(160, 101);
+            this.labelFrame.Margin = new System.Windows.Forms.Padding(0);
+            this.labelFrame.Name = "labelFrame";
+            this.labelFrame.Size = new System.Drawing.Size(36, 15);
+            this.labelFrame.TabIndex = 34;
+            this.labelFrame.TabStop = true;
+            this.labelFrame.Text = "frame:";
+            this.labelFrame.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelFrameNo
             // 
-            labelFrameNo.AutoSize = false;
-            labelFrameNo.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelFrameNo.Location = new System.Drawing.Point(99, 74);
-            labelFrameNo.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelFrameNo.Name = "labelFrameNo";
-            labelFrameNo.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelFrameNo.Size = new System.Drawing.Size(32, 9);
-            labelFrameNo.TabStop = true;
-            labelFrameNo.Text = "frame no.:";
+            this.labelFrameNo.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelFrameNo.Location = new System.Drawing.Point(148, 120);
+            this.labelFrameNo.Margin = new System.Windows.Forms.Padding(0);
+            this.labelFrameNo.Name = "labelFrameNo";
+            this.labelFrameNo.Size = new System.Drawing.Size(48, 15);
+            this.labelFrameNo.TabIndex = 35;
+            this.labelFrameNo.TabStop = true;
+            this.labelFrameNo.Text = "frame no.:";
+            this.labelFrameNo.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelX
             // 
-            labelX.AutoSize = false;
-            labelX.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelX.Location = new System.Drawing.Point(250, 8);
-            labelX.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelX.Name = "labelX";
-            labelX.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelX.Size = new System.Drawing.Size(49, 9);
-            labelX.TabStop = true;
-            labelX.Text = "X";
+            this.labelX.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelX.Location = new System.Drawing.Point(375, 13);
+            this.labelX.Margin = new System.Windows.Forms.Padding(0);
+            this.labelX.Name = "labelX";
+            this.labelX.Size = new System.Drawing.Size(74, 15);
+            this.labelX.TabIndex = 36;
+            this.labelX.TabStop = true;
+            this.labelX.Text = "X";
+            this.labelX.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // labelY
             // 
-            labelY.AutoSize = false;
-            labelY.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelY.Location = new System.Drawing.Point(302, 8);
-            labelY.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelY.Name = "labelY";
-            labelY.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelY.Size = new System.Drawing.Size(49, 9);
-            labelY.TabStop = true;
-            labelY.Text = "Y";
+            this.labelY.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelY.Location = new System.Drawing.Point(453, 13);
+            this.labelY.Margin = new System.Windows.Forms.Padding(0);
+            this.labelY.Name = "labelY";
+            this.labelY.Size = new System.Drawing.Size(74, 15);
+            this.labelY.TabIndex = 37;
+            this.labelY.TabStop = true;
+            this.labelY.Text = "Y";
+            this.labelY.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // labelZ
             // 
-            labelZ.AutoSize = false;
-            labelZ.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            labelZ.Location = new System.Drawing.Point(354, 8);
-            labelZ.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelZ.Name = "labelZ";
-            labelZ.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            labelZ.Size = new System.Drawing.Size(49, 9);
-            labelZ.TabStop = true;
-            labelZ.Text = "Z";
+            this.labelZ.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.labelZ.Location = new System.Drawing.Point(531, 13);
+            this.labelZ.Margin = new System.Windows.Forms.Padding(0);
+            this.labelZ.Name = "labelZ";
+            this.labelZ.Size = new System.Drawing.Size(74, 15);
+            this.labelZ.TabIndex = 38;
+            this.labelZ.TabStop = true;
+            this.labelZ.Text = "Z";
+            this.labelZ.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // ObjectAdvanced
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(4F, 8F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.advobjMassTextBox);
             this.Controls.Add(this.advobjDragTextBox);
@@ -558,9 +561,12 @@
             this.Controls.Add(this.labelX);
             this.Controls.Add(this.labelY);
             this.Controls.Add(this.labelZ);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ObjectAdvanced";
-            this.Size = new System.Drawing.Size(412, 100);
+            this.Size = new System.Drawing.Size(618, 162);
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -605,5 +611,6 @@
         private System.Windows.Forms.Label labelX;
         private System.Windows.Forms.Label labelY;
         private System.Windows.Forms.Label labelZ;
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

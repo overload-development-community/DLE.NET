@@ -71,7 +71,7 @@
             // 
             // advobjMassTextBox
             // 
-            this.advobjMassTextBox.Location = new System.Drawing.Point(118, 15);
+            this.advobjMassTextBox.Location = new System.Drawing.Point(118, 16);
             this.advobjMassTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.advobjMassTextBox.Name = "advobjMassTextBox";
             this.advobjMassTextBox.Size = new System.Drawing.Size(72, 20);
@@ -81,7 +81,7 @@
             // 
             // advobjDragTextBox
             // 
-            this.advobjDragTextBox.Location = new System.Drawing.Point(118, 36);
+            this.advobjDragTextBox.Location = new System.Drawing.Point(118, 35);
             this.advobjDragTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.advobjDragTextBox.Name = "advobjDragTextBox";
             this.advobjDragTextBox.Size = new System.Drawing.Size(72, 20);
@@ -101,7 +101,7 @@
             // 
             // advobjTurnrollTextBox
             // 
-            this.advobjTurnrollTextBox.Location = new System.Drawing.Point(118, 75);
+            this.advobjTurnrollTextBox.Location = new System.Drawing.Point(118, 73);
             this.advobjTurnrollTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.advobjTurnrollTextBox.Name = "advobjTurnrollTextBox";
             this.advobjTurnrollTextBox.Size = new System.Drawing.Size(72, 20);
@@ -111,7 +111,7 @@
             // 
             // advobjFlagsTextBox
             // 
-            this.advobjFlagsTextBox.Location = new System.Drawing.Point(118, 93);
+            this.advobjFlagsTextBox.Location = new System.Drawing.Point(118, 92);
             this.advobjFlagsTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.advobjFlagsTextBox.Name = "advobjFlagsTextBox";
             this.advobjFlagsTextBox.Size = new System.Drawing.Size(72, 20);
@@ -121,7 +121,7 @@
             // 
             // advobjSizeTextBox
             // 
-            this.advobjSizeTextBox.Location = new System.Drawing.Point(118, 114);
+            this.advobjSizeTextBox.Location = new System.Drawing.Point(118, 111);
             this.advobjSizeTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.advobjSizeTextBox.Name = "advobjSizeTextBox";
             this.advobjSizeTextBox.Size = new System.Drawing.Size(72, 20);
@@ -131,7 +131,7 @@
             // 
             // advobjShieldTextBox
             // 
-            this.advobjShieldTextBox.Location = new System.Drawing.Point(118, 132);
+            this.advobjShieldTextBox.Location = new System.Drawing.Point(118, 130);
             this.advobjShieldTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.advobjShieldTextBox.Name = "advobjShieldTextBox";
             this.advobjShieldTextBox.Size = new System.Drawing.Size(72, 20);
@@ -171,7 +171,7 @@
             // 
             // advobjTxTextBox
             // 
-            this.advobjTxTextBox.Location = new System.Drawing.Point(98, 291);
+            this.advobjTxTextBox.Location = new System.Drawing.Point(98, 292);
             this.advobjTxTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.advobjTxTextBox.Name = "advobjTxTextBox";
             this.advobjTxTextBox.Size = new System.Drawing.Size(44, 20);
@@ -181,7 +181,7 @@
             // 
             // advobjTyTextBox
             // 
-            this.advobjTyTextBox.Location = new System.Drawing.Point(146, 291);
+            this.advobjTyTextBox.Location = new System.Drawing.Point(146, 292);
             this.advobjTyTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.advobjTyTextBox.Name = "advobjTyTextBox";
             this.advobjTyTextBox.Size = new System.Drawing.Size(44, 20);
@@ -191,7 +191,7 @@
             // 
             // advobjTzTextBox
             // 
-            this.advobjTzTextBox.Location = new System.Drawing.Point(194, 291);
+            this.advobjTzTextBox.Location = new System.Drawing.Point(194, 292);
             this.advobjTzTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.advobjTzTextBox.Name = "advobjTzTextBox";
             this.advobjTzTextBox.Size = new System.Drawing.Size(44, 20);
@@ -201,7 +201,7 @@
             // 
             // advobjRvxTextBox
             // 
-            this.advobjRvxTextBox.Location = new System.Drawing.Point(98, 312);
+            this.advobjRvxTextBox.Location = new System.Drawing.Point(98, 311);
             this.advobjRvxTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.advobjRvxTextBox.Name = "advobjRvxTextBox";
             this.advobjRvxTextBox.Size = new System.Drawing.Size(44, 20);
@@ -211,7 +211,7 @@
             // 
             // advobjRvyTextBox
             // 
-            this.advobjRvyTextBox.Location = new System.Drawing.Point(146, 312);
+            this.advobjRvyTextBox.Location = new System.Drawing.Point(146, 311);
             this.advobjRvyTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.advobjRvyTextBox.Name = "advobjRvyTextBox";
             this.advobjRvyTextBox.Size = new System.Drawing.Size(44, 20);
@@ -221,7 +221,7 @@
             // 
             // advobjRvzTextBox
             // 
-            this.advobjRvzTextBox.Location = new System.Drawing.Point(194, 312);
+            this.advobjRvzTextBox.Location = new System.Drawing.Point(194, 311);
             this.advobjRvzTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.advobjRvzTextBox.Name = "advobjRvzTextBox";
             this.advobjRvzTextBox.Size = new System.Drawing.Size(44, 20);
@@ -281,7 +281,7 @@
             // 
             // advobjFramenoTextBox
             // 
-            this.advobjFramenoTextBox.Location = new System.Drawing.Point(146, 223);
+            this.advobjFramenoTextBox.Location = new System.Drawing.Point(146, 222);
             this.advobjFramenoTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.advobjFramenoTextBox.Name = "advobjFramenoTextBox";
             this.advobjFramenoTextBox.Size = new System.Drawing.Size(44, 20);
@@ -292,79 +292,86 @@
             // labelMass
             // 
             this.labelMass.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelMass.Location = new System.Drawing.Point(88, 20);
+            this.labelMass.Location = new System.Drawing.Point(88, 17);
             this.labelMass.Margin = new System.Windows.Forms.Padding(0);
             this.labelMass.Name = "labelMass";
             this.labelMass.Size = new System.Drawing.Size(30, 15);
             this.labelMass.TabIndex = 22;
             this.labelMass.TabStop = true;
             this.labelMass.Text = "mass:";
+            this.labelMass.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelDrag
             // 
             this.labelDrag.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelDrag.Location = new System.Drawing.Point(86, 39);
+            this.labelDrag.Location = new System.Drawing.Point(86, 36);
             this.labelDrag.Margin = new System.Windows.Forms.Padding(0);
             this.labelDrag.Name = "labelDrag";
             this.labelDrag.Size = new System.Drawing.Size(33, 15);
             this.labelDrag.TabIndex = 23;
             this.labelDrag.TabStop = true;
             this.labelDrag.Text = "drag:";
+            this.labelDrag.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelBrakes
             // 
             this.labelBrakes.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelBrakes.Location = new System.Drawing.Point(76, 58);
+            this.labelBrakes.Location = new System.Drawing.Point(76, 55);
             this.labelBrakes.Margin = new System.Windows.Forms.Padding(0);
             this.labelBrakes.Name = "labelBrakes";
             this.labelBrakes.Size = new System.Drawing.Size(42, 15);
             this.labelBrakes.TabIndex = 24;
             this.labelBrakes.TabStop = true;
             this.labelBrakes.Text = "brakes:";
+            this.labelBrakes.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelTurnRoll
             // 
             this.labelTurnRoll.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelTurnRoll.Location = new System.Drawing.Point(76, 78);
+            this.labelTurnRoll.Location = new System.Drawing.Point(76, 75);
             this.labelTurnRoll.Margin = new System.Windows.Forms.Padding(0);
             this.labelTurnRoll.Name = "labelTurnRoll";
             this.labelTurnRoll.Size = new System.Drawing.Size(42, 15);
             this.labelTurnRoll.TabIndex = 25;
             this.labelTurnRoll.TabStop = true;
             this.labelTurnRoll.Text = "turn roll:";
+            this.labelTurnRoll.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelSize
             // 
             this.labelSize.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelSize.Location = new System.Drawing.Point(94, 117);
+            this.labelSize.Location = new System.Drawing.Point(94, 114);
             this.labelSize.Margin = new System.Windows.Forms.Padding(0);
             this.labelSize.Name = "labelSize";
             this.labelSize.Size = new System.Drawing.Size(24, 15);
             this.labelSize.TabIndex = 26;
             this.labelSize.TabStop = true;
             this.labelSize.Text = "size:";
+            this.labelSize.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelFlags
             // 
             this.labelFlags.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelFlags.Location = new System.Drawing.Point(88, 98);
+            this.labelFlags.Location = new System.Drawing.Point(88, 95);
             this.labelFlags.Margin = new System.Windows.Forms.Padding(0);
             this.labelFlags.Name = "labelFlags";
             this.labelFlags.Size = new System.Drawing.Size(30, 15);
             this.labelFlags.TabIndex = 27;
             this.labelFlags.TabStop = true;
             this.labelFlags.Text = "flags:";
+            this.labelFlags.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelShield
             // 
             this.labelShield.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelShield.Location = new System.Drawing.Point(88, 136);
+            this.labelShield.Location = new System.Drawing.Point(88, 133);
             this.labelShield.Margin = new System.Windows.Forms.Padding(0);
             this.labelShield.Name = "labelShield";
             this.labelShield.Size = new System.Drawing.Size(30, 15);
             this.labelShield.TabIndex = 28;
             this.labelShield.TabStop = true;
             this.labelShield.Text = "shield:";
+            this.labelShield.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelVelocity
             // 
@@ -376,6 +383,7 @@
             this.labelVelocity.TabIndex = 29;
             this.labelVelocity.TabStop = true;
             this.labelVelocity.Text = "velocity:";
+            this.labelVelocity.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelThrust
             // 
@@ -387,6 +395,7 @@
             this.labelThrust.TabIndex = 30;
             this.labelThrust.TabStop = true;
             this.labelThrust.Text = "thrust:";
+            this.labelThrust.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelRotationVelocity
             // 
@@ -398,6 +407,7 @@
             this.labelRotationVelocity.TabIndex = 31;
             this.labelRotationVelocity.TabStop = true;
             this.labelRotationVelocity.Text = "rot. velocity:";
+            this.labelRotationVelocity.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelRotationThrust
             // 
@@ -409,6 +419,7 @@
             this.labelRotationThrust.TabIndex = 32;
             this.labelRotationThrust.TabStop = true;
             this.labelRotationThrust.Text = "rotation thrust:";
+            this.labelRotationThrust.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelModelDivClip
             // 
@@ -420,6 +431,7 @@
             this.labelModelDivClip.TabIndex = 33;
             this.labelModelDivClip.TabStop = true;
             this.labelModelDivClip.Text = "model/clip:";
+            this.labelModelDivClip.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelFrame
             // 
@@ -431,6 +443,7 @@
             this.labelFrame.TabIndex = 34;
             this.labelFrame.TabStop = true;
             this.labelFrame.Text = "frame:";
+            this.labelFrame.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelFrameNo
             // 
@@ -442,6 +455,7 @@
             this.labelFrameNo.TabIndex = 35;
             this.labelFrameNo.TabStop = true;
             this.labelFrameNo.Text = "frame no.:";
+            this.labelFrameNo.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelX
             // 
@@ -453,6 +467,7 @@
             this.labelX.TabIndex = 36;
             this.labelX.TabStop = true;
             this.labelX.Text = "X";
+            this.labelX.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // labelY
             // 
@@ -464,6 +479,7 @@
             this.labelY.TabIndex = 37;
             this.labelY.TabStop = true;
             this.labelY.Text = "Y";
+            this.labelY.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // labelZ
             // 
@@ -475,6 +491,7 @@
             this.labelZ.TabIndex = 38;
             this.labelZ.TabStop = true;
             this.labelZ.Text = "Z";
+            this.labelZ.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // VerticalObjectAdvanced
             // 

@@ -28,36 +28,39 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.effectTabControl = new System.Windows.Forms.TabControl();
             this.tabPageParticles = new System.Windows.Forms.TabPage();
+            this.effectParticle1 = new DLEDotNet.Editor.Layouts.EffectParticle();
             this.tabPageLightning = new System.Windows.Forms.TabPage();
+            this.effectLightning1 = new DLEDotNet.Editor.Layouts.EffectLightning();
             this.tabPageSounds = new System.Windows.Forms.TabPage();
+            this.effectSound1 = new DLEDotNet.Editor.Layouts.EffectSound();
             this.tabPageWaypoints = new System.Windows.Forms.TabPage();
+            this.effectWaypoint1 = new DLEDotNet.Editor.Layouts.EffectWaypoint();
             this.tabPageFog = new System.Windows.Forms.TabPage();
-            this.alignableGroupBox1 = new AlignableGroupBox();
+            this.effectFog1 = new DLEDotNet.Editor.Layouts.EffectFog();
+            this.alignableGroupBox1 = new DLEDotNet.Editor.AlignableGroupBox();
             this.effectObjectsComboBox = new System.Windows.Forms.ComboBox();
             this.effectAddButton = new System.Windows.Forms.Button();
             this.effectDeleteButton = new System.Windows.Forms.Button();
             this.effectCopyButton = new System.Windows.Forms.Button();
             this.effectPasteButton = new System.Windows.Forms.Button();
             this.effectPasteAllButton = new System.Windows.Forms.Button();
-            this.effectParticle1 = new DLEDotNet.Editor.Layouts.EffectParticle();
-            this.effectLightning1 = new DLEDotNet.Editor.Layouts.EffectLightning();
-            this.effectSound1 = new DLEDotNet.Editor.Layouts.EffectSound();
-            this.effectWaypoint1 = new DLEDotNet.Editor.Layouts.EffectWaypoint();
-            this.effectFog1 = new DLEDotNet.Editor.Layouts.EffectFog();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.effectTabControl.SuspendLayout();
             this.tabPageParticles.SuspendLayout();
-            this.tabPageLightning.SuspendLayout();
-            this.tabPageSounds.SuspendLayout();
-            this.tabPageWaypoints.SuspendLayout();
-            this.tabPageFog.SuspendLayout();
-            this.alignableGroupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.effectFog1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.effectLightning1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.effectParticle1)).BeginInit();
+            this.tabPageLightning.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.effectLightning1)).BeginInit();
+            this.tabPageSounds.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.effectSound1)).BeginInit();
+            this.tabPageWaypoints.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.effectWaypoint1)).BeginInit();
+            this.tabPageFog.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.effectFog1)).BeginInit();
+            this.alignableGroupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             this.SuspendLayout();
             // 
             // effectTabControl
@@ -86,6 +89,15 @@
             this.tabPageParticles.Text = "Particles";
             this.tabPageParticles.UseVisualStyleBackColor = true;
             // 
+            // effectParticle1
+            // 
+            this.effectParticle1.DialogLayout = DLEDotNet.LayoutOrientation.HORIZONTAL;
+            this.effectParticle1.Location = new System.Drawing.Point(0, 0);
+            this.effectParticle1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.effectParticle1.Name = "effectParticle1";
+            this.effectParticle1.Size = new System.Drawing.Size(720, 162);
+            this.effectParticle1.TabIndex = 0;
+            // 
             // tabPageLightning
             // 
             this.tabPageLightning.Controls.Add(this.effectLightning1);
@@ -98,6 +110,15 @@
             this.tabPageLightning.Text = "Lightning";
             this.tabPageLightning.UseVisualStyleBackColor = true;
             // 
+            // effectLightning1
+            // 
+            this.effectLightning1.DialogLayout = DLEDotNet.LayoutOrientation.HORIZONTAL;
+            this.effectLightning1.Location = new System.Drawing.Point(0, 0);
+            this.effectLightning1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.effectLightning1.Name = "effectLightning1";
+            this.effectLightning1.Size = new System.Drawing.Size(720, 162);
+            this.effectLightning1.TabIndex = 0;
+            // 
             // tabPageSounds
             // 
             this.tabPageSounds.Controls.Add(this.effectSound1);
@@ -108,6 +129,15 @@
             this.tabPageSounds.TabIndex = 2;
             this.tabPageSounds.Text = "Sounds";
             this.tabPageSounds.UseVisualStyleBackColor = true;
+            // 
+            // effectSound1
+            // 
+            this.effectSound1.DialogLayout = DLEDotNet.LayoutOrientation.HORIZONTAL;
+            this.effectSound1.Location = new System.Drawing.Point(0, 0);
+            this.effectSound1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.effectSound1.Name = "effectSound1";
+            this.effectSound1.Size = new System.Drawing.Size(720, 162);
+            this.effectSound1.TabIndex = 0;
             // 
             // tabPageWaypoints
             // 
@@ -120,6 +150,15 @@
             this.tabPageWaypoints.Text = "Way points";
             this.tabPageWaypoints.UseVisualStyleBackColor = true;
             // 
+            // effectWaypoint1
+            // 
+            this.effectWaypoint1.DialogLayout = DLEDotNet.LayoutOrientation.HORIZONTAL;
+            this.effectWaypoint1.Location = new System.Drawing.Point(0, 0);
+            this.effectWaypoint1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.effectWaypoint1.Name = "effectWaypoint1";
+            this.effectWaypoint1.Size = new System.Drawing.Size(720, 162);
+            this.effectWaypoint1.TabIndex = 0;
+            // 
             // tabPageFog
             // 
             this.tabPageFog.Controls.Add(this.effectFog1);
@@ -130,6 +169,15 @@
             this.tabPageFog.TabIndex = 4;
             this.tabPageFog.Text = "Fog";
             this.tabPageFog.UseVisualStyleBackColor = true;
+            // 
+            // effectFog1
+            // 
+            this.effectFog1.DialogLayout = DLEDotNet.LayoutOrientation.HORIZONTAL;
+            this.effectFog1.Location = new System.Drawing.Point(0, 0);
+            this.effectFog1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.effectFog1.Name = "effectFog1";
+            this.effectFog1.Size = new System.Drawing.Size(720, 162);
+            this.effectFog1.TabIndex = 0;
             // 
             // alignableGroupBox1
             // 
@@ -207,51 +255,6 @@
             this.effectPasteAllButton.TabIndex = 5;
             this.effectPasteAllButton.Text = "paste &all";
             // 
-            // effectParticle1
-            // 
-            this.effectParticle1.DialogLayout = DLEDotNet.LayoutOrientation.HORIZONTAL;
-            this.effectParticle1.Location = new System.Drawing.Point(0, 0);
-            this.effectParticle1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.effectParticle1.Name = "effectParticle1";
-            this.effectParticle1.Size = new System.Drawing.Size(720, 162);
-            this.effectParticle1.TabIndex = 0;
-            // 
-            // effectLightning1
-            // 
-            this.effectLightning1.DialogLayout = DLEDotNet.LayoutOrientation.HORIZONTAL;
-            this.effectLightning1.Location = new System.Drawing.Point(0, 0);
-            this.effectLightning1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.effectLightning1.Name = "effectLightning1";
-            this.effectLightning1.Size = new System.Drawing.Size(720, 162);
-            this.effectLightning1.TabIndex = 0;
-            // 
-            // effectSound1
-            // 
-            this.effectSound1.DialogLayout = DLEDotNet.LayoutOrientation.HORIZONTAL;
-            this.effectSound1.Location = new System.Drawing.Point(0, 0);
-            this.effectSound1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.effectSound1.Name = "effectSound1";
-            this.effectSound1.Size = new System.Drawing.Size(720, 162);
-            this.effectSound1.TabIndex = 0;
-            // 
-            // effectWaypoint1
-            // 
-            this.effectWaypoint1.DialogLayout = DLEDotNet.LayoutOrientation.HORIZONTAL;
-            this.effectWaypoint1.Location = new System.Drawing.Point(0, 0);
-            this.effectWaypoint1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.effectWaypoint1.Name = "effectWaypoint1";
-            this.effectWaypoint1.Size = new System.Drawing.Size(720, 162);
-            this.effectWaypoint1.TabIndex = 0;
-            // 
-            // effectFog1
-            // 
-            this.effectFog1.DialogLayout = DLEDotNet.LayoutOrientation.HORIZONTAL;
-            this.effectFog1.Location = new System.Drawing.Point(0, 0);
-            this.effectFog1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.effectFog1.Name = "effectFog1";
-            this.effectFog1.Size = new System.Drawing.Size(720, 162);
-            this.effectFog1.TabIndex = 0;
-            // 
             // EffectTool
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -264,16 +267,17 @@
             this.Size = new System.Drawing.Size(930, 211);
             this.effectTabControl.ResumeLayout(false);
             this.tabPageParticles.ResumeLayout(false);
-            this.tabPageLightning.ResumeLayout(false);
-            this.tabPageSounds.ResumeLayout(false);
-            this.tabPageWaypoints.ResumeLayout(false);
-            this.tabPageFog.ResumeLayout(false);
-            this.alignableGroupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.effectFog1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.effectLightning1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.effectParticle1)).EndInit();
+            this.tabPageLightning.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.effectLightning1)).EndInit();
+            this.tabPageSounds.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.effectSound1)).EndInit();
+            this.tabPageWaypoints.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.effectWaypoint1)).EndInit();
+            this.tabPageFog.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.effectFog1)).EndInit();
+            this.alignableGroupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -298,5 +302,6 @@
         private EffectSound effectSound1;
         private EffectWaypoint effectWaypoint1;
         private EffectFog effectFog1;
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }

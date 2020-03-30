@@ -28,22 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.alignableGroupBoxLocation = new AlignableGroupBox();
+            this.alignableGroupBoxLocation = new DLEDotNet.Editor.AlignableGroupBox();
             this.labelX = new System.Windows.Forms.Label();
-            this.objLocxTextBox = new FloatTextBox();
+            this.objLocxTextBox = new DLEDotNet.Editor.FloatTextBox();
             this.labelY = new System.Windows.Forms.Label();
-            this.objLocyTextBox = new FloatTextBox();
+            this.objLocyTextBox = new DLEDotNet.Editor.FloatTextBox();
             this.labelZ = new System.Windows.Forms.Label();
-            this.objLoczTextBox = new FloatTextBox();
-            this.alignableGroupBoxRotation = new AlignableGroupBox();
+            this.objLoczTextBox = new DLEDotNet.Editor.FloatTextBox();
+            this.alignableGroupBoxRotation = new DLEDotNet.Editor.AlignableGroupBox();
             this.labelPitch = new System.Windows.Forms.Label();
-            this.objRotpTextBox = new FloatTextBox();
+            this.objRotpTextBox = new DLEDotNet.Editor.FloatTextBox();
             this.labelBank = new System.Windows.Forms.Label();
-            this.objRotbTextBox = new FloatTextBox();
+            this.objRotbTextBox = new DLEDotNet.Editor.FloatTextBox();
             this.labelHeading = new System.Windows.Forms.Label();
-            this.objRothTextBox = new FloatTextBox();
+            this.objRothTextBox = new DLEDotNet.Editor.FloatTextBox();
             this.objSetlocButton = new System.Windows.Forms.Button();
             this.objResetlocButton = new System.Windows.Forms.Button();
+            this.labelDegrees3 = new System.Windows.Forms.Label();
+            this.labelDegrees2 = new System.Windows.Forms.Label();
+            this.labelDegrees1 = new System.Windows.Forms.Label();
             this.alignableGroupBoxLocation.SuspendLayout();
             this.alignableGroupBoxRotation.SuspendLayout();
             this.SuspendLayout();
@@ -78,11 +81,10 @@
             // 
             // objLocxTextBox
             // 
-            this.objLocxTextBox.FractionalDigits = 2;
             this.objLocxTextBox.Location = new System.Drawing.Point(30, 21);
             this.objLocxTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.objLocxTextBox.Name = "objLocxTextBox";
-            this.objLocxTextBox.Size = new System.Drawing.Size(74, 19);
+            this.objLocxTextBox.Size = new System.Drawing.Size(74, 20);
             this.objLocxTextBox.TabIndex = 1;
             this.objLocxTextBox.TabStop = false;
             this.objLocxTextBox.Text = "0.00";
@@ -101,11 +103,10 @@
             // 
             // objLocyTextBox
             // 
-            this.objLocyTextBox.FractionalDigits = 2;
             this.objLocyTextBox.Location = new System.Drawing.Point(30, 44);
             this.objLocyTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.objLocyTextBox.Name = "objLocyTextBox";
-            this.objLocyTextBox.Size = new System.Drawing.Size(74, 19);
+            this.objLocyTextBox.Size = new System.Drawing.Size(74, 20);
             this.objLocyTextBox.TabIndex = 3;
             this.objLocyTextBox.TabStop = false;
             this.objLocyTextBox.Text = "0.00";
@@ -124,11 +125,10 @@
             // 
             // objLoczTextBox
             // 
-            this.objLoczTextBox.FractionalDigits = 2;
             this.objLoczTextBox.Location = new System.Drawing.Point(30, 67);
             this.objLoczTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.objLoczTextBox.Name = "objLoczTextBox";
-            this.objLoczTextBox.Size = new System.Drawing.Size(74, 19);
+            this.objLoczTextBox.Size = new System.Drawing.Size(74, 20);
             this.objLoczTextBox.TabIndex = 5;
             this.objLoczTextBox.TabStop = false;
             this.objLoczTextBox.Text = "0.00";
@@ -136,7 +136,10 @@
             // 
             // alignableGroupBoxRotation
             // 
+            this.alignableGroupBoxRotation.Controls.Add(this.labelDegrees3);
+            this.alignableGroupBoxRotation.Controls.Add(this.labelDegrees2);
             this.alignableGroupBoxRotation.Controls.Add(this.labelPitch);
+            this.alignableGroupBoxRotation.Controls.Add(this.labelDegrees1);
             this.alignableGroupBoxRotation.Controls.Add(this.objRotpTextBox);
             this.alignableGroupBoxRotation.Controls.Add(this.labelBank);
             this.alignableGroupBoxRotation.Controls.Add(this.objRotbTextBox);
@@ -161,14 +164,14 @@
             this.labelPitch.TabIndex = 0;
             this.labelPitch.TabStop = true;
             this.labelPitch.Text = "Pitch:";
+            this.labelPitch.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // objRotpTextBox
             // 
-            this.objRotpTextBox.FractionalDigits = 2;
             this.objRotpTextBox.Location = new System.Drawing.Point(56, 21);
             this.objRotpTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.objRotpTextBox.Name = "objRotpTextBox";
-            this.objRotpTextBox.Size = new System.Drawing.Size(52, 19);
+            this.objRotpTextBox.Size = new System.Drawing.Size(52, 20);
             this.objRotpTextBox.TabIndex = 1;
             this.objRotpTextBox.TabStop = false;
             this.objRotpTextBox.Text = "0.00";
@@ -184,14 +187,14 @@
             this.labelBank.TabIndex = 2;
             this.labelBank.TabStop = true;
             this.labelBank.Text = "Bank:";
+            this.labelBank.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // objRotbTextBox
             // 
-            this.objRotbTextBox.FractionalDigits = 2;
             this.objRotbTextBox.Location = new System.Drawing.Point(56, 44);
             this.objRotbTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.objRotbTextBox.Name = "objRotbTextBox";
-            this.objRotbTextBox.Size = new System.Drawing.Size(52, 19);
+            this.objRotbTextBox.Size = new System.Drawing.Size(52, 20);
             this.objRotbTextBox.TabIndex = 3;
             this.objRotbTextBox.TabStop = false;
             this.objRotbTextBox.Text = "0.00";
@@ -207,14 +210,14 @@
             this.labelHeading.TabIndex = 4;
             this.labelHeading.TabStop = true;
             this.labelHeading.Text = "Heading:";
+            this.labelHeading.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // objRothTextBox
             // 
-            this.objRothTextBox.FractionalDigits = 2;
             this.objRothTextBox.Location = new System.Drawing.Point(56, 67);
             this.objRothTextBox.Margin = new System.Windows.Forms.Padding(0);
             this.objRothTextBox.Name = "objRothTextBox";
-            this.objRothTextBox.Size = new System.Drawing.Size(52, 19);
+            this.objRothTextBox.Size = new System.Drawing.Size(52, 20);
             this.objRothTextBox.TabIndex = 5;
             this.objRothTextBox.TabStop = false;
             this.objRothTextBox.Text = "0.00";
@@ -240,6 +243,33 @@
             this.objResetlocButton.TabIndex = 3;
             this.objResetlocButton.Text = "Reset";
             // 
+            // labelDegrees3
+            // 
+            this.labelDegrees3.AutoSize = true;
+            this.labelDegrees3.Location = new System.Drawing.Point(108, 70);
+            this.labelDegrees3.Name = "labelDegrees3";
+            this.labelDegrees3.Size = new System.Drawing.Size(11, 13);
+            this.labelDegrees3.TabIndex = 10;
+            this.labelDegrees3.Text = "°";
+            // 
+            // labelDegrees2
+            // 
+            this.labelDegrees2.AutoSize = true;
+            this.labelDegrees2.Location = new System.Drawing.Point(108, 47);
+            this.labelDegrees2.Name = "labelDegrees2";
+            this.labelDegrees2.Size = new System.Drawing.Size(11, 13);
+            this.labelDegrees2.TabIndex = 9;
+            this.labelDegrees2.Text = "°";
+            // 
+            // labelDegrees1
+            // 
+            this.labelDegrees1.AutoSize = true;
+            this.labelDegrees1.Location = new System.Drawing.Point(108, 24);
+            this.labelDegrees1.Name = "labelDegrees1";
+            this.labelDegrees1.Size = new System.Drawing.Size(11, 13);
+            this.labelDegrees1.TabIndex = 8;
+            this.labelDegrees1.Text = "°";
+            // 
             // VerticalObjectPosition
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -252,7 +282,9 @@
             this.Name = "VerticalObjectPosition";
             this.Size = new System.Drawing.Size(300, 374);
             this.alignableGroupBoxLocation.ResumeLayout(false);
+            this.alignableGroupBoxLocation.PerformLayout();
             this.alignableGroupBoxRotation.ResumeLayout(false);
+            this.alignableGroupBoxRotation.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -275,6 +307,8 @@
         private FloatTextBox objRothTextBox;
         private System.Windows.Forms.Button objSetlocButton;
         private System.Windows.Forms.Button objResetlocButton;
-
+        private System.Windows.Forms.Label labelDegrees3;
+        private System.Windows.Forms.Label labelDegrees2;
+        private System.Windows.Forms.Label labelDegrees1;
     }
 }

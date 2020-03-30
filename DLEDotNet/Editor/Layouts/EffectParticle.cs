@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DLEDotNet.Editor.Layouts.Vertical;
+using System;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using DLEDotNet.Editor.Layouts.Vertical;
 
 namespace DLEDotNet.Editor.Layouts
 {

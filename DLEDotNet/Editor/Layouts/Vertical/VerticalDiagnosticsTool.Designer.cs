@@ -34,109 +34,102 @@
             this.diagClearButton = new System.Windows.Forms.Button();
             this.diagFixbugsCheckBox = new System.Windows.Forms.CheckBox();
             this.diagWarningsCheckBox = new System.Windows.Forms.CheckBox();
-            this.alignableGroupBoxProblemReport = new AlignableGroupBox();
-            this.alignableGroupBoxStatistics = new AlignableGroupBox();
-            this.alignableGroupBoxProblemReport.SuspendLayout();
-            this.alignableGroupBoxStatistics.SuspendLayout();
+            this.alignableGroupBoxProblemReport = new DLEDotNet.Editor.AlignableGroupBox();
+            this.alignableGroupBoxStatistics = new DLEDotNet.Editor.AlignableGroupBox();
             this.diagStatsListView = new System.Windows.Forms.ListView();
             this.columnHeaderItem = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderCount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderMax = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.alignableGroupBoxProblemReport.SuspendLayout();
+            this.alignableGroupBoxStatistics.SuspendLayout();
             this.SuspendLayout();
             // 
             // diagBuglistListBox
             // 
-            diagBuglistListBox.AutoSize = false;
-            diagBuglistListBox.Location = new System.Drawing.Point(4, 12);
-            diagBuglistListBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            diagBuglistListBox.Name = "diagBuglistListBox";
-            diagBuglistListBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            diagBuglistListBox.Size = new System.Drawing.Size(207, 287);
-            diagBuglistListBox.TabStop = true;
+            this.diagBuglistListBox.Location = new System.Drawing.Point(6, 20);
+            this.diagBuglistListBox.Margin = new System.Windows.Forms.Padding(0);
+            this.diagBuglistListBox.Name = "diagBuglistListBox";
+            this.diagBuglistListBox.Size = new System.Drawing.Size(308, 459);
+            this.diagBuglistListBox.TabIndex = 0;
             // 
             // diagCheckButton
             // 
-            diagCheckButton.AutoSize = false;
-            diagCheckButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            diagCheckButton.Location = new System.Drawing.Point(152, 7);
-            diagCheckButton.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            diagCheckButton.Name = "diagCheckButton";
-            diagCheckButton.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            diagCheckButton.Size = new System.Drawing.Size(61, 13);
-            diagCheckButton.TabStop = false;
-            diagCheckButton.Text = "&check mine";
+            this.diagCheckButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.diagCheckButton.Location = new System.Drawing.Point(228, 10);
+            this.diagCheckButton.Margin = new System.Windows.Forms.Padding(0);
+            this.diagCheckButton.Name = "diagCheckButton";
+            this.diagCheckButton.Size = new System.Drawing.Size(92, 21);
+            this.diagCheckButton.TabIndex = 0;
+            this.diagCheckButton.TabStop = false;
+            this.diagCheckButton.Text = "&check mine";
             // 
             // diagShowButton
             // 
-            diagShowButton.AutoSize = false;
-            diagShowButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            diagShowButton.Location = new System.Drawing.Point(152, 20);
-            diagShowButton.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            diagShowButton.Name = "diagShowButton";
-            diagShowButton.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            diagShowButton.Size = new System.Drawing.Size(61, 13);
-            diagShowButton.TabStop = false;
-            diagShowButton.Text = "&show problem";
+            this.diagShowButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.diagShowButton.Location = new System.Drawing.Point(228, 32);
+            this.diagShowButton.Margin = new System.Windows.Forms.Padding(0);
+            this.diagShowButton.Name = "diagShowButton";
+            this.diagShowButton.Size = new System.Drawing.Size(92, 21);
+            this.diagShowButton.TabIndex = 1;
+            this.diagShowButton.TabStop = false;
+            this.diagShowButton.Text = "&show problem";
             // 
             // diagClearButton
             // 
-            diagClearButton.AutoSize = false;
-            diagClearButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            diagClearButton.Location = new System.Drawing.Point(152, 34);
-            diagClearButton.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            diagClearButton.Name = "diagClearButton";
-            diagClearButton.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            diagClearButton.Size = new System.Drawing.Size(61, 13);
-            diagClearButton.TabStop = false;
-            diagClearButton.Text = "c&lear list";
+            this.diagClearButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.diagClearButton.Location = new System.Drawing.Point(228, 55);
+            this.diagClearButton.Margin = new System.Windows.Forms.Padding(0);
+            this.diagClearButton.Name = "diagClearButton";
+            this.diagClearButton.Size = new System.Drawing.Size(92, 21);
+            this.diagClearButton.TabIndex = 2;
+            this.diagClearButton.TabStop = false;
+            this.diagClearButton.Text = "c&lear list";
             // 
             // diagFixbugsCheckBox
             // 
-            diagFixbugsCheckBox.AutoSize = false;
-            diagFixbugsCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            diagFixbugsCheckBox.Location = new System.Drawing.Point(155, 54);
-            diagFixbugsCheckBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            diagFixbugsCheckBox.Name = "diagFixbugsCheckBox";
-            diagFixbugsCheckBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            diagFixbugsCheckBox.Size = new System.Drawing.Size(55, 11);
-            diagFixbugsCheckBox.TabStop = true;
-            diagFixbugsCheckBox.Text = "auto fix bugs";
+            this.diagFixbugsCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.diagFixbugsCheckBox.Location = new System.Drawing.Point(232, 88);
+            this.diagFixbugsCheckBox.Margin = new System.Windows.Forms.Padding(0);
+            this.diagFixbugsCheckBox.Name = "diagFixbugsCheckBox";
+            this.diagFixbugsCheckBox.Size = new System.Drawing.Size(82, 18);
+            this.diagFixbugsCheckBox.TabIndex = 3;
+            this.diagFixbugsCheckBox.Text = "auto fix bugs";
             // 
             // diagWarningsCheckBox
             // 
-            diagWarningsCheckBox.AutoSize = false;
-            diagWarningsCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            diagWarningsCheckBox.Location = new System.Drawing.Point(155, 66);
-            diagWarningsCheckBox.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            diagWarningsCheckBox.Name = "diagWarningsCheckBox";
-            diagWarningsCheckBox.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            diagWarningsCheckBox.Size = new System.Drawing.Size(60, 11);
-            diagWarningsCheckBox.TabStop = true;
-            diagWarningsCheckBox.Text = "show warnings";
+            this.diagWarningsCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.diagWarningsCheckBox.Location = new System.Drawing.Point(232, 107);
+            this.diagWarningsCheckBox.Margin = new System.Windows.Forms.Padding(0);
+            this.diagWarningsCheckBox.Name = "diagWarningsCheckBox";
+            this.diagWarningsCheckBox.Size = new System.Drawing.Size(90, 18);
+            this.diagWarningsCheckBox.TabIndex = 4;
+            this.diagWarningsCheckBox.Text = "show warnings";
             // 
             // alignableGroupBoxProblemReport
             // 
-            alignableGroupBoxProblemReport.Alignment = System.Windows.Forms.HorizontalAlignment.Center;
-            alignableGroupBoxProblemReport.AutoSize = false;
-            alignableGroupBoxProblemReport.Location = new System.Drawing.Point(4, 132);
-            alignableGroupBoxProblemReport.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            alignableGroupBoxProblemReport.Name = "alignableGroupBoxProblemReport";
-            alignableGroupBoxProblemReport.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            alignableGroupBoxProblemReport.Size = new System.Drawing.Size(215, 304);
-            alignableGroupBoxProblemReport.Text = "problem report";
-            alignableGroupBoxProblemReport.Controls.Add(this.diagBuglistListBox);
+            this.alignableGroupBoxProblemReport.Alignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.alignableGroupBoxProblemReport.Controls.Add(this.diagBuglistListBox);
+            this.alignableGroupBoxProblemReport.Location = new System.Drawing.Point(6, 214);
+            this.alignableGroupBoxProblemReport.Margin = new System.Windows.Forms.Padding(0);
+            this.alignableGroupBoxProblemReport.Name = "alignableGroupBoxProblemReport";
+            this.alignableGroupBoxProblemReport.Padding = new System.Windows.Forms.Padding(0);
+            this.alignableGroupBoxProblemReport.Size = new System.Drawing.Size(322, 494);
+            this.alignableGroupBoxProblemReport.TabIndex = 5;
+            this.alignableGroupBoxProblemReport.TabStop = false;
+            this.alignableGroupBoxProblemReport.Text = "problem report";
             // 
             // alignableGroupBoxStatistics
             // 
-            alignableGroupBoxStatistics.Alignment = System.Windows.Forms.HorizontalAlignment.Center;
-            alignableGroupBoxStatistics.AutoSize = false;
-            alignableGroupBoxStatistics.Location = new System.Drawing.Point(4, 0);
-            alignableGroupBoxStatistics.Margin = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            alignableGroupBoxStatistics.Name = "alignableGroupBoxStatistics";
-            alignableGroupBoxStatistics.Padding = new System.Windows.Forms.Padding(0, 0, 0, 0);
-            alignableGroupBoxStatistics.Size = new System.Drawing.Size(145, 129);
-            alignableGroupBoxStatistics.Text = "statistics";
-            alignableGroupBoxStatistics.Controls.Add(this.diagStatsListView);
+            this.alignableGroupBoxStatistics.Alignment = System.Windows.Forms.HorizontalAlignment.Center;
+            this.alignableGroupBoxStatistics.Controls.Add(this.diagStatsListView);
+            this.alignableGroupBoxStatistics.Location = new System.Drawing.Point(6, 0);
+            this.alignableGroupBoxStatistics.Margin = new System.Windows.Forms.Padding(0);
+            this.alignableGroupBoxStatistics.Name = "alignableGroupBoxStatistics";
+            this.alignableGroupBoxStatistics.Padding = new System.Windows.Forms.Padding(0);
+            this.alignableGroupBoxStatistics.Size = new System.Drawing.Size(218, 210);
+            this.alignableGroupBoxStatistics.TabIndex = 6;
+            this.alignableGroupBoxStatistics.TabStop = false;
+            this.alignableGroupBoxStatistics.Text = "statistics";
             // 
             // diagStatsListView
             // 
@@ -146,9 +139,10 @@
             this.columnHeaderMax});
             this.diagStatsListView.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.diagStatsListView.HideSelection = false;
-            this.diagStatsListView.Location = new System.Drawing.Point(10, 9);
+            this.diagStatsListView.Location = new System.Drawing.Point(15, 15);
+            this.diagStatsListView.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.diagStatsListView.Name = "diagStatsListView";
-            this.diagStatsListView.Size = new System.Drawing.Size(132,116);
+            this.diagStatsListView.Size = new System.Drawing.Size(196, 186);
             this.diagStatsListView.TabIndex = 2;
             this.diagStatsListView.UseCompatibleStateImageBehavior = false;
             this.diagStatsListView.View = System.Windows.Forms.View.Details;
@@ -169,8 +163,8 @@
             this.columnHeaderMax.Width = 57;
             // 
             // VerticalDiagnosticsTool
-            //            
-            this.AutoScaleDimensions = new System.Drawing.SizeF(4F, 8F);
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.diagCheckButton);
             this.Controls.Add(this.diagShowButton);
@@ -179,10 +173,11 @@
             this.Controls.Add(this.diagWarningsCheckBox);
             this.Controls.Add(this.alignableGroupBoxProblemReport);
             this.Controls.Add(this.alignableGroupBoxStatistics);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Name = "VerticalDiagnosticsTool";
+            this.Size = new System.Drawing.Size(333, 710);
             this.alignableGroupBoxProblemReport.ResumeLayout(false);
             this.alignableGroupBoxStatistics.ResumeLayout(false);
-            this.Name = "VerticalDiagnosticsTool";
-            this.Size = new System.Drawing.Size(222,437);
             this.ResumeLayout(false);
 
         }

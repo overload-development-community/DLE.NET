@@ -51,7 +51,7 @@
             this.labelTypeB = new System.Windows.Forms.Label();
             this.labelIdB = new System.Windows.Forms.Label();
             this.labelQty = new System.Windows.Forms.Label();
-            this.alignableGroupBoxThisRobotSpawns = new AlignableGroupBox();
+            this.alignableGroupBoxThisRobotSpawns = new DLEDotNet.Editor.AlignableGroupBox();
             this.objSpawnQtyNumericUpDown = new System.Windows.Forms.NumericUpDown();
             this.objShowSpawnPictureBox = new System.Windows.Forms.PictureBox();
             this.objShowPictureBox = new System.Windows.Forms.PictureBox();
@@ -72,11 +72,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.objSpawnQtyNumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.objShowSpawnPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.objShowPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.objectPosition1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.objectAdvanced1)).BeginInit();
             this.objectTabControl.SuspendLayout();
             this.tabPagePosition.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.objectPosition1)).BeginInit();
             this.tabPageAdvanced.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.objectAdvanced1)).BeginInit();
             this.tabPageOther.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -108,7 +108,7 @@
             // 
             // objAiComboBox
             // 
-            this.objAiComboBox.Location = new System.Drawing.Point(44, 72);
+            this.objAiComboBox.Location = new System.Drawing.Point(45, 72);
             this.objAiComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.objAiComboBox.Name = "objAiComboBox";
             this.objAiComboBox.Size = new System.Drawing.Size(134, 21);
@@ -116,7 +116,7 @@
             // 
             // objTextureComboBox
             // 
-            this.objTextureComboBox.Location = new System.Drawing.Point(45, 94);
+            this.objTextureComboBox.Location = new System.Drawing.Point(45, 95);
             this.objTextureComboBox.Margin = new System.Windows.Forms.Padding(0);
             this.objTextureComboBox.Name = "objTextureComboBox";
             this.objTextureComboBox.Size = new System.Drawing.Size(134, 21);
@@ -164,14 +164,14 @@
             this.objAddButton.Location = new System.Drawing.Point(261, 94);
             this.objAddButton.Margin = new System.Windows.Forms.Padding(0);
             this.objAddButton.Name = "objAddButton";
-            this.objAddButton.Size = new System.Drawing.Size(68, 18);
+            this.objAddButton.Size = new System.Drawing.Size(68, 20);
             this.objAddButton.TabIndex = 7;
             this.objAddButton.Text = "Add";
             // 
             // objDeleteButton
             // 
             this.objDeleteButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.objDeleteButton.Location = new System.Drawing.Point(261, 112);
+            this.objDeleteButton.Location = new System.Drawing.Point(261, 114);
             this.objDeleteButton.Margin = new System.Windows.Forms.Padding(0);
             this.objDeleteButton.Name = "objDeleteButton";
             this.objDeleteButton.Size = new System.Drawing.Size(68, 20);
@@ -181,7 +181,7 @@
             // objDeleteallButton
             // 
             this.objDeleteallButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.objDeleteallButton.Location = new System.Drawing.Point(261, 133);
+            this.objDeleteallButton.Location = new System.Drawing.Point(261, 134);
             this.objDeleteallButton.Margin = new System.Windows.Forms.Padding(0);
             this.objDeleteallButton.Name = "objDeleteallButton";
             this.objDeleteallButton.Size = new System.Drawing.Size(68, 20);
@@ -191,30 +191,30 @@
             // objMoveButton
             // 
             this.objMoveButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.objMoveButton.Location = new System.Drawing.Point(261, 153);
+            this.objMoveButton.Location = new System.Drawing.Point(261, 154);
             this.objMoveButton.Margin = new System.Windows.Forms.Padding(0);
             this.objMoveButton.Name = "objMoveButton";
-            this.objMoveButton.Size = new System.Drawing.Size(68, 18);
+            this.objMoveButton.Size = new System.Drawing.Size(68, 20);
             this.objMoveButton.TabIndex = 10;
             this.objMoveButton.Text = "Move";
             // 
             // objResetButton
             // 
             this.objResetButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.objResetButton.Location = new System.Drawing.Point(261, 171);
+            this.objResetButton.Location = new System.Drawing.Point(261, 174);
             this.objResetButton.Margin = new System.Windows.Forms.Padding(0);
             this.objResetButton.Name = "objResetButton";
-            this.objResetButton.Size = new System.Drawing.Size(68, 18);
+            this.objResetButton.Size = new System.Drawing.Size(68, 20);
             this.objResetButton.TabIndex = 11;
             this.objResetButton.Text = "Reset";
             // 
             // objDefaultButton
             // 
             this.objDefaultButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.objDefaultButton.Location = new System.Drawing.Point(261, 188);
+            this.objDefaultButton.Location = new System.Drawing.Point(261, 194);
             this.objDefaultButton.Margin = new System.Windows.Forms.Padding(0);
             this.objDefaultButton.Name = "objDefaultButton";
-            this.objDefaultButton.Size = new System.Drawing.Size(68, 18);
+            this.objDefaultButton.Size = new System.Drawing.Size(68, 20);
             this.objDefaultButton.TabIndex = 12;
             this.objDefaultButton.Text = "Default";
             // 
@@ -239,6 +239,7 @@
             this.labelObject.TabIndex = 14;
             this.labelObject.TabStop = true;
             this.labelObject.Text = "Object";
+            this.labelObject.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelTypeA
             // 
@@ -250,6 +251,7 @@
             this.labelTypeA.TabIndex = 15;
             this.labelTypeA.TabStop = true;
             this.labelTypeA.Text = "Type";
+            this.labelTypeA.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelIdA
             // 
@@ -261,6 +263,7 @@
             this.labelIdA.TabIndex = 16;
             this.labelIdA.TabStop = true;
             this.labelIdA.Text = "Id";
+            this.labelIdA.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelTexture
             // 
@@ -272,6 +275,7 @@
             this.labelTexture.TabIndex = 17;
             this.labelTexture.TabStop = true;
             this.labelTexture.Text = "Texture";
+            this.labelTexture.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelTypeB
             // 
@@ -410,6 +414,7 @@
             this.labelAi.TabIndex = 24;
             this.labelAi.TabStop = true;
             this.labelAi.Text = "AI";
+            this.labelAi.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // objectTabControl
             // 
@@ -482,10 +487,9 @@
             // 
             // VerticalObjectTool
             // 
-            ((System.ComponentModel.ISupportInitialize)(this.objectPosition1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.objectAdvanced1)).EndInit();
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.tObjCountLabel);
             this.Controls.Add(this.objectTabControl);
             this.Controls.Add(this.objObjnoComboBox);
             this.Controls.Add(this.objTypeComboBox);
@@ -509,7 +513,6 @@
             this.Controls.Add(this.objShowPictureBox);
             this.Controls.Add(this.objInfoTextBox);
             this.Controls.Add(this.labelNum);
-            this.Controls.Add(this.tObjCountLabel);
             this.Controls.Add(this.labelSort);
             this.Controls.Add(this.labelAi);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -522,7 +525,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.objShowPictureBox)).EndInit();
             this.objectTabControl.ResumeLayout(false);
             this.tabPagePosition.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.objectPosition1)).EndInit();
             this.tabPageAdvanced.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.objectAdvanced1)).EndInit();
             this.tabPageOther.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

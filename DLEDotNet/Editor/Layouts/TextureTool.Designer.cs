@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.textureShowPictureBox = new System.Windows.Forms.PictureBox();
             this.textureSubTabControl = new System.Windows.Forms.TabControl();
             this.tabPageAlignment = new System.Windows.Forms.TabPage();
@@ -66,6 +67,7 @@
             this.labelLightB = new System.Windows.Forms.Label();
             this.labelBrightness = new System.Windows.Forms.Label();
             this.labelPercent = new System.Windows.Forms.Label();
+            this.helpToolTip = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.textureShowPictureBox)).BeginInit();
             this.textureSubTabControl.SuspendLayout();
             this.tabPageAlignment.SuspendLayout();
@@ -147,7 +149,7 @@
             // tabPageLighting
             // 
             this.tabPageLighting.AutoScroll = true;
-            this.tabPageLighting.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPageLighting.BackColor = System.Drawing.Color.Transparent;
             this.tabPageLighting.Controls.Add(this.textureLighting1);
             this.tabPageLighting.Location = new System.Drawing.Point(23, 4);
             this.tabPageLighting.Margin = new System.Windows.Forms.Padding(0);
@@ -227,6 +229,7 @@
             this.textureBrightsliderTrackBar.Size = new System.Drawing.Size(104, 24);
             this.textureBrightsliderTrackBar.TabIndex = 15;
             this.textureBrightsliderTrackBar.TickFrequency = 10;
+            this.helpToolTip.SetToolTip(this.textureBrightsliderTrackBar, "brightness of this texture (applies to entire mine)");
             // 
             // label0Percent
             // 
@@ -263,7 +266,6 @@
             // 
             // textureLight1TextBox
             // 
-            this.textureLight1TextBox.FractionalDigits = 2;
             this.textureLight1TextBox.Location = new System.Drawing.Point(30, 10);
             this.textureLight1TextBox.Margin = new System.Windows.Forms.Padding(0);
             this.textureLight1TextBox.MaximumValue = 100D;
@@ -277,7 +279,6 @@
             // 
             // textureLight2TextBox
             // 
-            this.textureLight2TextBox.FractionalDigits = 2;
             this.textureLight2TextBox.Location = new System.Drawing.Point(72, 10);
             this.textureLight2TextBox.Margin = new System.Windows.Forms.Padding(0);
             this.textureLight2TextBox.MaximumValue = 100D;
@@ -291,7 +292,6 @@
             // 
             // textureLight3TextBox
             // 
-            this.textureLight3TextBox.FractionalDigits = 2;
             this.textureLight3TextBox.Location = new System.Drawing.Point(30, 102);
             this.textureLight3TextBox.Margin = new System.Windows.Forms.Padding(0);
             this.textureLight3TextBox.MaximumValue = 100D;
@@ -305,7 +305,6 @@
             // 
             // textureLight4TextBox
             // 
-            this.textureLight4TextBox.FractionalDigits = 2;
             this.textureLight4TextBox.Location = new System.Drawing.Point(72, 102);
             this.textureLight4TextBox.Margin = new System.Windows.Forms.Padding(0);
             this.textureLight4TextBox.MaximumValue = 100D;
@@ -344,11 +343,12 @@
             this.textureShowframesCheckBox.Size = new System.Drawing.Size(94, 18);
             this.textureShowframesCheckBox.TabIndex = 6;
             this.textureShowframesCheckBox.Text = "show frames";
+            this.helpToolTip.SetToolTip(this.textureShowframesCheckBox, "show individual frames of animated textures in the list");
             // 
             // textureEditButton
             // 
             this.textureEditButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.textureEditButton.Location = new System.Drawing.Point(126, 15);
+            this.textureEditButton.Location = new System.Drawing.Point(126, 14);
             this.textureEditButton.Margin = new System.Windows.Forms.Padding(0);
             this.textureEditButton.Name = "textureEditButton";
             this.textureEditButton.Size = new System.Drawing.Size(82, 18);
@@ -359,7 +359,7 @@
             // textureCopyButton
             // 
             this.textureCopyButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.textureCopyButton.Location = new System.Drawing.Point(126, 31);
+            this.textureCopyButton.Location = new System.Drawing.Point(126, 30);
             this.textureCopyButton.Margin = new System.Windows.Forms.Padding(0);
             this.textureCopyButton.Name = "textureCopyButton";
             this.textureCopyButton.Size = new System.Drawing.Size(82, 18);
@@ -370,7 +370,7 @@
             // texturePastesideButton
             // 
             this.texturePastesideButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.texturePastesideButton.Location = new System.Drawing.Point(126, 47);
+            this.texturePastesideButton.Location = new System.Drawing.Point(126, 46);
             this.texturePastesideButton.Margin = new System.Windows.Forms.Padding(0);
             this.texturePastesideButton.Name = "texturePastesideButton";
             this.texturePastesideButton.Size = new System.Drawing.Size(82, 18);
@@ -380,27 +380,29 @@
             // texturePastetouchingButton
             // 
             this.texturePastetouchingButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.texturePastetouchingButton.Location = new System.Drawing.Point(126, 63);
+            this.texturePastetouchingButton.Location = new System.Drawing.Point(126, 62);
             this.texturePastetouchingButton.Margin = new System.Windows.Forms.Padding(0);
             this.texturePastetouchingButton.Name = "texturePastetouchingButton";
             this.texturePastetouchingButton.Size = new System.Drawing.Size(82, 18);
             this.texturePastetouchingButton.TabIndex = 10;
             this.texturePastetouchingButton.Text = "paste &touching";
+            this.helpToolTip.SetToolTip(this.texturePastetouchingButton, "paste to all sides touching with current face");
             // 
             // textureReplaceButton
             // 
             this.textureReplaceButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.textureReplaceButton.Location = new System.Drawing.Point(126, 80);
+            this.textureReplaceButton.Location = new System.Drawing.Point(126, 78);
             this.textureReplaceButton.Margin = new System.Windows.Forms.Padding(0);
             this.textureReplaceButton.Name = "textureReplaceButton";
             this.textureReplaceButton.Size = new System.Drawing.Size(82, 18);
             this.textureReplaceButton.TabIndex = 11;
             this.textureReplaceButton.Text = "&replace";
+            this.helpToolTip.SetToolTip(this.textureReplaceButton, "replace current texture in marked or the entire mine");
             // 
             // textureTagPlaneButton
             // 
             this.textureTagPlaneButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.textureTagPlaneButton.Location = new System.Drawing.Point(126, 98);
+            this.textureTagPlaneButton.Location = new System.Drawing.Point(126, 94);
             this.textureTagPlaneButton.Margin = new System.Windows.Forms.Padding(0);
             this.textureTagPlaneButton.Name = "textureTagPlaneButton";
             this.textureTagPlaneButton.Size = new System.Drawing.Size(82, 18);
@@ -410,7 +412,7 @@
             // textureTagTexturesButton
             // 
             this.textureTagTexturesButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.textureTagTexturesButton.Location = new System.Drawing.Point(126, 114);
+            this.textureTagTexturesButton.Location = new System.Drawing.Point(126, 110);
             this.textureTagTexturesButton.Margin = new System.Windows.Forms.Padding(0);
             this.textureTagTexturesButton.Name = "textureTagTexturesButton";
             this.textureTagTexturesButton.Size = new System.Drawing.Size(82, 18);
@@ -420,12 +422,13 @@
             // textureCleanupButton
             // 
             this.textureCleanupButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.textureCleanupButton.Location = new System.Drawing.Point(126, 130);
+            this.textureCleanupButton.Location = new System.Drawing.Point(126, 126);
             this.textureCleanupButton.Margin = new System.Windows.Forms.Padding(0);
             this.textureCleanupButton.Name = "textureCleanupButton";
             this.textureCleanupButton.Size = new System.Drawing.Size(82, 18);
             this.textureCleanupButton.TabIndex = 14;
             this.textureCleanupButton.Text = "clean&up";
+            this.helpToolTip.SetToolTip(this.textureCleanupButton, "removes unused custom textures");
             // 
             // textureBrightnessTextBox
             // 
@@ -440,6 +443,7 @@
             this.textureBrightnessTextBox.TabStop = false;
             this.textureBrightnessTextBox.Text = "0";
             this.textureBrightnessTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.helpToolTip.SetToolTip(this.textureBrightnessTextBox, "brightness of this texture (applies to entire mine)");
             // 
             // texturePaste1StCheckBox
             // 
@@ -452,6 +456,7 @@
             this.texturePaste1StCheckBox.TabIndex = 18;
             this.texturePaste1StCheckBox.Text = "use 1st";
             this.texturePaste1StCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.helpToolTip.SetToolTip(this.texturePaste1StCheckBox, "apply above copy/paste/replace/tag to 1st texture");
             // 
             // texturePaste2NdCheckBox
             // 
@@ -464,6 +469,7 @@
             this.texturePaste2NdCheckBox.TabIndex = 19;
             this.texturePaste2NdCheckBox.Text = "use 2nd";
             this.texturePaste2NdCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.helpToolTip.SetToolTip(this.texturePaste2NdCheckBox, "apply above copy/paste/replace/tag to 2nd texture");
             // 
             // label1st
             // 
@@ -488,12 +494,13 @@
             // labelLightA
             // 
             this.labelLightA.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.labelLightA.Location = new System.Drawing.Point(6, 13);
+            this.labelLightA.Location = new System.Drawing.Point(4, 14);
             this.labelLightA.Margin = new System.Windows.Forms.Padding(0);
             this.labelLightA.Name = "labelLightA";
             this.labelLightA.Size = new System.Drawing.Size(26, 15);
             this.labelLightA.TabIndex = 23;
             this.labelLightA.Text = "light:";
+            this.labelLightA.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelLightB
             // 
@@ -504,6 +511,7 @@
             this.labelLightB.Size = new System.Drawing.Size(26, 15);
             this.labelLightB.TabIndex = 24;
             this.labelLightB.Text = "light:";
+            this.labelLightB.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelBrightness
             // 
@@ -593,5 +601,6 @@
         private System.Windows.Forms.Label label100Percent;
         private IntTextBox textureBrightnessTextBox;
         private UpDownControl textureBrightUpDownControl;
+        private System.Windows.Forms.ToolTip helpToolTip;
     }
 }
