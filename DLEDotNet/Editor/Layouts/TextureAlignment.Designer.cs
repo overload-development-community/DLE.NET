@@ -304,7 +304,7 @@
             this.texalignIgnoreplaneCheckBox.Size = new System.Drawing.Size(86, 18);
             this.texalignIgnoreplaneCheckBox.TabIndex = 27;
             this.texalignIgnoreplaneCheckBox.Text = "align all sides";
-            this.helpToolTip.SetToolTip(this.texalignIgnoreplaneCheckBox, "apply \"align textures on child sides\" to non-touching/planar sides");
+            this.helpToolTip.SetToolTip(this.texalignIgnoreplaneCheckBox, "apply \"align textures on child sides\" also to non-touching/planar sides");
             // 
             // texalignZoomoutButton
             // 

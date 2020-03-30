@@ -360,7 +360,7 @@
             // 
             this.segmentLavaCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.segmentLavaCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.segmentLavaCheckBox.Location = new System.Drawing.Point(16, 32);
+            this.segmentLavaCheckBox.Location = new System.Drawing.Point(16, 31);
             this.segmentLavaCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentLavaCheckBox.Name = "segmentLavaCheckBox";
             this.segmentLavaCheckBox.Size = new System.Drawing.Size(61, 20);
@@ -386,7 +386,7 @@
             // 
             this.segmentNodamageCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.segmentNodamageCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.segmentNodamageCheckBox.Location = new System.Drawing.Point(102, 32);
+            this.segmentNodamageCheckBox.Location = new System.Drawing.Point(102, 31);
             this.segmentNodamageCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentNodamageCheckBox.Name = "segmentNodamageCheckBox";
             this.segmentNodamageCheckBox.Size = new System.Drawing.Size(79, 20);
@@ -400,7 +400,7 @@
             // 
             this.segmentOutdoorsCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.segmentOutdoorsCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.segmentOutdoorsCheckBox.Location = new System.Drawing.Point(81, 49);
+            this.segmentOutdoorsCheckBox.Location = new System.Drawing.Point(81, 47);
             this.segmentOutdoorsCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentOutdoorsCheckBox.Name = "segmentOutdoorsCheckBox";
             this.segmentOutdoorsCheckBox.Size = new System.Drawing.Size(100, 20);
@@ -414,7 +414,7 @@
             // 
             this.segmentEndofexitCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.segmentEndofexitCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.segmentEndofexitCheckBox.Location = new System.Drawing.Point(76, 66);
+            this.segmentEndofexitCheckBox.Location = new System.Drawing.Point(76, 63);
             this.segmentEndofexitCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentEndofexitCheckBox.Name = "segmentEndofexitCheckBox";
             this.segmentEndofexitCheckBox.Size = new System.Drawing.Size(105, 20);
@@ -877,13 +877,13 @@
             // 
             this.groupBoxProperties.Alignment = System.Windows.Forms.HorizontalAlignment.Center;
             this.groupBoxProperties.Controls.Add(this.segmentDenseFogCheckBox);
-            this.groupBoxProperties.Controls.Add(this.segmentWaterCheckBox);
-            this.groupBoxProperties.Controls.Add(this.segmentLavaCheckBox);
-            this.groupBoxProperties.Controls.Add(this.segmentBlockedCheckBox);
-            this.groupBoxProperties.Controls.Add(this.segmentNodamageCheckBox);
-            this.groupBoxProperties.Controls.Add(this.segmentOutdoorsCheckBox);
             this.groupBoxProperties.Controls.Add(this.segmentEndofexitCheckBox);
+            this.groupBoxProperties.Controls.Add(this.segmentOutdoorsCheckBox);
             this.groupBoxProperties.Controls.Add(this.segmentLightFogCheckBox);
+            this.groupBoxProperties.Controls.Add(this.segmentLavaCheckBox);
+            this.groupBoxProperties.Controls.Add(this.segmentNodamageCheckBox);
+            this.groupBoxProperties.Controls.Add(this.segmentWaterCheckBox);
+            this.groupBoxProperties.Controls.Add(this.segmentBlockedCheckBox);
             this.groupBoxProperties.Location = new System.Drawing.Point(146, 124);
             this.groupBoxProperties.Margin = new System.Windows.Forms.Padding(0);
             this.groupBoxProperties.Name = "groupBoxProperties";
@@ -897,7 +897,7 @@
             // 
             this.segmentDenseFogCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.segmentDenseFogCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.segmentDenseFogCheckBox.Location = new System.Drawing.Point(3, 66);
+            this.segmentDenseFogCheckBox.Location = new System.Drawing.Point(3, 63);
             this.segmentDenseFogCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentDenseFogCheckBox.Name = "segmentDenseFogCheckBox";
             this.segmentDenseFogCheckBox.Size = new System.Drawing.Size(74, 20);
@@ -910,7 +910,7 @@
             // 
             this.segmentLightFogCheckBox.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.segmentLightFogCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.segmentLightFogCheckBox.Location = new System.Drawing.Point(12, 49);
+            this.segmentLightFogCheckBox.Location = new System.Drawing.Point(12, 47);
             this.segmentLightFogCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.segmentLightFogCheckBox.Name = "segmentLightFogCheckBox";
             this.segmentLightFogCheckBox.Size = new System.Drawing.Size(65, 20);
