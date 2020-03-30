@@ -111,6 +111,7 @@
             this.labelRed.TabIndex = 1;
             this.labelRed.TabStop = true;
             this.labelRed.Text = "red:";
+            this.labelRed.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelGreen
             // 
@@ -122,6 +123,7 @@
             this.labelGreen.TabIndex = 2;
             this.labelGreen.TabStop = true;
             this.labelGreen.Text = "green:";
+            this.labelGreen.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelBlue
             // 
@@ -133,6 +135,7 @@
             this.labelBlue.TabIndex = 3;
             this.labelBlue.TabStop = true;
             this.labelBlue.Text = "blue:";
+            this.labelBlue.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelAlpha
             // 
@@ -144,6 +147,7 @@
             this.labelAlpha.TabIndex = 4;
             this.labelAlpha.TabStop = true;
             this.labelAlpha.Text = "alpha:";
+            this.labelAlpha.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelSide
             // 
@@ -450,6 +454,7 @@
             this.labelLifeTime.TabIndex = 40;
             this.labelLifeTime.TabStop = true;
             this.labelLifeTime.Text = "life time:";
+            this.labelLifeTime.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelParticleSize
             // 
@@ -461,6 +466,7 @@
             this.labelParticleSize.TabIndex = 41;
             this.labelParticleSize.TabStop = true;
             this.labelParticleSize.Text = "particle size:";
+            this.labelParticleSize.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelDensity
             // 
@@ -472,6 +478,7 @@
             this.labelDensity.TabIndex = 42;
             this.labelDensity.TabStop = true;
             this.labelDensity.Text = "density:";
+            this.labelDensity.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelSpeed
             // 
@@ -483,6 +490,7 @@
             this.labelSpeed.TabIndex = 43;
             this.labelSpeed.TabStop = true;
             this.labelSpeed.Text = "speed:";
+            this.labelSpeed.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelDrift
             // 
@@ -494,6 +502,7 @@
             this.labelDrift.TabIndex = 44;
             this.labelDrift.TabStop = true;
             this.labelDrift.Text = "drift:";
+            this.labelDrift.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelBrightness
             // 
@@ -505,6 +514,7 @@
             this.labelBrightness.TabIndex = 45;
             this.labelBrightness.TabStop = true;
             this.labelBrightness.Text = "brightness:";
+            this.labelBrightness.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // particleSelectColorButton
             // 

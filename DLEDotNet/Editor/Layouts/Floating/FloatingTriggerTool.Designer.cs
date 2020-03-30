@@ -194,7 +194,7 @@
             this.triggerControldoorsCheckBox.Location = new System.Drawing.Point(6, 16);
             this.triggerControldoorsCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerControldoorsCheckBox.Name = "triggerControldoorsCheckBox";
-            this.triggerControldoorsCheckBox.Size = new System.Drawing.Size(85, 16);
+            this.triggerControldoorsCheckBox.Size = new System.Drawing.Size(90, 16);
             this.triggerControldoorsCheckBox.TabIndex = 0;
             this.triggerControldoorsCheckBox.Text = "control doors";
             // 

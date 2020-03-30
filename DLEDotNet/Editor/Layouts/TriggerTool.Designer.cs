@@ -214,7 +214,7 @@
             this.triggerControldoorsCheckBox.Location = new System.Drawing.Point(6, 18);
             this.triggerControldoorsCheckBox.Margin = new System.Windows.Forms.Padding(0);
             this.triggerControldoorsCheckBox.Name = "triggerControldoorsCheckBox";
-            this.triggerControldoorsCheckBox.Size = new System.Drawing.Size(80, 15);
+            this.triggerControldoorsCheckBox.Size = new System.Drawing.Size(88, 15);
             this.triggerControldoorsCheckBox.TabIndex = 0;
             this.triggerControldoorsCheckBox.Text = "control doors";
             this.helpToolTip.SetToolTip(this.triggerControldoorsCheckBox, "opens doors, including locked doors");
