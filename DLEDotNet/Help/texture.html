@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - Texture Tool</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>Texture Tool</h1>
+        <div>
+            <a href="#selection">Selection</a> &middot;
+            <a href="#actions">Actions</a> &middot;
+            <a href="#alignment">Alignment</a> &middot;
+            <a href="#projection">Projection</a> &middot;
+            <a href="#lights">Lights</a> &middot;
+            <a href="#behaviors">Special behaviors</a>
+        </div>
+
+        <p>
+            Textures can only be applied to closed sides (sides not connected
+            to another segment) or <a href="walls.html">walls</a>.
+        </p>
+        
+        <h2 id="selection">Selection</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">light</td>
+                    <td>
+                        This controls the light levels for this particular face in each of the four corners.
+                        The values range from 0 (all but dark) to 100 (very bright). It is advisable to use
+                        the <a href="lights.html">Lights</a> tool instead to automatically compute these, but
+                        manual adjustment may be required from time to time.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">1st<br />2nd</td>
+                    <td>
+                        Textures in Descent have two layers; the first and the second layer. The first layer
+                        is the "base" texture that should not contain transparency, unless the wall supports it.
+                        <p></p>
+                        The second texture, which is used for overlays, etc. can contain two kinds of transparency;
+                        normal transparency that will pass through to the first layer texture, and super-transparency
+                        ("see through") that will see through the wall entirely; using the latter also requires
+                        a wall type that supports transparency.
+                        <p></p>
+                        If a texture has special properties on touch, like water or lava, or has a movement-based
+                        animation (Descent 2 only), it must be placed on the first layer. Lights and other animations
+                        may also be placed on the second layer.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">show frames</td>
+                    <td>
+                        Controls whether individual frames for animated textures should be shown separately in the
+                        texture list. Useful if you want to use a specific frame of an animated texture as opposed
+                        to the animation itself.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="actions">Actions</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">edit...</td>
+                    <td>
+                        Opens the PIG/POG editor which allows adding custom textures to levels through the use 
+                        of POG files (Descent 2) or modifying the PIG file that applies to all levels (Descent 1).
+                        It will also open the currently selected texture (only one; if both use 1st and 2nd are
+                        checked, only the 1st texture) into the editor, allowing it to be edited more quickly.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">copy</td>
+                    <td>
+                        Copies the current texture to a separate <b>texture clipboard</b>, a separate clipboard
+                        that can store a single texture (with two layers, from which it can be pasted.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">paste</td>
+                    <td>
+                        Pastes the texture from the <i>texture clipboard</i> onto the current side.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">paste touching</td>
+                    <td>
+                        Pastes the texture from the <i>texture clipboard</i> onto the current side and any side that is
+                        considered "touching"; that is, any neighboring sides that have the same side number
+                        and the same texture as the current side.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">replace</td>
+                    <td>
+                        Replaces the currently selected texture with that currently stored on the <i>texture clipboard</i>.
+                        The operation will only apply to marked sides, or if none, to the entire mine, and will only
+                        replace if the texture matches that of the current side.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">mark plane</td>
+                    <td>
+                        Marks all sides on the current plane, i.e. the current side and all neighboring sides that
+                        share the same side number.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">mark textures</td>
+                    <td>
+                        Marks all sides that share the same texture as the current side and are all connected by
+                        at least one edge (the side number need not match).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">brightness</td>
+                    <td>
+                        Controls the "brightness" of this texture; that is, the light level it applies when new
+                        light levels are computed. The brightness affects the currently selected texture
+                        throughout the mine. Will only apply to one texture at a time; if both use 1st and 2nd
+                        are selected, this will only apply to the 1st texture.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">use 1st<br />use 2nd</td>
+                    <td>
+                        Whether to apply the actions to the first or second layer, respectively. For operations
+                        such as "replace" and "mark textures", this also controls which texture layers need to
+                        match.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="alignment">Alignment</h2>
+        <p>
+            The alignment tool features an alignment view that shows the alignment of the texture. Each of the
+            four corners of the texture will be stretched to the four corners of the current side,
+            With the default orientation, this corresponds to point 1 for the top-right corner and proceeding
+            clockwise.
+        </p>
+
+        <p>
+            Note that since the texture is stretched to all four corners, the texture is "naturally" aligned
+            without any stretching when the shape of the texture on the alignment view matches the shape of the
+            side itself. A square will cause the entire texture or a part of it to stretch as-is to match the
+            shape of the side.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="icontd"><img class="button" alt="icon" src="images/ZOOMOUT.png"></td>
+                    <td class="main">zoom out</td>
+                    <td>
+                        Zooms the alignment view out.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontd"><img class="button" alt="icon" src="images/ZOOMIN.png"></td>
+                    <td class="main">zoom in</td>
+                    <td>
+                        Zooms the alignment view in.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontd"><img class="button" alt="icon" src="images/FLIPH.png"></td>
+                    <td class="main">flip texture horizontally</td>
+                    <td>
+                        Flips the texture horizontally by flipping every point around the center of
+                        the texture as it is currently aligned. On sides that are not shaped like
+                        rectangles, the flipped texture may be stretched as a result.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontd"><img class="button" alt="icon" src="images/FLIPV.png"></td>
+                    <td class="main">flip texture vertically</td>
+                    <td>
+                        Flips the texture vertically in the same manner as above.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="main">movement controls</td>
+                    <td>
+                        Moves the point, line or side (depending on the currently active
+                        selection mode) of the "texture window" on the alignment view around
+                        in the given direction, which will cause the corresponding texture
+                        point/line/side to move in the <em>opposite</em> direction.
+                        The speed of movement is the same as the mine move rate under the
+                        <a href="settings.html#editor">settings</a>.
+                        <p></p>
+                        The text boxes next to the movement buttons detail the X and Y
+                        coordinates of the current point, line or side respectively within
+                        the coordinate system of the alignment grid. Values can be changed
+                        by typing in a new number and pressing enter or space.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="main">rotation controls</td>
+                    <td>
+                        Rotates the line or side (depending on the currently active selection
+                        mode) on the alignment view around in the given direction, which will
+                        cause the texture on the side itself to rotate in the <em>opposite</em>
+                        direction.
+                        The speed of rotation is the same as the rotate rate
+                        under the <a href="settings.html#editor">settings</a>.
+                        <p></p>
+                        The text box next to the rotation buttons details the current clockwise
+                        rotation angle in degrees of the line or side respectively. Values can
+                        be changed by typing in a new number and pressing enter or space.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontd"><img class="button" alt="icon" src="images/RESET.png"></td>
+                    <td class="main">reset texture</td>
+                    <td>
+                        Resets the alignment of the texture on this side back to default, such
+                        that it appears without any stretching or squeezing (provided the geometry
+                        of the side allows for unstretched rendering of textures).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontd"><img class="button" alt="icon" src="images/RESETM.png"></td>
+                    <td class="main">reset marked textures</td>
+                    <td>
+                        Applies the above reset operation to all marked sides.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontd"><img class="button" alt="icon" src="images/FITSIZE.png"></td>
+                    <td class="main">stretch texture to fit to side</td>
+                    <td>
+                        Resets the alignment of the current texture back into a square, causing
+                        it to be stretched or squeezed across the entire side such that the
+                        corners of the texture match the corner points of the side.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontd"><img class="button" alt="icon" src="images/ALIGN.png"></td>
+                    <td class="main">align textures on child sides</td>
+                    <td>
+                        Aligns the textures on all child sides.
+                        <p></p>
+                        If "align all sides" is not checked, this will align all sides that share
+                        the same texture and the same side number, i.e. the side must be co-planar
+                        (similar to how "mark plane" works).
+                        <p></p>
+                        If "align all sides" is checked, this will align all sides that share the same
+                        texture and are directly or indirectly connected by at least one edge to the
+                        current side (similar to how "mark textures" works).
+                        <p></p>
+                        After the alignment operation, if there are no loops, there will be no
+                        seams or discontinuities in the texture alignment from one side to another
+                        for the entire set of sides that were aligned, assuming that the textures
+                        on all sides have been reset beforehand.
+                        <p></p>
+                        The alignment operation will preserve stretching on all aligned sides, which
+                        may lead to texture discontinuities if the length of the edge on one side
+                        does not match the length of the edge on the connected side.
+                        <p></p>
+                        If there are loops in the set of connected alignable sides, one of the edges
+                        may end up having a discontinuity after the alignment operation. Such an edge
+                        is not well-defined and will depend on the exact structure of the sides.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontd"><img class="button" alt="icon" src="images/ALIGNALL.png"></td>
+                    <td class="main">align textures on marked sides</td>
+                    <td>
+                        Aligns the textures on all marked sides, or if none are marked, in the
+                        entire mine. The operation is similar to that of above.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="main">align all sides</td>
+                    <td>
+                        Changes the behavior of "align textures on child sides".
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="projection">Projection</h2>
+        <p>
+            TODO: Help to be written here
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="icontd"><img class="button" alt="icon" src="images/PLANAR.png"></td>
+                    <td class="main">planar projection</td>
+                    <td>
+                        Starts the setup of a planar projection.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontd"><img class="button" alt="icon" src="images/CYLINDER.png"></td>
+                    <td class="main">cylindrical projection</td>
+                    <td>
+                        Starts the setup of a cylindrical projection.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="lights">Lights</h2>
+        <p>
+            This tool is used to control variable lights (Descent 2 only), as well as the
+            color of the light produced by either the texture or the variable light (D2X-XL only).
+            In order to add a variable light to a side, it must have a texture that produces
+            light (i.e. has brightness greater than 0%).
+        </p>
+        <p>
+            Variable lights are mostly used to add animations to lights, such as flickering
+            or lights that turn on and off in a row, causing the lights to "move".
+        </p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="icontd"><img class="button" alt="icon" src="images/PLUS.png"></td>
+                    <td class="main">add variable light</td>
+                    <td>
+                        Adds a variable light to the current side. A variable light has
+                        32 "dots" that are either on or off, and the light will move
+                        counter-clockwise (or clockwise in XL) according to the configured
+                        speed. 
+                        <p></p>
+                        It is possible to toggle the dots by clicking or to use the binary
+                        text box (with 0s and 1s) to control the dots themselves.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontd"><img class="button" alt="icon" src="images/MINUS.png"></td>
+                    <td class="main">delete variable light</td>
+                    <td>
+                        Removes the variable light from this side.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="main">msec/dot</td>
+                    <td>
+                        Controls the speed of the variable light. Must be greater
+                        than 0 for the variable light to work properly. The fastest speed is
+                        50 msec/dot, which means that the every dot is 50 milliseconds long
+                        and thus a full revolution around 32 bots will complete in 1.6 seconds.
+                        The slowest speed is 1000 msec/dot, which will complete a revolution
+                        in 32 seconds.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td class="main">color palette</td>
+                    <td>
+                        Used to change the color of the light. The effect will only
+                        be visible if the version of the game used supports colored
+                        lighting (D2X-XL is potentially the only version that does).
+                        The possible light colors are from the current palette for the
+                        level, which can be configured from the <a href="settings.html#files">settings</a>.
+                        <p></p>
+                        In addition to the selected color, its index in the palette
+                        will be shown.
+                        <p></p>
+                        In D2X-XL, it is also possible to use a custom color, which
+                        can be set with the RGB button.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="behaviors">Special behaviors</h2>
+
+        <p>
+            Some textures have special behaviors that apply when they are
+            touched.
+        </p>
+
+        <ul>
+            <li>Lava: causes damage to the player and the ship to shake
+                around slightly. Also plays a sound effect. Any projectiles
+                that hit lava (except if on an illusionary wall)
+                cause lava to splash around, which either
+                adds a blast radius to a projectile or increases its size.</li>
+            <li>Water (Descent 2): causes the player ship to shake around
+                slightly, but without any damage. Also plays a sound effect.
+                Reduces the blast radius of any projectiles that hit it
+                (except if on an illusionary wall).</li>
+            <li>Force fields (Descent 2): play an ambient noise and cause
+                any players or projectiles hitting it to bounce back, with
+                the former getting slight damage.</li>
+            <li>Doors and blastable walls (incl. wall01): the animation
+                will only play if properly used with a <a href="walls.html">wall</a>.</li>
+        </ul>
+    </body>
+</html>

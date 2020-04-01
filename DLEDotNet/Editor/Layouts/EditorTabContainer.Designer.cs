@@ -74,7 +74,7 @@
             this.tabPageTexture.Location = new System.Drawing.Point(4, 22);
             this.tabPageTexture.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPageTexture.Name = "tabPageTexture";
-            this.tabPageTexture.Size = new System.Drawing.Size(1042, 462);
+            this.tabPageTexture.Size = new System.Drawing.Size(992, 474);
             this.tabPageTexture.TabIndex = 0;
             this.tabPageTexture.Text = "Texture";
             // 
@@ -85,7 +85,7 @@
             this.tabPageSegments.Location = new System.Drawing.Point(4, 22);
             this.tabPageSegments.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPageSegments.Name = "tabPageSegments";
-            this.tabPageSegments.Size = new System.Drawing.Size(1042, 462);
+            this.tabPageSegments.Size = new System.Drawing.Size(992, 474);
             this.tabPageSegments.TabIndex = 1;
             this.tabPageSegments.Text = "Segments";
             // 
@@ -96,7 +96,7 @@
             this.tabPageWalls.Location = new System.Drawing.Point(4, 22);
             this.tabPageWalls.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPageWalls.Name = "tabPageWalls";
-            this.tabPageWalls.Size = new System.Drawing.Size(1042, 462);
+            this.tabPageWalls.Size = new System.Drawing.Size(992, 474);
             this.tabPageWalls.TabIndex = 2;
             this.tabPageWalls.Text = "Walls";
             // 
@@ -107,7 +107,7 @@
             this.tabPageTriggers.Location = new System.Drawing.Point(4, 22);
             this.tabPageTriggers.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPageTriggers.Name = "tabPageTriggers";
-            this.tabPageTriggers.Size = new System.Drawing.Size(1042, 462);
+            this.tabPageTriggers.Size = new System.Drawing.Size(992, 474);
             this.tabPageTriggers.TabIndex = 3;
             this.tabPageTriggers.Text = "Triggers";
             // 
@@ -118,7 +118,7 @@
             this.tabPageObjects.Location = new System.Drawing.Point(4, 22);
             this.tabPageObjects.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPageObjects.Name = "tabPageObjects";
-            this.tabPageObjects.Size = new System.Drawing.Size(1042, 462);
+            this.tabPageObjects.Size = new System.Drawing.Size(992, 474);
             this.tabPageObjects.TabIndex = 4;
             this.tabPageObjects.Text = "Objects";
             // 
@@ -140,7 +140,7 @@
             this.tabPageLights.Location = new System.Drawing.Point(4, 22);
             this.tabPageLights.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPageLights.Name = "tabPageLights";
-            this.tabPageLights.Size = new System.Drawing.Size(1042, 462);
+            this.tabPageLights.Size = new System.Drawing.Size(992, 474);
             this.tabPageLights.TabIndex = 6;
             this.tabPageLights.Text = "Lights";
             // 
@@ -151,7 +151,7 @@
             this.tabPageReactor.Location = new System.Drawing.Point(4, 22);
             this.tabPageReactor.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPageReactor.Name = "tabPageReactor";
-            this.tabPageReactor.Size = new System.Drawing.Size(1042, 462);
+            this.tabPageReactor.Size = new System.Drawing.Size(992, 474);
             this.tabPageReactor.TabIndex = 7;
             this.tabPageReactor.Text = "Reactor";
             // 
@@ -162,7 +162,7 @@
             this.tabPageMission.Location = new System.Drawing.Point(4, 22);
             this.tabPageMission.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPageMission.Name = "tabPageMission";
-            this.tabPageMission.Size = new System.Drawing.Size(1042, 462);
+            this.tabPageMission.Size = new System.Drawing.Size(992, 474);
             this.tabPageMission.TabIndex = 8;
             this.tabPageMission.Text = "Mission";
             // 
@@ -173,7 +173,7 @@
             this.tabPageDiagnostics.Location = new System.Drawing.Point(4, 22);
             this.tabPageDiagnostics.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPageDiagnostics.Name = "tabPageDiagnostics";
-            this.tabPageDiagnostics.Size = new System.Drawing.Size(1042, 462);
+            this.tabPageDiagnostics.Size = new System.Drawing.Size(992, 474);
             this.tabPageDiagnostics.TabIndex = 9;
             this.tabPageDiagnostics.Text = "Diagnostics";
             // 
@@ -184,7 +184,7 @@
             this.tabPageTextureFilters.Location = new System.Drawing.Point(4, 22);
             this.tabPageTextureFilters.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPageTextureFilters.Name = "tabPageTextureFilters";
-            this.tabPageTextureFilters.Size = new System.Drawing.Size(1042, 462);
+            this.tabPageTextureFilters.Size = new System.Drawing.Size(992, 474);
             this.tabPageTextureFilters.TabIndex = 10;
             this.tabPageTextureFilters.Text = "Texture Filters";
             // 
@@ -195,7 +195,7 @@
             this.tabPageSettings.Location = new System.Drawing.Point(4, 22);
             this.tabPageSettings.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabPageSettings.Name = "tabPageSettings";
-            this.tabPageSettings.Size = new System.Drawing.Size(1042, 462);
+            this.tabPageSettings.Size = new System.Drawing.Size(992, 474);
             this.tabPageSettings.TabIndex = 11;
             this.tabPageSettings.Text = "Settings";
             // 

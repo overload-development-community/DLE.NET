@@ -13,6 +13,7 @@ namespace DLEDotNet.Editor.Layouts
         public ReactorTool()
         {
             InitializeComponent();
+            this.HelpPageName = "reactor";
         }
 
         internal override void ResetLayout() => InitializeComponent();

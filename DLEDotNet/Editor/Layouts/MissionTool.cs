@@ -12,6 +12,7 @@ namespace DLEDotNet.Editor.Layouts
         public MissionTool()
         {
             InitializeComponent();
+            this.HelpPageName = "mission";
         }
 
         internal override void ResetLayout() => InitializeComponent();

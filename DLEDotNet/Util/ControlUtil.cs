@@ -1,4 +1,5 @@
 ﻿using DLEDotNet.Data;
+using DLEDotNet.Editor;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -143,6 +144,20 @@ namespace DLEDotNet.Util
         {
             if (listBox.SelectedIndex > 0)
                 --listBox.SelectedIndex;
+        }
+
+        internal static void CatchClickAnywhereOnce(Form form, Action onClick)
+        {
+            if (OnWindows)
+            {
+                var mouseClickFilter = new MouseClickMessageFilter(form);
+                mouseClickFilter.Click += (object sender, EventArgs e) =>
+                {
+                    Application.RemoveMessageFilter(mouseClickFilter);
+                    onClick();
+                };
+                Application.AddMessageFilter(mouseClickFilter);
+            }
         }
     }
 }

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - Toolbar</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>Toolbar</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarOpenFile.png"></td>
+                    <td class="main">Open</td>
+                    <td>
+                        Opens a new file, either a .hog archive or a .rdl/.rl2 level.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarSaveFile.png"></td>
+                    <td class="main">Save</td>
+                    <td>
+                        Saves the current file, either as a .hog archive or a .rdl/.rl2 level.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarCheckMine.png"></td>
+                    <td class="main">check mine</td>
+                    <td>
+                        Opens the <a href="diagnostics.html">diagnostics</a> tool and checks the mine,
+                        generating a report which can find potential problems.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarLightTool.png"></td>
+                    <td class="main">open light tool</td>
+                    <td>
+                        Opens the <a href="lights.html">light tool</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarTextureTool.png"></td>
+                    <td class="main">open texture tool</td>
+                    <td>
+                        Opens the <a href="texture.html">texture tool</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarSegmentTool.png"></td>
+                    <td class="main">open segment tool</td>
+                    <td>
+                        Opens the <a href="segments.html">segment tool</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarWallTool.png"></td>
+                    <td class="main">open wall tool</td>
+                    <td>
+                        Opens the <a href="walls.html">wall tool</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarObjectTool.png"></td>
+                    <td class="main">open object tool</td>
+                    <td>
+                        Opens the <a href="objects.html">object tool</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarPrefsTool.png"></td>
+                    <td class="main">edit preferences</td>
+                    <td>
+                        Opens the <a href="settings.html">settings</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarZoomIn.png"></td>
+                    <td class="main">zoom in</td>
+                    <td>
+                        Zooms in on the mine view.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarZoomOut.png"></td>
+                    <td class="main">zoom out</td>
+                    <td>
+                        Zooms out on the mine view.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarFitMine.png"></td>
+                    <td class="main">fit mine to view</td>
+                    <td>
+                        Fits the entire mine to the mine view, adjusting the camera position, orientation and zoom.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarPanLeft.png"></td>
+                    <td class="main">pan left</td>
+                    <td>
+                        Pans left. The movement speed is controlled as "view move speed" under the <a href="settings.html#editor">settings</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarPanRight.png"></td>
+                    <td class="main">pan right</td>
+                    <td>
+                        Pans right. The movement speed is controlled as "view move speed" under the <a href="settings.html#editor">settings</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarPanUp.png"></td>
+                    <td class="main">pan up</td>
+                    <td>
+                        Pans up. The movement speed is controlled as "view move speed" under the <a href="settings.html#editor">settings</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarPanDown.png"></td>
+                    <td class="main">pan down</td>
+                    <td>
+                        Pans down. The movement speed is controlled as "view move speed" under the <a href="settings.html#editor">settings</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarRotateXM.png"></td>
+                    <td class="main">rotate X-</td>
+                    <td>
+                        Rotates the camera "left" (also adjusting its position).
+                        The rotation speed is controlled as "rotate speed" under the <a href="settings.html#editor">settings</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarRotateXP.png"></td>
+                    <td class="main">rotate X+</td>
+                    <td>
+                        Rotates the camera "right" (also adjusting its position).
+                        The rotation speed is controlled as "rotate speed" under the <a href="settings.html#editor">settings</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarRotateYM.png"></td>
+                    <td class="main">rotate Y-</td>
+                    <td>
+                        Rotates the camera "up" (also adjusting its position).
+                        The rotation speed is controlled as "rotate speed" under the <a href="settings.html#editor">settings</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarRotateYP.png"></td>
+                    <td class="main">rotate Y+</td>
+                    <td>
+                        Rotates the camera "down" (also adjusting its position).
+                        The rotation speed is controlled as "rotate speed" under the <a href="settings.html#editor">settings</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarRotateZM.png"></td>
+                    <td class="main">rotate Z-</td>
+                    <td>
+                        Rotates the camera clockwise.
+                        The rotation speed is controlled as "rotate speed" under the <a href="settings.html#editor">settings</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarRotateZP.png"></td>
+                    <td class="main">rotate Z+</td>
+                    <td>
+                        Rotates the camera counter-clockwise.
+                        The rotation speed is controlled as "rotate speed" under the <a href="settings.html#editor">settings</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarJoinPoints.png"></td>
+                    <td class="main">join points</td>
+                    <td>
+                        Joins the current point with the <i><a href="selection.html">other point</a></i>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarSplitPoints.png"></td>
+                    <td class="main">split points</td>
+                    <td>
+                        Separates the current point from any other points it is attached to.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarJoinLines.png"></td>
+                    <td class="main">join lines</td>
+                    <td>
+                        Joins the current line with the <i><a href="selection.html">other line</a></i>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarSplitLines.png"></td>
+                    <td class="main">split lines</td>
+                    <td>
+                        Separates the current line from any other lines it is attached to.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarJoinSides.png"></td>
+                    <td class="main">join sides</td>
+                    <td>
+                        Joins the current side with the <i><a href="selection.html">other side</a></i>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarSplitSides.png"></td>
+                    <td class="main">split sides</td>
+                    <td>
+                        Separates the current side from the side it is attached to.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarAddNormal.png"></td>
+                    <td class="main">add normal segments</td>
+                    <td>
+                        Sets the segment addition mode to "normal", meaning that the new segment
+                        will extend 20 units from the side the new segment is created from, and the opposite
+                        side will be a 20x20 unit square. With standard 20x20x20 segments, this results in
+                        normal 20x20x20 segments. This is the default mode.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarAddExtended.png"></td>
+                    <td class="main">add extended segments</td>
+                    <td>
+                        Sets the segment addition mode to "extended", meaning that the new segment will
+                        preserve the shape of the side it is created from and will extend for as long as the
+                        current segment (based on an average length of a normal from the side).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarAddMirrored.png"></td>
+                    <td class="main">add mirrored segments</td>
+                    <td>
+                        Sets the segment addition mode to "mirrored", meaning that the new segment
+                        will be a mirror image of the current segment around the current side.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarPointMode.png"></td>
+                    <td class="main">set point mode</td>
+                    <td>
+                        Sets the <a href="selection.html">selection mode</a> to select points.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarLineMode.png"></td>
+                    <td class="main">set line mode</td>
+                    <td>
+                        Sets the <a href="selection.html">selection mode</a> to select lines/edges.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarSideMode.png"></td>
+                    <td class="main">set side mode</td>
+                    <td>
+                        Sets the <a href="selection.html">selection mode</a> to select sides.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarSegmentMode.png"></td>
+                    <td class="main">set segment mode</td>
+                    <td>
+                        Sets the <a href="selection.html">selection mode</a> to select segments.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarObjectMode.png"></td>
+                    <td class="main">set object mode</td>
+                    <td>
+                        Sets the <a href="selection.html">selection mode</a> to select objects.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarBlockMode.png"></td>
+                    <td class="main">set block mode</td>
+                    <td>
+                        Sets the <a href="selection.html">selection mode</a> to select segments, but with
+                        movement and editing tools applying to the entire block of tagged segments, sides, lines
+                        and points.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarRedrawMine.png"></td>
+                    <td class="main">redraw mine</td>
+                    <td>
+                        Forces a refresh of the mine view.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="icontbtd"><img class="toolbar" alt="icon" src="images/toolbarFullScreen.png"></td>
+                    <td class="main">toggle full screen</td>
+                    <td>
+                        Toggles full screen mode, in which the tool tab and texture list are hidden.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

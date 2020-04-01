@@ -19,6 +19,7 @@ namespace DLEDotNet.Editor.Layouts
         public TextureTool()
         {
             InitializeComponent();
+            this.HelpPageName = "texture";
         }
 
         internal override void ResetLayout() => InitializeComponent();

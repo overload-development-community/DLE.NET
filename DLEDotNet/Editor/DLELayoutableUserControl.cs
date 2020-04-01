@@ -27,6 +27,7 @@ namespace DLEDotNet.Editor
                 if (!IgnoreLayoutChanges) OnLayoutUpdate();
             }
         }
+        private ContextMenuStrip helpStrip = null;
 
         [Browsable(true)]
         [Category("Appearance")]
@@ -65,6 +66,12 @@ namespace DLEDotNet.Editor
         {
         }
 
+        /// <summary>
+        /// The HTML help page name for this tool.
+        /// </summary>
+        /// <returns>The file name of the HTML help page without the extension if a help page exists, or null otherwise.</returns>
+        internal string HelpPageName { get; private protected set; } = null;
+
         #region --- layout management code
 
         public void InitializeLayout()
@@ -81,9 +88,28 @@ namespace DLEDotNet.Editor
             firstUpdate = false;
         }
 
+        private void SetupHelpMenu()
+        {
+            if (helpStrip == null && HelpPageName != null)
+            {
+                helpStrip = new ContextMenuStrip();
+                helpStrip.Name = "helpContextMenu";
+
+                var helpItem = new ToolStripMenuItem();
+                helpItem.Click += (object sender, EventArgs e) => Owner.OpenHelpPage(HelpPageName);
+                helpItem.Text = "&Help";
+                helpStrip.Items.Add(helpItem);
+
+                this.ContextMenuStrip = helpStrip;
+            }
+            if (helpStrip != null)
+                helpStrip.Visible = HelpPageName != null;
+        }
+
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            SetupHelpMenu();
             if (!DesignMode)
                 SetupControls();
         }

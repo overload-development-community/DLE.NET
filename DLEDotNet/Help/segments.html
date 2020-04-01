@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - Segment Tool</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>Segment Tool</h1>
+        <div>
+            <a href="#data">Segment Data</a> &middot;
+            <a href="#groups">Segment Groups</a> &middot;
+            <a href="#sidepoint">Side &amp; Point</a> &middot;
+            <a href="#properties">Properties</a> &middot;
+            <a href="#robotmaker">Robot Maker Data</a> &middot;
+            <a href="#damage">Damage Data</a> &middot;
+            <a href="#triggers">Trigger Data</a> &middot;
+            <a href="#add">Add &amp; Delete</a>
+        </div>
+
+        <h2 id="data">Segment Data</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">Seg. #</td>
+                    <td>
+                        This is the list of segments currently in the level, numbered from 0 (thus the first
+                        segment has the number 0). It will also display the number of the current segment.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Function</td>
+                    <td>
+                        Controls the segment of the function. See the "Function" section below.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Light</td>
+                    <td>
+                        The static light level given off by this segment, between 0 and 100. Considered by
+                        the light computation code.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Function</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">None</td>
+                    <td>
+                        A standard segment.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Fuel Center</td>
+                    <td>
+                        An <i>energy center</i>; a segment that the player can use to fill their
+                        energy (required for firing most weapons, refilling the afterburner,
+                        using headlight or flares, etc.) back to 100. Shows up as gold in
+                        the automap.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Repair Center</td>
+                    <td>
+                        (XL-exclusive) A <i>repair center</i>; behaves like an energy center,
+                        but for shields. Shows up as cyan in the automap.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Reactor</td>
+                    <td>
+                        Sometimes called a <i>control center segment</i>; this segment is
+                        intended to be used for the segment that contains the reactor, and
+                        must be used exactly once in all well-formed (non-XL) single-player
+                        levels with either a reactor or boss robot. Shows up as dark red in the automap.
+                        <p></p>
+                        Some multiplayer levels use these to prevent items from spawning
+                        within those specific segments.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Robot Maker</td>
+                    <td>
+                        Also called a <i>materialization center</i> or <i>mat cen</i>,
+                        this is a special type of segment that can spawn robots when activated.
+                        It'll spawn 3-6 robots one at a time (depending on the difficulty) and
+                        on all difficulties except Insane (the highest), may only be activated
+                        three times before deactivating permanently. Shows up as magenta
+                        in the automap (as does the player spawn segment, which it should not
+                        be confused with; player start segments are normal segments).
+                        <p></p>
+                        In the XL-exclusive Entropy game mode, this is used as the virus spawn.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Blue Goal</td>
+                    <td>
+                        Used to represent the goal for the blue team; functional only in
+                        the Capture-the-Flag and Hoard multiplayer modes. Shows up as
+                        blue in the automap.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Red Goal</td>
+                    <td>
+                        Used to represent the goal for the red team; functional only in
+                        the Capture-the-Flag and Hoard multiplayer modes. Shows up as
+                        bright red in the automap.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Blue Team</td>
+                    <td>
+                        (XL-exclusive) A segment owned by the blue team. Player spawns within
+                        these segments will never be used to spawn red team players.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Red Team</td>
+                    <td>
+                        (XL-exclusive) A segment owned by the red team; behaves similar to above.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Speed Boost</td>
+                    <td>
+                        (XL-exclusive) A segment that can be used with speed boost triggers
+                        to prevent the player from leaving the boosted segment on their own.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Sky Box</td>
+                    <td>
+                        (XL-exclusive) This segment can never be entered by the player,
+                        any projectiles that enter it will vanish immediately, and
+                        it will not show up in the automap. Designed to enclose
+                        the entire level or parts of it, and be textured to serve as a sky box.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Equip Maker</td>
+                    <td>
+                        (XL-exclusive) Same as a Robot Maker, except it spawns in
+                        powerups and not robots.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="groups">Segment Groups</h2>
+        <p>
+            A segment can belong to <i>segment groups</i> (TODO: what exactly do they do?).
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">Owner</td>
+                    <td>
+                        Used for multiplayer segments in the Entropy and Hoard modes (D2X-XL exclusive).
+                        "Neutral" is the default setting, "Unowned" are for segments unclaimed by teams but
+                        which can be captured, while "Blue Team" and "Red Team" start out as owned by
+                        the respective team.    
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Group Id</td>
+                    <td>
+                        The segment the group belongs to (as a non-negative integer), or -1 if none.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="sidepoint">Side &amp; Point</h2>
+        <p>
+            Contains buttons for selecting the current side number (numbered from 1 to 6)
+            and the point/line for the selected side (numbered from 1 to 4), as well as
+            the coordinates for the currently selected point. The "apply" button sets the
+            new input coordinates, while "reset" reverts the text boxes back to the
+            coordinates the point has.
+        </p>
+
+        <h2 id="properties">Properties</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">water</td>
+                    <td>
+                        (XL only) Whether the segment is "underwater" and will cause the same effects
+                        to players that are within the segment as <a href="texture.html#behaviors">water does to players that touch it</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">lava</td>
+                    <td>
+                        (XL only) Whether the segment is "under lava" and will cause the same effects
+                        to players that are within the segment as <a href="texture.html#behaviors">lava does to players that touch it</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">light fog</td>
+                    <td>
+                        (XL only) Whether the segment should be filled by a light fog.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">dense fog</td>
+                    <td>
+                        (XL only) Whether the segment should be filled by a dense fog.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">blocked</td>
+                    <td>
+                        (XL only) If checked, players will be blocked from entering the segment.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">no damage</td>
+                    <td>
+                        (XL only) If checked, players will not be able to receive damage while
+                        inside the segment, and will also be unable to fire weapons.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">self-illuminate</td>
+                    <td>
+                        (XL only) The segment will have ambient light. Intended for outdoor spaces.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">end of exit tunnel</td>
+                    <td>
+                        Applies to sides, rather than segments. Removes the side from the segment,
+                        causing it to appear invisible. Any projectiles passing through it will
+                        be automatically removed, but players or robots still cannot pass through.
+                        Intended to be used at the very end of exit tunnels, and required for
+                        exit sequences to play.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="robotmaker">Robot Maker Data</h2>
+        <p>
+            Used to control which robots can spawn from robot makers (or which
+            powerups from equip makers). Most robot types can be selected, but
+            the new bot types added by Descent 2: Vertigo cannot (for technical
+            reasons). The list on the left details the current types that can
+            spawn, while the list on the right contains the possible choices.
+        </p>
+
+        <h2 id="damage">Damage Data</h2>
+        <p>
+            Used to control the shield/energy data for segments. These are only
+            used in XL and specifically in the Entropy game mode (TODO: how?).
+        </p>
+
+        <h2 id="triggers">Trigger Data</h2>
+        <p>
+            The list of triggers that point to the currently selected segment
+            and side; the listed values are the segment and side that contains
+            the trigger. Double-clicking one or clicking "trigger details" will
+            open the trigger tool with the given trigger selected, while "wall details"
+            will open the wall tool with the given wall selected.
+        </p>
+
+        <h2 id="add">Add &amp; Delete</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">add</td>
+                    <td>
+                        Adds a standard segment that is connected to the currently
+                        selected side. The size of the segment depends on the segment
+                        addition mode currently selected from the <a href="toolbar.html">toolbar</a>:
+
+                        <ul>
+                            <li><img class="toolbari" alt="icon" src="images/toolbarAddNormal.png"> <i>Normal</i>:
+                            the new segment will extend 20 units from the side the new segment is created from,
+                            and the opposite side will be a 20x20 unit square. With standard 20x20x20 cubes,
+                            this results in normal 20x20x20 cubes. default</li>
+                            <li><img class="toolbari" alt="icon" src="images/toolbarAddExtended.png"> <i>Extended</i>:
+                            the new segment will preserve the shape of the side it is created from and will extend
+                            for as long as the selected segment (based on an average length of a normal from the side)</li>
+                            <li><img class="toolbari" alt="icon" src="images/toolbarAddMirrored.png"> <i>Mirrored</i>:
+                            the new segment will be a mirror image of the selected segment around the currently selected side</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">add bot maker</td>
+                    <td>
+                        Same as <i>add</i>, but the new segment is made a robot maker.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">add equip maker</td>
+                    <td>
+                        Same as <i>add</i>, but the new segment is made an equip maker (XL only).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">add fuel center</td>
+                    <td>
+                        Same as <i>add</i>, but the new segment is made an energy center.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">add repair center</td>
+                    <td>
+                        Same as <i>add</i>, but the new segment is made a repair center (XL only).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">add reactor</td>
+                    <td>
+                        Same as <i>add</i>, but the new segment is made a reactor segment.
+                        Note that this does not automatically add the reactor object itself,
+                        which is also required.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">delete</td>
+                    <td>
+                        Deletes the currently selected segment from the level.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">other segment</td>
+                    <td>
+                        Swaps the selection between the current and other segment, making
+                        the other segment the current selection and vice versa.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">split (7 segs)</td>
+                    <td>
+                        Splits the current segment into 7 segments like so:
+                        <p></p>
+                        <img width="240" height="240" src="Images/split7.png">
+                        <p></p>
+                        The split segment will remain connected to all sides as before.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">split (8 segs)</td>
+                    <td>
+                        Splits the current segment into 8 segments like so, and automatically
+                        marks all newly created points:
+                        <p></p>
+                        <img width="240" height="240" src="Images/split8.png">
+                        <p></p>
+                        The split segment will be separated from the sides it was connected with before.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">make wedge</td>
+                    <td>
+                        (XL-exclusive) Make the current segment a wedge (triangular prism).
+                        The selected side is replaced with a line passing through its middle.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">make pyramid</td>
+                    <td>
+                        (XL-exclusive) Make the current segment a pyramid shape.
+                        The selected side is replaced with a point.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

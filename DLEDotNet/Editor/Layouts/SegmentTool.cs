@@ -18,6 +18,7 @@ namespace DLEDotNet.Editor.Layouts
         public SegmentTool()
         {
             InitializeComponent();
+            this.HelpPageName = "segments";
         }
 
         internal override void ResetLayout() => InitializeComponent();

@@ -19,6 +19,7 @@ namespace DLEDotNet.Editor.Layouts
         public SettingsTool()
         {
             InitializeComponent();
+            this.HelpPageName = "settings";
         }
 
         internal override void ResetLayout() => InitializeComponent();

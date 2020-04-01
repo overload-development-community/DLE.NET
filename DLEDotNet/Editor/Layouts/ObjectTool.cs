@@ -18,6 +18,7 @@ namespace DLEDotNet.Editor.Layouts
         public ObjectTool()
         {
             InitializeComponent();
+            this.HelpPageName = "objects";
         }
 
         internal override void ResetLayout() => InitializeComponent();

@@ -152,7 +152,7 @@
             this.texalignStretch2FitButton.Name = "texalignStretch2FitButton";
             this.texalignStretch2FitButton.Size = new System.Drawing.Size(24, 24);
             this.texalignStretch2FitButton.TabIndex = 15;
-            this.texalignStretch2FitButton.Text = "stretch texture to fit to sides";
+            this.texalignStretch2FitButton.Text = "stretch texture to fit to side";
             // 
             // texalignResetButton
             // 
@@ -197,7 +197,7 @@
             this.texalignChildalignButton.Name = "texalignChildalignButton";
             this.texalignChildalignButton.Size = new System.Drawing.Size(24, 24);
             this.texalignChildalignButton.TabIndex = 18;
-            this.texalignChildalignButton.Text = "align textures on child sizes";
+            this.texalignChildalignButton.Text = "align textures on child sides";
             // 
             // texalignAlignallButton
             // 

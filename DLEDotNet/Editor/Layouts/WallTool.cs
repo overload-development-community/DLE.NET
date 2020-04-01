@@ -19,6 +19,7 @@ namespace DLEDotNet.Editor.Layouts
         public WallTool()
         {
             InitializeComponent();
+            this.HelpPageName = "walls";
         }
 
         internal override void ResetLayout() => InitializeComponent();

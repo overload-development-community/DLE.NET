@@ -1,34 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace DLEDotNet.Dialogs
+namespace DLEDotNet.Editor
 {
-    public partial class SplashScreen : Form
+    [DesignerCategory("Code")]
+    [Description("A menu strip that can be clicked even without focus.")]
+    public class ClickThroughMenuStrip : MenuStrip
     {
         private const uint WM_MOUSEACTIVATE = 0x21;
         private const uint MA_ACTIVATE = 1;
         private const uint MA_ACTIVATEANDEAT = 2;
-
-        public SplashScreen()
-        {
-            InitializeComponent();
-        }
-
-        protected override bool ShowWithoutActivation => true;
-        private void CloseSplash(object sender, EventArgs e) => this.Close();
-
-        protected override void OnShown(EventArgs e)
-        {
-            base.OnShown(e);
-            this.CenterToParent();
-        }
 
         protected override void WndProc(ref Message m)
         {

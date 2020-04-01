@@ -20,6 +20,7 @@ namespace DLEDotNet.Editor.Layouts
         public TextureFiltersTab()
         {
             InitializeComponent();
+            this.HelpPageName = "texturefilters";
         }
 
         internal override void ResetLayout() => InitializeComponent();

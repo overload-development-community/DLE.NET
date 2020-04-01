@@ -12,6 +12,7 @@ namespace DLEDotNet.Editor.Layouts
         public LightsTool()
         {
             InitializeComponent();
+            this.HelpPageName = "lights";
         }
 
         internal override void ResetLayout() => InitializeComponent();

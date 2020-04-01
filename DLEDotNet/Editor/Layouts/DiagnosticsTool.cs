@@ -11,6 +11,7 @@ namespace DLEDotNet.Editor.Layouts
         public DiagnosticsTool()
         {
             InitializeComponent();
+            this.HelpPageName = "diagnostics";
         }
 
         internal override void ResetLayout() => InitializeComponent();

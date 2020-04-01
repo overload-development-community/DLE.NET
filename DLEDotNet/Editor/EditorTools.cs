@@ -1,4 +1,5 @@
 ﻿using DLEDotNet.Editor.Layouts;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -91,6 +92,7 @@ namespace DLEDotNet.Editor
                 tabPage.Controls.Add(tab);
                 tab.Location = new System.Drawing.Point(0, 0);
                 tab.DialogLayout = layout;
+                tabPage.ContextMenuStrip = tab.ContextMenuStrip;
             }
         }
 
@@ -100,7 +102,9 @@ namespace DLEDotNet.Editor
             f.SuspendLayout();
 
             f.StartPosition = FormStartPosition.WindowsDefaultLocation;
-            f.FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            f.FormBorderStyle = FormBorderStyle.FixedSingle;
+            f.MaximizeBox = false;
+            f.MinimizeBox = false;
             f.ClientSize = tab.Size;
             f.Text = tab.FloatingTitle;
             f.Controls.Add(tab);
@@ -114,6 +118,15 @@ namespace DLEDotNet.Editor
             };
 
             tab.Location = new System.Drawing.Point(0, 0);
+            if (tab.HelpPageName != null)
+            {
+                f.HelpButton = true;
+                f.HelpButtonClicked += (object sender, CancelEventArgs e) =>
+                {
+                    (Owner as EditorWindow)?.OpenHelpPage(tab.HelpPageName, f);
+                    e.Cancel = true; // prevent help mouse cursor
+                };
+            }
 
             f.ResumeLayout(false);
         }

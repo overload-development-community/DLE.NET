@@ -2,9 +2,10 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net471</TargetFramework>
+    <TargetFramework>net461</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <Version>0.0.1-alpha</Version>
+    <Description>A Descent 1 and 2 level editor for .NET.</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(TargetFramework)', '^net\d'))">
@@ -34,6 +35,20 @@
   <ItemGroup>
     <ProjectReference Include="..\LibDescent\Data\LibDescent.Data.csproj" />
     <ProjectReference Include="..\LibDescent\Edit\LibDescent.Edit.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Help\*.html;Help\*.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Help\Images\%(Filename)%(Extension)</Link>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\PLUS.png" />
   </ItemGroup>
   
   <ItemGroup>
@@ -798,6 +813,10 @@
   <ItemGroup>
     <Folder Include="Data\Proxies\" />
     <Folder Include="Logic\" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Content Update="Resources\PLUSDARK.png" Link="Help\Images\PLUSDARK.png" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - Wall Tool</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>Wall Tool</h1>
+        <div>
+            <a href="#data">Wall Data</a> &middot;
+            <a href="#flags">Key & Flags</a> &middot;
+            <a href="#add">Add &amp; Delete</a>
+        </div>
+
+        <p>
+            <i>Walls</i> are, by their nature, attached to a side of a segment. They are used
+            to add triggers, obstacles, decorations or simply close off areas.
+            Walls, much like closed sides (those not connected to a segment) will always
+            have a texture.
+        </p>
+        
+        <p>
+            Note that walls present on both sides are technically two separate walls. With the
+            exception of Overlay walls, all walls must be on an open side, i.e. a side that is
+            connected  to another segment, and thus basically always a single wall in-game will
+            actually correspond to two walls in the editor.
+            <em>Walls (except overlays) only present on one side should usually not be used.</em>
+        </p>
+
+        <h2 id="data">Wall Data</h2>
+        <p>
+            The <i>current wall</i> is the wall located on the currently selected side, if any.
+            If the current side has no wall, all "wall data" controls are disabled, except for the
+            wall type, which is used to control the wall type that is added once the "add" button
+            is clicked.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">Seg. #</td>
+                    <td>
+                        The segment the current wall is in.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Side</td>
+                    <td>
+                        The side number of the current wall from 1-6.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Trigger</td>
+                    <td>
+                        The ID of the trigger on the current wall, or -1 if none.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Wall No.</td>
+                    <td>
+                        The ID of the current wall. The list allows changing the
+                        current wall (which will also select another segment/side).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Type</td>
+                    <td>
+                        The current wall type; see the "Type" section below.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Clip #</td>
+                    <td>
+                        The texture to be used with this animated wall; only applies
+                        to doors or blastable walls.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Strength</td>
+                    <td>
+                        The strength of this wall. Only applies to blastable walls
+                        (see "Type" below).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Cloak, transparency</td>
+                    <td>
+                        Controls how transparent or see-through this wall is. Only
+                        applies to Cloaked walls, except in D2X-XL where this will
+                        also apply to any wall with a texture or color.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">set both sides</td>
+                    <td>
+                        Makes the Type, Clip #, Strength, Cloak settings, flags and the
+                        add/delete buttons apply to both sides (both walls), if applicable.
+                        Off by default, but should be on most of the time.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>Type</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">Blastable</td>
+                    <td>
+                        A wall that can be damaged and destroyed by the player. Used for
+                        hostage doors, guide bot doors (Descent 2) and destroyable walls
+                        (not used in the original levels). The "Strength" controls the amount
+                        of damage necessary to destroy the wall and is usually set at 100%.
+                        Blastable walls must have a corresponding blastable wall on the other side,
+                        or the level is malformed and may crash the game.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Cloaked</td>
+                    <td>
+                        A special type of Close wall that does not have a texture, but instead
+                        appears pitch black with adjustable transparency. Robots can spot
+                        players through Cloaked walls and will attempt to fire, but projectiles
+                        will not pass through.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Close</td>
+                    <td>
+                        A simple closed wall. Used for solid walls, grates, fans and
+                        (in Descent 2) force fields. Players or robots cannot pass through
+                        Close walls, but projectiles can pass through and robots can spot
+                        the player through transparent gaps.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Colored</td>
+                    <td>
+                        (XL-exclusive) Similar to Cloaked, but the color and strength of
+                        the color can be customized by changing the light color and the
+                        Strength value, respectively.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Door</td>
+                    <td>
+                        A special type of wall that can be opened and closed by the player,
+                        guide bot (Descent 2) and some robots. While open, players, robots
+                        and projectiles can pass through freely. Doors always feature
+                        an animation, which is controlled by the Clip # setting.
+                        Most of the flags concern doors specifically.
+                        Doors must have a corresponding door on the other side, or the level
+                        is malformed and may crash the game.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Illusion</td>
+                    <td>
+                        A wall that appears as if a Close wall, but can be passed through
+                        by players, robots and projectiles; in essence, a pass-through wall.
+                        Used mainly for some effects, such as fuel cells in energy centers,
+                        the secret exit entrance (D2), water(falls) (D2) and lava(falls).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Normal</td>
+                    <td>
+                        Similar to Close, except designed to never open and mainly intended
+                        for completely opaque/solid walls. Rarely used, as Close is used instead,
+                        or the two sides are simply separated.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Open</td>
+                    <td>
+                        A wall that can be passed through and is invisible. Intended
+                        mostly for triggers that are activated when a player passes through
+                        a certain side, but also used for walls that may later close.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Overlay</td>
+                    <td>
+                        The only wall type that must be on a closed side, i.e. a side
+                        that is not connected to another segment. Overlay walls are used
+                        to add triggers to monitors and control panels that activate
+                        when they are destroyed.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="flags">Key & Flags</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">key</td>
+                    <td>
+                        Controls whether a key is required to open the wall. Only applies to doors,
+                        but non-door walls with a key requirement will still display a message if the
+                        player does not have the matching key.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Blasted</td>
+                    <td>
+                        Signifies if the Blastable wall has already been destroyed. Should not
+                        be used; it is better to add an Illusion wall instead with the correct
+                        "destroyed" texture.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Door open</td>
+                    <td>
+                        Signifies if the door is open. If used, the texture should be set up
+                        correctly, but it is generally not recommended to use this flag.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Door locked</td>
+                    <td>
+                        Whether the door is locked. Locked doors can only opened by triggers;
+                        players or robots cannot open them. It is possible to make doors
+                        locked from only one side.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Door auto</td>
+                    <td>
+                        Whether the door closes automatically after being open for some
+                        time. Should be used with most doors, except those that are designed
+                        to stay open once opened (usually via trigger).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Illusion off</td>
+                    <td>
+                        Whether the illusion is invisible.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Switch</td>
+                    <td>
+                        Unused, has no effect. Originally intended to be used for walls
+                        that are targeted by triggers, but it is unclear what the
+                        purpose would have been. Leave unchecked.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Buddy proof</td>
+                    <td>
+                        Prevents the Guide-Bot from opening the door, if the wall is a door,
+                        or seeing through a closed wall or illusion (unless the illusion is off).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Additive</td>
+                    <td>
+                        (XL only) uses additive filtering for this wall if it is a Colored
+                        or Cloaked wall.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Ignore marker</td>
+                    <td>
+                        (XL only) makes a door close even if a marker is in the way.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Fly through</td>
+                    <td>
+                        (XL only) makes a Colored/Cloaked wall flyable through.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="add">Add &amp; Delete</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">add</td>
+                    <td>
+                        Adds a new wall to the selected side (and also to the
+                        opposite side if "set both sides" is enabled).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">delete</td>
+                    <td>
+                        Deletes the selected wall (and also the wall from the
+                        opposite side if "set both sides" is enabled).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">delete all</td>
+                    <td>
+                        Deletes all walls from the level.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">other side</td>
+                    <td>
+                        Selects the side the current side is attached to, which
+                        in terms of walls will often give you the opposite wall.
+                        Does nothing if the current side is closed.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">lock</td>
+                    <td>
+                        TODO
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>
+            The rest of the buttons will always also act on the other side,
+            regardless of whether "set both sides" is checked.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+                <tr>
+                    <td class="main">add door: standard</td>
+                    <td>
+                        Adds a standard door. The clip/animation used is
+                        the last one used.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">add door: exit</td>
+                    <td>
+                        Adds an exit door, an exit trigger to the door and
+                        adds the wall to the list of reactor triggers.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">add door: secret exit</td>
+                    <td>
+                        In Descent 1, does the same as "add door: exit", except
+                        the trigger is a secret exit trigger.
+                        <p></p>
+                        In Descent 2, adds an illusion with a secret exit trigger
+                        and a cube behind it.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">add door: hostage</td>
+                    <td>
+                        Adds a hostage prison door (which is actually not a door
+                        but a blastable wall).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">add door: guide bot</td>
+                    <td>
+                        Descent 2 only: Adds a guide bot door (which is actually
+                        not a door but a blastable wall).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">add wall: fuel cells</td>
+                    <td>
+                        Adds an illusionary wall that has a fuel cell animation on
+                        it. Intended to be used with energy centers.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">add wall: illusion</td>
+                    <td>
+                        Adds an illusionary wall.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">add wall: force field</td>
+                    <td>
+                        Descent 2 only: Adds a closed wall with a force field
+                        texture. Force fields cannot be passed through. Projectiles
+                        that hit the force field itself will bounce back, as will
+                        any players attempting to pass through the wall itself
+                        (which also causes some damage).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">add wall: fan</td>
+                    <td>
+                        Adds a closed wall with an animated fan texture.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">add wall: grate</td>
+                    <td>
+                        Adds a closed wall with a grate texture.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">add wall: water fall</td>
+                    <td>
+                        Descent 2 only: Adds an illusion with a water
+                        fall texture; it will <a href="texture.html#behaviors">behave like water</a> when touched.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">add wall: lava fall</td>
+                    <td>
+                        Descent 2 only: Adds an illusion with a lava
+                        fall texture; it will <a href="texture.html#behaviors">behave like lava</a> when touched.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

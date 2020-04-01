@@ -18,6 +18,7 @@ namespace DLEDotNet.Editor.Layouts
         public EffectTool()
         {
             InitializeComponent();
+            this.HelpPageName = "effects";
         }
 
         internal override void ResetLayout() => InitializeComponent();

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - Selection</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>Movement</h1>
+        
+        <p>
+            One of the most important actions in Descent level editing is
+            moving things around within the mine. in DLE.NET, this is accomplished
+            by using the numpad in your keyboard, or the "editor toolbar" available
+            from the VIew menu.
+        </p>
+
+        <p>
+            The "selection" that is moved around depends on the currently active
+            <a href="selection.html#modes">selection mode</a>. All movement actions
+            are relative to the currently selected side.
+        </p>
+
+        <table>
+            <tbody>
+                <tr>
+                    <th>Numpad 7</th>
+                    <th>Numpad 8</th>
+                    <th>Numpad 9</th>
+                </tr>
+                <tr>
+                    <td>
+                        Pulls the selection closer from the direction that
+                        is reached by moving from the center of the current
+                        segment towards the selected side, 
+                        i.e. moves the selection inside towards the segment.
+                        The amount moved is controlled by the <a href="settings.html#editor">mine move rate</a>.
+                    </td>
+                    <td>
+                        Moves the selection up (where point 1 of a side is
+                        considered to be in the top-right corner of that side,
+                        i.e. "up" is between points 1 and 4).
+                        The amount moved is controlled by the <a href="settings.html#editor">mine move rate</a>.
+                        Side mode is an exception; see notes.
+                    </td>
+                    <td>
+                        Pushes the selection further towards the direction that
+                        is reached by moving from the center of the current
+                        segment towards the selected side. 
+                        i.e. moves the selection outside towards the side.
+                        The amount moved is controlled by the <a href="settings.html#editor">mine move rate</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <th>Numpad 4</th>
+                    <th>Numpad 5</th>
+                    <th>Numpad 6</th>
+                </tr>
+                <tr>
+                    <td>
+                        Moves the selection left (where point 1 of a side is
+                        considered to be in the top-right corner of that side,
+                        i.e. "left" is between points 3 and 4).
+                        The amount moved is controlled by the <a href="settings.html#editor">mine move rate</a>.
+                        Side mode is an exception; see notes.
+                    </td>
+                    <td>
+                        Grows the selection as if its constituent parts were
+                        all moved away from each other. Thus, if the <a href="settings.html#editor">mine move rate</a>
+                        is 1, the length of a line will increase by 2.
+                        Cannot be used in point or object mode.
+                    </td>
+                    <td>
+                        Moves the selection right (where point 1 of a side is
+                        considered to be in the top-right corner of that side,
+                        i.e. "right" is between points 1 and 2).
+                        The amount moved is controlled by the <a href="settings.html#editor">mine move rate</a>.
+                        Side mode is an exception; see notes.
+                    </td>
+                </tr>
+                <tr>
+                    <th>Numpad 1</th>
+                    <th>Numpad 2</th>
+                    <th>Numpad 3</th>
+                </tr>
+                <tr>
+                    <td>
+                        Rotates the selection counter-clockwise along the axis
+                        formed by the normal of the selected side. The rotate speed
+                        is controlled by the <a href="settings.html#editor">rotate rate</a>.
+                        Cannot be used in point mode.
+                    </td>
+                    <td>
+                        Moves the selection down (where point 1 of a side is
+                        considered to be in the top-right corner of that side,
+                        i.e. "down" is between points 2 and 3).
+                        The amount moved is controlled by the <a href="settings.html#editor">mine move rate</a>.
+                        Side mode is an exception; see notes.
+                    </td>
+                    <td>
+                        Rotates the selection clockwise along the axis
+                        formed by the normal of the selected side. The rotate speed
+                        is controlled by the <a href="settings.html#editor">rotate rate</a>.
+                        Cannot be used in point mode.
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <th>Numpad 0</th>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        Shrinks the selection as if its constituent parts were
+                        all moved towards each other. Thus, if the <a href="settings.html#editor">mine move rate</a>
+                        is 1, the length of a line will decrease by 2.
+                        Cannot be used in point or object mode.
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>Notes</h2>
+        <ul>
+            <li>
+                In side mode, the movement controls (that move up, down, left
+                or right) will also rotate the side rather than simply translating
+                it. This can be suppressed by holding Numpad Point/Comma or by marking
+                the side and using block mode instead.
+            </li>
+        </ul>
+    </body>
+</html>

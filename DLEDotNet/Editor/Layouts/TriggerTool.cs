@@ -12,6 +12,7 @@ namespace DLEDotNet.Editor.Layouts
         public TriggerTool()
         {
             InitializeComponent();
+            this.HelpPageName = "triggers";
         }
 
         internal override void ResetLayout() => InitializeComponent();

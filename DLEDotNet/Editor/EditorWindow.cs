@@ -33,6 +33,7 @@ namespace DLEDotNet.Editor
         private EditorToolDialog editorTools = new EditorToolDialog();
         private EditorKeyBinds editorKeyBinds;
         private string programName;
+        private SplashScreen openSplash = null;
         public EditorState EditorState { get; }
 
         public EditorWindow()
@@ -186,9 +187,11 @@ namespace DLEDotNet.Editor
         {
             if (EditorState.SavedPrefs.ShowSplash)
             {
-                var splash = new SplashScreen();
-                splash.Show(this);
-                splash.Focus();
+                (openSplash = new SplashScreen()).Show(this);
+                ControlUtil.CatchClickAnywhereOnce(this, () => {
+                    if (openSplash.Visible)
+                        openSplash?.Close();
+                });
             }
         }
 
@@ -547,6 +550,25 @@ namespace DLEDotNet.Editor
         }
         #endregion
 
+        #region --- Help handling
+        internal void OpenHelpPage(string page) => OpenHelpPage(page, this);
+        internal void OpenHelpPage(string page, Form owner)
+        {
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "Help", page + ".html"),
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(owner, "Could not open the HTML help. Make sure it is present with your installation.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        #endregion
+
         // Most of the event listeners below should be as few lines as possible;
         // it's ideal to place logic on other classes
         // the main menu is the "canonical" event handler; thus tool strip
@@ -576,6 +598,7 @@ namespace DLEDotNet.Editor
 
         private void EditorWindow_KeyDown(object sender, KeyEventArgs e)
         {
+            openSplash?.Close();
             editorKeyBinds.EditorWindowKeyDown(e);
         }
         #endregion
@@ -728,22 +751,9 @@ namespace DLEDotNet.Editor
         {
         }
 
-        private void htmlHelpToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "Help", "index.html"),
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception)
-            {
-                MessageBox.Show(this, "Could not open the HTML help. Make sure it is present with your installation.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) => new AboutDialog().Show(this);
+        private void htmlHelpToolStripMenuItem_Click(object sender, EventArgs e) => OpenHelpPage("index");
+        private void tableOfContentsToolStripMenuItem_Click(object sender, EventArgs e) => OpenHelpPage("00index");
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e) => new AboutDialog().ShowDialog(this);
         #endregion
 
         #region --- Events for the context menu

@@ -407,7 +407,7 @@
             this.textureTagPlaneButton.Name = "textureTagPlaneButton";
             this.textureTagPlaneButton.Size = new System.Drawing.Size(82, 18);
             this.textureTagPlaneButton.TabIndex = 12;
-            this.textureTagPlaneButton.Text = "&tag plane";
+            this.textureTagPlaneButton.Text = "&mark plane";
             // 
             // textureTagTexturesButton
             // 
@@ -417,7 +417,7 @@
             this.textureTagTexturesButton.Name = "textureTagTexturesButton";
             this.textureTagTexturesButton.Size = new System.Drawing.Size(82, 18);
             this.textureTagTexturesButton.TabIndex = 13;
-            this.textureTagTexturesButton.Text = "tag te&xtures";
+            this.textureTagTexturesButton.Text = "mark te&xtures";
             // 
             // textureCleanupButton
             // 

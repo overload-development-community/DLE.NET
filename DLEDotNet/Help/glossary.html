@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - Toolbar</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>Glossary</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Term</th>
+                    <th>Meaning</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main"><i>block</i></td>
+                    <td>
+                        Everything that has been <i>marked</i>, considered as a unit.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>current</i> (point/line/side/segment/object)</td>
+                    <td>
+                        The <i>selected</i> point/line/side/segment/object.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>Descent, Descent 1</i> (D1)</td>
+                    <td>
+                        The first of the games in the Descent trilogy, released in 1995.
+                        DLE.NET is capable of creating and editing Descent 1 levels.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>Descent 2</i> (D2)</td>
+                    <td>
+                        The second of the games in the Descent trilogy, released in 1996
+                        as a sequel to Descent. Internally, Descent 1 and 2 use very similar
+                        engines, and thus levels created in one are relatively easy to port
+                        to another. In terms of level design, Descent 2 adds its own set of
+                        robots, completely revamps the trigger system, introduces per-level
+                        palettes, increases level restrictions, has a different set of textures
+                        and adds support for per-level texture and robot modifications.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>Descent 2: Vertigo</i> (Vertigo)</td>
+                    <td>
+                        A Descent 2 add-on that includes a new 20-level set and
+                        adds new robot types.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>D2X-XL</i> ("XL")</td>
+                    <td>
+                        A source port capable of playing Descent 1 and 2 levels, which also
+                        adds its own level format with new features, like triangular segments,
+                        effects, colored lighting, new trigger types, and significantly
+                        increased level restrictions.
+                        <p></p>
+                        XL levels are mostly fundamentally Descent 2 levels, and thus
+                        will allow the use of all Descent 2 features; however, the XL game
+                        also supports some extra features in Descent 1 levels.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>Descent 3</i> (D3)</td>
+                    <td>
+                        The third of the games in the Descent trilogy, released in 1999
+                        and using a completely different engine. DLE does not support
+                        Descent 3 levels.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>DLE-XP</i></td>
+                    <td>
+                        Based on Descent Mission Builder 2 (DMB2), an official Descent 2
+                        level editor released with some add-on packs, DLE-XP (Descent
+                        Level Editor XP) is a third-party Descent level editor that is the direct
+                        ancestor of DLE.NET and was the first to support extra D2X-XL features.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>door</i></td>
+                    <td>
+                        A special type of wall that can be opened, usually temporarily.
+                        Doors are most often, but not necessarily, opened by a player
+                        touching it or hitting it with a projectile. Doors may require
+                        a <i>key</i> from the player trying to open them, and are
+                        practically always technically two walls, as they expect to be
+                        present on both sides of a segment-segment connection.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>effect</i></td>
+                    <td>
+                        A D2X-XL exclusive object type that serves as a decoration.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>energy center</i>, <i>fuel center</i></td>
+                    <td>
+                        A special type of segment that will refill the player's
+                        <i>energy</i> (required for firing most weapons) to 100
+                        while the player is within it. A player can use an
+                        energy center for an unlimited number of times.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>exit</i></td>
+                    <td>
+                        A special trigger type that is used to end the level. Most
+                        often attached to an exit door that is locked until the
+                        reactor has been blown up, but there is little technical
+                        restriction against placing an exit trigger without
+                        any reactors or bosses.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>.HOG</i></td>
+                    <td>
+                        The file extension used for archives containing levels and
+                        other data. Missions usually consist of a .HOG and a
+                        mission data file (.MSN or .MN2).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>key</i></td>
+                    <td>
+                        A special power-up that is required to be collected in order to
+                        open key doors. Used in Descent 1 and 2 levels to require the
+                        players to explore the mines in order to progress. Keys are
+                        not consumed and the player will keep them for the rest of the
+                        level, even on death.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>line</i> (<i>edge</i>)</td>
+                    <td>
+                        One of the twelve edges in a segment that connects between
+                        two points in that segment.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>marking</i> (<i>tagging</i>)</td>
+                    <td>
+                        Points can be <i>marked</i>, which highlights them in the mine view
+                        and makes edits acting on marked points act on them. Lines, sides
+                        and segments can also all be marked by marking all of the points
+                        they consist of, and are respectively affected by actions acting
+                        on whatever is marked.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>mine</i>, <i>level</i></td>
+                    <td>
+                        A single playable level in Descent 1 or 2.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>mission</i></td>
+                    <td>
+                        A set of levels, secret levels, briefings (text) and other
+                        data intended to be played in its complete form. Includes
+                        its own metadata, like a mission name, list of levels,
+                        version and author information, as a part of a .MSN or
+                        .MN2 file.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>.MN2</i></td>
+                    <td>
+                        The file extension used to store mission data for a
+                        Descent 2 mission. Has a plain-text format.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>.MSN</i></td>
+                    <td>
+                        The file extension used to store mission data for a
+                        Descent 1 mission. Has a plain-text format.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>object</i></td>
+                    <td>
+                        Objects have various roles, including the player ship
+                        itself (the starting point is placed in the level editor), robots,
+                        powerups and more. They are associated with a position in the
+                        level, much like points would, but also with a specific segment
+                        (which must match in their position within the mine).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>other segment</i></td>
+                    <td>
+                        A second selected segment which is used with various actions,
+                        such as joining/separating points/lines/sides and exchanging the
+                        current selection with the "other" selection. The other segment
+                        will, like the currently selected segment, also have a selected
+                        side, line and point.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>Overload</i></td>
+                    <td>
+                        A spiritual successor to the Descent games developed by many
+                        of the same people as the original games and released in 2018.
+                        While the Overload engine is a lot more modern, the level formats
+                        share similar core concepts and it is thus possible to convert
+                        (the geometry) of Descent levels to Overload levels, a feature
+                        supported by DLE.NET.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>.PIG</i></td>
+                    <td>
+                        The file extension used to store textures, palettes and
+                        other game data for both Descent 1 and 2.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>.POG</i></td>
+                    <td>
+                        The file extension used to store custom textures for
+                        Descent 2 levels.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>point</i></td>
+                    <td>
+                        A segment consists of eight points, all of which have independent
+                        coordinates.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>pyramid</i></td>
+                    <td>
+                        A special segment that has the shape of a pyramid instead of
+                        the standard hexahedron/cube. Only supported in D2X-XL levels.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>.RDL</i></td>
+                    <td>
+                        The file extension used with Descent 1 levels. Presumably
+                        stands for "Raw Descent Level", as the internal level format
+                        used by the game (and automatically compiled from the .RDL)
+                        is considerably different.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>reactor</i></td>
+                    <td>
+                        A special type of object, of which there should be only one
+                        in a level.
+                        The objective in most Descent levels is to reach and destroy
+                        the reactor, after which a level countdown will begin and the
+                        player must reach the exit before they run out of time. In
+                        some levels, a reactor is instead replaced with a boss robot.
+                        A reactor can have ten targets each pointing to one side of a
+                        segment, and once the reactor is destroyed, any doors
+                        referenced by such will be opened.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>.RL2</i></td>
+                    <td>
+                        The file extension used with Descent 2 (including Vertigo and XL) levels.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>robot maker</i>, <i>bot maker</i>, <i>materialization center</i> (mat cen)</td>
+                    <td>
+                        A special type of segment that can be activated, resulting in
+                        3-6 (depending on difficulty) robots spawning to the center of the segment,
+                        one at a time. On most difficulties, robot makers can only be activated
+                        three times, after which they will no longer activate.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>segment</i> (<i>cube</i>)</td>
+                    <td>
+                        A Descent 1 or 2 level consists of segments, which are geometrically
+                        strictly convex hexahedra (in layman's terms, a cube that can be
+                        distorted in any way possible, as long its own sides do not intersect
+                        each other or are on the same plane as each other).
+                        A segment consists of 6 sides, 12 lines and 8 points, and every
+                        mine must contain at least one segment.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>selection</i></td>
+                    <td>
+                        At any one time, it is possible to select one segment at a time, of which
+                        one side can be selected at a time, of which one line can be selected
+                        at a time, of which one point can be selected at a time. The degree
+                        of selection is controlled by the active <i><a href="selection.html">selection mode</a></i>;
+                        see it for more information about the selection system.
+                        Most actions will by default affect only the selection.
+                        <p></p>
+                        The selected segment is also called the <i>current segment</i>,
+                        the selected side the <i>current side</i>, etc.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>side</i></td>
+                    <td>
+                        Any of the six sides of a segment, which may be each connected to
+                        another segment.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>trigger</i></td>
+                    <td>
+                        In D1 and D2, a <i>standard trigger</i>, which is attached to
+                        and associated with a wall that activates either when a player
+                        flies through the wall or if the attached monitor/control panel
+                        is destroyed. When triggered, they perform actions like activating
+                        robot makers or opening doors or walls. A trigger can have
+                        at most ten targets, which are all one side of a segment.
+                        <p></p>
+                        In D2X-XL, triggers may also be attached to objects and thus
+                        be <i>object triggers</i>, activating when a power-up is
+                        collected, a robot is destroyed, or upon some other behavior.
+                        XL triggers can also have more metatrigger behavior, such as
+                        activating, disabling or enabling other triggers. XL also
+                        makes it possible to have objects as trigger targets.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>vertex</i></td>
+                    <td>
+                        A <i>point</i> (in the diagnostics tab), such that two
+                        joined points are considered a single vertex.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>wall</i></td>
+                    <td>
+                        Attached to a single side of a single segment, walls usually
+                        represent doors, open walls (for triggers), fans/grates or
+                        control panels/monitors.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><i>wedge</i></td>
+                    <td>
+                        A special segment that has the shape of a triangular prism instead of
+                        the standard hexahedron/cube. Only supported in D2X-XL levels.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

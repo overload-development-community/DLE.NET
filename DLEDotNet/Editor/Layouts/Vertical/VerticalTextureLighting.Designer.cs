@@ -615,7 +615,7 @@
             this.texlightAddButton.ClickOnlyOnUp = true;
             this.texlightAddButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.texlightAddButton.ImageButton = global::DLEDotNet.Properties.Resources.PLUS;
-            this.texlightAddButton.ImageButtonDark = null;
+            this.texlightAddButton.ImageButtonDark = global::DLEDotNet.Properties.Resources.PLUSDARK;
             this.texlightAddButton.ImageHeld = null;
             this.texlightAddButton.ImageNotHeld = null;
             this.texlightAddButton.Location = new System.Drawing.Point(58, 94);
