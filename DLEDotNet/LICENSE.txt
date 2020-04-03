@@ -23,7 +23,7 @@ SOFTWARE.
 
 
 DLE.NET (henceforth the "Software") is based on DLE-XP by Dietfrid Mali, and this Software is created with its author's approval.
-DLE-XP is itself based on Descent Mission Builder 2 (DMB2) by Brian Aamot of Brainware with explicitly granted permission for derivative work to be made of it and any derivative works thereof.
+DLE-XP is itself based on Descent Mission Builder 2 (DMB2) by Bryan Aamot of Brainware with explicitly granted permission for derivative work to be made of it and any derivative works thereof.
 
 
 
