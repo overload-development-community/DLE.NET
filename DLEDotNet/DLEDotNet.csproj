@@ -7,6 +7,11 @@
     <Version>0.0.1-alpha</Version>
     <Description>A Descent 1 and 2 level editor for .NET.</Description>
     <ApplicationIcon>Resources\logo1.ico</ApplicationIcon>
+    <Product>Descent Level Editor.NET</Product>
+    <Company></Company>
+    <Authors>The DLE.NET Team</Authors>
+    <Title>DLE.NET</Title>
+    <AssemblyTitle>DLE.NET</AssemblyTitle>
   </PropertyGroup>
 
   <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(TargetFramework)', '^net\d'))">
