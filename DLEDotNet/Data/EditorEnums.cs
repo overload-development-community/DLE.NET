@@ -14,6 +14,11 @@ namespace DLEDotNet.Data
         Point, Line, Side, Segment, Object, Block
     }
 
+    public enum RenderDisplayMode
+    {
+        SparseWireframe, FullWireframe, TextureAndWireframe, TextureOnly
+    }
+
     public enum PerspectiveMode
     {
         ThirdPerson, FirstPerson

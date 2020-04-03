@@ -763,6 +763,26 @@ namespace DLEDotNet.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap toolbarPanIn {
+            get {
+                object obj = ResourceManager.GetObject("toolbarPanIn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap toolbarPanInDark {
+            get {
+                object obj = ResourceManager.GetObject("toolbarPanInDark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap toolbarPanLeft {
             get {
                 object obj = ResourceManager.GetObject("toolbarPanLeft", resourceCulture);
@@ -776,6 +796,26 @@ namespace DLEDotNet.Properties {
         internal static System.Drawing.Bitmap toolbarPanLeftDark {
             get {
                 object obj = ResourceManager.GetObject("toolbarPanLeftDark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap toolbarPanOut {
+            get {
+                object obj = ResourceManager.GetObject("toolbarPanOut", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap toolbarPanOutDark {
+            get {
+                object obj = ResourceManager.GetObject("toolbarPanOutDark", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

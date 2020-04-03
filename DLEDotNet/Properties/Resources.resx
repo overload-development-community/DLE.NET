@@ -328,11 +328,23 @@
   <data name="toolbarPanDownDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\toolbarPanDownDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="toolbarPanIn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\toolbarPanIn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toolbarPanInDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\toolbarPanInDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="toolbarPanLeft" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\toolbarPanLeft.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="toolbarPanLeftDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\toolbarPanLeftDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toolbarPanOut" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\toolbarPanOut.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="toolbarPanOutDark" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\toolbarPanOutDark.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="toolbarPanRight" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\toolbarPanRight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

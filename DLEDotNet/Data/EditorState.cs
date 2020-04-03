@@ -23,6 +23,7 @@ namespace DLEDotNet.Data
             ActiveEditorTab = ActiveTextureTab = ActiveObjectTab = ActiveSettingsTab = 0;
             SegmentAddMode = SegmentAddMode.Normal;
             SelectionMode = SelectMode.Side;
+            ViewMode = RenderDisplayMode.TextureOnly;
             Toggles = new EditorToggles();
             FilePath = null;
             LevelFileName = null;
@@ -143,6 +144,16 @@ namespace DLEDotNet.Data
             set => AssignChanged(ref _selectMode, value);
         }
         private SelectMode _selectMode;
+
+        /// <summary>
+        /// The current selection mode (points, lines, sides, segments, objects or blocks).
+        /// </summary>
+        public RenderDisplayMode ViewMode
+        {
+            get => _viewMode;
+            set => AssignChanged(ref _viewMode, value);
+        }
+        private RenderDisplayMode _viewMode;
 
         /// <summary>
         /// Whether the current file is unsaved (needs saving on disk), or in the case

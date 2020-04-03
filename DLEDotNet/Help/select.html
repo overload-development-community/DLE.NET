@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - Select Menu</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>Select Menu</h1>
+        <p>
+            All of the next/previous actions will only work in the correct mode
+            (for example, "Next object" requires the object mode), and if the
+            correct mode isn't selected, it is selected instead. This means that
+            using "next object" in side mode will switch to object mode <em>without</em>
+            changing to the next object.
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">Next object</td>
+                    <td>
+                        Selects the next object in sequence, or the first object
+                        if the last object is already selected.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Previous object</td>
+                    <td>
+                        Selects the previous object in sequence, or the last object
+                        if the first object is already selected.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Next segment</td>
+                    <td>
+                        Selects the next segment in sequence, or the first segment
+                        if the last segment is already selected.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Previous segment</td>
+                    <td>
+                        Selects the previous segment in sequence, or the last segment
+                        if the first segment is already selected.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Forward segment</td>
+                    <td>
+                        If the side is open, moves the selection to the neighboring
+                        segment; else moves the selection to one of
+                        the other neighboring segments, if any.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Backwards segment</td>
+                    <td>
+                        If the opposite side is open, moves the selection to that
+                        neighboring segment; else moves the selection to one of
+                        the other neighboring segments, if any.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Other segment</td>
+                    <td>
+                        Swaps the selections between the current and the
+                        <a href="selection.html">other segment</a>; the
+                        new current segment is the other segment and vice versa.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Next side</td>
+                    <td>
+                        Selects the next side of the current segment in sequence, or the first side
+                        if the last side is already selected.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Previous side</td>
+                    <td>
+                        Selects the previous side of the current segment in sequence, or the last side
+                        if the first side is already selected.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Next line</td>
+                    <td>
+                        Selects the next line of the current side in sequence, or the first line
+                        if the last line is already selected.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Previous line</td>
+                    <td>
+                        Selects the previous line of the current side in sequence, or the last line
+                        if the first line is already selected.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Next point</td>
+                    <td>
+                        Selects the next point of the current side in sequence, or the first point
+                        if the last point is already selected.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Previous point</td>
+                    <td>
+                        Selects the previous point of the current side in sequence, or the last point
+                        if the first point is already selected.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

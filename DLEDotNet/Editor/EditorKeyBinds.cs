@@ -10,10 +10,12 @@ using System.Windows.Forms;
 
 namespace DLEDotNet.Editor
 {
+    using KeybindAction = Action;
+
     public class EditorKeyBinds
     {
         private EditorWindow editorWindow;
-        private Dictionary<Keys, Component> keybinds = new Dictionary<Keys, Component>();
+        private Dictionary<Keys, object> keybinds = new Dictionary<Keys, object>();
 
         public EditorKeyBinds(EditorWindow editorWindow)
         {
@@ -23,11 +25,11 @@ namespace DLEDotNet.Editor
         #region --- key bind storing implementation
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private Component TryRemoveKeybind(Keys k)
+        private object TryRemoveKeybind(Keys k)
         {
             if (keybinds.ContainsKey(k))
             {
-                Component c = keybinds[k];
+                object c = keybinds[k];
                 keybinds.Remove(k);
                 return c;
             }
@@ -59,7 +61,13 @@ namespace DLEDotNet.Editor
             if (FocusedOnTypable()) return;
 
             if (keybinds.ContainsKey(e.KeyData))
-                ClickControl(keybinds[e.KeyData]);
+            {
+                object keyBindTarget = keybinds[e.KeyData];
+                if (keyBindTarget is Component c)
+                    ClickControl(c);
+                else if (keyBindTarget is KeybindAction a)
+                    a();
+            }
         }
 
         private void ClickControl(Component c)
@@ -145,7 +153,9 @@ namespace DLEDotNet.Editor
 
         internal void RemoveKeybind(Keys k)
         {
-            UpdateKeybindDescription(TryRemoveKeybind(k));
+            object res = TryRemoveKeybind(k);
+            if (res is Component c)
+                UpdateKeybindDescription(c);
         }
 
         internal void SetKeybinds(Component c, params Keys[] keyBinds)
@@ -157,6 +167,12 @@ namespace DLEDotNet.Editor
         }
 
         internal void AddKeybind(Component c, Keys keyBind) => AddKeybind(c, keyBind, true);
+        internal void AddKeybind(KeybindAction a, Keys keyBind)
+        {
+            if (keybinds.ContainsKey(keyBind))
+                throw new ArgumentException("This key bind already exists");
+            keybinds[keyBind] = a;
+        }
 
         #endregion
 
@@ -183,9 +199,9 @@ namespace DLEDotNet.Editor
             AddKeybind(editorWindow.viewTexturesToolStripMenuItem, Keys.Shift | Keys.F11);
             AddKeybind(editorWindow.fitToViewToolStripMenuItem, Keys.Control | Keys.F11);
             AddKeybind(editorWindow.togglePerspectiveToolStripMenuItem, Keys.F12);
-            AddKeybind(editorWindow.partialLinesToolStripMenuItem, Keys.F7);
-            AddKeybind(editorWindow.allLinesToolStripMenuItem, Keys.F8);
-            AddKeybind(editorWindow.textureMappedToolStripMenuItem, Keys.F9);
+            AddKeybind(editorWindow.SwitchToPartialLines, Keys.F7);
+            AddKeybind(editorWindow.SwitchToAllLines, Keys.F8);
+            AddKeybind(editorWindow.SwitchToTextured, Keys.F9);
             AddKeybind(editorWindow.viewUsedTexturesToolStripMenuItem, Keys.F4);
             AddKeybind(editorWindow.viewShadingToolStripMenuItem, Keys.F5);
             AddKeybind(editorWindow.viewDeltaShadingToolStripMenuItem, Keys.F6);
@@ -217,8 +233,6 @@ namespace DLEDotNet.Editor
             AddKeybind(editorWindow.selectBackwardsSegmentToolStripMenuItem, Keys.Down);
             AddKeybind(editorWindow.selectOtherSegmentToolStripMenuItem, Keys.Space);
             AddKeybind(editorWindow.selectNextSideToolStripMenuItem, Keys.S);
-            AddKeybind(editorWindow.selectNextSideToolStripMenuItem, Keys.Right);
-            AddKeybind(editorWindow.selectPreviousSideToolStripMenuItem, Keys.Left);
             AddKeybind(editorWindow.selectNextLineToolStripMenuItem, Keys.L);
             AddKeybind(editorWindow.selectNextPointToolStripMenuItem, Keys.P);
 
@@ -240,8 +254,8 @@ namespace DLEDotNet.Editor
             AddKeybind(editorWindow.selectPreviousPointToolStripMenuItem, Keys.Shift | Keys.P);
 
             AddKeybind(editorWindow.alignSideRotationToolStripMenuItem, Keys.Alt | Keys.Home);
-            AddKeybind(editorWindow.panUp2ToolStripMenuItem, Keys.Alt | Keys.Up);
-            AddKeybind(editorWindow.panDown2ToolStripMenuItem, Keys.Alt | Keys.Down);
+            AddKeybind(editorWindow.panInToolStripMenuItem, Keys.Alt | Keys.Up);
+            AddKeybind(editorWindow.panDownToolStripMenuItem, Keys.Alt | Keys.Down);
         }
     }
 }

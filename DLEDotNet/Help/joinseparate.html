@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - Join/Separate Menu</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>Join/Separate Menu</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">Adjacent Segments</td>
+                    <td>
+                        Merges the current segment with the <a href="selection.html">other segment</a>.
+                        The segments must be directly connected with each other.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Current Side</td>
+                    <td>
+                        Merge the current side if it is close enough to another closed side.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Sides</td>
+                    <td>
+                        Connect the current side with the <a href="selection.html">other side</a>.
+                        This is either done by merging the two sides or adding a new segment that
+                        connects the two sides, depending on the distance and orientation.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Lines</td>
+                    <td>
+                        Merge the current line with the <a href="selection.html">other line</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Points</td>
+                    <td>
+                        Merge the current point with the <a href="selection.html">other point</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Close Current Side</td>
+                    <td>
+                        If the current side is an open side, closes it, but <em>without splitting</em>
+                        the connected points. Thus, the connected side will remain connected, but is
+                        simply converted into a closed side.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Separate Sides</td>
+                    <td>
+                        Separates the current side from the other side it is connected to, including
+                        the points that make up that side.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Separate Lines</td>
+                    <td>
+                        Separates the current line from all other lines it is connected with. Any sides
+                        relying on the line being connected will also be separated, but the rest of its
+                        points will remain connected.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Separate Points</td>
+                    <td>
+                        Separates the current line from all other lines it is connected with. Any sides
+                        relying on the point being connected will also be separated, but the rest of its
+                        points will remain connected.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

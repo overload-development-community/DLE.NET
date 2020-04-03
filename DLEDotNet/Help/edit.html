@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - Edit Menu</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>Edit Menu</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">Undo</td>
+                    <td>
+                        Undoes the last action.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Redo</td>
+                    <td>
+                        If any actions have been undone, restores the action
+                        that was last undone. The redo buffer is reset if another
+                        action is carried out after an undo.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Cut Block</td>
+                    <td>
+                        Considers all "marked segments" as a block; if none,
+                        this option is not available. The user is asked for a
+                        file name for the block file. If given, the given block
+                        is copied to the file and removed from the mine.
+                        The origin of the block is considered to be the current
+                        side and point.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Copy Block</td>
+                    <td>
+                        Considers all "marked segments" as a block; if none,
+                        this option is not available. The user is asked for a
+                        file name for the block file. If given, the given block
+                        is copied to the file, but not removed from the mine.
+                        The origin of the block is considered to be the current
+                        side and point.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Quick Copy</td>
+                    <td>
+                        Same as "Copy Block", but the block is copied to memory
+                        and not to a file.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Paste Block</td>
+                    <td>
+                        Pastes a block from a file, considering the current
+                        side and point as the origin for the block.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Quick Paste</td>
+                    <td>
+                        Same as "Paste Block", but the block is pasted from
+                        memory and not from a file.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Delete Block</td>
+                    <td>
+                        Removes all marked segments, if any.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Copy other segment's Textures</td>
+                    <td>
+                        Applies new textures to the current segment from the
+                        other segment. Only the 1st and 2nd layer textures are
+                        copied; the alignment and light settings are not. 
+                        The textures are copied for every side; for example,
+                        the texture in side 1 of the other segment is applied
+                        to side 1 of the current segment.
+                        If a side in the other segment is open and without a texture,
+                        the default texture will be applied for that specific side.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Mark/Unmark</td>
+                    <td>
+                        Marks the current point, line, side or segment, depending
+                        on the active <a href="selection.html">mode</a>. In
+                        object and block mode, the segment will be marked.
+                        <p></p>
+                        If the current point/line/side/segment is already marked,
+                        it will instead be unmarked.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Mark All</td>
+                    <td>
+                        Marks every point, line, side and segment in the mine.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Unmark All</td>
+                    <td>
+                        Unmarks every point, line, side and segment in the mine.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Collapse Edge</td>
+                    <td>
+                        D2X-XL only: converts the current line into a point.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Create Wedge</td>
+                    <td>
+                        D2X-XL only: converts the current segment into a wedge.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Create Pyramid</td>
+                    <td>
+                        D2X-XL only: converts the current segment into a pyramid.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Recalculate mine center</td>
+                    <td>
+                        Recalculates the center of the mine, i.e. the origin point
+                        (0,0,0) of the coordinates. All existing points and objects will
+                        be repositioned relative to the new origin such that
+                        their relative position in the mine is not changed.
+                        The center is considered to be the average of all
+                        point coordinate in the mine.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Set mine center to current segment</td>
+                    <td>
+                        Sets the mine center to the current segment; the center point
+                        of the current segment is taken as the new origin of the mine,
+                        and all existing points and objects will be repositioned
+                        relative to the new origin such that their relative
+                        position in the mine is not changed.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

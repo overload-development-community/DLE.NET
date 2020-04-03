@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - View Menu</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>View Menu</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">Toolbar</td>
+                    <td>
+                        Whether to show the <a href="toolbar.html">toolbar</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Editor tool bar</td>
+                    <td>
+                        Whether to show the <a href="movement.html">editor tool bar</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Status Bar</td>
+                    <td>
+                        Whether to show the <a href="statusbar.html">status bar</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Full screen</td>
+                    <td>
+                        Whether to enable the full screen mode that hides the
+                        texture list and tool tabs.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">View textures</td>
+                    <td>
+                        TODO (what does this do?)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Zoom In</td>
+                    <td>
+                        Zooms in on the mine view. The difference between the zoom and pan is that the
+                        zoom affects movement (with the mouse) and perspective, while panning does not.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Zoom Out</td>
+                    <td>
+                        Zooms out on the mine view. The difference between the zoom and pan is that the
+                        zoom affects movement (with the mouse) and perspective, while panning does not.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Fit to view</td>
+                    <td>
+                        Fits the entire mine to the mine view, adjusting the camera position, orientation and zoom.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Toggle perspective</td>
+                    <td>
+                        Toggles between the third-person and first-person perspectives.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Pan</td>
+                    <td>
+                        Used to pan or move the camera.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Rotate</td>
+                    <td>
+                        Used to rotate the camera. Rotation turns the camera as
+                        well as moves it around on a circle, depending on the
+                        zoom level.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Center on current segment</td>
+                    <td>
+                        Brings the current segment to the center of the mine
+                        view and zooms out to show the entire mine on the view.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Center on current object</td>
+                    <td>
+                        Brings the current object to the center of the mine
+                        view and zooms out to show the entire mine on the view.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Center entire Mine</td>
+                    <td>
+                        Zooms out to show the entire mine on the view and places
+                        the center of the mine into the center of the mine view.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Align side rotation</td>
+                    <td>
+                        TODO
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Partial Lines</td>
+                    <td>
+                        Displays only some segment lines without any textures.
+                        Roughly simulates how automap would look in-game.
+                        <p></p>
+                        Note: using F7 while in "textured, no lines" mode
+                        does not immediately jump to "partial lines", but to
+                        "textured, wireframe". Press F7 twice to go to
+                        "partial lines" directly.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">All Lines</td>
+                    <td>
+                        Displays all lines, but without any textures.
+                        <p></p>
+                        Note: using F8 while in "textured, no lines" mode
+                        does not immediately jump to "all lines", but to
+                        "textured, wireframe". Press F8 twice to go to
+                        "all lines" directly.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Textured, wireframe</td>
+                    <td>
+                        Displays sides with textures, but also draws the
+                        wireframe for all lines.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Textured, no lines</td>
+                    <td>
+                        Displays sides with textures without drawing the
+                        wireframe for any lines.
+                        <p></p>
+                        Note: using F9 while in "all lines" mode
+                        does not immediately jump to "textured, no lines", but to
+                        "textured, wireframe". Press F9 twice to go to
+                        "textured, no lines" directly.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Used textures</td>
+                    <td>
+                        Whether to only show textures already used in the mine
+                        in the <a href="texturelist.html">texture list</a>, as opposed to all textures.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Walls</td>
+                    <td>
+                        Whether to show walls as crosses on the mine view.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Special segments</td>
+                    <td>
+                        Whether to highlight special segments (segments with
+                        special functions) when lines are enabled.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Lights</td>
+                    <td>
+                        Whether to show the light sprite for dynamic lights.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Shading</td>
+                    <td>
+                        Whether to show lighting in the mine view. The lighting
+                        will only be visible on textures, not objects or lines.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Delta shading</td>
+                    <td>
+                        Whether to animate lighting (for dynamic lights) in the mine view.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Objects</td>
+                    <td>
+                        Controls object visibility in the mine view.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

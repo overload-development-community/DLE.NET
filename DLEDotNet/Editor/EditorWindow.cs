@@ -188,10 +188,13 @@ namespace DLEDotNet.Editor
             if (EditorState.SavedPrefs.ShowSplash)
             {
                 (openSplash = new SplashScreen()).Show(this);
-                ControlUtil.CatchClickAnywhereOnce(this, () => {
+                EventHandler CloseSplash = (object sender, EventArgs e) => {
                     if (openSplash.Visible)
                         openSplash?.Close();
-                });
+                };
+                ControlUtil.CatchClickAnywhereOnce(this, () => CloseSplash(this, new EventArgs()));
+                this.Resize += CloseSplash;
+                this.Move += CloseSplash;
             }
         }
 
@@ -213,6 +216,35 @@ namespace DLEDotNet.Editor
             string fileName = EditorState.FileName ?? "(untitled)";
             string version = Assembly.GetEntryAssembly().GetCustomAttribute<AssemblyInformationalVersionAttribute>().InformationalVersion.ToString();
             this.Text = (EditorState.Unsaved ? "*" : "") + fileName + " - " + programName + " " + version;
+        }
+        #endregion
+
+        #region --- Various settings logic
+        internal void SwitchToPartialLines()
+        {
+            // switch to partial lines, but not directly if coming from textured without lines
+            if (EditorState.ViewMode == RenderDisplayMode.TextureOnly)
+                EditorState.ViewMode = RenderDisplayMode.TextureAndWireframe;
+            else
+                EditorState.ViewMode = RenderDisplayMode.SparseWireframe;
+        }
+
+        internal void SwitchToAllLines()
+        {
+            // switch to all lines, but not directly if coming from textured without lines
+            if (EditorState.ViewMode == RenderDisplayMode.TextureOnly)
+                EditorState.ViewMode = RenderDisplayMode.TextureAndWireframe;
+            else
+                EditorState.ViewMode = RenderDisplayMode.FullWireframe;
+        }
+
+        internal void SwitchToTextured()
+        {
+            // switch to textured, but not directly if coming from untextured
+            if (EditorState.ViewMode != RenderDisplayMode.TextureAndWireframe)
+                EditorState.ViewMode = RenderDisplayMode.TextureAndWireframe;
+            else
+                EditorState.ViewMode = RenderDisplayMode.TextureOnly;
         }
         #endregion
 
@@ -327,6 +359,8 @@ namespace DLEDotNet.Editor
                 this.zoomInToolStripButton.Image = Properties.Resources.toolbarZoomInDark;
                 this.zoomOutToolStripButton.Image = Properties.Resources.toolbarZoomOutDark;
                 this.fitMineToolStripButton.Image = Properties.Resources.toolbarFitMineDark;
+                this.panInToolStripButton.Image = Properties.Resources.toolbarPanInDark;
+                this.panOutToolStripButton.Image = Properties.Resources.toolbarPanOutDark;
                 this.panLeftToolStripButton.Image = Properties.Resources.toolbarPanLeftDark;
                 this.panRightToolStripButton.Image = Properties.Resources.toolbarPanRightDark;
                 this.panUpToolStripButton.Image = Properties.Resources.toolbarPanUpDark;
@@ -369,6 +403,8 @@ namespace DLEDotNet.Editor
                 this.zoomInToolStripButton.Image = Properties.Resources.toolbarZoomIn;
                 this.zoomOutToolStripButton.Image = Properties.Resources.toolbarZoomOut;
                 this.fitMineToolStripButton.Image = Properties.Resources.toolbarFitMine;
+                this.panInToolStripButton.Image = Properties.Resources.toolbarPanIn;
+                this.panOutToolStripButton.Image = Properties.Resources.toolbarPanOut;
                 this.panLeftToolStripButton.Image = Properties.Resources.toolbarPanLeft;
                 this.panRightToolStripButton.Image = Properties.Resources.toolbarPanRight;
                 this.panUpToolStripButton.Image = Properties.Resources.toolbarPanUp;
@@ -618,6 +654,8 @@ namespace DLEDotNet.Editor
         private void zoomInToolStripButton_Click(object sender, EventArgs e) => zoomInToolStripMenuItem.PerformClick();
         private void zoomOutToolStripButton_Click(object sender, EventArgs e) => zoomOutToolStripMenuItem.PerformClick();
         private void fitMineToolStripButton_Click(object sender, EventArgs e) => fitToViewToolStripMenuItem.PerformClick();
+        private void panInToolStripButton_Click(object sender, EventArgs e) => panInToolStripMenuItem.PerformClick();
+        private void panOutToolStripButton_Click(object sender, EventArgs e) => panOutToolStripMenuItem.PerformClick();
         private void panLeftToolStripButton_Click(object sender, EventArgs e) => panLeftToolStripButton.PerformClick();
         private void panRightToolStripButton_Click(object sender, EventArgs e) => panRightToolStripButton.PerformClick();
         private void panUpToolStripButton_Click(object sender, EventArgs e) => panUpToolStripButton.PerformClick();
@@ -666,6 +704,11 @@ namespace DLEDotNet.Editor
         #region --- Events & binds for the View menu
         private void SetupViewMenu(EditorStateBinder binder)
         {
+            binder.BindToolStripMenuItemAsRadioButton<RenderDisplayMode>(this.partialLinesToolStripMenuItem, PROP(s => s.ViewMode), RenderDisplayMode.SparseWireframe, false);
+            binder.BindToolStripMenuItemAsRadioButton<RenderDisplayMode>(this.allLinesToolStripMenuItem, PROP(s => s.ViewMode), RenderDisplayMode.FullWireframe, false);
+            binder.BindToolStripMenuItemAsRadioButton<RenderDisplayMode>(this.textureAndWireframeToolStripMenuItem, PROP(s => s.ViewMode), RenderDisplayMode.TextureAndWireframe, false);
+            binder.BindToolStripMenuItemAsRadioButton<RenderDisplayMode>(this.textureMappedToolStripMenuItem, PROP(s => s.ViewMode), RenderDisplayMode.TextureOnly, false);
+
             binder.BindToolStripMenuItemAsCheckBox(this.fullScreenToolStripMenuItem, PROP(s => s.Toggles.FullScreen), false);
             binder.BindToolStripMenuItemAsCheckBoxFlag<TextureVisibilityFlags>(this.viewUsedTexturesToolStripMenuItem, PROP(s => s.SavedPrefs.TextureVisibility), TextureVisibilityFlags.UsedTextures, false);
             binder.BindToolStripMenuItemAsCheckBoxFlag<GeometryVisibilityFlags>(this.viewWallsToolStripMenuItem, PROP(s => s.SavedPrefs.GeometryVisibility), GeometryVisibilityFlags.Walls, false);

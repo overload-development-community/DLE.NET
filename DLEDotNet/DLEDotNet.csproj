@@ -58,6 +58,10 @@
     <None Remove="Resources\logo1.ico" />
     <None Remove="Resources\PLUS.png" />
     <None Remove="Resources\splash.png" />
+    <None Remove="Resources\toolbarPanIn.png" />
+    <None Remove="Resources\toolbarPanInDark.png" />
+    <None Remove="Resources\toolbarPanOut.png" />
+    <None Remove="Resources\toolbarPanOutDark.png" />
   </ItemGroup>
   
   <ItemGroup>
