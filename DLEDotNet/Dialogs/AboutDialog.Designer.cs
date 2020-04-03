@@ -84,7 +84,7 @@
             this.labelProductName.Name = "labelProductName";
             this.labelProductName.Size = new System.Drawing.Size(472, 17);
             this.labelProductName.TabIndex = 19;
-            this.labelProductName.Text = "DLE.NET (Descent Level Editor.NET)";
+            this.labelProductName.Text = "DLE.NET (Descent Level Editor.NET) - an improved port of DLE-XP to .NET";
             this.labelProductName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // labelVersion

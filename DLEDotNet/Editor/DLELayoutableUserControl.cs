@@ -102,8 +102,6 @@ namespace DLEDotNet.Editor
 
                 this.ContextMenuStrip = helpStrip;
             }
-            if (helpStrip != null)
-                helpStrip.Visible = HelpPageName != null;
         }
 
         protected override void OnLoad(EventArgs e)
