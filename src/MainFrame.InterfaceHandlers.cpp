@@ -569,7 +569,7 @@ segmentManager.SeparateSegments ();
 
 void CMainFrame::OnSplitCurrentSide ()
 {
-segmentManager.SeparateSegments ();
+segmentManager.SeparateSegments (1);
 }
 
 void CMainFrame::UpdateInsModeButtons (short mode)
