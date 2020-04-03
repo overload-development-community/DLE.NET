@@ -124,7 +124,7 @@ namespace DLEDotNet.Data
                             break;
                         case "expertmode":
                             if (int.TryParse(value, out i))
-                                this.ExpertMode = i != 0;
+                                this.MessageLevel = i != 0 ? InformationLevel.Normal : InformationLevel.Verbose;
                             break;
                         case "splashscreen":
                             if (int.TryParse(value, out i))

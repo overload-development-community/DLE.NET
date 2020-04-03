@@ -19,6 +19,10 @@
         <p>
             Triggers are actions that are carried out when a player passes
             through a specific wall or destroys/picks up a specific object.
+            When added to walls, the trigger will only activate when flying
+            through the wall from the segment the wall is on - it will <em>not</em>
+            activate if the player enters the segment the wall is on, even
+            when flying through the wall.
         </p>
 
         <p>
@@ -177,7 +181,7 @@
         </p>
 
         <p>
-            If not mentioned separately, the "strength" and "time" values
+            Unless mentioned separately, the "strength" and "time" values
             have no effect, and the trigger target(s) do not matter.
         </p>
 
@@ -289,7 +293,7 @@
         </p>
 
         <p>
-            If not mentioned separately, the "strength" and "time" values
+            Unless mentioned separately, the "strength" and "time" values
             have no effect, and the trigger target(s) do not matter.
         </p>
 
@@ -325,7 +329,7 @@
                         activated. The side of the target has no effect.
                         <p></p>
                         In addition, in D2X-XL, for each target: if the target points
-                        to a segment that is a <a href="segments.html">equip maker</a>,
+                        to a segment that is an <a href="segments.html">equip maker</a>,
                         it is also activated.
                     </td>
                 </tr>
@@ -404,7 +408,7 @@
                     <td>
                         For each target: if the target points at a wall, converts the wall
                         into an Illusion type on both sides
-                        (without an animation or sound).
+                        (without an animation or a sound).
                     </td>
                 </tr>
                 <tr>
@@ -413,8 +417,8 @@
                     <td>
                         For each target: if the target is a closed side or a wall,
                         and thus has a texture, and if the 2nd texture casts a
-                        light, the light is disabled and the dynamic light,
-                        if any, is turned off.
+                        light, turns off the light (makes it dark), including
+                        the dynamic light.
                     </td>
                 </tr>
                 <tr>
@@ -423,8 +427,8 @@
                     <td>
                         For each target: if the target is a closed side or a wall,
                         and thus has a texture, and if the 2nd texture casts a
-                        light, the light is enabled and the dynamic light,
-                        if any, is turned on.
+                        light, turns on the light (makes it bright), including
+                        the dynamic light.
                     </td>
                 </tr>
                 <tr>
@@ -442,7 +446,7 @@
         <h3>D2X-XL exclusive</h3>
 
         <p>
-            The trigger types in the following table are exclusive to D2X-XL.
+            The trigger types in the following table are exclusive to D2X-XL levels.
         </p>
 
         <table>
@@ -459,7 +463,7 @@
                     <td class="narrow">Teleport! (standard)<br />Robot is fleeing! (object)</td>
                     <td>
                         With standard triggers:
-                        Teleports to the center of the target segment,
+                        Teleports the player to the center of the target segment,
                         pointing towards the target side. There should be
                         exactly one target.
                         <p></p>
@@ -549,8 +553,8 @@
                     <td>
                         Moves player spawn points to new locations. The
                         number of targets should correspond to the number
-                        of players (1 on singleplayer, 4 on singleplayer/co-op,
-                        8 on multiplayer), and represent (segment, side) targets;
+                        of players (1 on singleplayer, 4 on singleplayer/co-op),
+                        and represent (segment, side) pairs;
                         the spawn point will be at the center of the cube,
                         facing towards the target side.
                     </td>
@@ -601,7 +605,7 @@
                     <td class="narrow">&mdash;</td>
                     <td>
                         For each target: if the target is a trigger,
-                        disable it (prevent it from activating).
+                        disable it (prevent it from activating until enabled).
                     </td>
                 </tr>
                 <tr>
@@ -624,7 +628,7 @@
                     <td class="main">shake mine</td>
                     <td class="narrow">&mdash;</td>
                     <td>
-                        Causes the mine to shake. The "strength" controls,
+                        Causes the mine to shake. The "strength" controls
                         how hard the mine shakes, and "time" controls how
                         long the mine will shake (in seconds); set to -1
                         for a default of 10 seconds.
@@ -658,9 +662,9 @@
                 <tr>
                     <td class="main">one shot</td>
                     <td>
-                        Makes the trigger only activate once. Applicable to
-                        fly-through open wall triggers (since switches are
-                        destroyed in order to activate triggers, they are
+                        Makes the trigger only activate once and disable itself afterwards.
+                        Applicable to fly-through open wall triggers (since switches
+                        are destroyed in order to activate triggers, they are
                         by nature one-shot).
                     </td>
                 </tr>
@@ -695,7 +699,7 @@
                     <td class="main">autoplay</td>
                     <td>
                         D2X-XL only: Automatically activate the trigger (or start its
-                        delay) if/once it is enabled.
+                        delay) if or once it is enabled.
                     </td>
                 </tr>
                 <tr>

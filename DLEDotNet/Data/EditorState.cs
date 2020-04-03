@@ -183,12 +183,28 @@ namespace DLEDotNet.Data
         }
         private string _innerFileName;
 
-        public LibDescent.Data.Fix FixTest
+        /// <summary>
+        /// Returns whether a message box with the given minimum information level should be displayed,
+        /// which depends on the information level set in the settings. "Quiet" should be used for
+        /// important messages like errors, "Normal" for warnings/success messages or confirmation boxes
+        /// with major effects and "Verbose" for the rest (guides, confirmations for minor effects, and
+        /// so forth).
+        /// </summary>
+        /// <param name="level">The information level of the message box to (possibly) display.</param>
+        /// <returns></returns>
+        public bool ShouldDisplayMessage(InformationLevel level)
         {
-            get => fixTest;
-            set => AssignChanged(ref fixTest, value);
+            switch (Prefs.MessageLevel)
+            {
+                case InformationLevel.Quiet:
+                    return level == InformationLevel.Quiet;
+                case InformationLevel.Normal:
+                    return level == InformationLevel.Quiet || level == InformationLevel.Normal;
+                case InformationLevel.Verbose:
+                    return true;
+            }
+            return true;
         }
-        private LibDescent.Data.Fix fixTest = 1.0/7;
 
         /// <summary>
         /// Contains methods that should not be used outside EditorStateBinder.

@@ -607,6 +607,7 @@
             this.triggerStrengthTextLabel.TabIndex = 5;
             this.triggerStrengthTextLabel.TabStop = true;
             this.triggerStrengthTextLabel.Text = "strength:";
+            this.triggerStrengthTextLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // labelTriggerNum
             // 
@@ -791,6 +792,7 @@
             this.labelTime.TabIndex = 8;
             this.labelTime.TabStop = true;
             this.labelTime.Text = "time:";
+            this.labelTime.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // alignableGroupBoxAddTrigger
             // 

@@ -51,7 +51,7 @@ namespace DLEDotNet.Editor.Layouts
             EditorStateBinder binder = EditorStateBinder.FromState(this.EditorState);
             binder.BindStringTextBox(this.prefsPlayerTextBox, PROP(s => s.Prefs.PlayerProfile), false);
             binder.BindCheckBox(this.prefsUsetexcolorsCheckBox, PROP(s => s.Toggles.UseTexColors), false);
-            binder.BindCheckBox(this.prefsExpertmodeCheckBox, PROP(s => s.Prefs.ExpertMode), false);
+            binder.BindComboBox<InformationLevel>(this.prefsInformationLevelComboBox, PROP(s => s.Prefs.MessageLevel));
             binder.BindCheckBox(this.prefsSplashscreenCheckBox, PROP(s => s.Prefs.ShowSplash), false);
         }
 
@@ -81,11 +81,12 @@ namespace DLEDotNet.Editor.Layouts
                     EditorState.SavedPrefs.CopyFrom(tempSettings);
                     EditorState.Prefs.CopyFrom(EditorState.SavedPrefs);
 
-                    MessageBox.Show(this,
-                        "Settings have been successfully imported.",
-                        "Info",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
+                    if (EditorState.ShouldDisplayMessage(InformationLevel.Normal))
+                        MessageBox.Show(this,
+                            "Settings have been successfully imported.",
+                            "Info",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
                 }
             }
         }
@@ -100,14 +101,12 @@ namespace DLEDotNet.Editor.Layouts
                 tempSettings.CopyFrom(EditorState.Prefs);
                 tempSettings.RecentFiles.Clear(); // don't save recent files
                 tempSettings.SaveToFile(xmlSaveFileDialog.FileName);
-                if (!EditorState.SavedPrefs.ExpertMode)
-                {
+                if (EditorState.ShouldDisplayMessage(InformationLevel.Normal))
                     MessageBox.Show(this,
                         "Settings have been successfully exported.",
                         "Info",
                         MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
-                }
             }
         }
 
@@ -137,11 +136,12 @@ namespace DLEDotNet.Editor.Layouts
                     EditorState.SavedPrefs.CopyFrom(tempSettings);
                     EditorState.Prefs.CopyFrom(EditorState.SavedPrefs);
 
-                    MessageBox.Show(this,
-                        "Settings have been successfully imported.",
-                        "Info",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Information);
+                    if (EditorState.ShouldDisplayMessage(InformationLevel.Normal))
+                        MessageBox.Show(this,
+                            "Settings have been successfully imported.",
+                            "Info",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information);
                 }
             }
         }
@@ -156,11 +156,12 @@ namespace DLEDotNet.Editor.Layouts
             {
                 EditorState.SavedPrefs.CopyFrom(EditorState.DefaultPrefs);
                 EditorState.Prefs.CopyFrom(EditorState.SavedPrefs);
-                MessageBox.Show(this,
-                    "Default settings have been restored.",
-                    "Info",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
+                if (EditorState.ShouldDisplayMessage(InformationLevel.Normal))
+                    MessageBox.Show(this,
+                        "Default settings have been restored.",
+                        "Info",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information);
             }
         }
     }

@@ -9,6 +9,7 @@
         <h1>Segment Tool</h1>
         <div>
             <a href="#data">Segment Data</a> &middot;
+            <a href="#functions">Segment Functions</a> &middot;
             <a href="#groups">Segment Groups</a> &middot;
             <a href="#sidepoint">Side &amp; Point</a> &middot;
             <a href="#properties">Properties</a> &middot;
@@ -37,7 +38,7 @@
                 <tr>
                     <td class="main">Function</td>
                     <td>
-                        Controls the segment of the function. See the "Function" section below.
+                        Controls the segment of the function. See the "Segment Functions" section below.
                     </td>
                 </tr>
                 <tr>
@@ -50,7 +51,7 @@
             </tbody>
         </table>
 
-        <h3>Function</h3>
+        <h3 id="functions">Segment Functions</h3>
         <table>
             <thead>
                 <tr>
@@ -97,9 +98,9 @@
                     <td class="main">Robot Maker</td>
                     <td>
                         Also called a <i>materialization center</i> or <i>mat cen</i>,
-                        this is a special type of segment that can spawn robots when activated.
-                        It'll spawn 3-6 robots one at a time (depending on the difficulty) and
-                        on all difficulties except Insane (the highest), may only be activated
+                        this is a special type of segment that can spawn robots when activated,
+                        will spawn 3-6 robots one at a time (depending on the difficulty).
+                        On all difficulties except Insane (the highest), it may only be activated
                         three times before deactivating permanently. Shows up as magenta
                         in the automap (as does the player spawn segment, which it should not
                         be confused with; player start segments are normal segments).
@@ -196,7 +197,7 @@
         <p>
             Contains buttons for selecting the current side number (numbered from 1 to 6)
             and the point/line for the selected side (numbered from 1 to 4), as well as
-            the coordinates for the currently selected point. The "apply" button sets the
+            the coordinates for the currently selected point. The "apply" button applies the
             new input coordinates, while "reset" reverts the text boxes back to the
             coordinates the point has.
         </p>
@@ -261,8 +262,9 @@
                         Applies to sides, rather than segments. Removes the side from the segment,
                         causing it to appear invisible. Any projectiles passing through it will
                         be automatically removed, but players or robots still cannot pass through.
-                        Intended to be used at the very end of exit tunnels, and required for
-                        exit sequences to play.
+                        Intended to be used at the very end of exit tunnels (for the last face the
+                        player flies through), and required for exit sequences to play. Should not
+                        be used outside of exit tunnels.
                     </td>
                 </tr>
             </tbody>

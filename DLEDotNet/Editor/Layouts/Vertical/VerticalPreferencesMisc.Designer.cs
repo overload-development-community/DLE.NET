@@ -28,11 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.prefsExpertmodeCheckBox = new System.Windows.Forms.CheckBox();
             this.prefsSplashscreenCheckBox = new System.Windows.Forms.CheckBox();
             this.prefsPlayerTextBox = new System.Windows.Forms.TextBox();
             this.prefsUsetexcolorsCheckBox = new System.Windows.Forms.CheckBox();
             this.alignableGroupBoxVerbosity = new DLEDotNet.Editor.AlignableGroupBox();
+            this.labelInformationLevel = new System.Windows.Forms.Label();
+            this.prefsInformationLevelComboBox = new System.Windows.Forms.ComboBox();
             this.alignableGroupBoxPlayerProfile = new DLEDotNet.Editor.AlignableGroupBox();
             this.alignableGroupBoxFaceLightSettings = new DLEDotNet.Editor.AlignableGroupBox();
             this.alignableGroupBox1 = new DLEDotNet.Editor.AlignableGroupBox();
@@ -45,16 +46,6 @@
             this.alignableGroupBoxFaceLightSettings.SuspendLayout();
             this.alignableGroupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // prefsExpertmodeCheckBox
-            // 
-            this.prefsExpertmodeCheckBox.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.prefsExpertmodeCheckBox.Location = new System.Drawing.Point(12, 21);
-            this.prefsExpertmodeCheckBox.Margin = new System.Windows.Forms.Padding(0);
-            this.prefsExpertmodeCheckBox.Name = "prefsExpertmodeCheckBox";
-            this.prefsExpertmodeCheckBox.Size = new System.Drawing.Size(220, 18);
-            this.prefsExpertmodeCheckBox.TabIndex = 0;
-            this.prefsExpertmodeCheckBox.Text = "stop askin\' those questions all the time! ;-)";
             // 
             // prefsSplashscreenCheckBox
             // 
@@ -88,16 +79,33 @@
             // 
             // alignableGroupBoxVerbosity
             // 
-            this.alignableGroupBoxVerbosity.Controls.Add(this.prefsExpertmodeCheckBox);
+            this.alignableGroupBoxVerbosity.Controls.Add(this.labelInformationLevel);
+            this.alignableGroupBoxVerbosity.Controls.Add(this.prefsInformationLevelComboBox);
             this.alignableGroupBoxVerbosity.Controls.Add(this.prefsSplashscreenCheckBox);
-            this.alignableGroupBoxVerbosity.Location = new System.Drawing.Point(32, 75);
+            this.alignableGroupBoxVerbosity.Location = new System.Drawing.Point(33, 75);
             this.alignableGroupBoxVerbosity.Margin = new System.Windows.Forms.Padding(0);
             this.alignableGroupBoxVerbosity.Name = "alignableGroupBoxVerbosity";
             this.alignableGroupBoxVerbosity.Padding = new System.Windows.Forms.Padding(0);
-            this.alignableGroupBoxVerbosity.Size = new System.Drawing.Size(236, 67);
+            this.alignableGroupBoxVerbosity.Size = new System.Drawing.Size(235, 67);
             this.alignableGroupBoxVerbosity.TabIndex = 0;
             this.alignableGroupBoxVerbosity.TabStop = false;
             this.alignableGroupBoxVerbosity.Text = "Verbosity";
+            // 
+            // labelInformationLevel
+            // 
+            this.labelInformationLevel.Location = new System.Drawing.Point(9, 20);
+            this.labelInformationLevel.Name = "labelInformationLevel";
+            this.labelInformationLevel.Size = new System.Drawing.Size(86, 13);
+            this.labelInformationLevel.TabIndex = 6;
+            this.labelInformationLevel.Text = "information level:";
+            // 
+            // prefsInformationLevelComboBox
+            // 
+            this.prefsInformationLevelComboBox.FormattingEnabled = true;
+            this.prefsInformationLevelComboBox.Location = new System.Drawing.Point(101, 17);
+            this.prefsInformationLevelComboBox.Name = "prefsInformationLevelComboBox";
+            this.prefsInformationLevelComboBox.Size = new System.Drawing.Size(103, 21);
+            this.prefsInformationLevelComboBox.TabIndex = 7;
             // 
             // alignableGroupBoxPlayerProfile
             // 
@@ -118,7 +126,7 @@
             this.alignableGroupBoxFaceLightSettings.Margin = new System.Windows.Forms.Padding(0);
             this.alignableGroupBoxFaceLightSettings.Name = "alignableGroupBoxFaceLightSettings";
             this.alignableGroupBoxFaceLightSettings.Padding = new System.Windows.Forms.Padding(0);
-            this.alignableGroupBoxFaceLightSettings.Size = new System.Drawing.Size(114, 67);
+            this.alignableGroupBoxFaceLightSettings.Size = new System.Drawing.Size(115, 67);
             this.alignableGroupBoxFaceLightSettings.TabIndex = 2;
             this.alignableGroupBoxFaceLightSettings.TabStop = false;
             this.alignableGroupBoxFaceLightSettings.Text = "face light settings";
@@ -129,7 +137,7 @@
             this.alignableGroupBox1.Controls.Add(this.buttonImportINI);
             this.alignableGroupBox1.Controls.Add(this.buttonExportXML);
             this.alignableGroupBox1.Controls.Add(this.buttonImportXML);
-            this.alignableGroupBox1.Location = new System.Drawing.Point(32, 250);
+            this.alignableGroupBox1.Location = new System.Drawing.Point(33, 250);
             this.alignableGroupBox1.Name = "alignableGroupBox1";
             this.alignableGroupBox1.Size = new System.Drawing.Size(235, 88);
             this.alignableGroupBox1.TabIndex = 5;
@@ -193,8 +201,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.CheckBox prefsExpertmodeCheckBox;
         private System.Windows.Forms.CheckBox prefsSplashscreenCheckBox;
         private System.Windows.Forms.TextBox prefsPlayerTextBox;
         private System.Windows.Forms.CheckBox prefsUsetexcolorsCheckBox;
@@ -206,5 +212,7 @@
         private System.Windows.Forms.Button buttonExportXML;
         private System.Windows.Forms.Button buttonImportXML;
         private System.Windows.Forms.Button buttonResetDefaults;
+        private System.Windows.Forms.Label labelInformationLevel;
+        private System.Windows.Forms.ComboBox prefsInformationLevelComboBox;
     }
 }

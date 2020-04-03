@@ -49,7 +49,7 @@ namespace DLEDotNet.Data
         [NoSettingTouch]
         public bool BumpCoincident { get => !AllowObjectOverlap; set => AssignChanged(ref _allowObjectOverlap, !value); }
         public bool UpdateTextureAlignment { get => _adjustTextureAlignment; set => AssignChanged(ref _adjustTextureAlignment, value); }
-        public bool ExpertMode { get => _expertMode; set => AssignChanged(ref _expertMode, value); }
+        public InformationLevel MessageLevel { get => _infoLevel; set => AssignChanged(ref _infoLevel, value); }
         public bool ShowSplash { get => _splashScreen; set => AssignChanged(ref _splashScreen, value); }
         public bool DepthTest { get => _depthTest; set => AssignChanged(ref _depthTest, value); }
         public StartupWindowState StartupState { get => _startupWindowState; set => AssignChanged(ref _startupWindowState, value); }
@@ -78,7 +78,7 @@ namespace DLEDotNet.Data
         private bool _adjustTextureAlignment = true;
         private string _playerProfile = "";
         private bool _depthTest = true;
-        private bool _expertMode = true;
+        private InformationLevel _infoLevel = InformationLevel.Verbose;
         private bool _splashScreen = true;
         private StartupWindowState _startupWindowState = StartupWindowState.Windowed;
         private CameraMovementMode _movementMode = CameraMovementMode.Continuous;

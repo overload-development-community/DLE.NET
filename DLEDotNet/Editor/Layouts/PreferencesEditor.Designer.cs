@@ -235,7 +235,7 @@
             this.prefsUpdatetexalignCheckBox.Name = "prefsUpdatetexalignCheckBox";
             this.prefsUpdatetexalignCheckBox.Size = new System.Drawing.Size(135, 28);
             this.prefsUpdatetexalignCheckBox.TabIndex = 1;
-            this.prefsUpdatetexalignCheckBox.Text = "Adjust texture alignment when editing cubes";
+            this.prefsUpdatetexalignCheckBox.Text = "Adjust texture alignment when editing segments";
             // 
             // PreferencesEditor
             // 

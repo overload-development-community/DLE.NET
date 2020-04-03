@@ -9,6 +9,7 @@
         <h1>Wall Tool</h1>
         <div>
             <a href="#data">Wall Data</a> &middot;
+            <a href="#types">Wall Types</a> &middot;
             <a href="#flags">Key & Flags</a> &middot;
             <a href="#add">Add &amp; Delete</a>
         </div>
@@ -72,7 +73,7 @@
                 <tr>
                     <td class="main">Type</td>
                     <td>
-                        The current wall type; see the "Type" section below.
+                        The current wall type; see the "Wall Types" section below.
                     </td>
                 </tr>
                 <tr>
@@ -108,7 +109,7 @@
             </tbody>
         </table>
 
-        <h3>Type</h3>
+        <h3 id="types">Type</h3>
         <table>
             <thead>
                 <tr>
@@ -134,7 +135,7 @@
                         A special type of Close wall that does not have a texture, but instead
                         appears pitch black with adjustable transparency. Robots can spot
                         players through Cloaked walls and will attempt to fire, but projectiles
-                        will not pass through.
+                        will not pass through unless a transparent texture is used.
                     </td>
                 </tr>
                 <tr>
@@ -142,8 +143,8 @@
                     <td>
                         A simple closed wall. Used for solid walls, grates, fans and
                         (in Descent 2) force fields. Players or robots cannot pass through
-                        Close walls, but projectiles can pass through and robots can spot
-                        the player through transparent gaps.
+                        Close walls, but if the wall has transparent gaps (such as grates),
+                        projectiles can fly and robots can spot and fire at the player through them.
                     </td>
                 </tr>
                 <tr>
@@ -194,6 +195,7 @@
                 <tr>
                     <td class="main">Overlay</td>
                     <td>
+                        Descent 2 only (also available in Descent 1 levels if on D2X-XL):
                         The only wall type that must be on a closed side, i.e. a side
                         that is not connected to another segment. Overlay walls are used
                         to add triggers to monitors and control panels that activate
@@ -216,8 +218,8 @@
                     <td class="main">key</td>
                     <td>
                         Controls whether a key is required to open the wall. Only applies to doors,
-                        but non-door walls with a key requirement will still display a message if the
-                        player does not have the matching key.
+                        but non-door walls with a key requirement will still display a message if hit
+                        by a player that does not have the matching key.
                     </td>
                 </tr>
                 <tr>
@@ -275,7 +277,7 @@
                 <tr>
                     <td class="main">Additive</td>
                     <td>
-                        (XL only) uses additive filtering for this wall if it is a Colored
+                        (XL only) uses additive blending for this wall if it is a Colored
                         or Cloaked wall.
                     </td>
                 </tr>

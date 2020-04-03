@@ -54,6 +54,11 @@ namespace DLEDotNet.Data
         D1, D2, D2Vertigo, D2XXL
     }
 
+    public enum InformationLevel
+    {
+        Quiet, Normal, Verbose
+    }
+
     [Flags]
     public enum GeometryVisibilityFlags : int
     {

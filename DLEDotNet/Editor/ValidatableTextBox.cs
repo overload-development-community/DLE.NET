@@ -37,7 +37,7 @@ namespace DLEDotNet.Editor
             foreach (Binding b in this.DataBindings)
             {
                 b.WriteValue();
-                // maybe there are extra constraints?
+                // maybe there are extra constraints applied by the property?
                 b.ReadValue();
             }
         }

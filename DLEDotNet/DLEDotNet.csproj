@@ -6,6 +6,7 @@
     <UseWindowsForms>true</UseWindowsForms>
     <Version>0.0.1-alpha</Version>
     <Description>A Descent 1 and 2 level editor for .NET.</Description>
+    <ApplicationIcon>Resources\logo1.ico</ApplicationIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(TargetFramework)', '^net\d'))">
@@ -48,7 +49,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\banner.png" />
+    <None Remove="Resources\logo1.ico" />
     <None Remove="Resources\PLUS.png" />
+    <None Remove="Resources\splash.png" />
   </ItemGroup>
   
   <ItemGroup>

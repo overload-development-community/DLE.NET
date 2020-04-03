@@ -2663,6 +2663,7 @@
             this.MainMenuStrip = this.mainMenuStrip;
             this.Name = "EditorWindow";
             this.Text = "DLE.NET";
+            this.Icon = Properties.Resources.logo1;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.EditorWindow_FormClosing);
             this.Load += new System.EventHandler(this.EditorWindow_Load);
             this.Shown += new System.EventHandler(this.EditorWindow_Shown);
