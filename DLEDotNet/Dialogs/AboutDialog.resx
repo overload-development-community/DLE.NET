@@ -118,10 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="textBoxDescription.Text" xml:space="preserve">
-    <value>DLE.NET Team consists of [individual names go here] and is a part of the Overload Development Community, an unofficial community developing software and other solutions for Overload and related games.
-
-
-DLE.NET is licensed with the MIT License.
+    <value>DLE.NET Team consists of [individual names go here] and is a part of the Overload Development Community, an unofficial community developing software and other solutions for Overload and related games. DLE.NET is licensed with the MIT License.
 
 Copyright (c) 2020 Overload Development Community
 

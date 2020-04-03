@@ -54,14 +54,23 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Resources\arrow.cur" />
     <None Remove="Resources\banner.png" />
+    <None Remove="Resources\drag.cur" />
     <None Remove="Resources\logo1.ico" />
+    <None Remove="Resources\pan.cur" />
+    <None Remove="Resources\pencil.cur" />
     <None Remove="Resources\PLUS.png" />
+    <None Remove="Resources\rotate.cur" />
     <None Remove="Resources\splash.png" />
     <None Remove="Resources\toolbarPanIn.png" />
     <None Remove="Resources\toolbarPanInDark.png" />
     <None Remove="Resources\toolbarPanOut.png" />
     <None Remove="Resources\toolbarPanOutDark.png" />
+    <None Remove="Resources\xhairs.cur" />
+    <None Remove="Resources\zoom.cur" />
+    <None Remove="Resources\zoomin.cur" />
+    <None Remove="Resources\zoomout.cur" />
   </ItemGroup>
   
   <ItemGroup>
