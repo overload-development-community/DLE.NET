@@ -24,7 +24,7 @@
             Most important of all: 
             <em>always</em> check the mine before finishing work on it.
             The diagnostics tool can point out several issues that could,
-            if unaddressed, cause the level to crash the game.
+            if unaddressed, ruin the experience or cause the level to crash the game.
         </p>
 
         <h2 id="design">Design</h2>
@@ -75,6 +75,19 @@
                 Choose their location wisely.
             </li>
             <li>
+                Hostages should be positioned 4.9 - 5.0 units above the floor.
+                When added to a default 20x20x20, the hostage will be at 10
+                units above the floor, which causes them to appear to levitate.
+                Leaving them that way looks jarring.
+            </li>
+            <li>
+                It is part of Descent tradition to place a "starting door"
+                right behind or close to the player's spawn point. It should
+                use the door05 clip and be locked from the player's side, to
+                give players the impression that the player entered the level
+                through that door.
+            </li>
+            <li>
                 It should go without saying; test your levels before
                 releasing them to other players.
             </li>
@@ -90,6 +103,10 @@
                 has a boss robot, the reactor will be removed on level load,
                 so you don't need to worry about the player being able to
                 somehow access it.
+            </li>
+            <li>
+                Make sure the segment the reactor is in is set to be a
+                reactor segment.
             </li>
             <li>
                 Never add doors that are only present on one side, or the

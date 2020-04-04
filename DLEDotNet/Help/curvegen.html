@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - Curve Generator</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>Curve Generator</h1>
+        <p>
+            The curve generator can be used to automatically generate curved
+            tunnels between two sides. To use the curve generator, start by
+            selecting the sides, one as the current side and the other as
+            the <a href="selection.html">other side</a>. It is accessed from
+            Tools &gt; Curve Generator or by pressing <kbd>G</kbd>.
+        </p>
+
+        <p>
+            The generated tunnel will follow a Bézier curve, the parameters
+            of which can be adjusted by using <kbd>Ctrl+8</kbd> and <kbd>Ctrl+9</kbd>
+            to control the curvature (by the distance of the control
+            points from the sides; 8 increases and 9 decreases) and
+            <kbd>Alt+8</kbd> and <kbd>Alt+9</kbd> to adjust the granularity
+            (length of segments in the tunnel; 8 makes segments shorter and 9
+            makes them longer). All of these operations will be done for the
+            current side, but you can use <kbd>Space</kbd> to switch to the other
+            segment so that the same operations can be done on the other side.
+        </p>
+
+        <p>
+            The tunnel can be twisted by changing the current point by
+            pressing <kbd>P</kbd>.
+        </p>
+
+        <p>
+            The tunnel will adopt the textures of the current segment. To finish
+            creating the tunnel, click Tools &gt; Curve Generator again or press
+            <kbd>G</kbd> to confirm whether the tunnel should be created or not.
+        </p>
+
+        <p>
+            This is an example of how the curve generator looks like while active:
+        </p>
+        <img src="Images/curvegen.png">
+    </body>
+</html>

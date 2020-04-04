@@ -256,6 +256,7 @@ namespace DLEDotNet.Editor
             AddKeybind(editorWindow.alignSideRotationToolStripMenuItem, Keys.Alt | Keys.Home);
             AddKeybind(editorWindow.panInToolStripMenuItem, Keys.Alt | Keys.Up);
             AddKeybind(editorWindow.panOutToolStripMenuItem, Keys.Alt | Keys.Down);
+            AddKeybind(editorWindow.curveGeneratorToolStripMenuItem, Keys.G);
         }
     }
 }

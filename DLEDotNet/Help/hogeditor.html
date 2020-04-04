@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - .HOG Editor</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>.HOG Editor</h1>
+        <p>
+            A .HOG file is an archive containing levels and other associated
+            data. It's used to store the contents of a mission (except the
+            <a href="mission.html">metadata</a>, which is in a separate file).
+            It is accessed from "File &gt; Edit Mission HOG..." or when first
+            opening a .HOG file.
+        </p>
+
+        <p>
+            Note that the file names in a .HOG file are in 8.3 format, and thus
+            the file name must be at most 8 characters long with a 3 character
+            long file extension.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">Files</td>
+                    <td>
+                        The list of files in the .HOG file. Unless "show all files"
+                        is checked, only some files are shown, such as level files.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Open</td>
+                    <td>
+                        Opens the currently selected file, which can also be done
+                        by double-clicking the file. Only one file may be selected,
+                        or this option is not available.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Rename</td>
+                    <td>
+                        Renames the currently selected file. Only one file may
+                        be selected, or this option is not available.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Import</td>
+                    <td>
+                        Imports one or more files into the .HOG.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Export</td>
+                    <td>
+                        Exports the selected files from the .HOG.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Delete</td>
+                    <td>
+                        Deletes the selected files from the .HOG. If confirmed,
+                        this action cannot be undone.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Cancel</td>
+                    <td>
+                        Closes the .HOG editor. If pressed while opening
+                        a .HOG, it will be closed.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">show all files</td>
+                    <td>
+                        Whether to show all files in the file list.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Size</td>
+                    <td>
+                        The total size of the selected file(s) in bytes.
+                        Only includes the sizes of the files themselves and
+                        not their header in the .HOG.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Offset</td>
+                    <td>
+                        The offset of the file in the .HOG, which points to the
+                        .HOG file header (which contains the file name and
+                        extension). The contents of the file are found exactly
+                        13 bytes after the header. Only one file may
+                        be selected, or this value is not available.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

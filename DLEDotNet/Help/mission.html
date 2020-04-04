@@ -197,7 +197,8 @@
         <p>
             The information here is not visible in-game, but can be read
             in the mission file by either users or some tools. All of these
-            fields are optional.
+            fields are optional. Most of these have no effect, except for
+            "briefing".
         </p>
         <table>
             <thead>
@@ -258,8 +259,10 @@
                 <tr>
                     <td class="main">briefing</td>
                     <td>
-                        The name of the briefing file without .txb. Not used
-                        by the game, but may be used by some tools.
+                        The name of the briefing file (.TXB) in the .HOG file.
+                        This should include the extension. Only matters for
+                        Descent 1; Descent 2 always assumes the briefing has
+                        the same filename as the .HOG.
                     </td>
                 </tr>
                 <tr>

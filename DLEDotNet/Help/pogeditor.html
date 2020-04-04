@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - .POG Texture Editor</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>.POG Texture Editor</h1>
+        <p>
+            Used to add and edit custom textures in Descent 2 levels.
+            The textures will be stored in a .POG file. The editor can be
+            accessed by pressing "edit..." in the <a href="texture.html">texture tool</a>
+            or from "File &gt; Edit Textures (POG)...".
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">Texture list</td>
+                    <td>
+                        Shows the list of textures; the exact list shown can
+                        be customized by using the filters. The columns in the
+                        table contain the following info:
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="main">Column</th>
+                                    <th>Explanation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="main">Texture</td>
+                                    <td>
+                                        The name of the texture. This cannot
+                                        be modified.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="main">Dimensions</td>
+                                    <td>
+                                        The dimensions (resolution) of the texture.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="main">Custom</td>
+                                    <td>
+                                        Whether the texture is currently custom i.e. modified.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="main">Used</td>
+                                    <td>
+                                        Whether the texture is currently used in
+                                        the mine, and if so, the total number of sides
+                                        that use it.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="main">Animated</td>
+                                    <td>
+                                        Whether the texture is animated.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="main">Transparent</td>
+                                    <td>
+                                        Whether the texture contains transparency.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="main">See-thru</td>
+                                    <td>
+                                        Whether the texture contains
+                                        <a href="texture.html#selection">see-through transparency</a>.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Filters: Level textures</td>
+                    <td>
+                        Whether to show level textures (textures that can
+                        be applied to sides).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Filters: Powerups</td>
+                    <td>
+                        Whether to show textures for powerup sprites. Currently
+                        will only show custom powerup textures.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Filters: Robots</td>
+                    <td>
+                        Whether to show textures for robot models. Currently
+                        will only show custom robot textures.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Filters: Miscellaneous</td>
+                    <td>
+                        Whether to show other miscellaneous textures. Currently
+                        will only show custom textures.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Filters: Show custom textures only</td>
+                    <td>
+                        Whether to only show custom textures (on by default)
+                        or all textures that can be edited.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Palette</td>
+                    <td>
+                        The palette to use for the current level. Descent 1
+                        only has one palette option, while Descent 2 has six.
+                        This will accordingly adjust the <a href="settings.html#files">D2 PIG path</a>
+                        in the settings, but acts as an easier way to do so.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Transparent, See-thru</td>
+                    <td>
+                        Shows whether the texture has transparency
+                        or see-through transparency.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Edit...</td>
+                    <td>
+                        Opens the currently selected texture in a
+                        texture editor.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Revert</td>
+                    <td>
+                        Removes the current custom texture and reverts it
+                        back to default.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Import...</td>
+                    <td>
+                        Imports a new custom texture. It should ideally be
+                        a 256-color bitmap image, with "transparent" being
+                        color 254 and "see-thru" being color 255. When the
+                        texture is imported, you will have the option to enable
+                        transparency or disable it.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Export...</td>
+                    <td>
+                        Exports the currently selected texture into a
+                        256-color bitmap image.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Done</td>
+                    <td>
+                        Saves the changes.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Cancel</td>
+                    <td>
+                        Discards the changes.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
