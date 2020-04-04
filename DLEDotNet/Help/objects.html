@@ -40,6 +40,12 @@
                     <td>
                         Lists all objects in the level and shows the <i>current
                         object</i>.
+                        <p></p>
+                        In Descent 2, if the level contains a secret exit, this
+                        will also contain the "secret object"; this is simply
+                        the player spawn point when returning from the secret level,
+                        and should usually be close to the secret exit itself.
+                        Only its position can be changed.
                     </td>
                 </tr>
                 <tr>
@@ -231,11 +237,12 @@
                     <td>
                         A reactor. There should only be one of these in every level,
                         and it should be placed within a <a href="segments.html">reactor segment</a>.
-                        A reactor and reactor segment should be present even in levels
-                        with boss robots (but the reactor object will be removed automatically
-                        on level load, if a boss robot is detected by the game). In Descent 1,
-                        the ID has no effect, while in Descent 2 the ID controls the model
-                        to use for the reactor (they have little difference in behavior).
+                        A reactor and reactor segment should be present even in every level,
+                        even those with boss robots (but the reactor object will be removed
+                        automatically on level load, if a boss robot is detected by the game).
+                        In Descent 1, the ID has no effect, while in Descent 2 the ID controls the model
+                        to use for the reactor (their only difference in behavior are the positions
+                        of the reactor guns).
                     </td>
                 </tr>
                 <tr>

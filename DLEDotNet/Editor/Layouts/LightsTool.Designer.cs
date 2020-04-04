@@ -234,7 +234,7 @@
             this.lightCalcdeltaCheckBox.Name = "lightCalcdeltaCheckBox";
             this.lightCalcdeltaCheckBox.Size = new System.Drawing.Size(224, 20);
             this.lightCalcdeltaCheckBox.TabIndex = 12;
-            this.lightCalcdeltaCheckBox.Text = "calculate exploding/blinking lights, factor =";
+            this.lightCalcdeltaCheckBox.Text = "calculate exploding/variable lights, factor =";
             this.lightCalcdeltaCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.helpToolTip.SetToolTip(this.lightCalcdeltaCheckBox, "whether to calculate delta light frames");
             // 
@@ -400,6 +400,7 @@
             this.lightSetVertexlightButton.Size = new System.Drawing.Size(64, 21);
             this.lightSetVertexlightButton.TabIndex = 1;
             this.lightSetVertexlightButton.Text = "set";
+            this.helpToolTip.SetToolTip(this.lightSetVertexlightButton, "apply light level to marked vertices");
             // 
             // alignableGroupBoxLightValues
             // 

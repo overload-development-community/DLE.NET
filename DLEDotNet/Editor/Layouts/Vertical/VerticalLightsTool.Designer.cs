@@ -216,7 +216,7 @@
             this.lightCalcdeltaCheckBox.Name = "lightCalcdeltaCheckBox";
             this.lightCalcdeltaCheckBox.Size = new System.Drawing.Size(176, 20);
             this.lightCalcdeltaCheckBox.TabIndex = 0;
-            this.lightCalcdeltaCheckBox.Text = "calc. exploding/blinking lights";
+            this.lightCalcdeltaCheckBox.Text = "calc. exploding/variable lights";
             this.lightCalcdeltaCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lightEditDeltaTextBox
@@ -524,7 +524,7 @@
             this.alignableGroupBoxExplodingDivBlinkingLights.Size = new System.Drawing.Size(262, 270);
             this.alignableGroupBoxExplodingDivBlinkingLights.TabIndex = 3;
             this.alignableGroupBoxExplodingDivBlinkingLights.TabStop = false;
-            this.alignableGroupBoxExplodingDivBlinkingLights.Text = "exploding/blinking lights";
+            this.alignableGroupBoxExplodingDivBlinkingLights.Text = "exploding/variable lights";
             // 
             // lightDeltaFramerateLeftRightControl
             // 

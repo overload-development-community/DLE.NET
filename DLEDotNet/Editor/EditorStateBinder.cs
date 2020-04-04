@@ -76,7 +76,7 @@ namespace DLEDotNet.Editor
 
         private static dynamic DynamicCast(Type type, dynamic toCast, bool isUnchecked)
         {
-            if (!DynamicCast(type, toCast, out object result, isUnchecked))
+            if (!DynamicCast(type, toCast, out dynamic result, isUnchecked))
                 throw new InvalidCastException();
             return result;
         }

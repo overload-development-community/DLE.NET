@@ -96,6 +96,7 @@
             // 
             // alignableGroupBoxLightValues
             // 
+            this.alignableGroupBoxLightValues.Controls.Add(this.label10A);
             this.alignableGroupBoxLightValues.Controls.Add(this.labelFactor);
             this.alignableGroupBoxLightValues.Controls.Add(this.tLightRenderDepthLabel);
             this.alignableGroupBoxLightValues.Controls.Add(this.tLightDeltaRenderDepthLabel);
@@ -129,7 +130,6 @@
             this.alignableGroupBoxLightValues.Controls.Add(this.labelRenderDepthB);
             this.alignableGroupBoxLightValues.Controls.Add(this.labelApply);
             this.alignableGroupBoxLightValues.Controls.Add(this.label1A);
-            this.alignableGroupBoxLightValues.Controls.Add(this.label10A);
             this.alignableGroupBoxLightValues.Controls.Add(this.label1B);
             this.alignableGroupBoxLightValues.Controls.Add(this.label10B);
             this.alignableGroupBoxLightValues.Controls.Add(this.labelFrameRate);
@@ -368,7 +368,7 @@
             this.lightCalcdeltaCheckBox.Name = "lightCalcdeltaCheckBox";
             this.lightCalcdeltaCheckBox.Size = new System.Drawing.Size(224, 20);
             this.lightCalcdeltaCheckBox.TabIndex = 12;
-            this.lightCalcdeltaCheckBox.Text = "calculate exploding/blinking lights, factor =";
+            this.lightCalcdeltaCheckBox.Text = "calculate exploding/variable lights, factor =";
             this.lightCalcdeltaCheckBox.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lightEditDeltaTextBox
