@@ -468,7 +468,8 @@ void CMineView::NextSegment (int dir)
 if (segmentManager.Count () <= 0)
 	return;
 
-Wrap (current->SegmentId (), dir, 0, segmentManager.Count () - 1);
+auto newSegmentId = Wrap(current->SegmentId(), dir, 0, segmentManager.Count() - 1);
+current->SetSegmentId(newSegmentId);
 Refresh (true);
 }
 
@@ -573,7 +574,7 @@ void CMineView::NextObject (int dir)
   short newObject = current->ObjectId ();
 
 if (objectManager.Count () > 1) {
-	Wrap (newObject, dir, 0, (short) objectManager.Count () - 1);
+	newObject = Wrap (newObject, dir, 0, (short) objectManager.Count () - 1);
 	Refresh (true);
 	}
 RefreshObject (oldObject, newObject);

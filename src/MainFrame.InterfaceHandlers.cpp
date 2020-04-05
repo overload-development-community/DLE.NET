@@ -1194,7 +1194,7 @@ else
 void CMainFrame::OnSelPrevObject ()
 {
 if (MineView ()->SelectMode (OBJECT_MODE))
-	MineView ()->NextObject ();
+	MineView ()->PrevObject ();
 else
 	MineView ()->SetSelectMode (OBJECT_MODE);
 }
