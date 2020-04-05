@@ -38,6 +38,89 @@ namespace DLEDotNet.Editor
         }
         #endregion
 
+        #region --- modifier & mouse state handling
+        private static bool IsKeyModifierDown(Keys modifier)
+            => (Control.ModifierKeys & modifier) == modifier;
+        private static bool IsMouseButtonDown(MouseButtons button)
+            => (Control.MouseButtons & button) == button;
+
+        private static BindModifiers GetCurrentBindModifiers()
+        {
+            BindModifiers bm = BindModifiers.NullMask;
+            // we are zeroing out values, since we will AND these with required modifiers
+            // and consider it a match if the result is zero
+            bm &= ~(IsKeyModifierDown(Keys.Control) ? BindModifiers.CtrlHeld : BindModifiers.CtrlNotHeld)
+                & ~(IsKeyModifierDown(Keys.Shift) ? BindModifiers.ShiftHeld : BindModifiers.ShiftNotHeld)
+                & ~(IsKeyModifierDown(Keys.Alt) ? BindModifiers.AltHeld : BindModifiers.AltNotHeld)
+                & ~(IsMouseButtonDown(MouseButtons.Left) ? BindModifiers.MouseLeftHeld : BindModifiers.MouseLeftNotHeld)
+                & ~(IsMouseButtonDown(MouseButtons.Right) ? BindModifiers.MouseRightHeld : BindModifiers.MouseRightNotHeld)
+                & ~(IsMouseButtonDown(MouseButtons.Middle) ? BindModifiers.MouseMiddleHeld : BindModifiers.MouseMiddleNotHeld)
+                & ~(IsMouseButtonDown(MouseButtons.XButton1) ? BindModifiers.MouseXButton1Held : BindModifiers.MouseXButton1NotHeld)
+                & ~(IsMouseButtonDown(MouseButtons.XButton2) ? BindModifiers.MouseXButton2Held : BindModifiers.MouseXButton2NotHeld);
+            return bm;
+        }
+
+        private MouseState GetNewMouseState()
+        {
+            BindModifiers mod = GetCurrentBindModifiers();
+            foreach (var stateDecider in mouseStateMapper)
+                if (mod.Applies(stateDecider.Item1))
+                    return stateDecider.Item2;
+            foreach (var stateDecider in mouseStateMapperDeciders)
+                if (mod.Applies(stateDecider.Item1))
+                    return stateDecider.Item2(mod, currentState);
+            return MouseState.Idle;
+        }
+
+        private void UpdateMouseState()
+        {
+            BindModifiers modifiersNow = GetCurrentBindModifiers();
+            foreach (BindModifiers mod in stubbornStates.GetOrEmpty(currentState))
+                if (modifiersNow.Applies(mod))
+                    return;
+
+            MouseState newMouseState = GetNewMouseState();
+            if (currentState != newMouseState)
+            {
+                MouseStateEventArgs e = new MouseStateEventArgs(newMouseState, currentState, modifiersNow);
+                this.MouseStateChanged?.Invoke(this, e);
+                if (!e.Cancel) currentState = newMouseState;
+            }
+        }
+
+        private void UpdateMouseState(MouseState newMouseState)
+        {
+            if (currentState != newMouseState)
+            {
+                BindModifiers modifiersNow = GetCurrentBindModifiers();
+                foreach (BindModifiers mod in stubbornStates.GetOrEmpty(currentState))
+                    if (modifiersNow.Applies(mod))
+                        return;
+
+                MouseStateEventArgs e = new MouseStateEventArgs(newMouseState, currentState, modifiersNow);
+                this.MouseStateChanged?.Invoke(this, e);
+                if (!e.Cancel) currentState = newMouseState;
+            }
+        }
+
+        private static void SortByBestFit<V>(List<(BindModifiers, V)> bindList)
+        {
+            bindList.Sort(((BindModifiers, V) b1, (BindModifiers, V) b2) => BindModifierBetterFit(b1.Item1, b2.Item1));
+        }
+
+        // 1 if first is a better fit, -1 if second is a better fit
+        // "better fit" = more accurate;
+        // if first can be met without meeting second but not the other way around, second is a "better fit"
+        // if uncomparable, return 0
+        public static int BindModifierBetterFit(BindModifiers first, BindModifiers second)
+        {
+            if (first == second) return 0;
+            if ((first | second) == first) return 1;
+            if ((first | second) == second) return -1;
+            return 0;
+        }
+        #endregion
+
         #region --- handling events
         private void GotKeyDown(object sender, KeyEventArgs e)
         {
@@ -95,54 +178,6 @@ namespace DLEDotNet.Editor
 
         private void ResetMouseStateFromEvent(object sender, EventArgs e)
             => UpdateMouseState(MouseState.Idle);
-
-        private bool IsKeyModifierDown(Keys modifier)
-            => (Control.ModifierKeys & modifier) == modifier;
-        private bool IsMouseButtonDown(MouseButtons button)
-            => (Control.MouseButtons & button) == button;
-
-        private BindModifiers GetCurrentBindModifiers()
-        {
-            BindModifiers bm = BindModifiers.NullMask;
-            // we are zeroing out values, since we will AND these with required modifiers
-            // and consider it a match if the result is zero
-            bm &= ~(IsKeyModifierDown(Keys.Control) ? BindModifiers.CtrlHeld : BindModifiers.CtrlNotHeld)
-                & ~(IsKeyModifierDown(Keys.Shift) ? BindModifiers.ShiftHeld : BindModifiers.ShiftNotHeld)
-                & ~(IsKeyModifierDown(Keys.Alt) ? BindModifiers.AltHeld : BindModifiers.AltNotHeld)
-                & ~(IsMouseButtonDown(MouseButtons.Left) ? BindModifiers.MouseLeftHeld : BindModifiers.MouseLeftNotHeld)
-                & ~(IsMouseButtonDown(MouseButtons.Right) ? BindModifiers.MouseRightHeld : BindModifiers.MouseRightNotHeld)
-                & ~(IsMouseButtonDown(MouseButtons.Middle) ? BindModifiers.MouseMiddleHeld : BindModifiers.MouseMiddleNotHeld)
-                & ~(IsMouseButtonDown(MouseButtons.XButton1) ? BindModifiers.MouseXButton1Held : BindModifiers.MouseXButton1NotHeld)
-                & ~(IsMouseButtonDown(MouseButtons.XButton2) ? BindModifiers.MouseXButton2Held : BindModifiers.MouseXButton2NotHeld);
-            return bm;
-        }
-
-        private MouseState GetNewMouseState()
-        {
-            BindModifiers mod = GetCurrentBindModifiers();
-            foreach (var stateDecider in mouseStateMapper)
-                if (mod.Applies(stateDecider.Item1))
-                    return stateDecider.Item2;
-            foreach (var stateDecider in mouseStateMapperDeciders)
-                if (mod.Applies(stateDecider.Item1))
-                    return stateDecider.Item2(mod, currentState);
-            return MouseState.Idle;
-        }
-
-        private void UpdateMouseState() => UpdateMouseState(GetNewMouseState());
-        private void UpdateMouseState(MouseState newMouseState)
-        {
-            if (currentState != newMouseState)
-            {
-                BindModifiers modifiersNow = GetCurrentBindModifiers();
-                foreach (BindModifiers mod in stubbornStates.GetOrEmpty(currentState))
-                    if (modifiersNow.Applies(mod))
-                        return;
-                MouseStateEventArgs e = new MouseStateEventArgs(newMouseState, currentState, modifiersNow);
-                this.MouseStateChanged?.Invoke(this, e);
-                if (!e.Cancel) currentState = newMouseState;
-            }
-        }
 
         internal void AddEventHandlers(MineView mineView)
         {
@@ -218,7 +253,10 @@ namespace DLEDotNet.Editor
         /// <param name="state">The mouse state to pick if the modifiers match.</param>
         /// <param name="modifier">The modifiers to react to.</param>
         internal void AddMouseStateMapping(MouseState state, BindModifiers modifier)
-            => mouseStateMapper.Add((modifier, state));
+        {
+            mouseStateMapper.Add((modifier, state));
+            SortByBestFit(mouseStateMapper);
+        }
 
         /// <summary>
         /// Adds a mouse state decider mapping; when the modifiers apply, ask the decider function
@@ -229,7 +267,10 @@ namespace DLEDotNet.Editor
         /// and use those values to return the appropriate MouseState.</param>
         /// <param name="modifier">The modifiers to react to.</param>
         internal void AddMouseStateMapping(MouseStateDecider decider, BindModifiers modifier)
-            => mouseStateMapperDeciders.Add((modifier, decider));
+        {
+            mouseStateMapperDeciders.Add((modifier, decider));
+            SortByBestFit(mouseStateMapperDeciders);
+        }
 
         /// <summary>
         /// Prevents changes from the given state to any other state as long as a modifier applies.
@@ -269,7 +310,7 @@ namespace DLEDotNet.Editor
             AddMouseStateMapping(MouseState.Pan, BindModifiers.MouseMiddleHeld);
             AddMouseStateMapping(MouseState.Rotate, BindModifiers.OnlyAlt | BindModifiers.OnlyMouseLeft);
             AddMouseStateMapping(MouseState.Rotate, BindModifiers.MouseMiddleHeld | BindModifiers.MouseRightHeld | BindModifiers.MouseLeftNotHeld);
-            AddMouseStateMapping(MouseState.RubberbandTag, BindModifiers.AltNotHeld | BindModifiers.OnlyMouseLeft);
+            AddMouseStateMapping(MouseState.RubberbandTagSet, BindModifiers.AltNotHeld | BindModifiers.OnlyMouseLeft);
             AddMouseStateMapping(MouseState.MarkedDrag, BindModifiers.OnlyMouseRight | BindModifiers.CtrlNotHeld | BindModifiers.AltNotHeld);
             AddMouseStateMapping(MouseState.MarkedDragRotate, BindModifiers.OnlyMouseRight | BindModifiers.OnlyAlt);
             AddMouseStateMapping(MouseState.MarkedDragScale, BindModifiers.OnlyMouseRight | BindModifiers.OnlyCtrl);
@@ -304,6 +345,7 @@ namespace DLEDotNet.Editor
     /// A set of modifiers that can be used to filter against key modifiers (Ctrl, Shift, Alt)
     /// and mouse buttons (if left button down, etc.)
     /// </summary>
+    [Flags]
     public enum BindModifiers
     {
         ShiftHeld = 1 << 0,
@@ -379,11 +421,12 @@ namespace DLEDotNet.Editor
         QuickSelect,                // show quick select candidates
         PointDrag,                  // dragging a point to move it around
         QuickTag,                   // click to tag
-        RubberbandTag,              // a rubberband (selection rectangle); everything within will be tagged
-        RubberbandUnTag,            // a rubberband (selection rectangle); everything within will be untagged
+        RubberbandTag,              // a rubberband (selection rectangle); everything within will be tagged, everything else left as is
+        RubberbandUnTag,            // a rubberband (selection rectangle); everything within will be untagged, everything else left as is
+        RubberbandTagSet,           // a rubberband (selection rectangle); everything within will be tagged and everything else untagged
         Pan,                        // panning the camera around (up, down, left, right)
         Rotate,                     // rotating/orbiting the camera around a central point
-        LockedRotate,               // ???
+        LockedRotate,               // rotate in first-person with cursor locked to the center of the mine view
         ZoomUpDown,                 // zoom, move mouse up to zoom in, move mouse down to zoom out
         PanUpDown,                  // pan/dolly, move mouse up to pan forwards, move mouse down to pan back
         MarkedDrag,                 // dragging the marked block to move it around
