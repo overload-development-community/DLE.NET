@@ -27,11 +27,12 @@ namespace DLEDotNet.Editor
     {
         private LayoutOrientation _activeLayout;
         private MainView _activeMainView = null;
-        private MineView mineView;
+        internal MineView MineView { get; private set; } = null;
+        private MineViewControlBinder mineViewControlBinder;
         private TextureList textureList;
         private EditorTools editorTabs;
         private EditorToolDialog editorTools = new EditorToolDialog();
-        private EditorKeyBinds editorKeyBinds;
+        private EditorKeyBinder editorKeyBinds;
         private string programName;
         private SplashScreen openSplash = null;
         public EditorState EditorState { get; }
@@ -41,8 +42,10 @@ namespace DLEDotNet.Editor
             InitializeComponent();
             EditorState = new EditorState(this);
             editorTabs = new EditorTools(this);
-            editorKeyBinds = new EditorKeyBinds(this);
+            editorKeyBinds = new EditorKeyBinder(this);
+            mineViewControlBinder = new MineViewControlBinder(this);
             programName = this.Text;
+            this.mainMenuStrip.Renderer = this.mineViewContextMenuStrip.Renderer = new ToolStripCustomRenderer();
         }
 
         #region --- Program load & unload
@@ -65,6 +68,7 @@ namespace DLEDotNet.Editor
             SetupMenus();
             SetupContextMenu();
             editorKeyBinds.InitializeDefaultKeybinds();
+            mineViewControlBinder.AddDefaults();
         }
 
         private void EditorWindow_FormClosing(object sender, FormClosingEventArgs e)
@@ -126,6 +130,10 @@ namespace DLEDotNet.Editor
 
             if (_activeMainView != null)
             {
+                if (MineView != null)
+                {
+                    mineViewControlBinder.RemoveEventHandlers(MineView);
+                }
                 // we need to dispose of the old main view
 #if DEBUG
                 System.Diagnostics.Debug.Assert(mainPanel.Controls.Count == 1 && mainPanel.Controls[0] == _activeMainView);
@@ -172,8 +180,9 @@ namespace DLEDotNet.Editor
             {
                 _activeMainView.Dispose();
             }
-            mineView = newMainView.GetMineView();
+            MineView = newMainView.GetMineView();
             textureList = newMainView.GetTextureList();
+            mineViewControlBinder.AddEventHandlers(MineView);
             ActiveMainView = newMainView;
             mainPanel.PerformLayout();
         }
@@ -522,7 +531,7 @@ namespace DLEDotNet.Editor
 
         private void UpdateMineView()
         {
-            mineView.Owner = this;
+            MineView.Owner = this;
             // ...
         }
 
@@ -733,6 +742,10 @@ namespace DLEDotNet.Editor
             else editorTools.Hide();
         }
         private void statusBarToolStripMenuItem_Click(object sender, EventArgs e) => statusStrip.Visible = !statusStrip.Visible;
+
+        private void zoomInToolStripMenuItem_Click(object sender, EventArgs e) => MineView?.ZoomIn();
+        private void zoomOutToolStripMenuItem_Click(object sender, EventArgs e) => MineView?.ZoomOut();
+        
         private void viewAllObjectsToolStripMenuItem_Click(object sender, EventArgs e) => EditorState.SavedPrefs.ObjectVisibility = ObjectVisibilityFlags.All;
         private void viewNoObjectsToolStripMenuItem_Click(object sender, EventArgs e) => EditorState.SavedPrefs.ObjectVisibility = ObjectVisibilityFlags.None;
         #endregion

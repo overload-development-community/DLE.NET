@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -23,6 +24,7 @@ namespace DLEDotNet.Editor
         private MultiDict<MouseActions, ValueTuple<BindModifiers, ControlBindAction>> mouseBinds;
         private List<ValueTuple<BindModifiers, MouseState>> mouseStateMapper;
         private List<ValueTuple<BindModifiers, MouseStateDecider>> mouseStateMapperDeciders;
+        private MultiDict<MouseState, BindModifiers> stubbornStates;
         private MouseState currentState = MouseState.Idle;
 
         public MineViewControlBinder(EditorWindow owner)
@@ -32,6 +34,7 @@ namespace DLEDotNet.Editor
             mouseBinds = new MultiDict<MouseActions, ValueTuple<BindModifiers, ControlBindAction>>();
             mouseStateMapper = new List<ValueTuple<BindModifiers, MouseState>>();
             mouseStateMapperDeciders = new List<ValueTuple<BindModifiers, MouseStateDecider>>();
+            stubbornStates = new MultiDict<MouseState, BindModifiers>();
         }
         #endregion
 
@@ -40,7 +43,7 @@ namespace DLEDotNet.Editor
         {
             BindModifiers mod = GetCurrentBindModifiers();
             foreach (ValueTuple<BindModifiers, ControlBindAction> keyBind in keyBinds.GetOrEmpty(e.KeyCode))
-                if (0 == (keyBind.Item1 & mod))
+                if (mod.Applies(keyBind.Item1))
                     keyBind.Item2();
             UpdateMouseState();
         }
@@ -65,7 +68,7 @@ namespace DLEDotNet.Editor
             }
 
             foreach (var mouseBind in mouseBinds.GetOrEmpty(action))
-                if (0 == (mouseBind.Item1 & mod))
+                if (mod.Applies(mouseBind.Item1))
                     for (int i = 0; i < e.Clicks; ++i)
                         mouseBind.Item2();
         }
@@ -82,7 +85,7 @@ namespace DLEDotNet.Editor
             wheelTicks = wheelTicks < 0 ? -wheelTicks : wheelTicks;
 
             foreach (var mouseBind in mouseBinds.GetOrEmpty(action))
-                if (0 == (mouseBind.Item1 & mod))
+                if (mod.Applies(mouseBind.Item1))
                     for (int i = 0; i < wheelTicks; ++i)
                         mouseBind.Item2();
         }
@@ -118,10 +121,10 @@ namespace DLEDotNet.Editor
         {
             BindModifiers mod = GetCurrentBindModifiers();
             foreach (var stateDecider in mouseStateMapper)
-                if (0 == (stateDecider.Item1 & mod))
+                if (mod.Applies(stateDecider.Item1))
                     return stateDecider.Item2;
             foreach (var stateDecider in mouseStateMapperDeciders)
-                if (0 == (stateDecider.Item1 & mod))
+                if (mod.Applies(stateDecider.Item1))
                     return stateDecider.Item2(mod, currentState);
             return MouseState.Idle;
         }
@@ -131,7 +134,11 @@ namespace DLEDotNet.Editor
         {
             if (currentState != newMouseState)
             {
-                MouseStateEventArgs e = new MouseStateEventArgs(newMouseState, currentState, GetCurrentBindModifiers());
+                BindModifiers modifiersNow = GetCurrentBindModifiers();
+                foreach (BindModifiers mod in stubbornStates.GetOrEmpty(currentState))
+                    if (modifiersNow.Applies(mod))
+                        return;
+                MouseStateEventArgs e = new MouseStateEventArgs(newMouseState, currentState, modifiersNow);
                 this.MouseStateChanged?.Invoke(this, e);
                 if (!e.Cancel) currentState = newMouseState;
             }
@@ -184,6 +191,7 @@ namespace DLEDotNet.Editor
             keyBinds.Clear();
             mouseBinds.Clear();
             mouseStateMapper.Clear();
+            stubbornStates.Clear();
         }
 
         /// <summary>
@@ -192,7 +200,7 @@ namespace DLEDotNet.Editor
         /// <param name="key">The key to listen to.</param>
         /// <param name="modifier">The modifiers that must match.</param>
         /// <param name="action">The action to be carried out.</param>
-        private void AddKeybind(ControlBindAction action, Keys key, BindModifiers modifier)
+        internal void AddKeybind(ControlBindAction action, Keys key, BindModifiers modifier)
             => keyBinds.Add(key, (modifier, action));
 
         /// <summary>
@@ -201,7 +209,7 @@ namespace DLEDotNet.Editor
         /// <param name="mouse">The mouse action to listen to.</param>
         /// <param name="modifier">The modifiers that must match.</param>
         /// <param name="action">The action to be carried out.</param>
-        private void AddMousebind(ControlBindAction action, MouseActions mouse, BindModifiers modifier)
+        internal void AddMousebind(ControlBindAction action, MouseActions mouse, BindModifiers modifier)
             => mouseBinds.Add(mouse, (modifier, action));
 
         /// <summary>
@@ -209,7 +217,7 @@ namespace DLEDotNet.Editor
         /// </summary>
         /// <param name="state">The mouse state to pick if the modifiers match.</param>
         /// <param name="modifier">The modifiers to react to.</param>
-        private void AddMouseStateMapping(MouseState state, BindModifiers modifier)
+        internal void AddMouseStateMapping(MouseState state, BindModifiers modifier)
             => mouseStateMapper.Add((modifier, state));
 
         /// <summary>
@@ -220,8 +228,16 @@ namespace DLEDotNet.Editor
         /// to the currently active modifier state and a MouseState corresponding to the previous state,
         /// and use those values to return the appropriate MouseState.</param>
         /// <param name="modifier">The modifiers to react to.</param>
-        private void AddMouseStateMapping(MouseStateDecider decider, BindModifiers modifier)
+        internal void AddMouseStateMapping(MouseStateDecider decider, BindModifiers modifier)
             => mouseStateMapperDeciders.Add((modifier, decider));
+
+        /// <summary>
+        /// Prevents changes from the given state to any other state as long as a modifier applies.
+        /// </summary>
+        /// <param name="state">The state to keep as long as the modifier applies.</param>
+        /// <param name="modifier">The modifier that will keep the state applied.</param>
+        internal void PreventStateLeave(MouseState pointDrag, BindModifiers mouseLeftHeld)
+            => stubbornStates.Add(pointDrag, mouseLeftHeld);
 
         #endregion
 
@@ -238,6 +254,7 @@ namespace DLEDotNet.Editor
             AddMouseStateMapping(MouseState.ZoomUpDown, BindModifiers.OnlyCtrl | BindModifiers.OnlyMouseLeft);
             AddMouseStateMapping(MouseState.ZoomUpDown, BindModifiers.OnlyCtrl | BindModifiers.OnlyMouseRight);
             AddMouseStateMapping(GetLeftDownMouseState, BindModifiers.KeysNotHeld | BindModifiers.OnlyMouseLeft);
+            PreventStateLeave(MouseState.PointDrag, BindModifiers.MouseLeftHeld);
             AddMouseStateMapping(MouseState.RubberbandUnTag, BindModifiers.OnlyShift | BindModifiers.OnlyMouseLeft);
         }
 
@@ -348,6 +365,7 @@ namespace DLEDotNet.Editor
 
     static class BindModifiersMethods
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool Applies(this BindModifiers m, BindModifiers flag)
         {
             return 0 == (m & flag);
@@ -358,18 +376,18 @@ namespace DLEDotNet.Editor
     public enum MouseState
     {
         Idle,
-        QuickSelect,
-        PointDrag,
-        QuickTag,
-        RubberbandTag,
-        RubberbandUnTag,
-        Pan,
-        Rotate,
-        LockedRotate,
-        ZoomUpDown,
-        PanUpDown,
-        MarkedDrag,
-        MarkedDragRotate,
-        MarkedDragScale
+        QuickSelect,                // show quick select candidates
+        PointDrag,                  // dragging a point to move it around
+        QuickTag,                   // click to tag
+        RubberbandTag,              // a rubberband (selection rectangle); everything within will be tagged
+        RubberbandUnTag,            // a rubberband (selection rectangle); everything within will be untagged
+        Pan,                        // panning the camera around (up, down, left, right)
+        Rotate,                     // rotating/orbiting the camera around a central point
+        LockedRotate,               // ???
+        ZoomUpDown,                 // zoom, move mouse up to zoom in, move mouse down to zoom out
+        PanUpDown,                  // pan/dolly, move mouse up to pan forwards, move mouse down to pan back
+        MarkedDrag,                 // dragging the marked block to move it around
+        MarkedDragRotate,           // dragging the marked block to rotate it
+        MarkedDragScale             // dragging the marked block to scale it
     }
 }

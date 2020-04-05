@@ -336,7 +336,6 @@
             this.helpToolStripMenuItem});
             this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this.mainMenuStrip.Name = "mainMenuStrip";
-            this.mainMenuStrip.Renderer = new ToolStripCustomRenderer();
             this.mainMenuStrip.Size = new System.Drawing.Size(1424, 24);
             this.mainMenuStrip.TabIndex = 1;
             this.mainMenuStrip.Text = "main menu";
@@ -832,12 +831,14 @@
             this.zoomInToolStripMenuItem.Name = "zoomInToolStripMenuItem";
             this.zoomInToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
             this.zoomInToolStripMenuItem.Text = "Zoom In";
+            this.zoomInToolStripMenuItem.Click += new System.EventHandler(this.zoomInToolStripMenuItem_Click);
             // 
             // zoomOutToolStripMenuItem
             // 
             this.zoomOutToolStripMenuItem.Name = "zoomOutToolStripMenuItem";
             this.zoomOutToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
             this.zoomOutToolStripMenuItem.Text = "Zoom Out";
+            this.zoomOutToolStripMenuItem.Click += new System.EventHandler(this.zoomOutToolStripMenuItem_Click);
             // 
             // fitToViewToolStripMenuItem
             // 
@@ -1944,7 +1945,7 @@
             // 
             this.selectionModeBlocksToolStripMenuItem.Name = "selectionModeBlocksToolStripMenuItem";
             this.selectionModeBlocksToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.selectionModeBlocksToolStripMenuItem.Text = "&Blocks";
+            this.selectionModeBlocksToolStripMenuItem.Text = "&Block";
             // 
             // toolStripSeparator26
             // 
@@ -2040,14 +2041,14 @@
             // 
             this.collapseToWedgeContextToolStripMenuItem.Name = "collapseToWedgeContextToolStripMenuItem";
             this.collapseToWedgeContextToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.collapseToWedgeContextToolStripMenuItem.Text = "Collapse to &Wedge";
+            this.collapseToWedgeContextToolStripMenuItem.Text = "Create &Wedge";
             this.collapseToWedgeContextToolStripMenuItem.Click += new System.EventHandler(this.collapseToWedgeContextToolStripMenuItem_Click);
             // 
             // collapseToPyramidContextToolStripMenuItem
             // 
             this.collapseToPyramidContextToolStripMenuItem.Name = "collapseToPyramidContextToolStripMenuItem";
             this.collapseToPyramidContextToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
-            this.collapseToPyramidContextToolStripMenuItem.Text = "Collapse to P&yramid";
+            this.collapseToPyramidContextToolStripMenuItem.Text = "Create P&yramid";
             this.collapseToPyramidContextToolStripMenuItem.Click += new System.EventHandler(this.collapseToPyramidContextToolStripMenuItem_Click);
             // 
             // toolStripSeparator29

@@ -8,17 +8,35 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DLEDotNet.Util;
+using DLEDotNet.Data;
 
 namespace DLEDotNet.Editor
 {
     public partial class MineView : UserControl
     {
+        private MouseState mouseState = MouseState.Idle;
+
         public MineView()
         {
             InitializeComponent();
         }
 
+        #region --- click-through
+        private const uint WM_MOUSEACTIVATE = 0x21;
+        private const uint MA_ACTIVATE = 1;
+        private const uint MA_ACTIVATEANDEAT = 2;
+
+        protected override void WndProc(ref Message m)
+        {
+            base.WndProc(ref m);
+
+            if (m.Msg == WM_MOUSEACTIVATE && m.Result == (IntPtr)MA_ACTIVATEANDEAT)
+                m.Result = (IntPtr)MA_ACTIVATE;
+        }
+        #endregion
+
         internal EditorWindow Owner { get; set; }
+        internal EditorState EditorState => Owner?.EditorState;
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -26,12 +44,49 @@ namespace DLEDotNet.Editor
             // custom rendering
         }
 
-        private void MineView_MouseClick(object sender, MouseEventArgs e)
+        internal void ShowContextMenu()
         {
-            if (e.Button == MouseButtons.Right && Control.ModifierKeys == Keys.Shift)
+            Owner.mineViewContextMenuStrip.Show(MousePosition);
+        }
+
+        internal void OnMouseStateChanged(object sender, MouseStateEventArgs e)
+        {
+            if (!e.Cancel)
             {
-                Owner.mineViewContextMenuStrip.Show(this.PointToScreen(e.Location));
+                mouseState = e.NewState;
+                // TODO
+                System.Diagnostics.Debug.WriteLine("MineView.MouseState = " + mouseState);
             }
+        }
+
+        internal MouseState GetQuickSelectMouseState(BindModifiers arg, MouseState previous)
+        {
+            // depending on EditorState...?
+            switch (EditorState.SelectionMode)
+            {
+                case SelectMode.Object:
+                case SelectMode.Block:
+                    return previous; // do not enter quickselect
+            }
+            return MouseState.QuickSelect;
+        }
+
+        internal MouseState GetLeftDownMouseState(BindModifiers arg, MouseState previous)
+        {
+            bool closeEnoughToPoint = true; // TODO
+            return closeEnoughToPoint ? MouseState.PointDrag : MouseState.RubberbandTag;
+        }
+
+        internal void ZoomIn()
+        {
+            // TODO
+            System.Diagnostics.Debug.WriteLine("MineView.ZoomIn");
+        }
+
+        internal void ZoomOut()
+        {
+            // TODO
+            System.Diagnostics.Debug.WriteLine("MineView.ZoomOut");
         }
     }
 }
