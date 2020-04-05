@@ -343,14 +343,14 @@ class CUndoManager : public IUndoManager
 
 		int Count (void);
 
-		inline void Lock (char* szFunction) { 
+		inline void Lock (const char* szFunction) { 
 			++m_nLock; 
 			m_lockHistory.Push (szFunction);
 			}
 
 		inline bool Locked (void) { return (m_nLock > 0); }
 
-		void Unlock (char* caller);
+		void Unlock (const char* caller);
 
 		int SetMaxSize (int maxSize);
 

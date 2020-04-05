@@ -516,7 +516,7 @@ if (m_nNested > 0) {
 
 //------------------------------------------------------------------------------
 
-void CUndoManager::Unlock (char* szFunction) 
+void CUndoManager::Unlock (const char* szFunction) 
 { 
 if (Locked ()) {
 	m_nLock--; 

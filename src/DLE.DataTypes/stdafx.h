@@ -34,6 +34,7 @@
 #include "textures.h"
 #include "robot.h"
 #include "Light.h"
+#include "GameObject.h"
 #include "GlobalData.h"
 
 #endif //PCH_H

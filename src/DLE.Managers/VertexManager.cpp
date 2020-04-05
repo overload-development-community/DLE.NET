@@ -1,10 +1,5 @@
 #include "stdafx.h"
-#include "FileManager.h"
-#include "SegmentManager.h"
 #include "VertexManager.h"
-#include "ObjectManager.h"
-#include "TriggerManager.h"
-#include "UndoManager.h"
 
 CVertexManager vertexManager;
 

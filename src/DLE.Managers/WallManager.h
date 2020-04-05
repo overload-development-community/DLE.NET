@@ -7,13 +7,13 @@
 
 // -----------------------------------------------------------------------------
 
-#define MAX_WALLS ((theMine == null) ? MAX_WALLS_D2 : DLE.IsD1File () ? MAX_WALLS_D1 : (DLE.LevelVersion () < 12) ? MAX_WALLS_D2 : WALL_LIMIT)
+#define MAX_WALLS ((theMine == null) ? MAX_WALLS_D2 : g_data.IsD1File () ? MAX_WALLS_D1 : (g_data.LevelVersion () < 12) ? MAX_WALLS_D2 : WALL_LIMIT)
 
 #define MAX_DOORS_D1						50 // Maximum number of open doors Descent 1
 #define MAX_DOORS_D2						90 // Maximum number of open doors Descent 2
 #define DOOR_LIMIT						MAX_DOORS_D2
 
-#define MAX_DOORS ((theMine == null) ? MAX_DOORS_D2 : DLE.IsD1File () ? MAX_DOORS_D1 : (DLE.LevelVersion () < 12) ? MAX_DOORS_D2 : DOOR_LIMIT)
+#define MAX_DOORS ((theMine == null) ? MAX_DOORS_D2 : g_data.IsD1File () ? MAX_DOORS_D1 : (g_data.LevelVersion () < 12) ? MAX_DOORS_D2 : DOOR_LIMIT)
 
 // -----------------------------------------------------------------------------
 

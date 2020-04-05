@@ -67,9 +67,9 @@ bool GlobalData::IsD2XLevel()
     return LevelVersion() >= 9;
 }
 
-void GlobalData::RefreshMineView()
+void GlobalData::RefreshMineView(bool all)
 {
-    DLE.MineView()->Refresh();
+    DLE.MineView()->Refresh(all);
 }
 
 void GlobalData::DelayMineViewRefresh(bool addDelay)
@@ -166,6 +166,11 @@ void GlobalData::SetD2Path(const char* newPath)
 const char* GlobalData::GetAppFolder()
 {
     return DLE.AppFolder();
+}
+
+double GlobalData::GetMineMoveRate()
+{
+    return DLE.MineView()->MineMoveRate();
 }
 
 bool GlobalData::GLCreateTexture(CTexture* texture, bool bForce)

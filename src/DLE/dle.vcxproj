@@ -410,10 +410,7 @@
     <ClCompile Include="..\TextureManager.cpp" />
     <ClCompile Include="..\TextureManager.Custom.cpp" />
     <ClCompile Include="..\TextureManager.Shaders.cpp" />
-    <ClCompile Include="..\TriggerManager.cpp" />
-    <ClCompile Include="..\TunnelMaker.cpp" />
     <ClCompile Include="..\UndoManager.cpp" />
-    <ClCompile Include="..\WallManager.cpp" />
     <ClCompile Include="..\TextureProjector.cpp" />
     <ClCompile Include="..\HogDialog.cpp" />
   </ItemGroup>

@@ -175,6 +175,9 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="TriggerManager.cpp" />
+    <ClCompile Include="WallManager.cpp" />
+    <ClCompile Include="TunnelMaker.cpp" />
     <ClCompile Include="BlockManager.cpp" />
     <ClCompile Include="HogManager.cpp" />
     <ClCompile Include="MemoryFile.cpp" />

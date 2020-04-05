@@ -1,13 +1,8 @@
 #include "stdafx.h"
-#include "FileManager.h"
-#include "SegmentManager.h"
 #include "BlockManager.h"
-#include "ObjectManager.h"
 #include "VertexManager.h"
 #include "LightManager.h"
 #include "WallManager.h"
-#include "TriggerManager.h"
-#include "UndoManager.h"
 #include "TunnelMaker.h"
 
 CBlockManager blockManager;

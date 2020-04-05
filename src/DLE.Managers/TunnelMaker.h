@@ -4,7 +4,7 @@
 #define MAX_TUNNEL_SEGMENTS	64
 #define MAX_TUNNEL_LENGTH		2000
 #define MIN_TUNNEL_LENGTH		10
-#define TUNNEL_INTERVAL			int (10 * DLE.MineView ()->MineMoveRate ())
+#define TUNNEL_INTERVAL			int (10 * g_data.GetMineMoveRate())
 
 extern char szTunnelMakerError [];
 

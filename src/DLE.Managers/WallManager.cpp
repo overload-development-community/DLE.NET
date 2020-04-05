@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "WallManager.h"
 
 CWallManager wallManager;
 
@@ -15,11 +16,11 @@ bool CWallManager::HaveResources (CSideKey* key)
 {
 CWall* pWall = segmentManager.Wall (key);
 if (pWall != null) {
-	ErrorMsg ("There is already a wall on this side");
+	g_data.DoErrorMsg ("There is already a wall on this side");
 	return false;
 	}
 if (Full ()) {
-	ErrorMsg ("Maximum number of walls reached");
+	g_data.DoErrorMsg ("Maximum number of walls reached");
 	return false;
 	}
 return true;
@@ -61,7 +62,7 @@ CWall* CWallManager::Create (CSideKey key, short type, ushort flags, ubyte keys,
 if (!HaveResources (&key))
 	return null;
 
-current->Get (key);
+g_data.currentSelection->Get (key);
 
 CSegment *pSegment = segmentManager.Segment (key);
 CSide* pSide = segmentManager.Side (key);
@@ -73,14 +74,14 @@ if (type < 0)
 
 if (type == WALL_OVERLAY) {
 	if (nChild != -1) {
-		ErrorMsg ("Switches can only be put on solid sides.");
+		g_data.DoErrorMsg ("Switches can only be put on solid sides.");
 		return null;
 		}
 	}
 else {
 	// otherwise make sure there is a child
 	if (nChild == -1) {
-		ErrorMsg ("This side must be attached to an other segment before a wall can be added.");
+		g_data.DoErrorMsg ("This side must be attached to an other segment before a wall can be added.");
 		return null;
 		}
 	}
@@ -147,7 +148,8 @@ if (nDelWall == NO_WALL)
 	return;
 CWall* pDelWall = (nDelWall < 0) ? null : Wall (nDelWall);
 if (pDelWall == null) {
-	pDelWall = current->Wall ();
+	CSideKey sideKey(g_data.currentSelection->SegmentId(), g_data.currentSelection->SideId());
+	pDelWall = segmentManager.Wall(sideKey);
 	if (pDelWall == null)
 		return;
 	}
@@ -249,12 +251,13 @@ bool CWallManager::CreateDoor (ubyte type, ubyte flags, ubyte keys, char nClip, 
 {
 undoManager.Begin (__FUNCTION__, udSegments | udWalls);
 // add a door to the current segment/side
-if (Create (*current, type, flags, keys, nClip, nTexture)) {
+CSideKey sideKey(g_data.currentSelection->SegmentId(), g_data.currentSelection->SideId());
+if (Create (sideKey, type, flags, keys, nClip, nTexture)) {
 	// add a door to the opposite segment/side
 	CSideKey opp;
 	if (segmentManager.BackSide (opp) && Create (opp, type, flags, keys, nClip, nTexture)) {
 		undoManager.End (__FUNCTION__);
-		DLE.MineView ()->Refresh ();
+		g_data.RefreshMineView();
 		return true;
 		}
 	}
@@ -280,8 +283,8 @@ return CreateDoor (WALL_BLASTABLE, 0, 0, -1, -1);
 
 bool CWallManager::CreateGuideBotDoor (void) 
 {
-if (DLE.IsD1File ()) {
-	ErrorMsg ("Guide bot doors are not available in Descent 1");
+if (g_data.IsD1File ()) {
+	g_data.DoErrorMsg ("Guide bot doors are not available in Descent 1");
 	return false;
   }
 return CreateDoor (WALL_BLASTABLE, 0, 0, 46, -1);
@@ -291,7 +294,7 @@ return CreateDoor (WALL_BLASTABLE, 0, 0, 46, -1);
 
 bool CWallManager::CreateFuelCell (void) 
 {
-return CreateDoor (WALL_ILLUSION, 0, 0, -1, DLE.IsD1File () ? 328 : 353);
+return CreateDoor (WALL_ILLUSION, 0, 0, -1, g_data.IsD1File () ? 328 : 353);
 }
 
 //------------------------------------------------------------------------------
@@ -305,8 +308,8 @@ return CreateDoor (WALL_ILLUSION, 0, 0, -1, 0);
 
 bool CWallManager::CreateForceField (void) 
 {
-if (DLE.IsD1File ()) {
-	ErrorMsg ("Force fields are not supported in Descent 1");
+if (g_data.IsD1File ()) {
+	g_data.DoErrorMsg ("Force fields are not supported in Descent 1");
    return false;
 	}
 return CreateDoor (WALL_CLOSED, 0, 0, -1, 420);
@@ -316,16 +319,16 @@ return CreateDoor (WALL_CLOSED, 0, 0, -1, 420);
 
 bool CWallManager::CreateFan (void)
 {
-return CreateDoor (WALL_CLOSED, 0, 0, -2, DLE.IsD1File () ? 325 : 354);
+return CreateDoor (WALL_CLOSED, 0, 0, -2, g_data.IsD1File () ? 325 : 354);
 }
 
 //------------------------------------------------------------------------------
 
 bool CWallManager::CreateWaterFall (void)
 {
-if (DLE.IsD1File ()) {
-	ErrorMsg ("Water falls are not supported in Descent 1");
-   return false;
+if (g_data.IsD1File ()) {
+	g_data.DoErrorMsg ("Water falls are not supported in Descent 1");
+	return false;
 	}
 return CreateDoor (WALL_ILLUSION, 0, 0, -1, 401);
 }
@@ -334,9 +337,9 @@ return CreateDoor (WALL_ILLUSION, 0, 0, -1, 401);
 
 bool CWallManager::CreateLavaFall (void) 
 {
-if (DLE.IsD1File ()) {
-	ErrorMsg ("Lava falls are not supported in Descent 1");
-   return false;
+if (g_data.IsD1File ()) {
+	g_data.DoErrorMsg ("Lava falls are not supported in Descent 1");
+	return false;
 	}
 return CreateDoor (WALL_ILLUSION, 0, 0, -1, 408);
 }
@@ -345,7 +348,7 @@ return CreateDoor (WALL_ILLUSION, 0, 0, -1, 408);
 
 bool CWallManager::CreateGrate (void) 
 {
-return CreateDoor (WALL_CLOSED, 0, 0, -2, DLE.IsD1File () ? 246 : 321);
+return CreateDoor (WALL_CLOSED, 0, 0, -2, g_data.IsD1File () ? 246 : 321);
 }
 
 //------------------------------------------------------------------------------
@@ -363,20 +366,21 @@ if (!triggerManager.HaveResources ())
 	return false;
 // make a new wall and a new trigger
 undoManager.Begin (__FUNCTION__, udSegments | udWalls);
-if (Create (*current, WALL_DOOR, WALL_DOOR_LOCKED, KEY_NONE, -1, -1)) {
+CSideKey sideKey(g_data.currentSelection->SegmentId(), g_data.currentSelection->SideId());
+if (Create (sideKey, WALL_DOOR, WALL_DOOR_LOCKED, KEY_NONE, -1, -1)) {
 // set clip number and texture
 	Wall (WallCount ()- 1)->Info ().nClip = 10;
-	segmentManager.SetTextures (*current, 0, DLE.IsD1File () ? 444 : 508);
+	segmentManager.SetTextures (sideKey, 0, g_data.IsD1File () ? 444 : 508);
 	triggerManager.Create (WallCount () - 1, type);
 // add a new wall and trigger to the opposite segment/side
 	CSideKey opp;
 	if (segmentManager.BackSide (opp) && Create (opp, WALL_DOOR, WALL_DOOR_LOCKED, KEY_NONE, -1, -1)) {
 		// set clip number and texture
 		Wall (WallCount () - 1)->Info ().nClip = 10;
-		segmentManager.SetTextures (opp, 0, DLE.IsD1File () ? 444 : 508);
+		segmentManager.SetTextures (opp, 0, g_data.IsD1File () ? 444 : 508);
 		triggerManager.UpdateReactor ();
 		undoManager.End (__FUNCTION__);
-		DLE.MineView ()->Refresh ();
+		g_data.RefreshMineView();
 		return true;
 		}
 	}
@@ -388,30 +392,31 @@ return false;
 
 bool CWallManager::CreateSecretExit (void) 
 {
-if (DLE.IsD1File ()) {
+if (g_data.IsD1File ()) {
     CreateExit (TT_SECRET_EXIT);
 	 return false;
 	}
 if (!triggerManager.HaveResources ())
 	return false;
 
-int nLastSeg = current->SegmentId ();
+int nLastSeg = g_data.currentSelection->SegmentId ();
 undoManager.Begin (__FUNCTION__, udSegments | udWalls);
-int nNewSeg = segmentManager.Create (*current, -1);
+CSideKey currentSideKey(g_data.currentSelection->SegmentId(), g_data.currentSelection->SideId());
+int nNewSeg = segmentManager.Create (currentSideKey, -1);
 if (!nNewSeg) {
 	undoManager.Unroll (__FUNCTION__);
 	return false;
 	}
-current->SetSegmentId (nLastSeg);
+g_data.currentSelection->SetSegmentId (nLastSeg);
 CSideKey backSide;
 if (segmentManager.BackSide (backSide) &&
- Create (*current, WALL_ILLUSION, 0, KEY_NONE, -1, 426) &&
+ Create (currentSideKey, WALL_ILLUSION, 0, KEY_NONE, -1, 426) &&
  Create (backSide, WALL_ILLUSION, 0, KEY_NONE, -1, 426)) {
 	triggerManager.Create (WallCount () - 1, TT_SECRET_EXIT);
-	objectManager.SecretSegment () = current->SegmentId ();
-	current->SetSegmentId (nNewSeg);
+	objectManager.SecretSegment () = g_data.currentSelection->SegmentId ();
+	g_data.currentSelection->SetSegmentId (nNewSeg);
 	segmentManager.SetDefaultTexture (426);
-	DLE.MineView ()->Refresh ();
+	g_data.RefreshMineView();
 	undoManager.End (__FUNCTION__);
 	return true;
 	}
@@ -528,10 +533,10 @@ WriteDoors (fp);
 
 void CWallManager::CheckForDoor (CSideKey key) 
 {
-if (DLE.ExpertMode ())
+if (g_data.ExpertMode ())
 	return;
 
-current->Get (key);
+g_data.currentSelection->Get (key);
 CWall* pWall = segmentManager.Wall (key);
 
 if (!pWall)
@@ -539,7 +544,7 @@ if (!pWall)
 if (!pWall->IsDoor ())
 	return;
 
-ErrorMsg ("Changing the texture of a door only affects\n"
+g_data.DoErrorMsg ("Changing the texture of a door only affects\n"
 			 "how the door will look before it is opened.\n"
 			 "You can use this trick to hide a door\n"
 			 "until it is used for the first time.\n\n"

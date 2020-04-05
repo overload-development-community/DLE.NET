@@ -157,9 +157,13 @@ public:
 	virtual short SideId() = 0;
 	virtual short Edge() = 0;
 	virtual short Point() = 0;
+	virtual CGameObject* Object() = 0;
 	virtual CSegment* Segment() = 0;
 	virtual CSide* Side() = 0;
 	virtual CVertex* Vertex(short vertexNum) = 0;
+	virtual void Get(CSideKey& key) = 0;
+
+	virtual short SetSegmentId(short segmentNum) = 0;
 };
 
 struct GlobalData
@@ -188,7 +192,7 @@ public:
 	int LevelVersion();
 	bool IsStdLevel();
 	bool IsD2XLevel();
-	void RefreshMineView();
+	void RefreshMineView(bool all = true);
 	void DelayMineViewRefresh(bool addDelay);
 	void EnsureValidSelection();
 	void DoInfoMsg(const char* msg);
@@ -207,6 +211,7 @@ public:
 	const char* GetD2Path();
 	void SetD2Path(const char* newPath); // for palette switching
 	const char* GetAppFolder();
+	double GetMineMoveRate();
 
 	// Can't include DrawHelpers.h in DLE.DataTypes due to MFC...
 	// may move this later
