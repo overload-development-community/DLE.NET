@@ -501,7 +501,7 @@ m_bSplashScreen = GetPrivateProfileInt ("DLE", "SplashScreen", 1, DLE.IniFile ()
 
 //------------------------------------------------------------------------------
 
-bool CDLE::MakeModFolders (char* szSubFolder)
+bool CDLE::MakeModFolders (const char* szSubFolder)
 {
 	char szMission [256], szLevel [256];
 

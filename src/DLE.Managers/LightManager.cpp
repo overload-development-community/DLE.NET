@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "LightManager.h"
 
 CLightManager lightManager;
 
@@ -91,7 +92,7 @@ bool CLightManager::IsBlastableLight (int nBaseTex)
 nBaseTex &= TEXTURE_MASK;
 if (IsExplodingLight (nBaseTex))
 	return true;
-if (DLE.IsD1File ())
+if (g_data.IsD1File ())
 	return false;
 for (short* p = blastableLightsD2; *p >= 0; p++)
 	if (*p == nBaseTex)
@@ -115,7 +116,7 @@ return null;
 
 short CLightManager::VariableLight (CSideKey key)
 {
-current->Get (key);
+g_data.currentSelection->Get (key);
 CVariableLight* flP = VariableLight (0);
 int i;
 for (i = Count (); i; i--, flP++)
@@ -131,20 +132,21 @@ return -1;
 CVariableLight* CLightManager::AddVariableLight (short index) 
 {
 if (Count () >= MAX_VARIABLE_LIGHTS) {
-	if (!DLE.ExpertMode () && (index < 0)) {
+	if (!g_data.ExpertMode () && (index < 0)) {
+		char message[100]{};
 		sprintf_s (message, sizeof (message),
 					  "Maximum number of variable lights (%d) have already been added",
 					  MAX_VARIABLE_LIGHTS);
-		ErrorMsg (message);
+		g_data.DoErrorMsg (message);
 		}
 	return null;
 	}
 
 short nBaseTex, nOvlTex;
-current->Side ()->GetTextures (nBaseTex, nOvlTex);
+g_data.currentSelection->Side ()->GetTextures (nBaseTex, nOvlTex);
 if ((IsLight (nBaseTex) == -1) && (IsLight (nOvlTex) == -1)) {
-	if (!DLE.ExpertMode () && (index < 0))
-		ErrorMsg ("Blinking lights can only be added to a side\n"
+	if (!g_data.ExpertMode () && (index < 0))
+		g_data.DoErrorMsg ("Blinking lights can only be added to a side\n"
 					 "that has a light emitting texture.\n"
 					 "Hint: You can use the texture tool's brightness control\n"
 					 "to make any texture emit light.");
@@ -161,10 +163,10 @@ return VariableLight (index);
 
 short CLightManager::AddVariableLight (CSideKey key, uint mask, int time) 
 {
-current->Get (key);
+g_data.currentSelection->Get (key);
 if (VariableLight (key) != -1) {
-	if (!DLE.ExpertMode ())
-		ErrorMsg ("There is already a variable light on this side");
+	if (!g_data.ExpertMode ())
+		g_data.DoErrorMsg ("There is already a variable light on this side");
 	return -1;
 	}
 // we are adding a new variable light
@@ -207,7 +209,7 @@ if (index > -1) {
 
 bool CLightManager::DeleteVariableLight (CSideKey key) 
 {
-current->Get (key);
+g_data.currentSelection->Get (key);
 short index = VariableLight (key);
 if (index == -1)
 	return false;
@@ -221,7 +223,7 @@ return true;
 
 CColor* CLightManager::LightColor (CSideKey key, bool bUseTexColors) 
 { 
-current->Get (key);
+g_data.currentSelection->Get (key);
 if (bUseTexColors && ApplyFaceLightSettingsGlobally ()) {
 	short nBaseTex, nOvlTex;
 	segmentManager.Textures (key, nBaseTex, nOvlTex);
@@ -283,11 +285,13 @@ LoadDefaults ();
 
 bool CLightManager::HasCustomLightMap (void)
 {
-CResource res;
-ubyte *pData;
-if (!(pData = res.Load (DLE.IsD1File () ? IDR_LIGHT_D1 : IDR_LIGHT_D2)))
-	return false;
-return memcmp (m_lightMap, pData, sizeof (m_lightMap)) != 0;
+	auto lightTable = g_data.GetDefaultLightTable();
+	if (lightTable.empty())
+	{
+		return false;
+	}
+
+	return memcmp(m_lightMap, lightTable.data(), sizeof(m_lightMap)) != 0;
 }
 
 // ------------------------------------------------------------------------
@@ -308,42 +312,52 @@ return pData;
 
 bool CLightManager::HasCustomLightColors (void)
 {
-CResource res;
-ubyte *pData;
-if (!(pData = res.Load (DLE.IsD1File () ? IDR_COLOR_D1 : IDR_COLOR_D2)))
-	return false;
-for (uint i = 0, l = m_texColors.Length (); i < l; i++) {
-	CColor color;
-	pData = ColorToFloat (&color, pData);
-	if (m_texColors [i] != color)
-		return true;
+	auto colorTable = g_data.GetDefaultColorTable();
+	if (colorTable.empty())
+	{
+		return false;
 	}
-return false;
+
+	auto pData = colorTable.data();
+	for (uint i = 0, l = m_texColors.Length(); i < l; i++)
+	{
+		CColor color;
+		pData = ColorToFloat(&color, pData);
+		if (m_texColors[i] != color)
+			return true;
+	}
+	return false;
 }
 
 // ------------------------------------------------------------------------
 
 short CLightManager::LoadDefaults (void)
 {
-CResource res;
-ubyte *pData;
-if (!(pData = res.Load (DLE.IsD1File () ? IDR_COLOR_D1 : IDR_COLOR_D2)))
-	return false;
-int i = int (res.Size () / (3 * sizeof (int) + sizeof (ubyte)));
-#if _DEBUG
-if (i > (int) m_texColors.Length ())
-	i = (int) m_texColors.Length ();
-#else
-if (i > sizeofa (m_texColors))
-	i = sizeofa (m_texColors);
-#endif
-for (CColor* pColor = &m_texColors [0]; i; i--, pColor++) 
-	pData = ColorToFloat (pColor, pData);
+	auto colorTable = g_data.GetDefaultColorTable();
+	if (colorTable.empty())
+	{
+		return false;
+	}
 
-if (!(pData = res.Load (DLE.IsD1File () ? IDR_LIGHT_D1 : IDR_LIGHT_D2)))
-	return false;
-memcpy (m_lightMap, pData, min (res.Size (), sizeof (m_lightMap)));
-return 1;
+	int i = int(colorTable.size() / (3 * sizeof(int) + sizeof(ubyte)));
+#if _DEBUG
+	if (i > (int)m_texColors.Length())
+		i = (int)m_texColors.Length();
+#else
+	if (i > sizeofa(m_texColors))
+		i = sizeofa(m_texColors);
+#endif
+	auto pData = colorTable.data();
+	for (CColor* pColor = &m_texColors[0]; i; i--, pColor++)
+		pData = ColorToFloat(pColor, pData);
+
+	auto lightTable = g_data.GetDefaultLightTable();
+	if (lightTable.empty())
+	{
+		return false;
+	}
+	memcpy(m_lightMap, lightTable.data(), min(lightTable.size(), sizeof(m_lightMap)));
+	return 1;
 }
 
 // ------------------------------------------------------------------------

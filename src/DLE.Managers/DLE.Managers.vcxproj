@@ -175,6 +175,11 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="TextureManager.Custom.cpp" />
+    <ClCompile Include="LightManager.cpp" />
+    <ClCompile Include="LightManager.Illuminate.cpp" />
+    <ClCompile Include="LightManager.IO.cpp" />
     <ClCompile Include="TriggerManager.cpp" />
     <ClCompile Include="WallManager.cpp" />
     <ClCompile Include="TunnelMaker.cpp" />

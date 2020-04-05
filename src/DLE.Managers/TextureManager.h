@@ -128,7 +128,7 @@ class CTextureManager : public ITextureManager {
 		CDynamicArray<CAnimationClipInfo*>	m_animationIndex [2];
 
 		uint				m_nTextures [2];
-		char**			m_names [2];
+		std::vector<std::string> m_names[2];
 		char				m_paletteName [2][256];
 		ushort*			m_index [2];
 		uint				m_nOffsets [2];
@@ -244,7 +244,7 @@ class CTextureManager : public ITextureManager {
 		
 		void Load (ushort nBaseTex, ushort nOvlTex);
 
-		void ReadMod (char* pszFolder);
+		void ReadMod (const char* pszFolder);
 	
 		void LoadMod (void);
 
@@ -285,9 +285,9 @@ class CTextureManager : public ITextureManager {
 		inline const char* Name (int nVersion, short nTexture) { 
 			if (nVersion < 0)
 				nVersion = Version ();
-			if (!m_names [nVersion])
+			if (m_names[nVersion].empty())
 				return "";
-			char* p = m_names [nVersion][nTexture];
+			const char* p = m_names[nVersion][nTexture].c_str();
 			return p ? p : "";
 			}
 		

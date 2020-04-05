@@ -14,6 +14,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <string>
+#include <vector>
 
 #include <Windows.h>
 // For CPoint. Might need refactoring if it breaks /clr

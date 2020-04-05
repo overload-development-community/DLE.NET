@@ -1,5 +1,7 @@
 #include "stdafx.h"
-#include "DrawHelpers.h"
+#include "TextureManager.h"
+#include "PaletteManager.h"
+//#include "DrawHelpers.h"
 
 CTextureManager textureManager;
 
@@ -229,9 +231,9 @@ m_paletteName [0][0] =
 m_paletteName [1][0] = '\0';
 Create (0);
 Create (1);
-DrawHelpers::LoadTextureFromResource(&m_arrow, IDR_ARROW_TEXTURE);
+g_data.LoadArrowTexture(m_arrow);
 for (int i = 0; i < ICON_COUNT; i++)
-	DrawHelpers::LoadTextureFromResource(&m_icons[i], IDR_SMOKE_ICON + i);
+	g_data.LoadIconTexture(i, m_icons[i]);
 }
 
 //------------------------------------------------------------------------
@@ -239,7 +241,7 @@ for (int i = 0; i < ICON_COUNT; i++)
 void CTextureManager::Create (int nVersion)
 {
 m_pigFiles [nVersion][0] = 0;
-m_names [nVersion] = null;
+m_names[nVersion].clear();
 LoadNames (nVersion);
 m_header [nVersion] = CPigHeader (nVersion);
 LoadIndex (nVersion);
@@ -261,13 +263,9 @@ if (m_textures [nVersion]) {
 	m_textures [nVersion] = null;
 	}
 #endif
-if (m_names [nVersion]) {
-	for (int j = 0, h = MaxTextures (nVersion); j < h; j++)
-		if (m_names [nVersion][j])
-			delete [] m_names [nVersion][j];
-	delete [] m_names [nVersion];
-	m_names [nVersion] = null;
-	}
+if (!m_names[nVersion].empty()) {
+	m_names->clear();
+}
 if (m_index [nVersion]) {
 	delete [] m_index [nVersion];
 	m_index [nVersion] = null;
@@ -294,7 +292,7 @@ for (int i = 0; i < 2; i++)
 
 int CTextureManager::Version (int nVersion) 
 { 
-return (nVersion > -1) ? nVersion : DLE.IsD1File () ? 0 : 1; 
+return (nVersion > -1) ? nVersion : g_data.IsD1File () ? 0 : 1; 
 }
 
 //------------------------------------------------------------------------
@@ -344,14 +342,15 @@ CFileManager* CTextureManager::OpenPigFile (int nVersion)
 {
 	CFileManager* fp = new CFileManager;
 	char	filename [256], appFolder [256];
+	auto folder = (nVersion == 0) ? g_data.GetD1Path() : g_data.GetD2Path();
 
-if ((strchr (descentFolder [nVersion], ':') == null) && (descentFolder [nVersion][0] != '\\')) {
+if ((strchr (folder, ':') == null) && (folder[0] != '\\')) {
 	::GetModuleFileName (0, appFolder, sizeof (appFolder));
 	CFileManager::SplitPath (appFolder, filename, null, null);
-	strcat_s (filename, sizeof (filename), descentFolder [nVersion]);
+	strcat_s (filename, sizeof (filename), folder);
 	}
 else
-	strcpy_s (filename, sizeof (filename), descentFolder [nVersion]);
+	strcpy_s (filename, sizeof (filename), folder);
 if (!strstr (filename, ".pig"))
 	strcat_s (filename, sizeof (filename), "groupa.pig");
 if (!fp->Open (filename, "rb")) {
@@ -373,7 +372,7 @@ return fp;
 
 int CTextureManager::MaxTextures (int nVersion)
 {
-return ((nVersion < 0) ? DLE.IsD2File () : nVersion) ? MAX_TEXTURES_D2 : MAX_TEXTURES_D1;
+return ((nVersion < 0) ? g_data.IsD2File () : nVersion) ? MAX_TEXTURES_D2 : MAX_TEXTURES_D1;
 }
 
 //------------------------------------------------------------------------
@@ -439,6 +438,7 @@ bool CTextureManager::Check (int nTexture)
 {
 if ((nTexture >= 0) && (nTexture < MaxTextures ()))
 	return true;
+char message[50]{};
 sprintf_s (message, sizeof (message), "Reading texture: Texture #%d out of range.", nTexture);
 DEBUGMSG (message);
 return false;
@@ -461,33 +461,23 @@ void CTextureManager::Load (ushort nBaseTex, ushort nOvlTex)
 
 void CTextureManager::LoadNames (int nVersion)
 {
-if (nVersion < 0)
-	nVersion = DLE.IsD1File () ? 0 : 1;
-	int nResource = (nVersion == 0) ? TEXTURE_STRING_TABLE_D1 : TEXTURE_STRING_TABLE_D2;
-	CStringResource res;
-	int j = MaxTextures (nVersion);
-
-m_names [nVersion] = new char* [j];
-for (int i = 0; i < j; i++) {
-	res.Clear ();
-	res.Load (nResource + i);
-	int l = (int) res.Length () + 1;
-	m_names [nVersion][i] = new char [l];
-	memcpy_s (m_names [nVersion][i], l, res.Value (), l);
-	}
+	int nVersionResolved = (nVersion < 0) ? Version() : nVersion;
+	m_names[nVersionResolved] = g_data.LoadTextureNames(nVersionResolved);
 }
 
 //------------------------------------------------------------------------------
 
 int CTextureManager::LoadIndex (int nVersion)
 {
-	CResource res;	
-
-ushort* pIndex = (ushort *) res.Load (nVersion ? IDR_TEXTURE2_DAT : IDR_TEXTURE_DAT);
-if (!pIndex) {
-	DEBUGMSG (" Reading texture: Could not load texture index.");
-	return 1;
+	auto index = g_data.LoadTextureIndex(nVersion);
+	if (index.empty())
+	{
+		DEBUGMSG(" Reading texture: Could not load texture index.");
+		return 1;
 	}
+
+	ushort* pIndex = reinterpret_cast<ushort*>(index.data());
+
 // first long is number of m_textures
 m_nTextures [nVersion] = *((uint*) pIndex);
 pIndex += 2;
@@ -582,14 +572,15 @@ return true;
 bool CTextureManager::OpenAnimationFile (CFileManager& fp)
 {
 	char filename [256];
+	auto folder = (Version() == 0) ? g_data.GetD1Path() : g_data.GetD2Path();
 
-strcpy_s (filename, sizeof (filename), descentFolder [Version ()]);
+strcpy_s (filename, sizeof (filename), folder);
 char *slash = strrchr (filename, '\\');
 if (slash)
 	*(slash+1) = '\0';
 else
 	filename [0] = '\0';
-strcat (filename, Version () ? "descent2.ham" : "descent.pig");
+strcat_s (filename, Version () ? "descent2.ham" : "descent.pig");
 if (!fp.Open (filename, "rb"))
 	return false;
 return SkipToAnimationData (fp);
@@ -771,7 +762,8 @@ bool CTextureManager::LoadTextures (int nVersion, bool bClearExisting)
 {
 if (nVersion < 0) {
 	nVersion = Version ();
-	strcpy_s (m_pigFiles [nVersion], sizeof (m_pigFiles [nVersion]), descentFolder [nVersion]);
+	auto folder = (nVersion == 0) ? g_data.GetD1Path() : g_data.GetD2Path();
+	strcpy_s (m_pigFiles [nVersion], sizeof (m_pigFiles [nVersion]), folder);
 	strcpy_s (m_paletteName [nVersion], sizeof (m_paletteName [nVersion]), paletteManager.Name ());
 	if (!LoadInfo (nVersion))
 		return false;
@@ -871,7 +863,7 @@ void CTextureManager::UnTagUsedTextures (void)
 if (!textureManager.Available ())
 	return;
 
-	int nVersion = DLE.IsD1File () ? 0 : 1;
+	int nVersion = g_data.IsD1File () ? 0 : 1;
 	int i, h = MaxTextures (nVersion);
 
 for (i = 0; i < h; i++)
@@ -886,7 +878,7 @@ if (!textureManager.Available ())
 	return;
 
 	CSegment* pSegment = segmentManager.Segment (0);
-	int nVersion = DLE.IsD1File () ? 0 : 1;
+	int nVersion = g_data.IsD1File () ? 0 : 1;
 	int i, j, h = MaxTextures (nVersion);
 
 UnTagUsedTextures ();
@@ -980,10 +972,11 @@ if (nCustom) {
 			}
 		}
 
+	char message[50]{};
 	sprintf_s (message, sizeof (message), "%d custom textures %s removed", nRemoved, (nRemoved == 1) ? "was" : "were");
 	if (nRemoved)
 		undoManager.SetModified (true);
-	INFOMSG (message);
+	g_data.DoInfoMsg(message);
 	}
 }
 
@@ -1021,9 +1014,10 @@ for (int i = 0; i < GlobalTextureCount (); i++)
 		}
 
 if (nReverted > 0) {
+	char message[50]{};
 	sprintf_s (message, sizeof (message), "%d modified texture%s reverted", nReverted, (nReverted == 1) ? " was" : "s were");
 	undoManager.SetModified (true);
-	INFOMSG (message);
+	g_data.DoInfoMsg(message);
 	}
 }
 
@@ -1031,7 +1025,7 @@ if (nReverted > 0) {
 
 bool CTextureManager::IsScrolling (UINT16 texture)
 {
-if (DLE.FileType () == RDL_FILE)
+if (g_data.FileType () == RDL_FILE)
 	return false;
 switch (texture) {
 	case 399:
@@ -1055,7 +1049,7 @@ switch (texture) {
 
 int CTextureManager::ScrollSpeed (UINT16 nTexture, int *x, int *y)
 {
-if (DLE.FileType () == RDL_FILE)
+if (g_data.FileType () == RDL_FILE)
 	return 0;
 *x = 0; 
 *y = 0; 
@@ -1146,7 +1140,7 @@ yScrollOffset [0] &= 63;
 
 CTexture *CTextureManager::UpdateTextureClip (short& nTexId, short& nPrevTexId, int& nFrame, int& nDirection)
 {
-	int			nVersion = DLE.IsD1File ();
+	int			nVersion = g_data.IsD1File ();
 	bool			bAnimate = false;
 	CTexture		*pTexture = null;
 
@@ -1189,7 +1183,9 @@ if (!bForce && m_textures [nVersion].Buffer ())
 	return true;
 if (LoadInfo (nVersion) && LoadTextures (nVersion))
 	return true;
-sprintf_s (message, sizeof (message), "Couldn't find texture data file (%s).\n\nPlease select the proper folder in the settings dialog.\n", descentFolder [nVersion]);
+auto folder = (nVersion == 0) ? g_data.GetD1Path() : g_data.GetD2Path();
+char message[MAX_PATH + 100]{};
+sprintf_s (message, sizeof (message), "Couldn't find texture data file (%s).\n\nPlease select the proper folder in the settings dialog.\n", folder);
 //ErrorMsg (message);
 return false;
 }
@@ -1221,7 +1217,8 @@ bool CTextureManager::ChangePigFile (const char *pszPigPath, int nVersion)
 	CBGR superTransparentColor = *paletteManager.Current (254);
 
 // Set PIG path
-strcpy_s (descentFolder [nVersionResolved], sizeof (descentFolder [nVersionResolved]), pszPigPath);
+if (nVersionResolved)
+	g_data.SetD2Path(pszPigPath); // maybe should have a D1 version too? Probably doesn't work now anyway
 CFileManager::SplitPath (pszPigPath, null, szPigName, null);
 strcat_s (szPigName, sizeof (szPigName), ".pig");
 paletteManager.SetName (szPigName);
@@ -1230,8 +1227,10 @@ paletteManager.SetName (szPigName);
 for (int i = 0; i < m_header [nVersionResolved].nTextures; i++)
 	m_textures [nVersionResolved][i].Clear (); // Force reload
 if (!LoadInfo (nVersionResolved) || !LoadTextures (nVersionResolved, false)) {
+	auto folder = (nVersionResolved == 0) ? g_data.GetD1Path() : g_data.GetD2Path();
+	char message[MAX_PATH + 100]{};
 	sprintf_s (message, sizeof (message), "Couldn't find texture data file (%s).\n\n"
-		"Please select the proper folder in the settings dialog.\n", descentFolder [nVersion]);
+		"Please select the proper folder in the settings dialog.\n", folder);
 	return false;
 	}
 
@@ -1258,9 +1257,8 @@ for (uint nIndex = 0, j = m_header [nVersionResolved].nTextures; nIndex < j; nIn
 		}
 	}
 
-DLE.TextureView ()->Setup ();
-DLE.TextureView ()->Refresh ();
-DLE.MineView ()->ResetView (true);
+g_data.ResetTextureView();
+g_data.ResetMineView();
 return true;
 }
 

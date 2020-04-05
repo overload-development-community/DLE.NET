@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "LightManager.h"
+#include "TextureManager.h"
+#include "VertexManager.h"
+#include "MemoryFile.h"
+#include "mine.h"
 
 // external globals
 //extern int DLE.MineView ()->RenderVariableLights (); // uvls.cpp
@@ -173,7 +178,7 @@ for (int i = 0, j = vertexManager.Count (); i < j; i++)
 for (int i = 0; i < nSegments; i++) {
 	CSegment *pSegment = segmentManager.Segment (i);
 	bool bUndo = false;
-	bool bSelfIlluminate = DLE.IsD2XLevel () && (pSegment->Props () & SEGMENT_PROP_SELF_ILLUMINATE);
+	bool bSelfIlluminate = g_data.IsD2XLevel () && (pSegment->Props () & SEGMENT_PROP_SELF_ILLUMINATE);
 	for (int nPoint = 0; nPoint < 8; nPoint++) {
 		int nVertex = pSegment->m_info.vertexIds [nPoint];
 		if ((maxBrightness [nVertex].count > 0) && (bAll || (vertexManager.Status (nVertex) & TAGGED_MASK))) {
@@ -250,7 +255,7 @@ for (int i = 0; i < nSegments; i++) {
 // Calculate segment side corner light values
 // for each marked side in the level
 // (range: 0 = min, 0x8000 = max)
-DLE.MainFrame ()->InitProgress (nSegments);
+g_data.InitProgress(nSegments);
 short nSegment = 0;
 for (; nSegment < nSegments; nSegment++) {
 #if 0
@@ -258,7 +263,7 @@ for (; nSegment < nSegments; nSegment++) {
 	sprintf (szMsg, "Segment %d", nSegment + 1);
 	STATUSMSG (szMsg);
 #endif
-	DLE.MainFrame ()->Progress ().StepIt ();
+	g_data.StepProgress();
 	CSegment *pSegment = segmentManager.Segment (nSegment);
 #if DBG
 	if (nSegment == nDbgSeg)
@@ -283,7 +288,7 @@ for (; nSegment < nSegments; nSegment++) {
 			GatherLight (nSegment, nSide, brightness, bAll, bCopyTexLights);
 		}
 	}
-DLE.MainFrame ()->Progress ().DestroyWindow ();
+g_data.CleanupProgress();
 undoManager.End (__FUNCTION__);
 
 }
@@ -450,7 +455,7 @@ for (int nChildSeg = 0; nChildSeg < nSegments; nChildSeg++) {
 		if ((nChildSide == nSourceSide) && (nChildSeg == nSourceSeg))
 			cornerLights [0] = cornerLights [1] = cornerLights [2] = cornerLights [3] = 1.0;
 		// calculate vector between center of source segment and center of child
-		else if (DLE.IsD2XLevel () && (pSrcSeg->Props () & SEGMENT_PROP_SELF_ILLUMINATE))
+		else if (g_data.IsD2XLevel () && (pSrcSeg->Props () & SEGMENT_PROP_SELF_ILLUMINATE))
 			continue;
 		else if (!CalcCornerLights (cornerLights, nChildSeg, nChildSide, nSourceSeg, nSourceSide, sourceCorners, sourceNormal, bWall)) 
 			continue;
@@ -515,7 +520,7 @@ int CLightManager::FindLightDelta (short nSegment, short nSide, short *pi)
 	int	j = DeltaIndexCount ()++;
 	CLightDeltaIndex	*pIndex = LightDeltaIndex (0);
 
-if ((DLE.LevelVersion () >= 15) && (theMine->Info ().fileInfo.version >= 34)) {
+if ((g_data.LevelVersion () >= 15) && (theMine->Info ().fileInfo.version >= 34)) {
 	for (; i < j; i++, pIndex++)
 		if ((pIndex->m_nSegment == nSegment) && (pIndex->m_nSide = (ubyte) nSide))
 			return i;
@@ -561,7 +566,7 @@ return false;
 bool CLightManager::ComputeLightDeltas (int bForce, int nDepth) 
 {
 	// initialize totals
-	bool	bD2XLights = (DLE.LevelVersion () >= 15) && (theMine->Info ().fileInfo.version >= 34);
+	bool	bD2XLights = (g_data.LevelVersion () >= 15) && (theMine->Info ().fileInfo.version >= 34);
 	int	nErrors = 0;
 	int	nMaxIndices = MAX_LIGHT_DELTA_INDICES;
 	int	nMaxValues = (bD2XLights ? 8191 : 255);
@@ -573,9 +578,9 @@ m_deltaIndex.Clear ();
 m_deltaValues.Clear ();
 
 int nSegments = segmentManager.Count ();
-DLE.MainFrame ()->InitProgress (nSegments);
+g_data.InitProgress(nSegments);
 for (short nSourceSeg = 0; !nErrors && (nSourceSeg < nSegments); nSourceSeg++) {
-	DLE.MainFrame ()->Progress ().StepIt ();
+	g_data.StepProgress();
 	CSegment* pSrcSeg = segmentManager.Segment (nSourceSeg);
 	// skip if not marked unless we are automatically saving
 	// loop on all sides
@@ -678,11 +683,11 @@ for (short nSourceSeg = 0; !nErrors && (nSourceSeg < nSegments); nSourceSeg++) {
 					cornerLights [1] =
 					cornerLights [2] =
 					cornerLights [3] = 1.0;
-				else if (DLE.IsD2XLevel () && (pSrcSeg->Props () & SEGMENT_PROP_SELF_ILLUMINATE))
+				else if (g_data.IsD2XLevel () && (pSrcSeg->Props () & SEGMENT_PROP_SELF_ILLUMINATE))
 					continue;
 				else if (!CalcCornerLights (cornerLights, nChildSeg, nChildSide, nSourceSeg, nSourceSide, sourceCorners, sourceNormal, pWall != null))
 					continue;
-				CLightDeltaValue* pLightDelta;
+				CLightDeltaValue* pLightDelta = nullptr;
 //#pragma omp critical
 				{
 				if ((DeltaValueCount () >= nMaxDeltas) || (pIndex->m_info.count >= nMaxValues)) {
@@ -713,7 +718,7 @@ for (short nSourceSeg = 0; !nErrors && (nSourceSeg < nSegments); nSourceSeg++) {
 			}
 		}
 	}
-DLE.MainFrame ()->Progress ().DestroyWindow ();
+g_data.CleanupProgress();
 return (nErrors == 0);
 }
 
@@ -758,7 +763,7 @@ while (nTail < nHead) {
 			short nChildSeg = pSegment->ChildId (nSide);
 			if ((nChildSeg >= 0) && !visited [nChildSeg]) {
 				if (nHead >= nSegments) {
-					STATUSMSG ("Buffer overflow in PointSeesPoint!");
+					g_data.DoStatusMsg("Buffer overflow in PointSeesPoint!");
 					return false;
 					}
 				visited [nChildSeg] = 1;

@@ -389,9 +389,6 @@
     <ClCompile Include="..\ASERenderModel.cpp" />
     <ClCompile Include="..\buildmodel.cpp" />
     <ClCompile Include="..\RenderModel.cpp" />
-    <ClCompile Include="..\LightManager.cpp" />
-    <ClCompile Include="..\LightManager.Illuminate.cpp" />
-    <ClCompile Include="..\LightManager.IO.cpp" />
     <ClCompile Include="..\ObjectManager.cpp" />
     <ClCompile Include="..\PaletteManager.cpp" />
     <ClCompile Include="..\ResourceManager.cpp" />
@@ -407,8 +404,6 @@
     <ClCompile Include="..\Selection.cpp" />
     <ClCompile Include="..\ShaderManager.cpp" />
     <ClCompile Include="..\TextureFilter.cpp" />
-    <ClCompile Include="..\TextureManager.cpp" />
-    <ClCompile Include="..\TextureManager.Custom.cpp" />
     <ClCompile Include="..\TextureManager.Shaders.cpp" />
     <ClCompile Include="..\UndoManager.cpp" />
     <ClCompile Include="..\TextureProjector.cpp" />

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "TextureManager.h"
+#include "PaletteManager.h"
 
 extern short nDbgTexture;
 
@@ -17,11 +18,11 @@ int CTextureManager::ReadPog (CFileManager& fp, long nFileSize)
 	uint				offset, hdrOffset, bmpOffset, hdrSize, xlatSize;
 	ushort			nCustomTextures, nUnknownTextures, nMissingTextures;
 	CTexture*		pTexture;
-	int				fileType = DLE.FileType ();
+	int				fileType = g_data.FileType ();
 
 // make sure this is descent 2 fp
-if (DLE.IsD1File ()) {
-	INFOMSG (" Descent 1 does not support custom textures.");
+if (g_data.IsD1File ()) {
+	g_data.DoInfoMsg("Descent 1 does not support custom textures.");
 	return 1;
 	}
 
@@ -29,10 +30,11 @@ uint startOffset = fp.Tell ();
 // read file header
 pigFileInfo.Read (fp);
 if (pigFileInfo.nId != 0x474f5044L) {  // 'DPOG'
-	ErrorMsg ("Invalid pog file - reading from hog file");
+	g_data.DoErrorMsg ("Invalid pog file - reading from hog file");
 	return 1;
 	}
 //Release ();
+char message[50]{};
 sprintf_s (message, sizeof (message), " Pog manager: Reading %d custom textures", pigFileInfo.nTextures);
 DEBUGMSG (message);
 if (!(xlatTbl = new ushort [pigFileInfo.nTextures]))
@@ -48,10 +50,10 @@ hdrOffset = offset + xlatSize;
 hdrSize = xlatSize + pigFileInfo.nTextures * sizeof (PIG_TEXTURE_D2);
 bmpOffset = offset + hdrSize;
 
-DLE.MainFrame ()->InitProgress (pigFileInfo.nTextures);
+g_data.InitProgress(pigFileInfo.nTextures);
 
 for (int i = 0; i < pigFileInfo.nTextures; i++) {
-	DLE.MainFrame ()->Progress ().StepIt ();
+	g_data.StepProgress();
 #ifdef _DEBUG
 	if (i == nDbgTexture)
 		nDbgTexture = nDbgTexture;
@@ -84,7 +86,7 @@ if (nMissingTextures) {
 // opening a level, otherwise we'll have to unmark each texture individually
 CommitTextureChanges ();
 
-DLE.MainFrame ()->Progress ().DestroyWindow ();
+g_data.CleanupProgress();
 
 if (xlatTbl)
 	delete xlatTbl;
@@ -101,13 +103,14 @@ int CTextureManager::ReadDtx (CFileManager& fp, long nFileSize)
 	ushort nUnknownTextures, nMissingTextures;
 	CTexture* pTexture;
 
-if (DLE.IsD2File ()) {
-	INFOMSG (" DTX patches are not supported for Descent 2 levels. Use a POG file instead.");
+if (g_data.IsD2File ()) {
+	g_data.DoInfoMsg(" DTX patches are not supported for Descent 2 levels. Use a POG file instead.");
 	return 1;
 	}
 
 // read file header
 pigFileInfo.Read (fp);
+char message[50]{};
 sprintf_s (message, sizeof (message), " Pog manager: Reading %d custom textures", pigFileInfo.nTextures);
 DEBUGMSG (message);
 hdrOffset = fp.Tell ();
@@ -116,10 +119,10 @@ bmpOffset = hdrOffset + hdrSize;
 nUnknownTextures = 0;
 nMissingTextures = 0;
 
-DLE.MainFrame ()->InitProgress (pigFileInfo.nTextures);
+g_data.InitProgress(pigFileInfo.nTextures);
 
 for (int i = 0; i < pigFileInfo.nTextures; i++) {
-	DLE.MainFrame ()->Progress ().StepIt ();
+	g_data.StepProgress();
 
 	// get texture data offset from texture header
 	fp.Seek (hdrOffset + i * sizeof (PIG_TEXTURE_D1), SEEK_SET);
@@ -162,7 +165,7 @@ if (nMissingTextures) {
 // Textures shouldn't be marked modified on first load
 CommitTextureChanges ();
 
-DLE.MainFrame ()->Progress ().DestroyWindow ();
+g_data.CleanupProgress();
 
 return 0;
 }
@@ -216,7 +219,7 @@ return nOffset + ((pTexture->Format () == TGA) ? pTexture->Size () * sizeof (CBG
 
 int CTextureManager::WriteCustomTexture (IFileManager& fp, const CTexture *pTexture, bool bUseBMPFileFormat)
 {
-if (pTexture->Format () == TGA && DLE.IsD2XLevel ()) {
+if (pTexture->Format () == TGA && g_data.IsD2XLevel ()) {
 	tRGBA rgba [16384];
 	uint h = 0;
 	const CBGRA* pBuffer = pTexture->Buffer (pTexture->Width () * (pTexture->Height () - 1));
@@ -303,19 +306,20 @@ if (!textureManager.Available ())
 
 	CPigHeader		pigFileInfo (1);
 	uint				textureCount = 0, nOffset = 0;
-	int				nVersion = DLE.FileType ();
+	int				nVersion = g_data.FileType ();
 	int				nId, i, h = m_header [nVersion].nTextures;
 	const CTexture*	pTexture;
 
-if (DLE.IsD1File ()) {
-	ErrorMsg ("Descent 1 does not support custom textures.");
+if (g_data.IsD1File ()) {
+	g_data.DoErrorMsg ("Descent 1 does not support custom textures.");
 	return 0;
 	}
 
 paletteManager.ResetCLUT ();
 textureCount = m_nTextures [1];
 
-sprintf_s (message, sizeof (message), "%s\\dle_temp.pog", DLE.AppFolder ());
+char message[MAX_PATH]{};
+sprintf_s(message, sizeof(message), "%s\\dle_temp.pog", g_data.GetAppFolder());
 
 // write file header
 pigFileInfo.nId = 0x474f5044L; /* 'DPOG' */
@@ -392,18 +396,19 @@ if (!textureManager.Available ())
 
 	CPigHeader		pigFileInfo (0);
 	uint				nOffset = 0;
-	int				nVersion = DLE.FileType ();
+	int				nVersion = g_data.FileType ();
 	int				nId, i, h = m_header [nVersion].nTextures;
 	const CTexture*	pTexture;
 
-if (DLE.IsD2File ()) {
-	ErrorMsg ("DLE does not support saving DTX patches for Descent 2 levels. Use a POG file instead.");
+if (g_data.IsD2File ()) {
+	g_data.DoErrorMsg ("DLE does not support saving DTX patches for Descent 2 levels. Use a POG file instead.");
 	return 0;
 	}
 
 paletteManager.ResetCLUT ();
 
-sprintf_s (message, sizeof (message), "%s\\dle_temp.dtx", DLE.AppFolder ());
+char message[MAX_PATH]{};
+sprintf_s(message, sizeof(message), "%s\\dle_temp.dtx", g_data.GetAppFolder());
 
 // write file header
 pigFileInfo.nTextures = 0;
@@ -446,13 +451,13 @@ return 1;
 
 //------------------------------------------------------------------------------
 
-void CTextureManager::ReadMod (char* pszFolder)
+void CTextureManager::ReadMod (const char* pszFolder)
 {
 	char szFile [256];
 	int  h = MaxTextures ();
 
 for (int i = 0; i < h; i++) {
-	DLE.MainFrame ()->Progress ().StepIt ();
+	g_data.StepProgress();
 	const CTexture* pTexture = Textures (i);
 #ifdef _DEBUG
 	if (i == nDbgTexture)
@@ -460,10 +465,10 @@ for (int i = 0; i < h; i++) {
 #endif
 	if (pTexture->IsCustom ())
 		continue;
-	sprintf (szFile, "%s\\%s%s.tga", pszFolder, pTexture->Name (), pTexture->IsAnimated () ? "#0" : "");
+	sprintf_s(szFile, "%s\\%s%s.tga", pszFolder, pTexture->Name(), pTexture->IsAnimated() ? "#0" : "");
 	CTexture *pNewTexture = new CTexture ();
 	if (!pNewTexture)
-		ErrorMsg ("Not enough memory for texture.");
+		g_data.DoErrorMsg ("Not enough memory for texture.");
 	else if (pNewTexture->Copy (*pTexture) && pNewTexture->LoadFromFile (szFile, false)) {
 		OverrideTexture (pTexture->Index (), pNewTexture);
 		pNewTexture->SetCustom ();
@@ -477,13 +482,14 @@ for (int i = 0; i < h; i++) {
 
 void CTextureManager::LoadMod (void)
 {
-if (DLE.MakeModFolders ("textures")) {
-	DLE.MainFrame ()->InitProgress (2 * MaxTextures ());
-	// first read the level specific textures
-	ReadMod (DLE.m_modFolders [0]);
-	// then read the mission wide textures
-	ReadMod (DLE.m_modFolders [1]);
-	DLE.MainFrame ()->Progress ().DestroyWindow ();
+	if (g_data.MakeModFolders("textures"))
+	{
+		g_data.InitProgress(2 * MaxTextures());
+		// first read the level specific textures
+		ReadMod(g_data.GetModFolder(0));
+		// then read the mission wide textures
+		ReadMod(g_data.GetModFolder(1));
+		g_data.CleanupProgress();
 	}
 }
 

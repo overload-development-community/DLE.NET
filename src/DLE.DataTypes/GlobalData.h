@@ -194,9 +194,11 @@ public:
 	bool IsD2XLevel();
 	void RefreshMineView(bool all = true);
 	void DelayMineViewRefresh(bool addDelay);
+	void ResetMineView();
 	void EnsureValidSelection();
 	void DoInfoMsg(const char* msg);
 	void DoErrorMsg(const char* msg);
+	void DoStatusMsg(const char* msg);
 	int DoQueryMsg(const char* msg);
 	int DoQuery2Msg(const char* msg, uint type);
 	int ExpertMode();
@@ -212,6 +214,15 @@ public:
 	void SetD2Path(const char* newPath); // for palette switching
 	const char* GetAppFolder();
 	double GetMineMoveRate();
+	std::vector<byte> GetDefaultLightTable();
+	std::vector<byte> GetDefaultColorTable();
+	std::vector<std::string> LoadTextureNames(int gameVersion);
+	std::vector<byte> LoadTextureIndex(int gameVersion);
+	void LoadArrowTexture(CTexture& texture);
+	void LoadIconTexture(int iconNumber, CTexture& texture);
+	bool MakeModFolders(const char* subfolderName);
+	const char* GetModFolder(int folderNumber);
+	void ResetTextureView();
 
 	// Can't include DrawHelpers.h in DLE.DataTypes due to MFC...
 	// may move this later

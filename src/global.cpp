@@ -78,6 +78,11 @@ void GlobalData::DelayMineViewRefresh(bool addDelay)
     DLE.MineView()->DelayRefresh(addDelay);
 }
 
+void GlobalData::ResetMineView()
+{
+    DLE.MineView()->ResetView(true);
+}
+
 void GlobalData::EnsureValidSelection()
 {
     // wrap back then forward to make sure segment is valid
@@ -95,6 +100,11 @@ void GlobalData::DoInfoMsg(const char* msg)
 void GlobalData::DoErrorMsg(const char* msg)
 {
     ErrorMsg(msg);
+}
+
+void GlobalData::DoStatusMsg(const char* msg)
+{
+    STATUSMSG(msg);
 }
 
 int GlobalData::DoQueryMsg(const char* msg)
@@ -171,6 +181,78 @@ const char* GlobalData::GetAppFolder()
 double GlobalData::GetMineMoveRate()
 {
     return DLE.MineView()->MineMoveRate();
+}
+
+std::vector<byte> GlobalData::GetDefaultLightTable()
+{
+    CResource res;
+    if (!res.Load(DLE.IsD1File() ? IDR_LIGHT_D1 : IDR_LIGHT_D2))
+    {
+        return std::vector<byte>();
+    }
+    return std::vector<byte>(res.Data(), res.Data() + res.Size());
+}
+
+std::vector<byte> GlobalData::GetDefaultColorTable()
+{
+    CResource res;
+    if (!res.Load(DLE.IsD1File() ? IDR_COLOR_D1 : IDR_COLOR_D2))
+    {
+        return std::vector<byte>();
+    }
+    return std::vector<byte>(res.Data(), res.Data() + res.Size());
+}
+
+std::vector<std::string> GlobalData::LoadTextureNames(int gameVersion)
+{
+    std::vector<std::string> textureNames;
+    int nResource = (gameVersion == 0) ? TEXTURE_STRING_TABLE_D1 : TEXTURE_STRING_TABLE_D2;
+    int textureCount = textureManager->MaxTextures(gameVersion);
+
+    for (int i = 0; i < textureCount; i++)
+    {
+        CStringResource res;
+        res.Load(nResource + i);
+        textureNames.push_back(std::string(res.Value()));
+    }
+
+    return std::move(textureNames);
+}
+
+std::vector<byte> GlobalData::LoadTextureIndex(int gameVersion)
+{
+    CResource res;
+    if (!res.Load(gameVersion ? IDR_TEXTURE2_DAT : IDR_TEXTURE_DAT))
+    {
+        return std::vector<byte>();
+    }
+    return std::vector<byte>(res.Data(), res.Data() + res.Size());
+}
+
+void GlobalData::LoadArrowTexture(CTexture& texture)
+{
+    DrawHelpers::LoadTextureFromResource(&texture, IDR_ARROW_TEXTURE);
+}
+
+void GlobalData::LoadIconTexture(int iconNumber, CTexture& texture)
+{
+    DrawHelpers::LoadTextureFromResource(&texture, IDR_SMOKE_ICON + iconNumber);
+}
+
+bool GlobalData::MakeModFolders(const char* subfolderName)
+{
+    return DLE.MakeModFolders(subfolderName);
+}
+
+const char* GlobalData::GetModFolder(int folderNumber)
+{
+	return DLE.m_modFolders[folderNumber];
+}
+
+void GlobalData::ResetTextureView()
+{
+    DLE.TextureView()->Setup();
+    DLE.TextureView()->Refresh();
 }
 
 bool GlobalData::GLCreateTexture(CTexture* texture, bool bForce)
