@@ -226,6 +226,13 @@ class CRenderer : public IRenderer
 		void ComputeViewLimits (CRect* pRC);
 		void ComputeBrightness (CFaceListEntry& fle, ushort brightness [4], int bVariableLights);
 
+		void DrawTunnelMaker(CViewMatrix* viewMatrix);
+
+	private:
+		void DrawTunnelMakerPath(const CTunnelPath* path, CViewMatrix* viewMatrix);
+		void DrawTunnelMakerPathNode(const CTunnelPathNode& node, CViewMatrix* viewMatrix);
+		void DrawTunnelMakerTunnel(const CTunnel* tunnel, CViewMatrix* viewMatrix);
+		void DrawTunnelMakerSegment(const CTunnelSegment& segment);
 };
 
 // -----------------------------------------------------------------------------

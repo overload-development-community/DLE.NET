@@ -82,5 +82,8 @@ public:
 	virtual void LineTo(int x, int y) = 0;
 	virtual void LineTo(CVertex& v) = 0;
 	virtual void Ellipse(CVertex& center, double xRad, double yRad) = 0;
+	virtual void Polygon(CPoint* points, int nPoints) = 0;
+	virtual void TexturedPolygon(short nTexture, tTexCoord2d* texCoords, rgbColord* color,
+		CVertex* vertices, int nVertices, ushort* index) = 0;
 	virtual void Sprite(const CTexture* pTexture, CVertex center, double width, double height, bool bAlways = false) = 0;
 };

@@ -12,6 +12,7 @@
 
 #include "stdafx.h"
 #include "DrawHelpers.h"
+#include "FileManager.h"
 
 char message [4096];
 char descentFolder [2][256] = {"\\programs\\d2\\data", "\\programs\\d2\\data"};
@@ -24,7 +25,7 @@ CMissionData missionData;
 GlobalData g_data{ &lightManager, &modelManager, &objectManager,
     &paletteManager, &robotManager, &segmentManager, &textureManager,
     &triggerManager, &wallManager, &vertexManager, &undoManager,
-    current };
+    current, other, &missionData };
 
 bool GlobalData::IsD1File()
 {
@@ -61,9 +62,29 @@ bool GlobalData::IsStdLevel()
     return DLE.IsStdLevel();
 }
 
+bool GlobalData::IsD2XLevel()
+{
+    return LevelVersion() >= 9;
+}
+
 void GlobalData::RefreshMineView()
 {
     DLE.MineView()->Refresh();
+}
+
+void GlobalData::DelayMineViewRefresh(bool addDelay)
+{
+    // This function more or less manages a refcount. It's also probably a code smell.
+    DLE.MineView()->DelayRefresh(addDelay);
+}
+
+void GlobalData::EnsureValidSelection()
+{
+    // wrap back then forward to make sure segment is valid
+    Wrap(current->m_nSegment, -1, 0, ::segmentManager.Count() - 1);
+    Wrap(current->m_nSegment, 1, 0, ::segmentManager.Count() - 1);
+    Wrap(other->m_nSegment, -1, 0, ::segmentManager.Count() - 1);
+    Wrap(other->m_nSegment, 1, 0, ::segmentManager.Count() - 1);
 }
 
 void GlobalData::DoInfoMsg(const char* msg)
@@ -76,6 +97,11 @@ void GlobalData::DoErrorMsg(const char* msg)
     ErrorMsg(msg);
 }
 
+int GlobalData::DoQueryMsg(const char* msg)
+{
+    return QueryMsg(msg);
+}
+
 int GlobalData::DoQuery2Msg(const char* msg, uint type)
 {
     return Query2Msg(msg, type);
@@ -86,6 +112,32 @@ int GlobalData::ExpertMode()
     return DLE.ExpertMode();
 }
 
+bool GlobalData::DoInputDialog(const char* title, const char* prompt, char* buffer, size_t bufferSize)
+{
+    CInputDialog dlg(DLE.MainFrame(), title, prompt, buffer, bufferSize);
+    return dlg.DoModal() == IDOK;
+}
+
+void GlobalData::InitProgress(int maxPosition)
+{
+    DLE.MainFrame()->InitProgress(maxPosition);
+}
+
+void GlobalData::UpdateProgress(int position)
+{
+    DLE.MainFrame()->Progress().SetPos(position);
+}
+
+void GlobalData::StepProgress()
+{
+    DLE.MainFrame()->Progress().StepIt();
+}
+
+void GlobalData::CleanupProgress()
+{
+    DLE.MainFrame()->Progress().DestroyWindow();
+}
+
 IRenderer* GlobalData::GetRenderer()
 {
     return &DLE.MineView()->Renderer();
@@ -94,6 +146,26 @@ IRenderer* GlobalData::GetRenderer()
 IFileManager* GlobalData::CreateFileManager()
 {
     return new CFileManager();
+}
+
+const char* GlobalData::GetD1Path()
+{
+    return descentFolder[0];
+}
+
+const char* GlobalData::GetD2Path()
+{
+    return descentFolder[1];
+}
+
+void GlobalData::SetD2Path(const char* newPath)
+{
+    strcpy_s(descentFolder[1], newPath);
+}
+
+const char* GlobalData::GetAppFolder()
+{
+    return DLE.AppFolder();
 }
 
 bool GlobalData::GLCreateTexture(CTexture* texture, bool bForce)

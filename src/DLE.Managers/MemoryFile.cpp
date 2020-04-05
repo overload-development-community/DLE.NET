@@ -12,6 +12,8 @@ COPYRIGHT 1993-1999 PARALLAX SOFTWARE CORPORATION.  ALL RIGHTS RESERVED.
 */
 
 #include "stdafx.h"
+#include "FileManager.h"
+#include "MemoryFile.h"
 
 // ----------------------------------------------------------------------------
 

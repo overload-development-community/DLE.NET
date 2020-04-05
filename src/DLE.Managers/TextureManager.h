@@ -282,7 +282,7 @@ class CTextureManager : public ITextureManager {
 		
 		int Version (int nVersion = -1);
 		
-		inline char* Name (int nVersion, short nTexture) { 
+		inline const char* Name (int nVersion, short nTexture) { 
 			if (nVersion < 0)
 				nVersion = Version ();
 			if (!m_names [nVersion])
@@ -340,10 +340,6 @@ class CTextureManager : public ITextureManager {
 		bool ChangePigFile (const char *pszPigPath, int nVersion = -1);
 
 		bool Available (int nVersion = -1);
-
-		int InitShaders (void);
-
-		int DeployShader (int nType, CFaceListEntry* fle);
 
 		void CreateGLTextures (int nVersion = -1);
 

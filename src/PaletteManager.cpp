@@ -1,6 +1,7 @@
 // palette.cpp
 
 #include "stdafx.h"
+#include "DrawHelpers.h"
 
 HGLOBAL hPalette;
 
@@ -51,24 +52,6 @@ for (int i = 0; i < 256; i++) {
 inline ubyte CPaletteManager::FadeValue (ubyte c, int f)
 {
 return (ubyte) (((int) c * f) / 34);
-}
-
-//------------------------------------------------------------------------
-
-void CPaletteManager::FreeRender (void)
-{
-if (m_render) {
-	delete m_render;
-	m_render = null;
-	}
-if (m_dlcLog) {
-	delete m_dlcLog;
-	m_dlcLog = null;
-	}
-if (m_colorMap) {
-	delete m_colorMap;
-	m_colorMap = null;
-	}
 }
 
 //------------------------------------------------------------------------
@@ -131,30 +114,6 @@ return fp->Write (m_rawData, 1, sizeof (m_rawData)) == sizeof (m_rawData);
 
 //------------------------------------------------------------------------
 
-short CPaletteManager::SetupRender (CBGR* palette)
-{
-FreeRender ();
-if (!(m_dlcLog = (LPLOGPALETTE) new ubyte [sizeof (LOGPALETTE) + sizeof (PALETTEENTRY) * 256]))
-	return 1;
-m_dlcLog->palVersion = 0x300;
-m_dlcLog->palNumEntries = 256;
-PALETTEENTRY* rgb = &m_dlcLog->palPalEntry [0];
-for (int i = 0; i < 256; i++) {
-	rgb [i].peRed = palette [i].r;
-	rgb [i].peGreen = palette [i].g;
-	rgb [i].peBlue = palette [i].b;
-	}
-if (!(m_render = new CPalette ()))
-	return 1;
-m_render->CreatePalette (m_dlcLog);
-m_colorMap = new PALETTEENTRY [256];
-m_render->GetPaletteEntries (0, 256, m_colorMap);
-return m_render == null;
-return 1;
-}
-
-//------------------------------------------------------------------------
-
 CBGR* CPaletteManager::LoadDefault (char* pszName)
 {
 CResource res;
@@ -163,7 +122,6 @@ if (!res.Load (SelectResource (pszName)))
 memcpy (m_rawData, res.Data (), sizeof (m_rawData));
 Decode (m_default);
 CreateFadeTable ();
-SetupRender (m_default);
 SetupBMI (m_default);
 m_bHaveDefault = true;
 return m_default;
@@ -325,7 +283,7 @@ else {
 
 UINT CPaletteManager::GetPaletteEntries(UINT nStartIndex, UINT nNumEntries, LPPALETTEENTRY lpPaletteColors)
 {
-	return Render ()->GetPaletteEntries (nStartIndex, nNumEntries, lpPaletteColors);
+	return RenderCurrentPalette()->GetPaletteEntries (nStartIndex, nNumEntries, lpPaletteColors);
 }
 
 //------------------------------------------------------------------------------

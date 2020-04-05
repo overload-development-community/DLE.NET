@@ -12,21 +12,19 @@ class CBlockManager {
 		int m_bExtended;
 
 	public:
-		void Cut (void);
+		void Cut (const char* filename);
 		
-		void Copy (char *filename = null, bool bDelete = false);
-		
-		void Paste (void);
+		void Copy (const char *filename = null, bool bDelete = false);
 		
 		int Read (char *filename);
 		
 		void QuickCopy (void);
-
-		void QuickPaste (void);
 		
 		void Delete (void);
 
 		inline int& Extended (void) { return m_bExtended; }
+
+		inline bool HasRememberedFilename() { return strlen(m_filename) > 0; }
 
 	private:
 		void SetupTransformation (CDoubleMatrix& m, CDoubleVector& o);
@@ -37,7 +35,7 @@ class CBlockManager {
 
 		bool CheckTunnelMaker (void);
 
-		bool Error (int argsFound, int argsNeeded, char* msg, int nSegment, char* szFunction);
+		bool Error (int argsFound, int argsNeeded, const char* msg, int nSegment, const char* szFunction);
 	};
 
 extern CBlockManager blockManager;

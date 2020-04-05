@@ -242,9 +242,9 @@ class CLightManager : public ILightManager {
 	private:
 		ubyte* ColorToFloat (CColor* pColor, ubyte* pData);
 
-		void CLightManager::LoadColors (CColor *pc, int nColors, int nFirstVersion, int nNewVersion, CFileManager& fp);
+		void LoadColors (CColor *pc, int nColors, int nFirstVersion, int nNewVersion, CFileManager& fp);
 
-		void CLightManager::SaveColors (CColor *pc, int nColors, CFileManager& fp);
+		void SaveColors (CColor *pc, int nColors, CFileManager& fp);
 
 		double CornerLight (CVertex* sourceCorners, CVertex& sourceNormal, short nSourceVerts, 
 								  CVertex* destCorner, CVertex& destNormal,

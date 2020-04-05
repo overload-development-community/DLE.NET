@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "DrawHelpers.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -423,7 +424,7 @@ if (tex.BlendTextures (pSide->BaseTex (), pSide->OvlTex (), 0, 0)) {
 	DEBUGMSG (" Texture tool: Texture not found (textureManager.BlendTextures failed)");
 	return;
 	}
-oldPalette = pDC->SelectPalette (paletteManager.Render (), FALSE);
+oldPalette = pDC->SelectPalette (RenderCurrentPalette(), FALSE);
 pDC->RealizePalette();
 hRgn.CreatePolygonRgn (m_apts, pSide->VertexCount (), ALTERNATE);
 pDC->SelectObject (&hRgn);

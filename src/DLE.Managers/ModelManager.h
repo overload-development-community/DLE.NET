@@ -1,15 +1,6 @@
 #ifndef __ModelManager_h
 #define __ModelManager_h
 
-#include "textures.h"
-#include "Vertex.h"
-#include "GameObject.h"
-#include "ViewMatrix.h"
-#include "Renderer.h"
-#include "ASEModel.h"
-#include "RenderModel.h"
-#include "ModelTextures.h"
-
 //------------------------------------------------------------------------------
 
 class CModelRenderPoly {

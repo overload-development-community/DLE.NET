@@ -931,21 +931,8 @@ if (IN_RANGE (points [2].m_screen.x, m_viewMax.x) && IN_RANGE (points [2].m_scre
 		renderer.BeginRender ();
 		}
 	}
-#if 1
-tunnelMaker.Draw (Renderer (), Pen (penRed), Pen (penBlue), ViewMatrix ());
-#else
-j = MAX_VERTICES;
-for (h = tunnelMaker.Length () * 4, i = 0; i < h; i++) {
-	vertexManager [--j].Transform (ViewMatrix ());
-	vertexManager [--j].Project (ViewMatrix ());
-	}
-CSegment *pSegment = segmentManager.Segment (SEGMENT_LIMIT - 1);
-renderer.BeginRender (renderer.Type () == 0);
-renderer.SelectPen (penBlue + 1);
-for (i = 0; i < tunnelMaker.Length (); i++, pSegment--)
-	DrawSegmentWireFrame (pSegment, false, false, 1);
-renderer.EndRender ();
-#endif
+if (tunnelMaker.Update() && tunnelMaker.Create())
+	Renderer().DrawTunnelMaker(ViewMatrix());
 }
 
 //--------------------------------------------------------------------------
@@ -1461,7 +1448,10 @@ if ((m_inputHandler.MouseState () == eMouseStateSelect && m_inputHandler.HasMous
 		}
 	}
 
-tunnelMaker.Draw (Renderer (), Pen (penRed), Pen (penBlue), ViewMatrix ());
+if (tunnelMaker.Update() && tunnelMaker.Create())
+{
+	Renderer().DrawTunnelMaker(ViewMatrix());
+}
 textureProjector.DrawProjectGuides (Renderer (), ViewMatrix ());
 
 *message = '\0';

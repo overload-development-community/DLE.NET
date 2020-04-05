@@ -40,3 +40,4 @@
 #include "wall.h"
 #include "trigger.h"
 #include "GameObject.h"
+#include "PolyModel.h"

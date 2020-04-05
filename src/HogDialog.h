@@ -47,12 +47,12 @@ private:
 class CInputDialog : public CDialog
 {
 public:
-	LPSTR m_pszTitle;
-	LPSTR m_pszPrompt;
+	LPCSTR m_pszTitle;
+	LPCSTR m_pszPrompt;
 	LPSTR m_pszBuf;
 	size_t m_nBufSize;
 
-	CInputDialog(CWnd* pParentWnd = null, LPSTR pszTitle = null, LPSTR pszPrompt = null, LPSTR pszBuf = null, size_t nBufSize = 0);
+	CInputDialog(CWnd* pParentWnd = null, LPCSTR pszTitle = null, LPCSTR pszPrompt = null, LPSTR pszBuf = null, size_t nBufSize = 0);
 	virtual BOOL OnInitDialog();
 	virtual void DoDataExchange(CDataExchange* pDX);
 	void OnOK();

@@ -102,6 +102,7 @@ ubyte* pData = res.Load (IsD1File () ? IDR_NEW_RDL : IDR_NEW_RL2);
 return fp.Load (pData, res.Size ());
 }
 
+int CMine::FixIndexValues() { return segmentManager.Fix() | wallManager.Fix(); }
 
 // -----------------------------------------------------------------------------
 // CMine::Default()
@@ -274,6 +275,14 @@ bool CMine::IsVertigo() { return m_bVertigo; }
 CMineInfo& CMine::Info(void) { return Data().m_info; }
 
 CMineFileInfo& CMine::FileInfo(void) { return Data().m_info.fileInfo; }
+
+int& CMine::ReactorTime(void) { return triggerManager.ReactorTime(); }
+
+int& CMine::ReactorStrength(void) { return triggerManager.ReactorStrength(); }
+
+int& CMine::SecretSegment() { return objectManager.SecretSegment(); }
+
+CDoubleMatrix& CMine::SecretOrient() { return objectManager.SecretOrient(); }
 
 // -----------------------------------------------------------------------------
 // ClearMineData()

@@ -38,16 +38,16 @@ class CCubicBezier {
 
 		inline double Length (void) { return GetLength (0) + GetLength (1); }
 
-		void Transform (CViewMatrix* viewMatrix);
+		void Transform (IViewMatrix* viewMatrix);
 
-		void Project (CViewMatrix* viewMatrix);
+		void Project (IViewMatrix* viewMatrix);
 	};	
 
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------
 
-class CTunnelBase : public CSelection {
+class CTunnelBase {
 	public:
 		enum eUpdateStatus {
 			NoUpdate = 0,
@@ -55,7 +55,10 @@ class CTunnelBase : public CSelection {
 			UpdateSide = 2
 		};
 
-		int				m_nSelection;
+		ISelection* m_selection;
+		CSideKey m_sideKey;
+		short m_nPoint;
+
 		CVertex			m_point;
 		CVertex			m_normal;
 		CVertex			m_vertices [4];
@@ -65,13 +68,13 @@ class CTunnelBase : public CSelection {
 		bool				m_bStart;
 		eUpdateStatus	m_updateStatus;
 
-		CTunnelBase (CSideKey key = CSideKey (-1, -1)) : CSelection (key), m_nSelection (-1) {}
+		CTunnelBase(CSideKey key = CSideKey(-1, -1)) : m_sideKey(key), m_selection(nullptr) {}
 
-		CTunnelBase (CDoubleVector point, CDoubleVector normal) : m_nSelection (-1), m_point (point), m_normal (normal), CSelection (CSideKey (-1, -1)) {}
+		CTunnelBase(CDoubleVector point, CDoubleVector normal) : m_selection(nullptr), m_point(point), m_normal(normal), m_sideKey(CSideKey(-1, -1)) {}
 
-		void Setup (CSelection* selection, double sign, bool bStart);
+		void Setup (ISelection* selection, double sign, bool bStart);
 
-		eUpdateStatus IsUpdateNeeded (CSelection* selection, bool bStartSidesTagged = false);
+		eUpdateStatus IsUpdateNeeded (ISelection* selection, bool bStartSidesTagged = false);
 
 		inline CDoubleVector GetPoint (void) { return m_point; }
 
@@ -81,9 +84,9 @@ class CTunnelBase : public CSelection {
 
 		inline void SetNormal (CDoubleVector normal) { m_normal = normal; }
 
-		inline CSegment* Segment (void) { return (m_nSegment < 0) ? null : segmentManager.Segment (m_nSegment); }
+		inline CSegment* Segment (void) { return (m_sideKey.m_nSegment < 0) ? null : segmentManager.Segment (m_sideKey.m_nSegment); }
 
-		inline CSide* Side (void) { return (m_nSide < 0) ? null : segmentManager.Side (m_nSide); }
+		inline CSide* Side (void) { return (m_sideKey.m_nSide < 0) ? null : segmentManager.Side (m_sideKey.m_nSide); }
 	};
 
 //------------------------------------------------------------------------
@@ -100,7 +103,7 @@ class CTunnelPathNode {
 		
 	CTunnelPathNode () : m_angle (0.0) {}
 
-	void Draw (CRenderer& renderer, CViewMatrix* viewMatrix);
+	void Draw (IRenderer& renderer, IViewMatrix* viewMatrix);
 	};
 
 //------------------------------------------------------------------------
@@ -142,8 +145,6 @@ class CTunnelPath {
 
 		bool Create (short nPathLength);
 
-		void Draw (CRenderer& renderer, CPen* redPen, CPen* bluePen, CViewMatrix* viewMatrix);
-
 		inline short Steps (void) { return m_nSteps; }
 
 		double Length (int nSteps = -1);
@@ -151,6 +152,8 @@ class CTunnelPath {
 		inline double Scale (int nStep) { return Length (nStep) / Length (); }
 
 		inline CCubicBezier& Bezier () { return m_bezier; }
+
+		inline const CCubicBezier& Bezier() const { return m_bezier; }
 
 		inline CTunnelPathNode& operator[] (uint i) { return m_nodes [i]; }
 
@@ -194,11 +197,9 @@ class CTunnelSegment {
 
 		bool Create (CTunnelPath& path, short nSegments, short nVertices, bool bSegment);
 
-		void CTunnelSegment::AssignVertices (CTunnelPath& path);
+		void AssignVertices (CTunnelPath& path);
 		
 		void Release (void);
-
-		void Draw (void);
 	};
 
 //------------------------------------------------------------------------
@@ -219,8 +220,6 @@ class CTunnel {
 		void Release (void);
 
 		void Destroy (void);
-
-		void Draw (CRenderer& renderer, CPen* redPen, CPen* bluePen, CViewMatrix* viewMatrix);
 
 	private:
 		void AssignVertices (void);
@@ -252,7 +251,7 @@ class CTunnelMaker {
 			if (!m_bActive)
 				return false; 
 			if (bMsg)
-				ErrorMsg (szTunnelMakerError); 
+				g_data.DoErrorMsg (szTunnelMakerError); 
 			return true;
 			}
 
@@ -270,19 +269,21 @@ class CTunnelMaker {
 
 		short PathLength (void);
 
-		bool Create (void); 
+		bool Create(void);
 
-		void Draw (CRenderer& renderer, CPen* redPen, CPen* bluePen, CViewMatrix* viewMatrix);
+		bool Update(void);
 
 		inline short MaxSegments (void) {
 			short h = SEGMENT_LIMIT - segmentManager.Count ();
 			return (h > MAX_TUNNEL_SEGMENTS) ? MAX_TUNNEL_SEGMENTS : h;
 			}
 
+		inline const CTunnel* Tunnel() const { return &m_tunnel; }
+
+		inline const CTunnelPath* Path() const { return &m_path; }
+
 	private:
 		CDoubleVector RectPoints (double angle, double radius, CVertex* origin, CVertex* normal); 
-
-		bool Update (void);
 	};
 
 extern CTunnelMaker tunnelMaker;

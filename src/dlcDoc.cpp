@@ -837,27 +837,74 @@ triggerManager.DeleteFromWall ();
 
 void CDlcDoc::OnCutBlock ()
 {
-blockManager.Cut ();
+	char szFile[256]{};
+	if (!::BrowseForFile(FALSE,
+		blockManager.Extended() ? "blx" : "blk", szFile,
+		"Block file|*.blk|"
+		"Extended block file|*.blx|"
+		"All Files|*.*||",
+		OFN_HIDEREADONLY | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT,
+		DLE.MainFrame()
+		))
+		return;
+
+	blockManager.Cut(szFile);
 }
 
 void CDlcDoc::OnCopyBlock ()
 {
-blockManager.Copy();
+	char szFile[256]{};
+	if (!::BrowseForFile(FALSE,
+		blockManager.Extended() ? "blx" : "blk", szFile,
+		"Block file|*.blk|"
+		"Extended block file|*.blx|"
+		"All Files|*.*||",
+		OFN_HIDEREADONLY | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT,
+		DLE.MainFrame()
+		))
+		return;
+
+	blockManager.Copy(szFile);
 }
 
 void CDlcDoc::OnQuickCopyBlock ()
 {
-blockManager.QuickCopy ();
+	blockManager.QuickCopy();
 }
 
 void CDlcDoc::OnPasteBlock ()
 {
-blockManager.Paste();
+	if (tunnelMaker.Active())
+		return;
+	// Initialize data for fp open dialog
+	char szFile[256] = "\0";
+
+	if (!::BrowseForFile(TRUE, blockManager.Extended() ? "blx" : "blk", szFile,
+		"Block file|*.blk|"
+		"Extended block file|*.blx|"
+		"All Files|*.*||",
+		OFN_HIDEREADONLY | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST,
+		DLE.MainFrame()
+		))
+		return;
+	if (!blockManager.Read(szFile))
+		DLE.MineView()->SetSelectMode(BLOCK_MODE);
 }
 
 void CDlcDoc::OnQuickPasteBlock ()
 {
-blockManager.QuickPaste ();
+	if (tunnelMaker.Active())
+		return;
+
+	if (blockManager.HasRememberedFilename())
+	{
+		if (!blockManager.Read(nullptr))
+			DLE.MineView()->SetSelectMode(BLOCK_MODE);
+	}
+	else
+	{
+		OnPasteBlock();
+	}
 }
 
 void CDlcDoc::OnDeleteBlock ()

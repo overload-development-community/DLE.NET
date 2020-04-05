@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "DrawHelpers.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
@@ -338,7 +339,7 @@ if (!pDC) {
 	}
 BITMAPINFO* bmi = paletteManager.BMI ();
 
-CPalette *oldPalette = pDC->SelectPalette (paletteManager.Render (), FALSE);
+CPalette *oldPalette = pDC->SelectPalette (RenderCurrentPalette(), FALSE);
 pDC->RealizePalette ();
 pDC->SetStretchBltMode (STRETCH_DELETESCANS);
 int x = 0;

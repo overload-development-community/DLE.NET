@@ -171,7 +171,7 @@ pcb->AddString ("(none)");
 int i;
 
 for (i = 0; i < nTextures; i++) {
-	char* p = textureManager.Name (-1, i);
+	const char* p = textureManager.Name (-1, i);
 	if (!strstr (p, "frame")) {
 		int index = pcb->AddString (p);
 		pcb->SetItemData(index++, i);

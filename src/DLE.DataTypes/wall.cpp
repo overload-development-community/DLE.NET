@@ -231,7 +231,7 @@ return (trigType == TT_ILLUSION_OFF) ||
 
 int CWall::SetClip (short nTexture)
 {
-	char *ps, *pszName = g_data.textureManager->Name (-1, nTexture);
+	const char *ps, *pszName = g_data.textureManager->Name (-1, nTexture);
 
 if (!strcmp (pszName, "wall01 - anim"))
 	return m_info.nClip = 0;

@@ -1,14 +1,24 @@
 #include "stdafx.h"
+#include "FileManager.h"
+#include "SegmentManager.h"
+#include "BlockManager.h"
+#include "ObjectManager.h"
+#include "VertexManager.h"
+#include "LightManager.h"
+#include "WallManager.h"
+#include "TriggerManager.h"
+#include "UndoManager.h"
+#include "TunnelMaker.h"
 
 CBlockManager blockManager;
 
 //------------------------------------------------------------------------------
 
-#define CURRENT_POINT(a) ((current->Point () + (a)) % current->Side ()->VertexCount ())
+#define CURRENT_POINT(a) ((g_data.currentSelection->Point () + (a)) % g_data.currentSelection->Side ()->VertexCount ())
 
 //------------------------------------------------------------------------------
 
-char *BLOCKOP_HINT =
+const char *BLOCKOP_HINT =
 	"The block of cubes will be saved relative to the current segment.\n"
 	"Later, when you paste the block, it will be placed relative to\n"
 	"the current segment at that time.  You can change the current side\n"
@@ -17,20 +27,21 @@ char *BLOCKOP_HINT =
 	"\n"
 	"Would you like to proceed?";
 
-static char* textureIds [2][2] = {{"    tmap_num %hd\n", "    tmap_num2 %hd\n"}, {"    BaseTex %hd\n", "    OvlTex %hd\n"}};
-static char* vertexIds [2] = {"  vms_vector %hu %d %d %d\n", "  Vertex %hu %d %d %d\n"};
+static const char* textureIds [2][2] = {{"    tmap_num %hd\n", "    tmap_num2 %hd\n"}, {"    BaseTex %hd\n", "    OvlTex %hd\n"}};
+static const char* vertexIds [2] = {"  vms_vector %hu %d %d %d\n", "  Vertex %hu %d %d %d\n"};
 
 //------------------------------------------------------------------------------
 
 void CBlockManager::SetupTransformation (CDoubleMatrix& t, CDoubleVector& o)
 {
-CSegment* pSegment = current->Segment ();
-o = *pSegment->Vertex (current->SideId (), current->Point ());
+CSegment* pSegment = g_data.currentSelection->Segment ();
+o = *pSegment->Vertex (g_data.currentSelection->SideId (), g_data.currentSelection->Point ());
 // set x'
-t.m.rVec = *pSegment->Vertex (current->SideId (), current->Point () + 1);
+t.m.rVec = *pSegment->Vertex (g_data.currentSelection->SideId (), g_data.currentSelection->Point () + 1);
 t.m.rVec -= o;
 // calculate y'
-CDoubleVector v = *pSegment->Vertex (current->SideId (), current->Point () + current->Side ()->VertexCount () - 1);
+CDoubleVector v = *pSegment->Vertex(g_data.currentSelection->SideId(),
+	g_data.currentSelection->Point() + g_data.currentSelection->Side()->VertexCount() - 1);
 v -= o;
 t.m.uVec = CrossProduct (t.m.rVec, v);
 t.m.fVec = CrossProduct (t.m.rVec, t.m.uVec);
@@ -41,17 +52,17 @@ t.m.fVec.Normalize ();
 
 //------------------------------------------------------------------------------
 
-bool CBlockManager::Error (int argsFound, int argsNeeded, char* msg, int nSegment, char* szFunction)
+bool CBlockManager::Error (int argsFound, int argsNeeded, const char* msg, int nSegment, const char* szFunction)
 {
 if (argsNeeded == argsFound)
 	return false;
 undoManager.Unroll (szFunction);
 if (nSegment < 0)
-	ErrorMsg (msg);
+	g_data.DoErrorMsg (msg);
 else {
 	char s [200];
 	sprintf_s (s, sizeof (s), "%s (segment %d)", msg, nSegment);
-	ErrorMsg (s);
+	g_data.DoErrorMsg (s);
 	}
 return true;
 }
@@ -103,17 +114,17 @@ for (i = 0, j = segmentManager.Count (); i < j; i++) {
 
 undoManager.Begin (__FUNCTION__, udAll);
 while (!fp.EoF ()) {
-	DLE.MainFrame ()->Progress ().SetPos (fp.Tell ());
+	g_data.UpdateProgress(fp.Tell());
 // abort if there are not at least 8 vertices free
 	if (VERTEX_LIMIT - vertexManager.Count () < 8) {
 		undoManager.End (__FUNCTION__);
-		ErrorMsg ("No more free vertices");
+		g_data.DoErrorMsg ("No more free vertices");
 		return nNewSegs;
 		}
 	short nSegment = segmentManager.Add ();
 	if (nSegment < 0) {
 		undoManager.End (__FUNCTION__);
-		ErrorMsg ("No more free segments");
+		g_data.DoErrorMsg ("No more free segments");
 		return nNewSegs;
 		}
 	CSegment* pSegment = segmentManager.Segment (nSegment);
@@ -139,7 +150,7 @@ while (!fp.EoF ()) {
 			test = -test;
 		if (test != nSide) {
 			undoManager.End (__FUNCTION__);
-			ErrorMsg ("Invalid side number read");
+			g_data.DoErrorMsg ("Invalid side number read");
 			return 0;
 			}
 		pSide->m_info.nWall = NO_WALL;
@@ -258,7 +269,7 @@ while (!fp.EoF ()) {
 			}
 		else if (index != i) {
 			undoManager.End (__FUNCTION__);
-			ErrorMsg ("Invalid vertex number read");
+			g_data.DoErrorMsg ("Invalid vertex number read");
 			return 0;
 			}
 		// each vertex relative to the origin has a x', y', and z' component
@@ -417,6 +428,7 @@ while (newTriggers != null) {
 	}
 
 undoManager.End (__FUNCTION__);
+char message[100];
 sprintf_s (message, sizeof (message),
 			  " Block tool: %d blocks, %d walls, %d triggers pasted.", 
 			  nNewSegs, nNewWalls, nNewTriggers);
@@ -453,7 +465,7 @@ SetupTransformation (m, origin);
 CSegment* pSegment = segmentManager.Segment (0);
 int nSegments = segmentManager.Count ();
 for (short nSegment = 0; nSegment < nSegments; nSegment++) {
-	DLE.MainFrame ()->Progress ().StepIt ();
+	g_data.StepProgress();
 	CSegment* pSegment = segmentManager.Segment (nSegment);
 	if (pSegment->IsTagged ()) {
 		fprintf (fp.File (), "segment %d\n", nSegment);
@@ -549,7 +561,7 @@ for (short nSegment = 0; nSegment < nSegments; nSegment++) {
 
 //------------------------------------------------------------------------------
 
-void CBlockManager::Copy (char* filename, bool bDelete)
+void CBlockManager::Copy (const char* filename, bool bDelete)
 {
 if (tunnelMaker.Active ()) 
 	return;
@@ -557,11 +569,11 @@ if (tunnelMaker.Active ())
   // make sure some cubes are marked
 short count = segmentManager.TaggedCount ();
 if (count == 0) {
-	ErrorMsg ("No block marked.\n\nUse 'M' or shift left mouse button\nto mark one or more cubes.");
+	g_data.DoErrorMsg ("No block marked.\n\nUse 'M' or shift left mouse button\nto mark one or more cubes.");
 	return;
 	}
 
-if (!DLE.ExpertMode () && Query2Msg (BLOCKOP_HINT, MB_YESNO) != IDYES)
+if (!g_data.ExpertMode () && g_data.DoQuery2Msg (BLOCKOP_HINT, MB_YESNO) != IDYES)
 	return;
 
 char szFile [256];
@@ -569,100 +581,83 @@ if (filename && *filename) {
 	if (strcmp (filename, "dle_temp.blx"))
 		strcpy_s (szFile, sizeof (szFile), filename);
 	else
-		sprintf (szFile, "%sdle_temp.blx", DLE.AppFolder ());
+		sprintf_s(szFile, "%sdle_temp.blx", g_data.GetAppFolder());
 	}
 else {
-	szFile [0] = '\0';
-	if (!BrowseForFile (FALSE, 
-							  m_bExtended ? "blx" : "blk", szFile, 
-							  "Block file|*.blk|"
-							  "Extended block file|*.blx|"
-							  "All Files|*.*||",
-							  OFN_HIDEREADONLY | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT,
-							  DLE.MainFrame ()))
-		return;
+	return; // invalid argument
 	}	
 _strlwr_s (szFile, sizeof (szFile));
 // Check if the user has specified .blk. We default to .blx otherwise
 char* pszExt = strstr (szFile, ".blk");
-m_bExtended = DLE.IsD2XLevel () || !pszExt;
+m_bExtended = g_data.IsD2XLevel () || !pszExt;
 // Has the user specified any (recognized) extension at all? If not append one
 if (!pszExt)
 	pszExt = strstr (szFile, ".blx");
 if (!pszExt)
-	strcat (szFile, m_bExtended ? ".blx" : ".blk");
+	strcat_s(szFile, m_bExtended ? ".blx" : ".blk");
 
 CFileManager fp;
 if (!fp.Open (szFile, "w")) {
-	ErrorMsg ("Unable to open block file");
+	g_data.DoErrorMsg ("Unable to open block file");
 	return;
 	}
 //undoManager.UpdateBuffer(0);
 strcpy_s (m_filename, sizeof (m_filename), szFile); // remember file for quick paste
 fprintf (fp.File (), m_bExtended ? "DMB_EXT_BLOCK_FILE\n" : "DMB_BLOCK_FILE\n");
-DLE.MainFrame ()->InitProgress (segmentManager.Count ());
+g_data.InitProgress(segmentManager.Count());
 Write (fp);
-DLE.MainFrame ()->Progress ().DestroyWindow ();
+g_data.CleanupProgress();
 fp.Close ();
 
 if (bDelete)
 	Delete ();
 else {
+	char message[100];
 	sprintf_s (message, sizeof (message), " Block tool: %d blocks copied to '%s' relative to current side.", count, szFile);
 	DEBUGMSG (message);
   // wrap back then forward to make sure segment is valid
 	segmentManager.SetLinesToDraw ();
-	DLE.MineView ()->Refresh ();
+	g_data.RefreshMineView();
 	}
 }
 
 //------------------------------------------------------------------------------
 
-void CBlockManager::Cut (void)
+void CBlockManager::Cut (const char* filename)
 {
-Copy (null, true);
+	Copy(filename, true);
 }
 
 //------------------------------------------------------------------------------
 
-void CBlockManager::Paste (void) 
-{
-if (tunnelMaker.Active ()) 
-	return;
-// Initialize data for fp open dialog
-  char szFile [256] = "\0";
-
-if (!BrowseForFile (TRUE, 
-	                 m_bExtended ? "blx" : "blk", szFile, 
-						  "Block file|*.blk|"
-						  "Extended block file|*.blx|"
-						  "All Files|*.*||",
-						  OFN_HIDEREADONLY | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST,
-						  DLE.MainFrame ()))
-	return;
-if (!Read (szFile))
-	DLE.MineView ()->SetSelectMode (BLOCK_MODE);
-}
-
-//------------------------------------------------------------------------------
-
-int CBlockManager::Read (char *filename) 
+int CBlockManager::Read (char *filename)
 {
 	CFileManager fp;
 
+	if (!filename)
+	{
+		if (!HasRememberedFilename())
+		{
+			// This call is invalid, fail it
+			return 1;
+		}
+		filename = m_filename; // I know this is bad... let's fix it with the LibDescent switch
+	}
+
 _strlwr_s (filename, 256);
 if (!fp.Open (filename, "r")) {
-	ErrorMsg ("Unable to open block file");
+	g_data.DoErrorMsg ("Unable to open block file");
 	return 1;
 	}	
 
+char message[100];
 fscanf_s (fp.File (), "%s\n", &message, sizeof (message));
 if (!strncmp (message, "DMB_BLOCK_FILE", 14))
 	m_bExtended = false;
 else if (!strncmp (message, "DMB_EXT_BLOCK_FILE", 18))
 	m_bExtended = true;
 else {
-	ErrorMsg ("This is not a block file.");
+	g_data.DoErrorMsg ("This is not a block file.");
 	fp.Close ();
 	return 2;
 	}
@@ -672,7 +667,7 @@ strcpy_s (m_filename, sizeof (m_filename), filename); // remember file for quick
 // untag all segmentManager.Segment ()
 // set up all seg_numbers (makes sure there are no negative seg_numbers)
 undoManager.Begin (__FUNCTION__, udAll);
-DLE.MineView ()->DelayRefresh (true);
+g_data.DelayMineViewRefresh(true);
 CSegment* pSegment = segmentManager.Segment (0);
 for (short nSegment = 0; nSegment < SEGMENT_LIMIT; nSegment++, pSegment++) {
 	pSegment->Index () = nSegment;
@@ -682,9 +677,9 @@ for (short nSegment = 0; nSegment < SEGMENT_LIMIT; nSegment++, pSegment++) {
 // untag all vertices
 vertexManager.UnTagAll (TAGGED_MASK | NEW_MASK);
 
-DLE.MainFrame ()->InitProgress (fp.Length ());
+g_data.InitProgress(fp.Length());
 short count = Read (fp);
-DLE.MainFrame ()->Progress ().DestroyWindow ();
+g_data.CleanupProgress();
 
 // int up the new segmentManager.Segment () children
 for (CSegment* pNewSeg = m_newSegments; pNewSeg != null; pNewSeg = dynamic_cast<CSegment*>(pNewSeg->GetLink ())) {
@@ -717,10 +712,10 @@ pSegment = segmentManager.Segment (0);
 for (short nSegment = 0; nSegment < segmentManager.Count (); nSegment++, pSegment++)
 	pSegment->Index () = nSegment;
 fp.Close ();
-DLE.MineView ()->Refresh ();
+g_data.RefreshMineView();
 undoManager.End (__FUNCTION__);
-DLE.MineView ()->DelayRefresh (false);
-DLE.MineView ()->Refresh ();
+g_data.DelayMineViewRefresh(false);
+g_data.RefreshMineView();
 return 0;
 }
 
@@ -729,21 +724,6 @@ return 0;
 void CBlockManager::QuickCopy (void)
 {
 Copy ("dle_temp.blx");
-}
-
-//------------------------------------------------------------------------------
-
-void CBlockManager::QuickPaste (void)
-{
-if (!*m_filename) {
-	Paste ();
-	return;
-	}
-
-if (tunnelMaker.Active ()) 
-	return;
-if (!Read (m_filename))
-	DLE.MineView ()->SetSelectMode (BLOCK_MODE);
 }
 
 //------------------------------------------------------------------------------
@@ -757,7 +737,7 @@ if (tunnelMaker.Active ())
 // make sure some cubes are marked
 count = segmentManager.TaggedCount ();
 if (!count) {
-	ErrorMsg ("No block marked.\n\n"
+	g_data.DoErrorMsg ("No block marked.\n\n"
 				 "Use 'M' or shift left mouse button\n"
 				 "to mark one or more cubes.");
 	return;
@@ -766,15 +746,15 @@ if (!count) {
 // delete segmentManager.Segment () from last to first because segmentManager.Count ()
 // is effected for each deletion.  When all segmentManager.Segment () are marked
 // the segmentManager.Count () will be decremented for each nSegment in loop.
-if (QueryMsg ("Are you sure you want to delete the marked cubes?") != IDYES)
+if (g_data.DoQueryMsg ("Are you sure you want to delete the marked cubes?") != IDYES)
 	return;
 
 undoManager.Begin (__FUNCTION__, udAll);
-DLE.MineView ()->DelayRefresh (true);
+g_data.DelayMineViewRefresh(true);
 
-DLE.MainFrame ()->InitProgress (segmentManager.Count ());
+g_data.InitProgress(segmentManager.Count());
 for (nSegment = segmentManager.Count () - 1; nSegment >= 0; nSegment--) {
-	DLE.MainFrame ()->Progress ().StepIt ();
+	g_data.StepProgress();
 	if (segmentManager.Segment (nSegment)->IsTagged ()) {
 		if (segmentManager.Count () <= 1)
 			break;
@@ -788,16 +768,12 @@ for (nSegment = segmentManager.Count () - 1; nSegment >= 0; nSegment--) {
 		}
 	}
 vertexManager.DeleteUnused ();
-DLE.MainFrame ()->Progress ().DestroyWindow ();
-// wrap back then forward to make sure segment is valid
-Wrap (selections [0].m_nSegment, -1, 0, segmentManager.Count () - 1);
-Wrap (selections [0].m_nSegment, 1, 0, segmentManager.Count () - 1);
-Wrap (selections [1].m_nSegment, -1, 0, segmentManager.Count () - 1);
-Wrap (selections [1].m_nSegment, 1, 0, segmentManager.Count () - 1);
+g_data.CleanupProgress();
+g_data.EnsureValidSelection();
 undoManager.End (__FUNCTION__);
 segmentManager.SetLinesToDraw ();
-DLE.MineView ()->DelayRefresh (false);
-DLE.MineView ()->Refresh ();
+g_data.DelayMineViewRefresh(false);
+g_data.RefreshMineView();
 }
 
 //------------------------------------------------------------------------------

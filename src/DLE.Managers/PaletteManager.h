@@ -1,8 +1,6 @@
 #ifndef __palette_h
 #define __palette_h
 
-#include "resourcemanager.h"
-
 //------------------------------------------------------------------------
 int Luminance (int r, int g, int b);
 
@@ -31,9 +29,6 @@ class CPaletteManager : public IPaletteManager {
 		ubyte				m_clut [0xFFFFFF]; // RGB -> palette
 		uint				m_clutValid [0xFFFFFF / 32];
 		tBMIInfo			m_bmi;
-		CPalette*		m_render;
-		LPLOGPALETTE	m_dlcLog;
-		PALETTEENTRY*	m_colorMap;
 		bool				m_bHaveDefault;
 		bool				m_bHaveCustom;
 
@@ -48,10 +43,7 @@ class CPaletteManager : public IPaletteManager {
 
 		int SaveCustom (CFileManager* fp);
 
-		void FreeRender (void);
-
 		inline void Release (void) {
-			FreeRender ();
 			m_bHaveDefault = false;
 			m_bHaveCustom = false;
 			}
@@ -67,10 +59,6 @@ class CPaletteManager : public IPaletteManager {
 		inline CBGR* Custom (void) { return m_bHaveCustom ? m_custom : null; }
 
 		inline CBGR* Default (void) { return m_bHaveDefault ? m_default : null; }
-
-		inline CPalette* Render (void) { return m_render; }
-
-		inline PALETTEENTRY* ColorMap (void) { return m_colorMap; }
 
 		CBGR* Current (int i = 0, char* pszName = null);
 
@@ -102,8 +90,6 @@ class CPaletteManager : public IPaletteManager {
 		inline ubyte FadeValue (ubyte c, int f);
 
 		void SetupBMI (CBGR* palette);
-
-		short SetupRender (CBGR* palette);
 
 		CBGR* LoadDefault (char* pszName = null);
 

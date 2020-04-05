@@ -146,7 +146,7 @@ return v;
 
 //------------------------------------------------------------------------------
 
-void CCubicBezier::Transform (CViewMatrix* viewMatrix)
+void CCubicBezier::Transform (IViewMatrix* viewMatrix)
 {
 for (int i = 0; i < 4; i++)
 	m_points [i].Transform (viewMatrix);
@@ -154,7 +154,7 @@ for (int i = 0; i < 4; i++)
 
 //------------------------------------------------------------------------------
 
-void CCubicBezier::Project (CViewMatrix* viewMatrix)
+void CCubicBezier::Project (IViewMatrix* viewMatrix)
 {
 for (int i = 0; i < 4; i++)
 	m_points [i].Project (viewMatrix);
@@ -164,22 +164,24 @@ for (int i = 0; i < 4; i++)
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 
-void CTunnelBase::Setup (CSelection* selection, double sign, bool bStart)
+void CTunnelBase::Setup (ISelection* selection, double sign, bool bStart)
 {
 m_bStart = bStart;
 if (selection) {
-	m_nSelection = selection - &selections [0];
-	*((CSelection*) this) = *selection;
+	m_selection = selection;
+	m_sideKey.m_nSegment = selection->SegmentId();
+	m_sideKey.m_nSide = selection->SideId();
+	m_nPoint = selection->Point();
 	}
 m_sign = sign;
-CSegment* pSegment = segmentManager.Segment (m_nSegment);
-CSide* pSide = pSegment->Side (m_nSide);
-pSegment->ComputeNormals (m_nSide);
+CSegment* pSegment = segmentManager.Segment (m_sideKey.m_nSegment);
+CSide* pSide = pSegment->Side (m_sideKey.m_nSide);
+pSegment->ComputeNormals (m_sideKey.m_nSide);
 m_normal = pSide->Normal () * sign;
-pSegment->CreateOppVertexIndex (m_nSide, m_oppVertexIndex);
-m_point = pSegment->ComputeCenter (m_nSide);
+pSegment->CreateOppVertexIndex (m_sideKey.m_nSide, m_oppVertexIndex);
+m_point = pSegment->ComputeCenter (m_sideKey.m_nSide);
 for (int i = 0; i < 4; i++)
-	m_vertices [i] = *Segment ()->Vertex (m_nSide, i);
+	m_vertices [i] = *Segment ()->Vertex (m_sideKey.m_nSide, i);
 m_rotation.F () = m_normal;
 m_rotation.R () = m_vertices [(m_nPoint + 1) % pSide->VertexCount ()] - m_vertices [m_nPoint];
 m_rotation.R ().Normalize ();
@@ -200,81 +202,24 @@ m_updateStatus = NoUpdate;
 //   Otherwise, update when the vertex, edge, segment and/or side have changed (to preserve legacy behavior)
 // For the end side, also update when the segment and/or side have changed
 
-CTunnelBase::eUpdateStatus CTunnelBase::IsUpdateNeeded (CSelection* selection, bool bStartSidesTagged)
+CTunnelBase::eUpdateStatus CTunnelBase::IsUpdateNeeded (ISelection* selection, bool bStartSidesTagged)
 {
-	bool bNewSide = CSideKey (*this) != CSideKey (*selection);
+	bool bNewSide = m_sideKey != CSideKey (selection->SegmentId(), selection->SideId());
 
 if (!(m_bStart && bStartSidesTagged) && bNewSide) {
 	*((CSelection*) this) = *((CSelection*) selection);
 	return m_updateStatus = UpdateSide;
 	}
-if (!bNewSide && (Edge () != selection->Edge ())) {
-	m_nEdge = selection->Edge ();
+if (!bNewSide && (m_nPoint != selection->Point())) {
 	m_nPoint = selection->Point ();
 	return m_updateStatus = UpdateOrientation;
 	}
-CSegment* pSegment = segmentManager.Segment (m_nSegment);
+CSegment* pSegment = segmentManager.Segment (m_sideKey.m_nSegment);
 for (int i = 0; i < 4; i++)
-	if (m_vertices [i] != *pSegment->Vertex (m_nSide, i))
+	if (m_vertices [i] != *pSegment->Vertex (m_sideKey.m_nSide, i))
 		return m_updateStatus = UpdateOrientation;
 return m_updateStatus = NoUpdate;
 }
-
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-
-#if UNTWIST
-
-void CTunnelElement::Untwist (short nSide) 
-{
-#ifdef _DEBUG
-if (!bUnTwist)
-	return;
-#endif
-
-  double				minDist = 1e10;
-  short				nOppSide = oppSideTable [nSide];
-  ubyte				oppVertexIndex [4];
-  CDoubleVector	edges [4];
-
-CSegment* pSegment = segmentManager.Segment (m_nSegment);
-pSegment->CreateOppVertexIndex (nSide, oppVertexIndex);
-
-CVertex* v0 = pSegment->Vertex (nSide, 0);
-short nOffset = 0;
-for (short j = 0; j < 4; j++) {
-	edges [j] = *pSegment->Vertex (ushort (oppVertexIndex [j])) - *v0;
-	double d = edges [j].Mag ();
-	edges [j] /= d;
-	if (d < minDist) {
-		minDist = d;
-		nOffset = j;
-		}
-	}
-#if 0
-if (nOffset == 0) {
-	pSegment->ComputeNormals (nSide);
-	CDoubleVector& n = pSegment->Side (nSide)->Normal ();
-	for (short j = 0; j < 4; j++) {
-		double d = fabs (Dot (edges [j], n));
-		if (d < minDist) {
-			minDist = d;
-			nOffset = j;
-			}
-		}
-	}
-#endif
-if (nOffset != 0) {
-	short vertexIds [4];
-	for (short j = 0; j < 4; j++)
-		vertexIds [j] = pSegment->VertexId (nSide, j);
-	for (short j = 0; j < 4; j++)
-		pSegment->SetVertexId (nSide, nOffset + j, vertexIds [j]);
-	}
-}
-
-#endif
 
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
@@ -333,30 +278,6 @@ for (int i = (int) m_nVertices.Length (); --i >= 0; ) {
 }
 
 //------------------------------------------------------------------------------
-
-void CTunnelSegment::Draw (void)
-{
-#if 1
-CMineView* mineView = DLE.MineView ();
-mineView->Renderer ().BeginRender (false);
-#ifdef NDEBUG
-if (mineView->GetRenderer () && (mineView->ViewOption (eViewTexturedWireFrame) || mineView->ViewOption (eViewTextured))) 
-#endif
-	{
-	glLineStipple (1, 0x0c3f);  // dot dash
-	glEnable (GL_LINE_STIPPLE);
-	}
-for (int i = (int) m_elements.Length (); --i >= 0; ) 
-	mineView->DrawSegmentWireFrame (segmentManager.Segment (m_elements [i].m_nSegment), false, false, 1);
-mineView->Renderer ().EndRender ();
-#ifdef NDEBUG
-if (mineView->GetRenderer () && (mineView->ViewOption (eViewTexturedWireFrame) || mineView->ViewOption (eViewTextured))) 
-#endif
-	glDisable (GL_LINE_STIPPLE);
-#endif
-}
-
-//------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 
@@ -398,13 +319,9 @@ for (uint nElement = 0, nElements = m_segments [0].m_elements.Length (); nElemen
 		e1 = &m_segments [nSegment].m_elements [nElement];
 		CSegment* pSegment = segmentManager.Segment (e1->m_nSegment);
 		for (short nVertex = 0; nVertex < 4; nVertex++) {
-			pSegment->SetVertexId (m_base [0].m_nSide, nVertex, e1->m_nVertices [nVertex]);
+			pSegment->SetVertexId (m_base [0].m_sideKey.m_nSide, nVertex, e1->m_nVertices [nVertex]);
 			pSegment->SetVertexId (m_base [0].m_oppVertexIndex [nVertex], e0->m_nVertices [nVertex]);
 			}
-#if UNTWIST // A hack that is not required anymore ...
-		//if (nSegment == m_nSteps)
-			e1->Untwist (m_base [0].m_nSide);
-#endif
 		}
 	}
 }
@@ -436,16 +353,16 @@ if (path.m_bMorph) {
 	if (!vMorph.Create (nSideVertices) || !nVertexMap.Create (nVertices))
 		return false;
 	for (ushort nVertex = 0; nVertex < nSideVertices; nVertex++) {
-		CVertex vStart = *path.m_base [0].Vertex (nVertex);
+		CVertex vStart = *path.m_base [0].m_selection->Vertex (nVertex);
 		vStart -= path.m_base [0].m_point; // un-translate (make relative to tunnel start)
 		vStart = path.m_base [0].m_rotation * vStart; // un-rotate
-		CVertex vEnd = *path.m_base [1].Vertex (nSideVertices + 1 - nVertex);
+		CVertex vEnd = *path.m_base [1].m_selection->Vertex (nSideVertices + 1 - nVertex);
 		vEnd -= path.m_base [1].m_point; // un-translate (make relative to tunnel end)
 		vEnd = path.m_base [1].m_rotation * vEnd; // un-rotate
 		vMorph [nVertex] = vEnd - vStart;
 
 		for (ushort nStartVertex = 0; nStartVertex < nVertices; nStartVertex++)
-			if (vertexManager.Index (path.m_base [0].Vertex (nVertex)) == path.m_nStartVertices [nStartVertex]) {
+			if (vertexManager.Index (path.m_base [0].m_selection->Vertex (nVertex)) == path.m_nStartVertices [nStartVertex]) {
 				nVertexMap [nStartVertex] = nVertex;
 				break;
 				}
@@ -506,7 +423,7 @@ DLE.MineView ()->DelayRefresh (true);
 ushort nVertex = 0;
 short nElements = (short) m_segments [0].m_elements.Length ();
 for (short nSegment = 1; nSegment <= m_nSteps; nSegment++) {
-	short nStartSide = m_base [0].m_nSide;
+	short nStartSide = m_base [0].m_sideKey.m_nSide;
 
 	for (short iElement = 0; iElement < nElements; iElement++) {
 		short nStartSeg = path.m_startSides [iElement].m_nSegment;
@@ -591,68 +508,6 @@ if (bFinalize)
 	vertexManager.Delete (buffer, nElements);
 
 DLE.MineView ()->DelayRefresh (false);
-}
-
-//------------------------------------------------------------------------------
-
-void CTunnel::Draw (CRenderer& renderer, CPen* redPen, CPen* bluePen, CViewMatrix* viewMatrix) 
-{
-CDC* pDC = renderer.DC ();
-
-renderer.BeginRender ();
-for (int i = 0; i <= m_nSteps; i++) {
-	for (int j = 0; j < 4; j++) {
-		CVertex&v = vertexManager [m_segments [i].m_nVertices [j]];
-		v.Transform (viewMatrix);
-		v.Project (viewMatrix);
-		}
-	}
-renderer.EndRender ();
-
-renderer.BeginRender (true);
-renderer.SelectObject ((HBRUSH)GetStockObject (NULL_BRUSH));
-renderer.SelectPen (penBlue + 1);
-CMineView* mineView = DLE.MineView ();
-for (int i = 1; i <= m_nSteps; i++)
-	m_segments [i].Draw ();
-renderer.EndRender ();
-}
-
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-
-void CTunnelPathNode::Draw (CRenderer& renderer, CViewMatrix* viewMatrix) 
-{
-CDC* pDC = renderer.DC ();
-
-CDoubleMatrix m;
-m = m_rotation.Inverse ();
-CVertex v [4] = { m.R (), m.U (), m.F (), m_axis };
-
-renderer.BeginRender ();
-m_vertex.Transform (viewMatrix);
-m_vertex.Project (viewMatrix);
-for (int i = 0; i < 4; i++) {
-	v [i].Normalize ();
-	v [i] *= 5.0;
-	v [i] += m_vertex;
-	v [i].Transform (viewMatrix);
-	v [i].Project (viewMatrix);
-	}
-renderer.EndRender ();
-
-renderer.BeginRender (true);
-renderer.SelectObject ((HBRUSH)GetStockObject (NULL_BRUSH));
-static ePenColor pens [4] = { penRed, penMedGreen, penMedBlue, penOrange };
-
-renderer.Ellipse (m_vertex, 4, 4);
-for (int i = 0; i < 4; i++) {
-	renderer.SelectPen (pens [i] + 1);
-	renderer.MoveTo (m_vertex.m_screen.x, m_vertex.m_screen.y);
-	renderer.LineTo (v [i].m_screen.x, v [i].m_screen.y);
-	}
-renderer.EndRender ();
 }
 
 //------------------------------------------------------------------------------
@@ -1167,50 +1022,6 @@ return length;
 }
 
 //------------------------------------------------------------------------------
-
-void CTunnelPath::Draw (CRenderer& renderer, CPen* redPen, CPen* bluePen, CViewMatrix* viewMatrix) 
-{
-#ifdef _DEBUG
-
-for (int i = 0; i <= m_nSteps; i++) 
-	m_nodes [i].Draw (renderer, viewMatrix);
-
-#else
-
-CDC* pDC = renderer.DC ();
-
-renderer.BeginRender ();
-for (int i = 0; i < 4; i++) {
-	Bezier ().Transform (viewMatrix);
-	Bezier ().Project (viewMatrix);
-	}
-renderer.EndRender ();
-
-renderer.BeginRender (true);
-renderer.SelectObject ((HBRUSH)GetStockObject (NULL_BRUSH));
-renderer.SelectPen (penRed + 1);
-
-CMineView* mineView = DLE.MineView ();
-if (Bezier ().GetPoint (1).InRange (mineView->ViewMax ().x, mineView->ViewMax ().y, renderer.Type ())) {
-	if (Bezier ().GetPoint (0).InRange (mineView->ViewMax ().x, mineView->ViewMax ().y, renderer.Type ())) {
-		renderer.MoveTo (Bezier ().GetPoint (0).m_screen.x, Bezier ().GetPoint (0).m_screen.y);
-		renderer.LineTo (Bezier ().GetPoint (1).m_screen.x, Bezier ().GetPoint (1).m_screen.y);
-		renderer.Ellipse (Bezier ().GetPoint (1), 4, 4);
-		}
-	}
-if (Bezier ().GetPoint (2).InRange (mineView->ViewMax ().x, mineView->ViewMax ().y, renderer.Type ())) {
-	if (Bezier ().GetPoint (3).InRange (mineView->ViewMax ().x, mineView->ViewMax ().y, renderer.Type ())) {
-		renderer.MoveTo (Bezier ().GetPoint (3).m_screen.x, Bezier ().GetPoint (3).m_screen.y);
-		renderer.LineTo (Bezier ().GetPoint (2).m_screen.x, Bezier ().GetPoint (2).m_screen.y);
-		renderer.Ellipse (Bezier ().GetPoint (2), 4, 4);
-		}
-	}
-renderer.EndRender ();
-
-#endif
-}
-
-//------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 
@@ -1338,7 +1149,7 @@ if (current->Segment ()->HasChild (current->SideId ()) || other->Segment ()->Has
 // If there is more than one start side, we know they have to be tagged
 bool bStartSidesTagged = m_path.m_startSides.Length () > 1 ||
 	segmentManager.Side (CSideKey (m_path.m_startSides [0].m_nSegment, m_path.m_startSides [0].m_nSide))->IsTagged ();
-if (current - selections == m_base [0].m_nSelection) {
+if (g_data.currentSelection == m_base [0].m_selection) {
 	if (m_base [0].IsUpdateNeeded (current, bStartSidesTagged))
 		return CalculateTunnel (false);
 	}
@@ -1375,16 +1186,6 @@ return false;
 
 //------------------------------------------------------------------------------
 
-void CTunnelMaker::Draw (CRenderer& renderer, CPen* redPen, CPen* bluePen, CViewMatrix* viewMatrix)
-{
-if (Update () && Create ()) {
-	m_path.Draw (renderer, redPen, bluePen, viewMatrix);
-	m_tunnel.Draw (renderer, redPen, bluePen, viewMatrix);
-	}
-}
-
-//------------------------------------------------------------------------------
-
 void CTunnelMaker::Finer (void) 
 {
 if (m_bActive && m_nSteps < MaxSegments () - 1)
@@ -1405,13 +1206,13 @@ DLE.MineView ()->Refresh ();
 
 void CTunnelMaker::Stretch (void) 
 {
-if (current->SegmentId () == m_base [0].m_nSegment) {
+if (current->SegmentId () == m_base [0].m_sideKey.m_nSegment) {
 	if (m_path.Bezier ().GetLength (0) > (MAX_TUNNEL_LENGTH - TUNNEL_INTERVAL))
 		return;
 	m_path.Bezier ().SetLength (m_path.Bezier ().GetLength (0) + TUNNEL_INTERVAL, 0);
 	m_path.Bezier ().SetPoint (m_base [0].GetPoint () + m_base [0].GetNormal () * m_path.Bezier ().GetLength (0), 1);
 	}
-else if (current->SegmentId () == m_base [1].m_nSegment) {
+else if (current->SegmentId () == m_base [1].m_sideKey.m_nSegment) {
 	if (m_path.Bezier ().GetLength (1) > (MAX_TUNNEL_LENGTH - TUNNEL_INTERVAL))
 		return;
 	m_path.Bezier ().SetLength (m_path.Bezier ().GetLength (1) + TUNNEL_INTERVAL, 1);
@@ -1426,13 +1227,13 @@ DLE.MineView ()->Refresh ();
 
 void CTunnelMaker::Shrink (void) 
 {
-if (current->SegmentId () == m_base [0].m_nSegment) {
+if (current->SegmentId () == m_base [0].m_sideKey.m_nSegment) {
 	if (m_path.Bezier ().GetLength (0) < (MIN_TUNNEL_LENGTH + TUNNEL_INTERVAL)) 
 		return;
 	m_path.Bezier ().SetLength (m_path.Bezier ().GetLength (0) - TUNNEL_INTERVAL, 0);
 	m_path.Bezier ().SetPoint (m_base [0].GetPoint () + m_base [0].GetNormal () * m_path.Bezier ().GetLength (0), 1);
 	}
-else if (current->SegmentId () == m_base [1].m_nSegment) {
+else if (current->SegmentId () == m_base [1].m_sideKey.m_nSegment) {
 	if (m_path.Bezier ().GetLength (1) < (MIN_TUNNEL_LENGTH + TUNNEL_INTERVAL))
 		return;
 	m_path.Bezier ().SetLength (m_path.Bezier ().GetLength (1) - TUNNEL_INTERVAL, 1);

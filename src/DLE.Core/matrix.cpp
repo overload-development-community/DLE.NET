@@ -265,7 +265,7 @@ return result;
 
 // -----------------------------------------------------------------------------
 
-const double CDoubleMatrix::Det (void) 
+const double CDoubleMatrix::Det (void) const
 {
 return m.rVec.v.x * (m.fVec.v.y * m.uVec.v.z - m.uVec.v.y * m.fVec.v.z) +
 		 m.uVec.v.x * (m.rVec.v.y * m.fVec.v.z - m.fVec.v.y * m.rVec.v.z) +
@@ -274,7 +274,7 @@ return m.rVec.v.x * (m.fVec.v.y * m.uVec.v.z - m.uVec.v.y * m.fVec.v.z) +
 
 // -----------------------------------------------------------------------------
 
-const CDoubleMatrix CDoubleMatrix::Inverse (void) 
+const CDoubleMatrix CDoubleMatrix::Inverse (void) const
 {
 	CDoubleMatrix result;
 

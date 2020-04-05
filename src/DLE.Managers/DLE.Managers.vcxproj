@@ -155,6 +155,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="TunnelMaker.h" />
+    <ClInclude Include="WallManager.h" />
+    <ClInclude Include="BlockManager.h" />
+    <ClInclude Include="ModelManager.h" />
+    <ClInclude Include="Mine.h" />
+    <ClInclude Include="RobotManager.h" />
+    <ClInclude Include="LightManager.h" />
+    <ClInclude Include="PaletteManager.h" />
+    <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="MemoryFile.h" />
+    <ClInclude Include="HogManager.h" />
     <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="TriggerManager.h" />
     <ClInclude Include="UndoManager.h" />
@@ -164,6 +175,9 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BlockManager.cpp" />
+    <ClCompile Include="HogManager.cpp" />
+    <ClCompile Include="MemoryFile.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="VertexManager.cpp" />
     <ClCompile Include="stdafx.cpp">

@@ -1,22 +1,6 @@
 #ifndef __mine_h
 #define __mine_h
 
-#include "TriggerManager.h"
-#include "WallManager.h"
-#include "segmentManager.h"
-#include "VertexManager.h"
-#include "RobotManager.h"
-#include "ObjectManager.h"
-#include "TunnelMaker.h"
-#include "BlockManager.h"
-#include "LightManager.h"
-#include "TextureManager.h"
-#include "HogManager.h"
-#include "UndoManager.h"
-#include "ResourceManager.h"
-#include "PaletteManager.h"
-#include "TextureProjector.h"
-
 #ifdef _DEBUG
 
 #define CLEAR(_b) memset ((_b).Buffer (), 0, (_b).Size ())
@@ -81,13 +65,13 @@ class CMine {
 
 		long TotalSize (CMineItemInfo& gii) { return (int) gii.size * (int) gii.count; }
 
-		inline int& ReactorTime (void) { return triggerManager.ReactorTime (); }
+		int& ReactorTime();
 
-		inline int& ReactorStrength (void) { return triggerManager.ReactorStrength (); }
+		int& ReactorStrength();
 
-		inline int& SecretSegment (void) { return objectManager.SecretSegment (); }
+		int& SecretSegment();
 
-		inline CDoubleMatrix& SecretOrient (void) { return objectManager.SecretOrient (); }
+		CDoubleMatrix& SecretOrient();
 
 		void Backup (const char *filename);
 
@@ -151,7 +135,7 @@ class CMine {
 		int m_nHxmExtraDataSize;
 
 		short CreateNewLevel (CMemoryFile& fp);
-		int FixIndexValues (void) { return segmentManager.Fix () | wallManager.Fix (); }
+		int FixIndexValues();
 
 		short LoadLevel (CFileManager* fp, bool bLoadFromHog);
 		short LoadMine (CFileManager* fp, bool bLoadFromHog, bool bCreate);

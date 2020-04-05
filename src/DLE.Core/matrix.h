@@ -162,8 +162,8 @@ public:
 	inline CDoubleVector& U (void) { return m.uVec; }
 	inline CDoubleVector& F (void) { return m.fVec; }
 
-	const double Det (void);
-	const CDoubleMatrix Inverse (void);
+	const double Det (void) const;
+	const CDoubleMatrix Inverse (void) const;
 	const CDoubleMatrix Adjoint (void);
 	inline const CDoubleMatrix Transpose (void);
 	void Rotate (double angle, char axis);

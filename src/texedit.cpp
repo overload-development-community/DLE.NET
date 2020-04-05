@@ -234,7 +234,7 @@ if (m_pDC)
 	return false;
 if (!(m_pDC = GetDC ()))
 	 return false;
-m_pOldPal = m_pDC->SelectPalette (paletteManager.Render (), FALSE);
+m_pOldPal = m_pDC->SelectPalette (RenderCurrentPalette(), FALSE);
 m_pDC->RealizePalette ();
 return true;
 }
@@ -461,7 +461,7 @@ if (m_pDC)
 if (!(m_pDC = pWnd->GetDC ()))
 	 return false;
 m_pPaintWnd = pWnd;
-m_pOldPal = m_pDC->SelectPalette (paletteManager.Render (), FALSE);
+m_pOldPal = m_pDC->SelectPalette (RenderCurrentPalette(), FALSE);
 m_pDC->RealizePalette ();
 return true;
 }

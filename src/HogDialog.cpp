@@ -2,7 +2,7 @@
 #include "dle-res.h"
 #include "HogDialog.h"
 
-CInputDialog::CInputDialog(CWnd* pParentWnd, LPSTR pszTitle, LPSTR pszPrompt, LPSTR pszBuf, size_t nBufSize)
+CInputDialog::CInputDialog(CWnd* pParentWnd, LPCSTR pszTitle, LPCSTR pszPrompt, LPSTR pszBuf, size_t nBufSize)
 	: CDialog(IDD_INPDLG, pParentWnd)
 {
 	m_pszTitle = pszTitle;
@@ -20,10 +20,9 @@ BOOL CInputDialog::OnInitDialog(void)
 
 void CInputDialog::DoDataExchange(CDataExchange* pDX)
 {
-	// m_pszPrompt can point to a string literal, and writing to those causes crashes
-	// using some compiler settings, so this is read-only
+	// There isn't a read-only DDX_Text, so use const_cast and make sure we only call it when reading
 	if (!pDX->m_bSaveAndValidate)
-		DDX_Text(pDX, IDC_INPDLG_PROMPT, m_pszPrompt, int(strlen(m_pszPrompt)));
+		DDX_Text(pDX, IDC_INPDLG_PROMPT, const_cast<LPSTR>(m_pszPrompt), int(strlen(m_pszPrompt)));
 	DDX_Text(pDX, IDC_INPDLG_BUF, m_pszBuf, int(m_nBufSize));
 }
 

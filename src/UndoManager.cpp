@@ -184,6 +184,7 @@ m_vertexColors.Restore ();
 m_deltaIndices.Restore ();
 m_deltaValues.Restore ();
 //memcpy (selections, m_selections, sizeof (selections));
+g_data.EnsureValidSelection(); // not a perfect replacement for the above but we can't just memcpy ISelections
 }
 
 //------------------------------------------------------------------------------
