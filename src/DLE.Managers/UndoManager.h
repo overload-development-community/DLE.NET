@@ -366,8 +366,6 @@ class CUndoManager : public IUndoManager
 
 		void Unroll (const char* szFunction, bool bRestore = true);
 
-		char* CreateId (char* szDest, char* szSrc);
-
 		bool Collecting (void);
 
 		CUndoManager (int maxSize = 100);

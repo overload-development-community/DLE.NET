@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "LightManager.h"
+#include "RobotManager.h"
+#include "VertexManager.h"
+#include "WallManager.h"
 
 CUndoManager undoManager;
 
@@ -427,20 +431,12 @@ return (m_nTail > m_nHead) ? (m_nTail - *m_nHead + 1) : m_nTail + *m_nHead - m_n
 
 void CUndoManager::SetModified (bool bModified) 
 {
-DLE.GetDocument ()->SetModifiedFlag (bModified);
-}  
-
-//------------------------------------------------------------------------------
-
-char* CUndoManager::CreateId (char* szDest, char* szSrc)
-{
-strcpy (szDest, szSrc);
-return szDest;
+	g_data.SetDocumentModifiedFlag(bModified);
 }
 
 //------------------------------------------------------------------------------
 
-static char* szFlagNames [] = {" vertices", " segments", " producers", " walls", " doors", " triggers", " objects", " robots", " variable_lights", " static_light", " dynamic_light" };
+static const char* szFlagNames [] = {" vertices", " segments", " producers", " walls", " doors", " triggers", " objects", " robots", " variable_lights", " static_light", " dynamic_light" };
 
 void CUndoManager::Begin (const char* szFunction, int dataFlags, bool bAccumulate) 
 {
@@ -450,7 +446,7 @@ if (!Locked ()) {
 
 	for (int i = 0; i < 11; i++)
 		if (dataFlags & eUndoFlags (1 << i))
-			strcat (szFlags, szFlagNames [i]);
+			strcat_s (szFlags, szFlagNames [i]);
 
 	PrintLog (1, "Begin Undo (%s,%s)\n", szFunction, szFlags);
 	m_history.Push (szFunction);
@@ -533,7 +529,7 @@ void CUndoHistory::Push (const char* szFunction)
 if (ToS () && (*Top () == szFunction)) {
 	char szMsg [256];
 	sprintf_s (szMsg, sizeof (szMsg), "%s: Undo manager redundancy", szFunction);
-	INFOMSG (szMsg);
+	g_data.DoInfoMsg(szMsg);
 	}
 CStack<char*>::Push (const_cast<char*>(szFunction));
 }
@@ -545,7 +541,7 @@ void CUndoHistory::Pop (const char* szFunction)
 if (ToS () && (*Top () != szFunction)) {
 	char szMsg [256];
 	sprintf_s (szMsg, sizeof (szMsg), "%s: Undo manager corruption", szFunction);
-	INFOMSG (szMsg);
+	g_data.DoInfoMsg(szMsg);
 	do {
 		CStack<char*>::Pop ();
 		} while (ToS () && (*Top () != szFunction));

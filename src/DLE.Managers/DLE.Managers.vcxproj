@@ -175,6 +175,7 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="UndoManager.cpp" />
     <ClCompile Include="SegmentManager.Add.cpp" />
     <ClCompile Include="SegmentManager.cpp" />
     <ClCompile Include="SegmentManager.IO.cpp" />

@@ -391,7 +391,6 @@
     <ClCompile Include="..\ShaderManager.cpp" />
     <ClCompile Include="..\TextureFilter.cpp" />
     <ClCompile Include="..\TextureManager.Shaders.cpp" />
-    <ClCompile Include="..\UndoManager.cpp" />
     <ClCompile Include="..\TextureProjector.cpp" />
     <ClCompile Include="..\HogDialog.cpp" />
   </ItemGroup>

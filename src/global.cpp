@@ -321,6 +321,11 @@ UINT GlobalData::GetPaletteEntries(UINT nStartIndex, UINT nNumEntries, LPPALETTE
     return RenderCurrentPalette()->GetPaletteEntries(nStartIndex, nNumEntries, lpPaletteColors);
 }
 
+void GlobalData::SetDocumentModifiedFlag(bool modified)
+{
+    DLE.GetDocument()->SetModifiedFlag(modified);
+}
+
 bool GlobalData::GLCreateTexture(CTexture* texture, bool bForce)
 {
     return DrawHelpers::GLCreateTexture(texture, bForce);

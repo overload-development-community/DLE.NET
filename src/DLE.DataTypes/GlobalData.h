@@ -232,6 +232,7 @@ public:
 	void RefreshObjectTool();
 	std::vector<byte> LoadPaletteData(const char* paletteName);
 	UINT GetPaletteEntries(UINT nStartIndex, UINT nNumEntries, LPPALETTEENTRY lpPaletteColors);
+	void SetDocumentModifiedFlag(bool modified);
 
 	// Can't include DrawHelpers.h in DLE.DataTypes due to MFC...
 	// may move this later
@@ -271,3 +272,4 @@ public:
 	{}
 };
 extern GlobalData g_data;
+void _cdecl PrintLog(const int nIndent, const char* fmt, ...);
