@@ -1,7 +1,7 @@
 // palette.cpp
 
 #include "stdafx.h"
-#include "DrawHelpers.h"
+#include "PaletteManager.h"
 
 HGLOBAL hPalette;
 
@@ -116,15 +116,13 @@ return fp->Write (m_rawData, 1, sizeof (m_rawData)) == sizeof (m_rawData);
 
 CBGR* CPaletteManager::LoadDefault (char* pszName)
 {
-CResource res;
-if (!res.Load (SelectResource (pszName)))
-	return null;
-memcpy (m_rawData, res.Data (), sizeof (m_rawData));
-Decode (m_default);
-CreateFadeTable ();
-SetupBMI (m_default);
-m_bHaveDefault = true;
-return m_default;
+	auto paletteData = g_data.LoadPaletteData(pszName);
+	memcpy(m_rawData, paletteData.data(), sizeof(m_rawData));
+	Decode(m_default);
+	CreateFadeTable();
+	SetupBMI(m_default);
+	m_bHaveDefault = true;
+	return m_default;
 }
 
 //------------------------------------------------------------------------
@@ -139,53 +137,6 @@ if (!pszName) {
 	}
 LoadDefault (pszName);
 return (m_default == null) ? null : m_default + i;
-}
-
-//------------------------------------------------------------------------
-// PaletteResource()
-//
-// Action - returns the name of the palette resource.  Neat part about
-//          this function is that the strings are automatically stored
-//          in the local heap so the string is static.
-//
-//------------------------------------------------------------------------
-
-const char* CPaletteManager::SelectResource (char* pszName) 
-{
-	typedef struct tPalExt {
-		char	szFile [256];
-		int	nIdPal;
-	} tPalExt;
-
-	static tPalExt palExt [] = {
-		{"groupa", IDR_GROUPA_256}, 
-		{"alien1", IDR_ALIEN1_256}, 
-		{"alien2", IDR_ALIEN2_256}, 
-		{"fire", IDR_FIRE_256}, 
-		{"water", IDR_WATER_256}, 
-		{"ice", IDR_ICE_256},
-		{"", 0}
-	};
-
-	tPalExt	*ppe;
-	char		szName [256];
-
-if (!pszName || !*pszName) {
-	if (theMine && DLE.IsD1File ())
-		return MAKEINTRESOURCE (IDR_PALETTE_256);
-	CFileManager::SplitPath (descentFolder [1], null, szName, null);
-	pszName = szName;
-	}
-else {
-	CFileManager::SplitPath (pszName, NULL, szName, NULL);
-	_strlwr (szName);
-	if (!_stricmp ("descent", szName))
-		return MAKEINTRESOURCE (IDR_PALETTE_256);
-	for (ppe = palExt; *(ppe->szFile); ppe++)
-		if (!_stricmp (ppe->szFile, szName))
-			return MAKEINTRESOURCE (ppe->nIdPal);
-	}
-return MAKEINTRESOURCE (IDR_GROUPA_256);
 }
 
 //------------------------------------------------------------------------
@@ -283,7 +234,7 @@ else {
 
 UINT CPaletteManager::GetPaletteEntries(UINT nStartIndex, UINT nNumEntries, LPPALETTEENTRY lpPaletteColors)
 {
-	return RenderCurrentPalette()->GetPaletteEntries (nStartIndex, nNumEntries, lpPaletteColors);
+	return g_data.GetPaletteEntries (nStartIndex, nNumEntries, lpPaletteColors);
 }
 
 //------------------------------------------------------------------------------

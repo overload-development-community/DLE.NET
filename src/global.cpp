@@ -265,6 +265,52 @@ void GlobalData::RefreshObjectTool()
     DLE.ToolView()->ObjectTool()->Refresh();
 }
 
+int GetPaletteResourceId(const char* pszName)
+{
+    const std::map<std::string, int> palettes{
+        {"groupa", IDR_GROUPA_256},
+        {"alien1", IDR_ALIEN1_256},
+        {"alien2", IDR_ALIEN2_256},
+        {"fire", IDR_FIRE_256},
+        {"water", IDR_WATER_256},
+        {"ice", IDR_ICE_256},
+        {"descent", IDR_PALETTE_256},
+        {"", 0}
+    };
+
+    char szName[256]{};
+    if (!pszName || !*pszName)
+    {
+        if (theMine && DLE.IsD1File())
+        {
+            return IDR_PALETTE_256;
+        }
+        CFileManager::SplitPath(descentFolder[1], nullptr, szName, nullptr);
+    }
+    else
+    {
+        CFileManager::SplitPath(pszName, nullptr, szName, nullptr);
+    }
+    _strlwr(szName);
+
+    if (palettes.count(std::string(szName)) != 0)
+    {
+        return palettes.at(std::string(szName));
+    }
+    return IDR_GROUPA_256;
+}
+
+std::vector<byte> GlobalData::LoadPaletteData(const char* paletteName)
+{
+    auto resourceId = GetPaletteResourceId(paletteName);
+    return ::LoadResourceAsBlob(resourceId);
+}
+
+UINT GlobalData::GetPaletteEntries(UINT nStartIndex, UINT nNumEntries, LPPALETTEENTRY lpPaletteColors)
+{
+    return RenderCurrentPalette()->GetPaletteEntries(nStartIndex, nNumEntries, lpPaletteColors);
+}
+
 bool GlobalData::GLCreateTexture(CTexture* texture, bool bForce)
 {
     return DrawHelpers::GLCreateTexture(texture, bForce);

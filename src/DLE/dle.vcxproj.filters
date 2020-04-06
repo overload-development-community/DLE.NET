@@ -291,9 +291,6 @@
     <ClCompile Include="..\WallTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\PaletteManager.cpp">
-      <Filter>Managers\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\SegmentManager.Add.cpp">
       <Filter>Managers\Source Files</Filter>
     </ClCompile>
@@ -419,9 +416,6 @@
     </ClCompile>
     <ClCompile Include="..\TextureManager.Shaders.cpp">
       <Filter>OpenGL\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\ModelManager.cpp">
-      <Filter>Managers\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

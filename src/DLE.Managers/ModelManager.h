@@ -94,7 +94,7 @@ class CModelManager : public IModelManager {
 
 		void ReadCustomModelData (ubyte* buffer, long bufSize, int bCustom = 1);
 
-		void ReadMod (char* pszFolder);
+		void ReadMod (const char* pszFolder);
 
 		void LoadMod (void);
 
@@ -105,7 +105,7 @@ class CModelManager : public IModelManager {
 	private:
 		int Model (void);
 
-		int ReadModelData (char* filename, char *szSubFile, bool bCustom);
+		int ReadModelData (const char* filename, const char *szSubFile, bool bCustom);
 
 		void ReadCustomModelData (CMemoryFile& mf, int bCustom);
 	};

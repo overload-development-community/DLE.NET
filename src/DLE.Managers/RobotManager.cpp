@@ -197,7 +197,7 @@ return 1;
 
 //------------------------------------------------------------------------------
 
-int CRobotManager::ReadHXM (const char* filename, char *szSubFile, bool bCustom)
+int CRobotManager::ReadHXM (const char* filename, const char *szSubFile, bool bCustom)
 {
 	CFileManager fp;
 

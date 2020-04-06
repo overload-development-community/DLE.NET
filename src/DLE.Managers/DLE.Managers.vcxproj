@@ -175,6 +175,8 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="PaletteManager.cpp" />
+    <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="RobotManager.cpp" />
     <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="TextureManager.cpp" />

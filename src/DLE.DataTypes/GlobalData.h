@@ -227,6 +227,8 @@ public:
 	const char* GetModFolder(int folderNumber);
 	void ResetTextureView();
 	void RefreshObjectTool();
+	std::vector<byte> LoadPaletteData(const char* paletteName);
+	UINT GetPaletteEntries(UINT nStartIndex, UINT nNumEntries, LPPALETTEENTRY lpPaletteColors);
 
 	// Can't include DrawHelpers.h in DLE.DataTypes due to MFC...
 	// may move this later

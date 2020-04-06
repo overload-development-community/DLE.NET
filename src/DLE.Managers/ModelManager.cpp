@@ -1,6 +1,14 @@
 // Copyright (c) 1997 Bryan Aamot
 
 #include "stdafx.h"
+#include "ModelTextures.h"
+#include "ASEModel.h"
+#include "OOFModel.h"
+#include "rendermodel.h"
+#include "MemoryFile.h"
+#include "ModelManager.h"
+#include "RobotManager.h"
+#include "HogManager.h"
 
 CModelManager modelManager;
 
@@ -69,7 +77,7 @@ switch (m_object->m_info.type) {
 		nModel = MINE_CLIP_NUMBER;
 		break;
 	case OBJ_REACTOR:
-		if (DLE.IsD1File ())
+		if (g_data.IsD1File ())
 			// D1 has one reactor model regardless of ID
 			nModel = 93;
 		else switch (m_object->m_info.id) {
@@ -115,7 +123,7 @@ if (m_polyModels [0][m_nModel].m_info.renderData || (!bVertigo && (m_polyModels 
 
 char filename [256];
 
-strcpy_s (filename, sizeof (filename), descentFolder [1]);
+strcpy_s(filename, sizeof(filename), g_data.GetD2Path());
 char *slash = strrchr (filename, '\\');
 if (slash)
 	*(slash+1) = '\0';
@@ -165,7 +173,7 @@ for (int i = 0; i < MAX_POLYGON_MODELS; i++, pModel++) {
 
 //------------------------------------------------------------------------------
 
-int CModelManager::ReadModelData (char* filename, char *szSubFile, bool bCustom) 
+int CModelManager::ReadModelData (const char* filename, const char *szSubFile, bool bCustom) 
 {
 	CFileManager fp;
 
@@ -314,10 +322,10 @@ if (mf.Open (buffer, bufSize))
 
 //------------------------------------------------------------------------------
 
-void CModelManager::ReadMod (char* pszFolder)
+void CModelManager::ReadMod (const char* pszFolder)
 {
 for (int i = 0; i < MAX_POLYGON_MODELS; i++) {
-	DLE.MainFrame ()->Progress ().StepIt ();
+	g_data.StepProgress();
 #ifdef _DEBUG
 	if (i == nDbgModel)
 		nDbgModel = nDbgModel;
@@ -335,16 +343,16 @@ for (int i = 0; i < MAX_POLYGON_MODELS; i++) {
 
 void CModelManager::LoadMod (void)
 {
-if (DLE.MakeModFolders ("models")) {
-	DLE.MainFrame ()->InitProgress (2 * MAX_POLYGON_MODELS);
-	char szFile [256];
-	sprintf (szFile, "%s.hxm", DLE.m_modFolders [2]);
-	robotManager.ReadHXM (szFile);
+if (g_data.MakeModFolders ("models")) {
+	g_data.InitProgress(2 * MAX_POLYGON_MODELS);
+	char szFile[256]{};
+	sprintf_s(szFile, "%s.hxm", g_data.GetModFolder(2));
+	robotManager.ReadHXM(szFile);
 	// first read the level specific textures
-	ReadMod (DLE.m_modFolders [0]);
+	ReadMod(g_data.GetModFolder(0));
 	// then read the mission wide textures
-	ReadMod (DLE.m_modFolders [1]);
-	DLE.MainFrame ()->Progress ().DestroyWindow ();
+	ReadMod(g_data.GetModFolder(1));
+	g_data.CleanupProgress();
 	}
 }
 

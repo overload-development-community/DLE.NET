@@ -312,7 +312,6 @@
     <ClCompile Include="..\DiagTool.cpp" />
     <ClCompile Include="..\dlcDoc.cpp" />
     <ClCompile Include="..\dle.cpp" />
-    <ClCompile Include="..\ModelManager.cpp" />
     <ClCompile Include="..\DlgHelpers.cpp" />
     <ClCompile Include="..\DrawHelpers.cpp" />
     <ClCompile Include="..\EffectTool.cpp" />
@@ -387,7 +386,6 @@
     <ClCompile Include="..\ViewMatrix.cpp" />
     <ClCompile Include="..\ASERenderModel.cpp" />
     <ClCompile Include="..\buildmodel.cpp" />
-    <ClCompile Include="..\PaletteManager.cpp" />
     <ClCompile Include="..\ResourceManager.cpp" />
     <ClCompile Include="..\SegmentManager.Add.cpp" />
     <ClCompile Include="..\SegmentManager.cpp" />
