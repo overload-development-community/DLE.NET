@@ -2,6 +2,8 @@
 
 #include "stdafx.h"
 #include "SegmentManager.h"
+#include "WallManager.h"
+#include "VertexManager.h"
 
 CSegmentManager segmentManager;
 
@@ -17,7 +19,7 @@ return pos;
 
 CDoubleVector CSegmentManager::CalcSideCenter (CSideKey key)
 {
-current->Get (key);
+	g_data.currentSelection->Get(key);
 
 	CSegment _const_ * pSegment = Segment (key.m_nSegment);
 	CSide _const_ * pSide = pSegment->Side (key.m_nSide);
@@ -36,7 +38,7 @@ return v;
 
 CDoubleVector CSegmentManager::CalcSideNormal (CSideKey key)
 {
-current->Get (key);
+	g_data.currentSelection->Get(key);
 
 	CSegment _const_ * pSegment = Segment (key.m_nSegment);
 	int n = pSegment->Side (key.m_nSide)->VertexCount ();
@@ -54,18 +56,18 @@ return -Normal (*(pSegment->Vertex (key.m_nSide, 0)), *(pSegment->Vertex (key.m_
 // ------------------------------------------------------------------------------ 
 
 CSide _const_* CSegmentManager::Side(CSideKey key) {
-	current->Get(key);
+	g_data.currentSelection->Get(key);
 	return m_segments[key.m_nSegment].m_sides + key.m_nSide;
 }
 
 void CSegmentManager::PutSide(CSideKey key, CSide& side) {
-	current->Get(key);
+	g_data.currentSelection->Get(key);
 	m_segments[key.m_nSegment].m_sides[key.m_nSide] = side;
 }
 
 CSide _const_ * CSegmentManager::BackSide (CSideKey key, CSideKey& back)
 {
-current->Get (key); 
+	g_data.currentSelection->Get(key);
 #ifdef _DEBUG
 if (key.m_nSegment < 0 || key.m_nSegment >= Count ())
 	return null; 
@@ -92,13 +94,18 @@ return null;
 //inline CWall* Wall (short nSegment = -1, short nSide = -1) {
 
 CWall _const_* CSegmentManager::Wall(CSideKey key) {
-	current->Get(key);
+	g_data.currentSelection->Get(key);
 	CSide _const_* pSide;
 	pSide = Side(key);
 	return pSide->Wall();
 }
 
-CWall _const_* CSegmentManager::Wall(CSideKey* key) { return Wall((key == null) ? *current : *key); }
+CWall _const_* CSegmentManager::Wall(CSideKey* key)
+{
+	if (!key)
+		return Wall(CSideKey());
+	return Wall(*key);
+}
 
 bool CSegmentManager::IsExit (short nSegment)
 {
@@ -123,8 +130,8 @@ return false;
 
 int CSegmentManager::IsWall (CSideKey key)
 {
-current->Get (key); 
-return (Segment (key.m_nSegment)->ChildId (key.m_nSide) == -1) || (Wall (key) != null);
+	g_data.currentSelection->Get (key);
+	return (Segment(key.m_nSegment)->ChildId(key.m_nSide) == -1) || (Wall(key) != null);
 }
 
 // ----------------------------------------------------------------------------- 
@@ -216,18 +223,18 @@ void CSegmentManager::CopyOtherSegment (void)
 {
 	bool bChange = false;
 
-if (selections [0].m_nSegment == selections [1].m_nSegment)
+if (g_data.currentSelection->SegmentId() == g_data.otherSelection->SegmentId())
 	return; 
-short nSegment = current->SegmentId (); 
-CSegment* pSegment = current->Segment ();
-CSegment* pOtherSeg = other->Segment (); 
+short nSegment = g_data.currentSelection->SegmentId ();
+CSegment* pSegment = g_data.currentSelection->Segment ();
+CSegment* pOtherSeg = g_data.otherSelection->Segment ();
 undoManager.Begin (__FUNCTION__, udSegments);
 for (int nSide = 0; nSide < 6; nSide++)
 	if (SetTextures (CSideKey (nSegment, nSide), pOtherSeg->m_sides [nSide].BaseTex (), pOtherSeg->m_sides [nSide].OvlTex ()))
 		bChange = true;
 undoManager.End (__FUNCTION__);
 if (bChange)
-	DLE.MineView ()->Refresh (); 
+	g_data.RefreshMineView();
 }
 
 // -----------------------------------------------------------------------------
@@ -280,9 +287,9 @@ int CSegmentManager::Overflow (int nSegments)
 { 
 if (nSegments < 0)
 	nSegments = Count ();
-return DLE.IsD1File () 
+return g_data.IsD1File () 
 		 ? (nSegments > MAX_SEGMENTS_D1) 
-		 : DLE.IsStdLevel () 
+		 : g_data.IsStdLevel () 
 			? (nSegments > MAX_SEGMENTS_D2) 
 			: (nSegments > SEGMENT_LIMIT)
 				? -1
@@ -305,7 +312,7 @@ return -1;
 bool CSegmentManager::VertexInUse (ushort nVertex, short nIgnoreSegment)
 {
 if (nIgnoreSegment < 0)
-	nIgnoreSegment = current->SegmentId ();
+	nIgnoreSegment = g_data.currentSelection->SegmentId ();
 for (short nSegment = 0; 0 <= (nSegment = FindByVertex (nVertex, nSegment)); nSegment++)
 	if (nSegment != nIgnoreSegment)
 		return true;
@@ -461,6 +468,8 @@ return nSides;
 
 void CSegmentManager::MakePointsParallel (void)
 {
+	auto current = g_data.currentSelection;
+
 undoManager.Begin (__FUNCTION__, udVertices);
 if (!vertexManager.HasTaggedVertices ())
 	current->Segment ()->MakeCoplanar (current->SideId ());
@@ -498,7 +507,7 @@ else {
 undoManager.End (__FUNCTION__);
 }
 
-CTagTunnelStart::CTagTunnelStart() : m_maxAngle(cos(Radians(22.5))), m_pStartSide(current->Side()) {}
+CTagTunnelStart::CTagTunnelStart() : m_maxAngle(cos(Radians(22.5))), m_pStartSide(g_data.currentSelection->Side()) {}
 
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------

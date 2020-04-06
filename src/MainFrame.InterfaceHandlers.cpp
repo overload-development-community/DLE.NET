@@ -237,7 +237,7 @@ m_paneMode = 0;
 
 void CMainFrame::OnEditTag () 
 {
-segmentManager.TagSelected ();
+	MineView()->TagSelected();
 }
 
 void CMainFrame::OnEditTagAll () 

@@ -387,14 +387,6 @@
     <ClCompile Include="..\ASERenderModel.cpp" />
     <ClCompile Include="..\buildmodel.cpp" />
     <ClCompile Include="..\ResourceManager.cpp" />
-    <ClCompile Include="..\SegmentManager.Add.cpp" />
-    <ClCompile Include="..\SegmentManager.cpp" />
-    <ClCompile Include="..\SegmentManager.IO.cpp" />
-    <ClCompile Include="..\SegmentManager.Join.cpp" />
-    <ClCompile Include="..\SegmentManager.Mark.cpp" />
-    <ClCompile Include="..\SegmentManager.MatCens.cpp" />
-    <ClCompile Include="..\SegmentManager.Split.cpp" />
-    <ClCompile Include="..\SegmentManager.Textures.cpp" />
     <ClCompile Include="..\Selection.cpp" />
     <ClCompile Include="..\ShaderManager.cpp" />
     <ClCompile Include="..\TextureFilter.cpp" />

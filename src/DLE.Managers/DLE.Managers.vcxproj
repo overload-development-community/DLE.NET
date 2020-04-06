@@ -175,6 +175,14 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="SegmentManager.Add.cpp" />
+    <ClCompile Include="SegmentManager.cpp" />
+    <ClCompile Include="SegmentManager.IO.cpp" />
+    <ClCompile Include="SegmentManager.Join.cpp" />
+    <ClCompile Include="SegmentManager.Mark.cpp" />
+    <ClCompile Include="SegmentManager.MatCens.cpp" />
+    <ClCompile Include="SegmentManager.Split.cpp" />
+    <ClCompile Include="SegmentManager.Textures.cpp" />
     <ClCompile Include="PaletteManager.cpp" />
     <ClCompile Include="ModelManager.cpp" />
     <ClCompile Include="RobotManager.cpp" />

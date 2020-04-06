@@ -291,30 +291,6 @@
     <ClCompile Include="..\WallTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\SegmentManager.Add.cpp">
-      <Filter>Managers\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SegmentManager.cpp">
-      <Filter>Managers\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SegmentManager.IO.cpp">
-      <Filter>Managers\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SegmentManager.Join.cpp">
-      <Filter>Managers\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SegmentManager.Mark.cpp">
-      <Filter>Managers\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SegmentManager.MatCens.cpp">
-      <Filter>Managers\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SegmentManager.Split.cpp">
-      <Filter>Managers\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SegmentManager.Textures.cpp">
-      <Filter>Managers\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\UndoManager.cpp">
       <Filter>Managers\Source Files</Filter>
     </ClCompile>

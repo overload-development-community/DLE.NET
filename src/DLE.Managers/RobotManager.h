@@ -6,9 +6,9 @@
 
 //------------------------------------------------------------------------
 
-#define MAX_MATCENS ((theMine == null) ? MAX_NUM_MATCENS_D2 : (DLE.IsD1File () || (DLE.LevelVersion () < 12)) ? MAX_NUM_MATCENS_D1 : MAX_NUM_MATCENS_D2)
+#define MAX_MATCENS ((theMine == null) ? MAX_NUM_MATCENS_D2 : (g_data.IsD1File () || (g_data.LevelVersion () < 12)) ? MAX_NUM_MATCENS_D1 : MAX_NUM_MATCENS_D2)
 
-#define MAX_ROBOT_ID_D2 ((theMine == null) ? MAX_ROBOT_IDS_TOTAL : (DLE.LevelVersion () == 7) ? N_ROBOT_TYPES_D2 : MAX_ROBOT_IDS_TOTAL)
+#define MAX_ROBOT_ID_D2 ((theMine == null) ? MAX_ROBOT_IDS_TOTAL : (g_data.LevelVersion () == 7) ? N_ROBOT_TYPES_D2 : MAX_ROBOT_IDS_TOTAL)
 
 //------------------------------------------------------------------------
 

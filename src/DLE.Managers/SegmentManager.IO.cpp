@@ -1,6 +1,7 @@
 // Segment.cpp
 
 #include "stdafx.h"
+#include "RobotManager.h"
 
 extern short nDbgSeg, nDbgSide;
 
@@ -36,7 +37,7 @@ if (m_segmentInfo.Restore (fp)) {
 		}
 	if (Count () > SEGMENT_LIMIT)
 		Count () = SEGMENT_LIMIT;
-	if (!DLE.IsD2File ())
+	if (!g_data.IsD2File ())
 		return;
 	for (i = 0; i < Count (); i++) {
 #ifdef _DEBUG
@@ -63,7 +64,7 @@ if (m_segmentInfo.Setup (fp)) {
 #endif
 		m_segments [i].Write (fp);
 		}
-	if (!DLE.IsD2File ())
+	if (!g_data.IsD2File ())
 		return;
 	for (int i = 0; i < j; i++)
 		m_segments [i].WriteExtras (fp, true);
@@ -93,7 +94,7 @@ if (m_producerInfo [nClass].Restore (fp)) {
 void CSegmentManager::WriteProducers (CFileManager* fp, int nClass)
 {
 if (m_producerInfo [nClass].Setup (fp)) {
-	m_producerInfo [nClass].size = (DLE.IsD1File () && (nClass == 0)) ? 16 : 20; 
+	m_producerInfo [nClass].size = (g_data.IsD1File () && (nClass == 0)) ? 16 : 20;
 	m_producerInfo [nClass].offset = fp->Tell ();
 	for (int i = 0; i < ProducerCount (nClass); i++)
 		m_producers [nClass][i].Write (fp);

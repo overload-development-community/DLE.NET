@@ -1,6 +1,8 @@
 // Segment.cpp
 
 #include "stdafx.h"
+#include "LightManager.h"
+#include "WallManager.h"
 
 extern short nDbgSeg, nDbgSide;
 extern int nDbgVertex;
@@ -9,7 +11,7 @@ extern int nDbgVertex;
 
 void CSegmentManager::Textures (CSideKey key, short& nBaseTex, short& nOvlTex)
 {
-current->Get (key);
+g_data.currentSelection->Get (key);
 Side (key)->GetTextures (nBaseTex, nOvlTex);
 }
 
@@ -20,7 +22,7 @@ bool CSegmentManager::SetTextures (CSideKey key, int nBaseTex, int nOvlTex)
 	bool bChange = false;
 
 undoManager.Begin (__FUNCTION__, udSegments); 
-current->Get (key); 
+g_data.currentSelection->Get (key);
 CSide *pSide = Side (key); 
 bChange = pSide->SetTextures (nBaseTex, nOvlTex);
 if (!bChange) {
@@ -32,8 +34,9 @@ if ((lightManager.IsLight (pSide->BaseTex ()) == -1) && (lightManager.IsLight (p
 if (!wallManager.ClipFromTexture (key))
 	wallManager.CheckForDoor (key); 
 undoManager.End (__FUNCTION__); 
+char message[50]{};
 sprintf_s (message, sizeof (message), "side has textures %d, %d", pSide->BaseTex () & 0x1fff, pSide->OvlTex (0)); 
-INFOMSG (message); 
+g_data.DoInfoMsg(message);
 return true;
 }
 

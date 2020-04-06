@@ -1,6 +1,9 @@
 // Segment.cpp
 
 #include "stdafx.h"
+#include "TunnelMaker.h"
+#include "VertexManager.h"
+#include "WallManager.h"
 
 // ----------------------------------------------------------------------------- 
 // unlink_child()
@@ -90,17 +93,17 @@ ushort nSegment, nVertex;
 if (tunnelMaker.Active ())
 	return -1; 
 
-current->Get (key);
+g_data.currentSelection->Get (key);
 
 if (vertexManager.Count () > (VERTEX_LIMIT - 1)) {
 	if (bVerbose)
-		ErrorMsg ("Cannot unjoin these points because the\nmaximum number of points is reached."); 
+		g_data.DoErrorMsg ("Cannot unjoin these points because the\nmaximum number of points is reached."); 
 	return -1; 
 	}
 
 CSegment* pSegment = Segment (key.m_nSegment); 
 if (nVertexId < 0)
-	nVertexId = current->VertexId (); 
+	nVertexId = g_data.currentSelection->Segment()->VertexId(g_data.currentSelection->SideId(), g_data.currentSelection->Point());
 
 // check to see if current point is shared by any other cubes
 bool found = false; 
@@ -114,11 +117,11 @@ for (nSegment = 0; (nSegment < Count ()) && !found; nSegment++, pSegment++)
 				}
 if (!found) {
 	if (bVerbose)
-		ErrorMsg ("This point is not joined with any other point."); 
+		g_data.DoErrorMsg ("This point is not joined with any other point.");
 	return nVertexId; 
 	}
 
-if (bVerbose && (QueryMsg ("Are you sure you want to unjoin this point?") != IDYES))
+if (bVerbose && (g_data.DoQueryMsg ("Are you sure you want to unjoin this point?") != IDYES))
 	return nVertexId; 
 
 undoManager.Begin (__FUNCTION__, udSegments | udVertices);
@@ -141,9 +144,9 @@ vertexManager.Status (vertexManager.Count ()++) = 0;
 
 SetLinesToDraw (); 
 undoManager.End (__FUNCTION__);
-DLE.MineView ()->Refresh ();
+g_data.RefreshMineView();
 if (bVerbose)
-	INFOMSG ("A new point was made for the current point."); 
+	g_data.DoInfoMsg("A new point was made for the current point.");
 return vertexManager.Count () - 1;
 }
 
@@ -158,6 +161,8 @@ void CSegmentManager::SeparateLines (short nLine)
 {
 if (tunnelMaker.Active ()) 
 	return; 
+
+auto current = g_data.currentSelection;
 
 if (nLine < 0) {
 	nLine = current->Edge ();
@@ -177,17 +182,17 @@ for (size_t i = 0; i < 2; i++) {
 		verticesRequired++;
 	}
 if (verticesRequired == 0) {
-	if (!DLE.ExpertMode ())
-		ErrorMsg ("This line is already unjoined.");
+	if (!g_data.ExpertMode ())
+		g_data.DoErrorMsg ("This line is already unjoined.");
 	return;
 	}
 if (vertexManager.Count () > (MAX_VERTICES - verticesRequired)) {
-	if (!DLE.ExpertMode ())
-		ErrorMsg ("Cannot unjoin this line because\nthere are not enough vertices left.");
+	if (!g_data.ExpertMode ())
+		g_data.DoErrorMsg ("Cannot unjoin this line because\nthere are not enough vertices left.");
 	return;
 	}
 
-if (QueryMsg ("Are you sure you want to unjoin this line?") != IDYES)
+if (g_data.DoQueryMsg ("Are you sure you want to unjoin this line?") != IDYES)
 	return;
 
 undoManager.Begin (__FUNCTION__, udSegments | udVertices);
@@ -216,9 +221,10 @@ for (short nSide = 0; nSide < 6; nSide++) {
 
 SetLinesToDraw (); 
 undoManager.End (__FUNCTION__);
-DLE.MineView ()->Refresh ();
+g_data.RefreshMineView();
+char message[50]{};
 sprintf_s (message, sizeof (message), "%d new points were made for the current line.", verticesRequired);
-INFOMSG (message);
+g_data.DoInfoMsg(message);
 }
 
 // ----------------------------------------------------------------------------- 
@@ -238,11 +244,12 @@ bool CSegmentManager::SeparateSegments (int bSolidify, int nSide, bool bVerbose)
 if (tunnelMaker.Active ())
 	return false; 
 
+	auto current = g_data.currentSelection;
 	CSegment* pSegment = current->Segment (); 
 
 int nChildSeg = pSegment->ChildId (nSide); 
 if (nChildSeg == -1) {
-	ErrorMsg ("The current side is not connected to another segment"); 
+	g_data.DoErrorMsg ("The current side is not connected to another segment");
 	return false; 
 	}
 if (nSide < 0) {
@@ -268,11 +275,11 @@ for (i = 0; i < nVertices; i++) {
 //	return; 
 
 if (!bSolidify && (vertexManager.Count () > (MAX_VERTICES - nShared))) {
-	ErrorMsg ("Cannot unjoin this side because\nthere are not enough vertices left."); 
+	g_data.DoErrorMsg ("Cannot unjoin this side because\nthere are not enough vertices left.");
 	return false; 
 	}
 
-if (bVerbose && (QueryMsg ("Are you sure you want to unjoin this side?") != IDYES))
+if (bVerbose && (g_data.DoQueryMsg ("Are you sure you want to unjoin this side?") != IDYES))
 	return false; 
 
 undoManager.Begin (__FUNCTION__, udSegments | udVertices);
@@ -295,8 +302,9 @@ if (!bSolidify) {
 		if (nSide != nOppSide)
 			UnlinkChild (current->SegmentId (), nSide); 
 	SetLinesToDraw (); 
+	char message[50]{};
 	sprintf_s (message, sizeof (message), "%d new points were made for the current side.", nShared);
-	INFOMSG (message);
+	g_data.DoInfoMsg(message);
 	}
 else {
 	// does this side have a child?
@@ -313,7 +321,7 @@ else {
 	SetLinesToDraw (); 
 	}
 undoManager.End (__FUNCTION__);
-DLE.MineView ()->Refresh ();
+g_data.RefreshMineView();
 return true;
 }
 
@@ -323,7 +331,7 @@ return true;
 
 bool CSegmentManager::SplitIn7 (void)
 {
-	CSegment*	pCenterSeg = current->Segment ();
+	CSegment*	pCenterSeg = g_data.currentSelection->Segment ();
 	short			nCenterSeg = segmentManager.Index (pCenterSeg);
 	short			nNewSegs [6];
 	ushort		nNewVerts [8];
@@ -331,12 +339,12 @@ bool CSegmentManager::SplitIn7 (void)
 	bool			bVertDone [8];
 
 if (pCenterSeg->m_nShape) {
-	ErrorMsg ("Cannot split segments with triangular faces."); 
+	g_data.DoErrorMsg ("Cannot split segments with triangular faces.");
 	return false;
 	}
 
 if (Count () >= SEGMENT_LIMIT - 6) {
-	ErrorMsg ("Cannot split this segment because\nthe maximum number of segments would be exceeded."); 
+	g_data.DoErrorMsg ("Cannot split this segment because\nthe maximum number of segments would be exceeded.");
 	return false;
 	}
 undoManager.Begin (__FUNCTION__, udSegments | udVertices);
@@ -412,7 +420,7 @@ for (short nSegment = 0; nSegment < 5; nSegment++) {
 		}
 	}
 undoManager.End (__FUNCTION__);
-DLE.MineView ()->Refresh ();
+g_data.RefreshMineView();
 return true;
 }
 
@@ -472,10 +480,10 @@ return -1;
 bool CSegmentManager::SplitIn8 (CSegment* pRootSeg)
 {
 if (!pRootSeg)
-	pRootSeg = current->Segment ();
+	pRootSeg = g_data.currentSelection->Segment ();
 
 if (pRootSeg->m_nShape) {
-	ErrorMsg ("Cannot split wedge and pyramid shaped segments."); 
+	g_data.DoErrorMsg ("Cannot split wedge and pyramid shaped segments.");
 	return false;
 	}
 
@@ -487,7 +495,7 @@ if (pRootSeg->m_nShape) {
 	short			nOldSegments = Count ();
 
 if (nOldSegments >= SEGMENT_LIMIT - 7) {
-	ErrorMsg ("Cannot split this segment because\nthe maximum number of segments would be exceeded."); 
+	g_data.DoErrorMsg ("Cannot split this segment because\nthe maximum number of segments would be exceeded.");
 	return false;
 	}
 undoManager.Begin (__FUNCTION__, udSegments | udVertices | udWalls);
@@ -495,7 +503,7 @@ undoManager.Begin (__FUNCTION__, udSegments | udVertices | udWalls);
 // compute segment center
 if (!vertexManager.Add (nNewVerts, 19)) {
 	undoManager.Unroll (__FUNCTION__);
-	ErrorMsg ("Cannot split this segment because\nthe maximum number of vertices would be exceeded."); 
+	g_data.DoErrorMsg ("Cannot split this segment because\nthe maximum number of vertices would be exceeded.");
 	return false;
 	}
 CalcCenter (segCenter, Index (pRootSeg));
@@ -628,7 +636,7 @@ for (int i = 0; i < 8; i++) {
 
 memset (&rootSeg, 0, sizeof (rootSeg)); // beware of the d'tor
 undoManager.End (__FUNCTION__);
-DLE.MineView ()->Refresh ();
+g_data.RefreshMineView();
 return true;
 }
 
@@ -641,7 +649,9 @@ if (!DLE.IsD2XLevel ())
 	return false;
 #endif
 
-current->Get (nSegment, nSide);
+auto current = g_data.currentSelection;
+nSegment = current->SegmentId();
+nSide = current->SideId();
 
 	CSegment*	pSegment = Segment (nSegment);
 	CSide*		pSide = pSegment->Side (nSide);
@@ -664,8 +674,8 @@ if (nSegVerts [0] == nSegVerts [1])
 
 short nSides [2] = {nSide, pSegment->AdjacentSide (nSide, nEdgeVerts)};
 if ((pSegment->Side (nSides [0])->VertexCount () < 4) && (pSegment->Side (nSides [1])->VertexCount () < 4)) {
-	if (!DLE.ExpertMode ())
-		ErrorMsg ("Cannot further collapse this segment."); 
+	if (!g_data.ExpertMode ())
+		g_data.DoErrorMsg ("Cannot further collapse this segment.");
 	return false;
 	}
 
@@ -760,10 +770,11 @@ if (!DLE.IsD2XLevel ())
 	return false;
 #endif
 
+	auto current = g_data.currentSelection;
 	CSegment* pSegment = current->Segment ();
 
 if (pSegment->Shape () != SEGMENT_SHAPE_CUBE) {
-	ErrorMsg ("Cannot turn this segment in a wedge.\nTry to collapse individual edges instead."); 
+	g_data.DoErrorMsg ("Cannot turn this segment in a wedge.\nTry to collapse individual edges instead.");
 	return false;
 	}
 
@@ -784,7 +795,7 @@ if (!CollapseEdge (-1, -1, nLine % current->Side ()->VertexCount ())) {
 	return false;
 	}
 pSegment->SetShape (SEGMENT_SHAPE_WEDGE);
-DLE.MineView ()->NextSide (1);
+g_data.AdvanceMineViewSide();
 undoManager.End (__FUNCTION__);
 return true;
 }
@@ -798,10 +809,11 @@ if (!DLE.IsD2XLevel ())
 	return false;
 #endif
 
+	auto current = g_data.currentSelection;
 	CSegment* pSegment = current->Segment ();
 
 if (pSegment->Shape () != SEGMENT_SHAPE_CUBE) {
-	ErrorMsg ("Cannot turn this segment in a pyramid.\nTry to collapse individual edges instead."); 
+	g_data.DoErrorMsg ("Cannot turn this segment in a pyramid.\nTry to collapse individual edges instead.");
 	return false;
 	}
 
@@ -836,7 +848,7 @@ if (!(CollapseEdge (-1, -1, nLine % current->Side ()->VertexCount ()) && Collaps
 	return false;
 	}
 pSegment->SetShape (SEGMENT_SHAPE_PYRAMID);
-DLE.MineView ()->NextSide (1);
+g_data.AdvanceMineViewSide();
 undoManager.End (__FUNCTION__);
 return true;
 }

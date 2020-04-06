@@ -160,12 +160,13 @@ public:
 	virtual short ObjectId() = 0;
 	virtual CSegment* Segment() = 0;
 	virtual CSide* Side() = 0;
-	virtual CVertex* Vertex(short vertexNum) = 0;
+	virtual CVertex* Vertex(short vertexNum = 0) = 0;
 	virtual void Get(CSideKey& key) = 0;
 	virtual CGameObject* Object() = 0;
 
 	virtual short SetSegmentId(short segmentNum) = 0;
 	virtual short SetObjectId(short objectNum) = 0;
+	virtual void Fix(short segmentNum) = 0;
 };
 
 struct GlobalData
@@ -197,6 +198,8 @@ public:
 	void RefreshMineView(bool all = true);
 	void DelayMineViewRefresh(bool addDelay);
 	void ResetMineView();
+	void AdvanceMineViewSide();
+	void RefreshToolView();
 	void EnsureValidSelection();
 	void DoInfoMsg(const char* msg);
 	void DoErrorMsg(const char* msg);

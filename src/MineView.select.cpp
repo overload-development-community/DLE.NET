@@ -636,5 +636,90 @@ for (short i = nSegments; i; i--) {
 	}
 }
 
+void CMineView::TagSelected()
+{
+	bool	bSegTag = false;
+	CSegment* pSegment = current->Segment();
+	int i, j, p[8], nPoints;
+	uint selectMode = DLE.MineView()->GetSelectMode();
+
+	switch (selectMode) {
+	case eSelectPoint:
+		nPoints = 1;
+		p[0] = current->VertexId();
+		break;
+
+	case eSelectLine:
+		nPoints = 2;
+		p[0] = pSegment->VertexId(current->Side()->VertexIdIndex(current->Point()));
+		p[1] = pSegment->VertexId(current->Side()->VertexIdIndex(current->Point() + 1));
+		break;
+
+	case eSelectSide:
+		nPoints = current->Side()->VertexCount();
+		for (i = 0; i < nPoints; i++)
+			p[i] = pSegment->VertexId(current->Side()->VertexIdIndex(i));
+		break;
+
+	case eSelectSegment:
+	default:
+		nPoints = 8;
+		for (i = 0, j = 0; i < nPoints; i++) {
+			p[j] = pSegment->VertexId(i);
+			if (p[j] <= MAX_VERTEX)
+				j++;
+		}
+		nPoints = j;
+		break;
+	}
+
+	// set i to nPoints if all verts are marked
+	for (i = 0; i < nPoints; i++)
+		if (!vertexManager[p[i]].IsTagged())
+			break;
+
+	if (i == nPoints) { // if all verts are tagged, then untag them
+		switch (selectMode) {
+		case eSelectPoint:
+		case eSelectLine:
+			for (i = 0; i < nPoints; i++)
+				vertexManager[p[i]].UnTag();
+			break;
+
+		case eSelectSide:
+			current->Segment()->UnTag(current->SideId());
+			current->Segment()->UnTagVertices(TAGGED_MASK, current->SideId());
+			break;
+
+		case eSelectSegment:
+		default:
+			current->Segment()->UnTag();
+			current->Segment()->UnTagVertices(TAGGED_MASK, -1);
+			break;
+		}
+	}
+	else { // otherwise tag all the points
+		switch (selectMode) {
+		case eSelectPoint:
+		case eSelectLine:
+			for (i = 0; i < nPoints; i++)
+				vertexManager[p[i]].Tag();
+			break;
+
+		case eSelectSide:
+			current->Segment()->Tag(current->SideId());
+			current->Segment()->TagVertices(TAGGED_MASK, current->SideId());
+			break;
+
+		case eSelectSegment:
+		default:
+			current->Segment()->Tag();
+			current->Segment()->TagVertices(TAGGED_MASK, -1);
+			break;
+		}
+	}
+	DLE.MineView()->Refresh();
+}
+
 //------------------------------------------------------------------------------
 //eof

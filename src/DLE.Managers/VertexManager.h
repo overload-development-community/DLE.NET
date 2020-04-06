@@ -3,7 +3,7 @@
 
 //------------------------------------------------------------------------
 
-#define MAX_VERTICES ((theMine == null) ? MAX_VERTICES_D2 : DLE.IsD1File () ? MAX_VERTICES_D1 : DLE.IsStdLevel () ? MAX_VERTICES_D2 : VERTEX_LIMIT)
+#define MAX_VERTICES ((theMine == null) ? MAX_VERTICES_D2 : g_data.IsD1File () ? MAX_VERTICES_D1 : g_data.IsStdLevel () ? MAX_VERTICES_D2 : VERTEX_LIMIT)
 
 //------------------------------------------------------------------------
 

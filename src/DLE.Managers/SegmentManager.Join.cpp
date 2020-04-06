@@ -1,6 +1,8 @@
 // Segment.cpp
 
 #include "stdafx.h"
+#include "TunnelMaker.h"
+#include "VertexManager.h"
 
 extern short nDbgSeg, nDbgSide;
 extern int nDbgVertex;
@@ -136,31 +138,33 @@ void CSegmentManager::JoinPoints (void)
 if (tunnelMaker.Active ()) 
 	return; 
 
-if (selections [0].m_nSegment== selections [1].m_nSegment) {
-	ErrorMsg ("You cannot join two points on the same segment.\n\n"
+auto current = g_data.currentSelection;
+auto other = g_data.otherSelection;
+
+if (current->SegmentId() == other->SegmentId()) {
+	g_data.DoErrorMsg ("You cannot join two points on the same segment.\n\n"
 				 "Hint: The two golden circles represent the current point, \n"
 				 "and the 'other' segment's current point.  Press 'P' to change the\n"
 				 "current point or press the space bar to switch to the other segment."); 
 	return;
 	}
 
-other = &selections [*current == selections [0]];
-seg1 = Segment (current->SegmentId ()); 
-seg2 = Segment (other->m_nSegment); 
+seg1 = Segment(current->SegmentId());
+seg2 = Segment(other->SegmentId());
 vert1 = seg1->m_info.vertexIds [current->Side ()->VertexIdIndex (current->Point ())]; 
 vert2 = seg2->m_info.vertexIds [other->Side ()->VertexIdIndex (other->Point ())]; 
 // make sure verts are different
 if (vert1== vert2) {
-	ErrorMsg ("These points are already joined."); 
+	g_data.DoErrorMsg ("These points are already joined.");
 	return; 
 	}
 // make sure there are distances are close enough
 distance = Distance (*vertexManager.Vertex (vert1), *vertexManager.Vertex (vert2)); 
 if (distance > MAX_JOIN_DISTANCE) {
-	ErrorMsg ("Points are too far apart to join.");
+	g_data.DoErrorMsg ("Points are too far apart to join.");
 	return; 
 	}
-if (QueryMsg("Are you sure you want to join the current point\n"
+if (g_data.DoQueryMsg("Are you sure you want to join the current point\n"
 				 "with the 'other' segment's current point?") != IDYES)
 	return; 
 undoManager.Begin (__FUNCTION__, udSegments);
@@ -171,7 +175,7 @@ seg1->m_info.vertexIds [current->Side ()->VertexIdIndex (current->Point ())] = v
 FixChildren (); 
 undoManager.End (__FUNCTION__);
 SetLinesToDraw (); 
-DLE.MineView ()->Refresh ();
+g_data.RefreshMineView();
 }
 
 // ----------------------------------------------------------------------------- 
@@ -190,29 +194,31 @@ void CSegmentManager::JoinLines (void)
 if (tunnelMaker.Active ())
 	return; 
 
-if (selections [0].m_nSegment == selections [1].m_nSegment) {
-	ErrorMsg ("You cannot join two lines on the same segment.\n\n"
+auto current = g_data.currentSelection;
+auto other = g_data.otherSelection;
+
+if (current->SegmentId() == other->SegmentId()) {
+	g_data.DoErrorMsg ("You cannot join two lines on the same segment.\n\n"
 				"Hint: The two green lines represent the current line, \n"
 				"and the 'other' segment's current line.  Press 'L' to change\n"
 				"the current line or press the space bar to switch to the other segment."); 
 	return;
 	}
 
-other = &selections [*current == selections [0]];
-seg1 = Segment (current->SegmentId ()); 
-seg2 = Segment (other->m_nSegment); 
+seg1 = Segment(current->SegmentId());
+seg2 = Segment(other->SegmentId());
 
 for (i = 0; i < 2; i++) {
-	i1 [i] = seg1->VertexId (current->SideId (), current->Edge () + i);
-	i2 [i] = seg2->VertexId (other->m_nSide, other->Edge () + i);
-	v1 [i] = seg1->Vertex (current->SideId (), current->Edge () + i);
-	v2 [i] = seg2->Vertex (other->m_nSide, other->Edge () + i);
-	match [i] = -1; 
-	}
+	i1[i] = seg1->VertexId(current->SideId(), current->Edge() + i);
+	i2[i] = seg2->VertexId(other->SideId(), other->Edge() + i);
+	v1[i] = seg1->Vertex(current->SideId(), current->Edge() + i);
+	v2[i] = seg2->Vertex(other->SideId(), other->Edge() + i);
+	match[i] = -1;
+}
 
 // make sure verts are different
 if ((i1 [0] == i2 [0]) || (i1 [0] == i2 [1]) || (i1 [1] == i2 [0]) || (i1 [1] == i2 [1])) {
-	ErrorMsg ("Some or all of these points are already joined."); 
+	g_data.DoErrorMsg ("Some or all of these points are already joined."); 
 	return; 
 	}
 
@@ -230,11 +236,11 @@ for (i = 0; i < 2; i++) {
 
 // make sure there are distances are close enough
 if ((match [0] < 0) || (match [1] < 0)) {
-	ErrorMsg ("Lines are too far apart to join.");
+	g_data.DoErrorMsg ("Lines are too far apart to join.");
 	return; 
 	}
 
-if (QueryMsg("Are you sure you want to join the current line\n"
+if (g_data.DoQueryMsg("Are you sure you want to join the current line\n"
 				 "with the 'other' segment's current line?") != IDYES)
 	return; 
 
@@ -250,7 +256,7 @@ for (i = 0; i < 2; i++)
 FixChildren (); 
 undoManager.End (__FUNCTION__);
 SetLinesToDraw (); 
-DLE.MineView ()->Refresh ();
+g_data.RefreshMineView();
 }
 
 // ----------------------------------------------------------------------------- 
@@ -405,8 +411,10 @@ class CSideMatcher {
 
 bool CSegmentManager::FindNearbySide (CSideKey thisKey, CSideKey& otherKey, short& thisPoint, short& otherPoint, tVertMatch* match)
 {
-thisPoint = (thisKey == *current) ? current->Point () : 0;
-otherKey.m_nSegment = -1;
+	thisPoint = (thisKey.m_nSegment == g_data.currentSelection->SegmentId() && thisKey.m_nSide == g_data.currentSelection->SideId()) ?
+		g_data.currentSelection->Point() : 0;
+	otherKey.m_nSegment = -1;
+
 // find first segment (other than this segment) which shares all points
 // of the current side (points must be < 5.0 away)
 
@@ -436,8 +444,8 @@ for (int nSegment = 0; nSegment < nSegments; nSegment++) {
 
 if (sideMatcher.GetBestMatch (otherKey, otherPoint, match))
 	return true;
-if (!DLE.ExpertMode ())
-	ErrorMsg ("Could not find any other segment's side that is within\n10.0 units from the current side"); 
+if (!g_data.ExpertMode ())
+	g_data.DoErrorMsg ("Could not find any other segment's side that is within\n10.0 units from the current side"); 
 return false; 
 }
 
@@ -457,8 +465,8 @@ void CSegmentManager::Join (CSideKey thisKey, bool bFind)
 if (tunnelMaker.Active ()) 
 	return; 
 if (Segment (thisKey.m_nSegment)->ChildId (thisKey.m_nSide) != -1) {
-	if (!DLE.ExpertMode ())
-		ErrorMsg ("The current side is already joined to another segment"); 
+	if (!g_data.ExpertMode ())
+		g_data.DoErrorMsg ("The current side is already joined to another segment"); 
 	return; 
 	}
 
@@ -469,20 +477,20 @@ if (bFind) {
 	bJoin = true;
 	}
 else {
-	otherKey = *other; 
-	otherPoint = other->Point ();
-	thisPoint = current->Point ();
+	g_data.otherSelection->Get(otherKey);
+	otherPoint = g_data.otherSelection->Point ();
+	thisPoint = g_data.currentSelection->Point ();
 	if (thisKey.m_nSegment == otherKey.m_nSegment) {
-		if (!DLE.ExpertMode ())
-			ErrorMsg ("You cannot join two sides on the same segment.\n\n"
+		if (!g_data.ExpertMode ())
+			g_data.DoErrorMsg ("You cannot join two sides on the same segment.\n\n"
 						 "Hint: The two red squares represent the current side, \n"
 						 "and the 'other' segment's current side.  Press 'S' to change\n"
 						 "the current side or press the space bar to switch to the other segment."); 
 		return; 
 		}
 	else if (Segment (otherKey)->ChildId (otherKey.m_nSide) != -1) {
-		if (!DLE.ExpertMode ())
-			ErrorMsg ("The selected side of the 'other' segment\n"
+		if (!g_data.ExpertMode ())
+			g_data.DoErrorMsg ("The selected side of the 'other' segment\n"
 						"is already joined to another segment.");
 		return;
 		}
@@ -491,8 +499,8 @@ else {
 	sideMatcher.SetSide (1, otherKey);
 	sideMatcher.Match (double (MAX_JOIN_DISTANCE));
 	if (!sideMatcher.GetBestMatch (otherKey, otherPoint, match)) {
-		if (!DLE.ExpertMode ())
-			ErrorMsg ("Sides are too far apart to join.\n\n"
+		if (!g_data.ExpertMode ())
+			g_data.DoErrorMsg ("Sides are too far apart to join.\n\n"
 						 "Hint: Segment edge lengths should not exceed 400 unit in any dimension\n"
 						 "or they will distort when viewed from close up."); 
 		return; 
@@ -506,11 +514,11 @@ if (bJoin) {
 	LinkSides (thisKey.m_nSegment, thisKey.m_nSide, otherKey.m_nSegment, otherKey.m_nSide, match); 
 	undoManager.End (__FUNCTION__);
 	SetLinesToDraw (); 
-	DLE.MineView ()->Refresh ();
+	g_data.RefreshMineView();
 	return; 
 	}
 
-if (QueryMsg ("Do you want to create a new segment which\n"
+if (g_data.DoQueryMsg ("Do you want to create a new segment which\n"
 				  "connects the current side with the 'other' side?\n\n"
 				  "Hint: Make sure you have the current point of each segment\n"
 				  "on the corners you want to be connected.\n"
@@ -521,8 +529,8 @@ undoManager.Begin (__FUNCTION__, udSegments);
 
 thisKey.m_nSegment = Create (thisKey, EXTEND);
 if (thisKey.m_nSegment < 0) {
-	if (!DLE.ExpertMode ())
-		ErrorMsg ("The maximum number of segments has been reached.\nCannot add any more segments."); 
+	if (!g_data.ExpertMode ())
+		g_data.DoErrorMsg ("The maximum number of segments has been reached.\nCannot add any more segments."); 
 	undoManager.Unroll (__FUNCTION__);
 	return;
 	}
@@ -532,7 +540,7 @@ if (thisKey.m_nSegment < 0) {
 LinkSides (thisKey.m_nSegment, thisKey.m_nSide, otherKey.m_nSegment, otherKey.m_nSide, match); 
 undoManager.End (__FUNCTION__);
 SetLinesToDraw(); 
-DLE.MineView ()->Refresh ();
+g_data.RefreshMineView();
 }
 
 // -----------------------------------------------------------------------------
@@ -543,6 +551,8 @@ DLE.MineView ()->Refresh ();
 
 void CSegmentManager::JoinSegments ()
 {
+	auto current = g_data.currentSelection;
+	auto other = g_data.otherSelection;
 	CSegment *pCurrent = current->Segment ();
 	CSegment *pOther = other->Segment ();
 	CSide *pJoinSideCurrent = null;
@@ -567,8 +577,8 @@ for (short nSide = 0; nSide < MAX_SIDES_PER_SEGMENT; nSide++) {
 	}
 if (pJoinSideCurrent == null || pJoinSideOther == null) {
 	bValid = false;
-	if (!DLE.ExpertMode ())
-		ErrorMsg ("The selected cube and 'other' cube must be adjacent to be joined.\n\n"
+	if (!g_data.ExpertMode ())
+		g_data.DoErrorMsg ("The selected cube and 'other' cube must be adjacent to be joined.\n\n"
 			"Hint: Join a side of the selected cube to the other cube first, then join the cubes.");
 	return;
 	}
@@ -604,8 +614,8 @@ if (pOppositeSideCurrent->VertexCount () < 3 ||
 	 pOppositeSideCurrent->VertexCount () != pOppositeSideOther->VertexCount ())
 	bValid = false;
 if (!bValid) {
-	if (!DLE.ExpertMode ())
-		ErrorMsg ("Cannot join these cubes because the resulting cube would have illegal geometry.");
+	if (!g_data.ExpertMode ())
+		g_data.DoErrorMsg ("Cannot join these cubes because the resulting cube would have illegal geometry.");
 	return;
 	}
 
@@ -628,7 +638,7 @@ if (pOppositeSideOther->Child () != null) {
 			}
 		}
 	if (nSide == 6) {
-		ErrorMsg ("Error: Other cube is not correctly joined to its neighboring cubes.\n"
+		g_data.DoErrorMsg ("Error: Other cube is not correctly joined to its neighboring cubes.\n"
 			"Try running diagnostics with \"auto fix bugs\" checked.");
 		return;
 		}
@@ -644,8 +654,8 @@ sideMatcher.SetSide (1, joinSideKey);
 sideMatcher.Match ();
 short joinPoint;
 if (!sideMatcher.GetBestMatch (joinSideKey, joinPoint, match)) {
-	if (!DLE.ExpertMode ())
-		ErrorMsg ("Error: Unable to join the current cube to the opposite side.");
+	if (!g_data.ExpertMode ())
+		g_data.DoErrorMsg ("Error: Unable to join the current cube to the opposite side.");
 	return; 
 	}
 
@@ -749,7 +759,7 @@ Delete (other->SegmentId ());
 
 undoManager.End (__FUNCTION__);
 SetLinesToDraw ();
-DLE.MineView ()->Refresh ();
+g_data.RefreshMineView();
 }
 
 // ----------------------------------------------------------------------------- 
@@ -760,8 +770,8 @@ DLE.MineView ()->Refresh ();
 
 void CSegmentManager::FixChildren (void)
 {
-short nNewSeg = current->SegmentId (); 
-short nNewSide = current->SideId (); 
+short nNewSeg = g_data.currentSelection->SegmentId (); 
+short nNewSide = g_data.currentSelection->SideId (); 
 
 CSegment*	pNewSeg = Segment (nNewSeg);
 CVertex*		vNewSeg = vertexManager.Vertex (pNewSeg->m_info.vertexIds [0]);

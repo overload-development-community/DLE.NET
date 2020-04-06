@@ -83,6 +83,16 @@ void GlobalData::ResetMineView()
     DLE.MineView()->ResetView(true);
 }
 
+void GlobalData::AdvanceMineViewSide()
+{
+    DLE.MineView()->NextSide();
+}
+
+void GlobalData::RefreshToolView()
+{
+    DLE.ToolView()->Refresh();
+}
+
 void GlobalData::EnsureValidSelection()
 {
     // wrap back then forward to make sure segment is valid
