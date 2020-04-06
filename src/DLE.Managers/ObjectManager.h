@@ -3,9 +3,9 @@
 
 //------------------------------------------------------------------------
 
-#define MAX_OBJECTS ((theMine == null) ? MAX_OBJECTS_D2 : DLE.IsStdLevel () ? MAX_OBJECTS_D1 : MAX_OBJECTS_D2)
+#define MAX_OBJECTS ((theMine == null) ? MAX_OBJECTS_D2 : g_data.IsStdLevel () ? MAX_OBJECTS_D1 : MAX_OBJECTS_D2)
 
-#define MAX_PLAYERS ((theMine == null) ? MAX_PLAYERS_D2 : DLE.IsStdLevel () ? MAX_PLAYERS_D2 : MAX_PLAYERS_D2X)
+#define MAX_PLAYERS ((theMine == null) ? MAX_PLAYERS_D2 : g_data.IsStdLevel () ? MAX_PLAYERS_D2 : MAX_PLAYERS_D2X)
 
 //------------------------------------------------------------------------
 

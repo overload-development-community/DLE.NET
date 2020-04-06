@@ -94,11 +94,10 @@ return nModel;
 
 //------------------------------------------------------------------------------
 
-int CModelManager::Setup (CGameObject *pObject, CRenderer* renderer, CDC* pDC) 
+int CModelManager::Setup(CGameObject* pObject, IRenderer* renderer)
 {
 m_renderer = renderer;
 m_viewMatrix = renderer->ViewMatrix ();
-m_pDC = pDC;
 
 m_offset.Clear ();
 m_data.nPoints = 0;
@@ -409,7 +408,7 @@ if (m_nModel >= 0) {
 
 		if (m_polyModels [1][m_nModel].Draw (m_viewMatrix, 0))
 			;
-		else if (m_renderModels [m_nModel].Render (m_viewMatrix, m_object))
+		else if (m_renderer->RenderModel(m_renderModels[m_nModel], m_object))
 			;
 		else
 			m_polyModels [0][m_nModel].Draw (m_viewMatrix, 0);

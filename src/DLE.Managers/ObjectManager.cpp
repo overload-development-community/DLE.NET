@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "VertexManager.h"
 
 CObjectManager objectManager;
 
@@ -6,7 +7,6 @@ CObjectManager objectManager;
 
 CObjectManager::CObjectManager ()
 {
-SortObjects () = GetPrivateProfileInt ("DLE", "SortObjects", objectManager.SortObjects (), DLE.IniFile ());
 }
 
 // -----------------------------------------------------------------------------
@@ -72,6 +72,8 @@ do {
 		r--;
 	if (l <= r) {
 		if (l < r) {
+			auto current = g_data.currentSelection;
+			auto other = g_data.otherSelection;
 			Swap (m_objects [l], m_objects [r]);
 			if (current->ObjectId () == l)
 				current->SetObjectId (r);
@@ -123,7 +125,7 @@ bool CObjectManager::HaveResources (void)
 {
 if (Count () < MAX_OBJECTS)
 	return true;
-ErrorMsg ("The maximum number of objects has already been reached.");
+g_data.DoErrorMsg ("The maximum number of objects has already been reached.");
 return false;
 }
 
@@ -153,7 +155,7 @@ return Count ()++;
 bool CObjectManager::Create (ubyte newType, short nSegment) 
 {
 	short ids [MAX_PLAYERS_D2X + MAX_COOP_PLAYERS] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-	CGameObject *pObject, *currObjP;
+	CGameObject *pObject = nullptr, *currObjP;
 	ubyte type;
 	short nObject, id;
 
@@ -162,7 +164,7 @@ bool CObjectManager::Create (ubyte newType, short nSegment)
 if (!HaveResources ())
 	return false;
 
-type = (newType == OBJ_NONE) ? current->Object ()->m_info.type : newType;
+type = (newType == OBJ_NONE) ? g_data.currentSelection->Object ()->m_info.type : newType;
 
 // Make sure it is ok to add another object of this type
 // Set the id if it's a player or coop
@@ -181,7 +183,7 @@ if ((type == OBJ_PLAYER) || (type == OBJ_COOP)) {
 				char szMsg [80];
 
 			sprintf_s (szMsg, sizeof (szMsg), "There are already %d players in the mine", MAX_PLAYERS);
-			ErrorMsg (szMsg);
+			g_data.DoErrorMsg (szMsg);
 			return false;
 			}
 		}
@@ -192,7 +194,7 @@ if ((type == OBJ_PLAYER) || (type == OBJ_COOP)) {
 				char szMsg [80];
 
 			sprintf_s (szMsg, sizeof (szMsg), "There are already %d cooperative players in the mine", MAX_COOP_PLAYERS);
-			ErrorMsg (szMsg);
+			g_data.DoErrorMsg (szMsg);
 			return false;
 			}
 		}
@@ -203,13 +205,13 @@ if ((type == OBJ_PLAYER) || (type == OBJ_COOP)) {
 undoManager.Begin (__FUNCTION__, udObjects);
 nObject = Add ();
 if (nObject == 0) {
-	Object (0)->Create (OBJ_PLAYER, (nSegment < 0) ? current->SegmentId () : nSegment);
+	Object (0)->Create (OBJ_PLAYER, (nSegment < 0) ? g_data.currentSelection->SegmentId () : nSegment);
 	nObject = 0;
 	}
 else {
 	// Make a copy of the current object
 	pObject = Object (nObject);
-	currObjP = current->Object ();
+	currObjP = g_data.currentSelection->Object ();
 	memcpy (pObject, currObjP, sizeof (CGameObject));
 	}
 pObject->m_info.flags = 0;                                      // new: 1/27/97
@@ -219,7 +221,7 @@ CVertex center;
 //pObject->Position () = segmentManager.CalcCenter (center, current->SegmentId ());
 //pObject->m_location.lastPos = pObject->Position ();
 pObject->Info ().nSegment = -1;
-current->SetObjectId (nObject);
+g_data.currentSelection->SetObjectId (nObject);
 Move (pObject);
 // set the id if new object is a player or a coop
 if ((type == OBJ_PLAYER) || (type == OBJ_COOP))
@@ -233,8 +235,8 @@ pObject->m_info.contents.id = 0;
 pObject->m_info.contents.count = 0;
 Sort ();
 pObject->Backup ();
-DLE.MineView ()->Refresh (false);
-DLE.ToolView ()->ObjectTool ()->Refresh ();
+g_data.RefreshMineView(false);
+g_data.RefreshObjectTool();
 undoManager.End (__FUNCTION__);
 return true;
 }
@@ -244,25 +246,25 @@ return true;
 void CObjectManager::Delete (short nDelObj, bool bUndo)
 {
 if (Count () == 0) {
-	if (!DLE.ExpertMode ())
-		ErrorMsg ("There are no objects in the mine.");
+	if (!g_data.ExpertMode ())
+		g_data.DoErrorMsg ("There are no objects in the mine.");
 	return;
 	}
 if (Count () == 1) {
-	if (!DLE.ExpertMode ())
-		ErrorMsg ("Cannot delete the last object.");
+	if (!g_data.ExpertMode ())
+		g_data.DoErrorMsg ("Cannot delete the last object.");
 	return;
 	}
 if (nDelObj < 0)
-	nDelObj = current->ObjectId ();
+	nDelObj = g_data.currentSelection->ObjectId ();
 if (nDelObj == Count ()) {
-	if (!DLE.ExpertMode ())
-		ErrorMsg ("Cannot delete the secret return.");
+	if (!g_data.ExpertMode ())
+		g_data.DoErrorMsg ("Cannot delete the secret return.");
 	return;
 	}
 undoManager.Begin (__FUNCTION__, udObjects);
 if (nDelObj < 0)
-	nDelObj = current->ObjectId ();
+	nDelObj = g_data.currentSelection->ObjectId ();
 triggerManager.DeleteObjTriggers (nDelObj);
 Object (nDelObj)->Backup (opDelete);
 if (nDelObj < --Count ()) {
@@ -273,10 +275,10 @@ if (nDelObj < --Count ()) {
 	triggerManager.RenumberObjTriggers ();
 	triggerManager.RenumberTargetObjs ();
 	}
-if (selections [0].ObjectId () >= Count ())
-	selections [0].SetObjectId (Count () - 1);
-if (selections [1].ObjectId () >= Count ())
-	selections [1].SetObjectId (Count () - 1);
+if (g_data.currentSelection->ObjectId () >= Count ())
+	g_data.currentSelection->SetObjectId (Count () - 1);
+if (g_data.otherSelection->ObjectId () >= Count ())
+	g_data.otherSelection->SetObjectId (Count () - 1);
 undoManager.End (__FUNCTION__);
 }
 
@@ -328,6 +330,7 @@ if (QueryMsg ("Are you sure you want to move the\n"
 				 "current object to the current segment?\n") != IDYES)
 	return;
 #endif
+auto current = g_data.currentSelection;
 undoManager.Begin (__FUNCTION__, udObjects);
 if (pObject == null)
 	pObject = current->Object ();
@@ -365,7 +368,7 @@ else {
 		pObject->Info ().nSegment = nSegment;
 		}
 	}
-DLE.MineView ()->Refresh (false);
+g_data.RefreshMineView(false);
 undoManager.End (__FUNCTION__);
 }
 

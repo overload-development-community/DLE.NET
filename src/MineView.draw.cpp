@@ -1017,7 +1017,7 @@ else {
 	}
 
 double d = (ViewOption (eViewTexturedWireFrame) || ViewOption (eViewTextured)) ? ViewMatrix ()->Distance (pObject->Position ()) : 1e30;
-if (textureManager.Available (1) && pObject->HasPolyModel () && modelManager.Setup (pObject, m_renderer, DC ()) && ((nObject == current->ObjectId ()) || (d <= MODEL_DISPLAY_LIMIT))) {
+if (textureManager.Available (1) && pObject->HasPolyModel () && modelManager.Setup (pObject, m_renderer) && ((nObject == current->ObjectId ()) || (d <= MODEL_DISPLAY_LIMIT))) {
 	SelectObjectPen (pObject);
 	if (pObject->IsInView (Renderer (), true)) { // only render if fully visible
 		Renderer ().SelectObject ((HBRUSH) GetStockObject (BLACK_BRUSH));

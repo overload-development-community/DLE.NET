@@ -103,9 +103,6 @@
     <ClInclude Include="..\buildmodel.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\rendermodel.h">
-      <Filter>UI\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\glew.h">
       <Filter>OpenGL\Header Files</Filter>
     </ClInclude>
@@ -294,13 +291,7 @@
     <ClCompile Include="..\WallTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ObjectManager.cpp">
-      <Filter>Managers\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\PaletteManager.cpp">
-      <Filter>Managers\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\RobotManager.cpp">
       <Filter>Managers\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\SegmentManager.Add.cpp">
@@ -397,9 +388,6 @@
       <Filter>UI\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\OOFRenderModel.cpp">
-      <Filter>UI\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\RenderModel.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\glew.cpp">

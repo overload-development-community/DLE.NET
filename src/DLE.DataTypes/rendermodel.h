@@ -1,9 +1,5 @@
-
 #ifndef _RENDERMODEL_H
 #define _RENDERMODEL_H
-
-#include "asemodel.h"
-#include "oofmodel.h"
 
 namespace RenderModel {
 
@@ -109,7 +105,6 @@ class CSubModel {
 		void GatherVertices (CDynamicArray<CVertex>& source, CDynamicArray<CVertex>& dest);
 		void Size (CModel* pm, CObject* pObject, CFixVector* vOffset);
 		int Filter (int nGunId = 0, int nBombId = 0, int nMissileId = 0, int nMissiles = 4);
-		void Render (CModel& model, short nSubModel, int nGunId = 0, int nBombId = 0, int nMissileId = 0, int nMissiles = 4);
 	};
 
 inline int operator- (RenderModel::CSubModel* f, CDynamicArray<RenderModel::CSubModel>& a) { return a.Index (f); }
@@ -175,8 +170,6 @@ class CModel {
 		int BuildFromASE (ASE::CModel& aseModel);
 		int BuildFromOOF (OOF::CModel& oofModel);
 		int BuildFromPOF (int nModel, CPolyModel& polyModel, CDynamicArray<CTexture*>& modelTextures, CFloatVector* objColorP);
-
-		int Render (CViewMatrix* view, CGameObject* pObject, int nGunId = 0, int nBombId = 0, int nMissileId = 0, int nMissiles = 4);
 
 	private:
 		void CountASEModelItems (ASE::CModel& aseModel);

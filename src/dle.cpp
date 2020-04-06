@@ -426,6 +426,7 @@ rc.left = GetPrivateProfileInt ("DLE", "xWin", 0, DLE.IniFile ());
 rc.top = GetPrivateProfileInt ("DLE", "yWin", 0, DLE.IniFile ());
 rc.right = rc.left + GetPrivateProfileInt ("DLE", "cxWin", 0, DLE.IniFile ());
 rc.bottom = rc.top + GetPrivateProfileInt ("DLE", "cyWin", 0, DLE.IniFile ());
+objectManager.SortObjects() = GetPrivateProfileInt("DLE", "SortObjects", objectManager.SortObjects(), DLE.IniFile());
 
 hMonitor = MonitorFromRect (&rc, MONITOR_DEFAULTTONULL);
 if (!hMonitor) {

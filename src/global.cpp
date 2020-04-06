@@ -183,24 +183,34 @@ double GlobalData::GetMineMoveRate()
     return DLE.MineView()->MineMoveRate();
 }
 
-std::vector<byte> GlobalData::GetDefaultLightTable()
+std::vector<byte> GlobalData::LoadResourceAsBlob(const char* resourceName)
 {
     CResource res;
-    if (!res.Load(DLE.IsD1File() ? IDR_LIGHT_D1 : IDR_LIGHT_D2))
+    if (!res.Load(resourceName))
     {
         return std::vector<byte>();
     }
     return std::vector<byte>(res.Data(), res.Data() + res.Size());
 }
 
-std::vector<byte> GlobalData::GetDefaultColorTable()
+std::vector<byte> LoadResourceAsBlob(int resourceId)
 {
     CResource res;
-    if (!res.Load(DLE.IsD1File() ? IDR_COLOR_D1 : IDR_COLOR_D2))
+    if (!res.Load(resourceId))
     {
         return std::vector<byte>();
     }
     return std::vector<byte>(res.Data(), res.Data() + res.Size());
+}
+
+std::vector<byte> GlobalData::GetDefaultLightTable()
+{
+    return ::LoadResourceAsBlob(DLE.IsD1File() ? IDR_LIGHT_D1 : IDR_LIGHT_D2);
+}
+
+std::vector<byte> GlobalData::GetDefaultColorTable()
+{
+    return ::LoadResourceAsBlob(DLE.IsD1File() ? IDR_COLOR_D1 : IDR_COLOR_D2);
 }
 
 std::vector<std::string> GlobalData::LoadTextureNames(int gameVersion)
@@ -221,12 +231,7 @@ std::vector<std::string> GlobalData::LoadTextureNames(int gameVersion)
 
 std::vector<byte> GlobalData::LoadTextureIndex(int gameVersion)
 {
-    CResource res;
-    if (!res.Load(gameVersion ? IDR_TEXTURE2_DAT : IDR_TEXTURE_DAT))
-    {
-        return std::vector<byte>();
-    }
-    return std::vector<byte>(res.Data(), res.Data() + res.Size());
+    return ::LoadResourceAsBlob(gameVersion ? IDR_TEXTURE2_DAT : IDR_TEXTURE_DAT);
 }
 
 void GlobalData::LoadArrowTexture(CTexture& texture)
@@ -253,6 +258,11 @@ void GlobalData::ResetTextureView()
 {
     DLE.TextureView()->Setup();
     DLE.TextureView()->Refresh();
+}
+
+void GlobalData::RefreshObjectTool()
+{
+    DLE.ToolView()->ObjectTool()->Refresh();
 }
 
 bool GlobalData::GLCreateTexture(CTexture* texture, bool bForce)

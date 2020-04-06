@@ -157,13 +157,15 @@ public:
 	virtual short SideId() = 0;
 	virtual short Edge() = 0;
 	virtual short Point() = 0;
-	virtual CGameObject* Object() = 0;
+	virtual short ObjectId() = 0;
 	virtual CSegment* Segment() = 0;
 	virtual CSide* Side() = 0;
 	virtual CVertex* Vertex(short vertexNum) = 0;
 	virtual void Get(CSideKey& key) = 0;
+	virtual CGameObject* Object() = 0;
 
 	virtual short SetSegmentId(short segmentNum) = 0;
+	virtual short SetObjectId(short objectNum) = 0;
 };
 
 struct GlobalData
@@ -214,6 +216,7 @@ public:
 	void SetD2Path(const char* newPath); // for palette switching
 	const char* GetAppFolder();
 	double GetMineMoveRate();
+	std::vector<byte> LoadResourceAsBlob(const char* resourceName);
 	std::vector<byte> GetDefaultLightTable();
 	std::vector<byte> GetDefaultColorTable();
 	std::vector<std::string> LoadTextureNames(int gameVersion);
@@ -223,6 +226,7 @@ public:
 	bool MakeModFolders(const char* subfolderName);
 	const char* GetModFolder(int folderNumber);
 	void ResetTextureView();
+	void RefreshObjectTool();
 
 	// Can't include DrawHelpers.h in DLE.DataTypes due to MFC...
 	// may move this later

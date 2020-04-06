@@ -297,7 +297,6 @@
     <ClInclude Include="..\ViewMatrix.h" />
     <ClInclude Include="..\wglew.h" />
     <ClInclude Include="..\buildmodel.h" />
-    <ClInclude Include="..\rendermodel.h" />
     <ClInclude Include="..\oglmatrix.h" />
     <ClInclude Include="..\ResourceManager.h" />
     <ClInclude Include="..\Selection.h" />
@@ -388,11 +387,8 @@
     <ClCompile Include="..\ViewMatrix.cpp" />
     <ClCompile Include="..\ASERenderModel.cpp" />
     <ClCompile Include="..\buildmodel.cpp" />
-    <ClCompile Include="..\RenderModel.cpp" />
-    <ClCompile Include="..\ObjectManager.cpp" />
     <ClCompile Include="..\PaletteManager.cpp" />
     <ClCompile Include="..\ResourceManager.cpp" />
-    <ClCompile Include="..\RobotManager.cpp" />
     <ClCompile Include="..\SegmentManager.Add.cpp" />
     <ClCompile Include="..\SegmentManager.cpp" />
     <ClCompile Include="..\SegmentManager.IO.cpp" />

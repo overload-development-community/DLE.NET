@@ -59,7 +59,7 @@ class CRobotManager : public IRobotManager {
 
 		int ReadHXM (CFileManager& fp, long size, bool bCustom = true); 
 
-		int CRobotManager::ReadHXM (const char* filename, char *szSubFile = null, bool bCustom = true);
+		int ReadHXM (const char* filename, char *szSubFile = null, bool bCustom = true);
 
 		void ClearHXMData ();
 

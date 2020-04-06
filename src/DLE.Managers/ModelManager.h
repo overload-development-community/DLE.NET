@@ -38,9 +38,8 @@ class CModelManager : public IModelManager {
 		CGameObject*		m_object;
 		CModelRenderData	m_data;
 		CModelRenderPoly*	m_face;
-		CRenderer*			m_renderer;
-		CViewMatrix*		m_viewMatrix;
-		CDC*					m_pDC;
+		IRenderer*			m_renderer;
+		IViewMatrix*		m_viewMatrix;
 		CVertex				m_offset;
 		CDoubleVector		m_normal;
 		CLongVector			m_screenRect [2];
@@ -71,7 +70,7 @@ class CModelManager : public IModelManager {
 	public:
 		CModelManager () : m_nGlow(-1), m_lastObjType(-1), m_lastObjId(-1) {}
 
-		int Setup (CGameObject* pObject, CRenderer* renderer, CDC* pDC);
+		int Setup (CGameObject* pObject, IRenderer* renderer);
 
 		void Reset (void);
 

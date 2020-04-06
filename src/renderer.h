@@ -210,6 +210,8 @@ class CRenderer : public IRenderer
 		virtual void TexturedPolygon (const CTexture* pTexture, tTexCoord2d* texCoords, rgbColord* color, CVertex* vertices, int nVertices, ushort* index) = 0;
 		virtual void TexturedPolygon (short nTexture, tTexCoord2d* texCoords, rgbColord* color, CVertex* vertices, int nVertices, ushort* index) = 0;
 		virtual void Sprite (const CTexture* pTexture, CVertex center, double width, double height, bool bAlways = false) = 0;
+		virtual int RenderModel(RenderModel::CModel& model, CGameObject* object, int nGunId, int nBombId, int nMissileId, int nMissiles);
+		void RenderSubModel(RenderModel::CModel& model, short nSubModel, int nGunId = 0, int nBombId = 0, int nMissileId = 0, int nMissiles = 4);
 
 		virtual int Type (void) = 0;
 		virtual bool SetPerspective (int nPerspective, bool bKeepPosition = false) = 0;
