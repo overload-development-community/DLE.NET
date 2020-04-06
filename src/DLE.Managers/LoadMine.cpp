@@ -1,6 +1,16 @@
 // Copyright (c) 1998 Bryan Aamot, Brainware
 
 #include "stdafx.h"
+#include "MemoryFile.h"
+#include "mine.h"
+#include "HogManager.h"
+#include "LightManager.h"
+#include "PaletteManager.h"
+#include "RobotManager.h"
+#include "TextureManager.h"
+#include "TunnelMaker.h"
+#include "VertexManager.h"
+#include "WallManager.h"
 
 // -----------------------------------------------------------------------------
 
@@ -17,12 +27,12 @@ if (fp == null) {
 	if (CreateNewLevel (mf)) 
 		fp = &mf;
 	else {
-		CFileManager::SplitPath (IsD1File () ? descentFolder [0] : missionFolder, m_startFolder, null, null);
+		CFileManager::SplitPath (IsD1File () ? g_data.GetD1Path() : g_data.GetMissionFolder(), m_startFolder, null, null);
 		char filename [256];
 		sprintf_s (filename, sizeof (filename), IsD1File () ? "%new.rdl" : "%snew.rl2", m_startFolder);
 		if (!df.Open (filename, "rb")) {
 			sprintf_s (message, sizeof (message),  "Error %d: Can't open file \"%s\".", GetLastError (), filename);
-			ErrorMsg (message);
+			g_data.DoErrorMsg (message);
 			return -1;
 			}
 		fp = &df;
@@ -43,13 +53,13 @@ void CMine::Backup (const char* filename)
 	CFileManager	fp;
 	char				pszBackup1 [256], pszBackup2 [256];
 
-strcpy (pszBackup1, filename);
+strcpy_s (pszBackup1, filename);
 char* ps = strrchr (pszBackup1, '.');
 if (ps)
 	*ps = '\0';
-strcpy (pszBackup2, pszBackup1);
-strcat (pszBackup1, ".bak.1");
-strcat (pszBackup2, ".bak.2");
+strcpy_s (pszBackup2, pszBackup1);
+strcat_s (pszBackup1, ".bak.1");
+strcat_s (pszBackup2, ".bak.2");
 if (fp.Exist (pszBackup1)) {
 	if (fp.Exist (pszBackup2)) 
 		fp.Delete (pszBackup2);
@@ -72,8 +82,8 @@ short CMine::Load (CFileManager* fp, bool bLoadFromHog)
 {
 	bool bCreate = false;
 
-DLE.MineView ()->SetViewDistIndex (0);
-DLE.ToolView ()->Refresh ();
+g_data.ResetMineViewDistance();
+g_data.RefreshToolView();
 undoManager.Reset ();
 tunnelMaker.Destroy ();
 segmentManager.InitFogInfo ();
@@ -96,7 +106,7 @@ int errFlags = FixIndexValues ();
 if (errFlags == 0)
 	return 1;
 sprintf_s (message, sizeof (message),  "File contains corrupted data (error code %#04x). Would you like to load anyway? ", errFlags);
-if (QueryMsg (message) != IDYES) {
+if (g_data.DoQueryMsg (message) != IDYES) {
 	return LoadLevel (null, false) < 1;
 	}
 
@@ -109,7 +119,7 @@ short CMine::LoadMineSigAndType (CFileManager* fp)
 {
 int sig = fp->ReadInt32 ();
 if (sig != 'P'*0x1000000L + 'L'*0x10000L + 'V'*0x100 + 'L') {
-	ErrorMsg ("Signature value incorrect.");
+	g_data.DoErrorMsg ("Signature value incorrect.");
 	fp->Close ();
 	return 1;
 	}
@@ -124,7 +134,7 @@ else if ((LevelVersion () >= 6L) && (LevelVersion () <= LEVEL_VERSION)) {
 	}
 else {
 	sprintf_s (message, sizeof (message),  "Version %d unknown. Cannot load this level.", LevelVersion ());
-	ErrorMsg (message);
+	g_data.DoErrorMsg (message);
 	fp->Close ();
 	return 1;
 	}
@@ -135,35 +145,39 @@ return 0;
 
 void CMine::LoadPaletteName (CFileManager* fp, bool bCreate)
 {
-if (IsD2File ()) {
-	if (LevelVersion () >= 8) {
-		fp->ReadInt16 ();
-		fp->ReadInt16 ();
-		fp->ReadInt16 ();
-		fp->ReadSByte ();
+	if (IsD2File()) {
+		if (LevelVersion() >= 8) {
+			fp->ReadInt16();
+			fp->ReadInt16();
+			fp->ReadInt16();
+			fp->ReadSByte();
 		}
-	// read palette file name
-	paletteManager.LoadName (fp);
-	// try to find new pig file in same directory as Current () pig file
-	// 1) cut off old name
-	if (!bCreate) {
-		if (descentFolder [1][0] != 0) {
-			char *path = strrchr (descentFolder [1], '\\');
-			if (!path) {
-				descentFolder [1][0] = null;
-				} 
-			else {
-				path++;  // leave slash
-				*path = null;
+		// read palette file name
+		paletteManager.LoadName(fp);
+		// try to find new pig file in same directory as Current () pig file
+		// 1) cut off old name
+		if (!bCreate) {
+			if (strlen(g_data.GetD2Path()) > 0)
+			{
+				std::string path(g_data.GetD2Path());
+				size_t pos = path.rfind('\\');
+				if (pos != std::string::npos)
+				{
+					path = path.substr(0, pos + 1);
 				}
-			// paste on new *.pig name
-			strcat_s (descentFolder [1], sizeof (descentFolder [1]), paletteManager.Name ());
-			_strlwr_s (descentFolder [1], sizeof (descentFolder [1]));
+				else
+				{
+					path = std::string("");
+				}
+				path += paletteManager.Name();
+				std::transform(path.begin(), path.end(), path.begin(), ::tolower);
+
+				g_data.SetD2Path(path.c_str());
 			}
 		}
 	}
-else
-	paletteManager.SetName ("descent.pig");
+	else
+		paletteManager.SetName("descent.pig");
 }
 
 // -----------------------------------------------------------------------------
@@ -175,7 +189,7 @@ m_changesMade = 0;
 //	CFileManager fp;
 //if (fp->Open (filename, "rb")) {
 //	sprintf_s (message, sizeof (message),  "Error %d: Can't open file \"%s\".", GetLastError (), filename);
-//	ErrorMsg (message);
+//	g_data.DoErrorMsg (message);
 //	return -1;
 //	}
 
@@ -205,14 +219,14 @@ if (IsD2File ()) {
 
 fp->Seek (mineDataOffset, SEEK_SET);
 if (LoadMineGeometry (fp, bCreate) != 0) {
-	ErrorMsg ("Error loading mine data");
+	g_data.DoErrorMsg ("Error loading mine data");
 	fp->Close ();
 	return(2);
 	}
 
 fp->Seek (gameDataOffset, SEEK_SET);
 if (LoadGameItems (fp, bCreate) != 0) {
-	ErrorMsg ("Error loading game data");
+	g_data.DoErrorMsg ("Error loading game data");
 	// reset "howmany"
 	objectManager.ResetInfo ();
 	wallManager.ResetInfo ();
@@ -249,17 +263,17 @@ if (!(bLoadFromHog || bCreate)) {
 			CFileManager hfp;
 			CLevelHeader lh;
 
-			CFileManager::SplitPath (descentFolder [1], szHogFile, null, null);
+			CFileManager::SplitPath (g_data.GetD2Path(), szHogFile, null, null);
 			if (p = strstr (szHogFile, "data"))
 				*p = '\0';
 			strcat_s (szHogFile, sizeof (szHogFile), "missions\\d2x.hog");
 			if (FindFileData (szHogFile, "d2x.ham", lh, nSize, nOffset, FALSE)) {
-				CFileManager::SplitPath (descentFolder [1], szHamFile, null, null);
+				CFileManager::SplitPath (g_data.GetD2Path(), szHamFile, null, null);
 				if (p = strstr (szHamFile, "data"))
 					*p = '\0';
 				strcat_s (szHamFile, sizeof (szHamFile), "missions\\d2x.ham");
 				if (!hfp.Open (szHogFile, "rb"))
-					ErrorMsg ("Could not open HOG file.");
+					g_data.DoErrorMsg ("Could not open HOG file.");
 				else {
 					if (0 < hfp.Seek (nOffset + lh.Size (), SEEK_SET))
 						m_bVertigo = robotManager.ReadHAM (&hfp, EXTENDED_HAM) != 0;
@@ -293,9 +307,7 @@ if (!(bLoadFromHog || bCreate)) {
 		}
 	}
 objectManager.Sort ();
-DLE.MainFrame ()->SetSelectMode (eSelectSide);
-current->Reset ();
-other->Reset ();
+g_data.ResetSelections();
 return 0;
 }
 
@@ -314,10 +326,10 @@ ubyte version = fp->ReadUByte ();
 ushort nVertices = fp->ReadUInt16 ();
 int nOverflow = vertexManager.Overflow (nVertices);
 if (nOverflow > 0)
-	ErrorMsg ("Warning: Too many vertices for this level version");
+	g_data.DoErrorMsg ("Warning: Too many vertices for this level version");
 else if (nOverflow < 0) {
 	sprintf_s (message, sizeof (message),  "Too many vertices (%d)", nVertices);
-	ErrorMsg (message);
+	g_data.DoErrorMsg (message);
 	return 1;
 	}
 
@@ -325,10 +337,10 @@ else if (nOverflow < 0) {
 ushort nSegments = fp->ReadUInt16 ();
 nOverflow = segmentManager.Overflow (nSegments);
 if (nOverflow > 0)
-	ErrorMsg ("Warning: Too many segments for this level version");
+	g_data.DoErrorMsg ("Warning: Too many segments for this level version");
 else if (nOverflow < 0) {
 	sprintf_s (message, sizeof (message), "Too many segments (%d)", nSegments);
-	ErrorMsg (message);
+	g_data.DoErrorMsg (message);
 	return 2;
 	}
 
@@ -351,7 +363,7 @@ lightManager.ReadColors (*fp);
 if (objectManager.Count () > MAX_OBJECTS) {
 	sprintf_s (message, sizeof (message),  "Warning: Max number of objects for this level version exceeded (%ld/%d)", 
 			     objectManager.Count (), MAX_OBJECTS);
-	ErrorMsg (message);
+	g_data.DoErrorMsg (message);
 	}
 return 0;
 }
@@ -368,7 +380,7 @@ short CMine::LoadGameItems (CFileManager* fp, bool bCreate)
 // Check signature
 Info ().Read (fp, IsD2XLevel ());
 if (FileInfo ().signature != 0x6705) {
-	ErrorMsg ("Game data signature incorrect");
+	g_data.DoErrorMsg ("Game data signature incorrect");
 	return -1;
 	}
 if (Info ().fileInfo.version < 14) 
@@ -388,7 +400,7 @@ wallManager.Read (fp);
 triggerManager.Read (fp);
 triggerManager.ReadReactor (fp);
 segmentManager.ReadRobotMakers (fp);
-if (!DLE.IsD1File ()) {
+if (!g_data.IsD1File ()) {
 	segmentManager.ReadEquipMakers (fp);
 	lightManager.ReadLightDeltas (fp);
 	}

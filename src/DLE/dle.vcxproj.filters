@@ -23,12 +23,6 @@
     <Filter Include="Data Files">
       <UniqueIdentifier>{d3425922-19e5-462d-8351-7f131927e6e2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Managers">
-      <UniqueIdentifier>{fe74ea38-4245-4173-85c7-048c28bad2ea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Managers\Source Files">
-      <UniqueIdentifier>{9978ef49-f625-4f95-9f9a-bf5ed86672f8}</UniqueIdentifier>
-    </Filter>
     <Filter Include="UI\Resource Files\Bitmaps">
       <UniqueIdentifier>{7fafb3c9-2892-4dc2-92d5-47df2136fe10}</UniqueIdentifier>
     </Filter>
@@ -332,18 +326,6 @@
     </ClCompile>
     <ClCompile Include="..\MineView.Input.cpp">
       <Filter>UI\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\SaveMine.cpp">
-      <Filter>Managers\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Mine.cpp">
-      <Filter>Managers\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\LoadMine.cpp">
-      <Filter>Managers\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\modify.cpp">
-      <Filter>Managers\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\ViewMatrix.cpp">
       <Filter>UI\Source Files</Filter>

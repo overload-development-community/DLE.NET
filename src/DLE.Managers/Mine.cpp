@@ -1,6 +1,11 @@
 // Copyright (c) 1998 Bryan Aamot, Brainware
 
 #include "stdafx.h"
+#include "MemoryFile.h"
+#include "mine.h"
+#include "LightManager.h"
+#include "VertexManager.h"
+#include "WallManager.h"
 
 #ifdef ALLOCATE_tPolyModelS
 #undef ALLOCATE_tPolyModelS
@@ -69,21 +74,7 @@ Default ();
 
 void CMine::Reset (void)
 {
-selections [0].Index () = 0;
-selections [1].Index () = 1;
-current = &selections [0];
-other = &selections [1];
-selections [0].SetSegmentId (DEFAULT_SEGMENT);
-selections [0].SetPoint (DEFAULT_POINT);
-selections [0].SetEdge (DEFAULT_EDGE);
-selections [0].SetSideId (DEFAULT_SIDE);
-selections [0].SetObjectId (DEFAULT_OBJECT);
-selections [1].SetSegmentId (DEFAULT_SEGMENT);
-selections [1].SetPoint (DEFAULT_POINT);
-selections [1].SetEdge (DEFAULT_EDGE);
-selections [1].SetSideId (DEFAULT_SIDE);
-selections [1].SetObjectId (DEFAULT_OBJECT);
-undoManager.Reset ();
+	undoManager.Reset();
 }
 
 
@@ -95,11 +86,9 @@ undoManager.Reset ();
 
 short CMine::CreateNewLevel (CMemoryFile& fp)
 {
-CResource res;
-// copy data to a file
-triggerManager.ObjTriggerCount () = 0;
-ubyte* pData = res.Load (IsD1File () ? IDR_NEW_RDL : IDR_NEW_RL2);
-return fp.Load (pData, res.Size ());
+	triggerManager.ObjTriggerCount () = 0;
+	auto levelResource = g_data.LoadNewLevelBlob(IsD1File() ? 0 : 1);
+	return fp.Load(levelResource.data(), levelResource.size());
 }
 
 int CMine::FixIndexValues() { return segmentManager.Fix() | wallManager.Fix(); }

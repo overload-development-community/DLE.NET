@@ -34,6 +34,7 @@ public:
 	bool SaveCustomFile (const int nType);
 	bool WriteExternalCustomFile (const int nType);
 	void UpdateCaption ();
+	void ResetSelections();
 	inline char *File ()
 		{ return m_szFile; }
 	inline char *SubFile ()

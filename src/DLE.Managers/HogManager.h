@@ -51,7 +51,7 @@ extern CHogManager* hogManager;
 #define NUM_CUSTOM_FILETYPES (1+CUSTOM_FILETYPE_DTX)
 
 int SaveToHog (LPSTR szHogFile, LPSTR szSubFile, bool bSaveAs);
-bool FindFileData (const char* pszFile, char* pszSubFile, CLevelHeader& lh, long& nSize, long& nPos, BOOL bVerbose = TRUE, CFileManager* fp = null);
+bool FindFileData (const char* pszFile, const char* pszSubFile, CLevelHeader& lh, long& nSize, long& nPos, BOOL bVerbose = TRUE, CFileManager* fp = null);
 bool ExportSubFile (const char *pszSrc, const char *pszDest, long offset, long size);
 int ReadMissionFile (char *pszFile);
 int WriteMissionFile (char *pszFile, int levelVersion, bool bSaveAs = true);

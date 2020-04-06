@@ -175,6 +175,10 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="LoadMine.cpp" />
+    <ClCompile Include="Mine.cpp" />
+    <ClCompile Include="modify.cpp" />
+    <ClCompile Include="SaveMine.cpp" />
     <ClCompile Include="UndoManager.cpp" />
     <ClCompile Include="SegmentManager.Add.cpp" />
     <ClCompile Include="SegmentManager.cpp" />

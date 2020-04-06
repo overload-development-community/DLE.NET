@@ -379,10 +379,6 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\global.cpp" />
-    <ClCompile Include="..\LoadMine.cpp" />
-    <ClCompile Include="..\Mine.cpp" />
-    <ClCompile Include="..\modify.cpp" />
-    <ClCompile Include="..\SaveMine.cpp" />
     <ClCompile Include="..\ViewMatrix.cpp" />
     <ClCompile Include="..\ASERenderModel.cpp" />
     <ClCompile Include="..\buildmodel.cpp" />

@@ -251,6 +251,7 @@ BOOL CDLE::InitInstance()
 	SetupOpenMP ();
 	if (theMine == null)
 		theMine = new CMine;
+	GetDocument()->ResetSelections();
 	textureManager.Setup ();
 	MineView ()->DelayRefresh (true);
 	MainFrame ()->ToolView ()->Setup ();

@@ -96,14 +96,14 @@ class CMine {
 
 		int ScrollSpeed (ushort texture,int *x,int *y);
 
-		bool EditGeoFwd (void);
-		bool EditGeoBack (void);
-		bool EditGeoUp (void);
-		bool EditGeoDown (void); 
-		bool EditGeoLeft (void); 
-		bool EditGeoRight (void); 
-		bool EditGeoRotLeft (void); 
-		bool EditGeoRotRight (void); 
+		bool EditGeoFwd (CDoubleVector* forwardVector);
+		bool EditGeoBack (CDoubleVector* forwardVector);
+		bool EditGeoUp (CDoubleVector* upVector);
+		bool EditGeoDown (CDoubleVector* upVector);
+		bool EditGeoLeft (CDoubleVector* leftVector);
+		bool EditGeoRight (CDoubleVector* leftVector);
+		bool EditGeoRotLeft (CDoubleVector* forwardVector);
+		bool EditGeoRotRight (CDoubleVector* forwardVector);
 		bool EditGeoGrow (void); 
 		bool EditGeoShrink (void); 
 		bool RotateSelection(double angle, bool perpendicular); 
@@ -112,7 +112,7 @@ class CMine {
 		bool MovePoints (int pt0, int pt1); 
 		bool ResizeLine (CSegment *pSegment, int point0, int point1, double delta, int nStage); 
 		bool MoveElements (CDoubleVector delta); 
-		bool SpinSelection (double angle); 
+		bool SpinSelection (double angle, CDoubleVector* forwardVector);
 		void LoadSideTextures (short nSegment, short nSide);
 
 		inline double& RotateRate (void) { return m_rotateRate; }

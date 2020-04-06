@@ -1,11 +1,22 @@
 // Copyright (c) 1998 Bryan Aamot, Brainware
 
 #include "stdafx.h"
+#include "MemoryFile.h"
+#include "mine.h"
+#include "LightManager.h"
+#include "TextureManager.h"
+#include "VertexManager.h"
+#include "WallManager.h"
+#include "TunnelMaker.h"
+#include "propsys.h"
 
-#include "rapidjson\document.h"
-#include "rapidjson\filewritestream.h"
-#include "rapidjson\pointer.h"
-#include "rapidjson\prettywriter.h"
+#undef min
+#undef max
+
+#include "..\rapidjson\document.h"
+#include "..\rapidjson\filewritestream.h"
+#include "..\rapidjson\pointer.h"
+#include "..\rapidjson\prettywriter.h"
 
 // -----------------------------------------------------------------------------
 
@@ -13,13 +24,13 @@ short CMine::Save (const char * szFile)
 {
 if (segmentManager.Overflow ()) {
 	if (vertexManager.Overflow ()) 
-		ErrorMsg ("Error: Too many segments and vertices for this level version!\nThe level cannot be saved.");
+		g_data.DoErrorMsg ("Error: Too many segments and vertices for this level version!\nThe level cannot be saved.");
 	else
-		ErrorMsg ("Error: Too many segments for this level version!\nThe level cannot be saved.");
+		g_data.DoErrorMsg ("Error: Too many segments for this level version!\nThe level cannot be saved.");
 	return 0;
 	}
 else if (vertexManager.Overflow ()) {
-	ErrorMsg ("Error: Too many vertices for this level version!\nThe level cannot be saved.");
+	g_data.DoErrorMsg ("Error: Too many vertices for this level version!\nThe level cannot be saved.");
 	return 0;
 	}
 
@@ -61,9 +72,9 @@ else if (IsD2File ()) {
 		fp.WriteSByte ((sbyte) rand ());
 		}
 	// save palette name
-	char *name = strrchr (descentFolder [1], '\\');
+	const char *name = strrchr (g_data.GetD2Path(), '\\');
 	if (!name) 
-		name = descentFolder [1]; // point to 1st char if no slash found
+		name = g_data.GetD2Path(); // point to 1st char if no slash found
 	else
 		name++;               // point to character after slash
 	char paletteName [15];
@@ -91,7 +102,7 @@ else if (IsD2File ()) {
 mineDataOffset = fp.Tell ();
 if (0 > (mineErr = SaveMineGeometry (&fp))) {
 	fp.Close ();
-	ErrorMsg ("Error saving mine data");
+	g_data.DoErrorMsg ("Error saving mine data");
 	return -2;
 	}
 
@@ -99,7 +110,7 @@ if (0 > (mineErr = SaveMineGeometry (&fp))) {
 gameDataOffset = fp.Tell ();
 if (0 > (gameErr = SaveGameItems (&fp))) {
 	fp.Close ();
-	ErrorMsg ("Error saving game data");
+	g_data.DoErrorMsg ("Error saving game data");
 	return -3;
 	}
 
@@ -190,14 +201,14 @@ else {
 	fp->WriteInt16 (25);	// Don't know exactly what this value is for or why it is 25?
 	}
 
-CResource res;
-ubyte* savePofNames = res.Load (IsD1File () ? IDR_POF_NAMES1 : IDR_POF_NAMES2);
-if (savePofNames == null)
+auto pofNames = g_data.LoadPofNames();
+if (pofNames.empty())
 	return 0;
+ubyte* savePofNames = pofNames.data();
 fp->Write (savePofNames, nSavePofNames, 13); // 13 characters each
 
 Info ().player.offset = fp->Tell ();
-char* str = "Made with Descent Level Editor\0\0\0\0\0\0\0";
+const char* str = "Made with Descent Level Editor\0\0\0\0\0\0\0";
 fp->Write (str, (int) strlen (str) + 1, 1);
 
 segmentManager.RenumberProducers ();
@@ -437,8 +448,8 @@ else {
 		sprintf_s (path, "/entities/%d/rotation", nDoor);
 		Value& rotation = Pointer (path).Create (document).SetArray ();
 		CTunnelBase sideOrientation;
-		CSelection wallSide (*pWall);
-		sideOrientation.Setup (&wallSide, -1.0, true);
+		std::unique_ptr<ISelection> wallSide(g_data.CreateSelectionFromSide(*pWall));
+		sideOrientation.Setup (wallSide.get(), -1.0, true);
 		for (size_t i = 0; i < 4; i++)
 			for (size_t j = 0; j < 4; j++) {
 				if (i == 3 && j == 3)
@@ -574,7 +585,7 @@ else {
 fp.Close ();
 char msg [MAX_PATH + 30];
 sprintf_s (msg, _countof (msg), "Level exported to %s", filename);
-INFOMSG (msg);
+g_data.DoInfoMsg(msg);
 return 1;
 }
 

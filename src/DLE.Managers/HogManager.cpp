@@ -286,7 +286,7 @@ void CHogManager::SetMissionName(const char* newFileName)
 // CHogManager - read hog data
 //------------------------------------------------------------------------------
 
-bool FindFileData (const char* pszFile, char* pszSubFile, CLevelHeader& lh, long& nSize, long& nPos, BOOL bVerbose, CFileManager* fp) 
+bool FindFileData (const char* pszFile, const char* pszSubFile, CLevelHeader& lh, long& nSize, long& nPos, BOOL bVerbose, CFileManager* fp)
 {
 	CFileManager _fp;
 	char errorBuffer[512];
@@ -319,9 +319,7 @@ while (!fp->EoF ()) {
 			g_data.DoErrorMsg ("Error reading HOG file");
 		break;
 		}
-	if (!strcmp (pszSubFile, "*"))
-		strcpy_s (pszSubFile, 256, lh.Name ());
-	if (!_strcmpi (lh.Name (), pszSubFile)) {
+	if ((strcmp(pszSubFile, "*") == 0) || !_strcmpi(lh.Name(), pszSubFile)) {
 		nSize = lh.FileSize ();
 		nPos = position;
 		if (fp == &_fp)

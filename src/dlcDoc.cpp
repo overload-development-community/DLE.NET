@@ -258,6 +258,7 @@ if (d.DoModal () == IDOK) {
 	*m_szSubFile = '\0';
 	theMine->SetLevelName(newLevelName);
 	theMine->Reset ();
+	ResetSelections();
 	segmentManager.SetLinesToDraw ();
 	DLE.MineView ()->ResetView (true);
 	DLE.MineView ()->FitToView ();
@@ -286,6 +287,24 @@ return ::BrowseForFile (bOpen, "hog;rl2;rdl", pszFile,
 void CDlcDoc::UpdateCaption ()
 {
 SetPathName (m_szFile);
+}
+
+void CDlcDoc::ResetSelections()
+{
+	selections[0].Index() = 0;
+	selections[1].Index() = 1;
+	current = &selections[0];
+	other = &selections[1];
+	selections[0].SetSegmentId(DEFAULT_SEGMENT);
+	selections[0].SetPoint(DEFAULT_POINT);
+	selections[0].SetEdge(DEFAULT_EDGE);
+	selections[0].SetSideId(DEFAULT_SIDE);
+	selections[0].SetObjectId(DEFAULT_OBJECT);
+	selections[1].SetSegmentId(DEFAULT_SEGMENT);
+	selections[1].SetPoint(DEFAULT_POINT);
+	selections[1].SetEdge(DEFAULT_EDGE);
+	selections[1].SetSideId(DEFAULT_SIDE);
+	selections[1].SetObjectId(DEFAULT_OBJECT);
 }
 
 //------------------------------------------------------------------------------
@@ -358,6 +377,7 @@ else {
 	strcat_s (szSubFile, 256, szExt);
 	}
 theMine->Reset ();
+ResetSelections();
 DLE.TextureView ()->Setup ();
 DLE.MineView ()->DelayRefresh (true);
 DLE.MineView ()->Reset ();

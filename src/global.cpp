@@ -83,6 +83,11 @@ void GlobalData::ResetMineView()
     DLE.MineView()->ResetView(true);
 }
 
+void GlobalData::ResetMineViewDistance()
+{
+    DLE.MineView()->SetViewDistIndex(0);
+}
+
 void GlobalData::AdvanceMineViewSide()
 {
     DLE.MineView()->NextSide();
@@ -188,6 +193,11 @@ const char* GlobalData::GetAppFolder()
     return DLE.AppFolder();
 }
 
+const char* GlobalData::GetMissionFolder()
+{
+    return missionFolder;
+}
+
 double GlobalData::GetMineMoveRate()
 {
     return DLE.MineView()->MineMoveRate();
@@ -211,6 +221,17 @@ std::vector<byte> LoadResourceAsBlob(int resourceId)
         return std::vector<byte>();
     }
     return std::vector<byte>(res.Data(), res.Data() + res.Size());
+}
+
+std::vector<byte> GlobalData::LoadPofNames()
+{
+    return ::LoadResourceAsBlob(DLE.IsD1File() ? IDR_POF_NAMES1 : IDR_POF_NAMES2);
+}
+
+std::vector<byte> GlobalData::LoadNewLevelBlob(int gameVersion)
+{
+    int nResource = (gameVersion == 0) ? IDR_NEW_RDL : IDR_NEW_RL2;
+    return ::LoadResourceAsBlob(nResource);
 }
 
 std::vector<byte> GlobalData::GetDefaultLightTable()
@@ -324,6 +345,18 @@ UINT GlobalData::GetPaletteEntries(UINT nStartIndex, UINT nNumEntries, LPPALETTE
 void GlobalData::SetDocumentModifiedFlag(bool modified)
 {
     DLE.GetDocument()->SetModifiedFlag(modified);
+}
+
+void GlobalData::ResetSelections()
+{
+    DLE.MainFrame()->SetSelectMode(eSelectSide);
+    current->Reset();
+    other->Reset();
+}
+
+ISelection* GlobalData::CreateSelectionFromSide(CSideKey sideKey)
+{
+    return new CSelection(sideKey);
 }
 
 bool GlobalData::GLCreateTexture(CTexture* texture, bool bForce)
