@@ -5,6 +5,7 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE", "DLE\dle.vcxproj", "{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{57D9B500-1AEC-434F-9A0C-5DB4383AA442} = {57D9B500-1AEC-434F-9A0C-5DB4383AA442}
+		{1A1BD677-4BFC-4B6D-9562-13F6DFB87DDE} = {1A1BD677-4BFC-4B6D-9562-13F6DFB87DDE}
 		{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A} = {D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}
 	EndProjectSection
 EndProject
@@ -14,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.DataTypes", "DLE.DataTy
 	ProjectSection(ProjectDependencies) = postProject
 		{57D9B500-1AEC-434F-9A0C-5DB4383AA442} = {57D9B500-1AEC-434F-9A0C-5DB4383AA442}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.Managers", "DLE.Managers\DLE.Managers.vcxproj", "{1A1BD677-4BFC-4B6D-9562-13F6DFB87DDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +50,14 @@ Global
 		{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}.Release|Win32.Build.0 = Release|Win32
 		{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}.Release|x64.ActiveCfg = Release|x64
 		{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}.Release|x64.Build.0 = Release|x64
+		{1A1BD677-4BFC-4B6D-9562-13F6DFB87DDE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{1A1BD677-4BFC-4B6D-9562-13F6DFB87DDE}.Debug|Win32.Build.0 = Debug|Win32
+		{1A1BD677-4BFC-4B6D-9562-13F6DFB87DDE}.Debug|x64.ActiveCfg = Debug|x64
+		{1A1BD677-4BFC-4B6D-9562-13F6DFB87DDE}.Debug|x64.Build.0 = Debug|x64
+		{1A1BD677-4BFC-4B6D-9562-13F6DFB87DDE}.Release|Win32.ActiveCfg = Release|Win32
+		{1A1BD677-4BFC-4B6D-9562-13F6DFB87DDE}.Release|Win32.Build.0 = Release|Win32
+		{1A1BD677-4BFC-4B6D-9562-13F6DFB87DDE}.Release|x64.ActiveCfg = Release|x64
+		{1A1BD677-4BFC-4B6D-9562-13F6DFB87DDE}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

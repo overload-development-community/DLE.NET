@@ -11,6 +11,7 @@
 
 #include <afxcview.h>
 #include "texedit.h"
+#include "dle-res.h"
 
 extern int nLayout;
 
@@ -518,6 +519,7 @@ class CMissionTool : public CToolDlg
 	public:
 		CMissionData	m_missionData;
 		char				m_szLevel [26];
+		char m_levelName[36];
 
 		CMissionTool (CPropertySheet *pParent = null);
 	   virtual BOOL OnInitDialog ();

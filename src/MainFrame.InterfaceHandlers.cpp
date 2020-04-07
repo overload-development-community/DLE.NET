@@ -237,7 +237,7 @@ m_paneMode = 0;
 
 void CMainFrame::OnEditTag () 
 {
-segmentManager.TagSelected ();
+	MineView()->TagSelected();
 }
 
 void CMainFrame::OnEditTagAll () 
@@ -300,9 +300,9 @@ ToolView ()->EditMission ();
 
 void CMainFrame::OnEditHog ()
 {
-hogManager->Setup (DLE.GetDocument ()->File (), null);
-if (hogManager->DoModal () == IDOK)
-	DLE.GetDocument ()->OpenFile (false, hogManager->MissionName (), hogManager->LevelName ());
+	HogDialog hogDialog(DLE.MainFrame(), DLE.GetDocument()->File(), null);
+	if (hogDialog.DoModal() == IDOK)
+		DLE.GetDocument()->OpenFile(false, hogDialog.MissionName(), hogDialog.LevelName());
 }
 
 void CMainFrame::OnEditPog ()
@@ -569,7 +569,7 @@ segmentManager.SeparateSegments ();
 
 void CMainFrame::OnSplitCurrentSide ()
 {
-segmentManager.SeparateSegments ();
+segmentManager.SeparateSegments (1);
 }
 
 void CMainFrame::UpdateInsModeButtons (short mode)
@@ -955,9 +955,37 @@ pCmdUI->Enable ((BOOL) DLE.IsD2File ());
 
 //------------------------------------------------------------------------------
 
+std::unique_ptr<CDoubleVector> GetForwardVectorIfApplicable()
+{
+	if (DLE.MineView()->GetElementMovementReference())
+	{
+		return std::unique_ptr<CDoubleVector>(&DLE.MineView()->ViewMatrix()->Forward());
+	}
+	return nullptr;
+}
+
+std::unique_ptr<CDoubleVector> GetUpVectorIfApplicable()
+{
+	if (DLE.MineView()->GetElementMovementReference())
+	{
+		return std::unique_ptr<CDoubleVector>(&DLE.MineView()->ViewMatrix()->Up());
+	}
+	return nullptr;
+}
+
+std::unique_ptr<CDoubleVector> GetLeftVectorIfApplicable()
+{
+	if (DLE.MineView()->GetElementMovementReference())
+	{
+		return std::unique_ptr<CDoubleVector>(&DLE.MineView()->ViewMatrix()->Left());
+	}
+	return nullptr;
+}
+
 bool CMainFrame::EditGeoFwd (void)
 {
-if (!theMine->EditGeoFwd ())
+	auto vector = GetForwardVectorIfApplicable();
+if (!theMine->EditGeoFwd (vector.get()))
 	return false;
 MineView ()->Refresh ();
 return true;
@@ -965,7 +993,8 @@ return true;
 
 bool CMainFrame::EditGeoUp (void)
 {
-if (!theMine->EditGeoUp ())
+	auto vector = GetUpVectorIfApplicable();
+if (!theMine->EditGeoUp (vector.get()))
 	return false;
 MineView ()->Refresh ();
 return true;
@@ -973,7 +1002,8 @@ return true;
 
 bool CMainFrame::EditGeoBack (void)
 {
-if (!theMine->EditGeoBack ())
+	auto vector = GetForwardVectorIfApplicable();
+if (!theMine->EditGeoBack (vector.get()))
 	return false;
 MineView ()->Refresh ();
 return true;
@@ -981,7 +1011,8 @@ return true;
 
 bool CMainFrame::EditGeoRotLeft (void)
 {
-if (!theMine->EditGeoRotLeft ())
+	auto vector = GetForwardVectorIfApplicable();
+if (!theMine->EditGeoRotLeft (vector.get()))
 	return false;
 MineView ()->Refresh ();
 return true;
@@ -997,7 +1028,8 @@ return true;
 
 bool CMainFrame::EditGeoRotRight (void)
 {
-if (!theMine->EditGeoRotRight ())
+	auto vector = GetForwardVectorIfApplicable();
+if (!theMine->EditGeoRotRight (vector.get()))
 	return false;
 MineView ()->Refresh ();
 return true;
@@ -1005,7 +1037,8 @@ return true;
 
 bool CMainFrame::EditGeoLeft (void)
 {
-if (!theMine->EditGeoLeft ())
+	auto vector = GetLeftVectorIfApplicable();
+if (!theMine->EditGeoLeft (vector.get()))
 	return false;
 MineView ()->Refresh ();
 return true;
@@ -1013,7 +1046,8 @@ return true;
 
 bool CMainFrame::EditGeoDown (void)
 {
-if (!theMine->EditGeoDown ())
+	auto vector = GetUpVectorIfApplicable();
+if (!theMine->EditGeoDown (vector.get()))
 	return false;
 MineView ()->Refresh ();
 return true;
@@ -1021,7 +1055,8 @@ return true;
 
 bool CMainFrame::EditGeoRight (void)
 {
-if (!theMine->EditGeoRight ())
+	auto vector = GetLeftVectorIfApplicable();
+if (!theMine->EditGeoRight (vector.get()))
 	return false;
 MineView ()->Refresh ();
 return true;
@@ -1194,7 +1229,7 @@ else
 void CMainFrame::OnSelPrevObject ()
 {
 if (MineView ()->SelectMode (OBJECT_MODE))
-	MineView ()->NextObject ();
+	MineView ()->PrevObject ();
 else
 	MineView ()->SetSelectMode (OBJECT_MODE);
 }

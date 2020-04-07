@@ -1092,7 +1092,7 @@ if (nChoice) {
 	else if (nChoice == ID_EDIT_QUICKCOPY)
 		blockManager.QuickCopy ();
 	else if (nChoice == ID_EDIT_QUICKPASTE)
-		blockManager.QuickPaste ();
+		DLE.GetDocument()->OnQuickPasteBlock();
 	else if (nChoice == ID_EDIT_DELETEBLOCK)
 		blockManager.Delete ();
 	else if (nChoice == ID_VIEW_COLLAPSE_EDGE)

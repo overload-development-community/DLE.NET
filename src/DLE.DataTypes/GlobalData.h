@@ -16,6 +16,7 @@ public:
 class IModelManager
 {
 public:
+	virtual void Reset() = 0;
 	virtual tAnimationInfo* Animation(int i) = 0;
 	virtual int ScreenRad() = 0;
 	virtual void Render(ubyte* p, int nStage, int bCustom, ushort firstTexture) = 0;
@@ -83,7 +84,7 @@ public:
 	virtual uint TexDataOffset(int nVersion = -1) = 0;
 	virtual int MaxTextures(int nVersion = -1) = 0;
 	virtual int GlobalTextureCount(int nVersion = -1) = 0;
-	virtual char* Name(int nVersion, short nTexture) = 0;
+	virtual const char* Name(int nVersion, short nTexture) = 0;
 	virtual void Load(ushort nBaseTex, ushort nOvlTex) = 0;
 	virtual double Scale(int nVersion, short nTexture) = 0;
 	virtual const CTexture* BaseTextures(uint nIndex, int nVersion = -1) = 0;
@@ -153,6 +154,19 @@ class ISelection
 {
 public:
 	virtual short SegmentId() = 0;
+	virtual short SideId() = 0;
+	virtual short Edge() = 0;
+	virtual short Point() = 0;
+	virtual short ObjectId() = 0;
+	virtual CSegment* Segment() = 0;
+	virtual CSide* Side() = 0;
+	virtual CVertex* Vertex(short vertexNum = 0) = 0;
+	virtual void Get(CSideKey& key) = 0;
+	virtual CGameObject* Object() = 0;
+
+	virtual short SetSegmentId(short segmentNum) = 0;
+	virtual short SetObjectId(short objectNum) = 0;
+	virtual void Fix(short segmentNum) = 0;
 };
 
 struct GlobalData
@@ -170,6 +184,8 @@ public:
 	IVertexManager* vertexManager;
 	IUndoManager* undoManager;
 	ISelection* currentSelection;
+	ISelection* otherSelection;
+	CMissionData* missionData;
 
 	bool IsD1File();
 	bool IsD2File();
@@ -178,13 +194,51 @@ public:
 	int LevelType();
 	int LevelVersion();
 	bool IsStdLevel();
-	void RefreshMineView();
+	bool IsD2XLevel();
+	void RefreshMineView(bool all = true);
+	void DelayMineViewRefresh(bool addDelay);
+	void ResetMineView();
+	void ResetMineViewDistance();
+	void AdvanceMineViewSide();
+	void RefreshToolView();
+	void EnsureValidSelection();
 	void DoInfoMsg(const char* msg);
 	void DoErrorMsg(const char* msg);
+	void DoStatusMsg(const char* msg);
+	int DoQueryMsg(const char* msg);
 	int DoQuery2Msg(const char* msg, uint type);
 	int ExpertMode();
+	bool DoInputDialog(const char* title, const char* prompt, char* buffer, size_t bufferSize);
+	void InitProgress(int maxPosition);
+	void UpdateProgress(int position);
+	void StepProgress();
+	void CleanupProgress();
 	IRenderer* GetRenderer();
 	IFileManager* CreateFileManager();
+	const char* GetD1Path();
+	const char* GetD2Path();
+	void SetD2Path(const char* newPath); // for palette switching
+	const char* GetAppFolder();
+	const char* GetMissionFolder();
+	double GetMineMoveRate();
+	std::vector<byte> LoadResourceAsBlob(const char* resourceName);
+	std::vector<byte> LoadPofNames();
+	std::vector<byte> LoadNewLevelBlob(int gameVersion);
+	std::vector<byte> GetDefaultLightTable();
+	std::vector<byte> GetDefaultColorTable();
+	std::vector<std::string> LoadTextureNames(int gameVersion);
+	std::vector<byte> LoadTextureIndex(int gameVersion);
+	void LoadArrowTexture(CTexture& texture);
+	void LoadIconTexture(int iconNumber, CTexture& texture);
+	bool MakeModFolders(const char* subfolderName);
+	const char* GetModFolder(int folderNumber);
+	void ResetTextureView();
+	void RefreshObjectTool();
+	std::vector<byte> LoadPaletteData(const char* paletteName);
+	UINT GetPaletteEntries(UINT nStartIndex, UINT nNumEntries, LPPALETTEENTRY lpPaletteColors);
+	void SetDocumentModifiedFlag(bool modified);
+	void ResetSelections();
+	ISelection* CreateSelectionFromSide(CSideKey sideKey);
 
 	// Can't include DrawHelpers.h in DLE.DataTypes due to MFC...
 	// may move this later
@@ -203,7 +257,9 @@ public:
 		IWallManager* wallManager,
 		IVertexManager* vertexManager,
 		IUndoManager* undoManager,
-		ISelection* currentSelection)
+		ISelection* currentSelection,
+		ISelection* otherSelection,
+		CMissionData* missionData)
 		:
 		lightManager(lightManager),
 		modelManager(modelManager),
@@ -216,7 +272,10 @@ public:
 		wallManager(wallManager),
 		vertexManager(vertexManager),
 		undoManager(undoManager),
-		currentSelection(currentSelection)
+		currentSelection(currentSelection),
+		otherSelection(otherSelection),
+		missionData(missionData)
 	{}
 };
 extern GlobalData g_data;
+void _cdecl PrintLog(const int nIndent, const char* fmt, ...);

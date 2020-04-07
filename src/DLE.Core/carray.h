@@ -241,6 +241,8 @@ class CDynamicArray : public CQuickSort < _T > {
 		inline _T& operator[] (uint i) { return m_data.buffer [i]; }
 #endif
 
+		inline const _T& operator[] (uint i) const { return m_data.buffer[i]; }
+
 		inline _T& operator= (CDynamicArray<_T>& source) { return Copy (source); }
 
 		inline _T& operator= (_T* source) { 

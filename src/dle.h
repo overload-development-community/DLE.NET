@@ -93,7 +93,7 @@ public:
 
 	void LoadLayout (void);
 
-	bool MakeModFolders (char* szSubFolder);
+	bool MakeModFolders (const char* szSubFolder);
 
 	inline char* AppFolder (void) { return m_appFolder; }
 

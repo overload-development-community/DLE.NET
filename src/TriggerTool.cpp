@@ -113,7 +113,7 @@ cbTexture2->ResetContent ();
 index = cbTexture1->AddString ("(none)");
 nTextures = textureManager.MaxTextures ();
 for (iTexture = 0; iTexture < nTextures; iTexture++) {
-	char* p = textureManager.Name (-1, iTexture);
+	const char* p = textureManager.Name (-1, iTexture);
 	if (!strstr (p, "frame")) {
 		index = cbTexture1->AddString (p);
 		cbTexture1->SetItemData (index, iTexture);

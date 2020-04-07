@@ -615,7 +615,7 @@ if (theMine == null)
 	CGameObject*	playerP = null;
 	int				objCount = objectManager.Count ();
 	CSegment*		pSegment;
-	ubyte				nMaxRobotId = (DLE.IsD2XFile () || theMine->m_bVertigo) ? MAX_ROBOT_TYPES : DLE.IsD2File () ? N_ROBOT_TYPES_D2 : N_ROBOT_TYPES_D1;
+	ubyte				nMaxRobotId = (DLE.IsD2XFile () || theMine->IsVertigo()) ? MAX_ROBOT_TYPES : DLE.IsD2File () ? N_ROBOT_TYPES_D2 : N_ROBOT_TYPES_D1;
 
 short sub_errors = m_nErrors [0];
 short sub_warnings = m_nErrors [1];

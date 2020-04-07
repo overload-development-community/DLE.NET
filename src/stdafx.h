@@ -44,12 +44,18 @@ extern CDLCModule _Module;
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <map>
+#include <memory>
+#include <string>
+#include <vector>
 
 #include "define.h"
 #include "Vector.h"
 #include "matrix.h"
 #include "IFileManager.h"
 #include "carray.h"
+#include "SLL.h"
+#include "AVLTree.h"
 #include "GameItem.h"
 #include "types.h"
 #include "Vertex.h"
@@ -62,6 +68,7 @@ extern CDLCModule _Module;
 #include "robot.h"
 #include "GlobalData.h"
 #include "global.h"
+#include "FileManager.h"
 #include "MemoryFile.h"
 #include "GameItem.h"
 #include "Selection.h"
@@ -70,7 +77,26 @@ extern CDLCModule _Module;
 #include "ViewMatrix.h"
 #include "Frustum.h"
 #include "FBO.h"
+#include "ItemIterator.h"
+#include "trigger.h"
+#include "cstack.h"
+
+#include "TriggerManager.h"
+#include "WallManager.h"
+#include "segmentManager.h"
+#include "VertexManager.h"
+#include "RobotManager.h"
+#include "ObjectManager.h"
+#include "TunnelMaker.h"
+#include "BlockManager.h"
+#include "LightManager.h"
+#include "TextureManager.h"
+#include "HogManager.h"
+#include "UndoManager.h"
+#include "ResourceManager.h"
+#include "PaletteManager.h"
 #include "renderer.h"
+#include "TextureProjector.h"
 
 #include "mine.h"
 #include "DlcDoc.h"
@@ -78,7 +104,11 @@ extern CDLCModule _Module;
 #include "dle.h"
 
 #include "ModelTextures.h"
+#include "ASEModel.h"
+#include "OOFModel.h"
+#include "rendermodel.h"
 #include "ModelManager.h"
+#include "HogDialog.h"
 
 //{{AFX_INSERT_LOCATION}}
 // Microsoft Developer Studio will insert additional declarations immediately before the previous line.

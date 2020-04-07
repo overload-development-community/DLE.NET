@@ -157,6 +157,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="rendermodel.h" />
     <ClInclude Include="ASEModel.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GlobalData.h" />
@@ -178,8 +179,10 @@
     <ClInclude Include="wall.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="RenderModel.cpp" />
     <ClCompile Include="ASEModel.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="LevelHeader.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="MineInfo.cpp" />
     <ClCompile Include="ModelTextures.cpp" />

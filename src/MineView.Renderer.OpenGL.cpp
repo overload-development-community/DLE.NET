@@ -214,7 +214,7 @@ if (!wglMakeCurrent (m_glHDC, m_glRC)) {
 
 glewInit (); // must happen after OpenGL context creation!
 shaderManager.Setup ();
-textureManager.InitShaders ();
+InitShaders ();
 if (m_bHaveRTT = CFBO::Setup ()) {
 	m_bHaveRTT = m_renderBuffers.Create (GetSystemMetrics (SM_CXSCREEN), GetSystemMetrics (SM_CYSCREEN), 1, 2) != 0;
 	m_sideKeys = new rgbColor [GetSystemMetrics (SM_CXSCREEN) * GetSystemMetrics (SM_CYSCREEN)];
@@ -705,7 +705,7 @@ if ((fle.m_nSegment == nDbgSeg) && ((nDbgSide < 0) || (fle.m_nSide == nDbgSide))
 	nDbgSeg = nDbgSeg;
 #endif
 
-textureManager.DeployShader ((bArrow ? nTextures + bArrow : nTextures - 1), m_bRenderSideKeys ? &fle : null);
+DeployShader ((bArrow ? nTextures + bArrow : nTextures - 1), m_bRenderSideKeys ? &fle : null);
 
 #if GL_TRANSFORM
 m_viewMatrix.SetupOpenGL ();

@@ -425,3 +425,36 @@ if (texture->m_glHandle) {
 	texture->m_glHandle = 0;
 	}
 }
+
+CPalette* RenderCurrentPalette()
+{
+	static CBGR* palette = nullptr;
+	static CPalette renderedPalette;
+	// Return cached palette if it hasn't changed (there is a good chance pointer comparisons
+	// won't work consistently here. We'll get rid of MFC soon anyway though)
+	if (palette == paletteManager.Default())
+	{
+		return &renderedPalette;
+	}
+	palette = paletteManager.Default();
+	if (palette == nullptr)
+	{
+		// No default palette, can't render it
+		return nullptr;
+	}
+	
+	std::vector<byte> dlcLogBuffer(offsetof(LOGPALETTE, palPalEntry) + sizeof(PALETTEENTRY) * 256);
+	LPLOGPALETTE dlcLog = reinterpret_cast<LPLOGPALETTE>(dlcLogBuffer.data());
+	dlcLog->palVersion = 0x300;
+	dlcLog->palNumEntries = 256;
+	PALETTEENTRY* rgb = &dlcLog->palPalEntry[0];
+	for (int i = 0; i < 256; i++)
+	{
+		rgb[i].peRed = palette[i].r;
+		rgb[i].peGreen = palette[i].g;
+		rgb[i].peBlue = palette[i].b;
+	}
+
+	renderedPalette.CreatePalette(dlcLog);
+	return &renderedPalette;
+}

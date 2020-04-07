@@ -373,7 +373,7 @@ TextureList ()->SetItemText (nListItem, columnNum++, szLabel);
 // Check the texture against the filters - return true if we should still show it
 bool CPogDialog::IsTextureIncluded (const CTexture *pTexture)
 {
-	bool shouldInclude;
+	bool shouldInclude = true;
 
 // Exclude invalid textures
 if (!pTexture || strlen (pTexture->Name ()) == 0)

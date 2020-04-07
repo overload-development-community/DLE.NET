@@ -113,4 +113,7 @@ class CShaderManager {
 
 extern CShaderManager shaderManager;
 
+int InitShaders(void);
+int DeployShader(int nType, CFaceListEntry* fle);
+
 #endif

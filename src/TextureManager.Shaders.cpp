@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "PaletteManager.h"
 #include "shadermanager.h"
 
 //------------------------------------------------------------------------------
@@ -94,7 +95,7 @@ const char *texMergeVS = {
 
 //-------------------------------------------------------------------------
 
-int CTextureManager::InitShaders (void)
+int InitShaders (void)
 {
 	int nShaders = 0;
 
@@ -109,7 +110,7 @@ return nShaders;
 
 //------------------------------------------------------------------------------
 
-int CTextureManager::DeployShader (int nType, CFaceListEntry* fle)
+int DeployShader (int nType, CFaceListEntry* fle)
 {
 if (fle)
 	nType += 4;

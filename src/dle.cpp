@@ -251,10 +251,11 @@ BOOL CDLE::InitInstance()
 	SetupOpenMP ();
 	if (theMine == null)
 		theMine = new CMine;
+	GetDocument()->ResetSelections();
 	textureManager.Setup ();
 	MineView ()->DelayRefresh (true);
 	MainFrame ()->ToolView ()->Setup ();
-	hogManager = new CHogManager (MainFrame ());
+	hogManager = new CHogManager ();
 	theMine->Load ();
 	if (!textureManager.Available ())
 		ToolView ()->SetActive (11); // invoke preferences dialog
@@ -426,6 +427,7 @@ rc.left = GetPrivateProfileInt ("DLE", "xWin", 0, DLE.IniFile ());
 rc.top = GetPrivateProfileInt ("DLE", "yWin", 0, DLE.IniFile ());
 rc.right = rc.left + GetPrivateProfileInt ("DLE", "cxWin", 0, DLE.IniFile ());
 rc.bottom = rc.top + GetPrivateProfileInt ("DLE", "cyWin", 0, DLE.IniFile ());
+objectManager.SortObjects() = GetPrivateProfileInt("DLE", "SortObjects", objectManager.SortObjects(), DLE.IniFile());
 
 hMonitor = MonitorFromRect (&rc, MONITOR_DEFAULTTONULL);
 if (!hMonitor) {
@@ -501,7 +503,7 @@ m_bSplashScreen = GetPrivateProfileInt ("DLE", "SplashScreen", 1, DLE.IniFile ()
 
 //------------------------------------------------------------------------------
 
-bool CDLE::MakeModFolders (char* szSubFolder)
+bool CDLE::MakeModFolders (const char* szSubFolder)
 {
 	char szMission [256], szLevel [256];
 
@@ -514,7 +516,7 @@ if (!((pszMission = strrchr (szMission, '\\')) || (pszMission = strrchr (szMissi
 sprintf (m_modFolders [2], "%s\\%s\\", modFolder, pszMission ? pszMission + 1 : pszMission);
 sprintf (m_modFolders [1], "%s%s", m_modFolders [2], szSubFolder);
 
-strcpy (szLevel, hogManager->LevelName ());
+strcpy (szLevel, hogManager->LevelFileName ());
 char* pszName = strrchr (szLevel, '.');
 if (pszName)
 	*pszName = '\0';

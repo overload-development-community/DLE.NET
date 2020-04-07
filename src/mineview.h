@@ -527,6 +527,7 @@ public:
 	BOOL DrawDragPos (void);
 	void InitDrag ();
 	void FinishDrag (CPoint releasePos);
+	void TagSelected();
 
 	void LocateTexture (short nTexture);
 

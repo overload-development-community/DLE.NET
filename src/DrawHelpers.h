@@ -20,3 +20,4 @@ bool PaintTexture(CWnd* pWindow, int bkColor = -1, int texture1 = -1, int textur
 bool PaintTexture(CWnd* pWindow, int bkColor = -1,
 	const CTexture* pBaseTex = null, const CTexture* pOvlTex = null, short nOvlAlignment = 0,
 	int xOffset = 0, int yOffset = 0, bool bCurrentFrameOnly = true);
+CPalette* RenderCurrentPalette();
