@@ -90,7 +90,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_LIB</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\DLE.Core;..\DLE.DataTypes</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
@@ -106,7 +106,7 @@
       <PreprocessorDefinitions>_DEBUG;_LIB</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\DLE.Core;..\DLE.DataTypes</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
@@ -124,7 +124,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_LIB</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\DLE.Core;..\DLE.DataTypes</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
@@ -144,7 +144,7 @@
       <PreprocessorDefinitions>NDEBUG;_LIB</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>..\DLE.Core;..\DLE.DataTypes</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
@@ -213,10 +213,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DLE.Core\DLE.Core.vcxproj">
+    <ProjectReference Include="..\Core\DLE.Core.vcxproj">
       <Project>{57d9b500-1aec-434f-9a0c-5db4383aa442}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\DLE.DataTypes\DLE.DataTypes.vcxproj">
+    <ProjectReference Include="..\DataTypes\DLE.DataTypes.vcxproj">
       <Project>{d3b6e4e3-ec8a-4b81-bee1-e4e481d9939a}</Project>
     </ProjectReference>
   </ItemGroup>

@@ -3435,15 +3435,15 @@ END
 // Bitmap
 //
 
-IDB_TOOLBAR             BITMAP                  "resource/bitmaps/toolbar2.bmp"
+IDB_TOOLBAR             BITMAP                  "../resource/bitmaps/toolbar2.bmp"
 
-IDR_EDIT_TOOLBAR        BITMAP                  "resource/bitmaps/editbar.bmp"
+IDR_EDIT_TOOLBAR        BITMAP                  "../resource/bitmaps/editbar.bmp"
 
-IDB_LOGO                BITMAP                  "resource/bitmaps/dle-xp_logo.bmp"
+IDB_LOGO                BITMAP                  "../resource/bitmaps/dle-xp_logo.bmp"
 
-IDB_LOGO2               BITMAP                  "resource/bitmaps/DLE-XP_logo2.bmp"
+IDB_LOGO2               BITMAP                  "../resource/bitmaps/DLE-XP_logo2.bmp"
 
-DLE_ICON                BITMAP                  "resource/bitmaps/DLE_icon.bmp"
+DLE_ICON                BITMAP                  "../resource/bitmaps/DLE_icon.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -3471,21 +3471,21 @@ END
 // Cursor
 //
 
-IDC_CURSOR_ZOOM         CURSOR                  "resource/cursors/zoom.cur"
+IDC_CURSOR_ZOOM         CURSOR                  "../resource/cursors/zoom.cur"
 
-IDC_CURSOR_ZOOMOUT      CURSOR                  "resource/cursors/zoomout.cur"
+IDC_CURSOR_ZOOMOUT      CURSOR                  "../resource/cursors/zoomout.cur"
 
-IDC_CURSOR_ZOOMIN       CURSOR                  "resource/cursors/zoomin.cur"
+IDC_CURSOR_ZOOMIN       CURSOR                  "../resource/cursors/zoomin.cur"
 
-IDC_CURSOR_ROTATE       CURSOR                  "resource/cursors/rotate.cur"
+IDC_CURSOR_ROTATE       CURSOR                  "../resource/cursors/rotate.cur"
 
-IDC_CURSOR_PAN          CURSOR                  "resource/cursors/pan.cur"
+IDC_CURSOR_PAN          CURSOR                  "../resource/cursors/pan.cur"
 
-IDC_CURSOR_DRAG         CURSOR                  "resource/cursors/drag.cur"
+IDC_CURSOR_DRAG         CURSOR                  "../resource/cursors/drag.cur"
 
-IDC_CURSOR_XHAIRS       CURSOR                  "resource/cursors/xhairs.cur"
+IDC_CURSOR_XHAIRS       CURSOR                  "../resource/cursors/xhairs.cur"
 
-IDC_CURSOR_ARROW        CURSOR                  "resource/cursors/arrow.cur"
+IDC_CURSOR_ARROW        CURSOR                  "../resource/cursors/arrow.cur"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -3493,23 +3493,23 @@ IDC_CURSOR_ARROW        CURSOR                  "resource/cursors/arrow.cur"
 // RC_DATA
 //
 
-IDR_NEW_RDL             RC_DATA                 "resource/levels/NEW_SAVE.RDL"
+IDR_NEW_RDL             RC_DATA                 "../resource/levels/NEW_SAVE.RDL"
 
-IDR_NEW_RL2             RC_DATA                 "resource/levels/NEW_SAVE.RL2"
+IDR_NEW_RL2             RC_DATA                 "../resource/levels/NEW_SAVE.RL2"
 
-IDR_ROBOT_HXM           RC_DATA                 "resource/data/ROBOT.HXM"
+IDR_ROBOT_HXM           RC_DATA                 "../resource/data/ROBOT.HXM"
 
-IDR_SHIP_DAT            RC_DATA                 "resource/data/SHIP.DAT"
+IDR_SHIP_DAT            RC_DATA                 "../resource/data/SHIP.DAT"
 
-IDR_TEXTURE_D1D2        RC_DATA                 "resource/data/D12D2.DAT"
+IDR_TEXTURE_D1D2        RC_DATA                 "../resource/data/D12D2.DAT"
 
-IDR_COLOR_D1            RC_DATA                 "resource/data/descent.clr"
+IDR_COLOR_D1            RC_DATA                 "../resource/data/descent.clr"
 
-IDR_LIGHT_D1            RC_DATA                 "resource/data/descent.lgt"
+IDR_LIGHT_D1            RC_DATA                 "../resource/data/descent.lgt"
 
-IDR_COLOR_D2            RC_DATA                 "resource/data/descent2.clr"
+IDR_COLOR_D2            RC_DATA                 "../resource/data/descent2.clr"
 
-IDR_LIGHT_D2            RC_DATA                 "resource/data/descent2.lgt"
+IDR_LIGHT_D2            RC_DATA                 "../resource/data/descent2.lgt"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -3519,9 +3519,9 @@ IDR_LIGHT_D2            RC_DATA                 "resource/data/descent2.lgt"
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_MAINFRAME           ICON                    "resource/icons/DLEXP.ico"
+IDR_MAINFRAME           ICON                    "../resource/icons/DLEXP.ico"
 
-OLDICON2                ICON                    "resource/icons/icon5.ico"
+OLDICON2                ICON                    "../resource/icons/icon5.ico"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -6294,545 +6294,545 @@ END
 // Bitmap
 //
 
-IDR_MAINFRAME_OLD       BITMAP                  "resource/bitmaps/Toolbar.bmp"
+IDR_MAINFRAME_OLD       BITMAP                  "../resource/bitmaps/Toolbar.bmp"
 
-IDR_MAINFRAME           BITMAP                  "resource/bitmaps/toolbar2.bmp"
+IDR_MAINFRAME           BITMAP                  "../resource/bitmaps/toolbar2.bmp"
 
-NO_PIG_BITMAP           BITMAP                  "resource/bitmaps/nopig.bmp"
+NO_PIG_BITMAP           BITMAP                  "../resource/bitmaps/nopig.bmp"
 
-NO_TEXTURE_BITMAP       BITMAP                  "resource/bitmaps/none.bmp"
+NO_TEXTURE_BITMAP       BITMAP                  "../resource/bitmaps/none.bmp"
 
-WRONG_PIG_BITMAP        BITMAP                  "resource/bitmaps/oldpig.bmp"
+WRONG_PIG_BITMAP        BITMAP                  "../resource/bitmaps/oldpig.bmp"
 
-OBJ_000_BMP             BITMAP                  "resource/bitmaps/obj_000.bmp"
+OBJ_000_BMP             BITMAP                  "../resource/bitmaps/obj_000.bmp"
 
-OBJ_001_BMP             BITMAP                  "resource/bitmaps/obj_001.bmp"
+OBJ_001_BMP             BITMAP                  "../resource/bitmaps/obj_001.bmp"
 
-OBJ_002_BMP             BITMAP                  "resource/bitmaps/obj_002.bmp"
+OBJ_002_BMP             BITMAP                  "../resource/bitmaps/obj_002.bmp"
 
-OBJ_003_BMP             BITMAP                  "resource/bitmaps/obj_003.bmp"
+OBJ_003_BMP             BITMAP                  "../resource/bitmaps/obj_003.bmp"
 
-OBJ_004_BMP             BITMAP                  "resource/bitmaps/obj_004.bmp"
+OBJ_004_BMP             BITMAP                  "../resource/bitmaps/obj_004.bmp"
 
-OBJ_005_BMP             BITMAP                  "resource/bitmaps/obj_005.bmp"
+OBJ_005_BMP             BITMAP                  "../resource/bitmaps/obj_005.bmp"
 
-OBJ_006_BMP             BITMAP                  "resource/bitmaps/obj_006.bmp"
+OBJ_006_BMP             BITMAP                  "../resource/bitmaps/obj_006.bmp"
 
-OBJ_007_BMP             BITMAP                  "resource/bitmaps/obj_007.bmp"
+OBJ_007_BMP             BITMAP                  "../resource/bitmaps/obj_007.bmp"
 
-OBJ_008_BMP             BITMAP                  "resource/bitmaps/obj_008.bmp"
+OBJ_008_BMP             BITMAP                  "../resource/bitmaps/obj_008.bmp"
 
-OBJ_009_BMP             BITMAP                  "resource/bitmaps/obj_009.bmp"
+OBJ_009_BMP             BITMAP                  "../resource/bitmaps/obj_009.bmp"
 
-OBJ_010_BMP             BITMAP                  "resource/bitmaps/obj_010.bmp"
+OBJ_010_BMP             BITMAP                  "../resource/bitmaps/obj_010.bmp"
 
-OBJ_011_BMP             BITMAP                  "resource/bitmaps/obj_011.bmp"
+OBJ_011_BMP             BITMAP                  "../resource/bitmaps/obj_011.bmp"
 
-OBJ_012_BMP             BITMAP                  "resource/bitmaps/obj_012.bmp"
+OBJ_012_BMP             BITMAP                  "../resource/bitmaps/obj_012.bmp"
 
-OBJ_013_BMP             BITMAP                  "resource/bitmaps/obj_013.bmp"
+OBJ_013_BMP             BITMAP                  "../resource/bitmaps/obj_013.bmp"
 
-OBJ_014_BMP             BITMAP                  "resource/bitmaps/obj_014.bmp"
+OBJ_014_BMP             BITMAP                  "../resource/bitmaps/obj_014.bmp"
 
-OBJ_015_BMP             BITMAP                  "resource/bitmaps/obj_015.bmp"
+OBJ_015_BMP             BITMAP                  "../resource/bitmaps/obj_015.bmp"
 
-OBJ_016_BMP             BITMAP                  "resource/bitmaps/obj_016.bmp"
+OBJ_016_BMP             BITMAP                  "../resource/bitmaps/obj_016.bmp"
 
-OBJ_017_BMP             BITMAP                  "resource/bitmaps/obj_017.bmp"
+OBJ_017_BMP             BITMAP                  "../resource/bitmaps/obj_017.bmp"
 
-OBJ_018_BMP             BITMAP                  "resource/bitmaps/obj_018.bmp"
+OBJ_018_BMP             BITMAP                  "../resource/bitmaps/obj_018.bmp"
 
-OBJ_019_BMP             BITMAP                  "resource/bitmaps/obj_019.bmp"
+OBJ_019_BMP             BITMAP                  "../resource/bitmaps/obj_019.bmp"
 
-OBJ_020_BMP             BITMAP                  "resource/bitmaps/obj_020.bmp"
+OBJ_020_BMP             BITMAP                  "../resource/bitmaps/obj_020.bmp"
 
-OBJ_021_BMP             BITMAP                  "resource/bitmaps/obj_021.bmp"
+OBJ_021_BMP             BITMAP                  "../resource/bitmaps/obj_021.bmp"
 
-OBJ_022_BMP             BITMAP                  "resource/bitmaps/obj_022.bmp"
+OBJ_022_BMP             BITMAP                  "../resource/bitmaps/obj_022.bmp"
 
-OBJ_023_BMP             BITMAP                  "resource/bitmaps/obj_023.bmp"
+OBJ_023_BMP             BITMAP                  "../resource/bitmaps/obj_023.bmp"
 
-OBJ_024_BMP             BITMAP                  "resource/bitmaps/obj_024.bmp"
+OBJ_024_BMP             BITMAP                  "../resource/bitmaps/obj_024.bmp"
 
-OBJ_025_BMP             BITMAP                  "resource/bitmaps/obj_025.bmp"
+OBJ_025_BMP             BITMAP                  "../resource/bitmaps/obj_025.bmp"
 
-OBJ_026_BMP             BITMAP                  "resource/bitmaps/obj_026.bmp"
+OBJ_026_BMP             BITMAP                  "../resource/bitmaps/obj_026.bmp"
 
-OBJ_027_BMP             BITMAP                  "resource/bitmaps/obj_027.bmp"
+OBJ_027_BMP             BITMAP                  "../resource/bitmaps/obj_027.bmp"
 
-OBJ_028_BMP             BITMAP                  "resource/bitmaps/obj_028.bmp"
+OBJ_028_BMP             BITMAP                  "../resource/bitmaps/obj_028.bmp"
 
-OBJ_029_BMP             BITMAP                  "resource/bitmaps/obj_029.bmp"
+OBJ_029_BMP             BITMAP                  "../resource/bitmaps/obj_029.bmp"
 
-OBJ_030_BMP             BITMAP                  "resource/bitmaps/obj_030.bmp"
+OBJ_030_BMP             BITMAP                  "../resource/bitmaps/obj_030.bmp"
 
-OBJ_031_BMP             BITMAP                  "resource/bitmaps/obj_031.bmp"
+OBJ_031_BMP             BITMAP                  "../resource/bitmaps/obj_031.bmp"
 
-OBJ_032_BMP             BITMAP                  "resource/bitmaps/obj_032.bmp"
+OBJ_032_BMP             BITMAP                  "../resource/bitmaps/obj_032.bmp"
 
-OBJ_033_BMP             BITMAP                  "resource/bitmaps/obj_033.bmp"
+OBJ_033_BMP             BITMAP                  "../resource/bitmaps/obj_033.bmp"
 
-OBJ_034_BMP             BITMAP                  "resource/bitmaps/obj_034.bmp"
+OBJ_034_BMP             BITMAP                  "../resource/bitmaps/obj_034.bmp"
 
-OBJ_035_BMP             BITMAP                  "resource/bitmaps/obj_035.bmp"
+OBJ_035_BMP             BITMAP                  "../resource/bitmaps/obj_035.bmp"
 
-OBJ_036_BMP             BITMAP                  "resource/bitmaps/obj_036.bmp"
+OBJ_036_BMP             BITMAP                  "../resource/bitmaps/obj_036.bmp"
 
-OBJ_037_BMP             BITMAP                  "resource/bitmaps/obj_037.bmp"
+OBJ_037_BMP             BITMAP                  "../resource/bitmaps/obj_037.bmp"
 
-OBJ_038_BMP             BITMAP                  "resource/bitmaps/obj_038.bmp"
+OBJ_038_BMP             BITMAP                  "../resource/bitmaps/obj_038.bmp"
 
-OBJ_039_BMP             BITMAP                  "resource/bitmaps/obj_039.bmp"
+OBJ_039_BMP             BITMAP                  "../resource/bitmaps/obj_039.bmp"
 
-OBJ_040_BMP             BITMAP                  "resource/bitmaps/obj_040.bmp"
+OBJ_040_BMP             BITMAP                  "../resource/bitmaps/obj_040.bmp"
 
-OBJ_041_BMP             BITMAP                  "resource/bitmaps/obj_041.bmp"
+OBJ_041_BMP             BITMAP                  "../resource/bitmaps/obj_041.bmp"
 
-OBJ_042_BMP             BITMAP                  "resource/bitmaps/obj_042.bmp"
+OBJ_042_BMP             BITMAP                  "../resource/bitmaps/obj_042.bmp"
 
-OBJ_043_BMP             BITMAP                  "resource/bitmaps/obj_043.bmp"
+OBJ_043_BMP             BITMAP                  "../resource/bitmaps/obj_043.bmp"
 
-OBJ_044_BMP             BITMAP                  "resource/bitmaps/obj_044.bmp"
+OBJ_044_BMP             BITMAP                  "../resource/bitmaps/obj_044.bmp"
 
-OBJ_045_BMP             BITMAP                  "resource/bitmaps/obj_045.bmp"
+OBJ_045_BMP             BITMAP                  "../resource/bitmaps/obj_045.bmp"
 
-OBJ_046_BMP             BITMAP                  "resource/bitmaps/obj_046.bmp"
+OBJ_046_BMP             BITMAP                  "../resource/bitmaps/obj_046.bmp"
 
-OBJ_047_BMP             BITMAP                  "resource/bitmaps/obj_047.bmp"
+OBJ_047_BMP             BITMAP                  "../resource/bitmaps/obj_047.bmp"
 
-OBJ_048_BMP             BITMAP                  "resource/bitmaps/obj_048.bmp"
+OBJ_048_BMP             BITMAP                  "../resource/bitmaps/obj_048.bmp"
 
-OBJ_049_BMP             BITMAP                  "resource/bitmaps/obj_049.bmp"
+OBJ_049_BMP             BITMAP                  "../resource/bitmaps/obj_049.bmp"
 
-OBJ_050_BMP             BITMAP                  "resource/bitmaps/obj_050.bmp"
+OBJ_050_BMP             BITMAP                  "../resource/bitmaps/obj_050.bmp"
 
-OBJ_051_BMP             BITMAP                  "resource/bitmaps/obj_051.bmp"
+OBJ_051_BMP             BITMAP                  "../resource/bitmaps/obj_051.bmp"
 
-OBJ_052_BMP             BITMAP                  "resource/bitmaps/obj_052.bmp"
+OBJ_052_BMP             BITMAP                  "../resource/bitmaps/obj_052.bmp"
 
-OBJ_053_BMP             BITMAP                  "resource/bitmaps/obj_053.bmp"
+OBJ_053_BMP             BITMAP                  "../resource/bitmaps/obj_053.bmp"
 
-OBJ_054_BMP             BITMAP                  "resource/bitmaps/obj_054.bmp"
+OBJ_054_BMP             BITMAP                  "../resource/bitmaps/obj_054.bmp"
 
-OBJ_055_BMP             BITMAP                  "resource/bitmaps/obj_055.bmp"
+OBJ_055_BMP             BITMAP                  "../resource/bitmaps/obj_055.bmp"
 
-OBJ_056_BMP             BITMAP                  "resource/bitmaps/obj_056.bmp"
+OBJ_056_BMP             BITMAP                  "../resource/bitmaps/obj_056.bmp"
 
-OBJ_057_BMP             BITMAP                  "resource/bitmaps/obj_057.bmp"
+OBJ_057_BMP             BITMAP                  "../resource/bitmaps/obj_057.bmp"
 
-OBJ_058_BMP             BITMAP                  "resource/bitmaps/obj_058.bmp"
+OBJ_058_BMP             BITMAP                  "../resource/bitmaps/obj_058.bmp"
 
-OBJ_059_BMP             BITMAP                  "resource/bitmaps/obj_059.bmp"
+OBJ_059_BMP             BITMAP                  "../resource/bitmaps/obj_059.bmp"
 
-OBJ_060_BMP             BITMAP                  "resource/bitmaps/obj_060.bmp"
+OBJ_060_BMP             BITMAP                  "../resource/bitmaps/obj_060.bmp"
 
-OBJ_061_BMP             BITMAP                  "resource/bitmaps/obj_061.bmp"
+OBJ_061_BMP             BITMAP                  "../resource/bitmaps/obj_061.bmp"
 
-OBJ_062_BMP             BITMAP                  "resource/bitmaps/obj_062.bmp"
+OBJ_062_BMP             BITMAP                  "../resource/bitmaps/obj_062.bmp"
 
-OBJ_063_BMP             BITMAP                  "resource/bitmaps/obj_063.bmp"
+OBJ_063_BMP             BITMAP                  "../resource/bitmaps/obj_063.bmp"
 
-OBJ_064_BMP             BITMAP                  "resource/bitmaps/obj_064.bmp"
+OBJ_064_BMP             BITMAP                  "../resource/bitmaps/obj_064.bmp"
 
-OBJ_065_BMP             BITMAP                  "resource/bitmaps/obj_065.bmp"
+OBJ_065_BMP             BITMAP                  "../resource/bitmaps/obj_065.bmp"
 
-OBJ_066_BMP             BITMAP                  "resource/bitmaps/obj_066.bmp"
+OBJ_066_BMP             BITMAP                  "../resource/bitmaps/obj_066.bmp"
 
-OBJ_067_BMP             BITMAP                  "resource/bitmaps/obj_067.bmp"
+OBJ_067_BMP             BITMAP                  "../resource/bitmaps/obj_067.bmp"
 
-OBJ_068_BMP             BITMAP                  "resource/bitmaps/obj_068.bmp"
+OBJ_068_BMP             BITMAP                  "../resource/bitmaps/obj_068.bmp"
 
-OBJ_069_BMP             BITMAP                  "resource/bitmaps/obj_069.bmp"
+OBJ_069_BMP             BITMAP                  "../resource/bitmaps/obj_069.bmp"
 
-OBJ_070_BMP             BITMAP                  "resource/bitmaps/obj_070.bmp"
+OBJ_070_BMP             BITMAP                  "../resource/bitmaps/obj_070.bmp"
 
-OBJ_071_BMP             BITMAP                  "resource/bitmaps/obj_071.bmp"
+OBJ_071_BMP             BITMAP                  "../resource/bitmaps/obj_071.bmp"
 
-OBJ_072_BMP             BITMAP                  "resource/bitmaps/obj_072.bmp"
+OBJ_072_BMP             BITMAP                  "../resource/bitmaps/obj_072.bmp"
 
-OBJ_073_BMP             BITMAP                  "resource/bitmaps/obj_073.bmp"
+OBJ_073_BMP             BITMAP                  "../resource/bitmaps/obj_073.bmp"
 
-OBJ_074_BMP             BITMAP                  "resource/bitmaps/obj_074.bmp"
+OBJ_074_BMP             BITMAP                  "../resource/bitmaps/obj_074.bmp"
 
-OBJ_075_BMP             BITMAP                  "resource/bitmaps/obj_075.bmp"
+OBJ_075_BMP             BITMAP                  "../resource/bitmaps/obj_075.bmp"
 
-OBJ_076_BMP             BITMAP                  "resource/bitmaps/obj_076.bmp"
+OBJ_076_BMP             BITMAP                  "../resource/bitmaps/obj_076.bmp"
 
-OBJ_077_BMP             BITMAP                  "resource/bitmaps/obj_077.bmp"
+OBJ_077_BMP             BITMAP                  "../resource/bitmaps/obj_077.bmp"
 
-OBJ_078_BMP             BITMAP                  "resource/bitmaps/obj_078.bmp"
+OBJ_078_BMP             BITMAP                  "../resource/bitmaps/obj_078.bmp"
 
-OBJ_079_BMP             BITMAP                  "resource/bitmaps/obj_079.bmp"
+OBJ_079_BMP             BITMAP                  "../resource/bitmaps/obj_079.bmp"
 
-OBJ_080_BMP             BITMAP                  "resource/bitmaps/obj_080.bmp"
+OBJ_080_BMP             BITMAP                  "../resource/bitmaps/obj_080.bmp"
 
-OBJ_081_BMP             BITMAP                  "resource/bitmaps/obj_081.bmp"
+OBJ_081_BMP             BITMAP                  "../resource/bitmaps/obj_081.bmp"
 
-OBJ_082_BMP             BITMAP                  "resource/bitmaps/obj_082.bmp"
+OBJ_082_BMP             BITMAP                  "../resource/bitmaps/obj_082.bmp"
 
-OBJ_083_BMP             BITMAP                  "resource/bitmaps/obj_083.bmp"
+OBJ_083_BMP             BITMAP                  "../resource/bitmaps/obj_083.bmp"
 
-OBJ_084_BMP             BITMAP                  "resource/bitmaps/obj_084.bmp"
+OBJ_084_BMP             BITMAP                  "../resource/bitmaps/obj_084.bmp"
 
-OBJ_085_BMP             BITMAP                  "resource/bitmaps/obj_085.bmp"
+OBJ_085_BMP             BITMAP                  "../resource/bitmaps/obj_085.bmp"
 
-OBJ_086_BMP             BITMAP                  "resource/bitmaps/obj_086.bmp"
+OBJ_086_BMP             BITMAP                  "../resource/bitmaps/obj_086.bmp"
 
-OBJ_087_BMP             BITMAP                  "resource/bitmaps/obj_087.bmp"
+OBJ_087_BMP             BITMAP                  "../resource/bitmaps/obj_087.bmp"
 
-OBJ_088_BMP             BITMAP                  "resource/bitmaps/obj_088.bmp"
+OBJ_088_BMP             BITMAP                  "../resource/bitmaps/obj_088.bmp"
 
-OBJ_089_BMP             BITMAP                  "resource/bitmaps/obj_089.bmp"
+OBJ_089_BMP             BITMAP                  "../resource/bitmaps/obj_089.bmp"
 
-OBJ_090_BMP             BITMAP                  "resource/bitmaps/obj_090.bmp"
+OBJ_090_BMP             BITMAP                  "../resource/bitmaps/obj_090.bmp"
 
-OBJ_091_BMP             BITMAP                  "resource/bitmaps/obj_091.bmp"
+OBJ_091_BMP             BITMAP                  "../resource/bitmaps/obj_091.bmp"
 
-OBJ_092_BMP             BITMAP                  "resource/bitmaps/obj_092.bmp"
+OBJ_092_BMP             BITMAP                  "../resource/bitmaps/obj_092.bmp"
 
-OBJ_093_BMP             BITMAP                  "resource/bitmaps/obj_093.bmp"
+OBJ_093_BMP             BITMAP                  "../resource/bitmaps/obj_093.bmp"
 
-OBJ_094_BMP             BITMAP                  "resource/bitmaps/obj_094.bmp"
+OBJ_094_BMP             BITMAP                  "../resource/bitmaps/obj_094.bmp"
 
-OBJ_095_BMP             BITMAP                  "resource/bitmaps/obj_095.bmp"
+OBJ_095_BMP             BITMAP                  "../resource/bitmaps/obj_095.bmp"
 
-OBJ_096_BMP             BITMAP                  "resource/bitmaps/obj_096.bmp"
+OBJ_096_BMP             BITMAP                  "../resource/bitmaps/obj_096.bmp"
 
-OBJ_097_BMP             BITMAP                  "resource/bitmaps/obj_097.bmp"
+OBJ_097_BMP             BITMAP                  "../resource/bitmaps/obj_097.bmp"
 
-OBJ_098_BMP             BITMAP                  "resource/bitmaps/obj_098.bmp"
+OBJ_098_BMP             BITMAP                  "../resource/bitmaps/obj_098.bmp"
 
-OBJ_099_BMP             BITMAP                  "resource/bitmaps/obj_099.bmp"
+OBJ_099_BMP             BITMAP                  "../resource/bitmaps/obj_099.bmp"
 
-OBJ_100_BMP             BITMAP                  "resource/bitmaps/obj_100.bmp"
+OBJ_100_BMP             BITMAP                  "../resource/bitmaps/obj_100.bmp"
 
-OBJ_101_BMP             BITMAP                  "resource/bitmaps/obj_101.bmp"
+OBJ_101_BMP             BITMAP                  "../resource/bitmaps/obj_101.bmp"
 
-OBJ_102_BMP             BITMAP                  "resource/bitmaps/obj_102.bmp"
+OBJ_102_BMP             BITMAP                  "../resource/bitmaps/obj_102.bmp"
 
-OBJ_103_BMP             BITMAP                  "resource/bitmaps/obj_103.bmp"
+OBJ_103_BMP             BITMAP                  "../resource/bitmaps/obj_103.bmp"
 
-OBJ_104_BMP             BITMAP                  "resource/bitmaps/obj_104.bmp"
+OBJ_104_BMP             BITMAP                  "../resource/bitmaps/obj_104.bmp"
 
-OBJ_105_BMP             BITMAP                  "resource/bitmaps/obj_105.bmp"
+OBJ_105_BMP             BITMAP                  "../resource/bitmaps/obj_105.bmp"
 
-OBJ_106_BMP             BITMAP                  "resource/bitmaps/obj_106.bmp"
+OBJ_106_BMP             BITMAP                  "../resource/bitmaps/obj_106.bmp"
 
-OBJ_107_BMP             BITMAP                  "resource/bitmaps/obj_107.bmp"
+OBJ_107_BMP             BITMAP                  "../resource/bitmaps/obj_107.bmp"
 
-OBJ_108_BMP             BITMAP                  "resource/bitmaps/obj_108.bmp"
+OBJ_108_BMP             BITMAP                  "../resource/bitmaps/obj_108.bmp"
 
-OBJ_109_BMP             BITMAP                  "resource/bitmaps/obj_109.bmp"
+OBJ_109_BMP             BITMAP                  "../resource/bitmaps/obj_109.bmp"
 
-OBJ_110_BMP             BITMAP                  "resource/bitmaps/obj_110.bmp"
+OBJ_110_BMP             BITMAP                  "../resource/bitmaps/obj_110.bmp"
 
-OBJ_111_BMP             BITMAP                  "resource/bitmaps/obj_111.bmp"
+OBJ_111_BMP             BITMAP                  "../resource/bitmaps/obj_111.bmp"
 
-OBJ_112_BMP             BITMAP                  "resource/bitmaps/obj_112.bmp"
+OBJ_112_BMP             BITMAP                  "../resource/bitmaps/obj_112.bmp"
 
-OBJ_113_BMP             BITMAP                  "resource/bitmaps/obj_113.bmp"
+OBJ_113_BMP             BITMAP                  "../resource/bitmaps/obj_113.bmp"
 
-OBJ_114_BMP             BITMAP                  "resource/bitmaps/obj_114.bmp"
+OBJ_114_BMP             BITMAP                  "../resource/bitmaps/obj_114.bmp"
 
-OBJ_115_BMP             BITMAP                  "resource/bitmaps/obj_115.bmp"
+OBJ_115_BMP             BITMAP                  "../resource/bitmaps/obj_115.bmp"
 
-OBJ_116_BMP             BITMAP                  "resource/bitmaps/obj_116.bmp"
+OBJ_116_BMP             BITMAP                  "../resource/bitmaps/obj_116.bmp"
 
-OBJ_117_BMP             BITMAP                  "resource/bitmaps/obj_117.bmp"
+OBJ_117_BMP             BITMAP                  "../resource/bitmaps/obj_117.bmp"
 
-OBJ_118_BMP             BITMAP                  "resource/bitmaps/obj_118.bmp"
+OBJ_118_BMP             BITMAP                  "../resource/bitmaps/obj_118.bmp"
 
-OBJ_119_BMP             BITMAP                  "resource/bitmaps/obj_119.bmp"
+OBJ_119_BMP             BITMAP                  "../resource/bitmaps/obj_119.bmp"
 
-OBJ_120_BMP             BITMAP                  "resource/bitmaps/obj_120.bmp"
+OBJ_120_BMP             BITMAP                  "../resource/bitmaps/obj_120.bmp"
 
-OBJ_121_BMP             BITMAP                  "resource/bitmaps/obj_121.bmp"
+OBJ_121_BMP             BITMAP                  "../resource/bitmaps/obj_121.bmp"
 
-OBJ_122_BMP             BITMAP                  "resource/bitmaps/obj_122.bmp"
+OBJ_122_BMP             BITMAP                  "../resource/bitmaps/obj_122.bmp"
 
-OBJ_123_BMP             BITMAP                  "resource/bitmaps/obj_123.bmp"
+OBJ_123_BMP             BITMAP                  "../resource/bitmaps/obj_123.bmp"
 
-OBJ_124_BMP             BITMAP                  "resource/bitmaps/obj_124.bmp"
+OBJ_124_BMP             BITMAP                  "../resource/bitmaps/obj_124.bmp"
 
-OBJ_125_BMP             BITMAP                  "resource/bitmaps/obj_125.bmp"
+OBJ_125_BMP             BITMAP                  "../resource/bitmaps/obj_125.bmp"
 
-OBJ_126_BMP             BITMAP                  "resource/bitmaps/obj_126.bmp"
+OBJ_126_BMP             BITMAP                  "../resource/bitmaps/obj_126.bmp"
 
-OBJ_127_BMP             BITMAP                  "resource/bitmaps/obj_127.bmp"
+OBJ_127_BMP             BITMAP                  "../resource/bitmaps/obj_127.bmp"
 
-OBJ_128_BMP             BITMAP                  "resource/bitmaps/obj_128.bmp"
+OBJ_128_BMP             BITMAP                  "../resource/bitmaps/obj_128.bmp"
 
-OBJ_129_BMP             BITMAP                  "resource/bitmaps/obj_129.bmp"
+OBJ_129_BMP             BITMAP                  "../resource/bitmaps/obj_129.bmp"
 
-SIDED                   BITMAP                  "resource/bitmaps/cube.bmp"
+SIDED                   BITMAP                  "../resource/bitmaps/cube.bmp"
 
-SPLASHSCREEN            BITMAP                  "resource/bitmaps/dlc.bmp"
+SPLASHSCREEN            BITMAP                  "../resource/bitmaps/dlc.bmp"
 
-EXITU                   BITMAP                  "resource/bitmaps/10000.bmp"
+EXITU                   BITMAP                  "../resource/bitmaps/10000.bmp"
 
-EDITFWDU                BITMAP                  "resource/bitmaps/10001.bmp"
+EDITFWDU                BITMAP                  "../resource/bitmaps/10001.bmp"
 
-ROTRIGHTU               BITMAP                  "resource/bitmaps/10004.bmp"
+ROTRIGHTU               BITMAP                  "../resource/bitmaps/10004.bmp"
 
-ROTLEFTU                BITMAP                  "resource/bitmaps/10005.bmp"
+ROTLEFTU                BITMAP                  "../resource/bitmaps/10005.bmp"
 
-EDITEXPU                BITMAP                  "resource/bitmaps/10006.bmp"
+EDITEXPU                BITMAP                  "../resource/bitmaps/10006.bmp"
 
-EDITSHRU                BITMAP                  "resource/bitmaps/10007.bmp"
+EDITSHRU                BITMAP                  "../resource/bitmaps/10007.bmp"
 
-LEFTU                   BITMAP                  "resource/bitmaps/10008.bmp"
+LEFTU                   BITMAP                  "../resource/bitmaps/10008.bmp"
 
-UPU                     BITMAP                  "resource/bitmaps/10009.bmp"
+UPU                     BITMAP                  "../resource/bitmaps/10009.bmp"
 
-RIGHTU                  BITMAP                  "resource/bitmaps/10010.bmp"
+RIGHTU                  BITMAP                  "../resource/bitmaps/10010.bmp"
 
-DOWNU                   BITMAP                  "resource/bitmaps/10011.bmp"
+DOWNU                   BITMAP                  "../resource/bitmaps/10011.bmp"
 
-TOOLEDITU               BITMAP                  "resource/bitmaps/10012.bmp"
+TOOLEDITU               BITMAP                  "../resource/bitmaps/10012.bmp"
 
-TEXEDITU                BITMAP                  "resource/bitmaps/10013.bmp"
+TEXEDITU                BITMAP                  "../resource/bitmaps/10013.bmp"
 
-CUBEDITU                BITMAP                  "resource/bitmaps/10014.bmp"
+CUBEDITU                BITMAP                  "../resource/bitmaps/10014.bmp"
 
-OBJEDITU                BITMAP                  "resource/bitmaps/10015.bmp"
+OBJEDITU                BITMAP                  "../resource/bitmaps/10015.bmp"
 
-LIGHTEDITU              BITMAP                  "resource/bitmaps/10016.bmp"
+LIGHTEDITU              BITMAP                  "../resource/bitmaps/10016.bmp"
 
-FOPENU                  BITMAP                  "resource/bitmaps/10017.bmp"
+FOPENU                  BITMAP                  "../resource/bitmaps/10017.bmp"
 
-FSAVEU                  BITMAP                  "resource/bitmaps/10018.bmp"
+FSAVEU                  BITMAP                  "../resource/bitmaps/10018.bmp"
 
-ZOOMINU                 BITMAP                  "resource/bitmaps/10019.bmp"
+ZOOMINU                 BITMAP                  "../resource/bitmaps/10019.bmp"
 
-ZOOMOUTU                BITMAP                  "resource/bitmaps/10020.bmp"
+ZOOMOUTU                BITMAP                  "../resource/bitmaps/10020.bmp"
 
-ROTFWDU                 BITMAP                  "resource/bitmaps/10021.bmp"
+ROTFWDU                 BITMAP                  "../resource/bitmaps/10021.bmp"
 
-ROTBWDU                 BITMAP                  "resource/bitmaps/10022.bmp"
+ROTBWDU                 BITMAP                  "../resource/bitmaps/10022.bmp"
 
-ROTUPU                  BITMAP                  "resource/bitmaps/10023.bmp"
+ROTUPU                  BITMAP                  "../resource/bitmaps/10023.bmp"
 
-ROTDOWNU                BITMAP                  "resource/bitmaps/10024.bmp"
+ROTDOWNU                BITMAP                  "../resource/bitmaps/10024.bmp"
 
-REDRAWU                 BITMAP                  "resource/bitmaps/10025.bmp"
+REDRAWU                 BITMAP                  "../resource/bitmaps/10025.bmp"
 
-FSAVE2U                 BITMAP                  "resource/bitmaps/10026.bmp"
+FSAVE2U                 BITMAP                  "../resource/bitmaps/10026.bmp"
 
-CHECKU                  BITMAP                  "resource/bitmaps/10027.bmp"
+CHECKU                  BITMAP                  "../resource/bitmaps/10027.bmp"
 
-EDITLEFTU               BITMAP                  "resource/bitmaps/10028.bmp"
+EDITLEFTU               BITMAP                  "../resource/bitmaps/10028.bmp"
 
-EDITUPU                 BITMAP                  "resource/bitmaps/10029.bmp"
+EDITUPU                 BITMAP                  "../resource/bitmaps/10029.bmp"
 
-EDITRIGHTU              BITMAP                  "resource/bitmaps/10030.bmp"
+EDITRIGHTU              BITMAP                  "../resource/bitmaps/10030.bmp"
 
-EDITDOWNU               BITMAP                  "resource/bitmaps/10031.bmp"
+EDITDOWNU               BITMAP                  "../resource/bitmaps/10031.bmp"
 
-EDITBACKU               BITMAP                  "resource/bitmaps/12000.bmp"
+EDITBACKU               BITMAP                  "../resource/bitmaps/12000.bmp"
 
-EDITFWDD                BITMAP                  "resource/bitmaps/12001.bmp"
+EDITFWDD                BITMAP                  "../resource/bitmaps/12001.bmp"
 
-ROTRIGHTD               BITMAP                  "resource/bitmaps/12004.bmp"
+ROTRIGHTD               BITMAP                  "../resource/bitmaps/12004.bmp"
 
-ROTLEFTD                BITMAP                  "resource/bitmaps/12005.bmp"
+ROTLEFTD                BITMAP                  "../resource/bitmaps/12005.bmp"
 
-EDITEXPD                BITMAP                  "resource/bitmaps/12006.bmp"
+EDITEXPD                BITMAP                  "../resource/bitmaps/12006.bmp"
 
-EDITSHRD                BITMAP                  "resource/bitmaps/12007.bmp"
+EDITSHRD                BITMAP                  "../resource/bitmaps/12007.bmp"
 
-LEFTD                   BITMAP                  "resource/bitmaps/12008.bmp"
+LEFTD                   BITMAP                  "../resource/bitmaps/12008.bmp"
 
-UPD                     BITMAP                  "resource/bitmaps/12009.bmp"
+UPD                     BITMAP                  "../resource/bitmaps/12009.bmp"
 
-RIGHTD                  BITMAP                  "resource/bitmaps/12010.bmp"
+RIGHTD                  BITMAP                  "../resource/bitmaps/12010.bmp"
 
-TOOLEDITD               BITMAP                  "resource/bitmaps/12012.bmp"
+TOOLEDITD               BITMAP                  "../resource/bitmaps/12012.bmp"
 
-TEXEDITD                BITMAP                  "resource/bitmaps/12013.bmp"
+TEXEDITD                BITMAP                  "../resource/bitmaps/12013.bmp"
 
-CUBEDITD                BITMAP                  "resource/bitmaps/12014.bmp"
+CUBEDITD                BITMAP                  "../resource/bitmaps/12014.bmp"
 
-OBJEDITD                BITMAP                  "resource/bitmaps/12015.bmp"
+OBJEDITD                BITMAP                  "../resource/bitmaps/12015.bmp"
 
-LIGHTEDITD              BITMAP                  "resource/bitmaps/12016.bmp"
+LIGHTEDITD              BITMAP                  "../resource/bitmaps/12016.bmp"
 
-FOPEND                  BITMAP                  "resource/bitmaps/12017.bmp"
+FOPEND                  BITMAP                  "../resource/bitmaps/12017.bmp"
 
-FSAVED                  BITMAP                  "resource/bitmaps/12018.bmp"
+FSAVED                  BITMAP                  "../resource/bitmaps/12018.bmp"
 
-ZOOMIND                 BITMAP                  "resource/bitmaps/12019.bmp"
+ZOOMIND                 BITMAP                  "../resource/bitmaps/12019.bmp"
 
-ZOOMOUTD                BITMAP                  "resource/bitmaps/12020.bmp"
+ZOOMOUTD                BITMAP                  "../resource/bitmaps/12020.bmp"
 
-ROTFWDD                 BITMAP                  "resource/bitmaps/12021.bmp"
+ROTFWDD                 BITMAP                  "../resource/bitmaps/12021.bmp"
 
-ROTBWDD                 BITMAP                  "resource/bitmaps/12022.bmp"
+ROTBWDD                 BITMAP                  "../resource/bitmaps/12022.bmp"
 
-ROTUPD                  BITMAP                  "resource/bitmaps/12023.bmp"
+ROTUPD                  BITMAP                  "../resource/bitmaps/12023.bmp"
 
-ROTDOWND                BITMAP                  "resource/bitmaps/12024.bmp"
+ROTDOWND                BITMAP                  "../resource/bitmaps/12024.bmp"
 
-REDRAWD                 BITMAP                  "resource/bitmaps/12025.bmp"
+REDRAWD                 BITMAP                  "../resource/bitmaps/12025.bmp"
 
-FSAVE2D                 BITMAP                  "resource/bitmaps/12026.bmp"
+FSAVE2D                 BITMAP                  "../resource/bitmaps/12026.bmp"
 
-CHECKD                  BITMAP                  "resource/bitmaps/12027.bmp"
+CHECKD                  BITMAP                  "../resource/bitmaps/12027.bmp"
 
-EDITLEFTD               BITMAP                  "resource/bitmaps/12028.bmp"
+EDITLEFTD               BITMAP                  "../resource/bitmaps/12028.bmp"
 
-EDITUPD                 BITMAP                  "resource/bitmaps/12029.bmp"
+EDITUPD                 BITMAP                  "../resource/bitmaps/12029.bmp"
 
-EDITRIGHTD              BITMAP                  "resource/bitmaps/12030.bmp"
+EDITRIGHTD              BITMAP                  "../resource/bitmaps/12030.bmp"
 
-EDITDOWND               BITMAP                  "resource/bitmaps/12031.bmp"
+EDITDOWND               BITMAP                  "../resource/bitmaps/12031.bmp"
 
-WALLEDITU               BITMAP                  "resource/bitmaps/cubeditu.bmp"
+WALLEDITU               BITMAP                  "../resource/bitmaps/cubeditu.bmp"
 
-BTNU                    BITMAP                  "resource/bitmaps/walledit.bmp"
+BTNU                    BITMAP                  "../resource/bitmaps/walledit.bmp"
 
-WALLEDITD               BITMAP                  "resource/bitmaps/btnd1.bmp"
+WALLEDITD               BITMAP                  "../resource/bitmaps/btnd1.bmp"
 
-DOWND                   BITMAP                  "resource/bitmaps/bmp00001.bmp"
+DOWND                   BITMAP                  "../resource/bitmaps/bmp00001.bmp"
 
-HSHRINKD                BITMAP                  "resource/bitmaps/bmp00002.bmp"
+HSHRINKD                BITMAP                  "../resource/bitmaps/bmp00002.bmp"
 
-HSHRINKU                BITMAP                  "resource/bitmaps/btnu1.bmp"
+HSHRINKU                BITMAP                  "../resource/bitmaps/btnu1.bmp"
 
-VSHRINKD                BITMAP                  "resource/bitmaps/bmp00003.bmp"
+VSHRINKD                BITMAP                  "../resource/bitmaps/bmp00003.bmp"
 
-VSHRINKU                BITMAP                  "resource/bitmaps/bmp00004.bmp"
+VSHRINKU                BITMAP                  "../resource/bitmaps/bmp00004.bmp"
 
-RESETU                  BITMAP                  "resource/bitmaps/bmp00005.bmp"
+RESETU                  BITMAP                  "../resource/bitmaps/bmp00005.bmp"
 
-STRETCH2FITU            BITMAP                  "resource/bitmaps/btnu3.bmp"
+STRETCH2FITU            BITMAP                  "../resource/bitmaps/btnu3.bmp"
 
-CHILDALIGNU             BITMAP                  "resource/bitmaps/btnu4.bmp"
+CHILDALIGNU             BITMAP                  "../resource/bitmaps/btnu4.bmp"
 
-STRETCH2FITD            BITMAP                  "resource/bitmaps/stretch2.bmp"
+STRETCH2FITD            BITMAP                  "../resource/bitmaps/stretch2.bmp"
 
-CHILDALIGND             BITMAP                  "resource/bitmaps/childali.bmp"
+CHILDALIGND             BITMAP                  "../resource/bitmaps/childali.bmp"
 
-RESETD                  BITMAP                  "resource/bitmaps/resetd.bmp"
+RESETD                  BITMAP                  "../resource/bitmaps/resetd.bmp"
 
-RESET_TAGGEDD           BITMAP                  "resource/bitmaps/resetmar.bmp"
+RESET_TAGGEDD           BITMAP                  "../resource/bitmaps/resetmar.bmp"
 
-RESET_TAGGEDU           BITMAP                  "resource/bitmaps/bmp00006.bmp"
+RESET_TAGGEDU           BITMAP                  "../resource/bitmaps/bmp00006.bmp"
 
-JOINVERTD               BITMAP                  "resource/bitmaps/bmp00007.bmp"
+JOINVERTD               BITMAP                  "../resource/bitmaps/bmp00007.bmp"
 
-SPLITVERTD              BITMAP                  "resource/bitmaps/btnd2.bmp"
+SPLITVERTD              BITMAP                  "../resource/bitmaps/btnd2.bmp"
 
-JOINLINED               BITMAP                  "resource/bitmaps/btnd3.bmp"
+JOINLINED               BITMAP                  "../resource/bitmaps/btnd3.bmp"
 
-SPLITLINED              BITMAP                  "resource/bitmaps/btnd4.bmp"
+SPLITLINED              BITMAP                  "../resource/bitmaps/btnd4.bmp"
 
-JOINSIDED               BITMAP                  "resource/bitmaps/btnd5.bmp"
+JOINSIDED               BITMAP                  "../resource/bitmaps/btnd5.bmp"
 
-SPLITSIDED              BITMAP                  "resource/bitmaps/btnd6.bmp"
+SPLITSIDED              BITMAP                  "../resource/bitmaps/btnd6.bmp"
 
-JOINCUBED               BITMAP                  "resource/bitmaps/btnd7.bmp"
+JOINCUBED               BITMAP                  "../resource/bitmaps/btnd7.bmp"
 
-SPLITCUBED              BITMAP                  "resource/bitmaps/btnd8.bmp"
+SPLITCUBED              BITMAP                  "../resource/bitmaps/btnd8.bmp"
 
-JOINVERTU               BITMAP                  "resource/bitmaps/bmp00008.bmp"
+JOINVERTU               BITMAP                  "../resource/bitmaps/bmp00008.bmp"
 
-SPLITVERTU              BITMAP                  "resource/bitmaps/btnu2.bmp"
+SPLITVERTU              BITMAP                  "../resource/bitmaps/btnu2.bmp"
 
-JOINLINEU               BITMAP                  "resource/bitmaps/bmp00009.bmp"
+JOINLINEU               BITMAP                  "../resource/bitmaps/bmp00009.bmp"
 
-SPLITLINEU              BITMAP                  "resource/bitmaps/bmp00010.bmp"
+SPLITLINEU              BITMAP                  "../resource/bitmaps/bmp00010.bmp"
 
-JOINSIDEU               BITMAP                  "resource/bitmaps/btnu5.bmp"
+JOINSIDEU               BITMAP                  "../resource/bitmaps/btnu5.bmp"
 
-SPLITSIDEU              BITMAP                  "resource/bitmaps/btnu6.bmp"
+SPLITSIDEU              BITMAP                  "../resource/bitmaps/btnu6.bmp"
 
-JOINCUBEU               BITMAP                  "resource/bitmaps/btnu7.bmp"
+JOINCUBEU               BITMAP                  "../resource/bitmaps/btnu7.bmp"
 
-SPLITCUBEU              BITMAP                  "resource/bitmaps/btnu8.bmp"
+SPLITCUBEU              BITMAP                  "../resource/bitmaps/btnu8.bmp"
 
-ADDLIGHTU               BITMAP                  "resource/bitmaps/addlight.bmp"
+ADDLIGHTU               BITMAP                  "../resource/bitmaps/addlight.bmp"
 
-ADDLIGHTD               BITMAP                  "resource/bitmaps/bmp00011.bmp"
+ADDLIGHTD               BITMAP                  "../resource/bitmaps/bmp00011.bmp"
 
-DELLIGHTD               BITMAP                  "resource/bitmaps/dellight.bmp"
+DELLIGHTD               BITMAP                  "../resource/bitmaps/dellight.bmp"
 
-DELLIGHTU               BITMAP                  "resource/bitmaps/bmp00012.bmp"
+DELLIGHTU               BITMAP                  "../resource/bitmaps/bmp00012.bmp"
 
-ALLALIGND               BITMAP                  "resource/bitmaps/bmp00013.bmp"
+ALLALIGND               BITMAP                  "../resource/bitmaps/bmp00013.bmp"
 
-ALLALIGNU               BITMAP                  "resource/bitmaps/bmp00014.bmp"
+ALLALIGNU               BITMAP                  "../resource/bitmaps/bmp00014.bmp"
 
-EDTGEO1D                BITMAP                  "resource/bitmaps/edtgeod1.bmp"
+EDTGEO1D                BITMAP                  "../resource/bitmaps/edtgeod1.bmp"
 
-EDTGEO1U                BITMAP                  "resource/bitmaps/edtgeou1.bmp"
+EDTGEO1U                BITMAP                  "../resource/bitmaps/edtgeou1.bmp"
 
-EDTGEO2D                BITMAP                  "resource/bitmaps/edtgeod2.bmp"
+EDTGEO2D                BITMAP                  "../resource/bitmaps/edtgeod2.bmp"
 
-EDTGEO2U                BITMAP                  "resource/bitmaps/edtgeou2.bmp"
+EDTGEO2U                BITMAP                  "../resource/bitmaps/edtgeou2.bmp"
 
-EDTGEO3D                BITMAP                  "resource/bitmaps/edtgeod3.bmp"
+EDTGEO3D                BITMAP                  "../resource/bitmaps/edtgeod3.bmp"
 
-EDTGEO3U                BITMAP                  "resource/bitmaps/edtgeou3.bmp"
+EDTGEO3U                BITMAP                  "../resource/bitmaps/edtgeou3.bmp"
 
-EDTGEO4D                BITMAP                  "resource/bitmaps/edtgeod4.bmp"
+EDTGEO4D                BITMAP                  "../resource/bitmaps/edtgeod4.bmp"
 
-EDTGEO4U                BITMAP                  "resource/bitmaps/edtgeou4.bmp"
+EDTGEO4U                BITMAP                  "../resource/bitmaps/edtgeou4.bmp"
 
-EDTGEO5D                BITMAP                  "resource/bitmaps/edtgeod5.bmp"
+EDTGEO5D                BITMAP                  "../resource/bitmaps/edtgeod5.bmp"
 
-EDTGEO5U                BITMAP                  "resource/bitmaps/edtgeou5.bmp"
+EDTGEO5U                BITMAP                  "../resource/bitmaps/edtgeou5.bmp"
 
-EDTGEO6D                BITMAP                  "resource/bitmaps/edtgeod6.bmp"
+EDTGEO6D                BITMAP                  "../resource/bitmaps/edtgeod6.bmp"
 
-EDTGEO6U                BITMAP                  "resource/bitmaps/edtgeou6.bmp"
+EDTGEO6U                BITMAP                  "../resource/bitmaps/edtgeou6.bmp"
 
-EDTGEO7D                BITMAP                  "resource/bitmaps/edtgeod7.bmp"
+EDTGEO7D                BITMAP                  "../resource/bitmaps/edtgeod7.bmp"
 
-EDTGEO7U                BITMAP                  "resource/bitmaps/edtgeou7.bmp"
+EDTGEO7U                BITMAP                  "../resource/bitmaps/edtgeou7.bmp"
 
-EDTGEO8D                BITMAP                  "resource/bitmaps/edtgeod8.bmp"
+EDTGEO8D                BITMAP                  "../resource/bitmaps/edtgeod8.bmp"
 
-EDTGEO8U                BITMAP                  "resource/bitmaps/edtgeou8.bmp"
+EDTGEO8U                BITMAP                  "../resource/bitmaps/edtgeou8.bmp"
 
-EDTGEO9D                BITMAP                  "resource/bitmaps/edtgeod9.bmp"
+EDTGEO9D                BITMAP                  "../resource/bitmaps/edtgeod9.bmp"
 
-EDTGEO9U                BITMAP                  "resource/bitmaps/edtgeou9.bmp"
+EDTGEO9U                BITMAP                  "../resource/bitmaps/edtgeou9.bmp"
 
-EDTGEO0D                BITMAP                  "resource/bitmaps/edtgeod0.bmp"
+EDTGEO0D                BITMAP                  "../resource/bitmaps/edtgeod0.bmp"
 
-EDTGEO0U                BITMAP                  "resource/bitmaps/edtgeou0.bmp"
+EDTGEO0U                BITMAP                  "../resource/bitmaps/edtgeou0.bmp"
 
-HFLIPU                  BITMAP                  "resource/bitmaps/bmp00015.bmp"
+HFLIPU                  BITMAP                  "../resource/bitmaps/bmp00015.bmp"
 
-HFLIPD                  BITMAP                  "resource/bitmaps/bmp00016.bmp"
+HFLIPD                  BITMAP                  "../resource/bitmaps/bmp00016.bmp"
 
-VFLIPU                  BITMAP                  "resource/bitmaps/bmp00017.bmp"
+VFLIPU                  BITMAP                  "../resource/bitmaps/bmp00017.bmp"
 
-VFLIPD                  BITMAP                  "resource/bitmaps/bmp00018.bmp"
+VFLIPD                  BITMAP                  "../resource/bitmaps/bmp00018.bmp"
 
-PLANARU                 BITMAP                  "resource/bitmaps/planaru.bmp"
+PLANARU                 BITMAP                  "../resource/bitmaps/planaru.bmp"
 
-PLANARD                 BITMAP                  "resource/bitmaps/planard.bmp"
+PLANARD                 BITMAP                  "../resource/bitmaps/planard.bmp"
 
-CYLINDERU               BITMAP                  "resource/bitmaps/cylindru.bmp"
+CYLINDERU               BITMAP                  "../resource/bitmaps/cylindru.bmp"
 
-CYLINDERD               BITMAP                  "resource/bitmaps/cylindrd.bmp"
+CYLINDERD               BITMAP                  "../resource/bitmaps/cylindrd.bmp"
 
-VSTRETCHU               BITMAP                  "resource/bitmaps/vstrtchu.bmp"
+VSTRETCHU               BITMAP                  "../resource/bitmaps/vstrtchu.bmp"
 
-VSTRETCHD               BITMAP                  "resource/bitmaps/vstrtchd.bmp"
+VSTRETCHD               BITMAP                  "../resource/bitmaps/vstrtchd.bmp"
 
-HSTRETCHU               BITMAP                  "resource/bitmaps/hstrtchu.bmp"
+HSTRETCHU               BITMAP                  "../resource/bitmaps/hstrtchu.bmp"
 
-HSTRETCHD               BITMAP                  "resource/bitmaps/hstrtchd.bmp"
+HSTRETCHD               BITMAP                  "../resource/bitmaps/hstrtchd.bmp"
 
-FWDU                    BITMAP                  "resource/bitmaps/fwdu.bmp"
+FWDU                    BITMAP                  "../resource/bitmaps/fwdu.bmp"
 
-FWDD                    BITMAP                  "resource/bitmaps/fwdd.bmp"
+FWDD                    BITMAP                  "../resource/bitmaps/fwdd.bmp"
 
-BACKU                   BITMAP                  "resource/bitmaps/backu.bmp"
+BACKU                   BITMAP                  "../resource/bitmaps/backu.bmp"
 
-BACKD                   BITMAP                  "resource/bitmaps/backd.bmp"
+BACKD                   BITMAP                  "../resource/bitmaps/backd.bmp"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -6909,49 +6909,49 @@ END
 // RC_DATA
 //
 
-IDR_POF_NAMES1          RC_DATA                 "resource/data/Pofs1.dat"
+IDR_POF_NAMES1          RC_DATA                 "../resource/data/Pofs1.dat"
 
-IDR_POF_NAMES2          RC_DATA                 "resource/data/pofs2.dat"
+IDR_POF_NAMES2          RC_DATA                 "../resource/data/pofs2.dat"
 
-IDR_ALIEN1_256          RC_DATA                 "resource/palettes/alien1.256"
+IDR_ALIEN1_256          RC_DATA                 "../resource/palettes/alien1.256"
 
-IDR_ALIEN2_256          RC_DATA                 "resource/palettes/alien2.256"
+IDR_ALIEN2_256          RC_DATA                 "../resource/palettes/alien2.256"
 
-IDR_FIRE_256            RC_DATA                 "resource/palettes/fire.256"
+IDR_FIRE_256            RC_DATA                 "../resource/palettes/fire.256"
 
-IDR_GROUPA_256          RC_DATA                 "resource/palettes/groupa.256"
+IDR_GROUPA_256          RC_DATA                 "../resource/palettes/groupa.256"
 
-IDR_ICE_256             RC_DATA                 "resource/palettes/ice.256"
+IDR_ICE_256             RC_DATA                 "../resource/palettes/ice.256"
 
-IDR_WATER_256           RC_DATA                 "resource/palettes/water.256"
+IDR_WATER_256           RC_DATA                 "../resource/palettes/water.256"
 
-IDR_PALETTE_256         RC_DATA                 "resource/palettes/palette.256"
+IDR_PALETTE_256         RC_DATA                 "../resource/palettes/palette.256"
 
-IDR_TEXTURE_DAT         RC_DATA                 "resource/data/Texture.dat"
+IDR_TEXTURE_DAT         RC_DATA                 "../resource/data/Texture.dat"
 
-IDR_TEXTURE2_DAT        RC_DATA                 "resource/data/Texture2.dat"
+IDR_TEXTURE2_DAT        RC_DATA                 "../resource/data/Texture2.dat"
 
-IDR_ARROW_TEXTURE       RC_DATA                 "resource/bitmaps/arrow.tga"
+IDR_ARROW_TEXTURE       RC_DATA                 "../resource/bitmaps/arrow.tga"
 
-IDR_SMOKE_ICON          RC_DATA                 "resource/bitmaps/icon-smoke.tga"
+IDR_SMOKE_ICON          RC_DATA                 "../resource/bitmaps/icon-smoke.tga"
 
-IDR_SNOW_ICON           RC_DATA                 "resource/bitmaps/icon-snow.tga"
+IDR_SNOW_ICON           RC_DATA                 "../resource/bitmaps/icon-snow.tga"
 
-IDR_RAIN_ICON           RC_DATA                 "resource/bitmaps/icon-rain.tga"
+IDR_RAIN_ICON           RC_DATA                 "../resource/bitmaps/icon-rain.tga"
 
-IDR_BUBBLE_ICON         RC_DATA                 "resource/bitmaps/icon-bubbles.tga"
+IDR_BUBBLE_ICON         RC_DATA                 "../resource/bitmaps/icon-bubbles.tga"
 
-IDR_FIRE_ICON           RC_DATA                 "resource/bitmaps/icon-fire.tga"
+IDR_FIRE_ICON           RC_DATA                 "../resource/bitmaps/icon-fire.tga"
 
-IDR_LIGHTNING_ICON      RC_DATA                 "resource/bitmaps/icon-lightning.tga"
+IDR_LIGHTNING_ICON      RC_DATA                 "../resource/bitmaps/icon-lightning.tga"
 
-IDR_SOUND_ICON          RC_DATA                 "resource/bitmaps/icon-sound.tga"
+IDR_SOUND_ICON          RC_DATA                 "../resource/bitmaps/icon-sound.tga"
 
-IDR_WAYPOINT_ICON       RC_DATA                 "resource/bitmaps/icon-waypoint.tga"
+IDR_WAYPOINT_ICON       RC_DATA                 "../resource/bitmaps/icon-waypoint.tga"
 
-IDR_LIGHT_ICON          RC_DATA                 "resource/bitmaps/icon-light.tga"
+IDR_LIGHT_ICON          RC_DATA                 "../resource/bitmaps/icon-light.tga"
 
-IDR_CIRCLE_ICON         RC_DATA                 "resource/bitmaps/icon-circle.tga"
+IDR_CIRCLE_ICON         RC_DATA                 "../resource/bitmaps/icon-circle.tga"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -6961,9 +6961,9 @@ IDR_CIRCLE_ICON         RC_DATA                 "resource/bitmaps/icon-circle.tg
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDR_DLCTYPE             ICON                    "resource/icons/dlcDoc.ico"
+IDR_DLCTYPE             ICON                    "../resource/icons/dlcDoc.ico"
 
-IDI_OLD_ICON            ICON                    "resource/icons/dlc.ico"
+IDI_OLD_ICON            ICON                    "../resource/icons/dlc.ico"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -7420,13 +7420,13 @@ END
 // REGISTRY
 //
 
-IDR_COMMINE             REGISTRY                "resource/registry/ComMine.rgs"
+IDR_COMMINE             REGISTRY                "../resource/registry/ComMine.rgs"
 
-IDR_COMCUBE             REGISTRY                "resource/registry/ComCube.rgs"
+IDR_COMCUBE             REGISTRY                "../resource/registry/ComCube.rgs"
 
-IDR_DLE_XP              REGISTRY                "resource/registry/dle-xp.rgs"
+IDR_DLE_XP              REGISTRY                "../resource/registry/dle-xp.rgs"
 
-IDR_COMOBJ              REGISTRY                "resource/registry/ComObj.rgs"
+IDR_COMOBJ              REGISTRY                "../resource/registry/ComObj.rgs"
 
 
 /////////////////////////////////////////////////////////////////////////////

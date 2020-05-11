@@ -22,7 +22,7 @@
     <ProjectGuid>{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}</ProjectGuid>
     <RootNamespace>DLE</RootNamespace>
     <Keyword>MFCProj</Keyword>
-    <ProjectName>DLE</ProjectName>
+    <ProjectName>DLE.Editor</ProjectName>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -119,7 +119,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CallingConvention>FastCall</CallingConvention>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\DLE.Core;..\DLE.DataTypes;..\DLE.Managers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
@@ -172,7 +172,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CallingConvention>FastCall</CallingConvention>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\DLE.Core;..\DLE.DataTypes;..\DLE.Managers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
@@ -214,7 +214,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\DLE.Core;..\DLE.DataTypes;..\DLE.Managers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
@@ -254,7 +254,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\DLE.Core;..\DLE.DataTypes;..\DLE.Managers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
@@ -276,122 +276,122 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\dlcDoc.h" />
-    <ClInclude Include="..\dle.h" />
-    <ClInclude Include="..\DrawHelpers.h" />
-    <ClInclude Include="..\FBO.h" />
-    <ClInclude Include="..\Frustum.h" />
-    <ClInclude Include="..\MainFrame.h" />
-    <ClInclude Include="..\mineview.h" />
-    <ClInclude Include="..\PogDialog.h" />
-    <ClInclude Include="..\RenderBuffers.h" />
-    <ClInclude Include="..\renderer.h" />
-    <ClInclude Include="..\StdAfx.h" />
-    <ClInclude Include="..\TEXEDIT.h" />
-    <ClInclude Include="..\textureView.h" />
-    <ClInclude Include="..\toolview.h" />
-    <ClInclude Include="..\dle-res.h" />
-    <ClInclude Include="..\Resource.h" />
-    <ClInclude Include="..\glew.h" />
-    <ClInclude Include="..\Global.h" />
-    <ClInclude Include="..\ViewMatrix.h" />
-    <ClInclude Include="..\wglew.h" />
-    <ClInclude Include="..\buildmodel.h" />
-    <ClInclude Include="..\oglmatrix.h" />
-    <ClInclude Include="..\ResourceManager.h" />
-    <ClInclude Include="..\Selection.h" />
-    <ClInclude Include="..\ShaderManager.h" />
-    <ClInclude Include="..\TextureFilter.h" />
-    <ClInclude Include="..\TextureProjector.h" />
-    <ClInclude Include="..\HogDialog.h" />
+    <ClInclude Include="dlcDoc.h" />
+    <ClInclude Include="dle.h" />
+    <ClInclude Include="DrawHelpers.h" />
+    <ClInclude Include="FBO.h" />
+    <ClInclude Include="Frustum.h" />
+    <ClInclude Include="MainFrame.h" />
+    <ClInclude Include="mineview.h" />
+    <ClInclude Include="PogDialog.h" />
+    <ClInclude Include="RenderBuffers.h" />
+    <ClInclude Include="renderer.h" />
+    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="TEXEDIT.h" />
+    <ClInclude Include="textureView.h" />
+    <ClInclude Include="toolview.h" />
+    <ClInclude Include="dle-res.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="glew.h" />
+    <ClInclude Include="Global.h" />
+    <ClInclude Include="ViewMatrix.h" />
+    <ClInclude Include="wglew.h" />
+    <ClInclude Include="buildmodel.h" />
+    <ClInclude Include="oglmatrix.h" />
+    <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="Selection.h" />
+    <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="TextureFilter.h" />
+    <ClInclude Include="TextureProjector.h" />
+    <ClInclude Include="HogDialog.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\AdvancedObjTool.cpp" />
-    <ClCompile Include="..\CONVERT.CPP" />
-    <ClCompile Include="..\Diagnosis.cpp" />
-    <ClCompile Include="..\DiagTool.cpp" />
-    <ClCompile Include="..\dlcDoc.cpp" />
-    <ClCompile Include="..\dle.cpp" />
-    <ClCompile Include="..\DlgHelpers.cpp" />
-    <ClCompile Include="..\DrawHelpers.cpp" />
-    <ClCompile Include="..\EffectTool.cpp" />
-    <ClCompile Include="..\EffectTool.Fog.cpp" />
-    <ClCompile Include="..\EffectTool.Lightning.cpp" />
-    <ClCompile Include="..\EffectTool.Particles.cpp" />
-    <ClCompile Include="..\EffectTool.Sounds.cpp" />
-    <ClCompile Include="..\EffectTool.WayPoints.cpp" />
-    <ClCompile Include="..\ExtBitmapButton.cpp" />
-    <ClCompile Include="..\ExtSliderCtrl.cpp" />
-    <ClCompile Include="..\FBO.cpp" />
-    <ClCompile Include="..\Frustum.cpp" />
-    <ClCompile Include="..\LightTool.cpp" />
-    <ClCompile Include="..\MainFrame.cpp" />
-    <ClCompile Include="..\MainFrame.EditTool.cpp" />
-    <ClCompile Include="..\MainFrame.ExtToolBar.cpp" />
-    <ClCompile Include="..\MainFrame.InterfaceHandlers.cpp" />
-    <ClCompile Include="..\MineView.cpp" />
-    <ClCompile Include="..\MineView.drag.cpp" />
-    <ClCompile Include="..\MineView.draw.cpp" />
-    <ClCompile Include="..\MineView.Input.cpp" />
-    <ClCompile Include="..\MineView.Renderer.cpp" />
-    <ClCompile Include="..\MineView.Renderer.OpenGL.cpp" />
-    <ClCompile Include="..\MineView.Renderer.Software.cpp" />
-    <ClCompile Include="..\MineView.RenderLib.cpp" />
-    <ClCompile Include="..\MineView.select.cpp" />
-    <ClCompile Include="..\MineView.transform.cpp" />
-    <ClCompile Include="..\MissionTool.cpp" />
-    <ClCompile Include="..\ObjectTool.AI.cpp" />
-    <ClCompile Include="..\ObjectTool.Combat.cpp" />
-    <ClCompile Include="..\ObjectTool.cpp" />
-    <ClCompile Include="..\ObjectTool.Death.cpp" />
-    <ClCompile Include="..\ObjectTool.Physics.cpp" />
-    <ClCompile Include="..\ObjectTool.Position.cpp" />
-    <ClCompile Include="..\ObjectTool.Sound.cpp" />
-    <ClCompile Include="..\OOFRenderModel.cpp" />
-    <ClCompile Include="..\PogDialog.cpp" />
-    <ClCompile Include="..\ReactorTool.cpp" />
-    <ClCompile Include="..\RenderBuffers.cpp" />
-    <ClCompile Include="..\SegmentTool.cpp" />
-    <ClCompile Include="..\SettingsTool.cpp" />
-    <ClCompile Include="..\SettingsTool.Editor.cpp" />
-    <ClCompile Include="..\SettingsTool.Files.cpp" />
-    <ClCompile Include="..\SettingsTool.Layout.cpp" />
-    <ClCompile Include="..\SettingsTool.Misc.cpp" />
-    <ClCompile Include="..\SettingsTool.Renderer.cpp" />
-    <ClCompile Include="..\SettingsTool.Visibility.cpp" />
-    <ClCompile Include="..\StdAfx.cpp">
+    <ClCompile Include="AdvancedObjTool.cpp" />
+    <ClCompile Include="CONVERT.CPP" />
+    <ClCompile Include="Diagnosis.cpp" />
+    <ClCompile Include="DiagTool.cpp" />
+    <ClCompile Include="dlcDoc.cpp" />
+    <ClCompile Include="dle.cpp" />
+    <ClCompile Include="DlgHelpers.cpp" />
+    <ClCompile Include="DrawHelpers.cpp" />
+    <ClCompile Include="EffectTool.cpp" />
+    <ClCompile Include="EffectTool.Fog.cpp" />
+    <ClCompile Include="EffectTool.Lightning.cpp" />
+    <ClCompile Include="EffectTool.Particles.cpp" />
+    <ClCompile Include="EffectTool.Sounds.cpp" />
+    <ClCompile Include="EffectTool.WayPoints.cpp" />
+    <ClCompile Include="ExtBitmapButton.cpp" />
+    <ClCompile Include="ExtSliderCtrl.cpp" />
+    <ClCompile Include="FBO.cpp" />
+    <ClCompile Include="Frustum.cpp" />
+    <ClCompile Include="LightTool.cpp" />
+    <ClCompile Include="MainFrame.cpp" />
+    <ClCompile Include="MainFrame.EditTool.cpp" />
+    <ClCompile Include="MainFrame.ExtToolBar.cpp" />
+    <ClCompile Include="MainFrame.InterfaceHandlers.cpp" />
+    <ClCompile Include="MineView.cpp" />
+    <ClCompile Include="MineView.drag.cpp" />
+    <ClCompile Include="MineView.draw.cpp" />
+    <ClCompile Include="MineView.Input.cpp" />
+    <ClCompile Include="MineView.Renderer.cpp" />
+    <ClCompile Include="MineView.Renderer.OpenGL.cpp" />
+    <ClCompile Include="MineView.Renderer.Software.cpp" />
+    <ClCompile Include="MineView.RenderLib.cpp" />
+    <ClCompile Include="MineView.select.cpp" />
+    <ClCompile Include="MineView.transform.cpp" />
+    <ClCompile Include="MissionTool.cpp" />
+    <ClCompile Include="ObjectTool.AI.cpp" />
+    <ClCompile Include="ObjectTool.Combat.cpp" />
+    <ClCompile Include="ObjectTool.cpp" />
+    <ClCompile Include="ObjectTool.Death.cpp" />
+    <ClCompile Include="ObjectTool.Physics.cpp" />
+    <ClCompile Include="ObjectTool.Position.cpp" />
+    <ClCompile Include="ObjectTool.Sound.cpp" />
+    <ClCompile Include="OOFRenderModel.cpp" />
+    <ClCompile Include="PogDialog.cpp" />
+    <ClCompile Include="ReactorTool.cpp" />
+    <ClCompile Include="RenderBuffers.cpp" />
+    <ClCompile Include="SegmentTool.cpp" />
+    <ClCompile Include="SettingsTool.cpp" />
+    <ClCompile Include="SettingsTool.Editor.cpp" />
+    <ClCompile Include="SettingsTool.Files.cpp" />
+    <ClCompile Include="SettingsTool.Layout.cpp" />
+    <ClCompile Include="SettingsTool.Misc.cpp" />
+    <ClCompile Include="SettingsTool.Renderer.cpp" />
+    <ClCompile Include="SettingsTool.Visibility.cpp" />
+    <ClCompile Include="StdAfx.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\TexAlignTool.cpp" />
-    <ClCompile Include="..\TEXEDIT.CPP" />
-    <ClCompile Include="..\TexFilterTool.cpp" />
-    <ClCompile Include="..\TexLightTool.cpp" />
-    <ClCompile Include="..\TexProjectTool.cpp" />
-    <ClCompile Include="..\TexToolDlg.cpp" />
-    <ClCompile Include="..\TextureTool.cpp" />
-    <ClCompile Include="..\textureView.cpp" />
-    <ClCompile Include="..\tooldlg.cpp" />
-    <ClCompile Include="..\ToolTabCtrl.cpp" />
-    <ClCompile Include="..\toolview.cpp" />
-    <ClCompile Include="..\TriggerTool.cpp" />
-    <ClCompile Include="..\WallTool.cpp" />
-    <ClCompile Include="..\glew.cpp">
+    <ClCompile Include="TexAlignTool.cpp" />
+    <ClCompile Include="TEXEDIT.CPP" />
+    <ClCompile Include="TexFilterTool.cpp" />
+    <ClCompile Include="TexLightTool.cpp" />
+    <ClCompile Include="TexProjectTool.cpp" />
+    <ClCompile Include="TexToolDlg.cpp" />
+    <ClCompile Include="TextureTool.cpp" />
+    <ClCompile Include="textureView.cpp" />
+    <ClCompile Include="tooldlg.cpp" />
+    <ClCompile Include="ToolTabCtrl.cpp" />
+    <ClCompile Include="toolview.cpp" />
+    <ClCompile Include="TriggerTool.cpp" />
+    <ClCompile Include="WallTool.cpp" />
+    <ClCompile Include="glew.cpp">
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="..\global.cpp" />
-    <ClCompile Include="..\ViewMatrix.cpp" />
-    <ClCompile Include="..\ASERenderModel.cpp" />
-    <ClCompile Include="..\buildmodel.cpp" />
-    <ClCompile Include="..\ResourceManager.cpp" />
-    <ClCompile Include="..\Selection.cpp" />
-    <ClCompile Include="..\ShaderManager.cpp" />
-    <ClCompile Include="..\TextureFilter.cpp" />
-    <ClCompile Include="..\TextureManager.Shaders.cpp" />
-    <ClCompile Include="..\TextureProjector.cpp" />
-    <ClCompile Include="..\HogDialog.cpp" />
+    <ClCompile Include="global.cpp" />
+    <ClCompile Include="ViewMatrix.cpp" />
+    <ClCompile Include="ASERenderModel.cpp" />
+    <ClCompile Include="buildmodel.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="Selection.cpp" />
+    <ClCompile Include="ShaderManager.cpp" />
+    <ClCompile Include="TextureFilter.cpp" />
+    <ClCompile Include="TextureManager.Shaders.cpp" />
+    <ClCompile Include="TextureProjector.cpp" />
+    <ClCompile Include="HogDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\dle.rc">
+    <ResourceCompile Include="dle.rc">
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(OUTDIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ResourceCompile>
@@ -1104,13 +1104,13 @@
     <None Include="..\resource\bitmaps\icon-waypoint.tga" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DLE.Core\DLE.Core.vcxproj">
+    <ProjectReference Include="..\Core\DLE.Core.vcxproj">
       <Project>{57d9b500-1aec-434f-9a0c-5db4383aa442}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\DLE.DataTypes\DLE.DataTypes.vcxproj">
+    <ProjectReference Include="..\DataTypes\DLE.DataTypes.vcxproj">
       <Project>{d3b6e4e3-ec8a-4b81-bee1-e4e481d9939a}</Project>
     </ProjectReference>
-    <ProjectReference Include="..\DLE.Managers\DLE.Managers.vcxproj">
+    <ProjectReference Include="..\Managers\DLE.Managers.vcxproj">
       <Project>{1a1bd677-4bfc-4b6d-9562-13f6dfb87dde}</Project>
     </ProjectReference>
   </ItemGroup>
@@ -1119,7 +1119,7 @@
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties RESOURCE_FILE="dle-xp.rc" />
+      <UserProperties RESOURCE_FILE="dle.rc" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

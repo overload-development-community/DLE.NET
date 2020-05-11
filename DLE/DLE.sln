@@ -2,21 +2,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE", "DLE\dle.vcxproj", "{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.Editor", "Editor\DLE.Editor.vcxproj", "{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}"
 	ProjectSection(ProjectDependencies) = postProject
 		{57D9B500-1AEC-434F-9A0C-5DB4383AA442} = {57D9B500-1AEC-434F-9A0C-5DB4383AA442}
 		{1A1BD677-4BFC-4B6D-9562-13F6DFB87DDE} = {1A1BD677-4BFC-4B6D-9562-13F6DFB87DDE}
 		{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A} = {D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.Core", "DLE.Core\DLE.Core.vcxproj", "{57D9B500-1AEC-434F-9A0C-5DB4383AA442}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.Core", "Core\DLE.Core.vcxproj", "{57D9B500-1AEC-434F-9A0C-5DB4383AA442}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.DataTypes", "DLE.DataTypes\DLE.DataTypes.vcxproj", "{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.DataTypes", "DataTypes\DLE.DataTypes.vcxproj", "{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{57D9B500-1AEC-434F-9A0C-5DB4383AA442} = {57D9B500-1AEC-434F-9A0C-5DB4383AA442}
 	EndProjectSection
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.Managers", "DLE.Managers\DLE.Managers.vcxproj", "{1A1BD677-4BFC-4B6D-9562-13F6DFB87DDE}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.Managers", "Managers\DLE.Managers.vcxproj", "{1A1BD677-4BFC-4B6D-9562-13F6DFB87DDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

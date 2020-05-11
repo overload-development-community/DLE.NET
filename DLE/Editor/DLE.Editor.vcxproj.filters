@@ -49,332 +49,332 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\dlcDoc.h">
+    <ClInclude Include="dlcDoc.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\MainFrame.h">
+    <ClInclude Include="MainFrame.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\mineview.h">
+    <ClInclude Include="mineview.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\renderer.h">
+    <ClInclude Include="renderer.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\StdAfx.h">
+    <ClInclude Include="StdAfx.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\TEXEDIT.h">
+    <ClInclude Include="TEXEDIT.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\textureView.h">
+    <ClInclude Include="textureView.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\toolview.h">
+    <ClInclude Include="toolview.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Resource.h">
+    <ClInclude Include="Resource.h">
       <Filter>UI\Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\FBO.h">
+    <ClInclude Include="FBO.h">
       <Filter>OpenGL\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\RenderBuffers.h">
+    <ClInclude Include="RenderBuffers.h">
       <Filter>OpenGL\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Frustum.h">
+    <ClInclude Include="Frustum.h">
       <Filter>OpenGL\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\PogDialog.h">
+    <ClInclude Include="PogDialog.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Global.h">
+    <ClInclude Include="Global.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\ViewMatrix.h">
+    <ClInclude Include="ViewMatrix.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\buildmodel.h">
+    <ClInclude Include="buildmodel.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\glew.h">
+    <ClInclude Include="glew.h">
       <Filter>OpenGL\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\wglew.h">
+    <ClInclude Include="wglew.h">
       <Filter>OpenGL\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\DrawHelpers.h">
+    <ClInclude Include="DrawHelpers.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\dle.h">
+    <ClInclude Include="dle.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\dle-res.h">
+    <ClInclude Include="dle-res.h">
       <Filter>UI\Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\oglmatrix.h">
+    <ClInclude Include="oglmatrix.h">
       <Filter>OpenGL\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Selection.h">
+    <ClInclude Include="Selection.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\TextureProjector.h">
+    <ClInclude Include="TextureProjector.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\ShaderManager.h">
+    <ClInclude Include="ShaderManager.h">
       <Filter>OpenGL\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\TextureFilter.h">
+    <ClInclude Include="TextureFilter.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\HogDialog.h">
+    <ClInclude Include="HogDialog.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\ResourceManager.h">
+    <ClInclude Include="ResourceManager.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\AdvancedObjTool.cpp">
+    <ClCompile Include="AdvancedObjTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\CONVERT.CPP">
+    <ClCompile Include="CONVERT.CPP">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Diagnosis.cpp">
+    <ClCompile Include="Diagnosis.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\DiagTool.cpp">
+    <ClCompile Include="DiagTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\dlcDoc.cpp">
+    <ClCompile Include="dlcDoc.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\DlgHelpers.cpp">
+    <ClCompile Include="DlgHelpers.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\EffectTool.cpp">
+    <ClCompile Include="EffectTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\EffectTool.Lightning.cpp">
+    <ClCompile Include="EffectTool.Lightning.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\EffectTool.Particles.cpp">
+    <ClCompile Include="EffectTool.Particles.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\EffectTool.Sounds.cpp">
+    <ClCompile Include="EffectTool.Sounds.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\EffectTool.WayPoints.cpp">
+    <ClCompile Include="EffectTool.WayPoints.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ExtBitmapButton.cpp">
+    <ClCompile Include="ExtBitmapButton.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ExtSliderCtrl.cpp">
+    <ClCompile Include="ExtSliderCtrl.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\LightTool.cpp">
+    <ClCompile Include="LightTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\MainFrame.cpp">
+    <ClCompile Include="MainFrame.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\MainFrame.EditTool.cpp">
+    <ClCompile Include="MainFrame.EditTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\MainFrame.ExtToolBar.cpp">
+    <ClCompile Include="MainFrame.ExtToolBar.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\MainFrame.InterfaceHandlers.cpp">
+    <ClCompile Include="MainFrame.InterfaceHandlers.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\MineView.cpp">
+    <ClCompile Include="MineView.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\MineView.drag.cpp">
+    <ClCompile Include="MineView.drag.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\MineView.draw.cpp">
+    <ClCompile Include="MineView.draw.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\MineView.Renderer.cpp">
+    <ClCompile Include="MineView.Renderer.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\MineView.Renderer.OpenGL.cpp">
+    <ClCompile Include="MineView.Renderer.OpenGL.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\MineView.Renderer.Software.cpp">
+    <ClCompile Include="MineView.Renderer.Software.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\MineView.RenderLib.cpp">
+    <ClCompile Include="MineView.RenderLib.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\MineView.select.cpp">
+    <ClCompile Include="MineView.select.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\MineView.transform.cpp">
+    <ClCompile Include="MineView.transform.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\MissionTool.cpp">
+    <ClCompile Include="MissionTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ObjectTool.AI.cpp">
+    <ClCompile Include="ObjectTool.AI.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ObjectTool.Combat.cpp">
+    <ClCompile Include="ObjectTool.Combat.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ObjectTool.cpp">
+    <ClCompile Include="ObjectTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ObjectTool.Death.cpp">
+    <ClCompile Include="ObjectTool.Death.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ObjectTool.Physics.cpp">
+    <ClCompile Include="ObjectTool.Physics.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ObjectTool.Sound.cpp">
+    <ClCompile Include="ObjectTool.Sound.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ReactorTool.cpp">
+    <ClCompile Include="ReactorTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\SegmentTool.cpp">
+    <ClCompile Include="SegmentTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\SettingsTool.cpp">
+    <ClCompile Include="SettingsTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\StdAfx.cpp">
+    <ClCompile Include="StdAfx.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\TexAlignTool.cpp">
+    <ClCompile Include="TexAlignTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\TEXEDIT.CPP">
+    <ClCompile Include="TEXEDIT.CPP">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\TexFilterTool.cpp">
+    <ClCompile Include="TexFilterTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\TexLightTool.cpp">
+    <ClCompile Include="TexLightTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\TexToolDlg.cpp">
+    <ClCompile Include="TexToolDlg.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\TextureTool.cpp">
+    <ClCompile Include="TextureTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\textureView.cpp">
+    <ClCompile Include="textureView.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\tooldlg.cpp">
+    <ClCompile Include="tooldlg.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ToolTabCtrl.cpp">
+    <ClCompile Include="ToolTabCtrl.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\toolview.cpp">
+    <ClCompile Include="toolview.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\TriggerTool.cpp">
+    <ClCompile Include="TriggerTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\WallTool.cpp">
+    <ClCompile Include="WallTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\FBO.cpp">
+    <ClCompile Include="FBO.cpp">
       <Filter>OpenGL\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\RenderBuffers.cpp">
+    <ClCompile Include="RenderBuffers.cpp">
       <Filter>OpenGL\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Frustum.cpp">
+    <ClCompile Include="Frustum.cpp">
       <Filter>OpenGL\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ObjectTool.Position.cpp">
+    <ClCompile Include="ObjectTool.Position.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\SettingsTool.Editor.cpp">
+    <ClCompile Include="SettingsTool.Editor.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\SettingsTool.Files.cpp">
+    <ClCompile Include="SettingsTool.Files.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\SettingsTool.Layout.cpp">
+    <ClCompile Include="SettingsTool.Layout.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\SettingsTool.Misc.cpp">
+    <ClCompile Include="SettingsTool.Misc.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\SettingsTool.Renderer.cpp">
+    <ClCompile Include="SettingsTool.Renderer.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\SettingsTool.Visibility.cpp">
+    <ClCompile Include="SettingsTool.Visibility.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\TexProjectTool.cpp">
+    <ClCompile Include="TexProjectTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\PogDialog.cpp">
+    <ClCompile Include="PogDialog.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\EffectTool.Fog.cpp">
+    <ClCompile Include="EffectTool.Fog.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\MineView.Input.cpp">
+    <ClCompile Include="MineView.Input.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ViewMatrix.cpp">
+    <ClCompile Include="ViewMatrix.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\global.cpp">
+    <ClCompile Include="global.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ASERenderModel.cpp">
+    <ClCompile Include="ASERenderModel.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\buildmodel.cpp">
+    <ClCompile Include="buildmodel.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\OOFRenderModel.cpp">
+    <ClCompile Include="OOFRenderModel.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\glew.cpp">
+    <ClCompile Include="glew.cpp">
       <Filter>OpenGL\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\DrawHelpers.cpp">
+    <ClCompile Include="DrawHelpers.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\dle.cpp">
+    <ClCompile Include="dle.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Selection.cpp">
+    <ClCompile Include="Selection.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\TextureProjector.cpp">
+    <ClCompile Include="TextureProjector.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ShaderManager.cpp">
+    <ClCompile Include="ShaderManager.cpp">
       <Filter>OpenGL\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\TextureFilter.cpp">
+    <ClCompile Include="TextureFilter.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\HogDialog.cpp">
+    <ClCompile Include="HogDialog.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\ResourceManager.cpp">
+    <ClCompile Include="ResourceManager.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\TextureManager.Shaders.cpp">
+    <ClCompile Include="TextureManager.Shaders.cpp">
       <Filter>OpenGL\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\res\rc_data1.bin">
+    <None Include="..\Resource\data\rc_data1.bin">
       <Filter>UI\Resource Files</Filter>
     </None>
     <None Include="..\Resource\Alien2.256">
@@ -2299,7 +2299,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="..\dle.rc">
+    <ResourceCompile Include="dle.rc">
       <Filter>UI\Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
