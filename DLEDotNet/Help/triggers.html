@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - Trigger Tool</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>Trigger Tool</h1>
+        <div>
+            <a href="#data">Trigger Data</a> &middot;
+            <a href="#targets">Trigger Targets</a> &middot;
+            <a href="#add">Add &amp; Delete</a> &middot;
+            <a href="#d1">Descent 1 Types</a> &middot;
+            <a href="#d2">Descent 2 Types</a> &middot;
+            <a href="#d2props">Properties</a>
+        </div>
+
+        <p>
+            Triggers are actions that are carried out when a player passes
+            through a specific wall or destroys/picks up a specific object.
+            When added to walls, the trigger will only activate when flying
+            through the wall from the segment the wall is on - it will <em>not</em>
+            activate if the player enters the segment the wall is on, even
+            when flying through the wall.
+        </p>
+
+        <p>
+            The <i>current trigger</i> is either the trigger on the
+            current wall if "standard trigger" is checked, or the trigger
+            on the selected object if "object trigger" is checked.
+        </p>
+
+        <h2 id="data">Trigger Data</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">trigger type</td>
+                    <td>
+                        <i>Standard triggers</i> are the most common type. They
+                        are attached to a wall and trigger whenever the player
+                        passes through the wall.
+
+                        <i>Object triggers</i> are a D2X-XL exclusive feature
+                        that activate based on an object, such as when a robot
+                        is killed, a power up is picked up, etc.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">trigger #</td>
+                    <td>
+                        The ID of the current trigger. The list allows changing the
+                        current trigger (which will also select another wall, and thus
+                        indirectly another segment/side).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">strength</td>
+                    <td>
+                        The "strength" of the trigger. The exact behavior depends
+                        on the trigger type.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">time</td>
+                    <td>
+                        The "time" of the trigger. The exact behavior depends
+                        on the trigger type, but in D2X-XL, unless otherwise
+                        mentioned, it acts as a delay for the trigger.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="targets">Trigger targets</h2>
+        <p>
+            A single trigger can have up to ten targets, which are each
+            a segment,side combination (often pointing to a wall), or in
+            D2X-XL can also be an object.
+        </p>
+
+        <p>
+            The "add wall" button may be used to add the <i><a href="selection.html">other side</a></i>
+            and the "add object" button to add the current object.
+        </p>
+
+        <h2 id="add">Add &amp; Delete</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">add</td>
+                    <td>
+                        Adds a trigger on the given side. If a wall isn't
+                        present and "auto add wall" is checked, one is
+                        automatically added; either an open wall for an open
+                        side or an overlay for a closed wall. If there is no
+                        wall and "auto add wall" is not checked, adding the
+                        trigger will fali.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">delete</td>
+                    <td>
+                        Removes the current trigger.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">delete all</td>
+                    <td>
+                        Removes all triggers from the level.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">copy</td>
+                    <td>
+                        Copies the attributes of the current trigger into
+                        a separate <i>trigger clipboard</i>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">paste</td>
+                    <td>
+                        Replaces the attributes of the current trigger with
+                        those on the <i>texture clipboard</i>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">add trigger: open door</td>
+                    <td>
+                        Adds a "control doors" trigger (Descent 1) or an
+                        "open door" trigger (Descent 2).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">add trigger: robot maker</td>
+                    <td>
+                        Adds a "robot maker" trigger (Descent 1) or an
+                        "make robots" trigger (Descent 2).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">add trigger: shield drain</td>
+                    <td>
+                        (Descent 1 only) Adds a "shield drain" trigger.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">add trigger: energy drain</td>
+                    <td>
+                        (Descent 1 only) Adds an "energy drain" trigger.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">add trigger: control panel</td>
+                    <td>
+                        (Descent 2 only) Adds an overlay wall and an "open wall"
+                        trigger that points at the <i><a href="selection.html">other side</a></i>.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="d1">Descent 1 Types</h2>
+        <p>
+            Triggers in Descent 1 can do multiple actions at once; a single
+            trigger can, for example, be both a "control doors" and "robot maker"
+            trigger, in which case it will open doors and make robots for
+            all targets that support that specific action.
+        </p>
+
+        <p>
+            Unless mentioned separately, the "strength" and "time" values
+            have no effect, and the trigger target(s) do not matter.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">control doors</td>
+                    <td>
+                        For each target: if the target is a door, opens it (on both sides).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">shield drain</td>
+                    <td>
+                        Subtracts the "strength" value from the player's shields.
+                        Not used in the original game.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">energy drain</td>
+                    <td>
+                        Subtracts the "strength" value from the player's energy.
+                        Not used in the original game.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">exit</td>
+                    <td>
+                        Ends the level. The mission proceeds to the next normal level.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">secret exit</td>
+                    <td>
+                        Ends the level, and the mission proceeds to the
+                        corresponding secret level. Should not be used on
+                        secret levels.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">active</td>
+                    <td>
+                        Has no effect. Intended to disable the trigger if not
+                        checked.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">one shot</td>
+                    <td>
+                        Makes the trigger activate only once. <b>This does
+                        not work</b> due to a bug in the game, which is fixed
+                        in D2X-XL.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">robot maker</td>
+                    <td>
+                        For each target: if the target points to a segment that is a
+                        <a href="segments.html">robot maker</a>, activate
+                        it. The side of the target has no effect.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">illusion off</td>
+                    <td>
+                        For each target: if the target points at an illusionary wall,
+                        disables the illusion (makes it invisible) on both sides.
+                        Also plays a sound effect for that illusion.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">illusion on</td>
+                    <td>
+                        For each target: if the target points at an illusionary wall,
+                        enables the illusion (makes it visible again) on both sides.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">open wall</td>
+                    <td>
+                        (D2X-XL only; no effect in other versions)
+                        For each target: if the target points at a wall, converts the wall
+                        into an Open type on both sides.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">close wall</td>
+                    <td>
+                        (D2X-XL only; no effect in other versions)
+                        For each target: if the target points at a wall, converts the wall
+                        into a Close type on both sides.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="d2">Descent 2 Types</h2>
+        <p>
+            Triggers in Descent 2 can only have one type at a time. Some trigger
+            types can display messages when activated, but they only do so if
+            the trigger was activated by destroying a control panel or a monitor
+            - fly-through open wall triggers never display a message.
+        </p>
+
+        <p>
+            Unless mentioned separately, the "strength" and "time" values
+            have no effect, and the trigger target(s) do not matter.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Message</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">open door</td>
+                    <td>Door(s) opened!</td>
+                    <td>
+                        For each target: if a target is a door, opens it (on both sides).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">close door</td>
+                    <td>Door(s) closed!</td>
+                    <td>
+                        For each target: if a target is a door, closes it (on both sides).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">robot maker</td>
+                    <td>&mdash;</td>
+                    <td>
+                        For each target: if the target points to a segment that is a
+                        <a href="segments.html">robot maker</a>, it is
+                        activated. The side of the target has no effect.
+                        <p></p>
+                        In addition, in D2X-XL, for each target: if the target points
+                        to a segment that is an <a href="segments.html">equip maker</a>,
+                        it is also activated.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">exit</td>
+                    <td>&mdash;</td>
+                    <td>
+                        If used on a normal level, ends the level, and the mission
+                        proceeds to the next normal level.
+                        <p></p>
+                        If used on a secret level, teleports the player
+                        back into the normal level where they came from.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">secret exit</td>
+                    <td>&mdash;</td>
+                    <td>
+                        Teleports the player to the corresponding secret
+                        level. Should not be used on secret levels. Does not
+                        function in multiplayer mode.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">illusion off</td>
+                    <td>Illusion(s) off!</td>
+                    <td>
+                        For each target: if the target points at an illusionary wall,
+                        disables the illusion (makes it invisible) on both sides.
+                        Also plays a sound effect for that illusion.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">illusion on</td>
+                    <td>Illusion(s) on!</td>
+                    <td>
+                        For each target: if the target points at an illusionary wall,
+                        enables the illusion (makes it visible again) on both sides.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">unlock door</td>
+                    <td>Door(s) unlocked!</td>
+                    <td>
+                        For each target: if a target is a door, unlocks it (only on the target side),
+                        allowing it to being opened again.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">lock door</td>
+                    <td>Door(s) locked!</td>
+                    <td>
+                        For each target: if a target is a door, locks it (only on the target side),
+                        preventing it from being opened again.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">open wall</td>
+                    <td>Wall(s) opened!<br />Force field(s) disabled! (if at least 1 target is a force field)</td>
+                    <td>
+                        For each target: if the target points at a wall, converts the wall
+                        into an Open type on both sides (playing an animation and a sound).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">close wall</td>
+                    <td>Wall(s) closed!<br />Force field(s) enabled! (if at least 1 target is a force field)</td>
+                    <td>
+                        For each target: if the target points at a wall, converts the wall
+                        into a Close type on both sides (playing an animation and a sound).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">illusory wall</td>
+                    <td class="narrow">&mdash;</td>
+                    <td>
+                        For each target: if the target points at a wall, converts the wall
+                        into an Illusion type on both sides
+                        (without an animation or a sound).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">lights off</td>
+                    <td class="narrow">Lights off!</td>
+                    <td>
+                        For each target: if the target is a closed side or a wall,
+                        and thus has a texture, and if the 2nd texture casts a
+                        light, turns off the light (makes it dark), including
+                        the variable light.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">lights on</td>
+                    <td class="narrow">Lights on!</td>
+                    <td>
+                        For each target: if the target is a closed side or a wall,
+                        and thus has a texture, and if the 2nd texture casts a
+                        light, turns on the light (makes it bright), including
+                        the variable light.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">illusory wall</td>
+                    <td class="narrow">&mdash;</td>
+                    <td>
+                        For each target: if the target points at a wall,
+                        converts the wall into an Illusion type on both sides
+                        (without an animation or sound).
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>D2X-XL exclusive</h3>
+
+        <p>
+            The trigger types in the following table are exclusive to D2X-XL levels.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Message</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">teleport</td>
+                    <td class="narrow">Teleport! (standard)<br />Robot is fleeing! (object)</td>
+                    <td>
+                        With standard triggers:
+                        Teleports the player to the center of the target segment,
+                        pointing towards the target side. There should be
+                        exactly one target.
+                        <p></p>
+                        With object triggers:
+                        Used to make the robot teleport away. (TODO: how?)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">speed boost</td>
+                    <td class="narrow">Speed Boost!</td>
+                    <td>
+                        If the speed boost has one target, boosts the player
+                        towards the target, with the speed depending on the
+                        slider below the type selection. The boost will
+                        continue until the player hits a wall in the direction
+                        of the boost or flies through another boost trigger.
+                        <p></p>
+                        If the speed boost has no targets, stops boosting
+                        the player.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">camera</td>
+                    <td class="narrow">&mdash;</td>
+                    <td>
+                        Adds a surveillance camera, with real-time updated
+                        screens. The targets of the camera are the locations
+                        of the "screens" for that camera. 
+                        <p></p>
+                        If used as a standard trigger, this should be attached
+                        to a side, and the camera will then display what is on
+                        the opposite direction from the side (as if it were
+                        latched onto the side).
+                        <p></p>
+                        If used as an object trigger, the object should itself
+                        be a camera object. Unlike the stationary camera, this
+                        one will slowly turn around back and forth.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">damage shields</td>
+                    <td class="narrow">&mdash;</td>
+                    <td>
+                        Subtracts the "strength" value from the player's shields.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">drain energy</td>
+                    <td class="narrow">&mdash;</td>
+                    <td>
+                        Subtracts a certain percentage off the player's energy.
+                        The percentage is adjusted by the "strength" property.
+                        Note that the "strength" is not an absolute value, but a
+                        percentage of the amount of energy the player currently has.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">change texture</td>
+                    <td class="narrow">Walls have been changed!</td>
+                    <td>
+                        For each target: if the target has a texture (points to
+                        a closed side or a wall), changes the texture to what
+                        is set up below the trigger type option.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">countdown</td>
+                    <td class="narrow">&mdash;</td>
+                    <td>
+                        Starts the reactor countdown. The time is set to be
+                        the time of the trigger.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">spawn bot</td>
+                    <td class="narrow">Robot is summoning help!</td>
+                    <td>
+                        Must be used as an object trigger. Causes a robot
+                        to spawn new robots. If a target is set and points at
+                        a robot maker, the set of spawnable robot types is
+                        copied from the robot maker's data.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">set spawn</td>
+                    <td class="narrow">New spawn points set!</td>
+                    <td>
+                        Moves player spawn points to new locations. The
+                        number of targets should correspond to the number
+                        of players (1 on singleplayer, 4 on singleplayer/co-op),
+                        and represent (segment, side) pairs;
+                        the spawn point will be at the center of the cube,
+                        facing towards the target side.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">message</td>
+                    <td class="narrow">&mdash;</td>
+                    <td>
+                        Displays a hovering message to the player. The "strength"
+                        value is the message number, and the messages themselves
+                        are stored under a .msg file with the same file name as the
+                        level, in the format
+
+                        <pre>
+1:message number 1
+2:message number 2
+3:message number 3</pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">sound</td>
+                    <td class="narrow">&mdash;</td>
+                    <td>
+                        Plays a sound to the player. The "strength" value
+                        is the sound number under an .snd file, stored in a
+                        similar format to messages that contains a sound
+                        file name.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">master</td>
+                    <td class="narrow">&mdash;</td>
+                    <td>
+                        For each target: if the target is a trigger,
+                        activate it.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">enable</td>
+                    <td class="narrow">&mdash;</td>
+                    <td>
+                        For each target: if the target is a trigger,
+                        enable it (allow it to activate again).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">disable</td>
+                    <td class="narrow">&mdash;</td>
+                    <td>
+                        For each target: if the target is a trigger,
+                        disable it (prevent it from activating until enabled).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">disarm robot</td>
+                    <td class="narrow">&mdash;</td>
+                    <td>
+                        For each target: if the target is a robot (object),
+                        disarm it (prevent it from firing).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">reprogram robot</td>
+                    <td class="narrow">&mdash;</td>
+                    <td>
+                        For each target: if the target is a robot (object),
+                        make it attack other robots instead of players.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">shake mine</td>
+                    <td class="narrow">&mdash;</td>
+                    <td>
+                        Causes the mine to shake. The "strength" controls
+                        how hard the mine shakes, and "time" controls how
+                        long the mine will shake (in seconds); set to -1
+                        for a default of 10 seconds.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="d2props">Properties</h2>
+        <p>
+            The following properties only apply to Descent 2 and D2X-XL levels.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">no message</td>
+                    <td>
+                        Some trigger types display messages when activated
+                        through a switch (a control panel, monitor, etc.).
+                        This disables the message that would otherwise be shown
+                        (fly-through open wall triggers never show a message).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">one shot</td>
+                    <td>
+                        Makes the trigger only activate once and disable itself afterwards.
+                        Applicable to fly-through open wall triggers (since switches
+                        are destroyed in order to activate triggers, they are
+                        by nature one-shot).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">permanent</td>
+                    <td>
+                        D2X-XL only. If the trigger is attached to a switch,
+                        make the switch not destroy itself, but still activate
+                        the trigger. This makes it possible to activate
+                        switch triggers many times. Mutually exclusive
+                        with "autoplay"; will be disabled if "autoplay" is
+                        enabled.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">alternating</td>
+                    <td>
+                        D2X-XL only: If enabled, once the trigger is activated,
+                        it is automatically converted to do the inverse action
+                        the next time around.
+                        This only applies to some trigger types.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">set orient</td>
+                    <td>
+                        D2X-XL only: Controls whether the speed boost trigger will turn
+                        the player around towards the target.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">autoplay</td>
+                    <td>
+                        D2X-XL only: Automatically activate the trigger (or start its
+                        delay) if or once it is enabled.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">no sound</td>
+                    <td>
+                        D2X-XL only: Prevents some trigger actions, such as opening walls,
+                        from playing sounds.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

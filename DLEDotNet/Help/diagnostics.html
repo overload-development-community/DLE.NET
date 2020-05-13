@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - Diagnostic Tool</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>Diagnostic Tool</h1>
+        <div>
+            <a href="#stats">Statistics</a> &middot;
+            <a href="#problems">Problem Report</a>
+        </div>
+
+        <p>
+            This tool can be used to check for problems in the mine that can
+            affect the playability and stability of the mine while played
+            in-game. It also contains statistics for the level.
+        </p>
+
+        <h2 id="stats">Statistics</h2>
+        <p>
+            All of these rows display both the current value and the maximum.
+            (TODO: what does the cont mean?)
+        </p>
+
+        <p>
+            Most of the maximum values will depend on the level type, with
+            limits being typically higher for Descent 2 levels than Descent 1
+            levels and D2X-XL considerably raising most limits.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">segments</td>
+                    <td>
+                        The number of <a href="segments.html">segments</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">vertices</td>
+                    <td>
+                        The number of points, where two joined points are
+                        considered as one.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">mat cens</td>
+                    <td>
+                        The number of <a href="segments.html">robot maker</a> segments.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">fuel centers</td>
+                    <td>
+                        The number of <a href="segments.html">energy center</a> segments.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">walls</td>
+                    <td>
+                        The number of <a href="walls.html">walls</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">triggers</td>
+                    <td>
+                        The number of <a href="triggers.html">triggers</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">objects</td>
+                    <td>
+                        The number of <a href="objects.html">objects</a>, with
+                        further subcategories for different kinds of objects.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">textures</td>
+                    <td>
+                        The number of unique <a href="texture.html">textures</a>
+                        used within the level.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="problems">Problem Report</h2>
+        <p>
+            The problem report is generated whenever the mine is checked
+            by using the "check mine" option. "show problem" shows the segment
+            or object that contains the problem, "clear list" clears the list,
+            "auto fix bugs" controls whether problems should be automatically
+            fixed on check if possible, and "show warnings" controls whether the
+            problem list should contain warnings that may affect playability.
+        </p>
+
+        <p>
+            Below is a list of possible errors and warnings:
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">TODO</td>
+                    <td>
+                        TODO
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

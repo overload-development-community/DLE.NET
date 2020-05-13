@@ -1,0 +1,1125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}</ProjectGuid>
+    <RootNamespace>DLE</RootNamespace>
+    <Keyword>MFCProj</Keyword>
+    <ProjectName>DLE.Editor</ProjectName>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>Static</UseOfMfc>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>Static</UseOfMfc>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>Static</UseOfMfc>
+    <UseOfAtl>false</UseOfAtl>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>Static</UseOfMfc>
+    <UseOfAtl>false</UseOfAtl>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(VCTargetsPath)Microsoft.CPP.UpgradeFromVC71.props" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\$(Platform)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Configuration)\$(Platform)\</IntDir>
+    <EmbedManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</EmbedManifest>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">dle-dbg</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Release/dlc.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <PreprocessorDefinitions>GLEW_STATIC;WIN32;NDEBUG;_AFXDLL;RELEASE;_WINDOWS;DEMO=0;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);_WIN32_WINNT=_WIN32_WINNT_MAXVER</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <OpenMPSupport>true</OpenMPSupport>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>FastCall</CallingConvention>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers</AdditionalIncludeDirectories>
+      <BrowseInformation>true</BrowseInformation>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>d:\projects\dmb2\dmb-xp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\Release/dlc.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <PreprocessorDefinitions>GLEW_STATIC;WIN32;NDEBUG;_AFXDLL;_WINDOWS;DEMO=0;_CRT_SECURE_NO_WARNINGS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
+      <OpenMPSupport>true</OpenMPSupport>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>FastCall</CallingConvention>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers</AdditionalIncludeDirectories>
+      <BrowseInformation>true</BrowseInformation>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <SubSystem>Windows</SubSystem>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX64</TargetMachine>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\Debug/dlc.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>GLEW_STATIC;WIN32;_DEBUG;_WINDOWS;DEMO=0;_AFXDLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);_WIN32_WINNT=_WIN32_WINNT_MAXVER</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <OpenMPSupport>true</OpenMPSupport>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers</AdditionalIncludeDirectories>
+      <BrowseInformation>true</BrowseInformation>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MkTypLibCompatible>true</MkTypLibCompatible>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TargetEnvironment>X64</TargetEnvironment>
+      <TypeLibraryName>.\Debug/dlc.tlb</TypeLibraryName>
+      <HeaderFileName>
+      </HeaderFileName>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>GLEW_STATIC;WIN32;_DEBUG;_WINDOWS;DEMO=0;_AFXDLL;_CRT_SECURE_NO_WARNINGS=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <StructMemberAlignment>Default</StructMemberAlignment>
+      <OpenMPSupport>true</OpenMPSupport>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers</AdditionalIncludeDirectories>
+      <BrowseInformation>true</BrowseInformation>
+      <ExceptionHandling>Async</ExceptionHandling>
+      <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x0409</Culture>
+      <AdditionalIncludeDirectories>\projects\dmb2\dmb-xp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="dlcDoc.h" />
+    <ClInclude Include="dle.h" />
+    <ClInclude Include="DrawHelpers.h" />
+    <ClInclude Include="FBO.h" />
+    <ClInclude Include="Frustum.h" />
+    <ClInclude Include="MainFrame.h" />
+    <ClInclude Include="mineview.h" />
+    <ClInclude Include="PogDialog.h" />
+    <ClInclude Include="RenderBuffers.h" />
+    <ClInclude Include="renderer.h" />
+    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="TEXEDIT.h" />
+    <ClInclude Include="textureView.h" />
+    <ClInclude Include="toolview.h" />
+    <ClInclude Include="dle-res.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="glew.h" />
+    <ClInclude Include="Global.h" />
+    <ClInclude Include="ViewMatrix.h" />
+    <ClInclude Include="wglew.h" />
+    <ClInclude Include="buildmodel.h" />
+    <ClInclude Include="oglmatrix.h" />
+    <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="Selection.h" />
+    <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="TextureFilter.h" />
+    <ClInclude Include="TextureProjector.h" />
+    <ClInclude Include="HogDialog.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AdvancedObjTool.cpp" />
+    <ClCompile Include="CONVERT.CPP" />
+    <ClCompile Include="Diagnosis.cpp" />
+    <ClCompile Include="DiagTool.cpp" />
+    <ClCompile Include="dlcDoc.cpp" />
+    <ClCompile Include="dle.cpp" />
+    <ClCompile Include="DlgHelpers.cpp" />
+    <ClCompile Include="DrawHelpers.cpp" />
+    <ClCompile Include="EffectTool.cpp" />
+    <ClCompile Include="EffectTool.Fog.cpp" />
+    <ClCompile Include="EffectTool.Lightning.cpp" />
+    <ClCompile Include="EffectTool.Particles.cpp" />
+    <ClCompile Include="EffectTool.Sounds.cpp" />
+    <ClCompile Include="EffectTool.WayPoints.cpp" />
+    <ClCompile Include="ExtBitmapButton.cpp" />
+    <ClCompile Include="ExtSliderCtrl.cpp" />
+    <ClCompile Include="FBO.cpp" />
+    <ClCompile Include="Frustum.cpp" />
+    <ClCompile Include="LightTool.cpp" />
+    <ClCompile Include="MainFrame.cpp" />
+    <ClCompile Include="MainFrame.EditTool.cpp" />
+    <ClCompile Include="MainFrame.ExtToolBar.cpp" />
+    <ClCompile Include="MainFrame.InterfaceHandlers.cpp" />
+    <ClCompile Include="MineView.cpp" />
+    <ClCompile Include="MineView.drag.cpp" />
+    <ClCompile Include="MineView.draw.cpp" />
+    <ClCompile Include="MineView.Input.cpp" />
+    <ClCompile Include="MineView.Renderer.cpp" />
+    <ClCompile Include="MineView.Renderer.OpenGL.cpp" />
+    <ClCompile Include="MineView.Renderer.Software.cpp" />
+    <ClCompile Include="MineView.RenderLib.cpp" />
+    <ClCompile Include="MineView.select.cpp" />
+    <ClCompile Include="MineView.transform.cpp" />
+    <ClCompile Include="MissionTool.cpp" />
+    <ClCompile Include="ObjectTool.AI.cpp" />
+    <ClCompile Include="ObjectTool.Combat.cpp" />
+    <ClCompile Include="ObjectTool.cpp" />
+    <ClCompile Include="ObjectTool.Death.cpp" />
+    <ClCompile Include="ObjectTool.Physics.cpp" />
+    <ClCompile Include="ObjectTool.Position.cpp" />
+    <ClCompile Include="ObjectTool.Sound.cpp" />
+    <ClCompile Include="OOFRenderModel.cpp" />
+    <ClCompile Include="PogDialog.cpp" />
+    <ClCompile Include="ReactorTool.cpp" />
+    <ClCompile Include="RenderBuffers.cpp" />
+    <ClCompile Include="SegmentTool.cpp" />
+    <ClCompile Include="SettingsTool.cpp" />
+    <ClCompile Include="SettingsTool.Editor.cpp" />
+    <ClCompile Include="SettingsTool.Files.cpp" />
+    <ClCompile Include="SettingsTool.Layout.cpp" />
+    <ClCompile Include="SettingsTool.Misc.cpp" />
+    <ClCompile Include="SettingsTool.Renderer.cpp" />
+    <ClCompile Include="SettingsTool.Visibility.cpp" />
+    <ClCompile Include="StdAfx.cpp">
+      <PrecompiledHeader>Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="TexAlignTool.cpp" />
+    <ClCompile Include="TEXEDIT.CPP" />
+    <ClCompile Include="TexFilterTool.cpp" />
+    <ClCompile Include="TexLightTool.cpp" />
+    <ClCompile Include="TexProjectTool.cpp" />
+    <ClCompile Include="TexToolDlg.cpp" />
+    <ClCompile Include="TextureTool.cpp" />
+    <ClCompile Include="textureView.cpp" />
+    <ClCompile Include="tooldlg.cpp" />
+    <ClCompile Include="ToolTabCtrl.cpp" />
+    <ClCompile Include="toolview.cpp" />
+    <ClCompile Include="TriggerTool.cpp" />
+    <ClCompile Include="WallTool.cpp" />
+    <ClCompile Include="glew.cpp">
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="global.cpp" />
+    <ClCompile Include="ViewMatrix.cpp" />
+    <ClCompile Include="ASERenderModel.cpp" />
+    <ClCompile Include="buildmodel.cpp" />
+    <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="Selection.cpp" />
+    <ClCompile Include="ShaderManager.cpp" />
+    <ClCompile Include="TextureFilter.cpp" />
+    <ClCompile Include="TextureManager.Shaders.cpp" />
+    <ClCompile Include="TextureProjector.cpp" />
+    <ClCompile Include="HogDialog.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="dle.rc">
+      <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(OUTDIR);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Resource\bitmaps\10000.bmp" />
+    <None Include="..\Resource\10000.BMP" />
+    <None Include="..\Resource\bitmaps\10001.bmp" />
+    <None Include="..\Resource\10001.BMP" />
+    <None Include="..\Resource\bitmaps\10004.bmp" />
+    <None Include="..\Resource\10004.BMP" />
+    <None Include="..\Resource\bitmaps\10005.bmp" />
+    <None Include="..\Resource\10005.BMP" />
+    <None Include="..\Resource\bitmaps\10006.bmp" />
+    <None Include="..\Resource\10006.BMP" />
+    <None Include="..\Resource\bitmaps\10007.bmp" />
+    <None Include="..\Resource\10007.BMP" />
+    <None Include="..\Resource\bitmaps\10008.bmp" />
+    <None Include="..\Resource\10008.BMP" />
+    <None Include="..\Resource\bitmaps\10009.bmp" />
+    <None Include="..\Resource\10009.BMP" />
+    <None Include="..\Resource\10010.BMP" />
+    <None Include="..\Resource\bitmaps\10010.bmp" />
+    <None Include="..\Resource\10011.BMP" />
+    <None Include="..\Resource\bitmaps\10011.bmp" />
+    <None Include="..\Resource\10012.BMP" />
+    <None Include="..\Resource\bitmaps\10012.bmp" />
+    <None Include="..\Resource\10013.BMP" />
+    <None Include="..\Resource\bitmaps\10013.bmp" />
+    <None Include="..\Resource\bitmaps\10014.bmp" />
+    <None Include="..\Resource\10014.BMP" />
+    <None Include="..\Resource\10015.BMP" />
+    <None Include="..\Resource\bitmaps\10015.bmp" />
+    <None Include="..\Resource\10016.BMP" />
+    <None Include="..\Resource\bitmaps\10016.bmp" />
+    <None Include="..\Resource\bitmaps\10017.bmp" />
+    <None Include="..\Resource\10017.BMP" />
+    <None Include="..\Resource\bitmaps\10018.bmp" />
+    <None Include="..\Resource\10018.BMP" />
+    <None Include="..\Resource\10019.BMP" />
+    <None Include="..\Resource\bitmaps\10019.bmp" />
+    <None Include="..\Resource\10020.BMP" />
+    <None Include="..\Resource\bitmaps\10020.bmp" />
+    <None Include="..\Resource\10021.BMP" />
+    <None Include="..\Resource\bitmaps\10021.bmp" />
+    <None Include="..\Resource\bitmaps\10022.bmp" />
+    <None Include="..\Resource\10022.BMP" />
+    <None Include="..\Resource\bitmaps\10023.bmp" />
+    <None Include="..\Resource\10023.BMP" />
+    <None Include="..\Resource\10024.BMP" />
+    <None Include="..\Resource\bitmaps\10024.bmp" />
+    <None Include="..\Resource\bitmaps\10025.bmp" />
+    <None Include="..\Resource\10025.BMP" />
+    <None Include="..\Resource\10026.BMP" />
+    <None Include="..\Resource\bitmaps\10026.bmp" />
+    <None Include="..\Resource\10027.BMP" />
+    <None Include="..\Resource\bitmaps\10027.bmp" />
+    <None Include="..\Resource\bitmaps\10028.bmp" />
+    <None Include="..\Resource\10028.BMP" />
+    <None Include="..\Resource\10029.BMP" />
+    <None Include="..\Resource\bitmaps\10029.bmp" />
+    <None Include="..\Resource\10030.BMP" />
+    <None Include="..\Resource\bitmaps\10030.bmp" />
+    <None Include="..\Resource\bitmaps\10031.bmp" />
+    <None Include="..\Resource\10031.BMP" />
+    <None Include="..\Resource\bitmaps\12000.bmp" />
+    <None Include="..\Resource\12000.BMP" />
+    <None Include="..\Resource\12001.BMP" />
+    <None Include="..\Resource\bitmaps\12001.bmp" />
+    <None Include="..\Resource\12004.BMP" />
+    <None Include="..\Resource\bitmaps\12004.bmp" />
+    <None Include="..\Resource\12005.BMP" />
+    <None Include="..\Resource\bitmaps\12005.bmp" />
+    <None Include="..\Resource\12006.BMP" />
+    <None Include="..\Resource\bitmaps\12006.bmp" />
+    <None Include="..\Resource\bitmaps\12007.bmp" />
+    <None Include="..\Resource\12007.BMP" />
+    <None Include="..\Resource\bitmaps\12008.bmp" />
+    <None Include="..\Resource\12008.BMP" />
+    <None Include="..\Resource\bitmaps\12009.bmp" />
+    <None Include="..\Resource\12009.BMP" />
+    <None Include="..\Resource\12010.BMP" />
+    <None Include="..\Resource\bitmaps\12010.bmp" />
+    <None Include="..\Resource\12011.BMP" />
+    <None Include="..\Resource\12012.BMP" />
+    <None Include="..\Resource\bitmaps\12012.bmp" />
+    <None Include="..\Resource\12013.BMP" />
+    <None Include="..\Resource\bitmaps\12013.bmp" />
+    <None Include="..\Resource\12014.BMP" />
+    <None Include="..\Resource\bitmaps\12014.bmp" />
+    <None Include="..\Resource\bitmaps\12015.bmp" />
+    <None Include="..\Resource\12015.BMP" />
+    <None Include="..\Resource\bitmaps\12016.bmp" />
+    <None Include="..\Resource\12016.BMP" />
+    <None Include="..\Resource\bitmaps\12017.bmp" />
+    <None Include="..\Resource\12017.BMP" />
+    <None Include="..\Resource\12018.BMP" />
+    <None Include="..\Resource\bitmaps\12018.bmp" />
+    <None Include="..\Resource\12019.BMP" />
+    <None Include="..\Resource\bitmaps\12019.bmp" />
+    <None Include="..\Resource\12020.BMP" />
+    <None Include="..\Resource\bitmaps\12020.bmp" />
+    <None Include="..\Resource\bitmaps\12021.bmp" />
+    <None Include="..\Resource\12021.BMP" />
+    <None Include="..\Resource\bitmaps\12022.bmp" />
+    <None Include="..\Resource\12022.BMP" />
+    <None Include="..\Resource\bitmaps\12023.bmp" />
+    <None Include="..\Resource\12023.BMP" />
+    <None Include="..\Resource\12024.BMP" />
+    <None Include="..\Resource\bitmaps\12024.bmp" />
+    <None Include="..\Resource\bitmaps\12025.bmp" />
+    <None Include="..\Resource\12025.BMP" />
+    <None Include="..\Resource\bitmaps\12026.bmp" />
+    <None Include="..\Resource\12026.BMP" />
+    <None Include="..\Resource\bitmaps\12027.bmp" />
+    <None Include="..\Resource\12027.BMP" />
+    <None Include="..\Resource\bitmaps\12028.bmp" />
+    <None Include="..\Resource\12028.BMP" />
+    <None Include="..\Resource\bitmaps\12029.bmp" />
+    <None Include="..\Resource\12029.BMP" />
+    <None Include="..\Resource\12030.BMP" />
+    <None Include="..\Resource\bitmaps\12030.bmp" />
+    <None Include="..\Resource\bitmaps\12031.bmp" />
+    <None Include="..\Resource\12031.BMP" />
+    <None Include="..\Resource\bitmaps\addlight.bmp" />
+    <None Include="..\Resource\addlight.bmp" />
+    <None Include="..\resource\bitmaps\backd.bmp" />
+    <None Include="..\resource\bitmaps\backu.bmp" />
+    <None Include="..\resource\bitmaps\cylindrd.bmp" />
+    <None Include="..\resource\bitmaps\cylindru.bmp" />
+    <None Include="..\resource\bitmaps\fwdd.bmp" />
+    <None Include="..\resource\bitmaps\fwdu.bmp" />
+    <None Include="..\resource\bitmaps\hstrtchd.bmp" />
+    <None Include="..\resource\bitmaps\hstrtchu.bmp" />
+    <None Include="..\resource\bitmaps\icon-circle.tga" />
+    <None Include="..\resource\bitmaps\planard.bmp" />
+    <None Include="..\resource\bitmaps\planaru.bmp" />
+    <None Include="..\resource\bitmaps\vstrtchd.bmp" />
+    <None Include="..\resource\bitmaps\vstrtchu.bmp" />
+    <None Include="..\Resource\cursors\arrow.cur" />
+    <None Include="..\res\arrow.cur" />
+    <None Include="..\Resource\bitmaps\bmp00001.bmp" />
+    <None Include="..\Resource\bmp00001.bmp" />
+    <None Include="..\Resource\bmp00002.bmp" />
+    <None Include="..\Resource\bitmaps\bmp00002.bmp" />
+    <None Include="..\Resource\bitmaps\bmp00003.bmp" />
+    <None Include="..\Resource\bmp00003.bmp" />
+    <None Include="..\Resource\bitmaps\bmp00004.bmp" />
+    <None Include="..\Resource\bmp00004.bmp" />
+    <None Include="..\Resource\bitmaps\bmp00005.bmp" />
+    <None Include="..\Resource\bmp00005.bmp" />
+    <None Include="..\Resource\bmp00006.bmp" />
+    <None Include="..\Resource\bitmaps\bmp00006.bmp" />
+    <None Include="..\Resource\bitmaps\bmp00007.bmp" />
+    <None Include="..\Resource\bmp00007.bmp" />
+    <None Include="..\Resource\bmp00008.bmp" />
+    <None Include="..\Resource\bitmaps\bmp00008.bmp" />
+    <None Include="..\Resource\bitmaps\bmp00009.bmp" />
+    <None Include="..\Resource\bmp00009.bmp" />
+    <None Include="..\Resource\bitmaps\bmp00010.bmp" />
+    <None Include="..\Resource\bmp00010.bmp" />
+    <None Include="..\Resource\bitmaps\bmp00011.bmp" />
+    <None Include="..\Resource\bmp00011.bmp" />
+    <None Include="..\Resource\bitmaps\bmp00012.bmp" />
+    <None Include="..\Resource\bmp00012.bmp" />
+    <None Include="..\Resource\bmp00013.bmp" />
+    <None Include="..\Resource\bitmaps\bmp00013.bmp" />
+    <None Include="..\Resource\bitmaps\bmp00014.bmp" />
+    <None Include="..\Resource\bmp00014.bmp" />
+    <None Include="..\Resource\bmp00015.bmp" />
+    <None Include="..\Resource\bitmaps\bmp00015.bmp" />
+    <None Include="..\Resource\bitmaps\bmp00016.bmp" />
+    <None Include="..\Resource\bmp00016.bmp" />
+    <None Include="..\Resource\bmp00017.bmp" />
+    <None Include="..\Resource\bitmaps\bmp00017.bmp" />
+    <None Include="..\Resource\bmp00018.bmp" />
+    <None Include="..\Resource\bitmaps\bmp00018.bmp" />
+    <None Include="..\Resource\bitmaps\btnd1.bmp" />
+    <None Include="..\Resource\btnd1.bmp" />
+    <None Include="..\Resource\bitmaps\btnd2.bmp" />
+    <None Include="..\Resource\btnd2.bmp" />
+    <None Include="..\Resource\btnd3.bmp" />
+    <None Include="..\Resource\bitmaps\btnd3.bmp" />
+    <None Include="..\Resource\btnd4.bmp" />
+    <None Include="..\Resource\bitmaps\btnd4.bmp" />
+    <None Include="..\Resource\bitmaps\btnd5.bmp" />
+    <None Include="..\Resource\btnd5.bmp" />
+    <None Include="..\Resource\btnd6.bmp" />
+    <None Include="..\Resource\bitmaps\btnd6.bmp" />
+    <None Include="..\Resource\bitmaps\btnd7.bmp" />
+    <None Include="..\Resource\btnd7.bmp" />
+    <None Include="..\Resource\btnd8.bmp" />
+    <None Include="..\Resource\bitmaps\btnd8.bmp" />
+    <None Include="..\Resource\btnu1.bmp" />
+    <None Include="..\Resource\bitmaps\btnu1.bmp" />
+    <None Include="..\Resource\bitmaps\btnu2.bmp" />
+    <None Include="..\Resource\btnu2.bmp" />
+    <None Include="..\Resource\btnu3.bmp" />
+    <None Include="..\Resource\bitmaps\btnu3.bmp" />
+    <None Include="..\Resource\btnu4.bmp" />
+    <None Include="..\Resource\bitmaps\btnu4.bmp" />
+    <None Include="..\Resource\btnu5.bmp" />
+    <None Include="..\Resource\bitmaps\btnu5.bmp" />
+    <None Include="..\Resource\btnu6.bmp" />
+    <None Include="..\Resource\bitmaps\btnu6.bmp" />
+    <None Include="..\Resource\bitmaps\btnu7.bmp" />
+    <None Include="..\Resource\btnu7.bmp" />
+    <None Include="..\Resource\btnu8.bmp" />
+    <None Include="..\Resource\bitmaps\btnu8.bmp" />
+    <None Include="..\Resource\childali.bmp" />
+    <None Include="..\Resource\bitmaps\childali.bmp" />
+    <None Include="..\Resource\CUBE.BMP" />
+    <None Include="..\Resource\bitmaps\Cube.bmp" />
+    <None Include="..\Resource\bitmaps\cubeditu.bmp" />
+    <None Include="..\Resource\cubeditu.bmp" />
+    <None Include="..\res\cur00001.cur" />
+    <None Include="..\res\cur00002.cur" />
+    <None Include="..\res\cur00003.cur" />
+    <None Include="..\res\cursor1.cur" />
+    <None Include="..\res\cursor_d.cur" />
+    <None Include="..\res\cursor_p.cur" />
+    <None Include="..\res\cursor_x.cur" />
+    <None Include="..\res\cursor_z.cur" />
+    <None Include="..\Resource\bitmaps\dellight.bmp" />
+    <None Include="..\Resource\dellight.bmp" />
+    <None Include="..\res\descent.ico" />
+    <None Include="..\Resource\dlc.bmp" />
+    <None Include="..\Resource\bitmaps\dlc.bmp" />
+    <None Include="..\Resource\Dlc.ico" />
+    <None Include="..\Resource\icons\Dlc.ico" />
+    <None Include="..\res\dlc.ico" />
+    <None Include="..\Resource\icons\dlcdoc.ico" />
+    <None Include="..\res\dlcDoc.ico" />
+    <None Include="..\Resource\dle-xp_logo.bmp" />
+    <None Include="..\Resource\bitmaps\dle-xp_logo.bmp" />
+    <None Include="..\Resource\bitmaps\DLE-XP_logo2.bmp" />
+    <None Include="..\Resource\DLE-XP_logo2.bmp" />
+    <None Include="..\Resource\dle.ico" />
+    <None Include="..\Resource\DLE_icon.bmp" />
+    <None Include="..\Resource\bitmaps\DLE_icon.bmp" />
+    <None Include="..\Resource\icons\DLEXP.ico" />
+    <None Include="..\DLEXP.ico" />
+    <None Include="..\Resource\DMB.BMP" />
+    <None Include="..\Resource\downd1.bmp" />
+    <None Include="..\res\drag.cur" />
+    <None Include="..\Resource\cursors\drag.cur" />
+    <None Include="..\Resource\edit_too.bmp" />
+    <None Include="..\Resource\editbar.bmp" />
+    <None Include="..\Resource\bitmaps\editbar.bmp" />
+    <None Include="..\Resource\bitmaps\edtgeod0.bmp" />
+    <None Include="..\Resource\edtgeod0.bmp" />
+    <None Include="..\Resource\bitmaps\edtgeod1.bmp" />
+    <None Include="..\Resource\edtgeod1.bmp" />
+    <None Include="..\Resource\edtgeod2.bmp" />
+    <None Include="..\Resource\bitmaps\edtgeod2.bmp" />
+    <None Include="..\Resource\edtgeod3.bmp" />
+    <None Include="..\Resource\bitmaps\edtgeod3.bmp" />
+    <None Include="..\Resource\bitmaps\edtgeod4.bmp" />
+    <None Include="..\Resource\edtgeod4.bmp" />
+    <None Include="..\Resource\bitmaps\edtgeod5.bmp" />
+    <None Include="..\Resource\edtgeod5.bmp" />
+    <None Include="..\Resource\bitmaps\edtgeod6.bmp" />
+    <None Include="..\Resource\edtgeod6.bmp" />
+    <None Include="..\Resource\edtgeod7.bmp" />
+    <None Include="..\Resource\bitmaps\edtgeod7.bmp" />
+    <None Include="..\Resource\edtgeod8.bmp" />
+    <None Include="..\Resource\bitmaps\edtgeod8.bmp" />
+    <None Include="..\Resource\edtgeod9.bmp" />
+    <None Include="..\Resource\bitmaps\edtgeod9.bmp" />
+    <None Include="..\Resource\edtgeou0.bmp" />
+    <None Include="..\Resource\bitmaps\edtgeou0.bmp" />
+    <None Include="..\Resource\bitmaps\edtgeou1.bmp" />
+    <None Include="..\Resource\edtgeou1.bmp" />
+    <None Include="..\Resource\bitmaps\edtgeou2.bmp" />
+    <None Include="..\Resource\edtgeou2.bmp" />
+    <None Include="..\Resource\edtgeou3.bmp" />
+    <None Include="..\Resource\bitmaps\edtgeou3.bmp" />
+    <None Include="..\Resource\bitmaps\edtgeou4.bmp" />
+    <None Include="..\Resource\edtgeou4.bmp" />
+    <None Include="..\Resource\edtgeou5.bmp" />
+    <None Include="..\Resource\bitmaps\edtgeou5.bmp" />
+    <None Include="..\Resource\bitmaps\edtgeou6.bmp" />
+    <None Include="..\Resource\edtgeou6.bmp" />
+    <None Include="..\Resource\edtgeou7.bmp" />
+    <None Include="..\Resource\bitmaps\edtgeou7.bmp" />
+    <None Include="..\Resource\bitmaps\edtgeou8.bmp" />
+    <None Include="..\Resource\edtgeou8.bmp" />
+    <None Include="..\Resource\bitmaps\edtgeou9.bmp" />
+    <None Include="..\Resource\edtgeou9.bmp" />
+    <None Include="..\res\exclamat.ico" />
+    <None Include="..\res\icon2.ico" />
+    <None Include="..\res\icon3.ico" />
+    <None Include="..\res\icon4.ico" />
+    <None Include="..\res\icon5.ico" />
+    <None Include="..\Resource\icons\icon5.ico" />
+    <None Include="..\res\icon6.ico" />
+    <None Include="..\Resource\bitmaps\none.bmp" />
+    <None Include="..\Resource\none.bmp" />
+    <None Include="..\Resource\bitmaps\Nopig.bmp" />
+    <None Include="..\Resource\NOPIG.BMP" />
+    <None Include="..\Resource\OBJ_000.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_000.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_001.bmp" />
+    <None Include="..\Resource\OBJ_001.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_002.bmp" />
+    <None Include="..\Resource\OBJ_002.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_003.bmp" />
+    <None Include="..\Resource\OBJ_003.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_004.bmp" />
+    <None Include="..\Resource\OBJ_004.BMP" />
+    <None Include="..\Resource\OBJ_005.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_005.bmp" />
+    <None Include="..\Resource\OBJ_006.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_006.bmp" />
+    <None Include="..\Resource\OBJ_007.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_007.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_008.bmp" />
+    <None Include="..\Resource\OBJ_008.BMP" />
+    <None Include="..\Resource\OBJ_009.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_009.bmp" />
+    <None Include="..\Resource\OBJ_010.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_010.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_011.bmp" />
+    <None Include="..\Resource\OBJ_011.BMP" />
+    <None Include="..\Resource\OBJ_012.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_012.bmp" />
+    <None Include="..\Resource\OBJ_013.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_013.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_014.bmp" />
+    <None Include="..\Resource\OBJ_014.BMP" />
+    <None Include="..\Resource\OBJ_015.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_015.bmp" />
+    <None Include="..\Resource\OBJ_016.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_016.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_017.bmp" />
+    <None Include="..\Resource\OBJ_017.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_018.bmp" />
+    <None Include="..\Resource\OBJ_018.BMP" />
+    <None Include="..\Resource\OBJ_019.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_019.bmp" />
+    <None Include="..\Resource\OBJ_020.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_020.bmp" />
+    <None Include="..\Resource\OBJ_021.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_021.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_022.bmp" />
+    <None Include="..\Resource\OBJ_022.BMP" />
+    <None Include="..\Resource\OBJ_023.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_023.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_024.bmp" />
+    <None Include="..\Resource\OBJ_024.BMP" />
+    <None Include="..\Resource\OBJ_025.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_025.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_026.bmp" />
+    <None Include="..\Resource\OBJ_026.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_027.bmp" />
+    <None Include="..\Resource\OBJ_027.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_028.bmp" />
+    <None Include="..\Resource\OBJ_028.BMP" />
+    <None Include="..\Resource\OBJ_029.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_029.bmp" />
+    <None Include="..\Resource\OBJ_030.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_030.bmp" />
+    <None Include="..\Resource\OBJ_031.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_031.bmp" />
+    <None Include="..\Resource\OBJ_032.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_032.bmp" />
+    <None Include="..\Resource\OBJ_033.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_033.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_034.bmp" />
+    <None Include="..\Resource\OBJ_034.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_035.bmp" />
+    <None Include="..\Resource\OBJ_035.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_036.bmp" />
+    <None Include="..\Resource\OBJ_036.BMP" />
+    <None Include="..\Resource\OBJ_037.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_037.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_038.bmp" />
+    <None Include="..\Resource\OBJ_038.BMP" />
+    <None Include="..\Resource\OBJ_039.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_039.bmp" />
+    <None Include="..\Resource\OBJ_040.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_040.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_041.bmp" />
+    <None Include="..\Resource\OBJ_041.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_042.bmp" />
+    <None Include="..\Resource\OBJ_042.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_043.bmp" />
+    <None Include="..\Resource\OBJ_043.BMP" />
+    <None Include="..\Resource\OBJ_044.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_044.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_045.bmp" />
+    <None Include="..\Resource\OBJ_045.BMP" />
+    <None Include="..\Resource\OBJ_046.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_046.bmp" />
+    <None Include="..\Resource\OBJ_047.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_047.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_048.bmp" />
+    <None Include="..\Resource\OBJ_048.BMP" />
+    <None Include="..\Resource\OBJ_049.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_049.bmp" />
+    <None Include="..\Resource\OBJ_050.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_050.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_051.bmp" />
+    <None Include="..\Resource\OBJ_051.BMP" />
+    <None Include="..\Resource\OBJ_052.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_052.bmp" />
+    <None Include="..\Resource\OBJ_053.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_053.bmp" />
+    <None Include="..\Resource\OBJ_054.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_054.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_055.bmp" />
+    <None Include="..\Resource\OBJ_055.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_056.bmp" />
+    <None Include="..\Resource\OBJ_056.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_057.bmp" />
+    <None Include="..\Resource\OBJ_057.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_058.bmp" />
+    <None Include="..\Resource\OBJ_058.BMP" />
+    <None Include="..\Resource\OBJ_059.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_059.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_060.bmp" />
+    <None Include="..\Resource\OBJ_060.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_061.bmp" />
+    <None Include="..\Resource\OBJ_061.BMP" />
+    <None Include="..\Resource\OBJ_062.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_062.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_063.bmp" />
+    <None Include="..\Resource\OBJ_063.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_064.bmp" />
+    <None Include="..\Resource\OBJ_064.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_065.bmp" />
+    <None Include="..\Resource\OBJ_065.BMP" />
+    <None Include="..\Resource\OBJ_066.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_066.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_067.bmp" />
+    <None Include="..\Resource\OBJ_067.BMP" />
+    <None Include="..\Resource\OBJ_068.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_068.bmp" />
+    <None Include="..\Resource\OBJ_069.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_069.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_070.bmp" />
+    <None Include="..\Resource\OBJ_070.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_071.bmp" />
+    <None Include="..\Resource\OBJ_071.BMP" />
+    <None Include="..\Resource\OBJ_072.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_072.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_073.bmp" />
+    <None Include="..\Resource\OBJ_073.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_074.bmp" />
+    <None Include="..\Resource\OBJ_074.BMP" />
+    <None Include="..\Resource\OBJ_075.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_075.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_076.bmp" />
+    <None Include="..\Resource\OBJ_076.BMP" />
+    <None Include="..\Resource\OBJ_077.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_077.bmp" />
+    <None Include="..\Resource\OBJ_078.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_078.bmp" />
+    <None Include="..\Resource\OBJ_079.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_079.bmp" />
+    <None Include="..\Resource\OBJ_080.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_080.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_081.bmp" />
+    <None Include="..\Resource\OBJ_081.BMP" />
+    <None Include="..\Resource\OBJ_082.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_082.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_083.bmp" />
+    <None Include="..\Resource\OBJ_083.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_084.bmp" />
+    <None Include="..\Resource\OBJ_084.BMP" />
+    <None Include="..\Resource\OBJ_085.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_085.bmp" />
+    <None Include="..\Resource\OBJ_086.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_086.bmp" />
+    <None Include="..\Resource\OBJ_087.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_087.bmp" />
+    <None Include="..\Resource\OBJ_088.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_088.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_089.bmp" />
+    <None Include="..\Resource\OBJ_089.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_090.bmp" />
+    <None Include="..\Resource\OBJ_090.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_091.bmp" />
+    <None Include="..\Resource\OBJ_091.BMP" />
+    <None Include="..\Resource\OBJ_092.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_092.bmp" />
+    <None Include="..\Resource\OBJ_093.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_093.bmp" />
+    <None Include="..\Resource\OBJ_094.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_094.bmp" />
+    <None Include="..\Resource\OBJ_095.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_095.bmp" />
+    <None Include="..\Resource\OBJ_096.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_096.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_097.bmp" />
+    <None Include="..\Resource\OBJ_097.BMP" />
+    <None Include="..\Resource\OBJ_098.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_098.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_099.bmp" />
+    <None Include="..\Resource\OBJ_099.BMP" />
+    <None Include="..\Resource\OBJ_100.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_100.bmp" />
+    <None Include="..\Resource\OBJ_101.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_101.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_102.bmp" />
+    <None Include="..\Resource\OBJ_102.BMP" />
+    <None Include="..\Resource\OBJ_103.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_103.bmp" />
+    <None Include="..\Resource\OBJ_104.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_104.bmp" />
+    <None Include="..\Resource\OBJ_105.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_105.bmp" />
+    <None Include="..\Resource\OBJ_106.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_106.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_107.bmp" />
+    <None Include="..\Resource\OBJ_107.BMP" />
+    <None Include="..\Resource\OBJ_108.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_108.bmp" />
+    <None Include="..\Resource\OBJ_109.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_109.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_110.bmp" />
+    <None Include="..\Resource\OBJ_110.BMP" />
+    <None Include="..\Resource\OBJ_111.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_111.bmp" />
+    <None Include="..\Resource\OBJ_112.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_112.bmp" />
+    <None Include="..\Resource\OBJ_113.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_113.bmp" />
+    <None Include="..\Resource\bitmaps\Obj_114.bmp" />
+    <None Include="..\Resource\OBJ_114.BMP" />
+    <None Include="..\Resource\OBJ_115.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_115.bmp" />
+    <None Include="..\Resource\OBJ_116.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_116.bmp" />
+    <None Include="..\Resource\OBJ_117.BMP" />
+    <None Include="..\Resource\bitmaps\Obj_117.bmp" />
+    <None Include="..\Resource\bitmaps\obj_118.bmp" />
+    <None Include="..\Resource\obj_118.bmp" />
+    <None Include="..\Resource\obj_119.bmp" />
+    <None Include="..\Resource\bitmaps\obj_119.bmp" />
+    <None Include="..\Resource\obj_120.bmp" />
+    <None Include="..\Resource\bitmaps\obj_120.bmp" />
+    <None Include="..\Resource\obj_121.bmp" />
+    <None Include="..\Resource\bitmaps\obj_121.bmp" />
+    <None Include="..\Resource\obj_122.bmp" />
+    <None Include="..\Resource\bitmaps\obj_122.bmp" />
+    <None Include="..\Resource\bitmaps\obj_123.bmp" />
+    <None Include="..\Resource\obj_123.bmp" />
+    <None Include="..\Resource\obj_124.bmp" />
+    <None Include="..\Resource\bitmaps\obj_124.bmp" />
+    <None Include="..\Resource\obj_125.bmp" />
+    <None Include="..\Resource\bitmaps\obj_125.bmp" />
+    <None Include="..\Resource\obj_126.bmp" />
+    <None Include="..\Resource\bitmaps\obj_126.bmp" />
+    <None Include="..\Resource\bitmaps\obj_127.bmp" />
+    <None Include="..\Resource\obj_127.bmp" />
+    <None Include="..\Resource\bitmaps\obj_128.bmp" />
+    <None Include="..\Resource\obj_128.bmp" />
+    <None Include="..\Resource\bitmaps\obj_129.bmp" />
+    <None Include="..\Resource\obj_129.bmp" />
+    <None Include="..\Resource\bitmaps\Oldpig.bmp" />
+    <None Include="..\Resource\OLDPIG.BMP" />
+    <None Include="..\res\pan.cur" />
+    <None Include="..\Resource\cursors\pan.cur" />
+    <None Include="..\res\rc_data1.bin" />
+    <None Include="..\Resource\bitmaps\resetd.bmp" />
+    <None Include="..\Resource\resetd.bmp" />
+    <None Include="..\Resource\resetmar.bmp" />
+    <None Include="..\Resource\bitmaps\resetmar.bmp" />
+    <None Include="..\res\rotate.cur" />
+    <None Include="..\Resource\cursors\rotate.cur" />
+    <None Include="..\Resource\stretch2.bmp" />
+    <None Include="..\Resource\bitmaps\stretch2.bmp" />
+    <None Include="..\Resource\toolbar.bmp" />
+    <None Include="..\Resource\bitmaps\toolbar.bmp" />
+    <None Include="..\res\Toolbar.bmp" />
+    <None Include="..\res\toolbar2.bmp" />
+    <None Include="..\Resource\bitmaps\toolbar2.bmp" />
+    <None Include="..\res\toolbarx.bmp" />
+    <None Include="..\Resource\walledit.bmp" />
+    <None Include="..\Resource\bitmaps\walledit.bmp" />
+    <None Include="..\Resource\cursors\xhairs.cur" />
+    <None Include="..\res\xhairs.cur" />
+    <None Include="..\res\zoom.cur" />
+    <None Include="..\Resource\cursors\zoom.cur" />
+    <None Include="..\res\zoomin.cur" />
+    <None Include="..\Resource\cursors\zoomin.cur" />
+    <None Include="..\Resource\cursors\zoomout.cur" />
+    <None Include="..\res\zoomout.cur" />
+    <None Include="..\Resource\Alien2.256" />
+    <None Include="..\Resource\Fire.256" />
+    <None Include="..\Resource\groupa.256" />
+    <None Include="..\Resource\Ice.256" />
+    <None Include="..\Resource\Palette.256" />
+    <None Include="..\Resource\Pofs1.dat" />
+    <None Include="..\Resource\pofs2.dat" />
+    <None Include="..\res\Texture.dat" />
+    <None Include="..\res\Texture2.dat" />
+    <None Include="..\Resource\Water.256" />
+    <None Include="..\Resource\ALIEN1.256" />
+    <None Include="..\Resource\palettes\Alien1.256" />
+    <None Include="..\Resource\palettes\Alien2.256" />
+    <None Include="..\Resource\registry\ComCube.rgs" />
+    <None Include="..\res\ComCube.rgs" />
+    <None Include="..\Resource\registry\ComMine.rgs" />
+    <None Include="..\res\ComMine.rgs" />
+    <None Include="..\Resource\registry\ComObj.rgs" />
+    <None Include="..\ComObj.rgs" />
+    <None Include="..\Resource\data\d12d2.dat" />
+    <None Include="..\rcdata\d12d2.dat" />
+    <None Include="..\res\D12D2.DAT" />
+    <None Include="..\Resource\data\descent.clr" />
+    <None Include="..\Resource\data\descent.lgt" />
+    <None Include="..\Resource\data\descent2.clr" />
+    <None Include="..\Resource\data\descent2.lgt" />
+    <None Include="..\resource\registry\dle-xp.rgs" />
+    <None Include="..\Resource\palettes\Fire.256" />
+    <None Include="..\Resource\palettes\groupa.256" />
+    <None Include="..\Resource\palettes\Ice.256" />
+    <None Include="..\..\script\msscript.ocx" />
+    <None Include="..\res\NEW_SAVE.RDL" />
+    <None Include="..\Resource\levels\new_save.rdl" />
+    <None Include="..\Resource\levels\new_save.rl2" />
+    <None Include="..\res\NEW_SAVE.RL2" />
+    <None Include="..\Resource\palettes\Palette.256" />
+    <None Include="..\Resource\data\Pofs1.dat" />
+    <None Include="..\Resource\data\pofs2.dat" />
+    <None Include="..\ReadMe.txt" />
+    <None Include="..\res\ROBOT.HXM" />
+    <None Include="..\Resource\data\robot.hxm" />
+    <None Include="..\Script.rgs" />
+    <None Include="..\Resource\data\ship.dat" />
+    <None Include="..\res\SHIP.DAT" />
+    <None Include="..\Resource\data\texture.dat" />
+    <None Include="..\Resource\data\Texture2.dat" />
+    <None Include="..\Resource\palettes\Water.256" />
+    <CustomBuildStep Include="..\..\..\Websites\Descent\dle-history.html">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\Websites\Descent\dle-xp-cubes.html">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\Websites\Descent\dle-xp-diagnosis.html">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\Websites\Descent\dle-xp-effects.html">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\Websites\Descent\dle-xp-gui.html">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\Websites\Descent\dle-xp-intro.html">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\Websites\Descent\dle-xp-light.html">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\Websites\Descent\dle-xp-lighting-howto.html">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\Websites\Descent\dle-xp-misc.html">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\Websites\Descent\dle-xp-mission.html">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\Websites\Descent\dle-xp-missions.html">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\Websites\Descent\dle-xp-music-howto.html">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\Websites\Descent\dle-xp-objects.html">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\Websites\Descent\dle-xp-textures.html">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\Websites\Descent\dle-xp-triggers.html">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <CustomBuildStep Include="..\..\..\Websites\Descent\dle-xp-walls.html">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </CustomBuildStep>
+    <None Include="..\resource\bitmaps\arrow.tga" />
+    <None Include="..\resource\bitmaps\icon-bubbles.tga" />
+    <None Include="..\resource\bitmaps\icon-fire.tga" />
+    <None Include="..\resource\bitmaps\icon-light.tga" />
+    <None Include="..\resource\bitmaps\icon-lightning.tga" />
+    <None Include="..\resource\bitmaps\icon-rain.tga" />
+    <None Include="..\resource\bitmaps\icon-smoke.tga" />
+    <None Include="..\resource\bitmaps\icon-snow.tga" />
+    <None Include="..\resource\bitmaps\icon-sound.tga" />
+    <None Include="..\resource\bitmaps\icon-waypoint.tga" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\DLE.Core.vcxproj">
+      <Project>{57d9b500-1aec-434f-9a0c-5db4383aa442}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\DataTypes\DLE.DataTypes.vcxproj">
+      <Project>{d3b6e4e3-ec8a-4b81-bee1-e4e481d9939a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Managers\DLE.Managers.vcxproj">
+      <Project>{1a1bd677-4bfc-4b6d-9562-13f6dfb87dde}</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="dle.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

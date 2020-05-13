@@ -36,3 +36,10 @@
 *.user
 **/Debug
 **/Release
+
+# More Visual Studio related stuff
+*.suo
+*.user
+bin
+obj
+packages

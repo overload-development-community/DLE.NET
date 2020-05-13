@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - Selection</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>Selection</h1>
+        <div>
+            <a href="#basics">Basics</a> &middot;
+            <a href="#modes">Modes</a> &middot;
+            <a href="#controls">Controls</a>
+        </div>
+        
+        <h2 id="basics">Basics</h2>
+        <p>
+            At any given time, the editor will always have a selection. The
+            selection describes the current target of most editing actions.
+            Thus, there will always be exactly one of each of the following:
+        </p>
+
+        <ul>
+            <li>A selected segment</li>
+            <li>A selected side, one of the sides of the selected segment</li>
+            <li>A selected line, depending on the selected point</li>
+            <li>A selected point, one of the points of the selected side</li>
+            <li>A selected object</li>
+        </ul>
+
+        <p>
+            In addition, for every kind of selection, there is a corresponding
+            kind of secondary selection, called the "other selection". That means that
+            the exactly one of each of the following also exist:
+        </p>
+
+        <ul>
+            <li>An "other segment"</li>
+            <li>An "other side", one of the sides of the "other segment"</li>
+            <li>An "other line", depending on the "other point"</li>
+            <li>An "other point", one of the points of the "other side"</li>
+            <li>An "other object",</li>
+        </ul>
+
+        <p>
+            Actions which by their nature require two selections will use
+            the current selection as the primary selection and the "other"
+            selection as the secondary selection. Both selections will be
+            highlighted in the mine view as follows:
+        </p>
+
+        <table>
+            <thead>
+                <th>Selection Mode</th>
+                <th>Point Mode</th>
+                <th>Line Mode</th>
+                <th>Side Mode</th>
+                <th>Segment Mode</th>
+                <th>Object/Block Mode</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Selection</th>
+                    <td class="icontd"><img width="128" height="128" src="Images\SelPoint.png"></td>
+                    <td class="icontd"><img width="128" height="128" src="Images\SelLine.png"></td>
+                    <td class="icontd"><img width="128" height="128" src="Images\SelSide.png"></td>
+                    <td class="icontd"><img width="128" height="128" src="Images\SelSeg.png"></td>
+                    <td class="icontd"><img width="128" height="128" src="Images\SelBlock.png"></td>
+                </tr>
+                <tr>
+                    <th>"Other"</th>
+                    <td class="icontd"><img width="128" height="128" src="Images\Other.png"></td>
+                    <td class="icontd"><img width="128" height="128" src="Images\Other.png"></td>
+                    <td class="icontd"><img width="128" height="128" src="Images\Other.png"></td>
+                    <td class="icontd"><img width="128" height="128" src="Images\Other.png"></td>
+                    <td class="icontd"><img width="128" height="128" src="Images\Other.png"></td>
+                </tr>
+                <tr>
+                    <th>Neither (w/ lines)</th>
+                    <td class="icontd"><img width="128" height="128" src="Images\Lines.png"></td>
+                    <td class="icontd"><img width="128" height="128" src="Images\Lines.png"></td>
+                    <td class="icontd"><img width="128" height="128" src="Images\Lines.png"></td>
+                    <td class="icontd"><img width="128" height="128" src="Images\Lines.png"></td>
+                    <td class="icontd"><img width="128" height="128" src="Images\Lines.png"></td>
+                </tr>
+                <tr>
+                    <th>Neither (w/o lines)</th>
+                    <td class="icontd"><img width="128" height="128" src="Images\NoLines.png"></td>
+                    <td class="icontd"><img width="128" height="128" src="Images\NoLines.png"></td>
+                    <td class="icontd"><img width="128" height="128" src="Images\NoLines.png"></td>
+                    <td class="icontd"><img width="128" height="128" src="Images\NoLines.png"></td>
+                    <td class="icontd"><img width="128" height="128" src="Images\NoLines.png"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <p>
+            Key points of the selection highlights:
+            <ul>
+                <li>Selected line/point is yellow, selected side green and selected segment white</li>
+                <li>If the selection mode is point/line/side/segment, the corresponding selection is red instead</li>
+                <li>The other selection looks the same regardless of the selection mode</li>
+            </ul>
+        </p>
+
+        <p>
+            The selected object will have a yellow ring around it and the
+            "other object" will have a red ring around it.
+        </p>
+        
+        <h2 id="modes">Modes</h2>
+
+        <p>
+            There are six selection modes, and the current actions taken depend
+            on the selection mode.
+        </p>
+
+        <ul>
+            <li><b>Point Mode</b>: The user can select a point by clicking,
+                but cannot switch to another segment that way. Movement actions will
+                only move the selected point.</li>
+            <li><b>Line Mode</b>: The user can select a line by clicking,
+                but cannot switch to another segment that way. Movement actions will
+                only move the selected line.</li>
+            <li><b>Side Mode</b>: The user can select a side by clicking,
+                and <i>can</i> switch to another segment that way. Movement actions will
+                only move the selected side. This is the default mode.</li>
+            <li><b>Segment Mode</b>: The user can select a segment and side by clicking.
+                Movement actions will only move the selected segment.</li>
+            <li><b>Object Mode</b>: The user can select an object by clicking.
+                Movement actions will only move the selected object.</li>
+            <li><b>Block Mode</b>: The user can select a segment and side by clicking.
+                Movement actions will move everything that has been marked.</li>
+        </ul>
+        
+        <h2 id="controls">Controls</h2>
+
+        <p>
+            See the controls under the <a href="mineview.html">Mine View</a> page.
+        </p>
+    </body>
+</html>

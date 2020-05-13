@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - Reactor Tool</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>Reactor Tool</h1>
+        <div>
+            <a href="#targets">Reactor Targets</a> &middot;
+            <a href="#options">Descent 2 Options</a>
+        </div>
+
+        <p>
+            The <em>reactor</em> is an important part of most Descent levels.
+            In most levels, the end objective is to locate and destroy the
+            reactor and then get out through the exit door before the countdown
+            reaches zero.
+        </p>
+
+        <p>
+            Note that for technical reasons, <em>every</em> singleplayer or co-op
+            level should have exactly one reactor, even if the player can't
+            access it or if the level has a boss robot (in which case, the reactor
+            is automatically removed on level load). This does not necessarily
+            apply to D2X-XL levels.
+        </p>
+
+        <h2 id="targets">Reactor Targets</h2>
+        <p>
+            The reactor itself acts as a trigger when destroyed. The trigger
+            type is always "control doors" on Descent 1 or "open door" in Descent
+            2; thus the trigger targets must be doors for them to be affected.
+            Any target that is a door will be opened the moment the exit
+            countdown begins (but note that such doors must not be "door auto",
+            or they will close automatically after a few seconds).
+        </p>
+
+        <p>
+            Much like with normal triggers, at most ten targets are allowed.
+        </p>
+
+        <h2 id="options">Descent 2 Options</h2>
+        <p>
+            All of these options will only work in Descent 2 levels;
+            they are not available in Descent 1, where the countdown time is
+            constant and cannot be changed by the level.
+        </p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">Countdown</td>
+                    <td>
+                        The reactor countdown time in seconds. The default value
+                        is 30. Note that like the setting says, this is only 
+                        the time on the highest difficulty (insane); on other
+                        difficulties, the time is set to be a constant multiple
+                        of this value depending on the difficulty level.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Reactor strength</td>
+                    <td>
+                        The number of shields the reactor has. The default value
+                        is as follows:
+                        <ul>
+                            <li>normal level: 200 + (50 * N), where N is the
+                                level number (how many normal levels there were
+                                before this level; thus first level N = 0)</li>
+                            <li>secret level: 350 + (150 * N), where N is the
+                                secret level number (how many secret levels there were
+                                before this level; thus first secret level N = 0)</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Segment to return to after secret level</td>
+                    <td>
+                        The segment that contains the secret level return
+                        spawn point. Its position can also be adjusted under
+                        the <a href="objects.html">object tool</a> as "secret object".
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

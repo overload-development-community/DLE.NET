@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - Settings</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>Settings</h1>
+        <div>
+            <a href="#files">Files</a> &middot;
+            <a href="#layout">Layout</a> &middot;
+            <a href="#renderer">Renderer</a> &middot;
+            <a href="#editor">Editor</a> &middot;
+            <a href="#visibility">Visibility</a> &middot;
+            <a href="#misc">Misc</a>
+        </div>
+
+        <p>
+            The following settings may apply instantly or only once they have
+            been saved. Use "save" to save the changed settings, or "revert"
+            to restore the settings from the most recent save.
+        </p>
+
+        <h2 id="files">Files</h2>
+        <p>
+            These settings only apply on save.
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">D1 PIG</td>
+                    <td>
+                        The path to Descent 1's DESCENT.PIG file. Required to
+                        see textures while editing Descent 1 levels.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">D2 PIG</td>
+                    <td>
+                        The path to any of the Descent 2's PIG files. Required to
+                        see textures while editing Descent 2 levels.
+                        <p></p>
+                        This is also used to adjust the level palette - because
+                        of this, the setting is actually level-dependent when it
+                        comes to the file name, but the rest of the path is still
+                        part of the setting. The level palette can be more easily
+                        adjusted from the <a href="pogeditor.html">.POG editor</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Missions</td>
+                    <td>
+                        The path to the missions folder under Descent 1 or 2.
+                        Used as the default folder when opening or saving
+                        missions and also an auxiliary path for loading mod
+                        files.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="layout">Layout</h2>
+        <p>
+            This setting only applies on save.
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">horizontal</td>
+                    <td>
+                        The default layout. The window is split in two into the
+                        texture list on the left and the mine view and tools
+                        on the right (with the mine view above the tools).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">vertical</td>
+                    <td>
+                        The window is split in two into the tools on the left
+                        and the mine view and texture list on the right (with
+                        the mine view above the texture list).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">floating</td>
+                    <td>
+                        The window is split in two into the texture list on the left
+                        and the mine view on the right. Tools are opened into their
+                        own separate windows.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">vertical (space saving)</td>
+                    <td>
+                        Same as "vertical", but the texture list is moved
+                        below the tools into the same column.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="renderer">Renderer</h2>
+        <p>
+            These settings apply immediately, but need to be saved in order
+            to persist after the editor is closed.
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">renderer</td>
+                    <td>
+                        Either third person (default) or first person. The
+                        setting controls the perspective of the camera in the
+                        mine view.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">depth perception</td>
+                    <td>
+                        Controls how much depth the mine view perspective should have.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">mine center display</td>
+                    <td>
+                        A shape can be set to display in the center of the mine
+                        view. The size of the "globe" depends on the active zoom
+                        level, while the crosshairs will stay the same size.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">mine render depth</td>
+                    <td>
+                        Controls how many segments deep from the selected segment
+                        should segments be rendered; for example, 2 means "render
+                        only the segments that are at most two segments away from
+                        the current segment" (where 0 segments away = current
+                        segment). Walls are ignored for the purposes
+                        of this setting. The default is "all".
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="editor">Editor</h2>
+        <p>
+            These settings apply immediately, but need to be saved in order
+            to persist after the editor is closed.
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">move rate: mine</td>
+                    <td>
+                        Controls how many units the movement controls will
+                        move the selection at a time.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">move rate: view</td>
+                    <td>
+                        Controls how many units the panning controls will
+                        move the camera at a time.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">rotate rate</td>
+                    <td>
+                        Controls how many degrees rotation controls, such
+                        as selection rotation, camera turning and side turning
+                        rotate at a time.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">undo</td>
+                    <td>
+                        How many undo states are kept by the editor. This
+                        controls how many times it is possible to use "undo"
+                        before the buffer runs out of states.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Allow objects to overlap</td>
+                    <td>
+                        If not checked, objects that would be directly
+                        on top of each other will be bumped in order to not be.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Adjust texture alignment when editing segments</td>
+                    <td>
+                        If checked, when the movement/rotation controls are used,
+                        the alignment of textures will be automatically updated so that
+                        the textures will not be stretched. This however does not apply
+                        when adding segments, which may still lead to stretched textures.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="visibility">Visibility</h2>
+        <p>
+            These settings apply immediately, but need to be saved in order
+            to persist after the editor is closed.
+        </p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">geometry: walls</td>
+                    <td>
+                        Whether to show walls as crosses on the mine view.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">geometry: special segments</td>
+                    <td>
+                        Whether to highlight special segments (segments with
+                        special functions) when lines are enabled.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">geometry: lights</td>
+                    <td>
+                        Whether to show the light sprite for custom lights.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">geometry: shading</td>
+                    <td>
+                        Whether to show lighting in the mine view. The lighting
+                        will only be visible on textures, not objects or lines.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">geometry: delta shading</td>
+                    <td>
+                        Whether to animate lighting (for variable lights) in the mine view.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">geometry: hide marked</td>
+                    <td>
+                        Whether to hide marked segments in the mine view.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">geometry: sky box</td>
+                    <td>
+                        Whether to show sky boxes (D2X-XL only) in the mine view.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">geometry: used textures</td>
+                    <td>
+                        Whether to only show textures already used in the mine
+                        in the <a href="texturelist.html">texture list</a>, as opposed to all textures.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">objects</td>
+                    <td>
+                        Whether to show objects of the corresponding type
+                        in the mine view.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="misc">Misc</h2>
+        <p>
+            These settings apply immediately, but need to be saved in order
+            to persist after the editor is closed.
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">player profile</td>
+                    <td>
+                        The name of the Descent player profile used with
+                        the "run level" function.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">face light settings: apply globally</td>
+                    <td>
+                        Whether the light color setting will apply for the
+                        texture, as opposed to a specific wall. This is on
+                        by default and is not saved like other settings.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">information level</td>
+                    <td>
+                        Controls the amount of messages to show. "Verbose" is
+                        the default setting and displays all message boxes.
+                        "Normal" disables some message boxes and only displays
+                        warnings or errors, while "Quiet" only displays
+                        errors.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">show splash screen on program start</td>
+                    <td>
+                        Whether to show a splash screen with the DLE.NET logo
+                        when the program is started.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Import settings</td>
+                    <td>
+                        Allows importing DLE.NET settings from an XML file.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Export settings</td>
+                    <td>
+                        Allows exporting DLE.NET settings to an XML file.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Import DLE.INI</td>
+                    <td>
+                        Allows importing DLE.NET settings from an INI file,
+                        which is how DLE-XP stores its settings.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Reset defaults</td>
+                    <td>
+                        Resets all settings back to defaults.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

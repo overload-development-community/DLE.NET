@@ -1,0 +1,2306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="UI">
+      <UniqueIdentifier>{043857de-f53d-40c3-8d69-0768a5489a73}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;rc;def;r;odl;idl;hpj;bat</Extensions>
+    </Filter>
+    <Filter Include="UI\Header Files">
+      <UniqueIdentifier>{8cc6d5f4-4e93-4af1-b951-eb8303548c9d}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl</Extensions>
+    </Filter>
+    <Filter Include="UI\Source Files">
+      <UniqueIdentifier>{d746e7d1-5e76-414e-8048-03eeca3458ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Resource Files">
+      <UniqueIdentifier>{73f883f8-6cb5-40c1-9831-07e87641453d}</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;cnt;rtf;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{b464bfb6-c992-490e-84e7-dc7e5b056aac}</UniqueIdentifier>
+      <Extensions>*.256 *.dat</Extensions>
+    </Filter>
+    <Filter Include="Data Files">
+      <UniqueIdentifier>{d3425922-19e5-462d-8351-7f131927e6e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Resource Files\Bitmaps">
+      <UniqueIdentifier>{7fafb3c9-2892-4dc2-92d5-47df2136fe10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Resource Files\Cursors">
+      <UniqueIdentifier>{5d3a32c6-3ed0-4d78-a5fd-e51a50620f75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Resource Files\Icons">
+      <UniqueIdentifier>{bc0af10f-ceb2-4b34-b539-5c385ae83541}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Resource Files\Bitmaps\Game Objects">
+      <UniqueIdentifier>{a886e58d-44d9-4e2f-a9e9-d7c1ee3d32c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI\Resource Files\Bitmaps\Game Icons">
+      <UniqueIdentifier>{3d09ed59-631f-400e-bb30-4c64f3c34c66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenGL">
+      <UniqueIdentifier>{0571aaef-e304-4009-ac59-7f0ad190a5b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenGL\Header Files">
+      <UniqueIdentifier>{e8843d21-a0ee-44e2-ab81-2a6fb368ccd1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OpenGL\Source Files">
+      <UniqueIdentifier>{4a247671-14da-4a22-ba47-3f931f55e74f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dlcDoc.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrame.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mineview.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StdAfx.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TEXEDIT.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="textureView.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="toolview.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>UI\Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FBO.h">
+      <Filter>OpenGL\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderBuffers.h">
+      <Filter>OpenGL\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Frustum.h">
+      <Filter>OpenGL\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PogDialog.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Global.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ViewMatrix.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="buildmodel.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="glew.h">
+      <Filter>OpenGL\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="wglew.h">
+      <Filter>OpenGL\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawHelpers.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dle.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dle-res.h">
+      <Filter>UI\Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="oglmatrix.h">
+      <Filter>OpenGL\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Selection.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureProjector.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderManager.h">
+      <Filter>OpenGL\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureFilter.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HogDialog.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>UI\Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AdvancedObjTool.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CONVERT.CPP">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Diagnosis.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DiagTool.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dlcDoc.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgHelpers.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectTool.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectTool.Lightning.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectTool.Particles.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectTool.Sounds.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectTool.WayPoints.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtBitmapButton.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ExtSliderCtrl.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LightTool.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrame.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrame.EditTool.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrame.ExtToolBar.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrame.InterfaceHandlers.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MineView.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MineView.drag.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MineView.draw.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MineView.Renderer.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MineView.Renderer.OpenGL.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MineView.Renderer.Software.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MineView.RenderLib.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MineView.select.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MineView.transform.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MissionTool.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectTool.AI.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectTool.Combat.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectTool.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectTool.Death.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectTool.Physics.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectTool.Sound.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ReactorTool.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SegmentTool.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsTool.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StdAfx.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TexAlignTool.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TEXEDIT.CPP">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TexFilterTool.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TexLightTool.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TexToolDlg.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureTool.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="textureView.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tooldlg.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolTabCtrl.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="toolview.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TriggerTool.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WallTool.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FBO.cpp">
+      <Filter>OpenGL\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderBuffers.cpp">
+      <Filter>OpenGL\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Frustum.cpp">
+      <Filter>OpenGL\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectTool.Position.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsTool.Editor.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsTool.Files.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsTool.Layout.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsTool.Misc.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsTool.Renderer.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsTool.Visibility.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TexProjectTool.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PogDialog.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="EffectTool.Fog.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MineView.Input.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ViewMatrix.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="global.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ASERenderModel.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="buildmodel.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="OOFRenderModel.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="glew.cpp">
+      <Filter>OpenGL\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawHelpers.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dle.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Selection.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureProjector.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderManager.cpp">
+      <Filter>OpenGL\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureFilter.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HogDialog.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>UI\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureManager.Shaders.cpp">
+      <Filter>OpenGL\Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Resource\data\rc_data1.bin">
+      <Filter>UI\Resource Files</Filter>
+    </None>
+    <None Include="..\Resource\Alien2.256">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\Resource\Fire.256">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\Resource\groupa.256">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\Resource\Ice.256">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\Resource\Palette.256">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\Resource\Pofs1.dat">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\Resource\pofs2.dat">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\res\Texture.dat">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\res\Texture2.dat">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\Resource\Water.256">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\Resource\ALIEN1.256">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\palettes\Alien1.256">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\palettes\Alien2.256">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\registry\ComCube.rgs">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\res\ComCube.rgs">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\registry\ComMine.rgs">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\res\ComMine.rgs">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\registry\ComObj.rgs">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\ComObj.rgs">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\data\d12d2.dat">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\rcdata\d12d2.dat">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\res\D12D2.DAT">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\data\descent.clr">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\data\descent.lgt">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\data\descent2.clr">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\data\descent2.lgt">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\resource\registry\dle-xp.rgs">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\palettes\Fire.256">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\palettes\groupa.256">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\palettes\Ice.256">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\..\script\msscript.ocx">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\res\NEW_SAVE.RDL">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\levels\new_save.rdl">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\levels\new_save.rl2">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\res\NEW_SAVE.RL2">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\palettes\Palette.256">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\data\Pofs1.dat">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\data\pofs2.dat">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\ReadMe.txt">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\res\ROBOT.HXM">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\data\robot.hxm">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Script.rgs">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\data\ship.dat">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\res\SHIP.DAT">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\data\texture.dat">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\data\Texture2.dat">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\palettes\Water.256">
+      <Filter>Data Files</Filter>
+    </None>
+    <None Include="..\Resource\10000.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\addlight.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10000.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10001.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10001.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10004.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10004.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10005.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10005.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10006.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10006.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10007.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10007.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10008.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10008.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10009.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10009.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10010.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10010.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10011.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10011.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10012.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10012.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10013.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10013.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10014.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10014.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10015.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10015.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10016.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10016.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10017.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10017.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10018.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10018.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10019.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10019.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10020.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10020.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10021.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10021.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10022.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10022.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10023.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10023.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10024.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10024.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10025.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10025.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10026.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10026.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10027.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10027.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10028.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10028.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10029.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10029.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10030.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10030.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\10031.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\10031.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12000.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12000.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12001.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12001.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12004.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12004.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12005.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12005.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12006.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12006.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12007.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12007.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12008.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12008.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12009.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12009.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12010.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12010.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12011.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12012.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12012.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12013.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12013.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12014.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12014.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12015.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12015.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12016.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12016.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12017.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12017.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12018.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12018.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12019.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12019.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12020.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12020.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12021.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12021.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12022.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12022.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12023.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12023.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12024.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12024.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12025.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12025.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12026.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12026.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12027.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12027.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12028.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12028.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12029.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12029.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12030.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12030.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\12031.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\12031.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\addlight.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bmp00001.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\cubeditu.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\bmp00001.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bmp00002.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\bmp00002.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bmp00003.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\bmp00003.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bmp00004.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\bmp00004.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bmp00005.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\bmp00005.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\bmp00006.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bmp00006.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bmp00007.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\bmp00007.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bmp00008.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\bmp00008.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bmp00009.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\bmp00009.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bmp00010.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\bmp00010.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\bmp00011.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bmp00011.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bmp00012.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\bmp00012.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\bmp00013.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bmp00013.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\bmp00014.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bmp00014.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\bmp00015.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bmp00015.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\bmp00016.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bmp00016.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\bmp00017.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bmp00017.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\bmp00018.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bmp00018.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\btnd1.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\btnd1.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\btnd2.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\btnd2.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\btnd3.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\btnd3.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\btnd4.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\btnd4.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\btnd5.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\btnd5.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\btnd6.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\btnd6.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\btnd7.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\btnd7.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\btnd8.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\btnd8.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\btnu1.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\btnu1.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\btnu2.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\btnu2.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\btnu3.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\btnu3.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\btnu4.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\btnu4.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\btnu5.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\btnu5.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\btnu6.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\btnu6.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\btnu7.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\btnu7.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\btnu8.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\btnu8.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\childali.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\childali.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\CUBE.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Cube.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\cubeditu.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\dellight.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\dellight.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\dlc.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\dlc.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\res\arrow.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\res\cursor_z.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\Resource\cursors\arrow.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\arrow.tga">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\res\cur00001.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\res\cur00002.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\res\cur00003.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\res\cursor1.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\res\cursor_d.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\res\cursor_p.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\res\cursor_x.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\res\descent.ico">
+      <Filter>UI\Resource Files\Icons</Filter>
+    </None>
+    <None Include="..\res\dlc.ico">
+      <Filter>UI\Resource Files\Icons</Filter>
+    </None>
+    <None Include="..\Resource\Dlc.ico">
+      <Filter>UI\Resource Files\Icons</Filter>
+    </None>
+    <None Include="..\Resource\icons\Dlc.ico">
+      <Filter>UI\Resource Files\Icons</Filter>
+    </None>
+    <None Include="..\res\dlcDoc.ico">
+      <Filter>UI\Resource Files\Icons</Filter>
+    </None>
+    <None Include="..\Resource\icons\dlcdoc.ico">
+      <Filter>UI\Resource Files\Icons</Filter>
+    </None>
+    <None Include="..\Resource\dle-xp_logo.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\DLE-XP_logo2.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\dle-xp_logo.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\DLE-XP_logo2.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\DLE_icon.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\DLE_icon.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\DMB.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\downd1.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\edit_too.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\edtgeou9.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\editbar.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\editbar.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\edtgeod0.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\edtgeod0.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\edtgeod1.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\edtgeod1.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\edtgeod2.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\edtgeod2.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\edtgeod3.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\edtgeod3.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\edtgeod4.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\edtgeod4.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\edtgeod5.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\edtgeod5.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\edtgeod6.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\edtgeod6.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\edtgeod7.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\edtgeod7.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\edtgeod8.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\edtgeod8.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\edtgeod9.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\edtgeod9.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\edtgeou0.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\edtgeou0.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\edtgeou1.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\edtgeou1.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\edtgeou2.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\edtgeou2.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\edtgeou3.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\edtgeou3.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\edtgeou4.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\edtgeou4.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\edtgeou5.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\edtgeou5.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\edtgeou6.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\edtgeou6.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\edtgeou7.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\edtgeou7.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\edtgeou8.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\edtgeou8.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\edtgeou9.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\cursors\drag.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\res\drag.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\Resource\icons\DLEXP.ico">
+      <Filter>UI\Resource Files\Icons</Filter>
+    </None>
+    <None Include="..\res\exclamat.ico">
+      <Filter>UI\Resource Files\Icons</Filter>
+    </None>
+    <None Include="..\DLEXP.ico">
+      <Filter>UI\Resource Files\Icons</Filter>
+    </None>
+    <None Include="..\Resource\dle.ico">
+      <Filter>UI\Resource Files\Icons</Filter>
+    </None>
+    <None Include="..\res\icon2.ico">
+      <Filter>UI\Resource Files\Icons</Filter>
+    </None>
+    <None Include="..\res\icon6.ico">
+      <Filter>UI\Resource Files\Icons</Filter>
+    </None>
+    <None Include="..\res\icon3.ico">
+      <Filter>UI\Resource Files\Icons</Filter>
+    </None>
+    <None Include="..\res\icon4.ico">
+      <Filter>UI\Resource Files\Icons</Filter>
+    </None>
+    <None Include="..\res\icon5.ico">
+      <Filter>UI\Resource Files\Icons</Filter>
+    </None>
+    <None Include="..\Resource\icons\icon5.ico">
+      <Filter>UI\Resource Files\Icons</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_000.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\obj_129.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_000.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_001.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_001.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_002.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_002.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_003.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_003.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_004.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_004.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_005.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_005.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_006.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_006.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_007.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_007.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_008.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_008.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_009.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_009.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_010.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_010.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_011.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_011.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_012.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_012.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_013.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_013.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_014.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_014.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_015.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_015.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_016.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_016.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_017.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_017.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_018.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_018.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_019.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_019.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_020.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_020.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_021.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_021.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_022.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_022.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_023.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_023.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_024.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_024.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_025.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_025.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_026.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_026.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_027.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_027.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_028.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_028.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_029.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_029.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_030.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_030.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_031.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_031.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_032.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_032.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_033.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_033.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_034.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_034.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_035.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_035.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_036.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_036.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_037.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_037.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_038.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_038.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_039.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_039.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_040.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_040.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_041.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_041.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_042.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_042.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_043.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_043.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_044.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_044.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_045.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_045.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_046.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_046.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_047.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_047.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_048.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_048.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_049.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_049.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_050.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_050.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_051.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_051.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_052.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_052.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_053.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_053.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_054.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_054.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_055.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_055.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_056.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_056.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_057.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_057.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_058.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_058.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_059.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_059.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_060.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_060.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_061.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_061.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_062.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_062.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_063.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_063.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_064.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_064.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_065.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_065.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_066.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_066.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_067.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_067.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_068.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_068.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_069.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_069.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_070.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_070.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_071.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_071.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_072.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_072.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_073.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_073.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_074.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_074.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_075.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_075.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_076.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_076.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_077.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_077.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_078.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_078.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_079.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_079.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_080.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_080.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_081.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_081.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_082.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_082.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_083.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_083.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_084.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_084.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_085.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_085.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_086.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_086.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_087.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_087.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_088.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_088.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_089.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_089.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_090.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_090.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_091.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_091.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_092.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_092.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_093.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_093.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_094.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_094.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_095.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_095.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_096.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_096.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_097.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_097.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_098.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_098.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_099.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_099.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_100.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_100.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_101.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_101.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_102.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_102.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_103.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_103.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_104.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_104.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_105.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_105.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_106.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_106.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_107.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_107.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_108.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_108.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_109.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_109.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_110.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_110.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_111.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_111.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_112.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_112.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_113.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_113.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_114.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_114.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_115.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_115.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_116.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_116.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Obj_117.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\OBJ_117.BMP">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\obj_118.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\obj_118.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\obj_119.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\obj_119.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\obj_120.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\obj_120.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\obj_121.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\obj_121.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\obj_122.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\obj_122.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\obj_123.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\obj_123.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\obj_124.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\obj_124.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\obj_125.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\obj_125.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\obj_126.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\obj_126.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\obj_127.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\obj_127.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\obj_128.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\obj_128.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\obj_129.bmp">
+      <Filter>UI\Resource Files\Bitmaps\Game Objects</Filter>
+    </None>
+    <None Include="..\Resource\none.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Oldpig.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\none.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\NOPIG.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\Nopig.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\OLDPIG.BMP">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\resetd.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\resetd.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\resetmar.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\resetmar.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\stretch2.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\stretch2.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\toolbar.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\res\Toolbar.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\toolbar.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\toolbar2.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\res\toolbar2.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\res\toolbarx.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\bitmaps\walledit.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\walledit.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\Resource\cursors\rotate.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\res\zoomout.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\res\rotate.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\res\xhairs.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\Resource\cursors\xhairs.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\Resource\cursors\zoom.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\res\zoom.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\res\zoomin.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\Resource\cursors\zoomin.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\Resource\cursors\zoomout.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\icon-bubbles.tga">
+      <Filter>UI\Resource Files\Bitmaps\Game Icons</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\icon-waypoint.tga">
+      <Filter>UI\Resource Files\Bitmaps\Game Icons</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\icon-circle.tga">
+      <Filter>UI\Resource Files\Bitmaps\Game Icons</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\icon-fire.tga">
+      <Filter>UI\Resource Files\Bitmaps\Game Icons</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\icon-light.tga">
+      <Filter>UI\Resource Files\Bitmaps\Game Icons</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\icon-lightning.tga">
+      <Filter>UI\Resource Files\Bitmaps\Game Icons</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\icon-rain.tga">
+      <Filter>UI\Resource Files\Bitmaps\Game Icons</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\icon-smoke.tga">
+      <Filter>UI\Resource Files\Bitmaps\Game Icons</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\icon-snow.tga">
+      <Filter>UI\Resource Files\Bitmaps\Game Icons</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\icon-sound.tga">
+      <Filter>UI\Resource Files\Bitmaps\Game Icons</Filter>
+    </None>
+    <None Include="..\res\pan.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\Resource\cursors\pan.cur">
+      <Filter>UI\Resource Files\Cursors</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\planaru.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\planard.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\cylindru.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\cylindrd.bmp">
+      <Filter>UI\Resource Files\Bitmaps</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\vstrtchu.bmp">
+      <Filter>UI\Resource Files</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\vstrtchd.bmp">
+      <Filter>UI\Resource Files</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\hstrtchu.bmp">
+      <Filter>UI\Resource Files</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\hstrtchd.bmp">
+      <Filter>UI\Resource Files</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\fwdu.bmp">
+      <Filter>UI\Resource Files</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\fwdd.bmp">
+      <Filter>UI\Resource Files</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\backu.bmp">
+      <Filter>UI\Resource Files</Filter>
+    </None>
+    <None Include="..\resource\bitmaps\backd.bmp">
+      <Filter>UI\Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="dle.rc">
+      <Filter>UI\Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

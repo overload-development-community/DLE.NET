@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - Common mistakes</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>Common mistakes</h1>
+        <div>
+            <a href="#design">Design</a> &middot;
+            <a href="#technical">Technical</a>
+        </div>
+
+        <h3>this should be expanded</h3>
+
+        <p>
+            There are many level design mistakes that have a negative effect on
+            the playability or appearance of the level. This page lists some
+            things to keep in mind.
+        </p>
+
+        <p>
+            Most important of all: 
+            <em>always</em> check the mine before finishing work on it.
+            The diagnostics tool can point out several issues that could,
+            if unaddressed, ruin the experience or cause the level to crash the game.
+        </p>
+
+        <h2 id="design">Design</h2>
+        <ul>
+            <li>
+                Make sure the exit door is linked to the reactor, or else
+                the player will be forced to lose a life (and all of their items!)
+            </li>
+            <li>
+                Avoid placing enemies into the starting room. The player
+                should generally be safe for at least some time or until they
+                start moving around.
+            </li>
+            <li>
+                Avoid distorting segments or sides too much. The game can
+                automatically convert a side into two triangles, but this can
+                cause issues with the collision engine or stretched textures.
+            </li>
+            <li>
+                Don't scale textures up too much - the resolution of the
+                game's textures is fairly low, which is very apparent if a
+                texture is stretched over a large face.
+            </li>
+            <li>
+                Don't forget that robot makers can activate an infinite number
+                of times on Insane.
+            </li>
+            <li>
+                Don't place too many robots too far from the player. They won't
+                fire from beyond a certain distance, which can make them
+                sitting ducks.
+            </li>
+            <li>
+                Paper-thin solid walls are discouraged. The player should not
+                be able to ram themselves against a paper-thin edge - it
+                causes strange results with the collision engine. Sharp edges
+                in general may cause issues.
+            </li>
+            <li>
+                Always have one "end of exit tunnel" side in the level at the
+                very end of the exit tunnel. Don't place them anywhere else,
+                particularly in places where the player could access them directly.
+            </li>
+            <li>
+                Some players may be left frustrated if repeatedly forced to
+                take unavoidable damage.
+            </li>
+            <li>
+                Not all solid textures have a corresponding secret door texture.
+                Choose their location wisely.
+            </li>
+            <li>
+                Hostages should be positioned 4.9 - 5.0 units above the floor.
+                When added to a default 20x20x20 segment, the hostage will be at 10
+                units above the floor, which causes them to appear to levitate.
+                Leaving them that way looks jarring.
+            </li>
+            <li>
+                It is part of Descent tradition to place a "starting door"
+                right behind or close to the player's spawn point. It should
+                use the door05 clip and be locked from the player's side, to
+                give players the impression that the player entered the level
+                through that door.
+            </li>
+            <li>
+                It should go without saying; test your levels before
+                releasing them to other players.
+            </li>
+        </ul>
+
+        <h2 id="technical">Technical</h2>
+        <ul>
+            <li>
+                Always include a reactor in the level, even if it has a 
+                boss robot or if the player is meant to end the level without
+                even causing the countdown. Most versions of the game can
+                tolerate a missing reactor, but not all can. If the level
+                has a boss robot, the reactor will be removed on level load,
+                so you don't need to worry about the player being able to
+                somehow access it.
+            </li>
+            <li>
+                Make sure the segment the reactor is in is set to be a
+                reactor segment.
+            </li>
+            <li>
+                Never add doors that are only present on one side, or the
+                game will crash when the door opens or closes.
+            </li>
+            <li>
+                While 350 objects is the maximum, it's recommended to have
+                less than 250-300, since the object limit also affects
+                projectiles. Because of this, if the level is very close to
+                the object limit, it'll be very difficult for the player or
+                robots to fire, which can render the level nearly unplayable.
+            </li>
+            <li>
+                If your level is for co-op, always place all of the co-op
+                player spawns (8-10) so that there is exactly one of each in
+                the level.
+            </li>
+        </ul>
+    </body>
+</html>

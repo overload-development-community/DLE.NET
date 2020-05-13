@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - Object Tool</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>Object Tool</h1>
+        <div>
+            <a href="#data">Object Data</a> &middot;
+            <a href="#types">Object Types</a> &middot;
+            <a href="#behaviors">AI Behaviors</a> &middot;
+            <a href="#position">Object Position</a> &middot;
+            <a href="#advanced">Advanced Object Data</a>
+        </div>
+
+        <p>
+            Objects include players, robots, powerups and other items, which
+            are usually necessary for levels to be playable. While objects are
+            associated with a segment, their position is mostly otherwise
+            independent of them, and they can placed anywhere within a segment.
+        </p>
+
+        <p>
+            Objects can be moved around while in <a href="selection.html">object mode</a>.
+        </p>
+
+        <h2 id="data">Object Data</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">Object</td>
+                    <td>
+                        Lists all objects in the level and shows the <i>current
+                        object</i>.
+                        <p></p>
+                        In Descent 2, if the level contains a secret exit, this
+                        will also contain the "secret object"; this is simply
+                        the player spawn point when returning from the secret level,
+                        and should usually be close to the secret exit itself.
+                        Only its position can be changed.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Type</td>
+                    <td>
+                        Controls the object type; see "Object Types" below.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Id</td>
+                    <td>
+                        The ID of an object; the exact purpose of the ID depends
+                        on the object type.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">AI</td>
+                    <td>
+                        Applies only to robots: the AI behavior to use for this robot.
+                        See the "AI Behaviors" section for more.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Texture</td>
+                    <td>
+                        Applies only to robots and reactors. the custom texture to
+                        use for this object. The texture is applied as-is, replacing
+                        most textures for the object and only one layer is supported.
+                        Can be used to camouflage robots, mark robots carrying
+                        keys with special textures, and so on. The default is (none),
+                        which uses default textures. The texture selected here
+                        should not have any special effects, or the results are
+                        unpredictable.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">This robot spawns</td>
+                    <td>
+                        Applies only to robots.
+                        It is possible to configure particular robots to drop
+                        other robots or powerups on death. The Type controls
+                        whether a robot or powerup is dropped, the ID controls
+                        the ID of the dropped robot or powerup and the Qty controls
+                        how many will be dropped.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Add</td>
+                    <td>
+                        Adds another copy of the current object into the level
+                        into the center of the current segment.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Delete</td>
+                    <td>
+                        Removes the current object.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Delete all</td>
+                    <td>
+                        Removes all objects of the same type as the current object
+                        from the mine.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Move</td>
+                    <td>
+                        Moves the current object into the center of the current segment.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Reset</td>
+                    <td>
+                        Resets some properties of the object, such as orientation and
+                        the advanced data settings.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Default</td>
+                    <td>
+                        (Descent 2 only) Removes all HXM modifications from this object type and ID.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">sort</td>
+                    <td>
+                        Whether to sort the list of objects by type every time
+                        a new object is added.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Multiplayer</td>
+                    <td>
+                        (Descent 2 only) Whether the object is only there in multiplayer modes.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 id="types">Object Types</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">Camera</td>
+                    <td>
+                        D2X-XL only: a camera object that is used with the
+                        <a href="triggers.html">camera trigger</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Effect</td>
+                    <td>
+                        D2X-XL only: a decorative object. These are added
+                        and managed with the <a href="effects.html">effect tool</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Explosion</td>
+                    <td>
+                        D2X-XL only: a static explosion that acts as a decoration.
+                        The ID controls the explosion sprite to use.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Hostage</td>
+                    <td>
+                        A kind of object that appears as a sprite and can be
+                        collected by the player, who will get extra points if
+                        the level is completed with hostages on board; dying
+                        will cause all the hostages on the ship to be lost.
+                        The ID of the hostage has no effect.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Mine</td>
+                    <td>
+                        Descent 2 only: a static mine that serves as an
+                        obstacle. Explodes on contact with a player or projectile.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Monsterball</td>
+                    <td>
+                        D2X-XL only: the monsterball object used in the
+                        monsterball multiplayer mode.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Player</td>
+                    <td>
+                        A player spawn point. ID 1 should be used for the
+                        single-player spawn point, while IDs 2-8 are used for
+                        (non-co-op) multiplayer modes, like anarchy. The spawn
+                        point for player 1 is practically always the very first
+                        object in the mine, and it shouldn't be removed.
+                        Each ID should be used only once.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Player (Coop)</td>
+                    <td>
+                        A player spawn point for the co-op (co-operative
+                        multiplayer) mode. The normal "Player" type is used for
+                        player 1, while co-op spawn IDs 8-10 are used for
+                        players 2-4 in co-op. Must be present even in secret
+                        levels (except in Descent 2, where secret levels are
+                        not accessible in multiplayer).
+                        Each ID should be used only once.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Power Up</td>
+                    <td>
+                        An item or power-up that can be picked up by the
+                        player, including but not limited to shield/energy boosts,
+                        weapons, ammo and keys. The ID controls the item type.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Reactor</td>
+                    <td>
+                        A reactor. There should only be one of these in every level,
+                        and it should be placed within a <a href="segments.html">reactor segment</a>.
+                        A reactor and reactor segment should be present even in every level,
+                        even those with boss robots (but the reactor object will be removed
+                        automatically on level load, if a boss robot is detected by the game).
+                        In Descent 1, the ID has no effect, while in Descent 2 the ID controls the model
+                        to use for the reactor (their only difference in behavior are the positions
+                        of the reactor guns).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Robot</td>
+                    <td>
+                        A robot; all of these act as enemies (with one notable
+                        exception in Descent 2). The ID controls the robot type.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Smoke</td>
+                    <td>
+                        D2X-XL only: a static smoke effect. Much like effects,
+                        these should be added and managed with the <a href="effects.html">effect tool</a>.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 id="behaviors">AI Behaviors</h3>
+        <p>
+            Only apply to robots. This does not include the documentation for
+            AI properties that are set for robot types and not individual robots.
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">still</td>
+                    <td>
+                        The robot tries to stay relatively still, but may
+                        still attempt to dodge shots, pounce on the player for
+                        a melee attack or pursue the player.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">normal</td>
+                    <td>
+                        The robot moves around normally.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">get behind (sneak)</td>
+                    <td>
+                        The robot tries to get out of the sight of the player,
+                        and may prioritize that action over attacking.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">drop bombs (flee)</td>
+                    <td>
+                        Causes the robot to flee from the player and drop
+                        proximity bombs in the process.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">follow path / snipe</td>
+                    <td>
+                        In Descent 1, makes the robot follow a path.
+                        (TODO: how to configure, if possible?)
+                        <p></p>
+                        In Descent 2, makes the robot snipe the player;
+                        it tries to keep distance, fire from afar and flee
+                        after it has fired at the player.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">station</td>
+                    <td>
+                        Makes the robot roam around as much as possible.
+                        More effective in Descent 1 than Descent 2.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">follow</td>
+                    <td>
+                        Descent 2 only: makes the robot follow the player
+                        that it spots.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">static</td>
+                    <td>
+                        D2X-XL only: completely disables the robot AI.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">smart bombs</td>
+                    <td>
+                        Descent 2 only: same as "drop bombs", but with
+                        smart mines instead of proximity bombs.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="position">Object Position</h2>
+        <p>
+            Allows controlling the exact coordinates and rotation of the current
+            object. The "apply" button applies the new input coordinates,
+            while "reset" reverts the text boxes back to the
+            coordinates the object has.
+        </p>
+
+        <h2 id="advanced">Advanced Object Data</h2>
+        <p>
+            All of these take in raw data (for example, fixed-point numbers
+            must be input as their integer representations). Unless otherwise
+            mentioned, all of these are set separately for each object.
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">mass</td>
+                    <td>
+                        How heavy the object is; considered with collisions.
+                        The heavier the object, the harder it is to move around.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">drag</td>
+                    <td>
+                        The amount of drag. The more drag, the faster the
+                        object will slow down if moving.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">brakes</td>
+                    <td>
+                        If set, the movement speed will slow down even faster.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">turn roll</td>
+                    <td>
+                        Controls how much roll is applied whenever the object
+                        is turning. Only applies to objects where rotation
+                        makes sense (such as robots).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">flags</td>
+                    <td>
+                        Various flags applied to the physics of an object.
+                        This is a bit-field, where the applied flags are simply the sum
+                        of the values below, all of which are powers of two:
+
+                        <ol>
+                            <li>1: The object rolls when turning.</li>
+                            <li>2: The object aligns itself with the closest side.</li>
+                            <li>4: Bounces on contact with a wall.</li>
+                            <li>8: The object turns/wiggles around a bit while moving.</li>
+                            <li>16: The object stops when it comes in contact with a wall.</li>
+                            <li>32: The object will not stop going on contact with another object (used for fusion projectiles).</li>
+                            <li>64: The thrust values apply.</li>
+                            <li>128 (D2 only): The object has already bounced once (used for phoenix projectiles).</li>
+                            <li>256 (D2 only): The drag value will not slow down the rotation of the object.</li>
+                            <li>512 (D2 only): The object disappears after hitting a wall twice (used for phoenix projectiles).</li>
+                        </ol>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">size</td>
+                    <td>
+                        The size of the hitbox of this object.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">shield</td>
+                    <td>
+                        How many shields this object has.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">model/clip</td>
+                    <td>
+                        The model or clip (sprite) to use with this object.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">frame</td>
+                    <td>
+                        The amount of time the animation of this object has
+                        been playing.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">frame no.</td>
+                    <td>
+                        The frame number to start this object on.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">velocity</td>
+                    <td>
+                        The velocity of this object as it spawns.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">thrust</td>
+                    <td>
+                        If the thrust is enabled, how much should the
+                        velocity increase on every frame.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">rotation velocity</td>
+                    <td>
+                        The rotational velocity of this object as it spawns.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">rotation thrust</td>
+                    <td>
+                        If the thrust is enabled, how much should the rotation
+                        velocity increase on every frame.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

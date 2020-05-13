@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - Light Tool</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>Light Tool</h1>
+        <div>
+            <a href="#values">Light Values</a> &middot;
+            <a href="#delta">Exploding/Variable Lights</a> &middot;
+            <a href="#actions">Actions</a>
+        </div>
+
+        <p>
+            Lighting is an important part of Descent levels. This tool is used
+            to compute the new light values for the entire mine based on the
+            existing lights and texture brightness values (which are not changed
+            by computing new lighting).
+        </p>
+
+        <h2 id="values">Light Values</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">illuminate</td>
+                    <td>
+                        Whether to compute new vertex light values. The value can 
+                        be set between 0%-100% and acts as a factor for the light
+                        brightness; 50% means half brightness and 100% means
+                        full brightness.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">smoothe lighting</td>
+                    <td>
+                        Whether to smoothe out the lighting values over
+                        texture corners. If disabled, sharp edges in lighting
+                        may occur with some light configurations, so it is
+                        recommended that this kept enabled.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">scale lighting</td>
+                    <td>
+                        Applies a constant factor from 0%-200% to the final
+                        computed lighting. 100% keeps the lights unchanged,
+                        200% makes them twice as bright and 0% makes them dark.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">set segment light (player/robot brightness)</td>
+                    <td>
+                        If checked, the segment light that is applied to players
+                        and robots within that segment will also be computed. The
+                        value represents the light from 0%-100% to apply, or if
+                        "dynamic segment light calculation" is used, as a factor
+                        for the final value.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">render depth</td>
+                    <td>
+                        How many segments deep lights will be computed from the
+                        source of the light. Higher values give better lighting,
+                        but are slower to compute, while lower values can cause
+                        areas to appear dark.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">classic illumination</td>
+                    <td>
+                        Whether to use the older lighting algorithm, which is
+                        faster to compute, but results in lower quality lighting
+                        with less contrast (darker areas will appear less
+                        dark and bright areas less bright).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">create side lights from textures</td>
+                    <td>
+                        TODO ???
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">dynamic segment light calculation</td>
+                    <td>
+                        Whether to account the lighting of the textures when
+                        computing the segment light used for players and robots
+                        within that segment. If unchecked, the segment light
+                        value will be independent of the light values used for
+                        textures.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="delta">Exploding/Variable Lights</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">calculate exploding/variable lights</td>
+                    <td>
+                        Whether to compute light values for exploded lights
+                        (in Descent 2, lights can be destroyed) and variable
+                        lights. Recommended for all levels, and practically
+                        necessary for levels with variable lights.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">apply</td>
+                    <td>
+                        Selects which faces should have new exploding/variable
+                        light values computed for them.
+                        <ul>
+                            <li>all: All faces. rarely used.</li>
+                            <li>not to static lights. Do not compute values
+                                for any sides that cast light. Use this, if
+                                exploding lights are located close enough to
+                                other lights to cause strange lighting issues.</li>
+                            <li>not to lava: Do not compute values for sides
+                                with lava (since they cast their own light
+                                anyway). (default value)</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">render depth</td>
+                    <td>
+                        The same as "render depth" above, but applying
+                        to exploding/variable lights.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">frame rate</td>
+                    <td>
+                        The frame rate when computing variable lights. A higher
+                        frame rate means slower computation and larger size, but
+                        is necessary for variable lights with fast speeds.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="actions">Actions</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">apply</td>
+                    <td>
+                        Computes the new light values and applies them.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">default</td>
+                    <td>
+                        Resets the light settings to default values.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">animate</td>
+                    <td>
+                        Toggles whether dynamic lights should be animated
+                        in the mine view.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">reset light + color</td>
+                    <td>
+                        Resets all custom texture brightness and light color values.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Vertex Light</td>
+                    <td>
+                        Used to apply a light level to all marked vertices.
+                        The input should be between 0-100.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

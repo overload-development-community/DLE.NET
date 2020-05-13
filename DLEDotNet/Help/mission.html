@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - Mission Editor</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>Mission Editor</h1>
+        <div>
+            <a href="#levels">Mission Info</a> &middot;
+            <a href="#type">Mission Type & Built For</a> &middot;
+            <a href="#author">Author Info</a> &middot;
+            <a href="#commentdata">Comment & Custom Data</a>
+        </div>
+
+        <p>
+            A <em>mission</em> is a collection of levels with associated data,
+            such as mission title, briefings, custom files, etc. This editor is
+            designed to edit mission info as well as the list of levels in the
+            mission.
+        </p>
+
+        <p>
+            In order for more than one level to be contained within a mission,
+            all of the mission's level files and most other files must be
+            within a .HOG archive, as opposed to there simply being a .RDL/.RL2
+            level file on its own.
+        </p>
+
+        <p>
+            When editing mission info, it is important to click "save", since
+            otherwise changes to the mission will not be saved (they are <em>not</em>
+            saved with the level itself).
+        </p>
+
+        <h2 id="levels">Mission Info</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">mission name</td>
+                    <td>
+                        The name of the mission that shows up in the mission
+                        list in-game.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">level name</td>
+                    <td>
+                        The name of the current level as it shows up on the
+                        automap. Unlike other data in this tool, this is per-level,
+                        not per-mission.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">levels</td>
+                    <td>
+                        The list of levels in this mission. It contains the
+                        file names of the levels as they are stored within the
+                        .HOG file. A file name on its own is a normal level.
+                        <p></p>
+                        To add secret leveĺs, use the file name, followed by a
+                        comma and the first normal level from which the secret
+                        level is reachable. For example, <code>secret1.rl2,1</code>
+                        means that the secret level is under the file name
+                        secret1.rl2 and is the secret level that is accessed
+                        from all secret exits starting from level 1. If followed by
+                        another line like <code>secret2.rl2,5</code>, "secret1.rl2"
+                        will then be accessible from levels 1-4.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">save</td>
+                    <td>
+                        Saves the edited mission info.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">revert</td>
+                    <td>
+                        Discards the changes to the mission and reloads it
+                        from the disk.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">delete</td>
+                    <td>
+                        Deletes the currently selected level from the list.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">rename</td>
+                    <td>
+                        Renames the currently selected level in the list. The
+                        new name is given in the text box below the list.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">move up</td>
+                    <td>
+                        Moves the currently selected level up in the list.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">move down</td>
+                    <td>
+                        Moves the currently selected level down in the list.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">get from hog</td>
+                    <td>
+                        Replaces the list with the list of level files
+                        stored in the .HOG, in the order they are stored.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">insert</td>
+                    <td>
+                        Adds a new level to the list from the text box
+                        next to this button. If a level is selected, the new
+                        level is added above it, or else it is added to the end
+                        of the list.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="type">Mission Type & Built For</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">mission type</td>
+                    <td>
+                        Whether this mission is intended for multiplayer (except
+                        co-op) or singleplayer (including co-op).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">normal</td>
+                    <td>
+                        Whether this mission is designed for singleplayer.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">anarchy</td>
+                    <td>
+                        Whether this mission is designed for the anarchy
+                        (free-for-all, deathmatch) multiplayer mode.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">robot anarchy</td>
+                    <td>
+                        Whether this mission is designed for the robot anarchy
+                        (free-for-all, deathmatch, but with robots) multiplayer mode.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">cooperative</td>
+                    <td>
+                        Whether this mission is designed for co-operative
+                        multiplayer (often like singleplayer levels, but with
+                        co-op player spawn points and possibly extra items).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">capture the flag</td>
+                    <td>
+                        Whether this mission is designed for the
+                        capture-the-flag multiplayer mode.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">hoard</td>
+                    <td>
+                        Whether this mission is designed for the hoard
+                        multiplayer mode (Vertigo required to play).
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="author">Author Info</h2>
+        <p>
+            The information here is not visible in-game, but can be read
+            in the mission file by either users or some tools. All of these
+            fields are optional. Most of these have no effect, except for
+            "briefing".
+        </p>
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">editor(s)</td>
+                    <td>
+                        The program used to edit the levels. Filled in
+                        "DLE.NET" by default.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">build time</td>
+                    <td>
+                        The amount of time spent on designing and building
+                        levels, or in the mission overall.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">date</td>
+                    <td>
+                        The date of the mission; depending on the author,
+                        either the release date or the date work begun.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">version</td>
+                    <td>
+                        The version of this mission. 1.0 is recommended for
+                        the first public release and can be increased when
+                        new versions are released.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">author</td>
+                    <td>
+                        The author(s) of the mission.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">e-mail</td>
+                    <td>
+                        The e-mail to contact, often the e-mail of the author
+                        or the group of authors.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">web site</td>
+                    <td>
+                        The web site for the mission.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">briefing</td>
+                    <td>
+                        The name of the briefing file (.TXB) in the .HOG file.
+                        This should include the extension. Only matters for
+                        Descent 1; Descent 2 always assumes the briefing has
+                        the same filename as the .HOG.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">multi author</td>
+                    <td>
+                        Whether this mission had more than one author.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">want feedback</td>
+                    <td>
+                        Whether feedback is wanted from players to the
+                        e-mail address or website.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="commentdata">Comment & Custom Data</h2>
+        <p>
+            As with other data, this is not visible in-game, but may be
+            viewed either by the user or some tools. The "custom data" flags
+            are just a guide and not actually used by the game itself.
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">comment</td>
+                    <td>
+                        A freeform comment. Visible in the mission file.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">custom data: textures</td>
+                    <td>
+                        Whether this mission has custom textures.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">custom data: robots</td>
+                    <td>
+                        Whether this mission has custom robots (models or
+                        changed weapons).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">custom data: music</td>
+                    <td>
+                        Whether this mission has custom music.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

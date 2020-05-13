@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>DLE.NET - Mine View &amp; Controls</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <h1>Mine View &amp; Controls</h1>
+        <div>
+            <a href="#navigation">Navigation</a> &middot;
+            <a href="#appearance">Appearance</a> &middot;
+            <a href="#selection">Selecting</a> &middot;
+            <a href="#tagging">Tagging</a> &middot;
+            <a href="#dragging">Dragging</a> &middot;
+            <a href="#quicksel">Quick Selection</a> &middot;
+            <a href="#context">Context Menu</a> &middot;
+            <a href="#controls">Controls</a>
+        </div>
+
+        <p>
+            The mine view is the most important view in DLE and shows you
+            the current mine as it is. Mastering its use can considerably
+            help with level design and make it easier.
+        </p>
+        
+        <h2 id="navigation">Navigation</h2>
+        <p>
+            The camera in the mine view can be moved around in several ways:
+        </p>
+        
+        <ul>
+            <li>quick navigation with the mouse</li>
+            <li>camera panning, zooming and rotation controls in the <a href="toolbar.html">toolbar</a></li>
+            <li>camera panning, zooming and rotation controls in the <a href="view.html">View menu</a></li>
+        </ul>
+
+        <p>
+            This page will focus on quick navigation. To move the camera around,
+            hold <kbd>Ctrl</kbd> and move the mouse around. Holding <kbd>Shift</kbd>
+            with <kbd>Ctrl</kbd> will allow you to rotate the camera around the
+            current center point. Zooming is possible in three ways:
+        </p>
+
+        <ul>
+            <li>with the mouse wheel (without <kbd>Ctrl</kbd> held)</li>
+            <li>by holding <kbd>Ctrl</kbd> and the right mouse button,
+                and then moving the mouse up or down</li>
+            <li>holding <kbd>Ctrl</kbd> and then left-clicking to zoom in
+                or right-clicking or zoom out</li>
+        </ul>
+
+        <p>
+            Note that panning forward/back (or in/out) is different from
+            zooming in that only the latter will change the center of camera
+            rotation. To pan in/out, hold <kbd>Ctrl</kbd> and the left mouse
+            button or hold <kbd>Ctrl</kbd> and use the mouse wheel.
+        </p>
+
+        <p>
+            To control the speed of camera movement when <em>not</em> using
+            the mouse, change the <a href="settings.html#editor">view move rate
+            and rotate rate</a> from the settings.
+        </p>
+
+        <h2 id="appearance">Appearance</h2>
+        <p>
+            The appearance of the mine itself can be customized in several ways.
+            You can toggle between wireframe only, wireframe + textures and
+            texture only modes from the <a href="view.html">View menu</a>.
+            In addition, from the same menu you can toggle whether the mine will
+            show the current light levels (or always appear bright) and whether
+            certain features or objects should be displayed.
+        </p>
+
+        <h2 id="selection">Selecting</h2>
+        <p>
+            Left-clicking will select a new point/line/side/segment/object, depending
+            on your currently active <a href="selection.mode">selection mode</a>,
+            while right-clicking will always select the nearest object.
+        </p>
+
+        <h2 id="tagging">Tagging</h2>
+        <p>
+            Holding the left mouse button will draw a rectangle that can be used
+            to quickly tag large blocks. The default mode is to tag everything that
+            fits within the rectange; holding <kbd>Shift</kbd> will untag instead.
+        </p>
+
+        <h2 id="dragging">Dragging</h2>
+        <p>
+            The current point can be easily dragged by holding the left mouse
+            button over the point, after which point it can be dragged with
+            the mouse.
+        </p>
+
+        <h2 id="quicksel">Quick Selection</h2>
+        <p>
+            Holding <kbd>Shift</kbd> enables the quick selection mode, which
+            can be configured from the <a href="#context">context menu</a>. It
+            allows you to quickly select any point, line, side or segment 
+            (depending on your currently active selection mode) from the mine
+            with your mouse by left-clicking or right-clicking. Quick selection
+            is not available in object or block selection modes.
+        </p>
+
+        <img src="Images/quicksel.png" title="Example of quick selection in side mode" alt="Example of quick selection in side mode">
+
+        <h2 id="context">Context Menu</h2>
+        <p>
+            The context menu can be opened by right-clicking the menu while
+            holding <kbd>Shift</kbd>.
+        </p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Text</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">Points</td>
+                    <td>
+                        Switches to the <a href="selection.html#modes">point selection mode</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Lines</td>
+                    <td>
+                        Switches to the <a href="selection.html#modes">line selection mode</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Sides</td>
+                    <td>
+                        Switches to the <a href="selection.html#modes">side selection mode</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Segments</td>
+                    <td>
+                        Switches to the <a href="selection.html#modes">segment selection mode</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Objects</td>
+                    <td>
+                        Switches to the <a href="selection.html#modes">object selection mode</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Block</td>
+                    <td>
+                        Switches to the <a href="selection.html#modes">block selection mode</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Show Selection Candidates</td>
+                    <td>
+                        Configures which selection candidates should be shown in
+                        quick selection.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Enable Quick Selection</td>
+                    <td>
+                        Whether quick selection is enabled.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Align Viewer with Side</td>
+                    <td>
+                        Only works in first-person perspective. Aligns the
+                        viewer towards the current side such that the new
+                        camera angle is a normal to the current side, and also
+                        aligns the new axes to match the direction of the lines
+                        making up that side.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Move Along Viewer Axes</td>
+                    <td>
+                        Only works in first-person perspective. Whether
+                        <a href="movement.html">movement actions</a> should
+                        happen relative to the viewer's angle rather than that
+                        of the current side and segment.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Quick Copy<br />Quick Paste<br />Delete Block<br />Collapse Edge<br />Create Wedge<br />Create Pyramid<br />Undo<br />Redo</td>
+                    <td>
+                        Same as in the <a href="edit.html">Edit menu</a>.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Make Points Parallel</td>
+                    <td>
+                        Makes the marked points parallel by moving them all
+                        onto the same plane as the current side.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2 id="controls">Controls</h2>
+        <p>
+            Here is a table of all of the controls mentioned on this page:
+        </p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="main">Controls</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="main">Left-click</td>
+                    <td>
+                        Select a point, line, side, segment or object, depending
+                        on the current selection mode.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Right-click</td>
+                    <td>
+                        Select the nearest object.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">Hold left or right and move</td>
+                    <td>
+                        If the cursor is at the currently selected point,
+                        start dragging the current point, or otherwise
+                        tag everything that fits in the drawn rectangle.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><kbd>Shift</kbd> Hold left or right and move</td>
+                    <td>
+                        Untag everything that fits in the drawn rectangle.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><kbd>Shift</kbd> (held)</td>
+                    <td>
+                        Quick selection (show candidates).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><kbd>Shift</kbd> + left-click</td>
+                    <td>
+                        Quick selection.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><kbd>Shift</kbd> + right-click</td>
+                    <td>
+                        Mine view context menu.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><kbd>Ctrl</kbd> (held)</td>
+                    <td>
+                        Quick camera panning.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><kbd>Ctrl+Shift</kbd> (held)</td>
+                    <td>
+                        Quick camera rotation.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><kbd>Ctrl</kbd> + left mouse button held</td>
+                    <td>
+                        Quick pan in/out (move mouse up/down).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><kbd>Ctrl</kbd> + right mouse button held</td>
+                    <td>
+                        Quick zoom (move mouse up/down).
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main">mouse wheel</td>
+                    <td>
+                        Quick zoom.
+                    </td>
+                </tr>
+                <tr>
+                    <td class="main"><kbd>Ctrl</kbd> + mouse wheel</td>
+                    <td>
+                        Quick pan in/out.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>

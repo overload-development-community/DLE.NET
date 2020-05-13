@@ -1,0 +1,63 @@
+body {
+    background: #222;
+    color: #999;
+    font-family: sans-serif;
+    font-size: 90%;
+    max-width: 1000px;
+    margin: 40px auto;
+    line-height: 1.5;
+}
+a:normal {
+    color: #eee;
+}
+a:visited {
+    color: #bbb;
+}
+.TOC {
+    font-size: 100%;
+}
+.TOC h2 {
+    margin-left: 1em;
+}
+img.button {
+    background: #c0c0c0;
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+    display: block;
+}
+img.toolbar, img.toolbari {
+    background: #c0c0c0;
+    width: 19px;
+    height: 19px;
+    padding: 2px;
+}
+img.toolbar {
+    display: block;
+}
+table {
+    border-collapse: collapse;
+}
+th, td {
+    padding: 0.25em;
+}
+td.icontd {
+    padding: 0;
+    margin: 0;
+    width: 40px;
+}
+td.icontbtd {
+    padding: 0;
+    margin: 0;
+    width: 23px;
+}
+th.main, td.main {
+    width: 15%;
+    min-width: 80px;
+}
+th.narrow, td.narrow {
+    width: 25%;
+}
+table, th, td {
+    border: 2px solid #808080;
+}
