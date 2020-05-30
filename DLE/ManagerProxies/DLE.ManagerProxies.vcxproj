@@ -169,6 +169,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="GlobalDataImpl.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -189,6 +190,9 @@
     </ProjectReference>
     <ProjectReference Include="..\DataTypes\DLE.DataTypes.vcxproj">
       <Project>{d3b6e4e3-ec8a-4b81-bee1-e4e481d9939a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Managers\DLE.Managers.vcxproj">
+      <Project>{1a1bd677-4bfc-4b6d-9562-13f6dfb87dde}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
