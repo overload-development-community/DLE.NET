@@ -794,7 +794,7 @@ do {
 		// get first filename
 		pszFile = szOfnFileBuf + strlen (szOfnFileBuf) + 1;
 	if (pszFile >= szOfnFileBuf + ARRAYSIZE (szOfnFileBuf)) {
-		g_data.DoErrorMsg ("Source file directory path too long.");
+		g_data.Trace(TraceLevel::Error, "Source file directory path too long.");
 		return false;
 		}
 	if (!*szFilePath)

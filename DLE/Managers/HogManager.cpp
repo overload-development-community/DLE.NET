@@ -78,7 +78,7 @@ if (!FindFileData(pszFile, pszSubFile, lh, size, offset))
 
 strcpy_s(m_levelFileName, pszSubFile);
 if (!fSrc.Open (pszFile, "rb")) {
-	g_data.DoErrorMsg ("Unable to load requested level.");
+	g_data.Trace(Error, "Unable to load requested level.");
 	return false;
 	}
 
@@ -104,7 +104,7 @@ if (!theMine->LoadMineSigAndType (&fSrc)) {
 	paletteManager.Reload (paletteManager.Name ());
 	if (!textureManager.LoadTextures ()) {
 		sprintf_s (tempStr, sizeof (tempStr), "Unable to load palette \"%s\" - may be missing or corrupt.", paletteManager.Name ());
-		g_data.DoErrorMsg (tempStr);
+		g_data.Trace(Error, tempStr);
 		// Let's try reverting to the previous palette;
 		// at least we might be able to open the level
 		paletteManager.SetName (szPreviousPalette);
@@ -150,7 +150,7 @@ tHogFileData CHogManager::GetFileInfoAtOffset(long fileOffset)
 	CFileManager fp;
 	if (!fp.Open(m_szFile, "r+b"))
 	{
-		g_data.DoErrorMsg("Could not open HOG file.");
+		g_data.Trace(Error, "Could not open HOG file.");
 		return data;
 	}
 
@@ -158,7 +158,7 @@ tHogFileData CHogManager::GetFileInfoAtOffset(long fileOffset)
 	fp.Seek(fileOffset, SEEK_SET);
 	if (!lh.Read(&fp))
 	{
-		g_data.DoErrorMsg("Error reading HOG file");
+		g_data.Trace(Error, "Error reading HOG file");
 		return data;
 	}
 
@@ -179,7 +179,7 @@ void CHogManager::RenameFile(const char* oldFileName, const char* newFileName)
 	CFileManager fp;
 	if (!fp.Open(m_szFile, "r+b"))
 	{
-		g_data.DoErrorMsg("Could not open HOG file.");
+		g_data.Trace(Error, "Could not open HOG file.");
 		return;
 	}
 
@@ -190,7 +190,7 @@ void CHogManager::RenameFile(const char* oldFileName, const char* newFileName)
 	if (!FindFileData(NULL, tempStr, lh, fileSize, fileOffset, FALSE, &fp))
 	{
 		sprintf_s(tempStr, "Could not find file \"%s\".", oldFileName);
-		g_data.DoErrorMsg(tempStr);
+		g_data.Trace(Error, tempStr);
 		return;
 	}
 
@@ -204,7 +204,7 @@ void CHogManager::RenameFile(const char* oldFileName, const char* newFileName)
 
 	fp.Seek (fileOffset, SEEK_SET);
 	if (!lh.Write (&fp, lh.Extended ()))
-		g_data.DoErrorMsg ("Cannot write to HOG file");
+		g_data.Trace(Error, "Cannot write to HOG file");
 }
 
 //------------------------------------------------------------------------------
@@ -222,7 +222,7 @@ else if ((sig [0] && 'D') && (sig [1] && '2') && (sig [2] && 'X'))
 	return m_bExtended = 1;
 else {
 	if (bVerbose)
-		g_data.DoErrorMsg ("This is not a Descent HOG file");
+		g_data.Trace(Error, "This is not a Descent HOG file");
 	fp->Close ();
 	return -1;
 	}
@@ -238,7 +238,7 @@ int CHogManager::ReadData (LPCSTR pszFile, bool bAllFiles, bool bOnlyLevels, boo
 m_fileList.clear();
 if (!fp.Open (pszFile, "rb")) {
 	sprintf_s (tempStr, sizeof (tempStr), "Unable to open HOG file (%s)", pszFile);
-	g_data.DoErrorMsg (tempStr);
+	g_data.Trace(Error, tempStr);
 	return -1;
 	}
 if (0 > ReadSignature (&fp))
@@ -251,7 +251,7 @@ int nFiles = 0;
 while (!fp.EoF ()) {
 	fp.Seek (position, SEEK_SET);
 	if (!lh.Read (&fp)) {
-		g_data.DoErrorMsg ("Error reading HOG file");
+		g_data.Trace(Error, "Error reading HOG file");
 		fp.Close ();
 		return -1;
 		}
@@ -300,7 +300,7 @@ else {
 	if (!fp->Open (pszFile, "rb")) {
 		if (bVerbose) {
 			sprintf_s (tempStr, sizeof (tempStr), "Unable to open HOG file (%s)\n(%s)", pszFile, strerror_s (errorBuffer, errno));
-			g_data.DoErrorMsg (tempStr);
+			g_data.Trace(Error, tempStr);
 			}
 		return false;
 		}
@@ -316,7 +316,7 @@ while (!fp->EoF ()) {
 	fp->Seek (position, SEEK_SET);
 	if (!lh.Read (fp)) {
 		if (bVerbose)
-			g_data.DoErrorMsg ("Error reading HOG file");
+			g_data.Trace(Error, "Error reading HOG file");
 		break;
 		}
 	if ((strcmp(pszSubFile, "*") == 0) || !_strcmpi(lh.Name(), pszSubFile)) {
@@ -343,12 +343,12 @@ bool ExportSubFile (const char *pszSrc, const char *pszDest, long offset, long s
 {
 CFileManager fSrc;
 if (!fSrc.Open (pszSrc, "rb")) {
-	g_data.DoErrorMsg ("Could not open HOG file.");
+	g_data.Trace(Error, "Could not open HOG file.");
 	return false;
 	}
 CFileManager fDest;
 if (!fDest.Open (pszDest, "wb")) {
-	g_data.DoErrorMsg ("Could not create export file.");
+	g_data.Trace(Error, "Could not create export file.");
 	return false;
 	}
 // seek to item's offset in HOG file
@@ -356,7 +356,7 @@ fSrc.Seek (offset, SEEK_SET);
 
 CLevelHeader lh;
 if (!lh.Read (&fSrc)) {
-	g_data.DoErrorMsg ("Could not read HOG file.");
+	g_data.Trace(Error, "Could not read HOG file.");
 	return false;
 	}
 
@@ -501,7 +501,7 @@ int WriteSubFile (CFileManager& fDest, char *szSrc, char *szLevel)
 
 if (!fSrc.Open (szSrc, "rb")) {
 	sprintf_s (tempStr, sizeof (tempStr), "Unable to open temporary file:\n%s",szSrc);
-	g_data.DoErrorMsg (tempStr);
+	g_data.Trace(Error, tempStr);
 	return 0;
 	}
 // write szLevel (13 chars, null filled)
@@ -588,7 +588,7 @@ sprintf_s (szDest, sizeof (szDest), "%s%s", szBase, GetCustomFileExtension (nTyp
 sprintf_s (szTmp, sizeof (szTmp), "%sdle_temp%s", szFolder, GetCustomFileExtension (nType));
 
 if (!fp.Open (pszFile, "r+b")) {
-	g_data.DoErrorMsg ("Destination HOG file not found or inaccessible.");
+	g_data.Trace(Error, "Destination HOG file not found or inaccessible.");
 	return 0;
 	}
 
@@ -687,7 +687,7 @@ int CreateHogFile (char* rdlFilename, char* hogFilename, char* szSubFile, bool b
 // create HOG file which contains szTmp.rdl, szTmp.txb, and dlebrief.txb");
 if (!fp.Open (hogFilename, "wb")) {
 	sprintf_s (tempStr, sizeof (tempStr), "Unable to create HOG file:\n%s", hogFilename);
-	g_data.DoErrorMsg (tempStr);
+	g_data.Trace(Error, tempStr);
 	return 0;
 	}
 // write fp type
@@ -733,18 +733,14 @@ return 1;
 // MENU - Save
 //==========================================================================
 
-int SaveToHog (LPSTR szHogFile, LPSTR szSubFile, bool bSaveAs) 
+int SaveToHog (LPSTR szHogFile, LPSTR szSubFile, bool newLevel, bool bSaveAs, bool overwrite)
 {
 	CFileManager	fTmp;
 	char				szTmp [256], szBase [MAX_PATH];
 	char*				psz;
 
 _strlwr_s (szHogFile, 256);
-psz = strstr (szHogFile, "new.");
-if (!*szSubFile || psz) { 
-	CLevelHeader lh (g_data.IsD2XLevel ());
-	if (!g_data.DoInputDialog("Name mine", "Enter file name:", szSubFile, lh.NameSize() - 4))
-		return 0;
+if (newLevel) {
 	LPSTR ext = strrchr (szSubFile, '.');
 	if (ext)
 		*ext = '\0';
@@ -801,20 +797,20 @@ while (!fp.EoF ()) {
 	fp.Seek (lh.FileSize (), SEEK_CUR);
 	}
 if (bIdenticalLevelFound) {
-	if (g_data.DoQueryMsg ("Overwrite old level with same name?") != IDYES) {
+	if (!overwrite) {
 		CFileManager::Delete (szTmp);
 		fp.Close ();
 		return 0;
 		}
 	DeleteLevelSubFiles (fp, szBase, (g_data.IsD1File ()) ? ".rdl" : ".rl2");
 	}
-else if (!g_data.ExpertMode ())
-	g_data.DoErrorMsg ("Don't forget to add this level's name to the mission file.");
+else
+	g_data.Trace(Warning, "Don't forget to add this level's name to the mission file.");
 fp.Close ();
 
 // now append sub-file to the end of the HOG file
 if (!fp.Open (szHogFile, "ab")) {
-	g_data.DoErrorMsg ("Could not open destination HOG file for save.");
+	g_data.Trace(Error, "Could not open destination HOG file for save.");
 	return 0;
 	}
 fp.Seek (0, SEEK_END);
@@ -969,7 +965,7 @@ return 0;
 
 //------------------------------------------------------------------------------
 
-int WriteMissionFile (char *pszFile, int levelVersion, bool bSaveAs) 
+int WriteMissionFile (char *pszFile, int levelVersion)
 {
 	FILE	*fMsn;
 	char  szMsn [256], szLevel [256];
@@ -980,14 +976,6 @@ char *pExt = strrchr (szMsn, '.');
 if (pExt)
 	*pExt = '\0';
 strcat_s (szMsn, sizeof (szMsn), (g_data.IsD1File ()) ? ".msn" : ".mn2");
-if (bSaveAs) {
-	fopen_s (&fMsn, szMsn, "rt");
-	if (fMsn) {
-		fclose (fMsn);
-		if (g_data.DoQuery2Msg("A mission file with that name already exists.\nOverwrite mission file?", MB_YESNO) != IDYES)
-			return -1;
-		}
-	}
 // create mission file
 fopen_s (&fMsn, szMsn, "wt");
 if (!fMsn)
@@ -1050,13 +1038,6 @@ int MakeMissionFile (char *pszFile, char *pszSubFile, int bCustomTextures, int b
 
 //memset (&missionData, 0, sizeof (missionData));
 CFileManager::SplitPath (pszSubFile, null, szBaseName, null);
-if (!*g_data.missionData->missionName)
-	strcpy_s (g_data.missionData->missionName, sizeof (g_data.missionData->missionName), szBaseName);
-if (bSaveAs || !*g_data.missionData->missionName)
-	do {
-		if (!g_data.DoInputDialog("Mission title", "Enter mission title:", g_data.missionData->missionName, sizeof(g_data.missionData->missionName)))
-			return -1;
-	} while (!*g_data.missionData->missionName);
 g_data.missionData->missionType = 1;
 g_data.missionData->numLevels = 1;
 
@@ -1079,7 +1060,7 @@ if (bSaveAs)
 	strcpy_s (g_data.missionData->missionInfo [3], sizeof (g_data.missionData->missionInfo [3]), "1.0");
 g_data.missionData->customFlags [0] = bCustomTextures;
 g_data.missionData->customFlags [1] = bCustomRobots;
-return WriteMissionFile (pszFile, g_data.LevelVersion (), bSaveAs);
+return WriteMissionFile (pszFile, g_data.LevelVersion ());
 }
 
 //------------------------------------------------------------------------------

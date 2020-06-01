@@ -13,15 +13,6 @@ CBlockManager blockManager;
 
 //------------------------------------------------------------------------------
 
-const char *BLOCKOP_HINT =
-	"The block of cubes will be saved relative to the current segment.\n"
-	"Later, when you paste the block, it will be placed relative to\n"
-	"the current segment at that time.  You can change the current side\n"
-	"and the current point to affect the relative direction and\n"
-	"rotation of the block.\n"
-	"\n"
-	"Would you like to proceed?";
-
 static const char* textureIds [2][2] = {{"    tmap_num %hd\n", "    tmap_num2 %hd\n"}, {"    BaseTex %hd\n", "    OvlTex %hd\n"}};
 static const char* vertexIds [2] = {"  vms_vector %hu %d %d %d\n", "  Vertex %hu %d %d %d\n"};
 
@@ -53,11 +44,11 @@ if (argsNeeded == argsFound)
 	return false;
 undoManager.Unroll (szFunction);
 if (nSegment < 0)
-	g_data.DoErrorMsg (msg);
+	g_data.Trace(TraceLevel::Error, msg);
 else {
 	char s [200];
 	sprintf_s (s, sizeof (s), "%s (segment %d)", msg, nSegment);
-	g_data.DoErrorMsg (s);
+	g_data.Trace(TraceLevel::Error, s);
 	}
 return true;
 }
@@ -113,13 +104,13 @@ while (!fp.EoF ()) {
 // abort if there are not at least 8 vertices free
 	if (VERTEX_LIMIT - vertexManager.Count () < 8) {
 		undoManager.End (__FUNCTION__);
-		g_data.DoErrorMsg ("No more free vertices");
+		g_data.Trace(TraceLevel::Error, "No more free vertices");
 		return nNewSegs;
 		}
 	short nSegment = segmentManager.Add ();
 	if (nSegment < 0) {
 		undoManager.End (__FUNCTION__);
-		g_data.DoErrorMsg ("No more free segments");
+		g_data.Trace(TraceLevel::Error, "No more free segments");
 		return nNewSegs;
 		}
 	CSegment* pSegment = segmentManager.Segment (nSegment);
@@ -145,7 +136,7 @@ while (!fp.EoF ()) {
 			test = -test;
 		if (test != nSide) {
 			undoManager.End (__FUNCTION__);
-			g_data.DoErrorMsg ("Invalid side number read");
+			g_data.Trace(TraceLevel::Error, "Invalid side number read");
 			return 0;
 			}
 		pSide->m_info.nWall = NO_WALL;
@@ -264,7 +255,7 @@ while (!fp.EoF ()) {
 			}
 		else if (index != i) {
 			undoManager.End (__FUNCTION__);
-			g_data.DoErrorMsg ("Invalid vertex number read");
+			g_data.Trace(TraceLevel::Error, "Invalid vertex number read");
 			return 0;
 			}
 		// each vertex relative to the origin has a x', y', and z' component
@@ -564,12 +555,9 @@ if (tunnelMaker.Active ())
   // make sure some cubes are marked
 short count = segmentManager.TaggedCount ();
 if (count == 0) {
-	g_data.DoErrorMsg ("No block marked.\n\nUse 'M' or shift left mouse button\nto mark one or more cubes.");
+	g_data.Trace(TraceLevel::Error, "No block marked.\n\nUse 'M' or shift left mouse button\nto mark one or more cubes.");
 	return;
 	}
-
-if (!g_data.ExpertMode () && g_data.DoQuery2Msg (BLOCKOP_HINT, MB_YESNO) != IDYES)
-	return;
 
 char szFile [256];
 if (filename && *filename) {
@@ -593,7 +581,7 @@ if (!pszExt)
 
 CFileManager fp;
 if (!fp.Open (szFile, "w")) {
-	g_data.DoErrorMsg ("Unable to open block file");
+	g_data.Trace(TraceLevel::Error, "Unable to open block file");
 	return;
 	}
 //undoManager.UpdateBuffer(0);
@@ -641,7 +629,7 @@ int CBlockManager::Read (char *filename)
 
 _strlwr_s (filename, 256);
 if (!fp.Open (filename, "r")) {
-	g_data.DoErrorMsg ("Unable to open block file");
+	g_data.Trace(TraceLevel::Error, "Unable to open block file");
 	return 1;
 	}	
 
@@ -652,7 +640,7 @@ if (!strncmp (message, "DMB_BLOCK_FILE", 14))
 else if (!strncmp (message, "DMB_EXT_BLOCK_FILE", 18))
 	m_bExtended = true;
 else {
-	g_data.DoErrorMsg ("This is not a block file.");
+	g_data.Trace(TraceLevel::Error, "This is not a block file.");
 	fp.Close ();
 	return 2;
 	}
@@ -732,7 +720,7 @@ if (tunnelMaker.Active ())
 // make sure some cubes are marked
 count = segmentManager.TaggedCount ();
 if (!count) {
-	g_data.DoErrorMsg ("No block marked.\n\n"
+	g_data.Trace(TraceLevel::Error, "No block marked.\n\n"
 				 "Use 'M' or shift left mouse button\n"
 				 "to mark one or more cubes.");
 	return;
@@ -741,8 +729,6 @@ if (!count) {
 // delete segmentManager.Segment () from last to first because segmentManager.Count ()
 // is effected for each deletion.  When all segmentManager.Segment () are marked
 // the segmentManager.Count () will be decremented for each nSegment in loop.
-if (g_data.DoQueryMsg ("Are you sure you want to delete the marked cubes?") != IDYES)
-	return;
 
 undoManager.Begin (__FUNCTION__, udAll);
 g_data.DelayMineViewRefresh(true);

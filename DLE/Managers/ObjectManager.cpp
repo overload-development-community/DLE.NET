@@ -125,7 +125,7 @@ bool CObjectManager::HaveResources (void)
 {
 if (Count () < MAX_OBJECTS)
 	return true;
-g_data.DoErrorMsg ("The maximum number of objects has already been reached.");
+g_data.Trace(Error, "The maximum number of objects has already been reached.");
 return false;
 }
 
@@ -183,7 +183,7 @@ if ((type == OBJ_PLAYER) || (type == OBJ_COOP)) {
 				char szMsg [80];
 
 			sprintf_s (szMsg, sizeof (szMsg), "There are already %d players in the mine", MAX_PLAYERS);
-			g_data.DoErrorMsg (szMsg);
+			g_data.Trace(Error, szMsg);
 			return false;
 			}
 		}
@@ -194,7 +194,7 @@ if ((type == OBJ_PLAYER) || (type == OBJ_COOP)) {
 				char szMsg [80];
 
 			sprintf_s (szMsg, sizeof (szMsg), "There are already %d cooperative players in the mine", MAX_COOP_PLAYERS);
-			g_data.DoErrorMsg (szMsg);
+			g_data.Trace(Error, szMsg);
 			return false;
 			}
 		}
@@ -246,20 +246,17 @@ return true;
 void CObjectManager::Delete (short nDelObj, bool bUndo)
 {
 if (Count () == 0) {
-	if (!g_data.ExpertMode ())
-		g_data.DoErrorMsg ("There are no objects in the mine.");
+	g_data.Trace(Warning, "There are no objects in the mine.");
 	return;
 	}
 if (Count () == 1) {
-	if (!g_data.ExpertMode ())
-		g_data.DoErrorMsg ("Cannot delete the last object.");
+	g_data.Trace(Warning, "Cannot delete the last object.");
 	return;
 	}
 if (nDelObj < 0)
 	nDelObj = g_data.currentSelection->ObjectId ();
 if (nDelObj == Count ()) {
-	if (!g_data.ExpertMode ())
-		g_data.DoErrorMsg ("Cannot delete the secret return.");
+	g_data.Trace(Warning, "Cannot delete the secret return.");
 	return;
 	}
 undoManager.Begin (__FUNCTION__, udObjects);

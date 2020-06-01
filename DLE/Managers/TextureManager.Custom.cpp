@@ -22,7 +22,7 @@ int CTextureManager::ReadPog (CFileManager& fp, long nFileSize)
 
 // make sure this is descent 2 fp
 if (g_data.IsD1File ()) {
-	g_data.DoInfoMsg("Descent 1 does not support custom textures.");
+	g_data.Trace(Error, "Descent 1 does not support custom textures.");
 	return 1;
 	}
 
@@ -30,7 +30,7 @@ uint startOffset = fp.Tell ();
 // read file header
 pigFileInfo.Read (fp);
 if (pigFileInfo.nId != 0x474f5044L) {  // 'DPOG'
-	g_data.DoErrorMsg ("Invalid pog file - reading from hog file");
+	g_data.Trace(Error, "Invalid pog file - reading from hog file");
 	return 1;
 	}
 //Release ();
@@ -104,7 +104,7 @@ int CTextureManager::ReadDtx (CFileManager& fp, long nFileSize)
 	CTexture* pTexture;
 
 if (g_data.IsD2File ()) {
-	g_data.DoInfoMsg(" DTX patches are not supported for Descent 2 levels. Use a POG file instead.");
+	g_data.Trace(Warning, "DTX patches are not supported for Descent 2 levels. Use a POG file instead.");
 	return 1;
 	}
 
@@ -311,7 +311,7 @@ if (!textureManager.Available ())
 	const CTexture*	pTexture;
 
 if (g_data.IsD1File ()) {
-	g_data.DoErrorMsg ("Descent 1 does not support custom textures.");
+	g_data.Trace(Error, "Descent 1 does not support custom textures.");
 	return 0;
 	}
 
@@ -401,7 +401,7 @@ if (!textureManager.Available ())
 	const CTexture*	pTexture;
 
 if (g_data.IsD2File ()) {
-	g_data.DoErrorMsg ("DLE does not support saving DTX patches for Descent 2 levels. Use a POG file instead.");
+	g_data.Trace(Error, "DLE does not support saving DTX patches for Descent 2 levels. Use a POG file instead.");
 	return 0;
 	}
 
@@ -468,7 +468,7 @@ for (int i = 0; i < h; i++) {
 	sprintf_s(szFile, "%s\\%s%s.tga", pszFolder, pTexture->Name(), pTexture->IsAnimated() ? "#0" : "");
 	CTexture *pNewTexture = new CTexture ();
 	if (!pNewTexture)
-		g_data.DoErrorMsg ("Not enough memory for texture.");
+		g_data.Trace(Error, "Not enough memory for texture.");
 	else if (pNewTexture->Copy (*pTexture) && pNewTexture->LoadFromFile (szFile, false)) {
 		OverrideTexture (pTexture->Index (), pNewTexture);
 		pNewTexture->SetCustom ();

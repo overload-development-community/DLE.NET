@@ -575,7 +575,8 @@ return true;
 
 //------------------------------------------------------------------------
 
-bool CTexture::LoadFromFile (char* pszFile, bool bErrorOnOpenFail)
+bool CTexture::LoadFromFile (char* pszFile, bool bErrorOnOpenFail,
+	BitmapImportTransparencyMode transparencyMode, BitmapImportScalingMode scalingMode)
 {
 	char szExt [4] = "bmp";
 	IFileManager* fp = g_data.CreateFileManager();
@@ -587,17 +588,17 @@ if (strchr (pszFile, '.')) {
 	}
 if (!fp->Open (pszFile, "rb")) {
 	if (bErrorOnOpenFail)
-		g_data.DoErrorMsg ("Could not open texture file.");
+		g_data.Trace(Error, "Could not open texture file.");
 	}
 else {
 	if (strcmp (szExt, "bmp") == 0)
-		bSuccess = LoadBMP (*fp);
+		bSuccess = LoadBMP (*fp, transparencyMode, scalingMode);
 	else if (strcmp (szExt, "tga") == 0)
 		bSuccess = LoadTGA (*fp);
 	else {
 		char message[512];
 		sprintf_s (message, ARRAYSIZE (message), "Unknown texture file type %s.", szExt);
-		g_data.DoErrorMsg (message);
+		g_data.Trace(Error, message);
 		}
 	}
 
@@ -621,7 +622,7 @@ bool CTexture::LoadTGA (IFileManager& fp)
 fp.Read (&tgaHeader, sizeof (tgaHeader), 1);
 int h = tgaHeader.width * tgaHeader.height;
 if (h > 4096 * 4096) {
-	g_data.DoErrorMsg ("Image too large.");
+	g_data.Trace(Error, "Image too large.");
 	return false;
 	}
 if (!Allocate (h))
@@ -689,7 +690,8 @@ return
 
 //------------------------------------------------------------------------
 
-bool CTexture::LoadBMP (IFileManager& fp)
+bool CTexture::LoadBMP (IFileManager& fp,
+	BitmapImportTransparencyMode transparencyMode, BitmapImportScalingMode scalingMode)
 {
 	RGBQUAD* palette = null;
 	PALETTEENTRY* sysPal = null;
@@ -702,13 +704,13 @@ bool CTexture::LoadBMP (IFileManager& fp)
 
 palette = new RGBQUAD [256];
 if (palette == null) {
-	g_data.DoErrorMsg ("Not enough memory for palette.");
+	g_data.Trace(Error, "Not enough memory for palette.");
 	goto errorExit;
 	}
 
 sysPal = new PALETTEENTRY [256];
 if (sysPal == null) {
-	g_data.DoErrorMsg("Not enough memory for palette.");
+	g_data.Trace(Error, "Not enough memory for palette.");
 	goto errorExit;
 	}
 
@@ -726,13 +728,13 @@ if (bmih.biHeight < 0) {
 
 // make sure it is a bitmap file
 if (bmfh.bfType != 'B' + (((ushort) 'M') << 8) ) {
-	g_data.DoErrorMsg("This is not a bitmap file.");
+	g_data.Trace(Error, "This is not a bitmap file.");
 	goto errorExit;
 	}
 
 // make sure it is a 256 or 16 color bitmap
 if (bmih.biBitCount != 8 && bmih.biBitCount != 4) {
-	g_data.DoErrorMsg("DLE only reads 16 or 256 color bitmap files.\n\n"
+	g_data.Trace(Error, "DLE only reads 16 or 256 color bitmap files.\n\n"
 	"Hint: Load this image into a paint program\n"
 	"then save it as a 16 or 256 color *.bmp file.");
 	goto errorExit;
@@ -740,7 +742,7 @@ if (bmih.biBitCount != 8 && bmih.biBitCount != 4) {
 
 // make sure the data is not compressed
 if (bmih.biCompression != BI_RGB) {
-	g_data.DoErrorMsg("Cannot read compressed bitmap files.\n\n"
+	g_data.Trace(Error, "Cannot read compressed bitmap files.\n\n"
 	"Hint: Try to load this image into a paint program\n"
 	"then save it as a 256 color *.bmp file with the\n"
 	"compression option off.");
@@ -768,36 +770,14 @@ for (i = 0; i < int (paletteSize); i++) {
 	}
 
 if (i != int (paletteSize)) {
-	if (!g_data.ExpertMode ())
-		g_data.DoErrorMsg("The palette of this bitmap file is not exactly the\n"
-					 "the same as the Descent palette. Therefore, some color\n"
-					 "changes may occur.\n\n"
-					 "Hint: If you want the palettes to match, then save one of\n"
-					 "the Descent textures to a file and use it as a starting point.\n"
-					 "If you plan to use transparencies, then you may want to start\n"
-					 "with the texture called 'empty'.");
-
-	bool bAllowTransparent = false;
-	bool bAllowColorMatchToTransparent = false;
-	if (bmih.biClrUsed == 256)
-		bAllowTransparent = g_data.DoQuery2Msg("Do you want to allow transparency for this texture?\n"
-			"(The last two colors in the texture's palette will be treated as "
-			"see-thru and transparent, respectively.)", MB_YESNO) == IDYES;
-	else {
-		bAllowTransparent = g_data.DoQuery2Msg("Do you want to allow transparency for this texture?\n"
-			"(Because this texture has less than 256 colors, pixels will be "
-			"treated as see-thru or transparent if they most closely match "
-			"the current palette's see-thru or transparent color.)", MB_YESNO) == IDYES;
-		bAllowColorMatchToTransparent = bAllowTransparent;
-		}
-	int colorsToMatch = bAllowColorMatchToTransparent ? 256 : 254;
+	int colorsToMatch = (transparencyMode == ByColor) ? 256 : 254;
 
 	for (i = 0; i < int (paletteSize); i++) {
 		uint closestIndex = i;
 		if ((palette [i].rgbRed != sysPal [i].peRed) ||
 			 (palette [i].rgbGreen != sysPal [i].peGreen) ||
 			 (palette [i].rgbBlue != sysPal [i].peBlue)) {
-			if (!bAllowTransparent || bAllowColorMatchToTransparent || ((uint) i < paletteSize - 2)) {
+			if ((transparencyMode != ByPaletteIndex) || ((uint) i < paletteSize - 2)) {
 				uint closestDelta = 0x7fffffff;
 				for (int j = 0; j < colorsToMatch; j++) {
 					uint delta = ColorDelta (palette + i, sysPal, j);
@@ -817,48 +797,40 @@ if (i != int (paletteSize)) {
 	}
 
 int x0, x1, y0, y1;
-// if size is not 64 x 64, ask if they want to "size to fit"
 if ((bmih.biWidth != Width ()) || (bmih.biHeight != Height ())) {
-	char message[512];
-	sprintf_s (message, sizeof (message), 
-				  "The bitmap being loaded is a %d x %d image.\n"
-				  "Do you want the image to be sized to fit\n"
-				  "the current %d x %d texture size?\n\n"
-				  "(Press No to see another option.)", 
-				 (int) bmih.biWidth, (int) bmih.biHeight, 
-				 (int) Width (), (int) Height ());
-	switch (g_data.DoQuery2Msg(message, MB_YESNOCANCEL)) {
-		case IDYES:
+	switch (scalingMode)
+	{
+		case Stretch:
 			x0 = 0;
 			y0 = 0;
 			x1 = (int) bmih.biWidth + 1;
 			y1 = (int) bmih.biHeight + 1;
 			break;
 
-		case IDNO:
-			if (g_data.DoQuery2Msg("Would you like to center/tile the image?\n"
-			               "(Press No to use the image's current size.)", MB_YESNO) == IDYES) {
-				x0 = (int)(bmih.biWidth - Width ()) / 2;
-				y0 = (int)(bmih.biHeight - Height ()) / 2;
-				x1 = x0 + Width ();
-				y1 = y0 + Height ();
-				}
-			else if ((bmih.biWidth > 1024) || (bmih.biHeight > 1024)) 
+		case Center:
+			x0 = (int)(bmih.biWidth - Width()) / 2;
+			y0 = (int)(bmih.biHeight - Height()) / 2;
+			x1 = x0 + Width();
+			y1 = y0 + Height();
+			break;
+
+		case NoScaling:
+			if ((bmih.biWidth > 1024) || (bmih.biHeight > 1024))
 				goto errorExit;
 			else {
 				x0 = 0;
 				y0 = 0;
-				x1 = m_info.width = (ushort) bmih.biWidth;
-				y1 = m_info.height = (ushort) bmih.biHeight;
-				if (!Allocate (m_info.width * m_info.height)) {
-					g_data.DoErrorMsg("Unable to allocate space for new texture.");
+				x1 = m_info.width = (ushort)bmih.biWidth;
+				y1 = m_info.height = (ushort)bmih.biHeight;
+				if (!Allocate(m_info.width * m_info.height)) {
+					g_data.Trace(Error, "Unable to allocate space for new texture.");
 					goto errorExit;
-					}
 				}
+			}
 			break;
 
-			default:
-				goto errorExit;
+		default:
+			goto errorExit;
 		}
 	}
 else {
@@ -946,7 +918,7 @@ bool CTexture::Save (char* pszFile) const
 	bool bSuccess = false;
 
 if (!fp->Open (pszFile, "wb")) {
-	g_data.DoErrorMsg ("Could not create texture file.");
+	g_data.Trace(Error, "Could not create texture file.");
 	bSuccess = false;
 	}
 else {
@@ -960,7 +932,7 @@ else {
 			break;
 		default:
 			sprintf_s (message, ARRAYSIZE (message), "Unknown texture format (%u).", Format ());
-			g_data.DoErrorMsg (message);
+			g_data.Trace(Error, message);
 			bSuccess = false;
 			break;
 		}
@@ -1404,6 +1376,65 @@ if (!IsAnimated (nVersion) || FrameNumber () != 0)
 if (Height () <= Width ())
 	return false;
 return (Height () % Width () == 0);
+}
+
+//------------------------------------------------------------------------
+
+CTexture::BitmapMetrics CTexture::GetBitmapMetrics(const char* filename)
+{
+	BitmapMetrics result{};
+
+	std::unique_ptr<IFileManager> fp{ g_data.CreateFileManager() };
+	if (!fp->Open(filename, "rb"))
+	{
+		return result;
+	}
+
+	// read the header information
+	BITMAPFILEHEADER bmfh;
+	fp->Read(&bmfh, sizeof(bmfh), 1);
+	BITMAPINFOHEADER bmih;
+	fp->Read(&bmih, sizeof(bmih), 1);
+
+	// make sure it is a bitmap file
+	// make sure it is a 256 or 16 color bitmap
+	// make sure the data is not compressed
+	if ((bmfh.bfType != 'B' + (((ushort)'M') << 8)) ||
+		(bmih.biBitCount != 8 && bmih.biBitCount != 4) ||
+		(bmih.biCompression != BI_RGB))
+	{
+		return result;
+	}
+
+	result.width = bmih.biWidth;
+	result.height = (bmih.biHeight >= 0) ? bmih.biHeight : -bmih.biHeight;
+	result.numColors = (bmih.biClrUsed != 0) ? bmih.biClrUsed : (1 << bmih.biBitCount);
+
+	// read palette
+	RGBQUAD palette[256]{};
+	auto paletteSize = min((int)bmih.biClrUsed, _countof(palette));
+	if (paletteSize == 0)
+	{
+		paletteSize = result.numColors;
+	}
+	fp->Read(palette, sizeof(RGBQUAD), paletteSize);
+
+	// check color palette
+	result.matchesCurrentPalette = true;
+	PALETTEENTRY currentPalette[256]{};
+	g_data.paletteManager->GetPaletteEntries(0, 256, currentPalette);
+	for (int i = 0; i < int(paletteSize); i++)
+	{
+		if ((palette[i].rgbRed != currentPalette[i].peRed) ||
+			(palette[i].rgbGreen != currentPalette[i].peGreen) ||
+			(palette[i].rgbBlue != currentPalette[i].peBlue))
+		{
+			result.matchesCurrentPalette = false;
+			break;
+		}
+	}
+
+	return result;
 }
 
 //------------------------------------------------------------------------

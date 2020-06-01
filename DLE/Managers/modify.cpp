@@ -90,7 +90,7 @@ for (int i = 0; (i < nEdges) && okToMove; i++) {
 	}
 
 if (!okToMove) {
-	g_data.DoErrorMsg ("Too small to move in that direction");
+	g_data.Trace(Error, "Too small to move in that direction");
 	return false;
 	}
 
@@ -205,11 +205,11 @@ bool CMine::RotateSelection (double angle, bool perpendicular)
 
 switch (m_selectMode) {
 	case POINT_MODE:
-		g_data.DoErrorMsg ("Cannot bend a point");
+		g_data.Trace(Error, "Cannot bend a point");
 		return false;
 
 	case LINE_MODE:
-		g_data.DoErrorMsg ("Cannot bend a line");
+		g_data.Trace(Error, "Cannot bend a line");
 		return false;
 
 	case SIDE_MODE:	// spin side around the opposite side
@@ -242,15 +242,15 @@ switch (m_selectMode) {
 		break;
 	
 	case SEGMENT_MODE:
-		g_data.DoErrorMsg ("Cannot bend a segment");
+		g_data.Trace(Error, "Cannot bend a segment");
 		return false;
 	
 	case OBJECT_MODE:
-		g_data.DoErrorMsg ("Cannot bend an object");
+		g_data.Trace(Error, "Cannot bend an object");
 		return false;
 
 	case BLOCK_MODE:
-		g_data.DoErrorMsg ("Cannot bend a block");
+		g_data.Trace(Error, "Cannot bend a block");
 		return false;
 	}
 return true;
@@ -738,11 +738,11 @@ spinner.Setup ();
 /* calculate segment pointer */
 switch (m_selectMode) {
 	case POINT_MODE:
-		g_data.DoErrorMsg ("Cannot spin a point");
+		g_data.Trace(Error, "Cannot spin a point");
 		return false;
 	
 	case LINE_MODE:
-		g_data.DoErrorMsg ("Cannot spin a line");
+		g_data.Trace(Error, "Cannot spin a line");
 		return false;
 	
 	case SIDE_MODE: // spin side around its center in the plane of the side

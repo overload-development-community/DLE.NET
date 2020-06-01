@@ -75,12 +75,6 @@ if (nDelSeg < Count ()) {
 
 void CSegmentManager::AddSegments (void)
 {
-if (theMine->SelectMode () == BLOCK_MODE && segmentManager.TaggedSideCount () > 50) {
-	if (g_data.DoQuery2Msg ("You are about to insert a large number of cubes.\n"
-		"Are you sure you want to do this?", MB_YESNO) != IDYES)
-		return;
-	}
-
 undoManager.Begin (__FUNCTION__, udSegments);
 CSideKey key;
 g_data.currentSelection->Get(key);
@@ -112,14 +106,14 @@ if (tunnelMaker.Active ())
 	return -1; 
 
 if (Full ()) {
-	g_data.DoErrorMsg ("Cannot add a new segment because\nthe maximum number of segments has been reached.");
+	g_data.Trace(Error, "Cannot add a new segment because\nthe maximum number of segments has been reached.");
 	return -1;
 	}
 if (vertexManager.Full ()) {
-	g_data.DoErrorMsg ("Cannot add a new segment because\nthe maximum number of vertices has been reached.");
+	g_data.Trace(Error, "Cannot add a new segment because\nthe maximum number of vertices has been reached.");
 	return -1;
 	}
-if ((Count () == MAX_SEGMENTS - 1) && (g_data.DoQueryMsg ("Adding more segments will exceed\nthe maximum segment count for this level type.\nAre you sure you want to continue?") != IDYES)) {
+if (Count () >= MAX_SEGMENTS - 1) {
 	return -1;
 	}
 
@@ -128,12 +122,12 @@ CSegment* pSegment = Segment (key.m_nSegment);
 
 short	nCurSide = key.m_nSide; 
 if (pSegment->ChildId (nCurSide) >= 0) {
-	g_data.DoErrorMsg ("Cannot add a new segment to a side\nwhich already has a segment attached.");
+	g_data.Trace(Error, "Cannot add a new segment to a side\nwhich already has a segment attached.");
 	return -1;
 	}
 
 if (Side (key)->VertexCount () < 3) {
-	g_data.DoErrorMsg ("Cannot add a new segment to this side.");
+	g_data.Trace(Error, "Cannot add a new segment to this side.");
 	//undoManager.Unroll (__FUNCTION__);
 	return -1;
 	}
@@ -317,8 +311,7 @@ return nNewSeg;
 short CSegmentManager::Create (short nSegment, bool bCreate, ubyte nFunction, short nTexture, const char* szError)
 {
 if ((szError != null) && g_data.IsD1File ()) {
-	if (!g_data.ExpertMode ())
-		g_data.DoErrorMsg (szError);
+	g_data.Trace(Warning, szError);
 	return 0;
 	}
 
@@ -362,7 +355,7 @@ bool CSegmentManager::CreateProducer (short nSegment, bool bCreate, ubyte nType,
 	CObjectProducer* producers, CMineItemInfo& info, const char* szError)
 {
 if (info.count >= MAX_MATCENS) {
-	g_data.DoErrorMsg (szError);
+	g_data.Trace(Error, szError);
 	return false;
 	}
 undoManager.Begin (__FUNCTION__, udSegments);
@@ -383,7 +376,7 @@ return true;
 bool CSegmentManager::CreateEquipMaker (short nSegment, bool bCreate, bool bSetDefTextures) 
 {
 if (!g_data.IsD2XLevel()) {
-	g_data.DoErrorMsg ("Equipment makers are only available in D2X-XL levels.");
+	g_data.Trace(Error, "Equipment makers are only available in D2X-XL levels.");
 	return false;
 	}
 return CreateProducer (nSegment, bCreate, SEGMENT_FUNC_EQUIPMAKER, bSetDefTextures, EquipMaker (0), m_producerInfo [1], 
@@ -451,7 +444,7 @@ short CSegmentManager::CreateProducer (short nSegment, ubyte nType, bool bCreate
 // count number of fuel centers
 int nProducer = ProducerCount ();
 if (nProducer >= MAX_NUM_RECHARGERS) {
-	g_data.DoErrorMsg ("Maximum number of fuel centers reached.");
+	g_data.Trace(Error, "Maximum number of fuel centers reached.");
 	return 0;
 	}
 

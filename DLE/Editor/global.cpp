@@ -27,46 +27,6 @@ GlobalData g_data{ &lightManager, &modelManager, &objectManager,
     &triggerManager, &wallManager, &vertexManager, &undoManager,
     current, other, &missionData };
 
-bool GlobalData::IsD1File()
-{
-    return DLE.IsD1File();
-}
-
-bool GlobalData::IsD2File()
-{
-    return DLE.IsD2File();
-}
-
-int GlobalData::FileType()
-{
-    return DLE.FileType();
-}
-
-int GlobalData::FileVersion()
-{
-    return DLE.FileVersion();
-}
-
-int GlobalData::LevelType()
-{
-    return DLE.LevelType();
-}
-
-int GlobalData::LevelVersion()
-{
-    return DLE.LevelVersion();
-}
-
-bool GlobalData::IsStdLevel()
-{
-    return DLE.IsStdLevel();
-}
-
-bool GlobalData::IsD2XLevel()
-{
-    return LevelVersion() >= 9;
-}
-
 void GlobalData::RefreshMineView(bool all)
 {
     DLE.MineView()->Refresh(all);
@@ -107,40 +67,30 @@ void GlobalData::EnsureValidSelection()
     Wrap(other->m_nSegment, 1, 0, ::segmentManager.Count() - 1);
 }
 
-void GlobalData::DoInfoMsg(const char* msg)
+void GlobalData::Trace(TraceLevel level, std::string message)
 {
-    INFOMSG(msg);
-}
-
-void GlobalData::DoErrorMsg(const char* msg)
-{
-    ErrorMsg(msg);
-}
-
-void GlobalData::DoStatusMsg(const char* msg)
-{
-    STATUSMSG(msg);
-}
-
-int GlobalData::DoQueryMsg(const char* msg)
-{
-    return QueryMsg(msg);
-}
-
-int GlobalData::DoQuery2Msg(const char* msg, uint type)
-{
-    return Query2Msg(msg, type);
-}
-
-int GlobalData::ExpertMode()
-{
-    return DLE.ExpertMode();
-}
-
-bool GlobalData::DoInputDialog(const char* title, const char* prompt, char* buffer, size_t bufferSize)
-{
-    CInputDialog dlg(DLE.MainFrame(), title, prompt, buffer, bufferSize);
-    return dlg.DoModal() == IDOK;
+    switch (level)
+    {
+    case Critical:
+        ErrorMsg(message.c_str());
+        break;
+    case Error:
+        ErrorMsg(message.c_str());
+        break;
+    case Warning:
+        if (!DLE.ExpertMode())
+        {
+            ErrorMsg(message.c_str());
+        }
+        break;
+    case Info:
+        INFOMSG(message.c_str());
+        break;
+    case Verbose:
+        break;
+    default:
+        break;
+    }
 }
 
 void GlobalData::InitProgress(int maxPosition)
@@ -166,11 +116,6 @@ void GlobalData::CleanupProgress()
 IRenderer* GlobalData::GetRenderer()
 {
     return &DLE.MineView()->Renderer();
-}
-
-IFileManager* GlobalData::CreateFileManager()
-{
-    return new CFileManager();
 }
 
 const char* GlobalData::GetD1Path()

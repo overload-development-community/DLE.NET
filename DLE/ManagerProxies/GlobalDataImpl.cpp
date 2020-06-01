@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "FileManager.h"
 #include "LightManager.h"
+#include "ASEModel.h"
 #include "ModelManager.h"
 #include "ObjectManager.h"
 #include "PaletteManager.h"
@@ -22,46 +23,6 @@ GlobalData g_data{ &lightManager, &modelManager, &objectManager,
     &paletteManager, &robotManager, &segmentManager, &textureManager,
     &triggerManager, &wallManager, &vertexManager, &undoManager,
     current, other, &missionData };
-
-bool GlobalData::IsD1File()
-{
-    return theMine->IsD1File();
-}
-
-bool GlobalData::IsD2File()
-{
-    return theMine->IsD2File();
-}
-
-int GlobalData::FileType()
-{
-    return theMine->FileType();
-}
-
-int GlobalData::FileVersion()
-{
-    return theMine->FileInfo().version;
-}
-
-int GlobalData::LevelType()
-{
-    return theMine->LevelType();
-}
-
-int GlobalData::LevelVersion()
-{
-    return theMine->LevelVersion();
-}
-
-bool GlobalData::IsStdLevel()
-{
-    return theMine->IsStdLevel();
-}
-
-bool GlobalData::IsD2XLevel()
-{
-    return LevelVersion() >= 9;
-}
 
 void GlobalData::RefreshMineView(bool all)
 {
@@ -103,40 +64,9 @@ void GlobalData::EnsureValidSelection()
     Wrap(other->m_nSegment, 1, 0, ::segmentManager.Count() - 1);
 }
 
-void GlobalData::DoInfoMsg(const char* msg)
+void GlobalData::Trace(TraceLevel level, std::string message)
 {
-    INFOMSG(msg);
-}
-
-void GlobalData::DoErrorMsg(const char* msg)
-{
-    ErrorMsg(msg);
-}
-
-void GlobalData::DoStatusMsg(const char* msg)
-{
-    STATUSMSG(msg);
-}
-
-int GlobalData::DoQueryMsg(const char* msg)
-{
-    return QueryMsg(msg);
-}
-
-int GlobalData::DoQuery2Msg(const char* msg, uint type)
-{
-    return Query2Msg(msg, type);
-}
-
-int GlobalData::ExpertMode()
-{
-    return DLE.ExpertMode();
-}
-
-bool GlobalData::DoInputDialog(const char* title, const char* prompt, char* buffer, size_t bufferSize)
-{
-    CInputDialog dlg(DLE.MainFrame(), title, prompt, buffer, bufferSize);
-    return dlg.DoModal() == IDOK;
+    // TODO Add to a log accessible from .NET code
 }
 
 void GlobalData::InitProgress(int maxPosition)
@@ -161,12 +91,8 @@ void GlobalData::CleanupProgress()
 
 IRenderer* GlobalData::GetRenderer()
 {
-    return &DLE.MineView()->Renderer();
-}
-
-IFileManager* GlobalData::CreateFileManager()
-{
-    return new CFileManager();
+    return nullptr;
+    //return &DLE.MineView()->Renderer();
 }
 
 const char* GlobalData::GetD1Path()
@@ -221,7 +147,7 @@ std::vector<byte> LoadResourceAsBlob(int resourceId)
 
 std::vector<byte> GlobalData::LoadPofNames()
 {
-    return ::LoadResourceAsBlob(DLE.IsD1File() ? IDR_POF_NAMES1 : IDR_POF_NAMES2);
+    return ::LoadResourceAsBlob(IsD1File() ? IDR_POF_NAMES1 : IDR_POF_NAMES2);
 }
 
 std::vector<byte> GlobalData::LoadNewLevelBlob(int gameVersion)
@@ -232,12 +158,12 @@ std::vector<byte> GlobalData::LoadNewLevelBlob(int gameVersion)
 
 std::vector<byte> GlobalData::GetDefaultLightTable()
 {
-    return ::LoadResourceAsBlob(DLE.IsD1File() ? IDR_LIGHT_D1 : IDR_LIGHT_D2);
+    return ::LoadResourceAsBlob(IsD1File() ? IDR_LIGHT_D1 : IDR_LIGHT_D2);
 }
 
 std::vector<byte> GlobalData::GetDefaultColorTable()
 {
-    return ::LoadResourceAsBlob(DLE.IsD1File() ? IDR_COLOR_D1 : IDR_COLOR_D2);
+    return ::LoadResourceAsBlob(IsD1File() ? IDR_COLOR_D1 : IDR_COLOR_D2);
 }
 
 std::vector<std::string> GlobalData::LoadTextureNames(int gameVersion)
@@ -308,7 +234,7 @@ int GetPaletteResourceId(const char* pszName)
     char szName[256]{};
     if (!pszName || !*pszName)
     {
-        if (theMine && DLE.IsD1File())
+        if (theMine && g_data.IsD1File())
         {
             return IDR_PALETTE_256;
         }

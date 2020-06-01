@@ -36,7 +36,7 @@ if (!wallManager.ClipFromTexture (key))
 undoManager.End (__FUNCTION__); 
 char message[50]{};
 sprintf_s (message, sizeof (message), "side has textures %d, %d", pSide->BaseTex () & 0x1fff, pSide->OvlTex (0)); 
-g_data.DoInfoMsg(message);
+g_data.Trace(Info, message);
 return true;
 }
 

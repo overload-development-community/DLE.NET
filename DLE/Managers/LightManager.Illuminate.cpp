@@ -763,7 +763,6 @@ while (nTail < nHead) {
 			short nChildSeg = pSegment->ChildId (nSide);
 			if ((nChildSeg >= 0) && !visited [nChildSeg]) {
 				if (nHead >= nSegments) {
-					g_data.DoStatusMsg("Buffer overflow in PointSeesPoint!");
 					return false;
 					}
 				visited [nChildSeg] = 1;

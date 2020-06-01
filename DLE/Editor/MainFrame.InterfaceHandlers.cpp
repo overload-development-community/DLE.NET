@@ -332,8 +332,16 @@ ToolView ()->EditReactor ();
 
 void CMainFrame::OnTunnelGenerator () 
 {
-ShowTools ();
-tunnelMaker.Run ();
+	ShowTools();
+	if (!tunnelMaker.Active(false))
+	{
+		tunnelMaker.Start();
+	}
+	else
+	{
+		auto keepTunnel = Query2Msg("Do you want to keep this tunnel?", MB_YESNO) == IDYES;
+		tunnelMaker.End(keepTunnel);
+	}
 }
 
 void CMainFrame::OnTxtFilters () 
@@ -529,17 +537,34 @@ GetToolView ()->SettingsTool ()->Refresh ();
 
 void CMainFrame::OnJoinPoints ()
 {
-segmentManager.JoinPoints ();
+	if (QueryMsg("Are you sure you want to join the current point\n"
+		"with the 'other' segment's current point?") == IDYES)
+	{
+		segmentManager.JoinPoints();
+	}
 }
 
 void CMainFrame::OnJoinLines ()
 {
-segmentManager.JoinLines ();
+	if (QueryMsg("Are you sure you want to join the current line\n"
+		"with the 'other' segment's current line?") == IDYES)
+	{
+		segmentManager.JoinLines();
+	}
 }
 
 void CMainFrame::OnJoinSides ()
 {
-segmentManager.Join (*current, false);
+	// There are two cases, insert a segment or not, and this is for only one.
+	// New version needs a fix
+	if (QueryMsg("Do you want to create a new segment which\n"
+		"connects the current side with the 'other' side?\n\n"
+		"Hint: Make sure you have the current point of each segment\n"
+		"on the corners you want to be connected.\n"
+		"(the 'P' key selects the current point)") == IDYES)
+	{
+		segmentManager.Join(*current, false);
+	}
 }
 
 void CMainFrame::OnJoinCurrentSide ()
@@ -554,22 +579,34 @@ segmentManager.JoinSegments ();
 
 void CMainFrame::OnSplitPoints ()
 {
-segmentManager.SeparatePoints ();
+	if (QueryMsg("Are you sure you want to unjoin this point?") == IDYES)
+	{
+		segmentManager.SeparatePoints();
+	}
 }
 
 void CMainFrame::OnSplitLines ()
 {
-segmentManager.SeparateLines ();
+	if (QueryMsg("Are you sure you want to unjoin this line?") == IDYES)
+	{
+		segmentManager.SeparateLines();
+	}
 }
 
 void CMainFrame::OnSplitSides ()
 {
-segmentManager.SeparateSegments ();
+	if (QueryMsg("Are you sure you want to unjoin this side?") == IDYES)
+	{
+		segmentManager.SeparateSegments();
+	}
 }
 
 void CMainFrame::OnSplitCurrentSide ()
 {
-segmentManager.SeparateSegments (1);
+	if (QueryMsg("Are you sure you want to unjoin this side?") == IDYES)
+	{
+		segmentManager.SeparateSegments(1);
+	}
 }
 
 void CMainFrame::UpdateInsModeButtons (short mode)

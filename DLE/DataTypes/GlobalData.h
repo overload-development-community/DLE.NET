@@ -169,6 +169,15 @@ public:
 	virtual void Fix(short segmentNum) = 0;
 };
 
+enum TraceLevel
+{
+	Critical = 0,
+	Error = 1,
+	Warning = 2,
+	Info = 3,
+	Verbose = 4
+};
+
 struct GlobalData
 {
 public:
@@ -202,13 +211,7 @@ public:
 	void AdvanceMineViewSide();
 	void RefreshToolView();
 	void EnsureValidSelection();
-	void DoInfoMsg(const char* msg);
-	void DoErrorMsg(const char* msg);
-	void DoStatusMsg(const char* msg);
-	int DoQueryMsg(const char* msg);
-	int DoQuery2Msg(const char* msg, uint type);
-	int ExpertMode();
-	bool DoInputDialog(const char* title, const char* prompt, char* buffer, size_t bufferSize);
+	void Trace(TraceLevel level, std::string message);
 	void InitProgress(int maxPosition);
 	void UpdateProgress(int position);
 	void StepProgress();

@@ -976,7 +976,7 @@ if (nCustom) {
 	sprintf_s (message, sizeof (message), "%d custom textures %s removed", nRemoved, (nRemoved == 1) ? "was" : "were");
 	if (nRemoved)
 		undoManager.SetModified (true);
-	g_data.DoInfoMsg(message);
+	g_data.Trace(TraceLevel::Info, message);
 	}
 }
 
@@ -1017,7 +1017,7 @@ if (nReverted > 0) {
 	char message[50]{};
 	sprintf_s (message, sizeof (message), "%d modified texture%s reverted", nReverted, (nReverted == 1) ? " was" : "s were");
 	undoManager.SetModified (true);
-	g_data.DoInfoMsg(message);
+	g_data.Trace(TraceLevel::Info, message);
 	}
 }
 

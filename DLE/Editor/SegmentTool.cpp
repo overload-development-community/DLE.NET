@@ -519,9 +519,16 @@ undoManager.End (__FUNCTION__);
 
 void CSegmentTool::OnAddSegment () 
 {
-CHECKMINE;
-segmentManager.AddSegments ();
-DLE.MineView ()->Refresh ();
+	CHECKMINE;
+	if (theMine->SelectMode() == BLOCK_MODE && segmentManager.TaggedSideCount() > 50)
+	{
+		if (Query2Msg("You are about to insert a large number of cubes.\n"
+			"Are you sure you want to do this?", MB_YESNO) != IDYES)
+			return;
+	}
+
+	segmentManager.AddSegments();
+	DLE.MineView()->Refresh();
 }
 
 //------------------------------------------------------------------------

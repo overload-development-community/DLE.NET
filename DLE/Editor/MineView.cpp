@@ -1094,7 +1094,7 @@ if (nChoice) {
 	else if (nChoice == ID_EDIT_QUICKPASTE)
 		DLE.GetDocument()->OnQuickPasteBlock();
 	else if (nChoice == ID_EDIT_DELETEBLOCK)
-		blockManager.Delete ();
+		DLE.GetDocument()->OnDeleteBlock();
 	else if (nChoice == ID_VIEW_COLLAPSE_EDGE)
 		segmentManager.CollapseEdge ();
 	else if (nChoice == ID_VIEW_CREATE_WEDGE)

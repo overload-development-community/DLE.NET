@@ -150,11 +150,11 @@ CTrigger* CTriggerManager::AddToWall (short nWall, short type, bool bAddWall)
 
 // check if there's already a trigger on the current side
 if (segmentManager.Trigger () != null) {
-	g_data.DoErrorMsg ("There is already a trigger on this side");
+	g_data.Trace(Error, "There is already a trigger on this side");
 	return null;
 	}
 if (Full ()) {
-	g_data.DoErrorMsg ("The maximum number of triggers has been reached.");
+	g_data.Trace(Error, "The maximum number of triggers has been reached.");
 	return null;
 	}
 // if no wall at current side, try to add a wall of proper type
@@ -165,19 +165,19 @@ CWall* pWall = g_data.currentSelection->Side()->Wall();
 if (pWall == null) {
 	if (bAddWall) {
 		if (wallManager.Count () >= MAX_WALLS) {
-			g_data.DoErrorMsg ("Cannot add a wall for this trigger\nsince the maximum number of walls is already reached.");
+			g_data.Trace(Error, "Cannot add a wall for this trigger\nsince the maximum number of walls is already reached.");
 			undoManager.Unroll (__FUNCTION__);
 			return null;
 			}
 		pWall = wallManager.Create(CSideKey(), (g_data.currentSelection->Side()->Child() == nullptr) ? WALL_OVERLAY : defWallTypes[type], 0, 0, -1, defWallTextures[type]);
 		if (pWall == null) {
-			g_data.DoErrorMsg ("Cannot add a wall for this trigger.");
+			g_data.Trace(Error, "Cannot add a wall for this trigger.");
 			undoManager.Unroll (__FUNCTION__);
 			return null;
 			}
 		}
 	else {
-		g_data.DoErrorMsg ("You need to add a wall to this side before you can add a trigger.");
+		g_data.Trace(Error, "You need to add a wall to this side before you can add a trigger.");
 		undoManager.Unroll (__FUNCTION__);
 		return null;
 		}
@@ -357,7 +357,7 @@ CTrigger* CTriggerManager::AddToObject (short nObject, short type)
 	CGameObject* pObject = (nObject < 0) ? g_data.currentSelection->Object () : objectManager.Object (nObject);
 
 if (pObject == null) {
-	g_data.DoErrorMsg ("Couldn't find object to attach triggers to.");
+	g_data.Trace(Error, "Couldn't find object to attach triggers to.");
 	return null;
 	}
 
@@ -366,12 +366,12 @@ if ((pObject->Info ().type != OBJ_ROBOT) &&
 	 (pObject->Info ().type != OBJ_POWERUP) &&
 	 (pObject->Info ().type != OBJ_HOSTAGE) &&
 	 (pObject->Info ().type != OBJ_REACTOR)) {
-	g_data.DoErrorMsg ("Object triggers can only be attached to robots, reactors, hostages, powerups and cameras.");
+	g_data.Trace(Error, "Object triggers can only be attached to robots, reactors, hostages, powerups and cameras.");
 	return null;
 	}
 
 if (ObjTriggerCount () >= MAX_OBJ_TRIGGERS) {
-	g_data.DoErrorMsg ("The maximum number of object triggers has been reached.");
+	g_data.Trace(Error, "The maximum number of object triggers has been reached.");
 	return null;
 	}
 
@@ -574,7 +574,7 @@ bool CTriggerManager::HaveResources (void)
 if (!wallManager.HaveResources ())
 	return false;
 if (Full ()) {
-	g_data.DoErrorMsg ("Maximum number of triggers reached");
+	g_data.Trace(Error, "Maximum number of triggers reached");
 	return false;
 	}
 return true;
@@ -612,7 +612,7 @@ return false;
 bool CTriggerManager::AddDoorTrigger (short wallType, ushort wallFlags, ushort triggerType) 
 {
 if (g_data.otherSelection->Side()->Wall() == null) {
-	g_data.DoErrorMsg ("Other segment's side is not on a wall.\n\n"
+	g_data.Trace(Error, "Other segment's side is not on a wall.\n\n"
 				"Hint: Select a wall using the 'other segment' and\n"
 				"select a trigger location using the 'current segment'.");
 	return false;
@@ -635,7 +635,7 @@ return AddDoorTrigger (WALL_OPEN,0,TT_OPEN_DOOR);
 bool CTriggerManager::AddRobotMaker (void) 
 {
 if (g_data.otherSelection->Segment ()->Info ().function != SEGMENT_FUNC_ROBOTMAKER) {
-	g_data.DoErrorMsg ("There is no robot maker segment selected.\n\n"
+	g_data.Trace(Error, "There is no robot maker segment selected.\n\n"
 				"Hint: Select a robot maker segment using the 'other segment' and\n"
 				"select a trigger location using the 'current segment'.");
 	return false;
@@ -648,7 +648,7 @@ return AutoAddTrigger (WALL_OPEN, 0, TT_MATCEN);
 bool CTriggerManager::AddShieldDrain (void) 
 {
 if (g_data.IsD2File ()) {
-	g_data.DoErrorMsg ("Descent 2 does not support shield damage Triggers ()");
+	g_data.Trace(Error, "Descent 2 does not support shield damage Triggers ()");
    return false;
 	}
 return AutoAddTrigger (WALL_OPEN, 0, TT_SHIELD_DAMAGE);
@@ -659,7 +659,7 @@ return AutoAddTrigger (WALL_OPEN, 0, TT_SHIELD_DAMAGE);
 bool CTriggerManager::AddEnergyDrain (void) 
 {
 if (g_data.IsD2File ()) {
-	g_data.DoErrorMsg ("Descent 2 does not support energy drain Triggers ()");
+	g_data.Trace(Error, "Descent 2 does not support energy drain Triggers ()");
    return false;
 	}
 return AutoAddTrigger (WALL_OPEN, 0, TT_ENERGY_DRAIN);
@@ -670,7 +670,7 @@ return AutoAddTrigger (WALL_OPEN, 0, TT_ENERGY_DRAIN);
 bool CTriggerManager::AddUnlock (void) 
 {
 if (g_data.IsD1File ()) {
-   g_data.DoErrorMsg ("Control Panels are not supported in Descent 1.");
+   g_data.Trace(Error, "Control Panels are not supported in Descent 1.");
    return false;
 	}
 return AddDoorTrigger (WALL_OVERLAY, WALL_WALL_SWITCH, TT_UNLOCK_DOOR);

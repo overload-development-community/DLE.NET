@@ -16,11 +16,11 @@ bool CWallManager::HaveResources (CSideKey* key)
 {
 CWall* pWall = segmentManager.Wall (key);
 if (pWall != null) {
-	g_data.DoErrorMsg ("There is already a wall on this side");
+	g_data.Trace(Error, "There is already a wall on this side");
 	return false;
 	}
 if (Full ()) {
-	g_data.DoErrorMsg ("Maximum number of walls reached");
+	g_data.Trace(Error, "Maximum number of walls reached");
 	return false;
 	}
 return true;
@@ -74,14 +74,14 @@ if (type < 0)
 
 if (type == WALL_OVERLAY) {
 	if (nChild != -1) {
-		g_data.DoErrorMsg ("Switches can only be put on solid sides.");
+		g_data.Trace(Error, "Switches can only be put on solid sides.");
 		return null;
 		}
 	}
 else {
 	// otherwise make sure there is a child
 	if (nChild == -1) {
-		g_data.DoErrorMsg ("This side must be attached to an other segment before a wall can be added.");
+		g_data.Trace(Error, "This side must be attached to an other segment before a wall can be added.");
 		return null;
 		}
 	}
@@ -284,7 +284,7 @@ return CreateDoor (WALL_BLASTABLE, 0, 0, -1, -1);
 bool CWallManager::CreateGuideBotDoor (void) 
 {
 if (g_data.IsD1File ()) {
-	g_data.DoErrorMsg ("Guide bot doors are not available in Descent 1");
+	g_data.Trace(Error, "Guide bot doors are not available in Descent 1");
 	return false;
   }
 return CreateDoor (WALL_BLASTABLE, 0, 0, 46, -1);
@@ -309,7 +309,7 @@ return CreateDoor (WALL_ILLUSION, 0, 0, -1, 0);
 bool CWallManager::CreateForceField (void) 
 {
 if (g_data.IsD1File ()) {
-	g_data.DoErrorMsg ("Force fields are not supported in Descent 1");
+	g_data.Trace(Error, "Force fields are not supported in Descent 1");
    return false;
 	}
 return CreateDoor (WALL_CLOSED, 0, 0, -1, 420);
@@ -327,7 +327,7 @@ return CreateDoor (WALL_CLOSED, 0, 0, -2, g_data.IsD1File () ? 325 : 354);
 bool CWallManager::CreateWaterFall (void)
 {
 if (g_data.IsD1File ()) {
-	g_data.DoErrorMsg ("Water falls are not supported in Descent 1");
+	g_data.Trace(Error, "Water falls are not supported in Descent 1");
 	return false;
 	}
 return CreateDoor (WALL_ILLUSION, 0, 0, -1, 401);
@@ -338,7 +338,7 @@ return CreateDoor (WALL_ILLUSION, 0, 0, -1, 401);
 bool CWallManager::CreateLavaFall (void) 
 {
 if (g_data.IsD1File ()) {
-	g_data.DoErrorMsg ("Lava falls are not supported in Descent 1");
+	g_data.Trace(Error, "Lava falls are not supported in Descent 1");
 	return false;
 	}
 return CreateDoor (WALL_ILLUSION, 0, 0, -1, 408);
@@ -533,24 +533,21 @@ WriteDoors (fp);
 
 void CWallManager::CheckForDoor (CSideKey key) 
 {
-if (g_data.ExpertMode ())
-	return;
+	g_data.currentSelection->Get(key);
+	CWall* pWall = segmentManager.Wall(key);
 
-g_data.currentSelection->Get (key);
-CWall* pWall = segmentManager.Wall (key);
+	if (!pWall)
+		return;
+	if (!pWall->IsDoor())
+		return;
 
-if (!pWall)
- return;
-if (!pWall->IsDoor ())
-	return;
-
-g_data.DoErrorMsg ("Changing the texture of a door only affects\n"
-			 "how the door will look before it is opened.\n"
-			 "You can use this trick to hide a door\n"
-			 "until it is used for the first time.\n\n"
-			 "Hint: To change the door animation,\n"
-			 "select \"Wall edit...\" from the Tools\n"
-			 "menu and change the clip number.");
+	g_data.Trace(Warning, "Changing the texture of a door only affects\n"
+		"how the door will look before it is opened.\n"
+		"You can use this trick to hide a door\n"
+		"until it is used for the first time.\n\n"
+		"Hint: To change the door animation,\n"
+		"select \"Wall edit...\" from the Tools\n"
+		"menu and change the clip number.");
 }
 
 //------------------------------------------------------------------------------

@@ -176,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="LoadMine.cpp" />
+    <ClCompile Include="ManagerGlobalDataImpl.cpp" />
     <ClCompile Include="Mine.cpp" />
     <ClCompile Include="modify.cpp" />
     <ClCompile Include="SaveMine.cpp" />

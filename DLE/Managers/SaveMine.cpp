@@ -24,13 +24,13 @@ short CMine::Save (const char * szFile)
 {
 if (segmentManager.Overflow ()) {
 	if (vertexManager.Overflow ()) 
-		g_data.DoErrorMsg ("Error: Too many segments and vertices for this level version!\nThe level cannot be saved.");
+		g_data.Trace(Error, "Error: Too many segments and vertices for this level version!\nThe level cannot be saved.");
 	else
-		g_data.DoErrorMsg ("Error: Too many segments for this level version!\nThe level cannot be saved.");
+		g_data.Trace(Error, "Error: Too many segments for this level version!\nThe level cannot be saved.");
 	return 0;
 	}
 else if (vertexManager.Overflow ()) {
-	g_data.DoErrorMsg ("Error: Too many vertices for this level version!\nThe level cannot be saved.");
+	g_data.Trace(Error, "Error: Too many vertices for this level version!\nThe level cannot be saved.");
 	return 0;
 	}
 
@@ -102,7 +102,7 @@ else if (IsD2File ()) {
 mineDataOffset = fp.Tell ();
 if (0 > (mineErr = SaveMineGeometry (&fp))) {
 	fp.Close ();
-	g_data.DoErrorMsg ("Error saving mine data");
+	g_data.Trace(Error, "Error saving mine data");
 	return -2;
 	}
 
@@ -110,7 +110,7 @@ if (0 > (mineErr = SaveMineGeometry (&fp))) {
 gameDataOffset = fp.Tell ();
 if (0 > (gameErr = SaveGameItems (&fp))) {
 	fp.Close ();
-	g_data.DoErrorMsg ("Error saving game data");
+	g_data.Trace(Error, "Error saving game data");
 	return -3;
 	}
 
@@ -585,7 +585,7 @@ else {
 fp.Close ();
 char msg [MAX_PATH + 30];
 sprintf_s (msg, _countof (msg), "Level exported to %s", filename);
-g_data.DoInfoMsg(msg);
+g_data.Trace(TraceLevel::Info, msg);
 return 1;
 }
 

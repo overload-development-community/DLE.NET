@@ -36,7 +36,7 @@ if (!bErrMsg) {
 		sprintf (szMsg, "%s: error in line %d (%s)\n", aseFile->Name (), nLine, pszMsg);
 	else
 		sprintf (szMsg, "%s: error in line %d\n", aseFile->Name (), nLine);
-	g_data.DoInfoMsg (szMsg);
+	g_data.Trace(Warning, szMsg);
 	bErrMsg = 1;
 	}
 return 0;
@@ -880,7 +880,7 @@ for (i = 0; i < m_nSubModels; i++) {
 	catch(...) {
 		char szMsg [256];
 		sprintf (szMsg, "Compiled model file 'model%03d.bin' is damaged and will be replaced\n", m_nModel);
-		g_data.DoInfoMsg (szMsg);
+		g_data.Trace(Warning, szMsg);
 		fp->Close ();
 		Destroy ();
 		return 0;

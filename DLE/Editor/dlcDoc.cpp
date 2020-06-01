@@ -421,7 +421,50 @@ if (bSaveAs && !BrowseForFile (m_szFile, FALSE))
 	return false;
 bool bSaveToHog = strstr (m_szFile, ".hog") != null;
 if (bSaveToHog)
-	result = SaveToHog (m_szFile, m_szSubFile, bSaveAs);
+{
+	if (bSaveAs)
+	{
+		// This is a bit silly, should be checking .msn/.mn2, but do that in the new UI
+		FILE* hogFile;
+		fopen_s(&hogFile, m_szFile, "rt");
+		if (hogFile)
+		{
+			fclose(hogFile);
+			if (Query2Msg("A mission file with that name already exists.\nOverwrite mission file?", MB_YESNO) != IDYES)
+				return false;
+		}
+	}
+
+	bool overwrite = false;
+	if (CHogManager::ContainsSubFile(m_szFile, m_szSubFile))
+	{
+		overwrite = QueryMsg("Overwrite old level with same name?") == IDYES;
+	}
+
+	_strlwr_s(m_szFile, 256);
+	bool newLevel = strlen(m_szSubFile) == 0 || strstr(m_szFile, "new.");
+	if (newLevel)
+	{
+		CLevelHeader lh(g_data.IsD2XLevel());
+		CInputDialog dlg(DLE.MainFrame(), "Name mine", "Enter file name:", m_szSubFile, lh.NameSize() - 4);
+		if (dlg.DoModal() != IDOK)
+			return 0;
+
+		char szBaseName[256]{};
+		CFileManager::SplitPath(m_szSubFile, null, szBaseName, null);
+		if (!*g_data.missionData->missionName)
+			strcpy_s(g_data.missionData->missionName, sizeof(g_data.missionData->missionName), szBaseName);
+		if (bSaveAs || !*g_data.missionData->missionName)
+			do {
+				CInputDialog dlg(DLE.MainFrame(), "Mission title", "Enter mission title:",
+					g_data.missionData->missionName, sizeof(g_data.missionData->missionName));
+				if (dlg.DoModal() != IDOK)
+					return -1;
+			} while (!*g_data.missionData->missionName);
+	}
+
+	result = SaveToHog(m_szFile, m_szSubFile, newLevel, bSaveAs, overwrite);
+}
 else
 	result = theMine->Save (m_szFile);
 if (result)
@@ -669,7 +712,14 @@ if (p) {
 
 void CDlcDoc::OnInsertSegment() 
 {
-segmentManager.AddSegments ();
+	if (theMine->SelectMode() == BLOCK_MODE && segmentManager.TaggedSideCount() > 50)
+	{
+		if (Query2Msg("You are about to insert a large number of cubes.\n"
+			"Are you sure you want to do this?", MB_YESNO) != IDYES)
+			return;
+	}
+
+	segmentManager.AddSegments();
 }
 
 void CDlcDoc::OnDeleteSegment() 
@@ -855,8 +905,20 @@ void CDlcDoc::OnDeleteTrigger ()
 triggerManager.DeleteFromWall ();
 }
 
+const char* BLOCKOP_HINT =
+	"The block of cubes will be saved relative to the current segment.\n"
+	"Later, when you paste the block, it will be placed relative to\n"
+	"the current segment at that time.  You can change the current side\n"
+	"and the current point to affect the relative direction and\n"
+	"rotation of the block.\n"
+	"\n"
+	"Would you like to proceed?";
+
 void CDlcDoc::OnCutBlock ()
 {
+	if (QueryMsg(BLOCKOP_HINT) != IDYES)
+		return;
+
 	char szFile[256]{};
 	if (!::BrowseForFile(FALSE,
 		blockManager.Extended() ? "blx" : "blk", szFile,
@@ -873,6 +935,9 @@ void CDlcDoc::OnCutBlock ()
 
 void CDlcDoc::OnCopyBlock ()
 {
+	if (QueryMsg(BLOCKOP_HINT) != IDYES)
+		return;
+
 	char szFile[256]{};
 	if (!::BrowseForFile(FALSE,
 		blockManager.Extended() ? "blx" : "blk", szFile,
@@ -929,7 +994,10 @@ void CDlcDoc::OnQuickPasteBlock ()
 
 void CDlcDoc::OnDeleteBlock ()
 {
-blockManager.Delete();
+	if (QueryMsg("Are you sure you want to delete the marked cubes?") != IDYES)
+		return;
+
+	blockManager.Delete();
 }
 
 void CDlcDoc::OnCopyOtherCube ()

@@ -241,7 +241,9 @@ class CTunnelMaker {
 	public:
 		CTunnelMaker () : m_nSteps (0) {}
 
-		void Run (void); 
+		void Start();
+
+		void End(bool keepTunnel);
 
 		void Destroy (void);
 
@@ -251,7 +253,7 @@ class CTunnelMaker {
 			if (!m_bActive)
 				return false; 
 			if (bMsg)
-				g_data.DoErrorMsg (szTunnelMakerError); 
+				g_data.Trace(Error, szTunnelMakerError); 
 			return true;
 			}
 

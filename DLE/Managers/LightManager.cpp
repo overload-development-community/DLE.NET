@@ -132,24 +132,25 @@ return -1;
 CVariableLight* CLightManager::AddVariableLight (short index) 
 {
 if (Count () >= MAX_VARIABLE_LIGHTS) {
-	if (!g_data.ExpertMode () && (index < 0)) {
+	if (index < 0)
+	{
 		char message[100]{};
-		sprintf_s (message, sizeof (message),
-					  "Maximum number of variable lights (%d) have already been added",
-					  MAX_VARIABLE_LIGHTS);
-		g_data.DoErrorMsg (message);
-		}
+		sprintf_s(message, sizeof(message),
+			"Maximum number of variable lights (%d) have already been added",
+			MAX_VARIABLE_LIGHTS);
+		g_data.Trace(Warning, message);
+	}
 	return null;
 	}
 
 short nBaseTex, nOvlTex;
 g_data.currentSelection->Side ()->GetTextures (nBaseTex, nOvlTex);
 if ((IsLight (nBaseTex) == -1) && (IsLight (nOvlTex) == -1)) {
-	if (!g_data.ExpertMode () && (index < 0))
-		g_data.DoErrorMsg ("Blinking lights can only be added to a side\n"
-					 "that has a light emitting texture.\n"
-					 "Hint: You can use the texture tool's brightness control\n"
-					 "to make any texture emit light.");
+	if (index < 0)
+		g_data.Trace(Warning, "Blinking lights can only be added to a side\n"
+			"that has a light emitting texture.\n"
+			"Hint: You can use the texture tool's brightness control\n"
+			"to make any texture emit light.");
 	return null;
 	}
 
@@ -165,8 +166,7 @@ short CLightManager::AddVariableLight (CSideKey key, uint mask, int time)
 {
 g_data.currentSelection->Get (key);
 if (VariableLight (key) != -1) {
-	if (!g_data.ExpertMode ())
-		g_data.DoErrorMsg ("There is already a variable light on this side");
+	g_data.Trace(Warning, "There is already a variable light on this side");
 	return -1;
 	}
 // we are adding a new variable light

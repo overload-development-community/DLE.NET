@@ -30,6 +30,12 @@ class CHogManager {
 		void SetMissionName(const char* newFileName);
 		inline char* LevelFileName(void) { return m_levelFileName; }
 
+		static bool ContainsSubFile(const char* fileName, const char* subFileName)
+		{
+			// TODO Implement properly
+			return true;
+		}
+
 	private:
 		char m_szFile[256];
 		int m_bExtended;
@@ -50,11 +56,11 @@ extern CHogManager* hogManager;
 #define CUSTOM_FILETYPE_DTX      5
 #define NUM_CUSTOM_FILETYPES (1+CUSTOM_FILETYPE_DTX)
 
-int SaveToHog (LPSTR szHogFile, LPSTR szSubFile, bool bSaveAs);
+int SaveToHog (LPSTR szHogFile, LPSTR szSubFile, bool newLevel, bool bSaveAs, bool overwrite);
 bool FindFileData (const char* pszFile, const char* pszSubFile, CLevelHeader& lh, long& nSize, long& nPos, BOOL bVerbose = TRUE, CFileManager* fp = null);
 bool ExportSubFile (const char *pszSrc, const char *pszDest, long offset, long size);
 int ReadMissionFile (char *pszFile);
-int WriteMissionFile (char *pszFile, int levelVersion, bool bSaveAs = true);
+int WriteMissionFile (char *pszFile, int levelVersion);
 int MakeMissionFile (char *pszFile, char *pszSubFile, int bCustomTextures, int bCustomRobots, bool bSaveAs = true);
 bool DoesSubFileExist (const char* pszFile, const char* pszSubFile);
 const char *GetCustomFileExtension (const int nType);

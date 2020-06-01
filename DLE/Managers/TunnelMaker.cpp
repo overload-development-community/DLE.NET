@@ -1047,14 +1047,13 @@ m_path.Destroy ();
 
 //------------------------------------------------------------------------------
 
-void CTunnelMaker::Run (void) 
+void CTunnelMaker::Start()
 {
-if (!m_bActive) {
 	short nMaxSegments = SEGMENT_LIMIT - segmentManager.Count ();
 	if (nMaxSegments > MAX_TUNNEL_SEGMENTS)
 		nMaxSegments = MAX_TUNNEL_SEGMENTS;
 	else if (nMaxSegments < 3) {
-		g_data.DoErrorMsg ("Insufficient number of free vertices and/or segments\nto use the tunnel generator.");
+		g_data.Trace(Error, "Insufficient number of free vertices and/or segments\nto use the tunnel generator.");
 		return;
 		}
 	// make sure there are no children on either segment/side
@@ -1062,7 +1061,7 @@ if (!m_bActive) {
 	auto other = g_data.otherSelection;
 	if ((current->Segment ()->ChildId (current->SideId ()) != -1) ||
 		 (other->Segment ()->ChildId (other->SideId ()) != -1)) {
-		g_data.DoErrorMsg ("Starting and/or ending point of segment\n"
+		g_data.Trace(Error, "Starting and/or ending point of segment\n"
 					 "already have segment(s) attached.\n\n"
 					 "Hint: Put the current segment and the alternate segment\n"
 					 "on sides which do not have cubes attached.");
@@ -1076,31 +1075,36 @@ if (!m_bActive) {
 
 	undoManager.Lock ("CTunnelMaker::Run");
 
-	if (!g_data.ExpertMode ())
-		g_data.DoErrorMsg ("Place the current segment on one of the segment end points.\n\n"
-					 "Use the CTRL+8 and CTRL+9 keys to adjust the length of the red segment.\n\n"
-				    "Press 'P' to rotate the point connections.\n\n"
-				    "Press 'G' or select Tools/Tunnel Generator when you are finished.");
+	g_data.Trace(Warning, "Place the current segment on one of the segment end points.\n\n"
+		"Use the CTRL+8 and CTRL+9 keys to adjust the length of the red segment.\n\n"
+		"Press 'P' to rotate the point connections.\n\n"
+		"Press 'G' or select Tools/Tunnel Generator when you are finished.");
 
 	m_bActive = true;
+	segmentManager.SetLinesToDraw();
 	g_data.RefreshMineView();
-	}
-else {
+}
+
+//------------------------------------------------------------------------------
+
+void CTunnelMaker::End(bool keepTunnel)
+{
 	// ask if user wants to keep the new nSegment
-	undoManager.Unlock ("CTunnelMaker::Run");
-	m_tunnel.Release ();
-	if (g_data.DoQuery2Msg ("Do you want to keep this tunnel?", MB_YESNO) == IDYES) {
-		undoManager.Begin (__FUNCTION__, udSegments | udVertices);
-		if (CalculateTunnel (false) && Create ())
-			m_tunnel.Realize (m_path, true);
+	undoManager.Unlock("CTunnelMaker::Run");
+	m_tunnel.Release();
+	if (keepTunnel)
+	{
+		undoManager.Begin(__FUNCTION__, udSegments | udVertices);
+		if (CalculateTunnel(false) && Create())
+			m_tunnel.Realize(m_path, true);
 		else
-			m_tunnel.Release ();
-		undoManager.End (__FUNCTION__);
-		}
-	Destroy ();
+			m_tunnel.Release();
+		undoManager.End(__FUNCTION__);
 	}
-segmentManager.SetLinesToDraw ();
-g_data.RefreshMineView();
+	Destroy();
+
+	segmentManager.SetLinesToDraw();
+	g_data.RefreshMineView();
 }
 
 //------------------------------------------------------------------------------
@@ -1138,7 +1142,7 @@ if (m_path.Setup (m_base, bRegenerateStartSides, bRegeneratePath)) {
 	m_tunnel.Setup (m_base);
 	return true;
 	}
-g_data.DoErrorMsg ("Could not calculate the tunnel path (out of memory).");
+g_data.Trace(Error, "Could not calculate the tunnel path (out of memory).");
 Destroy ();
 return false;
 }

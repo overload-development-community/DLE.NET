@@ -529,7 +529,7 @@ void CUndoHistory::Push (const char* szFunction)
 if (ToS () && (*Top () == szFunction)) {
 	char szMsg [256];
 	sprintf_s (szMsg, sizeof (szMsg), "%s: Undo manager redundancy", szFunction);
-	g_data.DoInfoMsg(szMsg);
+	g_data.Trace(Info, szMsg);
 	}
 CStack<char*>::Push (const_cast<char*>(szFunction));
 }
@@ -541,7 +541,7 @@ void CUndoHistory::Pop (const char* szFunction)
 if (ToS () && (*Top () != szFunction)) {
 	char szMsg [256];
 	sprintf_s (szMsg, sizeof (szMsg), "%s: Undo manager corruption", szFunction);
-	g_data.DoInfoMsg(szMsg);
+	g_data.Trace(Warning, szMsg);
 	do {
 		CStack<char*>::Pop ();
 		} while (ToS () && (*Top () != szFunction));

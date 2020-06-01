@@ -36,8 +36,13 @@
 #include "wall.h"
 #include "trigger.h"
 #include "PolyModel.h"
+#include "ModelTextures.h"
+#include "ASEModel.h"
+#include "OOFModel.h"
+#include "rendermodel.h"
 
 #include "FileManager.h"
+#include "MemoryFile.h"
 #include "SegmentManager.h"
 #include "ObjectManager.h"
 #include "TriggerManager.h"

@@ -423,6 +423,20 @@ enum eTextureFormat : ubyte {
 	TGA = 1
 };
 
+enum BitmapImportTransparencyMode
+{
+	NoTransparency,
+	ByPaletteIndex,
+	ByColor
+};
+
+enum BitmapImportScalingMode
+{
+	NoScaling,
+	Stretch,
+	Center
+};
+
 typedef struct tTexture {
 	uint           width, height, bufSize;
 	uint           nIndex;
@@ -467,7 +481,19 @@ class CTexture {
 
 		void LoadFromData (ubyte* pData, size_t size);
 
-		bool LoadFromFile (char* pszFile, bool bErrorOnOpenFail = true);
+		bool LoadFromFile(char* pszFile, bool bErrorOnOpenFail = true,
+			BitmapImportTransparencyMode transparencyMode = NoTransparency,
+			BitmapImportScalingMode scalingMode = NoScaling);
+
+		struct BitmapMetrics
+		{
+			long width;
+			long height;
+			unsigned int numColors;
+			bool matchesCurrentPalette;
+		};
+
+		static BitmapMetrics GetBitmapMetrics(const char* filename);
 
 		bool Save (char* pszFile) const;
 
@@ -634,7 +660,7 @@ class CTexture {
 
 		bool LoadTGA (char* pszFile);
 
-		bool LoadBMP (IFileManager& fp);
+		bool LoadBMP (IFileManager& fp, BitmapImportTransparencyMode transparencyMode, BitmapImportScalingMode scalingMode);
 
 		bool SaveTGA (IFileManager& fp) const;
 

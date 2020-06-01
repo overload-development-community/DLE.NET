@@ -102,4 +102,9 @@ class CTextureEdit : public CDialog
 
 //------------------------------------------------------------------------------
 
+BitmapImportTransparencyMode QueryTransparencyMode(const char* filename);
+BitmapImportScalingMode QueryScalingMode(const char* filename, const CTexture* targetTexture);
+
+//------------------------------------------------------------------------------
+
 #endif __texedit_h
