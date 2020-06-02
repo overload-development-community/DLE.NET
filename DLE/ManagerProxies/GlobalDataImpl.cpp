@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "Delegates.h"
 #include "FileManager.h"
 #include "LightManager.h"
 #include "ASEModel.h"
@@ -11,11 +12,8 @@
 #include "VertexManager.h"
 #include "mine.h"
 
-char message[4096];
 char descentFolder[2][256] = { "\\programs\\d2\\data", "\\programs\\d2\\data" };
 char missionFolder[256] = "\\programs\\d2\\missions";
-char modFolder[256] = "\\programs\\d2\\mods";
-char szPlayerProfile[20] = "";
 
 CMissionData missionData;
 
@@ -66,7 +64,8 @@ void GlobalData::EnsureValidSelection()
 
 void GlobalData::Trace(TraceLevel level, std::string message)
 {
-    // TODO Add to a log accessible from .NET code
+    auto clrMessage = msclr::interop::marshal_as<System::String^>(message);
+    g_proxyDelegateManager->OnTrace(level, clrMessage);
 }
 
 void GlobalData::InitProgress(int maxPosition)

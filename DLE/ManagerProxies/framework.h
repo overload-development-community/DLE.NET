@@ -15,3 +15,6 @@
 #include <windows.h>
 #include <sys/types.h>
 #include <atltypes.h>
+
+#include <gcroot.h>
+#include <msclr/marshal.h>
