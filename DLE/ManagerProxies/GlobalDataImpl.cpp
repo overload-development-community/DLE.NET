@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "resource.h"
 #include "Delegates.h"
 #include "FileManager.h"
 #include "LightManager.h"

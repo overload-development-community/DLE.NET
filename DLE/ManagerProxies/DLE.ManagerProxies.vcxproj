@@ -167,6 +167,7 @@
     <ClInclude Include="Delegates.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Delegates.cpp" />
@@ -196,6 +197,9 @@
     <ProjectReference Include="..\Managers\DLE.Managers.vcxproj">
       <Project>{1a1bd677-4bfc-4b6d-9562-13f6dfb87dde}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DLE.ManagerProxies.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
