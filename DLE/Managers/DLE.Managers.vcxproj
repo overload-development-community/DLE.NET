@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="TunnelMaker.h" />
     <ClInclude Include="WallManager.h" />
     <ClInclude Include="BlockManager.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="LoadMine.cpp" />
     <ClCompile Include="ManagerGlobalDataImpl.cpp" />
     <ClCompile Include="Mine.cpp" />

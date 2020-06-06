@@ -1,16 +1,32 @@
 #pragma once
 
-delegate void TraceDelegate(TraceLevel level, System::String^ trace);
+delegate void TraceDelegate(System::Diagnostics::TraceLevel level, System::String^ trace);
+
+interface struct IProgressTracker
+{
+public:
+	void InitializeProgress(int numSteps) = 0;
+	void SetProgress(int stepNum) = 0;
+	void IncrementProgress() = 0;
+	void CleanupProgress() = 0;
+};
 
 ref class ProxyDelegateManager
 {
 public:
-	void AddTraceDelegate(TraceDelegate^ traceDelegate);
+	// Called by UI
 
-	void OnTrace(TraceLevel level, System::String^ trace);
+	void AddTraceDelegate(TraceDelegate^ traceDelegate);
+	void SetProgressTracker(IProgressTracker^ progressTracker);
+
+	// Called by GlobalDataImpl
+
+	void OnTrace(System::Diagnostics::TraceLevel level, System::String^ trace);
+	IProgressTracker^ GetProgressTracker();
 
 private:
 	TraceDelegate^ m_traceDelegate;
+	IProgressTracker^ m_progressTracker;
 };
 
-gcroot<ProxyDelegateManager^> g_proxyDelegateManager;
+extern gcroot<ProxyDelegateManager^> g_proxyDelegateManager;

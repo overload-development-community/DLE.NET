@@ -171,7 +171,6 @@ public:
 
 enum TraceLevel
 {
-	Critical = 0,
 	Error = 1,
 	Warning = 2,
 	Info = 3,
@@ -181,6 +180,7 @@ enum TraceLevel
 struct GlobalData
 {
 public:
+	HMODULE hModule;
 	ILightManager* lightManager;
 	IModelManager* modelManager;
 	IObjectManager* objectManager;

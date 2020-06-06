@@ -71,9 +71,6 @@ void GlobalData::Trace(TraceLevel level, std::string message)
 {
     switch (level)
     {
-    case Critical:
-        ErrorMsg(message.c_str());
-        break;
     case Error:
         ErrorMsg(message.c_str());
         break;
@@ -212,12 +209,12 @@ std::vector<byte> GlobalData::LoadTextureIndex(int gameVersion)
 
 void GlobalData::LoadArrowTexture(CTexture& texture)
 {
-    DrawHelpers::LoadTextureFromResource(&texture, IDR_ARROW_TEXTURE);
+    LoadTextureFromResource(&texture, IDR_ARROW_TEXTURE);
 }
 
 void GlobalData::LoadIconTexture(int iconNumber, CTexture& texture)
 {
-    DrawHelpers::LoadTextureFromResource(&texture, IDR_SMOKE_ICON + iconNumber);
+    LoadTextureFromResource(&texture, IDR_SMOKE_ICON + iconNumber);
 }
 
 bool GlobalData::MakeModFolders(const char* subfolderName)

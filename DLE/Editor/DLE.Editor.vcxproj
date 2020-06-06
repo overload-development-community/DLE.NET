@@ -298,7 +298,6 @@
     <ClInclude Include="wglew.h" />
     <ClInclude Include="buildmodel.h" />
     <ClInclude Include="oglmatrix.h" />
-    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Selection.h" />
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="TextureFilter.h" />
@@ -382,7 +381,6 @@
     <ClCompile Include="ViewMatrix.cpp" />
     <ClCompile Include="ASERenderModel.cpp" />
     <ClCompile Include="buildmodel.cpp" />
-    <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Selection.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="TextureFilter.cpp" />

@@ -672,6 +672,18 @@ return true;
 
 //------------------------------------------------------------------------------
 
+bool CTexture::LoadTGA(char* pszFile)
+{
+	std::unique_ptr<IFileManager> fp{ g_data.CreateFileManager() };
+	if (!fp || !fp->Open(pszFile, "rb"))
+		return false;
+	bool bSuccess = LoadTGA(*fp);
+	fp->Close();
+	return bSuccess;
+}
+
+//------------------------------------------------------------------------------
+
 inline int Sqr (int i)
 {
 return i * i;

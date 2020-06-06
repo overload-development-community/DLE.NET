@@ -41,6 +41,7 @@
 #include "OOFModel.h"
 #include "rendermodel.h"
 
+#include "ResourceManager.h"
 #include "FileManager.h"
 #include "MemoryFile.h"
 #include "SegmentManager.h"

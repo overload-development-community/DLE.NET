@@ -6,8 +6,6 @@ public:
 	static void DrawGameObjectBitmap(CGameObject* object, CWnd* pWindow);
 
 	static bool TGA2Bitmap(tRGBA* pTGA, ubyte* pBM, int nWidth, int nHeight);
-	static bool LoadTGATexture(CTexture* texture, char* pszFile);
-	static void LoadTextureFromResource(CTexture* texture, int nId);
 	static bool CreateBitmapFromTexture(const CTexture* texture, CBitmap** ppImage, bool bScale = false, int width = -1, int height = -1);
 
 	static bool GLCreateTexture(CTexture* texture, bool bForce);

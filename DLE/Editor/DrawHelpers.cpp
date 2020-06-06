@@ -254,26 +254,6 @@ pWindow->UpdateWindow ();
 return bShowTexture;
 }
 
-bool DrawHelpers::LoadTGATexture(CTexture* texture, char* pszFile)
-{
-	CFileManager fp;
-
-	if (!fp.Open(pszFile, "rb"))
-		return false;
-	bool bSuccess = texture->LoadTGA(fp);
-	fp.Close();
-	return bSuccess;
-}
-
-void DrawHelpers::LoadTextureFromResource(CTexture* texture, int nId)
-{
-	CResource res;
-	ubyte* pData = res.Load(nId);
-	if (!pData)
-		return;
-	texture->LoadFromData(pData, res.Size());
-}
-
 bool CenterBitmapInBuffer (CBGRA *pDestBuffer, int destWidth, int destHeight, const CBGRA *pSrcBuffer, int srcWidth, int srcHeight)
 {
 if (!pDestBuffer || !pSrcBuffer)

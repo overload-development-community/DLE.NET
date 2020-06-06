@@ -65,27 +65,44 @@ void GlobalData::EnsureValidSelection()
 void GlobalData::Trace(TraceLevel level, std::string message)
 {
     auto clrMessage = msclr::interop::marshal_as<System::String^>(message);
-    g_proxyDelegateManager->OnTrace(level, clrMessage);
+    auto clrTraceLevel = static_cast<System::Diagnostics::TraceLevel>(level);
+    g_proxyDelegateManager->OnTrace(clrTraceLevel, clrMessage);
 }
 
 void GlobalData::InitProgress(int maxPosition)
 {
-    DLE.MainFrame()->InitProgress(maxPosition);
+    auto tracker = g_proxyDelegateManager->GetProgressTracker();
+    if (tracker)
+    {
+        tracker->InitializeProgress(maxPosition);
+    }
 }
 
 void GlobalData::UpdateProgress(int position)
 {
-    DLE.MainFrame()->Progress().SetPos(position);
+    auto tracker = g_proxyDelegateManager->GetProgressTracker();
+    if (tracker)
+    {
+        tracker->SetProgress(position);
+    }
 }
 
 void GlobalData::StepProgress()
 {
-    DLE.MainFrame()->Progress().StepIt();
+    auto tracker = g_proxyDelegateManager->GetProgressTracker();
+    if (tracker)
+    {
+        tracker->IncrementProgress();
+    }
 }
 
 void GlobalData::CleanupProgress()
 {
-    DLE.MainFrame()->Progress().DestroyWindow();
+    auto tracker = g_proxyDelegateManager->GetProgressTracker();
+    if (tracker)
+    {
+        tracker->CleanupProgress();
+    }
 }
 
 IRenderer* GlobalData::GetRenderer()
@@ -111,7 +128,15 @@ void GlobalData::SetD2Path(const char* newPath)
 
 const char* GlobalData::GetAppFolder()
 {
-    return DLE.AppFolder();
+    static std::string appFolder;
+    if (appFolder.length() == 0)
+    {
+        auto process = System::Diagnostics::Process::GetCurrentProcess();
+        auto fullPath = process->MainModule->FileName;
+        auto folder = System::IO::Path::GetDirectoryName(fullPath);
+        appFolder = msclr::interop::marshal_as<std::string>(folder);
+    }
+    return appFolder.c_str();
 }
 
 const char* GlobalData::GetMissionFolder()
@@ -188,12 +213,12 @@ std::vector<byte> GlobalData::LoadTextureIndex(int gameVersion)
 
 void GlobalData::LoadArrowTexture(CTexture& texture)
 {
-    DrawHelpers::LoadTextureFromResource(&texture, IDR_ARROW_TEXTURE);
+    LoadTextureFromResource(&texture, IDR_ARROW_TEXTURE);
 }
 
 void GlobalData::LoadIconTexture(int iconNumber, CTexture& texture)
 {
-    DrawHelpers::LoadTextureFromResource(&texture, IDR_SMOKE_ICON + iconNumber);
+    LoadTextureFromResource(&texture, IDR_SMOKE_ICON + iconNumber);
 }
 
 bool GlobalData::MakeModFolders(const char* subfolderName)
