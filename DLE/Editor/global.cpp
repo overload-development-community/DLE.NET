@@ -279,11 +279,6 @@ std::vector<byte> GlobalData::LoadPaletteData(const char* paletteName)
     return ::LoadResourceAsBlob(resourceId);
 }
 
-UINT GlobalData::GetPaletteEntries(UINT nStartIndex, UINT nNumEntries, LPPALETTEENTRY lpPaletteColors)
-{
-    return RenderCurrentPalette()->GetPaletteEntries(nStartIndex, nNumEntries, lpPaletteColors);
-}
-
 void GlobalData::SetDocumentModifiedFlag(bool modified)
 {
     DLE.GetDocument()->SetModifiedFlag(modified);

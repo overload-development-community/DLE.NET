@@ -339,7 +339,8 @@ if (!pDC) {
 	}
 BITMAPINFO* bmi = paletteManager.BMI ();
 
-CPalette *oldPalette = pDC->SelectPalette (RenderCurrentPalette(), FALSE);
+auto palette = CPalette::FromHandle(paletteManager.RenderCurrentPalette());
+CPalette *oldPalette = pDC->SelectPalette (palette, FALSE);
 pDC->RealizePalette ();
 pDC->SetStretchBltMode (STRETCH_DELETESCANS);
 int x = 0;

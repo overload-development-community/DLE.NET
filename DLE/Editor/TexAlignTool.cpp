@@ -424,7 +424,8 @@ if (tex.BlendTextures (pSide->BaseTex (), pSide->OvlTex (), 0, 0)) {
 	DEBUGMSG (" Texture tool: Texture not found (textureManager.BlendTextures failed)");
 	return;
 	}
-oldPalette = pDC->SelectPalette (RenderCurrentPalette(), FALSE);
+auto palette = CPalette::FromHandle(paletteManager.RenderCurrentPalette());
+oldPalette = pDC->SelectPalette (palette, FALSE);
 pDC->RealizePalette();
 hRgn.CreatePolygonRgn (m_apts, pSide->VertexCount (), ALTERNATE);
 pDC->SelectObject (&hRgn);

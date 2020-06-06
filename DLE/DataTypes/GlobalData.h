@@ -238,7 +238,6 @@ public:
 	void ResetTextureView();
 	void RefreshObjectTool();
 	std::vector<byte> LoadPaletteData(const char* paletteName);
-	UINT GetPaletteEntries(UINT nStartIndex, UINT nNumEntries, LPPALETTEENTRY lpPaletteColors);
 	void SetDocumentModifiedFlag(bool modified);
 	void ResetSelections();
 	ISelection* CreateSelectionFromSide(CSideKey sideKey);

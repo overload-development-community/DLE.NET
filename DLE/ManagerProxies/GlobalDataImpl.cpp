@@ -256,24 +256,25 @@ int GetPaletteResourceId(const char* pszName)
         {"", 0}
     };
 
-    char szName[256]{};
-    if (!pszName || !*pszName)
+    System::String^ pigPath;
+    if (!pszName || strlen(pszName) == 0)
     {
         if (theMine && g_data.IsD1File())
         {
             return IDR_PALETTE_256;
         }
-        CFileManager::SplitPath(descentFolder[1], nullptr, szName, nullptr);
+        pigPath = gcnew System::String(descentFolder[1]);
     }
     else
     {
-        CFileManager::SplitPath(pszName, nullptr, szName, nullptr);
+        pigPath = gcnew System::String(pszName);
     }
-    _strlwr(szName);
+    auto paletteName = System::IO::Path::GetFileNameWithoutExtension(pigPath)->ToLower();
+    auto stdPaletteName = msclr::interop::marshal_as<std::string>(paletteName);
 
-    if (palettes.count(std::string(szName)) != 0)
+    if (palettes.count(stdPaletteName) != 0)
     {
-        return palettes.at(std::string(szName));
+        return palettes.at(stdPaletteName);
     }
     return IDR_GROUPA_256;
 }
@@ -282,11 +283,6 @@ std::vector<byte> GlobalData::LoadPaletteData(const char* paletteName)
 {
     auto resourceId = GetPaletteResourceId(paletteName);
     return ::LoadResourceAsBlob(resourceId);
-}
-
-UINT GlobalData::GetPaletteEntries(UINT nStartIndex, UINT nNumEntries, LPPALETTEENTRY lpPaletteColors)
-{
-    return RenderCurrentPalette()->GetPaletteEntries(nStartIndex, nNumEntries, lpPaletteColors);
 }
 
 void GlobalData::SetDocumentModifiedFlag(bool modified)
