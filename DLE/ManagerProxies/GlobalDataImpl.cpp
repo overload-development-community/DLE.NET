@@ -13,9 +13,6 @@
 #include "VertexManager.h"
 #include "mine.h"
 
-char descentFolder[2][256] = { "\\programs\\d2\\data", "\\programs\\d2\\data" };
-char missionFolder[256] = "\\programs\\d2\\missions";
-
 CMissionData missionData;
 
 GlobalData g_data{ &lightManager, &modelManager, &objectManager,
@@ -56,11 +53,8 @@ void GlobalData::RefreshToolView()
 
 void GlobalData::EnsureValidSelection()
 {
-    // wrap back then forward to make sure segment is valid
-    Wrap(current->m_nSegment, -1, 0, ::segmentManager.Count() - 1);
-    Wrap(current->m_nSegment, 1, 0, ::segmentManager.Count() - 1);
-    Wrap(other->m_nSegment, -1, 0, ::segmentManager.Count() - 1);
-    Wrap(other->m_nSegment, 1, 0, ::segmentManager.Count() - 1);
+    // Called from block delete and undo. Will re-implement the undo part differently later.
+    // UI can probably decide what to do about block delete.
 }
 
 void GlobalData::Trace(TraceLevel level, std::string message)
@@ -108,23 +102,28 @@ void GlobalData::CleanupProgress()
 
 IRenderer* GlobalData::GetRenderer()
 {
-    return nullptr;
-    //return &DLE.MineView()->Renderer();
+    return &DLE.MineView()->Renderer();
 }
 
 const char* GlobalData::GetD1Path()
 {
-    return descentFolder[0];
+    // This is kind of ugly but we don't have anywhere safe to deallocate it
+    static std::string d1Path;
+    d1Path = msclr::interop::marshal_as<std::string>(g_proxyDelegateManager->GetD1PigPath());
+    return d1Path.c_str();
 }
 
 const char* GlobalData::GetD2Path()
 {
-    return descentFolder[1];
+    static std::string d2Path;
+    d2Path = msclr::interop::marshal_as<std::string>(g_proxyDelegateManager->GetD2PigPath());
+    return d2Path.c_str();
 }
 
 void GlobalData::SetD2Path(const char* newPath)
 {
-    strcpy_s(descentFolder[1], newPath);
+    auto clrPath = gcnew System::String(newPath);
+    g_proxyDelegateManager->ChangeD2PigPath(clrPath);
 }
 
 const char* GlobalData::GetAppFolder()
@@ -142,12 +141,14 @@ const char* GlobalData::GetAppFolder()
 
 const char* GlobalData::GetMissionFolder()
 {
-    return missionFolder;
+    static std::string missionFolder;
+    missionFolder = msclr::interop::marshal_as<std::string>(g_proxyDelegateManager->GetMissionFolder());
+    return missionFolder.c_str();
 }
 
 double GlobalData::GetMineMoveRate()
 {
-    return DLE.MineView()->MineMoveRate();
+    return g_proxyDelegateManager->GetMineMoveRate();
 }
 
 std::vector<byte> GlobalData::LoadResourceAsBlob(const char* resourceName)
@@ -224,23 +225,29 @@ void GlobalData::LoadIconTexture(int iconNumber, CTexture& texture)
 
 bool GlobalData::MakeModFolders(const char* subfolderName)
 {
-    return DLE.MakeModFolders(subfolderName);
+    // Leaving this unimplemented for now, it's not MFC-dependent but the mod folder
+    // code is messy and needs rewriting. Especially the magic folder numbers.
+    //return DLE.MakeModFolders(subfolderName);
+    return false;
 }
 
 const char* GlobalData::GetModFolder(int folderNumber)
 {
-    return DLE.m_modFolders[folderNumber];
+    //return DLE.m_modFolders[folderNumber];
+    return nullptr;
 }
 
 void GlobalData::ResetTextureView()
 {
-    DLE.TextureView()->Setup();
-    DLE.TextureView()->Refresh();
+    // The editor should probably know to do this itself. We shouldn't need to tell it.
+    //DLE.TextureView()->Setup();
+    //DLE.TextureView()->Refresh();
 }
 
 void GlobalData::RefreshObjectTool()
 {
-    DLE.ToolView()->ObjectTool()->Refresh();
+    // As above.
+    //DLE.ToolView()->ObjectTool()->Refresh();
 }
 
 int GetPaletteResourceId(const char* pszName)
@@ -263,7 +270,7 @@ int GetPaletteResourceId(const char* pszName)
         {
             return IDR_PALETTE_256;
         }
-        pigPath = gcnew System::String(descentFolder[1]);
+        pigPath = g_proxyDelegateManager->GetD2PigPath();
     }
     else
     {
@@ -287,14 +294,11 @@ std::vector<byte> GlobalData::LoadPaletteData(const char* paletteName)
 
 void GlobalData::SetDocumentModifiedFlag(bool modified)
 {
-    DLE.GetDocument()->SetModifiedFlag(modified);
+    //DLE.GetDocument()->SetModifiedFlag(modified);
 }
 
 void GlobalData::ResetSelections()
 {
-    DLE.MainFrame()->SetSelectMode(eSelectSide);
-    current->Reset();
-    other->Reset();
 }
 
 ISelection* GlobalData::CreateSelectionFromSide(CSideKey sideKey)
