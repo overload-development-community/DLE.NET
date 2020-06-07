@@ -240,7 +240,6 @@ public:
 	std::vector<byte> LoadPaletteData(const char* paletteName);
 	void SetDocumentModifiedFlag(bool modified);
 	void ResetSelections();
-	ISelection* CreateSelectionFromSide(CSideKey sideKey);
 
 	// Can't include DrawHelpers.h in DLE.DataTypes due to MFC...
 	// may move this later

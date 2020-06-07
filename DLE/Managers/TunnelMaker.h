@@ -55,7 +55,6 @@ class CTunnelBase {
 			UpdateSide = 2
 		};
 
-		ISelection* m_selection;
 		CSideKey m_sideKey;
 		short m_nPoint;
 
@@ -68,11 +67,11 @@ class CTunnelBase {
 		bool				m_bStart;
 		eUpdateStatus	m_updateStatus;
 
-		CTunnelBase(CSideKey key = CSideKey(-1, -1)) : m_sideKey(key), m_selection(nullptr) {}
+		CTunnelBase(CSideKey key = CSideKey(-1, -1)) : m_sideKey(key) {}
 
-		CTunnelBase(CDoubleVector point, CDoubleVector normal) : m_selection(nullptr), m_point(point), m_normal(normal), m_sideKey(CSideKey(-1, -1)) {}
+		CTunnelBase(CDoubleVector point, CDoubleVector normal) : m_point(point), m_normal(normal), m_sideKey(CSideKey(-1, -1)) {}
 
-		void Setup (ISelection* selection, double sign, bool bStart);
+		void Setup (const CSideKey& side, short point, double sign, bool bStart);
 
 		eUpdateStatus IsUpdateNeeded (ISelection* selection, bool bStartSidesTagged = false);
 

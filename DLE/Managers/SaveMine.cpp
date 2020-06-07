@@ -448,8 +448,7 @@ else {
 		sprintf_s (path, "/entities/%d/rotation", nDoor);
 		Value& rotation = Pointer (path).Create (document).SetArray ();
 		CTunnelBase sideOrientation;
-		std::unique_ptr<ISelection> wallSide(g_data.CreateSelectionFromSide(*pWall));
-		sideOrientation.Setup (wallSide.get(), -1.0, true);
+		sideOrientation.Setup (*pWall, DEFAULT_POINT, -1.0, true);
 		for (size_t i = 0; i < 4; i++)
 			for (size_t j = 0; j < 4; j++) {
 				if (i == 3 && j == 3)

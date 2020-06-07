@@ -166,15 +166,14 @@ for (int i = 0; i < 4; i++)
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 
-void CTunnelBase::Setup (ISelection* selection, double sign, bool bStart)
+void CTunnelBase::Setup (const CSideKey& side, short point, double sign, bool bStart)
 {
 m_bStart = bStart;
-if (selection) {
-	m_selection = selection;
-	m_sideKey.m_nSegment = selection->SegmentId();
-	m_sideKey.m_nSide = selection->SideId();
-	m_nPoint = selection->Point();
-	}
+if (side.m_nSegment != -1)
+{
+	m_sideKey = side;
+	m_nPoint = point;
+}
 m_sign = sign;
 CSegment* pSegment = segmentManager.Segment (m_sideKey.m_nSegment);
 CSide* pSide = pSegment->Side (m_sideKey.m_nSide);
@@ -356,16 +355,19 @@ if (path.m_bMorph) {
 	if (!vMorph.Create (nSideVertices) || !nVertexMap.Create (nVertices))
 		return false;
 	for (ushort nVertex = 0; nVertex < nSideVertices; nVertex++) {
-		CVertex vStart = *path.m_base [0].m_selection->Vertex (nVertex);
+		auto pVertex = path.m_base[0].Segment()->Vertex(
+			path.m_base[0].Side()->VertexIdIndex(path.m_base[0].m_nPoint + nVertex));
+		CVertex vStart = *pVertex;
 		vStart -= path.m_base [0].m_point; // un-translate (make relative to tunnel start)
 		vStart = path.m_base [0].m_rotation * vStart; // un-rotate
-		CVertex vEnd = *path.m_base [1].m_selection->Vertex (nSideVertices + 1 - nVertex);
+		CVertex vEnd = *path.m_base[1].Segment()->Vertex(
+			path.m_base[1].Side()->VertexIdIndex(path.m_base[1].m_nPoint + (nSideVertices + 1 - nVertex)));
 		vEnd -= path.m_base [1].m_point; // un-translate (make relative to tunnel end)
 		vEnd = path.m_base [1].m_rotation * vEnd; // un-rotate
 		vMorph [nVertex] = vEnd - vStart;
 
 		for (ushort nStartVertex = 0; nStartVertex < nVertices; nStartVertex++)
-			if (vertexManager.Index (path.m_base [0].m_selection->Vertex (nVertex)) == path.m_nStartVertices [nStartVertex]) {
+			if (vertexManager.Index (pVertex) == path.m_nStartVertices [nStartVertex]) {
 				nVertexMap [nStartVertex] = nVertex;
 				break;
 				}
@@ -1114,24 +1116,28 @@ bool CTunnelMaker::CalculateTunnel (bool bNewTunnelMakerInstance)
 	bool bRegeneratePath = bNewTunnelMakerInstance;
 	bool bRegenerateStartSides = bNewTunnelMakerInstance;
 	auto current = g_data.currentSelection;
+	CSideKey currentKey;
+	current->Get(currentKey);
 	auto other = g_data.otherSelection;
+	CSideKey otherKey;
+	other->Get(otherKey);
 
 if (bNewTunnelMakerInstance) {
-	m_base [0].Setup (current, -1.0, true);
-	m_base [1].Setup (other, 1.0, false);
+	m_base [0].Setup (currentKey, current->Point(), -1.0, true);
+	m_base [1].Setup (otherKey, other->Point(), 1.0, false);
 	}
 else {
 	if (m_base [0].m_updateStatus == CTunnelBase::UpdateOrientation) 
-		m_base [0].Setup (null, -1.0, true);
+		m_base [0].Setup (CSideKey(), 0, -1.0, true);
 	else if (m_base [0].m_updateStatus == CTunnelBase::UpdateSide) {
-		m_base [0].Setup (current, -1.0, true);
+		m_base [0].Setup (currentKey, current->Point(), -1.0, true);
 		bRegeneratePath = true;
 		bRegenerateStartSides = true;
 		}
 	if (m_base [1].m_updateStatus == CTunnelBase::UpdateOrientation) 
-		m_base [1].Setup (null, 1.0, false);
+		m_base [1].Setup (CSideKey(), 0, 1.0, false);
 	else if (m_base [1].m_updateStatus == CTunnelBase::UpdateSide) {
-		m_base [1].Setup (current, 1.0, false);
+		m_base [1].Setup (currentKey, current->Point(), 1.0, false);
 		bRegeneratePath = true;
 		}
 	}
@@ -1160,7 +1166,7 @@ if (current->Segment ()->HasChild (current->SideId ()) || other->Segment ()->Has
 // If there is more than one start side, we know they have to be tagged
 bool bStartSidesTagged = m_path.m_startSides.Length () > 1 ||
 	segmentManager.Side (CSideKey (m_path.m_startSides [0].m_nSegment, m_path.m_startSides [0].m_nSide))->IsTagged ();
-if (g_data.currentSelection == m_base [0].m_selection) {
+if (CSideKey(current->SegmentId(), current->SideId()) == m_base [0].m_sideKey && current->Point() == m_base [0].m_nPoint) {
 	if (m_base [0].IsUpdateNeeded (current, bStartSidesTagged))
 		return CalculateTunnel (false);
 	}

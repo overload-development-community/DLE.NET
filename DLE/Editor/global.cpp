@@ -291,11 +291,6 @@ void GlobalData::ResetSelections()
     other->Reset();
 }
 
-ISelection* GlobalData::CreateSelectionFromSide(CSideKey sideKey)
-{
-    return new CSelection(sideKey);
-}
-
 bool GlobalData::GLCreateTexture(CTexture* texture, bool bForce)
 {
     return DrawHelpers::GLCreateTexture(texture, bForce);
