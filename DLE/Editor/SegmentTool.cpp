@@ -527,7 +527,8 @@ void CSegmentTool::OnAddSegment ()
 			return;
 	}
 
-	segmentManager.AddSegments();
+	auto nSegment = segmentManager.AddSegments(current);
+	current->SetSegmentId(nSegment);
 	DLE.MineView()->Refresh();
 }
 
@@ -537,9 +538,14 @@ void CSegmentTool::OnAddSegment ()
 
 void CSegmentTool::OnDeleteSegment () 
 {
-CHECKMINE;
-segmentManager.Delete (current->SegmentId ());
-DLE.MineView ()->Refresh ();
+    CHECKMINE;
+    auto segmentId = current->SegmentId();
+    segmentManager.Delete(segmentId);
+    current->Fix(segmentId);
+    other->Fix(segmentId);
+    current->FixObject();
+    other->FixObject();
+    DLE.MineView()->Refresh();
 }
 
 //------------------------------------------------------------------------
@@ -633,7 +639,7 @@ for (nSegment = nMinSeg; nSegment < nMaxSeg; nSegment++, pSegment++) {
 	switch (nNewFunction) {
 		// check to see if we are adding a robot maker
 		case SEGMENT_FUNC_ROBOTMAKER:
-			if (!segmentManager.CreateRobotMaker (nSegment, false, m_bSetDefTexture == 1)) {
+			if (!segmentManager.CreateRobotMaker (*current, nSegment, false, m_bSetDefTexture == 1)) {
 				undoManager.Unroll (__FUNCTION__);
 				goto funcExit;
 				}
@@ -643,14 +649,14 @@ for (nSegment = nMinSeg; nSegment < nMaxSeg; nSegment++, pSegment++) {
 		// check to see if we are adding a fuel center
 		case SEGMENT_FUNC_REPAIRCEN:
 		case SEGMENT_FUNC_PRODUCER:
-			if (!segmentManager.CreateProducer (nSegment, nNewFunction, false, (nNewFunction == SEGMENT_FUNC_PRODUCER) && (m_bSetDefTexture == 1))) {
+			if (!segmentManager.CreateProducer (*current, nSegment, nNewFunction, false, (nNewFunction == SEGMENT_FUNC_PRODUCER) && (m_bSetDefTexture == 1))) {
 				undoManager.Unroll (__FUNCTION__);
 				goto funcExit;
 				}
 			break;
 
 		case SEGMENT_FUNC_REACTOR:
-			if (!segmentManager.CreateReactor (nSegment, false, m_bSetDefTexture == 1)) {
+			if (!segmentManager.CreateReactor (*current, nSegment, false, m_bSetDefTexture == 1)) {
 				undoManager.Unroll (__FUNCTION__);
 				goto funcExit;
 				}
@@ -658,28 +664,28 @@ for (nSegment = nMinSeg; nSegment < nMaxSeg; nSegment++, pSegment++) {
 
 		case SEGMENT_FUNC_GOAL_BLUE:
 		case SEGMENT_FUNC_GOAL_RED:
-			if (!segmentManager.CreateGoal (nSegment, false, m_bSetDefTexture == 1, nNewFunction, -1))
+			if (!segmentManager.CreateGoal (*current, nSegment, false, m_bSetDefTexture == 1, nNewFunction, -1))
 				goto errorExit;		
 			break;
 
 		case SEGMENT_FUNC_TEAM_BLUE:
 		case SEGMENT_FUNC_TEAM_RED:
-			if (!segmentManager.CreateTeam (nSegment, false, false, nNewFunction, -1))
+			if (!segmentManager.CreateTeam (*current, nSegment, false, false, nNewFunction, -1))
 				goto errorExit;		
 			break;
 
 		case SEGMENT_FUNC_SPEEDBOOST:
-			if (!segmentManager.CreateSpeedBoost (nSegment, false))
+			if (!segmentManager.CreateSpeedBoost (*current, nSegment, false))
 				goto errorExit;
 			break;
 
 		case SEGMENT_FUNC_SKYBOX:
-			if (!segmentManager.CreateSkybox (nSegment, false))
+			if (!segmentManager.CreateSkybox (*current, nSegment, false))
 				goto errorExit;
 			break;
 
 		case SEGMENT_FUNC_EQUIPMAKER:
-			if (!segmentManager.CreateEquipMaker (nSegment, false))
+			if (!segmentManager.CreateEquipMaker (*current, nSegment, false))
 				goto errorExit;
 			Refresh ();
 			break;
@@ -929,7 +935,7 @@ DLE.MineView ()->Refresh ();
 void CSegmentTool::OnAddRobotMaker ()
 {
 CHECKMINE;
-segmentManager.CreateRobotMaker ();
+segmentManager.CreateRobotMaker (*current);
 m_nLastSegment = -1;
 Refresh ();
 }
@@ -939,7 +945,7 @@ Refresh ();
 void CSegmentTool::OnAddEquipMaker ()
 {
 CHECKMINE;
-segmentManager.CreateEquipMaker ();
+segmentManager.CreateEquipMaker (*current);
 m_nLastSegment = -1;
 Refresh ();
 }
@@ -949,7 +955,7 @@ Refresh ();
 void CSegmentTool::OnAddProducer ()
 {
 CHECKMINE;
-segmentManager.CreateProducer ();
+segmentManager.CreateProducer (*current);
 }
 
 //------------------------------------------------------------------------------
@@ -957,7 +963,7 @@ segmentManager.CreateProducer ();
 void CSegmentTool::OnAddRepairCenter ()
 {
 CHECKMINE;
-segmentManager.CreateProducer (-1, SEGMENT_FUNC_REPAIRCEN);
+segmentManager.CreateProducer (*current, -1, SEGMENT_FUNC_REPAIRCEN);
 }
 
 //------------------------------------------------------------------------------
@@ -965,7 +971,7 @@ segmentManager.CreateProducer (-1, SEGMENT_FUNC_REPAIRCEN);
 void CSegmentTool::OnAddReactor ()
 {
 CHECKMINE;
-segmentManager.CreateReactor ();
+segmentManager.CreateReactor (*current);
 }
 
 //------------------------------------------------------------------------------
@@ -973,7 +979,7 @@ segmentManager.CreateReactor ();
 void CSegmentTool::OnSplitSegmentIn7 ()
 {
 CHECKMINE;
-segmentManager.SplitIn7 ();
+segmentManager.SplitIn7 (current->Segment());
 }
 
 //------------------------------------------------------------------------------
@@ -981,7 +987,7 @@ segmentManager.SplitIn7 ();
 void CSegmentTool::OnCreateWedge ()
 {
 CHECKMINE;
-segmentManager.CreateWedge ();
+segmentManager.CreateWedge (current);
 }
 
 //------------------------------------------------------------------------------
@@ -989,7 +995,7 @@ segmentManager.CreateWedge ();
 void CSegmentTool::OnCreatePyramid ()
 {
 CHECKMINE;
-segmentManager.CreatePyramid ();
+segmentManager.CreatePyramid (current);
 }
 
 //------------------------------------------------------------------------------

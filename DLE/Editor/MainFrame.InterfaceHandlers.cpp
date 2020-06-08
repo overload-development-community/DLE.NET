@@ -335,7 +335,7 @@ void CMainFrame::OnTunnelGenerator ()
 	ShowTools();
 	if (!tunnelMaker.Active(false))
 	{
-		tunnelMaker.Start();
+		tunnelMaker.Start(current, other);
 	}
 	else
 	{
@@ -354,12 +354,12 @@ ToolView ()->EditTxtFilters ();
 
 void CMainFrame::OnIncSpline () 
 {
-tunnelMaker.Stretch ();
+tunnelMaker.Stretch (current);
 }
 
 void CMainFrame::OnDecSpline () 
 {
-tunnelMaker.Shrink ();
+tunnelMaker.Shrink (current);
 }
 
 void CMainFrame::OnFinerTunnel () 
@@ -424,23 +424,23 @@ appSettings.TogglePerspective ();
 
 void CMainFrame::OnMakePointsParallel () 
 {
-segmentManager.MakePointsParallel ();
+segmentManager.MakePointsParallel (current);
 }
 
 void CMainFrame::OnViewCollapseEdge () 
 {
-if (segmentManager.CollapseEdge ())
+if (segmentManager.CollapseEdge (current->SegmentId(), current->SideId(), current->Edge()))
 	MineView ()->NextSide ();
 }
 
 void CMainFrame::OnViewCreateWedge () 
 {
-segmentManager.CreateWedge ();
+segmentManager.CreateWedge (current);
 }
 
 void CMainFrame::OnViewCreatePyramid () 
 {
-segmentManager.CreatePyramid ();
+segmentManager.CreatePyramid (current);
 }
 
 void CMainFrame::OnViewShiftVertices () 
@@ -540,7 +540,7 @@ void CMainFrame::OnJoinPoints ()
 	if (QueryMsg("Are you sure you want to join the current point\n"
 		"with the 'other' segment's current point?") == IDYES)
 	{
-		segmentManager.JoinPoints();
+		segmentManager.JoinPoints(current, other);
 	}
 }
 
@@ -549,39 +549,41 @@ void CMainFrame::OnJoinLines ()
 	if (QueryMsg("Are you sure you want to join the current line\n"
 		"with the 'other' segment's current line?") == IDYES)
 	{
-		segmentManager.JoinLines();
+		segmentManager.JoinLines(current, other);
 	}
 }
 
-void CMainFrame::OnJoinSides ()
+void CMainFrame::OnJoinSides()
 {
-	// There are two cases, insert a segment or not, and this is for only one.
-	// New version needs a fix
-	if (QueryMsg("Do you want to create a new segment which\n"
-		"connects the current side with the 'other' side?\n\n"
-		"Hint: Make sure you have the current point of each segment\n"
-		"on the corners you want to be connected.\n"
-		"(the 'P' key selects the current point)") == IDYES)
-	{
-		segmentManager.Join(*current, false);
-	}
+    // There are two cases, insert a segment or not, and this is for only one.
+    // New version needs a fix
+    if (QueryMsg("Do you want to create a new segment which\n"
+        "connects the current side with the 'other' side?\n\n"
+        "Hint: Make sure you have the current point of each segment\n"
+        "on the corners you want to be connected.\n"
+        "(the 'P' key selects the current point)") == IDYES)
+    {
+        segmentManager.Join(current, other);
+    }
 }
 
-void CMainFrame::OnJoinCurrentSide ()
+void CMainFrame::OnJoinCurrentSide()
 {
-segmentManager.Join (*current, true);
+    segmentManager.Join(current, nullptr);
 }
 
 void CMainFrame::OnJoinSegments ()
 {
-segmentManager.JoinSegments ();
+    auto otherSegmentId = other->SegmentId();
+    segmentManager.JoinSegments(current, other);
+    other->Fix(otherSegmentId);
 }
 
 void CMainFrame::OnSplitPoints ()
 {
 	if (QueryMsg("Are you sure you want to unjoin this point?") == IDYES)
 	{
-		segmentManager.SeparatePoints();
+		segmentManager.SeparatePoints(*current, current->VertexId());
 	}
 }
 
@@ -589,7 +591,7 @@ void CMainFrame::OnSplitLines ()
 {
 	if (QueryMsg("Are you sure you want to unjoin this line?") == IDYES)
 	{
-		segmentManager.SeparateLines();
+		segmentManager.SeparateLines(current);
 	}
 }
 
@@ -597,7 +599,7 @@ void CMainFrame::OnSplitSides ()
 {
 	if (QueryMsg("Are you sure you want to unjoin this side?") == IDYES)
 	{
-		segmentManager.SeparateSegments();
+		segmentManager.SeparateSegments(current);
 	}
 }
 
@@ -605,7 +607,7 @@ void CMainFrame::OnSplitCurrentSide ()
 {
 	if (QueryMsg("Are you sure you want to unjoin this side?") == IDYES)
 	{
-		segmentManager.SeparateSegments(1);
+		segmentManager.SeparateSegments(current, 1);
 	}
 }
 
@@ -1022,7 +1024,7 @@ std::unique_ptr<CDoubleVector> GetLeftVectorIfApplicable()
 bool CMainFrame::EditGeoFwd (void)
 {
 	auto vector = GetForwardVectorIfApplicable();
-if (!theMine->EditGeoFwd (vector.get()))
+if (!theMine->EditGeoFwd (current, vector.get()))
 	return false;
 MineView ()->Refresh ();
 return true;
@@ -1031,7 +1033,7 @@ return true;
 bool CMainFrame::EditGeoUp (void)
 {
 	auto vector = GetUpVectorIfApplicable();
-if (!theMine->EditGeoUp (vector.get()))
+if (!theMine->EditGeoUp (current, vector.get()))
 	return false;
 MineView ()->Refresh ();
 return true;
@@ -1040,7 +1042,7 @@ return true;
 bool CMainFrame::EditGeoBack (void)
 {
 	auto vector = GetForwardVectorIfApplicable();
-if (!theMine->EditGeoBack (vector.get()))
+if (!theMine->EditGeoBack (current, vector.get()))
 	return false;
 MineView ()->Refresh ();
 return true;
@@ -1049,7 +1051,7 @@ return true;
 bool CMainFrame::EditGeoRotLeft (void)
 {
 	auto vector = GetForwardVectorIfApplicable();
-if (!theMine->EditGeoRotLeft (vector.get()))
+if (!theMine->EditGeoRotLeft (current, vector.get()))
 	return false;
 MineView ()->Refresh ();
 return true;
@@ -1057,7 +1059,7 @@ return true;
 
 bool CMainFrame::EditGeoGrow (void)
 {
-if (!theMine->EditGeoGrow ())
+if (!theMine->EditGeoGrow (current))
 	return false;
 MineView ()->Refresh ();
 return true;
@@ -1066,7 +1068,7 @@ return true;
 bool CMainFrame::EditGeoRotRight (void)
 {
 	auto vector = GetForwardVectorIfApplicable();
-if (!theMine->EditGeoRotRight (vector.get()))
+if (!theMine->EditGeoRotRight (current, vector.get()))
 	return false;
 MineView ()->Refresh ();
 return true;
@@ -1075,7 +1077,7 @@ return true;
 bool CMainFrame::EditGeoLeft (void)
 {
 	auto vector = GetLeftVectorIfApplicable();
-if (!theMine->EditGeoLeft (vector.get()))
+if (!theMine->EditGeoLeft (current, vector.get()))
 	return false;
 MineView ()->Refresh ();
 return true;
@@ -1084,7 +1086,7 @@ return true;
 bool CMainFrame::EditGeoDown (void)
 {
 	auto vector = GetUpVectorIfApplicable();
-if (!theMine->EditGeoDown (vector.get()))
+if (!theMine->EditGeoDown (current, vector.get()))
 	return false;
 MineView ()->Refresh ();
 return true;
@@ -1093,7 +1095,7 @@ return true;
 bool CMainFrame::EditGeoRight (void)
 {
 	auto vector = GetLeftVectorIfApplicable();
-if (!theMine->EditGeoRight (vector.get()))
+if (!theMine->EditGeoRight (current, vector.get()))
 	return false;
 MineView ()->Refresh ();
 return true;
@@ -1101,7 +1103,7 @@ return true;
 
 bool CMainFrame::EditGeoShrink (void)
 {
-if (!theMine->EditGeoShrink ())
+if (!theMine->EditGeoShrink (current))
 	return false;
 MineView ()->Refresh ();
 return true;
@@ -1357,21 +1359,21 @@ MineView ()->SelectOtherSide ();
 
 void CMainFrame::OnCollapseEdge () 
 {
-segmentManager.CollapseEdge ();
+segmentManager.CollapseEdge (current->SegmentId(), current->SideId(), current->Edge());
 }
 
 //------------------------------------------------------------------------------
 
 void CMainFrame::OnCreateWedge () 
 {
-segmentManager.CreateWedge ();
+segmentManager.CreateWedge (current);
 }
 
 //------------------------------------------------------------------------------
 
 void CMainFrame::OnCreatePyramid () 
 {
-segmentManager.CreatePyramid ();
+segmentManager.CreatePyramid (current);
 }
 
 //------------------------------------------------------------------------------
@@ -1412,6 +1414,8 @@ if (nVersion < 3) {
 	}
 if (nVersion < 2)
 	objectManager.DeleteVertigo ();
+current->FixObject();
+other->FixObject();
 DLE.MineView ()->DelayRefresh (false);
 DLE.MineView ()->Refresh ();
 }

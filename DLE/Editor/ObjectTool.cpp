@@ -657,7 +657,8 @@ if (objectManager.Count () >= MAX_OBJECTS) {
 	ErrorMsg ("Maximum numbers of objects reached");
 	return;
 	}
-objectManager.Create (OBJ_NONE);
+objectManager.Create (OBJ_NONE, current->Object(), current->SegmentId());
+current->SetObjectId(objectManager.Count() - 1);
 Refresh ();
 }
 
@@ -676,7 +677,7 @@ if (objectManager.Count () == 1) {
 	return;
 	}
 if (QueryMsg ("Are you sure you want to delete this object?") == IDYES) {
-	objectManager.Delete ();
+	objectManager.Delete (current->ObjectId());
 	Refresh ();
 	DLE.MineView ()->Refresh (false);
 	}
@@ -754,7 +755,7 @@ void CObjectTool::OnAdvanced ()
 
 void CObjectTool::OnMove ()
 {
-objectManager.Move ();
+objectManager.Move (current->Object(), current->SegmentId());
 Refresh ();
 }
 

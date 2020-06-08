@@ -268,7 +268,7 @@ for (x = -32 * y; x < 32 * y; x += 32) {
 	pDC->LineTo ((int) (offset.x + dy), (int) (offset.y + dx));
 	}	
 
-if (segmentManager.IsWall ()) {
+if (segmentManager.IsWall (*current)) {
 	// define array of screen points for (u,v) coordinates
 	for (i = 0; i < nEdges; i++) {
 		x = offset.x + (int) Round (m_zoom * pSide->m_info.uvls [i].u * 32.0);

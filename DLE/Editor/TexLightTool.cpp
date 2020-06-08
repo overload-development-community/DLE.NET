@@ -361,7 +361,7 @@ else {
 			}
 		}
 	}
-m_iLight = lightManager.VariableLight ();
+m_iLight = lightManager.VariableLight (*current);
 if (m_iLight < 0) {
 	OnLightOff ();
 	return;
@@ -422,7 +422,7 @@ void CTextureLightTool::OnDeleteLight ()
 {
 if (m_iLight < 0)
 	INFOMSG (" There is no variable light.")
-else if (lightManager.DeleteVariableLight ()) {
+else if (lightManager.DeleteVariableLight (*current)) {
 	m_iLight = -1;
 	UpdateLightWnd ();
 	DLE.MineView ()->Refresh ();

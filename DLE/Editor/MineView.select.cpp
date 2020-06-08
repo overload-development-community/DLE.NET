@@ -557,7 +557,7 @@ bool CMineView::SelectOtherSide ()
 {
 CSideKey opp;
 
-if (segmentManager.BackSide (opp) == null)
+if (segmentManager.BackSide (*current, opp) == null)
 	return false;
 
 *((CSideKey *) current) = opp;

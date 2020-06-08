@@ -931,7 +931,7 @@ if (IN_RANGE (points [2].m_screen.x, m_viewMax.x) && IN_RANGE (points [2].m_scre
 		renderer.BeginRender ();
 		}
 	}
-if (tunnelMaker.Update() && tunnelMaker.Create())
+if (tunnelMaker.Update(current, other) && tunnelMaker.Create())
 	Renderer().DrawTunnelMaker(ViewMatrix());
 }
 
@@ -1448,7 +1448,7 @@ if ((m_inputHandler.MouseState () == eMouseStateSelect && m_inputHandler.HasMous
 		}
 	}
 
-if (tunnelMaker.Update() && tunnelMaker.Create())
+if (tunnelMaker.Update(current, other) && tunnelMaker.Create())
 {
 	Renderer().DrawTunnelMaker(ViewMatrix());
 }

@@ -233,7 +233,7 @@ if (objectManager.Count () >= MAX_OBJECTS) {
 	return false;
 	}
 UpdateData (TRUE);
-objectManager.Create (OBJ_EFFECT);
+objectManager.Create (OBJ_EFFECT, current->Object(), current->SegmentId());
 return true;
 }
 
@@ -254,7 +254,7 @@ if (current->Object ()->m_info.type != OBJ_EFFECT) {
 	return;
 	}
 if (QueryMsg ("Are you sure you want to delete this object?") == IDYES) {
-	objectManager.Delete ();
+	objectManager.Delete (current->ObjectId());
 	Refresh ();
 	DLE.MineView ()->Refresh (false);
 	}
