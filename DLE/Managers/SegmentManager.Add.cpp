@@ -271,7 +271,7 @@ return nNewSeg;
 
 // ----------------------------------------------------------------------------- 
 
-short CSegmentManager::Create (ISelection* atSide, short nSegment, bool bCreate, ubyte nFunction, short nTexture, const char* szError)
+short CSegmentManager::Create (CSideKey key, short nSegment, bool bCreate, ubyte nFunction, short nTexture, const char* szError)
 {
 if ((szError != null) && g_data.IsD1File ()) {
 	g_data.Trace(Warning, szError);
@@ -279,10 +279,10 @@ if ((szError != null) && g_data.IsD1File ()) {
 	}
 
 if (bCreate) {
-	if (atSide->Side()->Child() != nullptr)
+	if (segmentManager.Side(key)->Child() != nullptr)
 		return -1;
 	undoManager.Begin (__FUNCTION__, udSegments);
-	nSegment = Create (*atSide, -1);
+	nSegment = Create (key, -1);
 	if (nSegment < 0) {
 		Remove (nSegment);
 		undoManager.End (__FUNCTION__);
@@ -296,7 +296,7 @@ g_data.DelayMineViewRefresh(true);
 m_bCreating = true;
 if (nSegment < 0)
 {
-	nSegment = atSide->SegmentId();
+	nSegment = key.m_nSegment;
 }
 if (!Define (nSegment, nFunction, -1)) {
 	if (bCreate)
@@ -316,7 +316,7 @@ return nSegment;
 
 // ----------------------------------------------------------------------------- 
 
-bool CSegmentManager::CreateProducer (ISelection* atSide, short nSegment, bool bCreate, ubyte nType, bool bSetDefTextures,
+bool CSegmentManager::CreateProducer (CSideKey key, short nSegment, bool bCreate, ubyte nType, bool bSetDefTextures,
 	CObjectProducer* producers, CMineItemInfo& info, const char* szError)
 {
 if (info.count >= MAX_MATCENS) {
@@ -324,7 +324,7 @@ if (info.count >= MAX_MATCENS) {
 	return false;
 	}
 undoManager.Begin (__FUNCTION__, udSegments);
-if (0 > (nSegment = Create (atSide, nSegment, bCreate, nType))) {
+if (0 > (nSegment = Create (key, nSegment, bCreate, nType))) {
 	undoManager.End (__FUNCTION__);
 	return false;
 	}
@@ -338,57 +338,57 @@ return true;
 
 // ----------------------------------------------------------------------------- 
 
-bool CSegmentManager::CreateEquipMaker (ISelection* atSide, short nSegment, bool bCreate, bool bSetDefTextures)
+bool CSegmentManager::CreateEquipMaker (CSideKey key, short nSegment, bool bCreate, bool bSetDefTextures)
 {
 if (!g_data.IsD2XLevel()) {
 	g_data.Trace(Error, "Equipment makers are only available in D2X-XL levels.");
 	return false;
 	}
-return CreateProducer (atSide, nSegment, bCreate, SEGMENT_FUNC_EQUIPMAKER, bSetDefTextures, EquipMaker (0), m_producerInfo [1], 
+return CreateProducer (key, nSegment, bCreate, SEGMENT_FUNC_EQUIPMAKER, bSetDefTextures, EquipMaker (0), m_producerInfo [1], 
 							"Maximum number of equipment makers reached");
 }
 
 // ----------------------------------------------------------------------------- 
 
-bool CSegmentManager::CreateRobotMaker (ISelection* atSide, short nSegment, bool bCreate, bool bSetDefTextures)
+bool CSegmentManager::CreateRobotMaker (CSideKey key, short nSegment, bool bCreate, bool bSetDefTextures)
 {
-return CreateProducer (atSide, nSegment, bCreate, SEGMENT_FUNC_ROBOTMAKER, bSetDefTextures, RobotMaker (0), m_producerInfo [0], 
+return CreateProducer (key, nSegment, bCreate, SEGMENT_FUNC_ROBOTMAKER, bSetDefTextures, RobotMaker (0), m_producerInfo [0], 
 							"Maximum number of robot makers reached");
 }
 
 // ----------------------------------------------------------------------------- 
 
-bool CSegmentManager::CreateReactor (ISelection* atSide, short nSegment, bool bCreate, bool bSetDefTextures)
+bool CSegmentManager::CreateReactor (CSideKey key, short nSegment, bool bCreate, bool bSetDefTextures)
 {
-return 0 <= Create (atSide, nSegment, bCreate, SEGMENT_FUNC_REACTOR, bSetDefTextures ? g_data.IsD1File () ? 10 : 357 : -1);
+return 0 <= Create (key, nSegment, bCreate, SEGMENT_FUNC_REACTOR, bSetDefTextures ? g_data.IsD1File () ? 10 : 357 : -1);
 }
 
 // ----------------------------------------------------------------------------- 
 
-bool CSegmentManager::CreateGoal (ISelection* atSide, short nSegment, bool bCreate, bool bSetDefTextures, ubyte nType, short nTexture)
+bool CSegmentManager::CreateGoal (CSideKey key, short nSegment, bool bCreate, bool bSetDefTextures, ubyte nType, short nTexture)
 {
-return 0 <= Create (atSide, nSegment, bCreate, nType, bSetDefTextures ? nTexture : -1, "Flag goals are not available in Descent 1.");
+return 0 <= Create (key, nSegment, bCreate, nType, bSetDefTextures ? nTexture : -1, "Flag goals are not available in Descent 1.");
 }
 
 // ----------------------------------------------------------------------------- 
 
-bool CSegmentManager::CreateTeam (ISelection* atSide, short nSegment, bool bCreate, bool bSetDefTextures, ubyte nType, short nTexture)
+bool CSegmentManager::CreateTeam (CSideKey key, short nSegment, bool bCreate, bool bSetDefTextures, ubyte nType, short nTexture)
 {
-return 0 <= Create (atSide, nSegment, bCreate, nType, bSetDefTextures ? nTexture : -1, "Team start positions are not available in Descent 1.");
+return 0 <= Create (key, nSegment, bCreate, nType, bSetDefTextures ? nTexture : -1, "Team start positions are not available in Descent 1.");
 }
 
 // ----------------------------------------------------------------------------- 
 
-bool CSegmentManager::CreateSkybox (ISelection* atSide, short nSegment, bool bCreate)
+bool CSegmentManager::CreateSkybox (CSideKey key, short nSegment, bool bCreate)
 {
-return 0 <= Create (atSide, nSegment, bCreate, SEGMENT_FUNC_SKYBOX, -1, "Skyboxes are not available in Descent 1.");
+return 0 <= Create (key, nSegment, bCreate, SEGMENT_FUNC_SKYBOX, -1, "Skyboxes are not available in Descent 1.");
 }
 
 // ----------------------------------------------------------------------------- 
 
-bool CSegmentManager::CreateSpeedBoost (ISelection* atSide, short nSegment, bool bCreate)
+bool CSegmentManager::CreateSpeedBoost (CSideKey key, short nSegment, bool bCreate)
 {
-return 0 <= Create (atSide, nSegment, bCreate, SEGMENT_FUNC_SPEEDBOOST, -1, "Speed boost segments are not available in Descent 1.");
+return 0 <= Create (key, nSegment, bCreate, SEGMENT_FUNC_SPEEDBOOST, -1, "Speed boost segments are not available in Descent 1.");
 }
 
 // ----------------------------------------------------------------------------- 
@@ -404,7 +404,7 @@ return nProducers;
 
 // ----------------------------------------------------------------------------- 
 
-short CSegmentManager::CreateProducer (ISelection* atSide, short nSegment, ubyte nType, bool bCreate, bool bSetDefTextures)
+short CSegmentManager::CreateProducer (CSideKey key, short nSegment, ubyte nType, bool bCreate, bool bSetDefTextures)
 {
 // count number of fuel centers
 int nProducer = ProducerCount ();
@@ -417,18 +417,18 @@ CSegment *pSegment = Segment (0);
 
 undoManager.Begin (__FUNCTION__, udSegments);
 if (nType == SEGMENT_FUNC_REPAIRCEN)
-	nSegment = Create (atSide, nSegment, bCreate, nType, bSetDefTextures ? 433 : -1, "Repair centers are not available in Descent 1.");
+	nSegment = Create (key, nSegment, bCreate, nType, bSetDefTextures ? 433 : -1, "Repair centers are not available in Descent 1.");
 else {
-	short nLastSeg = atSide->SegmentId ();
-	nSegment = Create (atSide, nSegment, bCreate, nType, bSetDefTextures ? g_data.IsD1File () ? 322 : 333 : -1);
+	short nLastSeg = key.m_nSegment;
+	nSegment = Create (key, nSegment, bCreate, nType, bSetDefTextures ? g_data.IsD1File () ? 322 : 333 : -1);
 	if (nSegment < 0) {
 		undoManager.End (__FUNCTION__);
 		return -1;
 		}
 	if (bSetDefTextures) { // add energy spark walls to fuel center sides
-		if (wallManager.Create (*atSide, WALL_ILLUSION, 0, KEY_NONE, -1, -1) != null) {
+		if (wallManager.Create (key, WALL_ILLUSION, 0, KEY_NONE, -1, -1) != null) {
 			CSideKey back;
-			if (BackSide (*atSide, back))
+			if (BackSide (key, back))
 				wallManager.Create (back, WALL_ILLUSION, 0, KEY_NONE, -1, -1);
 			}
 		Segment (nSegment)->Backup ();

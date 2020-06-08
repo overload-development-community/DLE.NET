@@ -134,7 +134,10 @@ switch (EditType ()) {
 		g_data.lightManager->DeleteVariableLight (Index (), false);
 		break;
 	case opDelete:
-		SetParent (g_data.lightManager->AddVariableLight (-1));
+	{
+		auto side = g_data.segmentManager->Side(CSideKey(m_nSegment, m_nSide));
+		SetParent(g_data.lightManager->AddVariableLight(side, -1));
+	}
 		// fall through
 	case opModify:
 		if (GetParent ())
@@ -155,7 +158,10 @@ switch (EditType ()) {
 		g_data.lightManager->DeleteVariableLight (Index (), false);
 		break;
 	case opAdd:
-		SetParent (g_data.lightManager->AddVariableLight (-1));
+	{
+		auto side = g_data.segmentManager->Side(CSideKey(m_nSegment, m_nSide));
+		SetParent(g_data.lightManager->AddVariableLight(side, -1));
+	}
 		// fall through
 	case opModify:
 		if (GetParent ())

@@ -65,7 +65,7 @@ class CObjectManager : public IObjectManager {
 
 		inline int& Count (void) { return m_info.count; }
 
-		void Delete (short nDelObj = -1, bool bUndo = true);
+		void Delete (short nDelObj, bool bUndo = true);
 
 		void DeleteSegmentObjects (short nSegment);
 
@@ -91,11 +91,11 @@ class CObjectManager : public IObjectManager {
 
 		short Add (bool bUndo = true);
 
-		bool Create (ubyte newType, short nSegment = -1);
+		bool Create (ubyte newType, CGameObject* objectToCopy, short nSegment);
 
 		int FindSegment (CGameObject * pObject);
 
-		void Move (CGameObject * pObject = null, int nSegment = -1);
+		void Move(CGameObject* pObject, int nSegment);
 
 		virtual void ReadInfo (IFileManager* fp) { m_info.Read (fp); }
 

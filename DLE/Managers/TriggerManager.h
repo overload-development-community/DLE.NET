@@ -103,7 +103,7 @@ class CTriggerManager : public ITriggerManager
 
 		inline void DeleteTarget (short nSegment, short nSide) { DeleteTarget (CSideKey (nSegment, nSide)); }
 
-		short Add (void);
+		short Add (CSideKey key);
 
 		inline CTrigger* Create (short nItem, short type, bool bAddWall = false) {
 			return (nItem < 0) ? AddToObject (-nItem - 1, type) : AddToWall (nItem, type, bAddWall);
@@ -122,19 +122,19 @@ class CTriggerManager : public ITriggerManager
 
 		void UpdateTargets (short nOldSeg, short nNewSeg);
 
-		bool AutoAddTrigger (short wallType, ushort wallFlags, ushort triggerType);
+		bool AutoAddTrigger(CSideKey source, CSideKey target, short wallType, ushort wallFlags, ushort triggerType);
 
-		bool AddDoorTrigger (short wallType, ushort wallFlags, ushort triggerType);
+		bool AddDoorTrigger(CSideKey source, CSideKey target, short wallType, ushort wallFlags, ushort triggerType);
 
-		bool AddOpenDoor (void); 
+		bool AddOpenDoor(CSideKey source, CSideKey target);
 
-		bool AddRobotMaker (void); 
+		bool AddRobotMaker(CSideKey source, CSideKey target);
 
-		bool AddShieldDrain (void); 
+		bool AddShieldDrain(CSideKey source, CSideKey target);
 
-		bool AddEnergyDrain (void); 
+		bool AddEnergyDrain(CSideKey source, CSideKey target);
 
-		bool AddUnlock (void); 
+		bool AddUnlock(CSideKey source, CSideKey target);
 
 		bool AddExit (short type); 
 
@@ -148,7 +148,7 @@ class CTriggerManager : public ITriggerManager
 
 		void UpdateReactor (void);
 
-		bool HaveResources (void);
+		bool HaveResources (CSideKey key);
 
 		bool Full (void);
 
@@ -175,11 +175,11 @@ class CTriggerManager : public ITriggerManager
 			Clear ();
 			}
 
-		CTrigger* AddToWall (short nWall, short type, bool bAddWall);
+		CTrigger* AddToWall (CSideKey key, short type, bool bAddWall);
 
 		CTrigger* AddToObject (short nObject, short type);
 
-		void DeleteFromWall (short nDelTrigger = -1);
+		void DeleteFromWall (CSideKey key);
 
 		void DeleteFromObject (short nDelTrigger);
 

@@ -25,7 +25,7 @@ CMissionData missionData;
 GlobalData g_data{ &lightManager, &modelManager, &objectManager,
     &paletteManager, &robotManager, &segmentManager, &textureManager,
     &triggerManager, &wallManager, &vertexManager, &undoManager,
-    current, other, &missionData };
+    &missionData };
 
 void GlobalData::RefreshMineView(bool all)
 {

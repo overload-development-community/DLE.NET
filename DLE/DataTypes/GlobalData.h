@@ -5,8 +5,8 @@ class ILightManager
 public:
     virtual int GetCount() = 0;
     virtual CVariableLight* VariableLight(int i) = 0;
-    virtual short VariableLight(CSideKey key = CSideKey()) = 0;
-    virtual CVariableLight* AddVariableLight(short index = -1) = 0;
+    virtual short VariableLight(CSideKey key) = 0;
+    virtual CVariableLight* AddVariableLight(CSide* side, short index = -1) = 0;
     virtual void DeleteVariableLight(short index, bool bUndo = false) = 0;
 
     virtual void ReadLightDeltaInfo(IFileManager* fp) = 0;
@@ -107,9 +107,9 @@ class IWallManager
 {
 public:
     virtual CWall* Wall(int i) = 0;
-    virtual short Add(bool bUndo = false, CSideKey* key = null) = 0;
+    virtual short Add(CSideKey key, bool bUndo = false) = 0;
     virtual void Remove(short nDelWall) = 0;
-    virtual void Delete(short nDelWall = -1) = 0;
+    virtual void Delete(CSideKey key, short nDelWall = -1) = 0;
     virtual bool IsVisible(short nWall) = 0;
 
     virtual void ReadInfo(IFileManager* fp) = 0;

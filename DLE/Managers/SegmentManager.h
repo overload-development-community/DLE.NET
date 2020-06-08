@@ -177,21 +177,21 @@ public:
 
     void ResetSide(short nSegment, short nSide);
 
-    bool CreateReactor(ISelection* atSide, short nSegment = -1, bool bCreate = true, bool bSetDefTextures = true);
+    bool CreateReactor(CSideKey key, short nSegment = -1, bool bCreate = true, bool bSetDefTextures = true);
 
-    bool CreateRobotMaker(ISelection* atSide, short nSegment = -1, bool bCreate = true, bool bSetDefTextures = true);
+    bool CreateRobotMaker(CSideKey key, short nSegment = -1, bool bCreate = true, bool bSetDefTextures = true);
 
-    bool CreateEquipMaker(ISelection* atSide, short nSegment = -1, bool bCreate = true, bool bSetDefTextures = true);
+    bool CreateEquipMaker(CSideKey key, short nSegment = -1, bool bCreate = true, bool bSetDefTextures = true);
 
-    bool CreateGoal(ISelection* atSide, short nSegment, bool bCreate, bool bSetDefTextures, ubyte nType, short nTexture);
+    bool CreateGoal(CSideKey key, short nSegment, bool bCreate, bool bSetDefTextures, ubyte nType, short nTexture);
 
-    bool CreateTeam(ISelection* atSide, short nSegment, bool bCreate, bool bSetDefTextures, ubyte nType, short nTexture);
+    bool CreateTeam(CSideKey key, short nSegment, bool bCreate, bool bSetDefTextures, ubyte nType, short nTexture);
 
-    bool CreateSpeedBoost(ISelection* atSide, short nSegment, bool bCreate);
+    bool CreateSpeedBoost(CSideKey key, short nSegment, bool bCreate);
 
-    bool CreateSkybox(ISelection* atSide, short nSegment, bool bCreate);
+    bool CreateSkybox(CSideKey key, short nSegment, bool bCreate);
 
-    short CreateProducer(ISelection* atSide, short nSegment = -1, ubyte nType = SEGMENT_FUNC_PRODUCER, bool bCreate = true, bool bSetDefTextures = true);
+    short CreateProducer(CSideKey key, short nSegment = -1, ubyte nType = SEGMENT_FUNC_PRODUCER, bool bCreate = true, bool bSetDefTextures = true);
 
     bool SplitIn7(CSegment* pRootSeg);
 
@@ -367,7 +367,7 @@ private:
 
     void DeleteWalls(short nSegment);
 
-    short Create(ISelection* atSide, short nSegment, bool bCreate, ubyte nFunction, short nTexture = -1, const char* szError = null);
+    short Create(CSideKey key, short nSegment, bool bCreate, ubyte nFunction, short nTexture = -1, const char* szError = null);
 
     bool Define(short nSegment, ubyte nFunction, short nTexture);
 
@@ -383,7 +383,7 @@ private:
 
     void RemoveProducer(CSegment* pSegment, CObjectProducer* producers, CMineItemInfo& info, int nFunction);
 
-    bool CreateProducer(ISelection* atSide, short nSegment, bool bCreate, ubyte nType, bool bSetDefTextures, CObjectProducer* producers, CMineItemInfo& info, const char* szError);
+    bool CreateProducer(CSideKey key, short nSegment, bool bCreate, ubyte nType, bool bSetDefTextures, CObjectProducer* producers, CMineItemInfo& info, const char* szError);
 
     void RenumberProducers(ubyte nFunction, short nClass, bool bKeepOrder);
 

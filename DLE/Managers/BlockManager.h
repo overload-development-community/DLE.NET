@@ -12,13 +12,13 @@ class CBlockManager {
 		int m_bExtended;
 
 	public:
-		void Cut (const char* filename);
+		void Cut (ISelection* sourceSide, const char* filename);
 		
-		void Copy (const char *filename = null, bool bDelete = false);
+		void Copy (ISelection* sourceSide, const char *filename = null, bool bDelete = false);
 		
-		int Read (char *filename);
+		int Read (ISelection* destSide, char *filename);
 		
-		void QuickCopy (void);
+		void QuickCopy (ISelection* sourceSide);
 		
 		void Delete (void);
 
@@ -27,11 +27,11 @@ class CBlockManager {
 		inline bool HasRememberedFilename() { return strlen(m_filename) > 0; }
 
 	private:
-		void SetupTransformation (CDoubleMatrix& m, CDoubleVector& o);
+		void SetupTransformation (ISelection* atSide, CDoubleMatrix& m, CDoubleVector& o);
 		
-		short Read (CFileManager& fp);
+		short Read (ISelection* destSide, CFileManager& fp);
 		
-		void Write (CFileManager& fp);
+		void Write (ISelection* sourceSide, CFileManager& fp);
 
 		bool CheckTunnelMaker (void);
 

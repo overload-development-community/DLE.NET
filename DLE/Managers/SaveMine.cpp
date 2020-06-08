@@ -230,6 +230,26 @@ return 1;
 
 // -----------------------------------------------------------------------------
 
+class SideOrientationSelection : public ISelection
+{
+public:
+	short segmentId;
+	short sideId;
+	short pointNum;
+
+	SideOrientationSelection(const CSideKey& key, short pointNum) :
+		segmentId(key.m_nSegment), sideId(key.m_nSide), pointNum(pointNum)
+	{}
+	virtual short SegmentId() override { return segmentId; }
+	virtual short SideId() override { return sideId; }
+	virtual short Edge() override { return pointNum; }
+	virtual short Point() override { return pointNum; }
+	virtual CSegment* Segment() override { return segmentManager.Segment(segmentId); }
+	virtual CSide* Side() override { return segmentManager.Side(*this); }
+	virtual CVertex* Vertex(short vertexNum = 0) override { return Segment()->Vertex(sideId, pointNum + vertexNum); }
+	virtual operator CSideKey() override { return CSideKey(segmentId, sideId); }
+};
+
 using namespace rapidjson;
 
 short CMine::ExportOverload (const char * filename)
@@ -447,8 +467,9 @@ else {
 		// CTunnelBase happens to calculate the orientation of a side already, so we're repurposing that
 		sprintf_s (path, "/entities/%d/rotation", nDoor);
 		Value& rotation = Pointer (path).Create (document).SetArray ();
+		SideOrientationSelection selection{ *pWall, DEFAULT_POINT };
 		CTunnelBase sideOrientation;
-		sideOrientation.Setup (*pWall, DEFAULT_POINT, -1.0, true);
+		sideOrientation.Setup(&selection, -1.0, true);
 		for (size_t i = 0; i < 4; i++)
 			for (size_t j = 0; j < 4; j++) {
 				if (i == 3 && j == 3)
