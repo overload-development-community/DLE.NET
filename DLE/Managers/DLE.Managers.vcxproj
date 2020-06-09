@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="IRenderer.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="TunnelMaker.h" />
     <ClInclude Include="WallManager.h" />

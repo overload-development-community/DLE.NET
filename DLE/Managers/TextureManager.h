@@ -1,6 +1,18 @@
 #ifndef __texturemanager_h
 #define __texturemanager_h
 
+#define SMOKE_ICON		0
+#define SNOW_ICON			1
+#define RAIN_ICON			2
+#define BUBBLE_ICON		3
+#define FIRE_ICON			4
+#define LIGHTNING_ICON	5
+#define SOUND_ICON		6
+#define WAYPOINT_ICON	7
+#define LIGHT_ICON		8
+#define CIRCLE_ICON		9
+#define ICON_COUNT		10
+
 //------------------------------------------------------------------------
 
 class CAnimationClipInfo {
@@ -340,8 +352,6 @@ class CTextureManager : public ITextureManager {
 		bool ChangePigFile (const char *pszPigPath, int nVersion = -1);
 
 		bool Available (int nVersion = -1);
-
-		void CreateGLTextures (int nVersion = -1);
 
 		CBGRA* SharedBuffer (void) { return m_bmBuf; }
 

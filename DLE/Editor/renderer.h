@@ -5,6 +5,30 @@
 #pragma once
 #endif // _MSC_VER >= 1000
 
+enum ePenColor {
+	penBlack,
+	penWhite,
+	penGold,
+	penRed,
+	penMedRed,
+	penGray,
+	penLtGray,
+	penDkGray,
+	penGreen,
+	penMedGreen,
+	penDkGreen,
+	penDkCyan,
+	penMedCyan,
+	penLtCyan,
+	penBlue,
+	penMedBlue,
+	penLtBlue,
+	penYellow,
+	penOrange,
+	penMagenta,
+	penCount
+};
+
 // -----------------------------------------------------------------------------
 
 extern double zoomScales [2];
@@ -212,6 +236,12 @@ class CRenderer : public IRenderer
 		virtual void Sprite (const CTexture* pTexture, CVertex center, double width, double height, bool bAlways = false) = 0;
 		virtual int RenderModel(RenderModel::CModel& model, CGameObject* object, int nGunId, int nBombId, int nMissileId, int nMissiles);
 		void RenderSubModel(RenderModel::CModel& model, short nSubModel, int nGunId = 0, int nBombId = 0, int nMissileId = 0, int nMissiles = 4);
+
+		int DrawObjectArrow (CGameObject& object, int bCurrent);
+		bool DrawObjectSprite (CGameObject& object);
+		void DrawObjectHighlight (CGameObject& object, int bCurrent);
+		bool IsObjectInView (CGameObject& object, bool wholeObject);
+		short IsSegmentSelected(CSegment& segment, CRect& viewport, long xMouse, long yMouse, short nSide, bool bSegments);
 
 		virtual int Type (void) = 0;
 		virtual bool SetPerspective (int nPerspective, bool bKeepPosition = false) = 0;

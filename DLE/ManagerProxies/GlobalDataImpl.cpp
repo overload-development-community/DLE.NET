@@ -13,6 +13,10 @@
 #include "VertexManager.h"
 #include "mine.h"
 
+// This is what conditional breakpoints are for, but I digress... will be removed eventually
+short nDbgSeg = 0;
+short nDbgSide = 0;
+
 CMissionData missionData;
 
 GlobalData g_data{ &lightManager, &modelManager, &objectManager,
@@ -59,7 +63,7 @@ void GlobalData::EnsureValidSelection()
 
 void GlobalData::Trace(TraceLevel level, std::string message)
 {
-    auto clrMessage = msclr::interop::marshal_as<System::String^>(message);
+    auto clrMessage = gcnew System::String(message.c_str());
     auto clrTraceLevel = static_cast<System::Diagnostics::TraceLevel>(level);
     g_proxyDelegateManager->OnTrace(clrTraceLevel, clrMessage);
 }
@@ -98,11 +102,6 @@ void GlobalData::CleanupProgress()
     {
         tracker->CleanupProgress();
     }
-}
-
-IRenderer* GlobalData::GetRenderer()
-{
-    return &DLE.MineView()->Renderer();
 }
 
 const char* GlobalData::GetD1Path()
@@ -299,19 +298,4 @@ void GlobalData::SetDocumentModifiedFlag(bool modified)
 
 void GlobalData::ResetSelections()
 {
-}
-
-bool GlobalData::GLCreateTexture(CTexture* texture, bool bForce)
-{
-    return DrawHelpers::GLCreateTexture(texture, bForce);
-}
-
-GLuint GlobalData::GLBindTexture(const CTexture* texture, GLuint nTMU, GLuint nMode)
-{
-    return DrawHelpers::GLBindTexture(texture, nTMU, nMode);
-}
-
-void GlobalData::GLReleaseTexture(CTexture* texture)
-{
-    return DrawHelpers::GLReleaseTexture(texture);
 }

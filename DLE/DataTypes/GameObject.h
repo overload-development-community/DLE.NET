@@ -381,14 +381,6 @@ class CGameObject : public CGameItem {
 
 		void Setup (ubyte type);
 
-		int DrawArrow (IRenderer& renderer, int bCurrent);
-
-		bool DrawSprite (IRenderer& renderer);
-
-		void DrawHighlight (IRenderer& renderer, int bCurrent);
-
-		bool IsInView (IRenderer& renderer, bool wholeObject);
-
 		CVertex& Transform (CVertex& vDest, const CVertex& vSource);
 
 		int CheckNormal (IViewMatrix& viewMatrix, CVertex& a, CVertex& b);

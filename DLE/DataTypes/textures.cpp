@@ -316,7 +316,6 @@ return (m_data != null);
 
 void CTexture::Release (void) 
 {
-GLRelease ();
 if (m_renderBuffer != null) {
 	if (m_renderBuffer != m_data)
 		delete m_renderBuffer;
@@ -351,7 +350,6 @@ m_renderBuffer = null;
 // Don't need a separate buffer if the render buffer would be the same size. Also not used for TGA
 if ((RenderSize () == Size ()) || (m_info.format == TGA)) {
 	m_renderBuffer = m_data;
-	GLCreate ();
 	return;
 	}
 
@@ -378,9 +376,6 @@ for (uint y = 0; y < m_info.height; y++) {
 	memcpy_s (m_renderBuffer + destOffset, (nSize - destOffset) * elementSize,
 		m_data + sourceOffset, m_info.width * elementSize);
 	}
-
-// Create OpenGL texture so we can use it for rendering later
-GLCreate ();
 }
 
 //------------------------------------------------------------------------
@@ -1162,21 +1157,6 @@ return ToBitmap ();
 }
 
 //------------------------------------------------------------------------------
-
-bool CTexture::GLCreate(bool bForce)
-{
-return g_data.GLCreateTexture(this, bForce);
-}
-
-GLuint CTexture::GLBind(GLuint nTMU, GLuint nMode) const
-{
-return g_data.GLBindTexture(this, nTMU, nMode);
-}
-
-void CTexture::GLRelease(void)
-{
-return g_data.GLReleaseTexture(this);
-}
 
 void CTexture::DrawLine (POINT pt0, POINT pt1, CBGRA color)
 {

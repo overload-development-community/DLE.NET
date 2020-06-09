@@ -101,8 +101,6 @@ class CTunnelPathNode {
 		double			m_sign;
 		
 	CTunnelPathNode () : m_angle (0.0) {}
-
-	void Draw (IRenderer& renderer, IViewMatrix* viewMatrix);
 	};
 
 //------------------------------------------------------------------------

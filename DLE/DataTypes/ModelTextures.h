@@ -11,7 +11,6 @@ class CModelTextures {
 	public:
 		CModelTextures () { Init (); } 
 		void Init (void) { m_nTextures = 0; }
-		int Bind (int bCustom);
 		void Release (void);
 		int Read (char* pszFolder);
 		int ReadBinary (IFileManager& fp);

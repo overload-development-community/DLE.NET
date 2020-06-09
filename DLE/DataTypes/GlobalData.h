@@ -208,7 +208,6 @@ public:
     void UpdateProgress(int position);
     void StepProgress();
     void CleanupProgress();
-    IRenderer* GetRenderer();
     IFileManager* CreateFileManager();
     const char* GetD1Path();
     const char* GetD2Path();
@@ -232,12 +231,6 @@ public:
     std::vector<byte> LoadPaletteData(const char* paletteName);
     void SetDocumentModifiedFlag(bool modified);
     void ResetSelections();
-
-    // Can't include DrawHelpers.h in DLE.DataTypes due to MFC...
-    // may move this later
-    bool GLCreateTexture(CTexture* texture, bool bForce);
-    GLuint GLBindTexture(const CTexture* texture, GLuint nTMU, GLuint nMode);
-    void GLReleaseTexture(CTexture* texture);
 
     GlobalData(ILightManager* lightManager,
         IModelManager* modelManager,

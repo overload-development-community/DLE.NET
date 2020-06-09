@@ -9,6 +9,7 @@
 #include "ModelManager.h"
 #include "RobotManager.h"
 #include "HogManager.h"
+#include "IRenderer.h"
 
 CModelManager modelManager;
 

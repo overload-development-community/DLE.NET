@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "DrawHelpers.h"
 
 short nDbgSeg = -1, nDbgSide = -1;
 int nDbgVertex = -1;
@@ -200,7 +201,7 @@ void CRenderer::RenderSubModel(RenderModel::CModel& model, short nSubModel, int 
 				glDisable(GL_TEXTURE_2D);
 			else {
 				glEnable(GL_TEXTURE_2D);
-				if (!(*model.m_textures)[nTexture].GLBind(GL_TEXTURE0, GL_MODULATE))
+				if (!DrawHelpers::GLBindTexture(&(*model.m_textures)[nTexture], GL_TEXTURE0, GL_MODULATE))
 					continue;
 			}
 		}
@@ -402,6 +403,258 @@ void CRenderer::DrawTunnelMakerSegment(const CTunnelSegment& segment)
 	if (mineView->GetRenderer() && (mineView->ViewOption(eViewTexturedWireFrame) || mineView->ViewOption(eViewTextured)))
 #endif
 		glDisable(GL_LINE_STIPPLE);
+}
+
+// -----------------------------------------------------------------------------
+
+int CRenderer::DrawObjectArrow(CGameObject& object, int bCurrent)
+{
+#define ARROW_LINES 6
+
+	int				i;
+	CVertex			pt[ARROW_LINES];
+	CLongVector		arrowLines[ARROW_LINES] = {
+		{ 0,  4, -4},
+		{ 0,  0, -4},
+		{ 0,  0,  4},
+		{-2,  0,  2},
+		{ 2,  0,  2},
+		{ 0,  0,  4}
+	};
+	short				xMax = ViewWidth() * 2;
+	short				yMax = ViewHeight() * 2;
+	bool				bOrtho = Perspective() == 0;
+
+	BeginRender();
+	for (i = 0; i < ARROW_LINES; i++) {
+		CVertex v(arrowLines[i]);
+		object.Transform(pt[i], v);
+		pt[i].Transform(ViewMatrix());
+		pt[i].Project(ViewMatrix());
+	}
+	EndRender();
+
+	for (i = 0; i < ARROW_LINES; i++)
+		if (!pt[i].InRange(xMax, yMax, Type()))
+			return 0;
+	if (bCurrent < 0)
+		return 1;
+
+	if (bOrtho) {
+		BeginRender(true);
+		MoveTo(pt[0].m_screen.x, pt[0].m_screen.y);
+		for (i = 1; i < 6; i++)
+			LineTo(pt[i].m_screen.x, pt[i].m_screen.y);
+		if (bCurrent) {
+			for (int dx = -1; dx < 2; dx++) {
+				for (int dy = -1; dy < 2; dy++) {
+					MoveTo(pt[0].m_screen.x + dx, pt[0].m_screen.y + dy);
+					for (i = 1; i < 6; i++)
+						LineTo(pt[i].m_screen.x + dx, pt[i].m_screen.y + dy);
+				}
+			}
+		}
+	}
+	else {
+		BeginRender();
+		SetLineWidth(bCurrent ? 6.0f : 3.0f);
+		MoveTo(pt[0]);
+		for (i = 1; i < 6; i++)
+			LineTo(pt[i]);
+		SetLineWidth(3.0f);
+	}
+	EndRender();
+	return 1;
+}
+
+// -----------------------------------------------------------------------------
+
+short CGameObject::Sprite(void)
+{
+	if (Type() == OBJ_EFFECT) {
+		switch (Id()) {
+		case PARTICLE_ID:
+			switch (rType.particleInfo.nType) {
+			case PARTICLE_TYPE_SMOKE:
+			case PARTICLE_TYPE_SPRAY:
+			case PARTICLE_TYPE_WATERFALL:
+				return SMOKE_ICON;
+			case PARTICLE_TYPE_BUBBLES:
+				return BUBBLE_ICON;
+			case PARTICLE_TYPE_FIRE:
+				return FIRE_ICON;
+			case PARTICLE_TYPE_RAIN:
+				return RAIN_ICON;
+			case PARTICLE_TYPE_SNOW:
+				return SNOW_ICON;
+				return -1;
+			}
+			break;
+		case LIGHTNING_ID:
+			return LIGHTNING_ICON;
+		case SOUND_ID:
+			return SOUND_ICON;
+		case WAYPOINT_ID:
+			return WAYPOINT_ICON;
+		default:
+			return -1;
+		}
+	}
+	if (!HasSprite())
+		return -1;
+	if ((0 > rType.animationInfo.nAnimation) || (rType.animationInfo.nAnimation >= MAX_ANIMATIONS))
+		return -1;
+	return g_data.modelManager->Animation(rType.animationInfo.nAnimation)->frames[0];
+}
+
+// -----------------------------------------------------------------------------
+
+bool CRenderer::DrawObjectSprite(CGameObject& object)
+{
+	static rgbColord color = { 1.0, 1.0, 1.0 };
+	static ushort index[4] = { 0, 1, 2, 3 };
+
+	short nTexture = object.Sprite();
+	bool	bEffect = object.Type() == OBJ_EFFECT;
+
+	if (nTexture < 0)
+		return false;
+
+	// We render sprites using the D2 textures even in D1 levels
+	const CTexture* pTexture = bEffect ? &g_data.textureManager->Icon(nTexture) : g_data.textureManager->TextureByIndex(nTexture, 1);
+	if (!pTexture)
+		return false;
+
+	double dx, dy;
+	double size = bEffect ? 5.0 : X2D(object.m_info.size);
+
+	if (pTexture->Width() > pTexture->Height()) {
+		dx = size;
+		dy = dx * float(pTexture->Height()) / float(pTexture->Width());
+	}
+	else {
+		dy = size;
+		dx = dy * float(pTexture->Width()) / float(pTexture->Height());
+	}
+
+	BeginRender();
+	Sprite(pTexture, object.Position(), dx, dy, false);
+	EndRender();
+	return true;
+}
+
+// -----------------------------------------------------------------------------
+
+void CRenderer::DrawObjectHighlight(CGameObject& object, int bCurrent)
+{
+	IViewMatrix* viewMatrix = ViewMatrix();
+	bool				bOrtho = Perspective() == 0;
+	CVertex			center;
+	double			d;
+
+	BeginRender();
+	center = object.Position();
+	center.Transform(viewMatrix);
+	if (bOrtho) {
+		center.Project(viewMatrix);
+		d = int(object.HasPolyModel() ? double(modelManager.ScreenRad()) * 1.1 : 2000 / center.m_view.v.z);
+	}
+	else
+		d = object.HasPolyModel() ? X2D(object.m_info.size) * 1.1 : 5;
+	EndRender();
+	BeginRender(bOrtho);
+	SelectPen(bCurrent ? penGold + 1 : penRed + 1, 2);
+	Ellipse(center, -d, -d);
+	EndRender();
+}
+
+// -----------------------------------------------------------------------------
+
+bool CRenderer::IsObjectInView(CGameObject& object, bool wholeObject)
+{
+	bool result = true;
+	short xMaxVisible = ViewWidth() * 2;
+	short yMaxVisible = ViewHeight() * 2;
+
+	BeginRender();
+	if (wholeObject) {
+		// Check visibility of each point of a simulated bounding box. We don't
+		// always have a model so will have to construct the vertices
+		double cubeOffset = sqrt(pow(X2D(object.m_info.size), 2) / 3);
+		bool allVerticesInView = true;
+		CVertex boundsVertexRaw, boundsVertexProjected;
+
+		for (int x = 1; true; x *= -1) {
+			for (int y = 1; true; y *= -1) {
+				for (int z = 1; true; z *= -1) {
+					boundsVertexRaw = CVertex(x * cubeOffset, y * cubeOffset, z * cubeOffset);
+					object.Transform(boundsVertexProjected, boundsVertexRaw);
+					boundsVertexProjected.Transform(ViewMatrix());
+					boundsVertexProjected.Project(ViewMatrix());
+					allVerticesInView &= boundsVertexProjected.InRange(xMaxVisible, yMaxVisible, Type());
+					if (z < 0) break;
+				}
+				if (y < 0) break;
+			}
+			if (x < 0) break;
+		}
+
+		result = allVerticesInView;
+	}
+	else {
+		// Check visibility of the center of the object only
+		CVertex centerProjected;
+		object.Transform(centerProjected, CVertex(0, 0, 0));
+		centerProjected.Transform(ViewMatrix());
+		centerProjected.Project(ViewMatrix());
+		result = centerProjected.InRange(xMaxVisible, yMaxVisible, Type());
+	}
+	EndRender();
+
+	return result;
+}
+
+//--------------------------------------------------------------------------
+
+short CRenderer::IsSegmentSelected(CSegment& segment, CRect& viewport, long xMouse, long yMouse, short nSide, bool bSegments)
+{
+	segment.ComputeCenter();
+	IViewMatrix* viewMatrix = ViewMatrix();
+	if (bSegments) {
+		CVertex& center = segment.Center();
+		center.Transform(viewMatrix);
+		center.Project(viewMatrix);
+		if ((center.m_screen.x < 0) || (center.m_screen.y < 0) || (center.m_screen.x >= viewport.right) || (center.m_screen.y >= viewport.bottom) || (center.m_view.v.z < 0.0))
+			return -1;
+	}
+	short nSegment = segmentManager.Index(&segment);
+#ifdef _DEBUG
+	if (nSegment == nDbgSeg)
+		nDbgSeg = nDbgSeg;
+#endif
+	CSide* pSide = segment.Side(nSide);
+	for (; nSide < 6; nSide++, pSide++) {
+		if (!IsSideInFrustum(nSegment, nSide))
+			continue;
+		pSide->SetParent(nSegment);
+		if (!pSide->IsSelected(viewport, xMouse, yMouse, segment.m_info.vertexIds))
+			continue;
+		if (!bSegments) {
+			segment.ComputeCenter(nSide);
+			CVertex& center = pSide->Center();
+			if (!pSide->IsVisible()) {
+				pSide->ComputeNormals(segment.m_info.vertexIds, Center());
+				CVertex normal;
+				center += pSide->Normal(2) * 2.0;
+				center.Transform(viewMatrix);
+				center.Project(viewMatrix);
+			}
+			if ((center.m_screen.x < 0) || (center.m_screen.y < 0) || (center.m_screen.x >= viewport.right) || (center.m_screen.y >= viewport.bottom) || (center.m_view.v.z < 0.0))
+				continue;
+		}
+		return nSide;
+	}
+	return -1;
 }
 
 //eof

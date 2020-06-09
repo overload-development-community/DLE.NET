@@ -405,3 +405,19 @@ if (texture->m_glHandle) {
 	texture->m_glHandle = 0;
 	}
 }
+
+//------------------------------------------------------------------------
+
+void DrawHelpers::CreateGLTextures(int nVersion)
+{
+	int nVersionResolved = (nVersion < 0) ? textureManager.Version() : nVersion;
+
+	if (!textureManager.Available(nVersionResolved))
+		return;
+
+	for (int i = 0; i < textureManager.GlobalTextureCount(); i++)
+		GLCreateTexture(textureManager.TextureByIndex(i, nVersion), false);
+	GLCreateTexture(&textureManager.Arrow(), false);
+	for (int i = 0; i < ICON_COUNT; i++)
+		GLCreateTexture(&textureManager.Icon(i), false);
+}

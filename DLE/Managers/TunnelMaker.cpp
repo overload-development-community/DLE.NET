@@ -378,8 +378,8 @@ if (path.m_bMorph) {
 // The rotation is relative to the base coordinate system (identity matrix), but the vertices are relative to the 
 // start point and start rotation, so each vertex has to be un-translated and un-rotated before rotating and translating
 // it with the current path node's orientation matrix and position.
-IViewMatrix* viewMatrix = g_data.GetRenderer()->ViewMatrix();
-g_data.GetRenderer()->BeginRender (false);
+//IViewMatrix* viewMatrix = g_data.GetRenderer()->ViewMatrix();
+//g_data.GetRenderer()->BeginRender (false);
 for (int nSegment = 0; nSegment <= m_nSteps; nSegment++) {
 	CDoubleMatrix& rotation = path [nSegment].m_rotation;
 	CDoubleVector& translation = path [nSegment].m_vertex;
@@ -394,8 +394,10 @@ for (int nSegment = 0; nSegment <= m_nSteps; nSegment++) {
 		v = rotation * v; // rotate (
 		CDoubleVector a = rotation.Angles ();
 		v += translation;
-		v.Transform (viewMatrix);
-		v.Project (viewMatrix);
+		// I think these calls are so that each vertex has a valid view projection for the renderer.
+		// But this isn't really the right place to do that. We'll have to make sure the renderer does the job itself.
+		//v.Transform (viewMatrix);
+		//v.Project (viewMatrix);
 #if 0 //def _DEBUG
 		v.Tag ();
 #else
@@ -407,7 +409,7 @@ for (int nSegment = 0; nSegment <= m_nSteps; nSegment++) {
 #endif
 		}
 	}
-g_data.GetRenderer()->EndRender ();
+//g_data.GetRenderer()->EndRender ();
 #if 1
 Realize (path, false);
 #else

@@ -348,14 +348,6 @@ public:
 
     void ComputeNormals(bool bAll, bool bView = false);
 
-    CSegment* GatherSelectableSegments(CRect& viewport, long xMouse, long yMouse, bool bAllowSkyBox);
-
-    CSide* GatherSelectableSides(CRect& viewport, long xMouse, long yMouse, bool bAllowSkyBox, bool bSegments);
-
-    inline CSegment* SelectedSegments() { return m_selectedSegments; }
-
-    inline CSide* SelectedSides() { return m_selectedSides; }
-
     void GatherEdges(CAVLTree <CEdgeTreeNode, uint>& edgeTree);
 
     uint VisibleSideCount();
@@ -397,8 +389,6 @@ private:
     robotMakerList m_producers[2];
     CMineItemInfo m_producerInfo[2];
     bool m_bCreating;
-    CSegment* m_selectedSegments;
-    CSide* m_selectedSides;
 };
 
 extern CSegmentManager segmentManager;

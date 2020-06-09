@@ -110,7 +110,6 @@ class CModel {
 		int Read (const char* pszFolder, const short nModel);
 		int SaveBinary (const char* pszFolder, const short nModel);
 		int ReadBinary (const char* pszFolder, const short nModel, time_t tASE);
-		int ReloadTextures (void);
 		int ReleaseTextures (void);
 		int FreeTextures (void);
 

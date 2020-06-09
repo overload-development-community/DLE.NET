@@ -110,11 +110,6 @@ void GlobalData::CleanupProgress()
     DLE.MainFrame()->Progress().DestroyWindow();
 }
 
-IRenderer* GlobalData::GetRenderer()
-{
-    return &DLE.MineView()->Renderer();
-}
-
 const char* GlobalData::GetD1Path()
 {
     return descentFolder[0];
@@ -289,21 +284,6 @@ void GlobalData::ResetSelections()
     DLE.MainFrame()->SetSelectMode(eSelectSide);
     current->Reset();
     other->Reset();
-}
-
-bool GlobalData::GLCreateTexture(CTexture* texture, bool bForce)
-{
-    return DrawHelpers::GLCreateTexture(texture, bForce);
-}
-
-GLuint GlobalData::GLBindTexture(const CTexture* texture, GLuint nTMU, GLuint nMode)
-{
-    return DrawHelpers::GLBindTexture(texture, nTMU, nMode);
-}
-
-void GlobalData::GLReleaseTexture(CTexture* texture)
-{
-    return DrawHelpers::GLReleaseTexture(texture);
 }
 
 //------------------------------------------------------------------------------

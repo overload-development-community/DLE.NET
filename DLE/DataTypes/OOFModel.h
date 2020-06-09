@@ -384,7 +384,6 @@ class CModel {
 		void Destroy (void);
 		int Read (const char* pszFolder, const short nModel);
 		int ReleaseTextures (void);
-		int ReloadTextures (void);
 		int FreeTextures (void);
 
 	private:

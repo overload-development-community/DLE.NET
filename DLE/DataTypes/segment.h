@@ -312,8 +312,6 @@ public:
 
 	void UpdateTexCoords (ushort nVertexId, bool bMove, short nIgnoreSide = -1);
 
-	short IsSelected (CRect& viewport, long xMouse, long yMouse, short nSide, bool bSegments);
-
 	short Edge (short nSide, ushort v1, ushort v2);
 
 	void MakeCoplanar (short nSide);

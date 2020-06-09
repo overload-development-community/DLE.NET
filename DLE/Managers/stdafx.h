@@ -32,7 +32,6 @@
 #include "Vertex.h"
 #include "side.h"
 #include "segment.h"
-#include "IRenderer.h"
 #include "textures.h"
 #include "robot.h"
 #include "Light.h"
@@ -44,6 +43,7 @@
 #include "trigger.h"
 #include "PolyModel.h"
 
+#include "IRenderer.h"
 #include "FileManager.h"
 #include "SegmentManager.h"
 #include "ObjectManager.h"

@@ -33,7 +33,7 @@
 #include "Vertex.h"
 #include "side.h"
 #include "segment.h"
-#include "IRenderer.h"
+#include "IViewMatrix.h"
 #include "textures.h"
 #include "robot.h"
 #include "Light.h"

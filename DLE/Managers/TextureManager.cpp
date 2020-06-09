@@ -1192,22 +1192,6 @@ return false;
 
 //------------------------------------------------------------------------
 
-void CTextureManager::CreateGLTextures (int nVersion)
-{
-	int nVersionResolved = (nVersion < 0) ? Version () : nVersion;
-
-if (!Available (nVersionResolved))
-	return;
-
-for (int i = 0; i < GlobalTextureCount (); i++)
-	m_textures [nVersionResolved][i].GLCreate (false);
-m_arrow.GLCreate (false);
-for (int i = 0; i < ICON_COUNT; i++)
-	m_icons [i].GLCreate (false);
-}
-
-//------------------------------------------------------------------------
-
 bool CTextureManager::ChangePigFile (const char *pszPigPath, int nVersion)
 {
 	int nVersionResolved = (nVersion < 0) ? Version () : nVersion;

@@ -542,13 +542,6 @@ return 0;
 
 //------------------------------------------------------------------------------
 
-int CModel::ReloadTextures (void)
-{
-return m_textures.Bind (m_bCustom);
-}
-
-//------------------------------------------------------------------------------
-
 int CModel::FreeTextures (void)
 {
 m_textures.Destroy ();
