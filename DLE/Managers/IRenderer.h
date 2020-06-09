@@ -19,4 +19,7 @@ public:
 		CVertex* vertices, int nVertices, ushort* index) = 0;
 	virtual int RenderModel(RenderModel::CModel& model, CGameObject* object,
 		int nGunId = 0, int nBombId = 0, int nMissileId = 0, int nMissiles = 4) = 0;
+	virtual bool CreateModelVBOData(RenderModel::CModel& model) = 0;
+	virtual void BindModelVBOData(RenderModel::CModel& model) = 0;
+	virtual void DestroyModelVBOData(RenderModel::CModel& model) = 0;
 };

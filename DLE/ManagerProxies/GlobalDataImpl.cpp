@@ -299,3 +299,22 @@ void GlobalData::SetDocumentModifiedFlag(bool modified)
 void GlobalData::ResetSelections()
 {
 }
+
+#pragma unmanaged
+
+void ArrayError(const char* pszMsg)
+{
+    g_data.Trace(Error, pszMsg);
+}
+
+void _cdecl PrintLog(const int nIndent, const char* fmt, ...)
+{
+    char message[512]{};
+    va_list arglist;
+    va_start(arglist, fmt);
+    if (vsprintf_s(message, fmt, arglist) > 0)
+    {
+        g_data.Trace(Verbose, message);
+    }
+    va_end(arglist);
+}

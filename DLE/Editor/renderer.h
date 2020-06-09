@@ -236,6 +236,9 @@ class CRenderer : public IRenderer
 		virtual void Sprite (const CTexture* pTexture, CVertex center, double width, double height, bool bAlways = false) = 0;
 		virtual int RenderModel(RenderModel::CModel& model, CGameObject* object, int nGunId, int nBombId, int nMissileId, int nMissiles);
 		void RenderSubModel(RenderModel::CModel& model, short nSubModel, int nGunId = 0, int nBombId = 0, int nMissileId = 0, int nMissiles = 4);
+		virtual bool CreateModelVBOData(RenderModel::CModel& model) { return false; }
+		virtual void BindModelVBOData(RenderModel::CModel& model) {}
+		virtual void DestroyModelVBOData(RenderModel::CModel& model) {}
 
 		int DrawObjectArrow (CGameObject& object, int bCurrent);
 		bool DrawObjectSprite (CGameObject& object);
@@ -437,6 +440,10 @@ class CRendererGL : public CRenderer {
 		virtual int GetSideKey (int x, int y, short& nSegment, short& nSide);
 
 		virtual CFrustum* Frustum (void) { return &m_frustum; }
+
+		virtual bool CreateModelVBOData(RenderModel::CModel& model);
+		virtual void BindModelVBOData(RenderModel::CModel& model);
+		virtual void DestroyModelVBOData(RenderModel::CModel& model);
 	};
 
 // -----------------------------------------------------------------------------

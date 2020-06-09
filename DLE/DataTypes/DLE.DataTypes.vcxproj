@@ -179,6 +179,8 @@
     <ClInclude Include="wall.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ASERenderModel.cpp" />
+    <ClCompile Include="OOFRenderModel.cpp" />
     <ClCompile Include="RenderModel.cpp" />
     <ClCompile Include="ASEModel.cpp" />
     <ClCompile Include="GameObject.cpp" />

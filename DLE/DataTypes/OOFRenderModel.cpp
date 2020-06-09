@@ -1,4 +1,9 @@
 #include "stdafx.h"
+#include "ModelTextures.h"
+#include "PolyModel.h"
+#include "ASEModel.h"
+#include "OOFModel.h"
+#include "RenderModel.h"
 
 using namespace RenderModel;
 
