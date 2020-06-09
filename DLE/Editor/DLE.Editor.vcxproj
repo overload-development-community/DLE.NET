@@ -296,9 +296,7 @@
     <ClInclude Include="Global.h" />
     <ClInclude Include="ViewMatrix.h" />
     <ClInclude Include="wglew.h" />
-    <ClInclude Include="buildmodel.h" />
     <ClInclude Include="oglmatrix.h" />
-    <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Selection.h" />
     <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="TextureFilter.h" />
@@ -347,7 +345,6 @@
     <ClCompile Include="ObjectTool.Physics.cpp" />
     <ClCompile Include="ObjectTool.Position.cpp" />
     <ClCompile Include="ObjectTool.Sound.cpp" />
-    <ClCompile Include="OOFRenderModel.cpp" />
     <ClCompile Include="PogDialog.cpp" />
     <ClCompile Include="ReactorTool.cpp" />
     <ClCompile Include="RenderBuffers.cpp" />
@@ -380,9 +377,7 @@
     </ClCompile>
     <ClCompile Include="global.cpp" />
     <ClCompile Include="ViewMatrix.cpp" />
-    <ClCompile Include="ASERenderModel.cpp" />
-    <ClCompile Include="buildmodel.cpp" />
-    <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="VBO.cpp" />
     <ClCompile Include="Selection.cpp" />
     <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="TextureFilter.cpp" />

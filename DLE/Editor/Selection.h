@@ -89,8 +89,17 @@ class CSelection : public CSideKey, public ISelection
 
 		void Fix (short nSegment);
 
+		void FixObject();
+
 		inline short& Index (void) { return m_nIndex; }
-	};
+
+		virtual operator CSideKey() override
+		{
+			CSideKey key;
+			Get(key);
+			return key;
+		}
+};
 
 extern CSelection selections [3];
 extern CSelection* current;

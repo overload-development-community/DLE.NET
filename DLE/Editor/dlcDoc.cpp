@@ -421,7 +421,50 @@ if (bSaveAs && !BrowseForFile (m_szFile, FALSE))
 	return false;
 bool bSaveToHog = strstr (m_szFile, ".hog") != null;
 if (bSaveToHog)
-	result = SaveToHog (m_szFile, m_szSubFile, bSaveAs);
+{
+	if (bSaveAs)
+	{
+		// This is a bit silly, should be checking .msn/.mn2, but do that in the new UI
+		FILE* hogFile;
+		fopen_s(&hogFile, m_szFile, "rt");
+		if (hogFile)
+		{
+			fclose(hogFile);
+			if (Query2Msg("A mission file with that name already exists.\nOverwrite mission file?", MB_YESNO) != IDYES)
+				return false;
+		}
+	}
+
+	bool overwrite = false;
+	if (CHogManager::ContainsSubFile(m_szFile, m_szSubFile))
+	{
+		overwrite = QueryMsg("Overwrite old level with same name?") == IDYES;
+	}
+
+	_strlwr_s(m_szFile, 256);
+	bool newLevel = strlen(m_szSubFile) == 0 || strstr(m_szFile, "new.");
+	if (newLevel)
+	{
+		CLevelHeader lh(g_data.IsD2XLevel());
+		CInputDialog dlg(DLE.MainFrame(), "Name mine", "Enter file name:", m_szSubFile, lh.NameSize() - 4);
+		if (dlg.DoModal() != IDOK)
+			return 0;
+
+		char szBaseName[256]{};
+		CFileManager::SplitPath(m_szSubFile, null, szBaseName, null);
+		if (!*g_data.missionData->missionName)
+			strcpy_s(g_data.missionData->missionName, sizeof(g_data.missionData->missionName), szBaseName);
+		if (bSaveAs || !*g_data.missionData->missionName)
+			do {
+				CInputDialog dlg(DLE.MainFrame(), "Mission title", "Enter mission title:",
+					g_data.missionData->missionName, sizeof(g_data.missionData->missionName));
+				if (dlg.DoModal() != IDOK)
+					return -1;
+			} while (!*g_data.missionData->missionName);
+	}
+
+	result = SaveToHog(m_szFile, m_szSubFile, newLevel, bSaveAs, overwrite);
+}
 else
 	result = theMine->Save (m_szFile);
 if (result)
@@ -669,272 +712,304 @@ if (p) {
 
 void CDlcDoc::OnInsertSegment() 
 {
-segmentManager.AddSegments ();
+	if (theMine->SelectMode() == BLOCK_MODE && segmentManager.TaggedSideCount() > 50)
+	{
+		if (Query2Msg("You are about to insert a large number of cubes.\n"
+			"Are you sure you want to do this?", MB_YESNO) != IDYES)
+			return;
+	}
+
+	auto nSegment = segmentManager.AddSegments(current);
+	current->SetSegmentId(nSegment);
 }
 
 void CDlcDoc::OnDeleteSegment() 
 {
-segmentManager.Delete ();
+    auto segmentId = current->SegmentId();
+    segmentManager.Delete(segmentId);
+    current->Fix(segmentId);
+    other->Fix(segmentId);
+    current->FixObject();
+    other->FixObject();
 }
 
-void CDlcDoc::OnInsertSegReactor ()
+void CDlcDoc::OnInsertSegReactor()
 {
-segmentManager.CreateReactor ();
+    segmentManager.CreateReactor(*current);
 }
 
-void CDlcDoc::OnInsertSegRobotMaker ()
+void CDlcDoc::OnInsertSegRobotMaker()
 {
-segmentManager.CreateRobotMaker ();
+    segmentManager.CreateRobotMaker(*current);
 }
 
-void CDlcDoc::OnInsertSegProducer ()
+void CDlcDoc::OnInsertSegProducer()
 {
-segmentManager.CreateProducer ();
+    segmentManager.CreateProducer(*current);
 }
 
-void CDlcDoc::OnInsertSegRepairCenter ()
+void CDlcDoc::OnInsertSegRepairCenter()
 {
-segmentManager.CreateProducer (-1, SEGMENT_FUNC_REPAIRCEN);
+    segmentManager.CreateProducer(*current, -1, SEGMENT_FUNC_REPAIRCEN);
 }
 
-void CDlcDoc::OnInsertDoorNormal ()
+void CDlcDoc::OnInsertDoorNormal()
 {
-wallManager.CreateAutoDoor ();
+    wallManager.CreateAutoDoor(*current);
 }
 
-void CDlcDoc::OnInsertDoorPrison ()
+void CDlcDoc::OnInsertDoorPrison()
 {
-wallManager.CreatePrisonDoor ();
+    wallManager.CreatePrisonDoor(*current);
 }
 
-void CDlcDoc::OnInsertDoorGuideBot ()
+void CDlcDoc::OnInsertDoorGuideBot()
 {
-wallManager.CreateGuideBotDoor ();
+    wallManager.CreateGuideBotDoor(*current);
 }
 
-void CDlcDoc::OnInsertDoorExit ()
+void CDlcDoc::OnInsertDoorExit()
 {
-wallManager.CreateNormalExit ();
+    wallManager.CreateNormalExit(*current);
 }
 
-void CDlcDoc::OnInsertDoorSecretExit ()
+void CDlcDoc::OnInsertDoorSecretExit()
 {
-wallManager.CreateSecretExit ();
+    wallManager.CreateSecretExit(*current);
 }
 
-void CDlcDoc::OnInsertTriggerOpenDoor ()
+void CDlcDoc::OnInsertTriggerOpenDoor()
 {
-triggerManager.AddOpenDoor ();
+    triggerManager.AddOpenDoor(*current, *other);
 }
 
-void CDlcDoc::OnInsertTriggerRobotMaker ()
+void CDlcDoc::OnInsertTriggerRobotMaker()
 {
-triggerManager.AddRobotMaker ();
+    triggerManager.AddRobotMaker(*current, *other);
 }
 
-void CDlcDoc::OnInsertTriggerShieldDrain ()
+void CDlcDoc::OnInsertTriggerShieldDrain()
 {
-triggerManager.AddShieldDrain ();
+    triggerManager.AddShieldDrain(*current, *other);
 }
 
-void CDlcDoc::OnInsertTriggerEnergyDrain ()
+void CDlcDoc::OnInsertTriggerEnergyDrain()
 {
-triggerManager.AddEnergyDrain ();
+    triggerManager.AddEnergyDrain(*current, *other);
 }
 
-void CDlcDoc::OnInsertTriggerControlPanel ()
+void CDlcDoc::OnInsertTriggerControlPanel()
 {
-triggerManager.AddUnlock ();
+    triggerManager.AddUnlock(*current, *other);
 }
 
-void CDlcDoc::OnInsertWallFuelCells ()
+void CDlcDoc::OnInsertWallFuelCells()
 {
-wallManager.CreateFuelCell ();
+    wallManager.CreateFuelCell(*current);
 }
 
-void CDlcDoc::OnInsertWallIllusion ()
+void CDlcDoc::OnInsertWallIllusion()
 {
-wallManager.CreateIllusion ();
+    wallManager.CreateIllusion(*current);
 }
 
-void CDlcDoc::OnInsertWallForceField ()
+void CDlcDoc::OnInsertWallForceField()
 {
-wallManager.CreateForceField ();
+    wallManager.CreateForceField(*current);
 }
 
-void CDlcDoc::OnInsertWallFan ()
+void CDlcDoc::OnInsertWallFan()
 {
-wallManager.CreateFan ();
+    wallManager.CreateFan(*current);
 }
 
-void CDlcDoc::OnInsertWallGrate ()
+void CDlcDoc::OnInsertWallGrate()
 {
-wallManager.CreateGrate ();
+    wallManager.CreateGrate(*current);
 }
 
-void CDlcDoc::OnInsertWallWaterfall ()
+void CDlcDoc::OnInsertWallWaterfall()
 {
-wallManager.CreateWaterFall ();
+    wallManager.CreateWaterFall(*current);
 }
 
-void CDlcDoc::OnInsertWallLavafall ()
+void CDlcDoc::OnInsertWallLavafall()
 {
-wallManager.CreateLavaFall ();
+    wallManager.CreateLavaFall(*current);
 }
 
-void CDlcDoc::OnInsertObjectPlayer ()
+void CDlcDoc::OnInsertObjectPlayer()
 {
-objectManager.Create (OBJ_PLAYER);
+    objectManager.Create(OBJ_PLAYER, current->Object(), current->SegmentId());
 }
 
-void CDlcDoc::OnInsertObjectCoopPlayer ()
+void CDlcDoc::OnInsertObjectCoopPlayer()
 {
-objectManager.Create (OBJ_COOP);
+    objectManager.Create(OBJ_COOP, current->Object(), current->SegmentId());
 }
 
-void CDlcDoc::OnInsertObjectPlayerCopy ()
+void CDlcDoc::OnInsertObjectPlayerCopy()
 {
-
-	objectManager.Create (OBJ_NONE);
+    objectManager.Create(OBJ_NONE, current->Object(), current->SegmentId());
 }
 
-void CDlcDoc::OnInsertObjectRobot ()
+void CDlcDoc::OnInsertObjectRobot()
 {
-if (objectManager.Create (OBJ_ROBOT)) {
-	current->Object ()->Id () = 3; // class 1 drone
-	current->Object ()->Setup (current->Object ()->Type ());
-	}
+    if (objectManager.Create(OBJ_ROBOT, current->Object(), current->SegmentId())) {
+        current->Object()->Id() = 3; // class 1 drone
+        current->Object()->Setup(current->Object()->Type());
+    }
 }
 
-void CDlcDoc::OnInsertObjectWeapon ()
+void CDlcDoc::OnInsertObjectWeapon()
 {
-if (objectManager.Create (OBJ_POWERUP)) {
-	current->Object ()->Id () = 3; // laser
-	current->Object ()->Setup (current->Object ()->Type ());
-	}
+    if (objectManager.Create(OBJ_POWERUP, current->Object(), current->SegmentId())) {
+        current->Object()->Id() = 3; // laser
+        current->Object()->Setup(current->Object()->Type());
+    }
 }
 
-void CDlcDoc::OnInsertObjectPowerup ()
+void CDlcDoc::OnInsertObjectPowerup()
 {
-if (objectManager.Create (OBJ_POWERUP)) {
-	current->Object ()->Id () = 1; // energy boost
-	current->Object ()->Setup (current->Object ()->Type ());
-	}
+    if (objectManager.Create(OBJ_POWERUP, current->Object(), current->SegmentId())) {
+        current->Object()->Id() = 1; // energy boost
+        current->Object()->Setup(current->Object()->Type());
+    }
 }
 
-void CDlcDoc::OnInsertObjectGuideBot ()
+void CDlcDoc::OnInsertObjectGuideBot()
 {
-if (objectManager.Create (OBJ_ROBOT)) {
-	current->Object ()->Id () = 33; // guide bot
-	current->Object ()->Setup (current->Object ()->Type ());
-	}
+    if (objectManager.Create(OBJ_ROBOT, current->Object(), current->SegmentId())) {
+        current->Object()->Id() = 33; // guide bot
+        current->Object()->Setup(current->Object()->Type());
+    }
 }
 
-void CDlcDoc::OnInsertObjectReactor ()
+void CDlcDoc::OnInsertObjectReactor()
 {
-if (objectManager.Create (OBJ_REACTOR)) {
-	current->Object ()->Id () = 2; // standard reactor
-	current->Object ()->Setup (current->Object ()->Type ());
-	}
+    if (objectManager.Create(OBJ_REACTOR, current->Object(), current->SegmentId())) {
+        current->Object()->Id() = 2; // standard reactor
+        current->Object()->Setup(current->Object()->Type());
+    }
 }
 
-void CDlcDoc::OnDeleteObject ()
+void CDlcDoc::OnDeleteObject()
 {
-if ((QueryMsg ("Are you sure you want to delete this object?") == IDYES))
-	objectManager.Delete ();
+    if ((QueryMsg("Are you sure you want to delete this object?") == IDYES))
+        objectManager.Delete(current->ObjectId());
 }
 
-void CDlcDoc::OnDeleteWall ()
+void CDlcDoc::OnDeleteWall()
 {
-wallManager.Delete ();
-DLE.MineView ()->Refresh ();
+    wallManager.Delete(*current);
+    DLE.MineView()->Refresh();
 }
 
-void CDlcDoc::OnDeleteTrigger ()
+void CDlcDoc::OnDeleteTrigger()
 {
-triggerManager.DeleteFromWall ();
+    triggerManager.DeleteFromWall(*current);
 }
 
-void CDlcDoc::OnCutBlock ()
-{
-	char szFile[256]{};
-	if (!::BrowseForFile(FALSE,
-		blockManager.Extended() ? "blx" : "blk", szFile,
-		"Block file|*.blk|"
-		"Extended block file|*.blx|"
-		"All Files|*.*||",
-		OFN_HIDEREADONLY | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT,
-		DLE.MainFrame()
-		))
-		return;
+const char* BLOCKOP_HINT =
+    "The block of cubes will be saved relative to the current segment.\n"
+    "Later, when you paste the block, it will be placed relative to\n"
+    "the current segment at that time.  You can change the current side\n"
+    "and the current point to affect the relative direction and\n"
+    "rotation of the block.\n"
+    "\n"
+    "Would you like to proceed?";
 
-	blockManager.Cut(szFile);
+void CDlcDoc::OnCutBlock()
+{
+    if (QueryMsg(BLOCKOP_HINT) != IDYES)
+        return;
+
+    char szFile[256]{};
+    if (!::BrowseForFile(FALSE,
+        blockManager.Extended() ? "blx" : "blk", szFile,
+        "Block file|*.blk|"
+        "Extended block file|*.blx|"
+        "All Files|*.*||",
+        OFN_HIDEREADONLY | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT,
+        DLE.MainFrame()
+    ))
+        return;
+
+    blockManager.Cut(current, szFile);
 }
 
-void CDlcDoc::OnCopyBlock ()
+void CDlcDoc::OnCopyBlock()
 {
-	char szFile[256]{};
-	if (!::BrowseForFile(FALSE,
-		blockManager.Extended() ? "blx" : "blk", szFile,
-		"Block file|*.blk|"
-		"Extended block file|*.blx|"
-		"All Files|*.*||",
-		OFN_HIDEREADONLY | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT,
-		DLE.MainFrame()
-		))
-		return;
+    if (QueryMsg(BLOCKOP_HINT) != IDYES)
+        return;
 
-	blockManager.Copy(szFile);
+    char szFile[256]{};
+    if (!::BrowseForFile(FALSE,
+        blockManager.Extended() ? "blx" : "blk", szFile,
+        "Block file|*.blk|"
+        "Extended block file|*.blx|"
+        "All Files|*.*||",
+        OFN_HIDEREADONLY | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_OVERWRITEPROMPT,
+        DLE.MainFrame()
+    ))
+        return;
+
+    blockManager.Copy(current, szFile);
 }
 
-void CDlcDoc::OnQuickCopyBlock ()
+void CDlcDoc::OnQuickCopyBlock()
 {
-	blockManager.QuickCopy();
+    blockManager.QuickCopy(current);
 }
 
-void CDlcDoc::OnPasteBlock ()
+void CDlcDoc::OnPasteBlock()
 {
-	if (tunnelMaker.Active())
-		return;
-	// Initialize data for fp open dialog
-	char szFile[256] = "\0";
+    if (tunnelMaker.Active())
+        return;
+    // Initialize data for fp open dialog
+    char szFile[256] = "\0";
 
-	if (!::BrowseForFile(TRUE, blockManager.Extended() ? "blx" : "blk", szFile,
-		"Block file|*.blk|"
-		"Extended block file|*.blx|"
-		"All Files|*.*||",
-		OFN_HIDEREADONLY | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST,
-		DLE.MainFrame()
-		))
-		return;
-	if (!blockManager.Read(szFile))
-		DLE.MineView()->SetSelectMode(BLOCK_MODE);
+    if (!::BrowseForFile(TRUE, blockManager.Extended() ? "blx" : "blk", szFile,
+        "Block file|*.blk|"
+        "Extended block file|*.blx|"
+        "All Files|*.*||",
+        OFN_HIDEREADONLY | OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST,
+        DLE.MainFrame()
+    ))
+        return;
+    if (!blockManager.Read(current, szFile))
+        DLE.MineView()->SetSelectMode(BLOCK_MODE);
 }
 
-void CDlcDoc::OnQuickPasteBlock ()
+void CDlcDoc::OnQuickPasteBlock()
 {
-	if (tunnelMaker.Active())
-		return;
+    if (tunnelMaker.Active())
+        return;
 
-	if (blockManager.HasRememberedFilename())
-	{
-		if (!blockManager.Read(nullptr))
-			DLE.MineView()->SetSelectMode(BLOCK_MODE);
-	}
-	else
-	{
-		OnPasteBlock();
-	}
+    if (blockManager.HasRememberedFilename())
+    {
+        if (!blockManager.Read(current, nullptr))
+            DLE.MineView()->SetSelectMode(BLOCK_MODE);
+    }
+    else
+    {
+        OnPasteBlock();
+    }
 }
 
-void CDlcDoc::OnDeleteBlock ()
+void CDlcDoc::OnDeleteBlock()
 {
-blockManager.Delete();
+    if (QueryMsg("Are you sure you want to delete the marked cubes?") != IDYES)
+        return;
+
+    blockManager.Delete();
+    current->FixObject();
+    other->FixObject();
 }
 
-void CDlcDoc::OnCopyOtherCube ()
+void CDlcDoc::OnCopyOtherCube()
 {
-segmentManager.CopyOtherSegment ();
+    segmentManager.CopyOtherSegment(other->SegmentId(), current->SegmentId());
 }
 
 

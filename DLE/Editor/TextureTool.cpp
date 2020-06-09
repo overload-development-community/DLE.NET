@@ -678,7 +678,7 @@ UpdateData (TRUE);
 
 CTagByAngle tagger;
 if (tagger.Setup (segmentManager.VisibleSideCount ()))
-	tagger.Run ();
+	tagger.Run (current->SegmentId(), current->SideId());
 Refresh ();
 DLE.MineView ()->Refresh ();
 }
@@ -693,7 +693,7 @@ UpdateData (TRUE);
 
 CTagByTextures tagger (m_bUse1st ? current->Side ()->BaseTex () : -1, m_bUse2nd ? current->Side ()->OvlTex () : -1);
 if (tagger.Setup (segmentManager.VisibleSideCount ()))
-	tagger.Run ();
+	tagger.Run (current->SegmentId(), current->SideId());
 Refresh ();
 DLE.MineView ()->Refresh ();
 }

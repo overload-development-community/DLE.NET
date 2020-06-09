@@ -32,7 +32,7 @@ if (fp == null) {
 		sprintf_s (filename, sizeof (filename), IsD1File () ? "%new.rdl" : "%snew.rl2", m_startFolder);
 		if (!df.Open (filename, "rb")) {
 			sprintf_s (message, sizeof (message),  "Error %d: Can't open file \"%s\".", GetLastError (), filename);
-			g_data.DoErrorMsg (message);
+			g_data.Trace(Error, message);
 			return -1;
 			}
 		fp = &df;
@@ -105,12 +105,9 @@ if (LevelIsOutdated ()) {
 int errFlags = FixIndexValues ();
 if (errFlags == 0)
 	return 1;
-sprintf_s (message, sizeof (message),  "File contains corrupted data (error code %#04x). Would you like to load anyway? ", errFlags);
-if (g_data.DoQueryMsg (message) != IDYES) {
-	return LoadLevel (null, false) < 1;
-	}
-
-return 0; // failed
+sprintf_s(message, sizeof(message), "File contains corrupted data (error code %#04x).", errFlags);
+g_data.Trace(Error, message);
+return LoadLevel(null, false) < 1;
 }
 
 // -----------------------------------------------------------------------------
@@ -119,7 +116,7 @@ short CMine::LoadMineSigAndType (CFileManager* fp)
 {
 int sig = fp->ReadInt32 ();
 if (sig != 'P'*0x1000000L + 'L'*0x10000L + 'V'*0x100 + 'L') {
-	g_data.DoErrorMsg ("Signature value incorrect.");
+	g_data.Trace(Error, "Signature value incorrect.");
 	fp->Close ();
 	return 1;
 	}
@@ -134,7 +131,7 @@ else if ((LevelVersion () >= 6L) && (LevelVersion () <= LEVEL_VERSION)) {
 	}
 else {
 	sprintf_s (message, sizeof (message),  "Version %d unknown. Cannot load this level.", LevelVersion ());
-	g_data.DoErrorMsg (message);
+	g_data.Trace(Error, message);
 	fp->Close ();
 	return 1;
 	}
@@ -189,7 +186,7 @@ m_changesMade = 0;
 //	CFileManager fp;
 //if (fp->Open (filename, "rb")) {
 //	sprintf_s (message, sizeof (message),  "Error %d: Can't open file \"%s\".", GetLastError (), filename);
-//	g_data.DoErrorMsg (message);
+//	g_data.Trace(Error, message);
 //	return -1;
 //	}
 
@@ -219,14 +216,14 @@ if (IsD2File ()) {
 
 fp->Seek (mineDataOffset, SEEK_SET);
 if (LoadMineGeometry (fp, bCreate) != 0) {
-	g_data.DoErrorMsg ("Error loading mine data");
+	g_data.Trace(Error, "Error loading mine data");
 	fp->Close ();
 	return(2);
 	}
 
 fp->Seek (gameDataOffset, SEEK_SET);
 if (LoadGameItems (fp, bCreate) != 0) {
-	g_data.DoErrorMsg ("Error loading game data");
+	g_data.Trace(Error, "Error loading game data");
 	// reset "howmany"
 	objectManager.ResetInfo ();
 	wallManager.ResetInfo ();
@@ -273,7 +270,7 @@ if (!(bLoadFromHog || bCreate)) {
 					*p = '\0';
 				strcat_s (szHamFile, sizeof (szHamFile), "missions\\d2x.ham");
 				if (!hfp.Open (szHogFile, "rb"))
-					g_data.DoErrorMsg ("Could not open HOG file.");
+					g_data.Trace(Error, "Could not open HOG file.");
 				else {
 					if (0 < hfp.Seek (nOffset + lh.Size (), SEEK_SET))
 						m_bVertigo = robotManager.ReadHAM (&hfp, EXTENDED_HAM) != 0;
@@ -326,10 +323,10 @@ ubyte version = fp->ReadUByte ();
 ushort nVertices = fp->ReadUInt16 ();
 int nOverflow = vertexManager.Overflow (nVertices);
 if (nOverflow > 0)
-	g_data.DoErrorMsg ("Warning: Too many vertices for this level version");
+	g_data.Trace(Error, "Warning: Too many vertices for this level version");
 else if (nOverflow < 0) {
 	sprintf_s (message, sizeof (message),  "Too many vertices (%d)", nVertices);
-	g_data.DoErrorMsg (message);
+	g_data.Trace(Error, message);
 	return 1;
 	}
 
@@ -337,10 +334,10 @@ else if (nOverflow < 0) {
 ushort nSegments = fp->ReadUInt16 ();
 nOverflow = segmentManager.Overflow (nSegments);
 if (nOverflow > 0)
-	g_data.DoErrorMsg ("Warning: Too many segments for this level version");
+	g_data.Trace(Error, "Warning: Too many segments for this level version");
 else if (nOverflow < 0) {
 	sprintf_s (message, sizeof (message), "Too many segments (%d)", nSegments);
-	g_data.DoErrorMsg (message);
+	g_data.Trace(Error, message);
 	return 2;
 	}
 
@@ -363,7 +360,7 @@ lightManager.ReadColors (*fp);
 if (objectManager.Count () > MAX_OBJECTS) {
 	sprintf_s (message, sizeof (message),  "Warning: Max number of objects for this level version exceeded (%ld/%d)", 
 			     objectManager.Count (), MAX_OBJECTS);
-	g_data.DoErrorMsg (message);
+	g_data.Trace(Error, message);
 	}
 return 0;
 }
@@ -380,7 +377,7 @@ short CMine::LoadGameItems (CFileManager* fp, bool bCreate)
 // Check signature
 Info ().Read (fp, IsD2XLevel ());
 if (FileInfo ().signature != 0x6705) {
-	g_data.DoErrorMsg ("Game data signature incorrect");
+	g_data.Trace(Error, "Game data signature incorrect");
 	return -1;
 	}
 if (Info ().fileInfo.version < 14) 

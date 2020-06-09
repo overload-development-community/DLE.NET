@@ -147,6 +147,14 @@ else
 
 // -----------------------------------------------------------------------------
 
+void CSelection::FixObject()
+{
+if (m_nObject >= objectManager.Count())
+	m_nObject = objectManager.Count() - 1;
+}
+
+// -----------------------------------------------------------------------------
+
 short CSelection::SetSegmentId (short nSegment) 
 { 
 if ((this == current) && (0 <= m_nSegment) && (0 <= m_nSide))

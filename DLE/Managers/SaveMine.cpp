@@ -24,13 +24,13 @@ short CMine::Save (const char * szFile)
 {
 if (segmentManager.Overflow ()) {
 	if (vertexManager.Overflow ()) 
-		g_data.DoErrorMsg ("Error: Too many segments and vertices for this level version!\nThe level cannot be saved.");
+		g_data.Trace(Error, "Error: Too many segments and vertices for this level version!\nThe level cannot be saved.");
 	else
-		g_data.DoErrorMsg ("Error: Too many segments for this level version!\nThe level cannot be saved.");
+		g_data.Trace(Error, "Error: Too many segments for this level version!\nThe level cannot be saved.");
 	return 0;
 	}
 else if (vertexManager.Overflow ()) {
-	g_data.DoErrorMsg ("Error: Too many vertices for this level version!\nThe level cannot be saved.");
+	g_data.Trace(Error, "Error: Too many vertices for this level version!\nThe level cannot be saved.");
 	return 0;
 	}
 
@@ -102,7 +102,7 @@ else if (IsD2File ()) {
 mineDataOffset = fp.Tell ();
 if (0 > (mineErr = SaveMineGeometry (&fp))) {
 	fp.Close ();
-	g_data.DoErrorMsg ("Error saving mine data");
+	g_data.Trace(Error, "Error saving mine data");
 	return -2;
 	}
 
@@ -110,7 +110,7 @@ if (0 > (mineErr = SaveMineGeometry (&fp))) {
 gameDataOffset = fp.Tell ();
 if (0 > (gameErr = SaveGameItems (&fp))) {
 	fp.Close ();
-	g_data.DoErrorMsg ("Error saving game data");
+	g_data.Trace(Error, "Error saving game data");
 	return -3;
 	}
 
@@ -229,6 +229,26 @@ return 1;
 }
 
 // -----------------------------------------------------------------------------
+
+class SideOrientationSelection : public ISelection
+{
+public:
+	short segmentId;
+	short sideId;
+	short pointNum;
+
+	SideOrientationSelection(const CSideKey& key, short pointNum) :
+		segmentId(key.m_nSegment), sideId(key.m_nSide), pointNum(pointNum)
+	{}
+	virtual short SegmentId() override { return segmentId; }
+	virtual short SideId() override { return sideId; }
+	virtual short Edge() override { return pointNum; }
+	virtual short Point() override { return pointNum; }
+	virtual CSegment* Segment() override { return segmentManager.Segment(segmentId); }
+	virtual CSide* Side() override { return segmentManager.Side(*this); }
+	virtual CVertex* Vertex(short vertexNum = 0) override { return Segment()->Vertex(sideId, pointNum + vertexNum); }
+	virtual operator CSideKey() override { return CSideKey(segmentId, sideId); }
+};
 
 using namespace rapidjson;
 
@@ -447,9 +467,9 @@ else {
 		// CTunnelBase happens to calculate the orientation of a side already, so we're repurposing that
 		sprintf_s (path, "/entities/%d/rotation", nDoor);
 		Value& rotation = Pointer (path).Create (document).SetArray ();
+		SideOrientationSelection selection{ *pWall, DEFAULT_POINT };
 		CTunnelBase sideOrientation;
-		std::unique_ptr<ISelection> wallSide(g_data.CreateSelectionFromSide(*pWall));
-		sideOrientation.Setup (wallSide.get(), -1.0, true);
+		sideOrientation.Setup(&selection, -1.0, true);
 		for (size_t i = 0; i < 4; i++)
 			for (size_t j = 0; j < 4; j++) {
 				if (i == 3 && j == 3)
@@ -585,7 +605,7 @@ else {
 fp.Close ();
 char msg [MAX_PATH + 30];
 sprintf_s (msg, _countof (msg), "Level exported to %s", filename);
-g_data.DoInfoMsg(msg);
+g_data.Trace(TraceLevel::Info, msg);
 return 1;
 }
 

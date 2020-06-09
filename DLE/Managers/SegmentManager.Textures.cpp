@@ -11,7 +11,6 @@ extern int nDbgVertex;
 
 void CSegmentManager::Textures (CSideKey key, short& nBaseTex, short& nOvlTex)
 {
-g_data.currentSelection->Get (key);
 Side (key)->GetTextures (nBaseTex, nOvlTex);
 }
 
@@ -22,7 +21,6 @@ bool CSegmentManager::SetTextures (CSideKey key, int nBaseTex, int nOvlTex)
 	bool bChange = false;
 
 undoManager.Begin (__FUNCTION__, udSegments); 
-g_data.currentSelection->Get (key);
 CSide *pSide = Side (key); 
 bChange = pSide->SetTextures (nBaseTex, nOvlTex);
 if (!bChange) {
@@ -36,7 +34,7 @@ if (!wallManager.ClipFromTexture (key))
 undoManager.End (__FUNCTION__); 
 char message[50]{};
 sprintf_s (message, sizeof (message), "side has textures %d, %d", pSide->BaseTex () & 0x1fff, pSide->OvlTex (0)); 
-g_data.DoInfoMsg(message);
+g_data.Trace(Info, message);
 return true;
 }
 

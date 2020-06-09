@@ -585,11 +585,11 @@ void CTriggerTool::OnAddTrigger ()
 //m_nTrigger = nTrigger;
 m_bAutoAddWall = ((CButton *) GetDlgItem (IDC_TRIGGER_AUTOADDWALL))->GetCheck ();
 if (m_nClass) {
-	m_pTrigger = triggerManager.AddToObject (-1, m_nType);
+	m_pTrigger = triggerManager.AddToObject (current->ObjectId(), m_nType);
 	m_nTrigger = m_pTrigger ? int (m_pTrigger - triggerManager.ObjTrigger (0)) : -1; 
 	}
 else {
-	m_pTrigger = triggerManager.AddToWall (-1, m_nType, m_bAutoAddWall != 0);
+	m_pTrigger = triggerManager.AddToWall (*current, m_nType, m_bAutoAddWall != 0);
 	m_nTrigger = m_pTrigger ? int (m_pTrigger - triggerManager.Trigger (0)) : -1;
 	}
 // Redraw trigger window
@@ -991,35 +991,35 @@ DLE.MineView ()->Refresh ();
 
 afx_msg void CTriggerTool::OnAddOpenDoor ()
 {
-triggerManager.AddOpenDoor ();
+triggerManager.AddOpenDoor (*current, *other);
 }
 
 //------------------------------------------------------------------------------
 
 afx_msg void CTriggerTool::OnAddRobotMaker ()
 {
-triggerManager.AddRobotMaker ();
+triggerManager.AddRobotMaker (*current, *other);
 }
 
 //------------------------------------------------------------------------------
 
 afx_msg void CTriggerTool::OnAddShieldDrain ()
 {
-triggerManager.AddShieldDrain ();
+triggerManager.AddShieldDrain (*current, *other);
 }
 
 //------------------------------------------------------------------------------
 
 afx_msg void CTriggerTool::OnAddEnergyDrain ()
 {
-triggerManager.AddEnergyDrain ();
+triggerManager.AddEnergyDrain (*current, *other);
 }
 
 //------------------------------------------------------------------------------
 
 afx_msg void CTriggerTool::OnAddControlPanel ()
 {
-triggerManager.AddUnlock ();
+triggerManager.AddUnlock (*current, *other);
 }
 
 //------------------------------------------------------------------------------

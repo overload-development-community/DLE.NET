@@ -931,7 +931,7 @@ if (IN_RANGE (points [2].m_screen.x, m_viewMax.x) && IN_RANGE (points [2].m_scre
 		renderer.BeginRender ();
 		}
 	}
-if (tunnelMaker.Update() && tunnelMaker.Create())
+if (tunnelMaker.Update(current, other) && tunnelMaker.Create())
 	Renderer().DrawTunnelMaker(ViewMatrix());
 }
 
@@ -1019,20 +1019,20 @@ else {
 double d = (ViewOption (eViewTexturedWireFrame) || ViewOption (eViewTextured)) ? ViewMatrix ()->Distance (pObject->Position ()) : 1e30;
 if (textureManager.Available (1) && pObject->HasPolyModel () && modelManager.Setup (pObject, m_renderer) && ((nObject == current->ObjectId ()) || (d <= MODEL_DISPLAY_LIMIT))) {
 	SelectObjectPen (pObject);
-	if (pObject->IsInView (Renderer (), true)) { // only render if fully visible
+	if (Renderer ().IsObjectInView (*pObject, true)) { // only render if fully visible
 		Renderer ().SelectObject ((HBRUSH) GetStockObject (BLACK_BRUSH));
 		modelManager.Draw ();
 		}
 	}
 else {
-	if ((d > MODEL_DISPLAY_LIMIT) || !pObject->DrawSprite (Renderer ()) || (nObject == current->ObjectId ())) {
+	if ((d > MODEL_DISPLAY_LIMIT) || !Renderer().DrawObjectSprite (*pObject) || (nObject == current->ObjectId ())) {
 		SelectObjectPen (pObject);
-		pObject->DrawArrow (Renderer (), (nObject == current->ObjectId ()));
+		Renderer().DrawObjectArrow (*pObject, (nObject == current->ObjectId ()));
 		}
 	}
 
-if (((nObject == current->ObjectId ()) || (nObject == other->ObjectId ())) && pObject->IsInView (Renderer (), false))
-	pObject->DrawHighlight (Renderer (), (nObject == current->ObjectId ()));
+if (((nObject == current->ObjectId ()) || (nObject == other->ObjectId ())) && Renderer().IsObjectInView (*pObject, false))
+Renderer().DrawObjectHighlight (*pObject, (nObject == current->ObjectId ()));
 }
 
 //--------------------------------------------------------------------------
@@ -1155,7 +1155,8 @@ if (!SelectMode (eSelectSide))
 CRect viewport;
 GetClientRect (viewport);
 
-if (!segmentManager.GatherSelectableSides (viewport, LastMousePos ().x, LastMousePos ().y, ViewFlag (eViewMineSkyBox), false))
+auto selectableSides = GatherSelectableSides(viewport, LastMousePos().x, LastMousePos().y, ViewFlag(eViewMineSkyBox), false);
+if (selectableSides.empty())
 	return false;
 
 double minDist = 1e30;
@@ -1163,7 +1164,7 @@ double minDist = 1e30;
 CSegment* nearestSegment = null;
 CSide* nearestSide = null;
 
-for (CSide* pSide = segmentManager.SelectedSides (); pSide; pSide = pSide->GetLink ()) {
+for (CSide* pSide : selectableSides) {
 	CSegment* pSegment = segmentManager.Segment (pSide->GetParent ());
 	CVertex& center = pSide->Center ();
 	double dist = sqrt (sqr (LastMousePos ().x - center.m_screen.x) + sqr (LastMousePos ().y - center.m_screen.y));
@@ -1188,7 +1189,7 @@ if (m_nShowSelectionCandidates > 1) {
 		glEnable (GL_LINE_STIPPLE);
 		glDepthFunc (GL_ALWAYS);
 		}
-	for (CSide* pSide = segmentManager.SelectedSides (); pSide; pSide = pSide->GetLink ()) {
+	for (CSide* pSide : selectableSides) {
 		CSegment* pSegment = segmentManager.Segment (pSide->GetParent ());
 		short nSide = pSegment->SideIndex (pSide);
 		short nVertices = pSide->VertexCount ();
@@ -1252,7 +1253,7 @@ if (m_nShowSelectionCandidates > 0) {
 	Renderer ().BeginRender ();
 	if (m_nRenderer)
 		glDepthFunc (GL_ALWAYS);
-	for (CSide* pSide = segmentManager.SelectedSides (); pSide; pSide = pSide->GetLink ()) {
+	for (CSide* pSide : selectableSides) {
 		CSegment* pSegment = segmentManager.Segment (pSide->GetParent ());
 		short nSide = pSegment->SideIndex (pSide);
 		CVertex& center = pSide->Center ();
@@ -1283,7 +1284,8 @@ if (!SelectMode (eSelectSegment))
 CRect viewport;
 GetClientRect (viewport);
 
-if (!segmentManager.GatherSelectableSides (viewport, LastMousePos ().x, LastMousePos ().y, ViewFlag (eViewMineSkyBox), true))
+auto selectableSides = GatherSelectableSides(viewport, LastMousePos().x, LastMousePos().y, ViewFlag(eViewMineSkyBox), true);
+if (selectableSides.empty())
 	return false;
 
 double minDist = 1e30;
@@ -1292,7 +1294,7 @@ CSegment* nearestSegment = null;
 CSide* nearestSide = null;
 
 short nSegment = -1;
-for (CSide* pSide = segmentManager.SelectedSides (); pSide; pSide = pSide->GetLink ()) {
+for (CSide* pSide : selectableSides) {
 	if (nSegment == pSide->GetParent ())
 		continue;
 	CSegment* pSegment = segmentManager.Segment (nSegment = pSide->GetParent ());
@@ -1320,7 +1322,7 @@ if (m_nShowSelectionCandidates > 1) {
 		glEnable (GL_LINE_STIPPLE);
 		}
 	nSegment = -1;
-	for (CSide* pSide = segmentManager.SelectedSides (); pSide; pSide = pSide->GetLink ()) {
+	for (CSide* pSide : selectableSides) {
 		if (nSegment == pSide->GetParent ())
 			continue;
 		CSegment* pSegment = segmentManager.Segment (nSegment = pSide->GetParent ());
@@ -1366,7 +1368,7 @@ if (m_nShowSelectionCandidates > 0) {
 	if (m_nRenderer)
 		glDepthFunc (GL_ALWAYS);
 	nSegment = -1;
-	for (CSide* pSide = segmentManager.SelectedSides (); pSide; pSide = pSide->GetLink ()) {
+	for (CSide* pSide : selectableSides) {
 		if (nSegment == pSide->GetParent ())
 			continue;
 		CSegment* pSegment = segmentManager.Segment (nSegment = pSide->GetParent ());
@@ -1384,6 +1386,51 @@ if (m_nShowSelectionCandidates > 0) {
 	}
 
 return true;
+}
+
+// -----------------------------------------------------------------------------
+
+std::vector<CSide*> CMineView::GatherSelectableSides(CRect& viewport, long xMouse, long yMouse, bool bAllowSkyBox, bool bSegments)
+{
+	short nSegments = segmentManager.Count();
+	std::vector<CSide*> selectableSides;
+	std::vector<CSegment*> selectableSegments;
+
+#ifdef NDEBUG
+#pragma omp parallel for if (nSegments > 15)
+#endif
+	for (short nSegment = 0; nSegment < nSegments; nSegment++) {
+		CSegment* pSegment = segmentManager.Segment(nSegment);
+		if ((pSegment->Function() == SEGMENT_FUNC_SKYBOX) && !bAllowSkyBox)
+			continue;
+		if (pSegment->m_info.bTunnel)
+			continue;
+		bool bSegmentSelected = false;
+		short nSide = 0;
+		for (; nSide < 6; nSide++) {
+			nSide = Renderer().IsSegmentSelected(*pSegment, viewport, xMouse, yMouse, nSide, bSegments);
+			if (nSide < 0)
+				break;
+#ifdef NDEBUG
+#pragma omp critical
+#endif
+			{
+				if (!bSegmentSelected) {
+					bSegmentSelected = true;
+					selectableSegments.push_back(pSegment);
+				}
+			}
+			CSide* pSide = pSegment->Side(nSide);
+#ifdef NDEBUG
+#pragma omp critical
+#endif
+			{
+				selectableSides.push_back(pSide);
+			}
+			pSide->SetParent(nSegment);
+		}
+	}
+	return selectableSides;
 }
 
 //--------------------------------------------------------------------------
@@ -1448,7 +1495,7 @@ if ((m_inputHandler.MouseState () == eMouseStateSelect && m_inputHandler.HasMous
 		}
 	}
 
-if (tunnelMaker.Update() && tunnelMaker.Create())
+if (tunnelMaker.Update(current, other) && tunnelMaker.Create())
 {
 	Renderer().DrawTunnelMaker(ViewMatrix());
 }

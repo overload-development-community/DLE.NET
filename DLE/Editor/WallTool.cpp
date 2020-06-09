@@ -487,7 +487,7 @@ CWall *CWallTool::GetOtherWall (void)
 {
 CSideKey opp;
 
-if (!segmentManager.BackSide (opp))
+if (!segmentManager.BackSide (*current, opp))
 	return m_pWall [1] = null;
 m_nWall [1] = segmentManager.Segment (opp.m_nSegment)->m_sides [opp.m_nSide].Info ().nWall;
 return m_pWall [1] = (m_nWall [1] < wallManager.WallCount () ? wallManager.Wall (m_nWall [1]) : null);
@@ -754,57 +754,57 @@ wallManager.CreateAutoDoor (m_defDoor.Info ().nClip, m_defDoorTexture);
 
 void CWallTool::OnAddDoorExit ()
 {
-wallManager.CreateNormalExit ();
+wallManager.CreateNormalExit (*current);
 }
 
 void CWallTool::OnAddDoorSecretExit ()
 {
-wallManager.CreateSecretExit ();
+wallManager.CreateSecretExit (*current);
 }
 
 void CWallTool::OnAddDoorPrison ()
 {
-wallManager.CreatePrisonDoor ();
+wallManager.CreatePrisonDoor (*current);
 }
 
 void CWallTool::OnAddDoorGuideBot ()
 {
-wallManager.CreateGuideBotDoor ();
+wallManager.CreateGuideBotDoor (*current);
 }
 
 void CWallTool::OnAddWallFuelCell ()
 {
-wallManager.CreateFuelCell ();
+wallManager.CreateFuelCell (*current);
 }
 
 void CWallTool::OnAddWallIllusion ()
 {
-wallManager.CreateIllusion ();
+wallManager.CreateIllusion (*current);
 }
 
 void CWallTool::OnAddWallForceField ()
 {
-wallManager.CreateForceField ();
+wallManager.CreateForceField (*current);
 }
 
 void CWallTool::OnAddWallFan ()
 {
-wallManager.CreateFan ();
+wallManager.CreateFan (*current);
 }
 
 void CWallTool::OnAddWallGrate ()
 {
-wallManager.CreateGrate ();
+wallManager.CreateGrate (*current);
 }
 
 void CWallTool::OnAddWallWaterfall ()
 {
-wallManager.CreateWaterFall ();
+wallManager.CreateWaterFall (*current);
 }
 
 void CWallTool::OnAddWallLavafall ()
 {
-wallManager.CreateLavaFall ();
+wallManager.CreateLavaFall (*current);
 }
 
 void CWallTool::OnBothSides ()

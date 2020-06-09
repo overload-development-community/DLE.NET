@@ -179,7 +179,7 @@ if (count == 1) {
 			current->Segment ()->m_info.vertexIds [point1] = newVert;
 			// all unused vertices
 			vertexManager.DeleteUnused ();
-			segmentManager.FixChildren ();
+			segmentManager.FixChildren (current);
 			segmentManager.SetLinesToDraw ();
 			}
 		}

@@ -25,47 +25,7 @@ CMissionData missionData;
 GlobalData g_data{ &lightManager, &modelManager, &objectManager,
     &paletteManager, &robotManager, &segmentManager, &textureManager,
     &triggerManager, &wallManager, &vertexManager, &undoManager,
-    current, other, &missionData };
-
-bool GlobalData::IsD1File()
-{
-    return DLE.IsD1File();
-}
-
-bool GlobalData::IsD2File()
-{
-    return DLE.IsD2File();
-}
-
-int GlobalData::FileType()
-{
-    return DLE.FileType();
-}
-
-int GlobalData::FileVersion()
-{
-    return DLE.FileVersion();
-}
-
-int GlobalData::LevelType()
-{
-    return DLE.LevelType();
-}
-
-int GlobalData::LevelVersion()
-{
-    return DLE.LevelVersion();
-}
-
-bool GlobalData::IsStdLevel()
-{
-    return DLE.IsStdLevel();
-}
-
-bool GlobalData::IsD2XLevel()
-{
-    return LevelVersion() >= 9;
-}
+    &missionData };
 
 void GlobalData::RefreshMineView(bool all)
 {
@@ -107,40 +67,27 @@ void GlobalData::EnsureValidSelection()
     Wrap(other->m_nSegment, 1, 0, ::segmentManager.Count() - 1);
 }
 
-void GlobalData::DoInfoMsg(const char* msg)
+void GlobalData::Trace(TraceLevel level, std::string message)
 {
-    INFOMSG(msg);
-}
-
-void GlobalData::DoErrorMsg(const char* msg)
-{
-    ErrorMsg(msg);
-}
-
-void GlobalData::DoStatusMsg(const char* msg)
-{
-    STATUSMSG(msg);
-}
-
-int GlobalData::DoQueryMsg(const char* msg)
-{
-    return QueryMsg(msg);
-}
-
-int GlobalData::DoQuery2Msg(const char* msg, uint type)
-{
-    return Query2Msg(msg, type);
-}
-
-int GlobalData::ExpertMode()
-{
-    return DLE.ExpertMode();
-}
-
-bool GlobalData::DoInputDialog(const char* title, const char* prompt, char* buffer, size_t bufferSize)
-{
-    CInputDialog dlg(DLE.MainFrame(), title, prompt, buffer, bufferSize);
-    return dlg.DoModal() == IDOK;
+    switch (level)
+    {
+    case Error:
+        ErrorMsg(message.c_str());
+        break;
+    case Warning:
+        if (!DLE.ExpertMode())
+        {
+            ErrorMsg(message.c_str());
+        }
+        break;
+    case Info:
+        INFOMSG(message.c_str());
+        break;
+    case Verbose:
+        break;
+    default:
+        break;
+    }
 }
 
 void GlobalData::InitProgress(int maxPosition)
@@ -161,16 +108,6 @@ void GlobalData::StepProgress()
 void GlobalData::CleanupProgress()
 {
     DLE.MainFrame()->Progress().DestroyWindow();
-}
-
-IRenderer* GlobalData::GetRenderer()
-{
-    return &DLE.MineView()->Renderer();
-}
-
-IFileManager* GlobalData::CreateFileManager()
-{
-    return new CFileManager();
 }
 
 const char* GlobalData::GetD1Path()
@@ -267,12 +204,12 @@ std::vector<byte> GlobalData::LoadTextureIndex(int gameVersion)
 
 void GlobalData::LoadArrowTexture(CTexture& texture)
 {
-    DrawHelpers::LoadTextureFromResource(&texture, IDR_ARROW_TEXTURE);
+    LoadTextureFromResource(&texture, IDR_ARROW_TEXTURE);
 }
 
 void GlobalData::LoadIconTexture(int iconNumber, CTexture& texture)
 {
-    DrawHelpers::LoadTextureFromResource(&texture, IDR_SMOKE_ICON + iconNumber);
+    LoadTextureFromResource(&texture, IDR_SMOKE_ICON + iconNumber);
 }
 
 bool GlobalData::MakeModFolders(const char* subfolderName)
@@ -337,11 +274,6 @@ std::vector<byte> GlobalData::LoadPaletteData(const char* paletteName)
     return ::LoadResourceAsBlob(resourceId);
 }
 
-UINT GlobalData::GetPaletteEntries(UINT nStartIndex, UINT nNumEntries, LPPALETTEENTRY lpPaletteColors)
-{
-    return RenderCurrentPalette()->GetPaletteEntries(nStartIndex, nNumEntries, lpPaletteColors);
-}
-
 void GlobalData::SetDocumentModifiedFlag(bool modified)
 {
     DLE.GetDocument()->SetModifiedFlag(modified);
@@ -352,26 +284,6 @@ void GlobalData::ResetSelections()
     DLE.MainFrame()->SetSelectMode(eSelectSide);
     current->Reset();
     other->Reset();
-}
-
-ISelection* GlobalData::CreateSelectionFromSide(CSideKey sideKey)
-{
-    return new CSelection(sideKey);
-}
-
-bool GlobalData::GLCreateTexture(CTexture* texture, bool bForce)
-{
-    return DrawHelpers::GLCreateTexture(texture, bForce);
-}
-
-GLuint GlobalData::GLBindTexture(const CTexture* texture, GLuint nTMU, GLuint nMode)
-{
-    return DrawHelpers::GLBindTexture(texture, nTMU, nMode);
-}
-
-void GlobalData::GLReleaseTexture(CTexture* texture)
-{
-    return DrawHelpers::GLReleaseTexture(texture);
 }
 
 //------------------------------------------------------------------------------

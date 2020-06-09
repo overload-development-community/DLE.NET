@@ -109,8 +109,8 @@ protected:
 	afx_msg void OnPasteBlock ();
 public: // referencing from CMineView
 	afx_msg void OnQuickPasteBlock ();
-protected:
 	afx_msg void OnDeleteBlock ();
+protected:
 	afx_msg void OnCopyOtherCube ();
 	afx_msg void OnFileTest ();
 	//}}AFX_MSG

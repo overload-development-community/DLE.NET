@@ -1090,19 +1090,19 @@ if (nChoice) {
 	else if (nChoice == ID_EDIT_ALIGN_VIEWER_WITH_SIDE)
 		AlignViewerWithSide ();
 	else if (nChoice == ID_EDIT_QUICKCOPY)
-		blockManager.QuickCopy ();
+		blockManager.QuickCopy (current);
 	else if (nChoice == ID_EDIT_QUICKPASTE)
 		DLE.GetDocument()->OnQuickPasteBlock();
 	else if (nChoice == ID_EDIT_DELETEBLOCK)
-		blockManager.Delete ();
+		DLE.GetDocument()->OnDeleteBlock();
 	else if (nChoice == ID_VIEW_COLLAPSE_EDGE)
-		segmentManager.CollapseEdge ();
+		segmentManager.CollapseEdge (current->SegmentId(), current->SideId(), current->Edge());
 	else if (nChoice == ID_VIEW_CREATE_WEDGE)
-		segmentManager.CreateWedge ();
+		segmentManager.CreateWedge (current);
 	else if (nChoice == ID_VIEW_CREATE_PYRAMID)
-		segmentManager.CreatePyramid ();
+		segmentManager.CreatePyramid (current);
 	else if (nChoice == ID_MAKE_POINTS_PARALLEL)
-		segmentManager.MakePointsParallel ();
+		segmentManager.MakePointsParallel (current);
 	else if (nChoice == ID_EDIT_UNDO)
 		undoManager.Undo ();
 	else if (nChoice == ID_EDIT_REDO)

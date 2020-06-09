@@ -1,6 +1,9 @@
 #include "stdafx.h"
+#include "ModelTextures.h"
+#include "PolyModel.h"
+#include "ASEModel.h"
+#include "OOFModel.h"
 #include "rendermodel.h"
-#include "buildmodel.h"
 
 using namespace RenderModel;
 
@@ -29,7 +32,7 @@ void CModel::GetASEModelItems (int nModel, ASE::CModel& aseModel, float fScale)
 for (pAseSubModel = aseModel.m_subModels; pAseSubModel; pAseSubModel = pAseSubModel->m_next) {
 	pRenderSubModel = m_subModels + pAseSubModel->m_nSubModel;
 #if DBG
-	strcpy (pRenderSubModel->m_szName, pAseSubModel->m_szName);
+	strcpy_s (pRenderSubModel->m_szName, pAseSubModel->m_szName);
 #endif
 	pRenderSubModel->m_nSubModel = pAseSubModel->m_nSubModel;
 	pRenderSubModel->m_nParent = pAseSubModel->m_nParent;

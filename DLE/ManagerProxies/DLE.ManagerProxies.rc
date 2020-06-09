@@ -1,0 +1,94 @@
+// Microsoft Visual C++ generated resource script.
+//
+
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "winres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE 9, 1
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE  
+BEGIN
+    "#include ""winres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE  
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// RC_DATA
+//
+
+IDR_POF_NAMES1          RC_DATA                 "../resource/data/Pofs1.dat"
+IDR_POF_NAMES2          RC_DATA                 "../resource/data/pofs2.dat"
+IDR_ALIEN1_256          RC_DATA                 "../resource/palettes/alien1.256"
+IDR_ALIEN2_256          RC_DATA                 "../resource/palettes/alien2.256"
+IDR_FIRE_256            RC_DATA                 "../resource/palettes/fire.256"
+IDR_GROUPA_256          RC_DATA                 "../resource/palettes/groupa.256"
+IDR_ICE_256             RC_DATA                 "../resource/palettes/ice.256"
+IDR_WATER_256           RC_DATA                 "../resource/palettes/water.256"
+IDR_PALETTE_256         RC_DATA                 "../resource/palettes/palette.256"
+IDR_TEXTURE_DAT         RC_DATA                 "../resource/data/Texture.dat"
+IDR_TEXTURE2_DAT        RC_DATA                 "../resource/data/Texture2.dat"
+IDR_ARROW_TEXTURE       RC_DATA                 "../resource/bitmaps/arrow.tga"
+IDR_NEW_RDL             RC_DATA                 "../resource/levels/NEW_SAVE.RDL"
+IDR_NEW_RL2             RC_DATA                 "../resource/levels/NEW_SAVE.RL2"
+IDR_COLOR_D1            RC_DATA                 "../resource/data/descent.clr"
+IDR_LIGHT_D1            RC_DATA                 "../resource/data/descent.lgt"
+IDR_COLOR_D2            RC_DATA                 "../resource/data/descent2.clr"
+IDR_LIGHT_D2            RC_DATA                 "../resource/data/descent2.lgt"
+IDR_SMOKE_ICON          RC_DATA                 "../resource/bitmaps/icon-smoke.tga"
+IDR_SNOW_ICON           RC_DATA                 "../resource/bitmaps/icon-snow.tga"
+IDR_RAIN_ICON           RC_DATA                 "../resource/bitmaps/icon-rain.tga"
+IDR_BUBBLE_ICON         RC_DATA                 "../resource/bitmaps/icon-bubbles.tga"
+IDR_FIRE_ICON           RC_DATA                 "../resource/bitmaps/icon-fire.tga"
+IDR_LIGHTNING_ICON      RC_DATA                 "../resource/bitmaps/icon-lightning.tga"
+IDR_SOUND_ICON          RC_DATA                 "../resource/bitmaps/icon-sound.tga"
+IDR_WAYPOINT_ICON       RC_DATA                 "../resource/bitmaps/icon-waypoint.tga"
+IDR_LIGHT_ICON          RC_DATA                 "../resource/bitmaps/icon-light.tga"
+IDR_CIRCLE_ICON         RC_DATA                 "../resource/bitmaps/icon-circle.tga"

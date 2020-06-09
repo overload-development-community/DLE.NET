@@ -84,6 +84,8 @@ class CPaletteManager : public IPaletteManager {
 
 		virtual UINT GetPaletteEntries(UINT nStartIndex, UINT nNumEntries, LPPALETTEENTRY lpPaletteColors);
 
+		HPALETTE RenderCurrentPalette();
+
 	private:
 		const char* SelectResource (char* pszName);
 

@@ -1311,49 +1311,6 @@ for (ubyte i = 0; i < 8; i++) {
 	}
 }
 
-//--------------------------------------------------------------------------
-
-short CSegment::IsSelected (CRect& viewport, long xMouse, long yMouse, short nSide, bool bSegments) 
-{
-ComputeCenter ();
-IViewMatrix* viewMatrix = g_data.GetRenderer ()->ViewMatrix ();
-if (bSegments) {
-	CVertex& center = Center ();
-	center.Transform (viewMatrix);
-	center.Project (viewMatrix);
-	if ((center.m_screen.x  < 0) || (center.m_screen.y < 0) || (center.m_screen.x >= viewport.right) || (center.m_screen.y >= viewport.bottom) || (center.m_view.v.z < 0.0)) 
-		return -1;
-	}
-short nSegment = g_data.segmentManager->Index (this);
-#ifdef _DEBUG
-if (nSegment == nDbgSeg)
-	nDbgSeg = nDbgSeg;
-#endif
-CSide* pSide = Side (nSide);
-for (; nSide < 6; nSide++, pSide++) {
-	if (!g_data.GetRenderer ()->IsSideInFrustum (nSegment, nSide))
-		continue;
-	pSide->SetParent (nSegment);
-	if (!pSide->IsSelected (viewport, xMouse, yMouse, m_info.vertexIds))
-		continue;
-	if (!bSegments) {
-		ComputeCenter (nSide);
-		CVertex& center = pSide->Center ();
-		if (!pSide->IsVisible ()) {
-			pSide->ComputeNormals (m_info.vertexIds, Center ());
-			CVertex normal;
-			center += pSide->Normal (2) * 2.0;
-			center.Transform (viewMatrix);
-			center.Project (viewMatrix);
-			}
-		if ((center.m_screen.x  < 0) || (center.m_screen.y < 0) || (center.m_screen.x >= viewport.right) || (center.m_screen.y >= viewport.bottom) || (center.m_view.v.z < 0.0)) 
-			continue;
-		}
-	return nSide;
-	}
-return -1;
-}
-
 // -----------------------------------------------------------------------------
 
 short CSegment::Edge (short nSide, ushort v1, ushort v2)

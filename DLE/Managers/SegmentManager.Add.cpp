@@ -10,14 +10,14 @@
 
 // ----------------------------------------------------------------------------- 
 
-bool CSegmentManager::Full (void) 
+bool CSegmentManager::Full () 
 { 
 return Count () >= SEGMENT_LIMIT; 
 }
 
 // ----------------------------------------------------------------------------- 
 
-short CSegmentManager::Add (void) 
+short CSegmentManager::Add () 
 { 
 #if USE_FREELIST
 
@@ -47,11 +47,6 @@ Count ()--;
 #else
 if (nDelSeg < Count ()) {
 	if (nDelSeg < --Count ()) {
-		// move the last segment in the segment list to the deleted segment's position
-		if (g_data.currentSelection->SegmentId() == Count())
-			g_data.currentSelection->SetSegmentId(nDelSeg);
-		if (g_data.otherSelection->SegmentId() == Count())
-			g_data.otherSelection->SetSegmentId(nDelSeg);
 		*Segment (nDelSeg) = *Segment (Count ());
 		// update all trigger targets pointing at the moved segment
 		triggerManager.UpdateTargets (Count (), nDelSeg);
@@ -73,23 +68,14 @@ if (nDelSeg < Count ()) {
 
 // ----------------------------------------------------------------------------- 
 
-void CSegmentManager::AddSegments (void)
+short CSegmentManager::AddSegments (ISelection* atSide)
 {
-if (theMine->SelectMode () == BLOCK_MODE && segmentManager.TaggedSideCount () > 50) {
-	if (g_data.DoQuery2Msg ("You are about to insert a large number of cubes.\n"
-		"Are you sure you want to do this?", MB_YESNO) != IDYES)
-		return;
-	}
-
 undoManager.Begin (__FUNCTION__, udSegments);
-CSideKey key;
-g_data.currentSelection->Get(key);
-short nSegment = Create(key);
+short nSegment = Create(*atSide);
 if (nSegment < 0) {
 	undoManager.End (__FUNCTION__);
-	return;
+	return -1;
 	}
-g_data.currentSelection->SetSegmentId(nSegment);
 // In block mode, also insert cubes from all marked sides
 if (theMine->SelectMode () == BLOCK_MODE) {
 	CSegment* pSegment = Segment (0);
@@ -99,7 +85,8 @@ if (theMine->SelectMode () == BLOCK_MODE) {
 				if (0 > Create (CSideKey (nSegment, nSide)))
 					break;
 	}
-undoManager.End (__FUNCTION__); 
+undoManager.End (__FUNCTION__);
+return nSegment;
 }
 
 // ----------------------------------------------------------------------------- 
@@ -112,28 +99,27 @@ if (tunnelMaker.Active ())
 	return -1; 
 
 if (Full ()) {
-	g_data.DoErrorMsg ("Cannot add a new segment because\nthe maximum number of segments has been reached.");
+	g_data.Trace(Error, "Cannot add a new segment because\nthe maximum number of segments has been reached.");
 	return -1;
 	}
 if (vertexManager.Full ()) {
-	g_data.DoErrorMsg ("Cannot add a new segment because\nthe maximum number of vertices has been reached.");
+	g_data.Trace(Error, "Cannot add a new segment because\nthe maximum number of vertices has been reached.");
 	return -1;
 	}
-if ((Count () == MAX_SEGMENTS - 1) && (g_data.DoQueryMsg ("Adding more segments will exceed\nthe maximum segment count for this level type.\nAre you sure you want to continue?") != IDYES)) {
+if (Count () >= MAX_SEGMENTS - 1) {
 	return -1;
 	}
 
-g_data.currentSelection->Get (key);
 CSegment* pSegment = Segment (key.m_nSegment); 
 
 short	nCurSide = key.m_nSide; 
 if (pSegment->ChildId (nCurSide) >= 0) {
-	g_data.DoErrorMsg ("Cannot add a new segment to a side\nwhich already has a segment attached.");
+	g_data.Trace(Error, "Cannot add a new segment to a side\nwhich already has a segment attached.");
 	return -1;
 	}
 
 if (Side (key)->VertexCount () < 3) {
-	g_data.DoErrorMsg ("Cannot add a new segment to this side.");
+	g_data.Trace(Error, "Cannot add a new segment to this side.");
 	//undoManager.Unroll (__FUNCTION__);
 	return -1;
 	}
@@ -207,40 +193,11 @@ for (i = 0; i < 8; i++)
 ubyte oppVertexIdIndex [4], * vertexIdIndex = pFarSide->m_vertexIdIndex;
 pNewSeg->CreateOppVertexIndex (nSides [0], oppVertexIdIndex);
 
-#if 0
-
-for (short i = 0; i < nVertices; i++) {
-	// define vertex numbers for new side
-	ubyte h = pFarSide->m_vertexIdIndex [i];
-	pNewSeg->m_info.vertexIds [h] = newVerts [i]; 
-
-	// look for an edge that connects opp and far side and that shares the point we just assigned a vertex to. 
-	// The other point of that edge is the corresponding point of origin side.
-	ubyte v, v1, v2, s1, s2;
-	for (short j = 0; j < nEdges; j++) {
-		edgeList.Get (j, s1, s2, v1, v2);
-		if (v1 == h)
-			v = v2;
-		else if (v2 == h)
-			v = v1;
-		else
-			continue;
-		if ((s1 == nSides [0]) || (s1 == nSides [1]) || (s2 == nSides [0]) || (s2 == nSides [1]))
-			continue;
-		pNewSeg->m_info.vertexIds [v] = pSegment->m_info.vertexIds [pOrgSide->m_vertexIdIndex [i]]; 
-		break;
-		}
-	}
-
-#else
-
 for (int i = 0; i < nVertices; i++) {
 	// define vertex numbers for new side
 	pNewSeg->m_info.vertexIds [vertexIdIndex [i]] = newVerts [i]; 
 	pNewSeg->m_info.vertexIds [oppVertexIdIndex [i]] = pSegment->m_info.vertexIds [pOrgSide->m_vertexIdIndex [i]]; 
 	}
-
-#endif
 
 // define children and special child
 pNewSeg->m_info.childFlags = 1 << oppSideTable [nCurSide]; // only opposite side connects to current segment
@@ -314,20 +271,17 @@ return nNewSeg;
 
 // ----------------------------------------------------------------------------- 
 
-short CSegmentManager::Create (short nSegment, bool bCreate, ubyte nFunction, short nTexture, const char* szError)
+short CSegmentManager::Create (CSideKey key, short nSegment, bool bCreate, ubyte nFunction, short nTexture, const char* szError)
 {
 if ((szError != null) && g_data.IsD1File ()) {
-	if (!g_data.ExpertMode ())
-		g_data.DoErrorMsg (szError);
+	g_data.Trace(Warning, szError);
 	return 0;
 	}
 
 if (bCreate) {
-	if (g_data.currentSelection->Side()->Child() != nullptr)
+	if (segmentManager.Side(key)->Child() != nullptr)
 		return -1;
 	undoManager.Begin (__FUNCTION__, udSegments);
-	CSideKey key;
-	g_data.currentSelection->Get(key);
 	nSegment = Create (key, -1);
 	if (nSegment < 0) {
 		Remove (nSegment);
@@ -340,6 +294,10 @@ else
 
 g_data.DelayMineViewRefresh(true);
 m_bCreating = true;
+if (nSegment < 0)
+{
+	nSegment = key.m_nSegment;
+}
 if (!Define (nSegment, nFunction, -1)) {
 	if (bCreate)
 		Remove (nSegment);
@@ -358,15 +316,15 @@ return nSegment;
 
 // ----------------------------------------------------------------------------- 
 
-bool CSegmentManager::CreateProducer (short nSegment, bool bCreate, ubyte nType, bool bSetDefTextures, 
+bool CSegmentManager::CreateProducer (CSideKey key, short nSegment, bool bCreate, ubyte nType, bool bSetDefTextures,
 	CObjectProducer* producers, CMineItemInfo& info, const char* szError)
 {
 if (info.count >= MAX_MATCENS) {
-	g_data.DoErrorMsg (szError);
+	g_data.Trace(Error, szError);
 	return false;
 	}
 undoManager.Begin (__FUNCTION__, udSegments);
-if (0 > (nSegment = Create (nSegment, bCreate, nType))) {
+if (0 > (nSegment = Create (key, nSegment, bCreate, nType))) {
 	undoManager.End (__FUNCTION__);
 	return false;
 	}
@@ -380,57 +338,57 @@ return true;
 
 // ----------------------------------------------------------------------------- 
 
-bool CSegmentManager::CreateEquipMaker (short nSegment, bool bCreate, bool bSetDefTextures) 
+bool CSegmentManager::CreateEquipMaker (CSideKey key, short nSegment, bool bCreate, bool bSetDefTextures)
 {
 if (!g_data.IsD2XLevel()) {
-	g_data.DoErrorMsg ("Equipment makers are only available in D2X-XL levels.");
+	g_data.Trace(Error, "Equipment makers are only available in D2X-XL levels.");
 	return false;
 	}
-return CreateProducer (nSegment, bCreate, SEGMENT_FUNC_EQUIPMAKER, bSetDefTextures, EquipMaker (0), m_producerInfo [1], 
+return CreateProducer (key, nSegment, bCreate, SEGMENT_FUNC_EQUIPMAKER, bSetDefTextures, EquipMaker (0), m_producerInfo [1], 
 							"Maximum number of equipment makers reached");
 }
 
 // ----------------------------------------------------------------------------- 
 
-bool CSegmentManager::CreateRobotMaker (short nSegment, bool bCreate, bool bSetDefTextures) 
+bool CSegmentManager::CreateRobotMaker (CSideKey key, short nSegment, bool bCreate, bool bSetDefTextures)
 {
-return CreateProducer (nSegment, bCreate, SEGMENT_FUNC_ROBOTMAKER, bSetDefTextures, RobotMaker (0), m_producerInfo [0], 
+return CreateProducer (key, nSegment, bCreate, SEGMENT_FUNC_ROBOTMAKER, bSetDefTextures, RobotMaker (0), m_producerInfo [0], 
 							"Maximum number of robot makers reached");
 }
 
 // ----------------------------------------------------------------------------- 
 
-bool CSegmentManager::CreateReactor (short nSegment, bool bCreate, bool bSetDefTextures) 
+bool CSegmentManager::CreateReactor (CSideKey key, short nSegment, bool bCreate, bool bSetDefTextures)
 {
-return 0 <= Create (nSegment, bCreate, SEGMENT_FUNC_REACTOR, bSetDefTextures ? g_data.IsD1File () ? 10 : 357 : -1);
+return 0 <= Create (key, nSegment, bCreate, SEGMENT_FUNC_REACTOR, bSetDefTextures ? g_data.IsD1File () ? 10 : 357 : -1);
 }
 
 // ----------------------------------------------------------------------------- 
 
-bool CSegmentManager::CreateGoal (short nSegment, bool bCreate, bool bSetDefTextures, ubyte nType, short nTexture) 
+bool CSegmentManager::CreateGoal (CSideKey key, short nSegment, bool bCreate, bool bSetDefTextures, ubyte nType, short nTexture)
 {
-return 0 <= Create (nSegment, bCreate, nType, bSetDefTextures ? nTexture : -1, "Flag goals are not available in Descent 1.");
+return 0 <= Create (key, nSegment, bCreate, nType, bSetDefTextures ? nTexture : -1, "Flag goals are not available in Descent 1.");
 }
 
 // ----------------------------------------------------------------------------- 
 
-bool CSegmentManager::CreateTeam (short nSegment, bool bCreate, bool bSetDefTextures, ubyte nType, short nTexture) 
+bool CSegmentManager::CreateTeam (CSideKey key, short nSegment, bool bCreate, bool bSetDefTextures, ubyte nType, short nTexture)
 {
-return 0 <= Create (nSegment, bCreate, nType, bSetDefTextures ? nTexture : -1, "Team start positions are not available in Descent 1.");
+return 0 <= Create (key, nSegment, bCreate, nType, bSetDefTextures ? nTexture : -1, "Team start positions are not available in Descent 1.");
 }
 
 // ----------------------------------------------------------------------------- 
 
-bool CSegmentManager::CreateSkybox (short nSegment, bool bCreate) 
+bool CSegmentManager::CreateSkybox (CSideKey key, short nSegment, bool bCreate)
 {
-return 0 <= Create (nSegment, bCreate, SEGMENT_FUNC_SKYBOX, -1, "Skyboxes are not available in Descent 1.");
+return 0 <= Create (key, nSegment, bCreate, SEGMENT_FUNC_SKYBOX, -1, "Skyboxes are not available in Descent 1.");
 }
 
 // ----------------------------------------------------------------------------- 
 
-bool CSegmentManager::CreateSpeedBoost (short nSegment, bool bCreate) 
+bool CSegmentManager::CreateSpeedBoost (CSideKey key, short nSegment, bool bCreate)
 {
-return 0 <= Create (nSegment, bCreate, SEGMENT_FUNC_SPEEDBOOST, -1, "Speed boost segments are not available in Descent 1.");
+return 0 <= Create (key, nSegment, bCreate, SEGMENT_FUNC_SPEEDBOOST, -1, "Speed boost segments are not available in Descent 1.");
 }
 
 // ----------------------------------------------------------------------------- 
@@ -446,39 +404,34 @@ return nProducers;
 
 // ----------------------------------------------------------------------------- 
 
-short CSegmentManager::CreateProducer (short nSegment, ubyte nType, bool bCreate, bool bSetDefTextures) 
+short CSegmentManager::CreateProducer (CSideKey key, short nSegment, ubyte nType, bool bCreate, bool bSetDefTextures)
 {
 // count number of fuel centers
 int nProducer = ProducerCount ();
 if (nProducer >= MAX_NUM_RECHARGERS) {
-	g_data.DoErrorMsg ("Maximum number of fuel centers reached.");
+	g_data.Trace(Error, "Maximum number of fuel centers reached.");
 	return 0;
 	}
 
 CSegment *pSegment = Segment (0);
-auto current = g_data.currentSelection;
-CSideKey key;
-current->Get(key);
 
 undoManager.Begin (__FUNCTION__, udSegments);
 if (nType == SEGMENT_FUNC_REPAIRCEN)
-	nSegment = Create (nSegment, bCreate, nType, bSetDefTextures ? 433 : -1, "Repair centers are not available in Descent 1.");
+	nSegment = Create (key, nSegment, bCreate, nType, bSetDefTextures ? 433 : -1, "Repair centers are not available in Descent 1.");
 else {
-	short nLastSeg = current->SegmentId ();
-	nSegment = Create (nSegment, bCreate, nType, bSetDefTextures ? g_data.IsD1File () ? 322 : 333 : -1);
+	short nLastSeg = key.m_nSegment;
+	nSegment = Create (key, nSegment, bCreate, nType, bSetDefTextures ? g_data.IsD1File () ? 322 : 333 : -1);
 	if (nSegment < 0) {
 		undoManager.End (__FUNCTION__);
 		return -1;
 		}
 	if (bSetDefTextures) { // add energy spark walls to fuel center sides
-		current->SetSegmentId (nLastSeg);
 		if (wallManager.Create (key, WALL_ILLUSION, 0, KEY_NONE, -1, -1) != null) {
 			CSideKey back;
-			if (BackSide (back))
+			if (BackSide (key, back))
 				wallManager.Create (back, WALL_ILLUSION, 0, KEY_NONE, -1, -1);
 			}
 		Segment (nSegment)->Backup ();
-		current->SetSegmentId (nSegment);
 		}
 	}
 undoManager.End (__FUNCTION__);
@@ -675,12 +628,11 @@ return nVertices;
 
 // ----------------------------------------------------------------------------- 
 
-bool CSegmentManager::SetDefaultTexture (short nTexture)
+bool CSegmentManager::SetDefaultTexture (short nSegment, short nTexture)
 {
 if (nTexture < 0)
 	return true;
 
-short nSegment = g_data.currentSelection->SegmentId ();
 CSegment *pSegment = Segment (nSegment);
 
 if (!m_bCreating)
@@ -711,13 +663,13 @@ return true;
 bool CSegmentManager::Define (short nSegment, ubyte nFunction, short nTexture)
 {
 undoManager.Begin (__FUNCTION__, udSegments);
-CSegment *pSegment = (nSegment < 0) ? g_data.currentSelection->Segment () : Segment (nSegment);
+CSegment *pSegment = Segment (nSegment);
 if (!m_bCreating)
 	pSegment->Backup ();
 Undefine (Index (pSegment));
 pSegment->m_info.function = nFunction;
 pSegment->m_info.childFlags |= (1 << MAX_SIDES_PER_SEGMENT);
-SetDefaultTexture (nTexture);
+SetDefaultTexture (nSegment, nTexture);
 undoManager.End (__FUNCTION__);
 g_data.RefreshMineView();
 return true;
@@ -767,7 +719,7 @@ pSegment->m_info.nProducer = -1;
 
 void CSegmentManager::Undefine (short nSegment)
 {
-	CSegment *pSegment = (nSegment < 0) ? g_data.currentSelection->Segment () : Segment (nSegment);
+	CSegment *pSegment = Segment (nSegment);
 
 pSegment->Backup ();
 nSegment = Index (pSegment);
@@ -812,8 +764,6 @@ void CSegmentManager::Delete (short nDelSeg, bool bDeleteVerts)
 {
 if (Count () < 2)
 	return; 
-if (nDelSeg < 0)
-	nDelSeg = g_data.currentSelection->SegmentId (); 
 if (nDelSeg < 0 || nDelSeg >= Count ()) 
 	return; 
 if (tunnelMaker.Active ())
@@ -821,8 +771,6 @@ if (tunnelMaker.Active ())
 
 undoManager.Begin (__FUNCTION__, udSegments);
 CSegment* pDelSeg = Segment (nDelSeg); 
-g_data.currentSelection->Fix (nDelSeg);
-g_data.otherSelection->Fix (nDelSeg);
 pDelSeg->Backup (opDelete);
 Undefine (nDelSeg);
 

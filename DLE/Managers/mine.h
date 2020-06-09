@@ -96,24 +96,23 @@ class CMine {
 
 		int ScrollSpeed (ushort texture,int *x,int *y);
 
-		bool EditGeoFwd (CDoubleVector* forwardVector);
-		bool EditGeoBack (CDoubleVector* forwardVector);
-		bool EditGeoUp (CDoubleVector* upVector);
-		bool EditGeoDown (CDoubleVector* upVector);
-		bool EditGeoLeft (CDoubleVector* leftVector);
-		bool EditGeoRight (CDoubleVector* leftVector);
-		bool EditGeoRotLeft (CDoubleVector* forwardVector);
-		bool EditGeoRotRight (CDoubleVector* forwardVector);
-		bool EditGeoGrow (void); 
-		bool EditGeoShrink (void); 
-		bool RotateSelection(double angle, bool perpendicular); 
-		bool ResizeItem (double delta); 
-		bool MovePoints (CDoubleVector vDelta); 
-		bool MovePoints (int pt0, int pt1); 
-		bool ResizeLine (CSegment *pSegment, int point0, int point1, double delta, int nStage); 
-		bool MoveElements (CDoubleVector delta); 
-		bool SpinSelection (double angle, CDoubleVector* forwardVector);
-		void LoadSideTextures (short nSegment, short nSide);
+        bool EditGeoFwd(ISelection* atSide, CDoubleVector* forwardVector);
+        bool EditGeoBack(ISelection* atSide, CDoubleVector* forwardVector);
+        bool EditGeoUp(ISelection* atSide, CDoubleVector* upVector);
+        bool EditGeoDown(ISelection* atSide, CDoubleVector* upVector);
+        bool EditGeoLeft(ISelection* atSide, CDoubleVector* leftVector);
+        bool EditGeoRight(ISelection* atSide, CDoubleVector* leftVector);
+        bool EditGeoRotLeft(ISelection* atSide, CDoubleVector* forwardVector);
+        bool EditGeoRotRight(ISelection* atSide, CDoubleVector* forwardVector);
+        bool EditGeoGrow(ISelection* atSide);
+        bool EditGeoShrink(ISelection* atSide);
+        bool RotateSelection(ISelection* atSide, double angle, bool perpendicular);
+        bool ResizeItem(ISelection* atSide, double delta);
+        bool MoveElements(ISelection* atSide, CDoubleVector vDelta, int objectNum = -1);
+        bool MovePoints(ISelection* atSide, int pt0, int pt1);
+        bool ResizeLine(CSegment* pSegment, int point0, int point1, double delta, int nStage);
+        bool MoveElements2(ISelection* atSide, CDoubleVector delta, int objectNum = -1);
+        bool SpinSelection(ISelection* atSide, double angle, CDoubleVector* forwardVector, int objectNum = -1);
 
 		inline double& RotateRate (void) { return m_rotateRate; }
 

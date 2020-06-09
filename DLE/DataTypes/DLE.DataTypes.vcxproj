@@ -161,7 +161,6 @@
     <ClInclude Include="ASEModel.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GlobalData.h" />
-    <ClInclude Include="IRenderer.h" />
     <ClInclude Include="ItemIterator.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="MineInfo.h" />
@@ -176,9 +175,12 @@
     <ClInclude Include="trigger.h" />
     <ClInclude Include="Types.h" />
     <ClInclude Include="Vertex.h" />
+    <ClInclude Include="IViewMatrix.h" />
     <ClInclude Include="wall.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ASERenderModel.cpp" />
+    <ClCompile Include="OOFRenderModel.cpp" />
     <ClCompile Include="RenderModel.cpp" />
     <ClCompile Include="ASEModel.cpp" />
     <ClCompile Include="GameObject.cpp" />

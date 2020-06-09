@@ -419,6 +419,7 @@ public:
 	bool DrawSelectableEdge (void);
 	bool DrawSelectableSides (void);
 	bool DrawSelectableSegments (void);
+	std::vector<CSide*> GatherSelectableSides(CRect& viewport, long xMouse, long yMouse, bool bAllowSkyBox, bool bSegments);
 	void DrawHighlight (void);
 	void DrawTunnel (void);
 	bool SelectWireFramePen (CSegment* pSegment);

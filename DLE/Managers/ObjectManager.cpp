@@ -72,17 +72,7 @@ do {
 		r--;
 	if (l <= r) {
 		if (l < r) {
-			auto current = g_data.currentSelection;
-			auto other = g_data.otherSelection;
 			Swap (m_objects [l], m_objects [r]);
-			if (current->ObjectId () == l)
-				current->SetObjectId (r);
-			else if (current->ObjectId () == r)
-				current->SetObjectId (l);
-			if (other->ObjectId () == l)
-				other->SetObjectId (r);
-			else if (other->ObjectId () == r)
-				other->SetObjectId (l);
 			}
 		l++;
 		r--;
@@ -125,7 +115,7 @@ bool CObjectManager::HaveResources (void)
 {
 if (Count () < MAX_OBJECTS)
 	return true;
-g_data.DoErrorMsg ("The maximum number of objects has already been reached.");
+g_data.Trace(Error, "The maximum number of objects has already been reached.");
 return false;
 }
 
@@ -152,10 +142,10 @@ return Count ()++;
 //
 // -----------------------------------------------------------------------------
 
-bool CObjectManager::Create (ubyte newType, short nSegment) 
+bool CObjectManager::Create (ubyte newType, CGameObject* objectToCopy, short nSegment)
 {
 	short ids [MAX_PLAYERS_D2X + MAX_COOP_PLAYERS] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-	CGameObject *pObject = nullptr, *currObjP;
+	CGameObject *pObject = nullptr;
 	ubyte type;
 	short nObject, id;
 
@@ -164,7 +154,7 @@ bool CObjectManager::Create (ubyte newType, short nSegment)
 if (!HaveResources ())
 	return false;
 
-type = (newType == OBJ_NONE) ? g_data.currentSelection->Object ()->m_info.type : newType;
+type = (newType == OBJ_NONE) ? objectToCopy->m_info.type : newType;
 
 // Make sure it is ok to add another object of this type
 // Set the id if it's a player or coop
@@ -183,7 +173,7 @@ if ((type == OBJ_PLAYER) || (type == OBJ_COOP)) {
 				char szMsg [80];
 
 			sprintf_s (szMsg, sizeof (szMsg), "There are already %d players in the mine", MAX_PLAYERS);
-			g_data.DoErrorMsg (szMsg);
+			g_data.Trace(Error, szMsg);
 			return false;
 			}
 		}
@@ -194,7 +184,7 @@ if ((type == OBJ_PLAYER) || (type == OBJ_COOP)) {
 				char szMsg [80];
 
 			sprintf_s (szMsg, sizeof (szMsg), "There are already %d cooperative players in the mine", MAX_COOP_PLAYERS);
-			g_data.DoErrorMsg (szMsg);
+			g_data.Trace(Error, szMsg);
 			return false;
 			}
 		}
@@ -205,14 +195,13 @@ if ((type == OBJ_PLAYER) || (type == OBJ_COOP)) {
 undoManager.Begin (__FUNCTION__, udObjects);
 nObject = Add ();
 if (nObject == 0) {
-	Object (0)->Create (OBJ_PLAYER, (nSegment < 0) ? g_data.currentSelection->SegmentId () : nSegment);
+	Object (0)->Create (OBJ_PLAYER, nSegment);
 	nObject = 0;
 	}
 else {
 	// Make a copy of the current object
 	pObject = Object (nObject);
-	currObjP = g_data.currentSelection->Object ();
-	memcpy (pObject, currObjP, sizeof (CGameObject));
+	memcpy (pObject, objectToCopy, sizeof (CGameObject));
 	}
 pObject->m_info.flags = 0;                                      // new: 1/27/97
 //pObject->m_info.nSegment = current->SegmentId ();
@@ -221,8 +210,7 @@ CVertex center;
 //pObject->Position () = segmentManager.CalcCenter (center, current->SegmentId ());
 //pObject->m_location.lastPos = pObject->Position ();
 pObject->Info ().nSegment = -1;
-g_data.currentSelection->SetObjectId (nObject);
-Move (pObject);
+Move (pObject, nSegment);
 // set the id if new object is a player or a coop
 if ((type == OBJ_PLAYER) || (type == OBJ_COOP))
 	pObject->Id () = (ubyte) id;
@@ -246,25 +234,18 @@ return true;
 void CObjectManager::Delete (short nDelObj, bool bUndo)
 {
 if (Count () == 0) {
-	if (!g_data.ExpertMode ())
-		g_data.DoErrorMsg ("There are no objects in the mine.");
+	g_data.Trace(Warning, "There are no objects in the mine.");
 	return;
 	}
 if (Count () == 1) {
-	if (!g_data.ExpertMode ())
-		g_data.DoErrorMsg ("Cannot delete the last object.");
+	g_data.Trace(Warning, "Cannot delete the last object.");
 	return;
 	}
-if (nDelObj < 0)
-	nDelObj = g_data.currentSelection->ObjectId ();
 if (nDelObj == Count ()) {
-	if (!g_data.ExpertMode ())
-		g_data.DoErrorMsg ("Cannot delete the secret return.");
+	g_data.Trace(Warning, "Cannot delete the secret return.");
 	return;
 	}
 undoManager.Begin (__FUNCTION__, udObjects);
-if (nDelObj < 0)
-	nDelObj = g_data.currentSelection->ObjectId ();
 triggerManager.DeleteObjTriggers (nDelObj);
 Object (nDelObj)->Backup (opDelete);
 if (nDelObj < --Count ()) {
@@ -275,10 +256,6 @@ if (nDelObj < --Count ()) {
 	triggerManager.RenumberObjTriggers ();
 	triggerManager.RenumberTargetObjs ();
 	}
-if (g_data.currentSelection->ObjectId () >= Count ())
-	g_data.currentSelection->SetObjectId (Count () - 1);
-if (g_data.otherSelection->ObjectId () >= Count ())
-	g_data.otherSelection->SetObjectId (Count () - 1);
 undoManager.End (__FUNCTION__);
 }
 
@@ -325,27 +302,17 @@ return nBestSegment;
 
 void CObjectManager::Move (CGameObject * pObject, int nSegment)
 {
-#if 0
-if (QueryMsg ("Are you sure you want to move the\n"
-				 "current object to the current segment?\n") != IDYES)
-	return;
-#endif
-auto current = g_data.currentSelection;
 undoManager.Begin (__FUNCTION__, udObjects);
-if (pObject == null)
-	pObject = current->Object ();
 if (Index (pObject) == Count ())
-	SecretSegment () = current->SegmentId ();
+	SecretSegment () = nSegment;
 else {
 	CVertex center;
-	if (nSegment < 0)
-		nSegment = current->SegmentId ();
 	// bump position over if this is not the first object in the segment (unless disabled in settings)
 	int i, count = 0;
 	for (i = 0; (i < Count ()) && m_bBumpObjects; i++)
 		if (Object (i)->Info ().nSegment == nSegment && Index (pObject) != i) 
 			count++;
-	pObject->Info ().nSegment = current->SegmentId ();
+	pObject->Info ().nSegment = nSegment;
 	pObject->Position () = segmentManager.CalcCenter (center, nSegment);
 	if (0 < count) {
 		int dir = ((count - 1) % 6) / 2;

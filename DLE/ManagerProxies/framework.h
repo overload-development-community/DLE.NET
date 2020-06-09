@@ -8,9 +8,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <algorithm>
+#include <map>
 #include <string>
 #include <vector>
 
 #include <windows.h>
 #include <sys/types.h>
 #include <atltypes.h>
+
+#include <gcroot.h>
+#include <msclr/marshal.h>
+#include <msclr/marshal_cppstd.h>

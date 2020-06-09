@@ -234,7 +234,8 @@ if (m_pDC)
 	return false;
 if (!(m_pDC = GetDC ()))
 	 return false;
-m_pOldPal = m_pDC->SelectPalette (RenderCurrentPalette(), FALSE);
+auto palette = CPalette::FromHandle(paletteManager.RenderCurrentPalette());
+m_pOldPal = m_pDC->SelectPalette (palette, FALSE);
 m_pDC->RealizePalette ();
 return true;
 }
@@ -461,7 +462,8 @@ if (m_pDC)
 if (!(m_pDC = pWnd->GetDC ()))
 	 return false;
 m_pPaintWnd = pWnd;
-m_pOldPal = m_pDC->SelectPalette (RenderCurrentPalette(), FALSE);
+auto palette = CPalette::FromHandle(paletteManager.RenderCurrentPalette());
+m_pOldPal = m_pDC->SelectPalette (palette, FALSE);
 m_pDC->RealizePalette ();
 return true;
 }
@@ -563,8 +565,10 @@ void CTextureEdit::OnLoad ()
 
 sprintf_s (szFile, ARRAYSIZE (szFile), "*.%s", szDefExt);
 if (CFileManager::RunOpenFileDialog (szFile, ARRAYSIZE (szFile), filters, ARRAYSIZE (filters), m_hWnd)) {
+	auto transparencyMode = QueryTransparencyMode(szFile);
+	auto scalingMode = QueryScalingMode(szFile, &m_texture[0]);
 	Backup ();
-	bFuncRes = m_texture [0].LoadFromFile (szFile);
+	bFuncRes = m_texture [0].LoadFromFile (szFile, true, transparencyMode, scalingMode);
 	if (bFuncRes) {
 		Refresh ();
 		m_nWidth = m_texture [0].Width ();
@@ -754,6 +758,95 @@ int dx, dy;
 for (dy = 0; dy < 8; dy++)
 	for (dx = 0; dx < 8; dx++)
 		m_pDC->SetPixel ((x << 3) + dx + rc.left, (y << 3) + dy + rc.top, PALETTEINDEX (y * 32 + x));
+}
+
+//------------------------------------------------------------------------------
+
+BitmapImportTransparencyMode QueryTransparencyMode(const char* filename)
+{
+	char szExt[256]{};
+	CFileManager::SplitPath(filename, nullptr, nullptr, szExt);
+	if (strcmp(szExt, "bmp") != 0)
+	{
+		// Not relevant for non-BMP
+		return BitmapImportTransparencyMode::NoTransparency;
+	}
+
+	auto bitmapMetrics = CTexture::GetBitmapMetrics(filename);
+	if (!bitmapMetrics.matchesCurrentPalette)
+	{
+		g_data.Trace(Warning, "The palette of this bitmap file is not exactly the\n"
+			"the same as the Descent palette. Therefore, some color\n"
+			"changes may occur.\n\n"
+			"Hint: If you want the palettes to match, then save one of\n"
+			"the Descent textures to a file and use it as a starting point.\n"
+			"If you plan to use transparencies, then you may want to start\n"
+			"with the texture called 'empty'.");
+
+		if (bitmapMetrics.numColors == 256)
+		{
+			return (Query2Msg("Do you want to allow transparency for this texture?\n"
+				"(The last two colors in the texture's palette will be treated as "
+				"see-thru and transparent, respectively.)", MB_YESNO) == IDYES) ?
+				BitmapImportTransparencyMode::ByPaletteIndex :
+				BitmapImportTransparencyMode::NoTransparency;
+		}
+		else
+		{
+			return (Query2Msg("Do you want to allow transparency for this texture?\n"
+				"(Because this texture has less than 256 colors, pixels will be "
+				"treated as see-thru or transparent if they most closely match "
+				"the current palette's see-thru or transparent color.)", MB_YESNO) == IDYES) ?
+				BitmapImportTransparencyMode::ByColor :
+				BitmapImportTransparencyMode::NoTransparency;
+		}
+	}
+	else
+	{
+		// No conversion needed
+		return BitmapImportTransparencyMode::NoTransparency;
+	}
+}
+
+//------------------------------------------------------------------------------
+
+BitmapImportScalingMode QueryScalingMode(const char* filename, const CTexture* targetTexture)
+{
+	char szExt[256]{};
+	CFileManager::SplitPath(filename, nullptr, nullptr, szExt);
+	if (strcmp(szExt, "bmp") != 0)
+	{
+		// Not relevant for non-BMP
+		return BitmapImportScalingMode::NoScaling;
+	}
+
+	auto bitmapMetrics = CTexture::GetBitmapMetrics(filename);
+	auto targetWidth = static_cast<int>(targetTexture->Width());
+	auto targetHeight = static_cast<int>(targetTexture->Height());
+	// if size is not 64 x 64, ask if they want to "size to fit"
+	if (bitmapMetrics.width != targetWidth || bitmapMetrics.height != targetHeight)
+	{
+		char message[512];
+		sprintf_s(message, sizeof(message),
+			"The bitmap being loaded is a %d x %d image.\n"
+			"Do you want the image to be sized to fit\n"
+			"the current %d x %d texture size?\n\n"
+			"(Press No to see another option.)",
+			bitmapMetrics.width, bitmapMetrics.height, targetWidth, targetHeight);
+		if (Query2Msg(message, MB_YESNO) == IDYES)
+		{
+			return BitmapImportScalingMode::Stretch;
+		}
+		else if (Query2Msg("Would you like to center/tile the image?\n"
+			"(Press No to use the image's current size.)", MB_YESNO) == IDYES)
+		{
+			return BitmapImportScalingMode::Center;
+		}
+		else
+		{
+			return BitmapImportScalingMode::NoScaling;
+		}
+	}
 }
 
 //------------------------------------------------------------------------------

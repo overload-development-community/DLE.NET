@@ -84,44 +84,44 @@ class CWallManager : public IWallManager
 
 		bool Full (void);
 
-		short Add (bool bUndo = false, CSideKey* key = null);
+		short Add (CSideKey key, bool bUndo = false);
 
 		void Remove (short nDelWall);
 		//CWall* Create (short nSegment, short nSide, short type, ushort flags, ubyte keys, char nClip, short nTexture);
 
 		inline CWall* Create (CSideKey key, short type, ushort flags, ubyte keys, char nClip, short nTexture);
 
-		void Delete (short nDelWall = -1);
+		void Delete (CSideKey key, short nDelWall = -1);
 
-		bool CreateDoor (ubyte type, ubyte flags, ubyte keys, char nClip, short nTexture); 
+		bool CreateDoor (CSideKey key, ubyte type, ubyte flags, ubyte keys, char nClip, short nTexture);
 
-		bool CreateAutoDoor (char nClip = -1, short nTexture = -1); 
+		bool CreateAutoDoor (CSideKey key, char nClip = -1, short nTexture = -1);
 
-		bool CreatePrisonDoor (void); 
+		bool CreatePrisonDoor (CSideKey key);
 
-		bool CreateGuideBotDoor (void); 
+		bool CreateGuideBotDoor (CSideKey key);
 
-		bool CreateFuelCell (void); 
+		bool CreateFuelCell (CSideKey key);
 
-		bool CreateIllusion (void); 
+		bool CreateIllusion (CSideKey key);
 
-		bool CreateForceField (void); 
+		bool CreateForceField (CSideKey key);
 
-		bool CreateFan (void);
+		bool CreateFan (CSideKey key);
 
-		bool CreateWaterFall (void);
+		bool CreateWaterFall (CSideKey key);
 
-		bool CreateLavaFall (void); 
+		bool CreateLavaFall (CSideKey key);
 
-		bool CreateGrate (void); 
+		bool CreateGrate (CSideKey key);
 
-		bool CreateNormalExit (void);
+		bool CreateNormalExit (CSideKey key);
 
-		bool CreateSecretExit (void);
+		bool CreateSecretExit (CSideKey key);
 
-		bool CreateExit (short type);
+		bool CreateExit (CSideKey key, short type);
 
-		bool HaveResources (CSideKey* key = null);
+		bool HaveResources (CSideKey key);
 
 		inline void ReadWallInfo (IFileManager* fp) { m_info [0].Read (fp); }
 
@@ -134,12 +134,12 @@ class CWallManager : public IWallManager
 		virtual void ReadInfo (IFileManager* fp) {
 			ReadWallInfo (fp);
 			ReadDoorInfo (fp);
-			}	
+			}
 
 		virtual void WriteInfo (IFileManager* fp) {
 			WriteWallInfo (fp);
 			WriteDoorInfo (fp);
-			}	
+			}
 
 		void Read (CFileManager* fp);
 

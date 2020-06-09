@@ -94,9 +94,6 @@
     <ClInclude Include="ViewMatrix.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="buildmodel.h">
-      <Filter>UI\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="glew.h">
       <Filter>OpenGL\Header Files</Filter>
     </ClInclude>
@@ -128,9 +125,6 @@
       <Filter>UI\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HogDialog.h">
-      <Filter>UI\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceManager.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -333,15 +327,6 @@
     <ClCompile Include="global.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ASERenderModel.cpp">
-      <Filter>UI\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="buildmodel.cpp">
-      <Filter>UI\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="OOFRenderModel.cpp">
-      <Filter>UI\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="glew.cpp">
       <Filter>OpenGL\Source Files</Filter>
     </ClCompile>
@@ -366,17 +351,14 @@
     <ClCompile Include="HogDialog.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
-      <Filter>UI\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TextureManager.Shaders.cpp">
+      <Filter>OpenGL\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VBO.cpp">
       <Filter>OpenGL\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Resource\data\rc_data1.bin">
-      <Filter>UI\Resource Files</Filter>
-    </None>
     <None Include="..\Resource\Alien2.256">
       <Filter>Resources</Filter>
     </None>
@@ -2295,6 +2277,9 @@
       <Filter>UI\Resource Files</Filter>
     </None>
     <None Include="..\resource\bitmaps\backd.bmp">
+      <Filter>UI\Resource Files</Filter>
+    </None>
+    <None Include="..\res\rc_data1.bin">
       <Filter>UI\Resource Files</Filter>
     </None>
   </ItemGroup>

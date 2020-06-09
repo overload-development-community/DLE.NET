@@ -80,20 +80,6 @@ if ((m_textures.Buffer ()))
 
 //------------------------------------------------------------------------------
 
-// Delete these defines when this can get refactored up
-#define GL_TEXTURE0 0x84C0
-#define GL_MODULATE 0x2100
-
-int CModelTextures::Bind (int bCustom)
-{
-if ((m_textures.Buffer ()))
-	for (int i = 0; i < m_nTextures; i++) 
-		m_textures [i].GLBind (GL_TEXTURE0, GL_MODULATE);
-return 1;
-}
-
-//------------------------------------------------------------------------------
-
 void CModelTextures::Destroy (void)
 {
 if (m_names.Buffer ()) {

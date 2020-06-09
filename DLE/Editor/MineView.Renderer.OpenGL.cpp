@@ -2,6 +2,7 @@
 
 #include "stdafx.h"
 #include "ShaderManager.h"
+#include "DrawHelpers.h"
 
 extern short nDbgSeg, nDbgSide;
 extern int nDbgVertex;
@@ -62,7 +63,7 @@ if (!(Viewport ().Width () && Viewport ().Height ()))
 glViewport (Viewport ().left, Viewport ().top, Viewport ().Width (), Viewport ().Height ());
 m_glAspectRatio = (GLfloat) Viewport ().Width () / (GLfloat) Viewport ().Height ();
 SetupProjection ();
-textureManager.CreateGLTextures ();
+DrawHelpers::CreateGLTextures ();
 return -1;
 }
 
@@ -529,7 +530,7 @@ if (textureManager.IsScrolling (pSide->BaseTex ()) && !(bArrow = textureManager.
 	pTexture [0] = &tex;
 	tex.BlendTextures (nBaseTex, nOvlTex, 0, 0);
 	tex.DrawAnimDirArrows (nBaseTex);
-	tex.GLCreate ();
+	DrawHelpers::GLCreateTexture(&tex, true);
 	}
 else {
 	pTexture [0] = textureManager.Textures (nBaseTex);
@@ -557,7 +558,7 @@ if (pWall != null) {
 
 RenderFace (fle, pTexture, pColor);
 if	(pTexture [0] == &tex)
-	tex.GLRelease ();
+	DrawHelpers::GLReleaseTexture(&tex);
 }
 
 //------------------------------------------------------------------------------
@@ -682,7 +683,7 @@ else {
 		glActiveTexture (GL_TEXTURE0 + h);
 		glClientActiveTexture (GL_TEXTURE0 + h);
 		glEnable (GL_TEXTURE_2D);
-		if (!pTexture [i]->GLBind (GL_TEXTURE0 + h, GL_MODULATE))
+		if (!DrawHelpers::GLBindTexture(pTexture [i], GL_TEXTURE0 + h, GL_MODULATE))
 			return;
 		glEnableClientState (GL_COLOR_ARRAY);
 		glEnableClientState (GL_TEXTURE_COORD_ARRAY);
@@ -924,7 +925,7 @@ if (!pTexture) {
 	glColor3dv ((GLdouble*) color);
 	}
 else {
-	pTexture->GLBind (GL_TEXTURE0, GL_MODULATE);
+	DrawHelpers::GLBindTexture (pTexture, GL_TEXTURE0, GL_MODULATE);
 	glColor3f (1.0f, 1.0f, 1.0f);
 	if (!texCoords)
 		texCoords = defaultTexCoords;

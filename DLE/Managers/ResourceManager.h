@@ -14,7 +14,7 @@ private:
 public:
 	ubyte* Load (const char* szName, const char* szCategory = "RC_DATA");
 
-	inline ubyte* Load (const int nId, const char* szCategory = "RC_DATA") { return Load (MAKEINTRESOURCE (nId), szCategory); }
+	inline ubyte* Load (const int nId, const char* szCategory = "RC_DATA") { return Load (MAKEINTRESOURCEA (nId), szCategory); }
 
 	inline void Unload (void) {
 		if (m_handle) {
@@ -41,10 +41,7 @@ private:
 	HINSTANCE	m_hInst;
 
 public:
-	CStringResource () { 
-		m_value [0] = 0; 
-		m_hInst = AfxGetInstanceHandle ();
-		}
+	CStringResource();
 
 	char* Load (int nResource);
 	
@@ -56,6 +53,10 @@ public:
 	
 	inline void Clear (void) { m_value [0] = 0; }
 };
+
+//------------------------------------------------------------------------
+
+void LoadTextureFromResource(CTexture* texture, int nId);
 
 //------------------------------------------------------------------------
 //------------------------------------------------------------------------

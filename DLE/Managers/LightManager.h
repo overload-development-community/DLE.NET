@@ -149,7 +149,7 @@ class CLightManager : public ILightManager {
 
 		inline CFaceColor* FaceColor (short nSegment, short nSide = 0) { return &m_faceColors [nSegment * 6 + nSide]; }
 
-		CColor* LightColor (CSideKey key = CSideKey (), bool bUseTexColors = true);
+		CColor* LightColor (CSideKey key, bool bUseTexColors = true);
 
 		short LoadDefaults (void);
 		bool HasCustomLightMap (void);
@@ -179,10 +179,10 @@ class CLightManager : public ILightManager {
 
 		int FindDeltaLight (short nSegment, short nSide, short *pi = null);
 		CLightDeltaIndex* LightDeltaIndex (CSideKey key);
-		short VariableLight (CSideKey key = CSideKey ());
-		CVariableLight* AddVariableLight (short index = -1);
+		short VariableLight (CSideKey key);
+		CVariableLight* AddVariableLight (CSide* side, short index = -1);
 		short AddVariableLight (CSideKey key, uint mask = 0xAAAAAAAA, int time = 0x10000 / 4);
-		bool DeleteVariableLight (CSideKey key = CSideKey ());
+		bool DeleteVariableLight (CSideKey key);
 		void DeleteVariableLight (short index, bool bUndo = false);
 		int IsExplodingLight(int nBaseTex);
 

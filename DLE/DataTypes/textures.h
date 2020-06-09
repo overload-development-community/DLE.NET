@@ -417,10 +417,30 @@ class CUV {
 		int u, v;
 };
 
+typedef struct tTexCoord2d {
+	double u, v;
+} tTexCoord2d;
+
+typedef unsigned int GLuint;
+
 // 0: Bitmap, 1: TGA (RGB)
 enum eTextureFormat : ubyte {
 	BMP = 0,
 	TGA = 1
+};
+
+enum BitmapImportTransparencyMode
+{
+	NoTransparency,
+	ByPaletteIndex,
+	ByColor
+};
+
+enum BitmapImportScalingMode
+{
+	NoScaling,
+	Stretch,
+	Center
 };
 
 typedef struct tTexture {
@@ -447,11 +467,13 @@ class CTexture {
 		mutable ubyte m_nCurrentFrame; // used for playing texture animations; not intended to be saved to file
 
 	public:
-		CTexture (CBGRA* pData = null) : m_data (pData), m_renderBuffer (null), m_glHandle (0), m_bExtBuffer (pData != null), m_bValid (false) {
+		CTexture (CBGRA* pData = null) :
+			m_data (pData), m_renderBuffer (null), m_glHandle (0), m_bExtBuffer (pData != null), m_bValid (false)
+		{
 			memset (&m_info, 0, sizeof (m_info));
 			m_info.nTexture = -1;
 			m_nCurrentFrame = 0;
-			}
+		}
 
 		~CTexture() { Release (); }
 
@@ -467,7 +489,19 @@ class CTexture {
 
 		void LoadFromData (ubyte* pData, size_t size);
 
-		bool LoadFromFile (char* pszFile, bool bErrorOnOpenFail = true);
+		bool LoadFromFile(char* pszFile, bool bErrorOnOpenFail = true,
+			BitmapImportTransparencyMode transparencyMode = NoTransparency,
+			BitmapImportScalingMode scalingMode = NoScaling);
+
+		struct BitmapMetrics
+		{
+			long width;
+			long height;
+			unsigned int numColors;
+			bool matchesCurrentPalette;
+		};
+
+		static BitmapMetrics GetBitmapMetrics(const char* filename);
 
 		bool Save (char* pszFile) const;
 
@@ -527,12 +561,6 @@ class CTexture {
 
 		inline bool IsLoaded (void) const { return m_bValid; }
 
-		bool GLCreate (bool bForce = true);
-
-		GLuint GLBind (GLuint nTMU, GLuint nMode) const;
-
-		void GLRelease (void);
-
 		void DrawLine (POINT pt0, POINT pt1, CBGRA color);
 
 		void DrawAnimDirArrows (short nTexture);
@@ -542,7 +570,7 @@ class CTexture {
 				return false;
 			memcpy (&m_info, &src.m_info, sizeof (m_info));
 			memcpy (m_data, src.m_data, m_info.bufSize * sizeof (m_data [0]));
-			m_glHandle = 0;
+			//m_glHandle = 0;
 			m_bValid = true;
 			m_bExtBuffer = false;
 			GenerateRenderBuffer ();
@@ -634,7 +662,7 @@ class CTexture {
 
 		bool LoadTGA (char* pszFile);
 
-		bool LoadBMP (IFileManager& fp);
+		bool LoadBMP (IFileManager& fp, BitmapImportTransparencyMode transparencyMode, BitmapImportScalingMode scalingMode);
 
 		bool SaveTGA (IFileManager& fp) const;
 

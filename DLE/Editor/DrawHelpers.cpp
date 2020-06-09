@@ -254,26 +254,6 @@ pWindow->UpdateWindow ();
 return bShowTexture;
 }
 
-bool DrawHelpers::LoadTGATexture(CTexture* texture, char* pszFile)
-{
-	CFileManager fp;
-
-	if (!fp.Open(pszFile, "rb"))
-		return false;
-	bool bSuccess = texture->LoadTGA(fp);
-	fp.Close();
-	return bSuccess;
-}
-
-void DrawHelpers::LoadTextureFromResource(CTexture* texture, int nId)
-{
-	CResource res;
-	ubyte* pData = res.Load(nId);
-	if (!pData)
-		return;
-	texture->LoadFromData(pData, res.Size());
-}
-
 bool CenterBitmapInBuffer (CBGRA *pDestBuffer, int destWidth, int destHeight, const CBGRA *pSrcBuffer, int srcWidth, int srcHeight)
 {
 if (!pDestBuffer || !pSrcBuffer)
@@ -426,35 +406,18 @@ if (texture->m_glHandle) {
 	}
 }
 
-CPalette* RenderCurrentPalette()
-{
-	static CBGR* palette = nullptr;
-	static CPalette renderedPalette;
-	// Return cached palette if it hasn't changed (there is a good chance pointer comparisons
-	// won't work consistently here. We'll get rid of MFC soon anyway though)
-	if (palette == paletteManager.Default())
-	{
-		return &renderedPalette;
-	}
-	palette = paletteManager.Default();
-	if (palette == nullptr)
-	{
-		// No default palette, can't render it
-		return nullptr;
-	}
-	
-	std::vector<byte> dlcLogBuffer(offsetof(LOGPALETTE, palPalEntry) + sizeof(PALETTEENTRY) * 256);
-	LPLOGPALETTE dlcLog = reinterpret_cast<LPLOGPALETTE>(dlcLogBuffer.data());
-	dlcLog->palVersion = 0x300;
-	dlcLog->palNumEntries = 256;
-	PALETTEENTRY* rgb = &dlcLog->palPalEntry[0];
-	for (int i = 0; i < 256; i++)
-	{
-		rgb[i].peRed = palette[i].r;
-		rgb[i].peGreen = palette[i].g;
-		rgb[i].peBlue = palette[i].b;
-	}
+//------------------------------------------------------------------------
 
-	renderedPalette.CreatePalette(dlcLog);
-	return &renderedPalette;
+void DrawHelpers::CreateGLTextures(int nVersion)
+{
+	int nVersionResolved = (nVersion < 0) ? textureManager.Version() : nVersion;
+
+	if (!textureManager.Available(nVersionResolved))
+		return;
+
+	for (int i = 0; i < textureManager.GlobalTextureCount(); i++)
+		GLCreateTexture(textureManager.TextureByIndex(i, nVersion), false);
+	GLCreateTexture(&textureManager.Arrow(), false);
+	for (int i = 0; i < ICON_COUNT; i++)
+		GLCreateTexture(&textureManager.Icon(i), false);
 }

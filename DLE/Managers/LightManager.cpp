@@ -116,7 +116,6 @@ return null;
 
 short CLightManager::VariableLight (CSideKey key)
 {
-g_data.currentSelection->Get (key);
 CVariableLight* flP = VariableLight (0);
 int i;
 for (i = Count (); i; i--, flP++)
@@ -129,27 +128,28 @@ return -1;
 
 //------------------------------------------------------------------------------
 
-CVariableLight* CLightManager::AddVariableLight (short index) 
+CVariableLight* CLightManager::AddVariableLight (CSide* side, short index) 
 {
 if (Count () >= MAX_VARIABLE_LIGHTS) {
-	if (!g_data.ExpertMode () && (index < 0)) {
+	if (index < 0)
+	{
 		char message[100]{};
-		sprintf_s (message, sizeof (message),
-					  "Maximum number of variable lights (%d) have already been added",
-					  MAX_VARIABLE_LIGHTS);
-		g_data.DoErrorMsg (message);
-		}
+		sprintf_s(message, sizeof(message),
+			"Maximum number of variable lights (%d) have already been added",
+			MAX_VARIABLE_LIGHTS);
+		g_data.Trace(Warning, message);
+	}
 	return null;
 	}
 
 short nBaseTex, nOvlTex;
-g_data.currentSelection->Side ()->GetTextures (nBaseTex, nOvlTex);
+side->GetTextures (nBaseTex, nOvlTex);
 if ((IsLight (nBaseTex) == -1) && (IsLight (nOvlTex) == -1)) {
-	if (!g_data.ExpertMode () && (index < 0))
-		g_data.DoErrorMsg ("Blinking lights can only be added to a side\n"
-					 "that has a light emitting texture.\n"
-					 "Hint: You can use the texture tool's brightness control\n"
-					 "to make any texture emit light.");
+	if (index < 0)
+		g_data.Trace(Warning, "Blinking lights can only be added to a side\n"
+			"that has a light emitting texture.\n"
+			"Hint: You can use the texture tool's brightness control\n"
+			"to make any texture emit light.");
 	return null;
 	}
 
@@ -163,15 +163,13 @@ return VariableLight (index);
 
 short CLightManager::AddVariableLight (CSideKey key, uint mask, int time) 
 {
-g_data.currentSelection->Get (key);
 if (VariableLight (key) != -1) {
-	if (!g_data.ExpertMode ())
-		g_data.DoErrorMsg ("There is already a variable light on this side");
+	g_data.Trace(Warning, "There is already a variable light on this side");
 	return -1;
 	}
 // we are adding a new variable light
 undoManager.Begin (__FUNCTION__, udVariableLights);
-CVariableLight* pLight = AddVariableLight ();
+CVariableLight* pLight = AddVariableLight(segmentManager.Side(key));
 if (pLight == null) {
 	undoManager.End (__FUNCTION__);
 	return -1;
@@ -209,7 +207,6 @@ if (index > -1) {
 
 bool CLightManager::DeleteVariableLight (CSideKey key) 
 {
-g_data.currentSelection->Get (key);
 short index = VariableLight (key);
 if (index == -1)
 	return false;
@@ -223,7 +220,6 @@ return true;
 
 CColor* CLightManager::LightColor (CSideKey key, bool bUseTexColors) 
 { 
-g_data.currentSelection->Get (key);
 if (bUseTexColors && ApplyFaceLightSettingsGlobally ()) {
 	short nBaseTex, nOvlTex;
 	segmentManager.Textures (key, nBaseTex, nOvlTex);

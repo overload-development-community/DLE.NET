@@ -166,15 +166,14 @@ for (int i = 0; i < 4; i++)
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 
-void CTunnelBase::Setup (ISelection* selection, double sign, bool bStart)
+void CTunnelBase::Setup (ISelection* source, double sign, bool bStart)
 {
 m_bStart = bStart;
-if (selection) {
-	m_selection = selection;
-	m_sideKey.m_nSegment = selection->SegmentId();
-	m_sideKey.m_nSide = selection->SideId();
-	m_nPoint = selection->Point();
-	}
+if (source)
+{
+	m_sideKey = *source;
+	m_nPoint = source->Point();
+}
 m_sign = sign;
 CSegment* pSegment = segmentManager.Segment (m_sideKey.m_nSegment);
 CSide* pSide = pSegment->Side (m_sideKey.m_nSide);
@@ -356,16 +355,19 @@ if (path.m_bMorph) {
 	if (!vMorph.Create (nSideVertices) || !nVertexMap.Create (nVertices))
 		return false;
 	for (ushort nVertex = 0; nVertex < nSideVertices; nVertex++) {
-		CVertex vStart = *path.m_base [0].m_selection->Vertex (nVertex);
+		auto pVertex = path.m_base[0].Segment()->Vertex(
+			path.m_base[0].Side()->VertexIdIndex(path.m_base[0].m_nPoint + nVertex));
+		CVertex vStart = *pVertex;
 		vStart -= path.m_base [0].m_point; // un-translate (make relative to tunnel start)
 		vStart = path.m_base [0].m_rotation * vStart; // un-rotate
-		CVertex vEnd = *path.m_base [1].m_selection->Vertex (nSideVertices + 1 - nVertex);
+		CVertex vEnd = *path.m_base[1].Segment()->Vertex(
+			path.m_base[1].Side()->VertexIdIndex(path.m_base[1].m_nPoint + (nSideVertices + 1 - nVertex)));
 		vEnd -= path.m_base [1].m_point; // un-translate (make relative to tunnel end)
 		vEnd = path.m_base [1].m_rotation * vEnd; // un-rotate
 		vMorph [nVertex] = vEnd - vStart;
 
 		for (ushort nStartVertex = 0; nStartVertex < nVertices; nStartVertex++)
-			if (vertexManager.Index (path.m_base [0].m_selection->Vertex (nVertex)) == path.m_nStartVertices [nStartVertex]) {
+			if (vertexManager.Index (pVertex) == path.m_nStartVertices [nStartVertex]) {
 				nVertexMap [nStartVertex] = nVertex;
 				break;
 				}
@@ -376,8 +378,8 @@ if (path.m_bMorph) {
 // The rotation is relative to the base coordinate system (identity matrix), but the vertices are relative to the 
 // start point and start rotation, so each vertex has to be un-translated and un-rotated before rotating and translating
 // it with the current path node's orientation matrix and position.
-IViewMatrix* viewMatrix = g_data.GetRenderer()->ViewMatrix();
-g_data.GetRenderer()->BeginRender (false);
+//IViewMatrix* viewMatrix = g_data.GetRenderer()->ViewMatrix();
+//g_data.GetRenderer()->BeginRender (false);
 for (int nSegment = 0; nSegment <= m_nSteps; nSegment++) {
 	CDoubleMatrix& rotation = path [nSegment].m_rotation;
 	CDoubleVector& translation = path [nSegment].m_vertex;
@@ -392,8 +394,10 @@ for (int nSegment = 0; nSegment <= m_nSteps; nSegment++) {
 		v = rotation * v; // rotate (
 		CDoubleVector a = rotation.Angles ();
 		v += translation;
-		v.Transform (viewMatrix);
-		v.Project (viewMatrix);
+		// I think these calls are so that each vertex has a valid view projection for the renderer.
+		// But this isn't really the right place to do that. We'll have to make sure the renderer does the job itself.
+		//v.Transform (viewMatrix);
+		//v.Project (viewMatrix);
 #if 0 //def _DEBUG
 		v.Tag ();
 #else
@@ -405,7 +409,7 @@ for (int nSegment = 0; nSegment <= m_nSteps; nSegment++) {
 #endif
 		}
 	}
-g_data.GetRenderer()->EndRender ();
+//g_data.GetRenderer()->EndRender ();
 #if 1
 Realize (path, false);
 #else
@@ -520,11 +524,11 @@ g_data.DelayMineViewRefresh (false);
 // gather all vertices of the start sides
 // create indices into the start vertex array for every start side's corner
 
-bool CTunnelPath::GatherStartSides (void)
+bool CTunnelPath::GatherStartSides (CTunnelBase* base)
 {
-bool bTagged = g_data.currentSelection->Side ()->IsTagged ();
+bool bTagged = base->Side ()->IsTagged ();
 if (!bTagged)
-	g_data.currentSelection->Side ()->Tag ();
+	base->Side ()->Tag ();
 
 #if 0 // only use connected tagged sides
 
@@ -539,8 +543,8 @@ int nSides = tagger.Run ();
 
 CSegment* pSegment = segmentManager.Segment (0);
 short nSegments = segmentManager.Count ();
-g_data.currentSelection->Segment ()->ComputeNormals (g_data.currentSelection->SideId ());
-CDoubleVector reference = g_data.currentSelection->Side ()->Normal ();
+base->Segment ()->ComputeNormals (base->m_sideKey.m_nSide);
+CDoubleVector reference = base->Side ()->Normal ();
 double maxAngle = cos (Radians (22.5));
 
 CSLL<CSideKey, CSideKey> startSides;
@@ -568,7 +572,7 @@ if ((nSides == 0) || (m_startSides.Create (nSides) == null))
 	return false;
 
 if (!bTagged)
-	g_data.currentSelection->Side ()->UnTag ();
+	base->Side ()->UnTag ();
 
 CSLL<ushort,ushort>	startVertices;
 
@@ -642,9 +646,9 @@ else if (length > MAX_TUNNEL_LENGTH)
 	length = MAX_TUNNEL_LENGTH;
 
 if (bStartSides) {
-	if (!GatherStartSides ())
+	if (!GatherStartSides (&base[0]))
 		return false;
-	m_bMorph = (m_startSides.Length () == 1) && !g_data.currentSelection->Side ()->IsTagged () &&
+	m_bMorph = (m_startSides.Length () == 1) && !base[0].Side ()->IsTagged () &&
 		(m_base [0].Side ()->Shape () == m_base [1].Side ()->Shape ());
 	}
 
@@ -1047,85 +1051,85 @@ m_path.Destroy ();
 
 //------------------------------------------------------------------------------
 
-void CTunnelMaker::Run (void) 
+void CTunnelMaker::Start(ISelection* current, ISelection* opposite)
 {
-if (!m_bActive) {
 	short nMaxSegments = SEGMENT_LIMIT - segmentManager.Count ();
 	if (nMaxSegments > MAX_TUNNEL_SEGMENTS)
 		nMaxSegments = MAX_TUNNEL_SEGMENTS;
 	else if (nMaxSegments < 3) {
-		g_data.DoErrorMsg ("Insufficient number of free vertices and/or segments\nto use the tunnel generator.");
+		g_data.Trace(Error, "Insufficient number of free vertices and/or segments\nto use the tunnel generator.");
 		return;
 		}
 	// make sure there are no children on either segment/side
-	auto current = g_data.currentSelection;
-	auto other = g_data.otherSelection;
 	if ((current->Segment ()->ChildId (current->SideId ()) != -1) ||
-		 (other->Segment ()->ChildId (other->SideId ()) != -1)) {
-		g_data.DoErrorMsg ("Starting and/or ending point of segment\n"
+		 (opposite->Segment ()->ChildId (opposite->SideId ()) != -1)) {
+		g_data.Trace(Error, "Starting and/or ending point of segment\n"
 					 "already have segment(s) attached.\n\n"
 					 "Hint: Put the current segment and the alternate segment\n"
 					 "on sides which do not have cubes attached.");
 		return;
 		}
 
-	if (!CalculateTunnel (true)) {
+	if (!CalculateTunnel (current, opposite, true)) {
 		m_bActive = false;
 		return;
 		}
 
 	undoManager.Lock ("CTunnelMaker::Run");
 
-	if (!g_data.ExpertMode ())
-		g_data.DoErrorMsg ("Place the current segment on one of the segment end points.\n\n"
-					 "Use the CTRL+8 and CTRL+9 keys to adjust the length of the red segment.\n\n"
-				    "Press 'P' to rotate the point connections.\n\n"
-				    "Press 'G' or select Tools/Tunnel Generator when you are finished.");
+	g_data.Trace(Warning, "Place the current segment on one of the segment end points.\n\n"
+		"Use the CTRL+8 and CTRL+9 keys to adjust the length of the red segment.\n\n"
+		"Press 'P' to rotate the point connections.\n\n"
+		"Press 'G' or select Tools/Tunnel Generator when you are finished.");
 
 	m_bActive = true;
+	segmentManager.SetLinesToDraw();
 	g_data.RefreshMineView();
-	}
-else {
-	// ask if user wants to keep the new nSegment
-	undoManager.Unlock ("CTunnelMaker::Run");
-	m_tunnel.Release ();
-	if (g_data.DoQuery2Msg ("Do you want to keep this tunnel?", MB_YESNO) == IDYES) {
-		undoManager.Begin (__FUNCTION__, udSegments | udVertices);
-		if (CalculateTunnel (false) && Create ())
-			m_tunnel.Realize (m_path, true);
-		else
-			m_tunnel.Release ();
-		undoManager.End (__FUNCTION__);
-		}
-	Destroy ();
-	}
-segmentManager.SetLinesToDraw ();
-g_data.RefreshMineView();
 }
 
 //------------------------------------------------------------------------------
 
-bool CTunnelMaker::CalculateTunnel (bool bNewTunnelMakerInstance)
+void CTunnelMaker::End(bool keepTunnel)
+{
+	// ask if user wants to keep the new nSegment
+	undoManager.Unlock("CTunnelMaker::Run");
+	m_tunnel.Release();
+	if (keepTunnel)
+	{
+		undoManager.Begin(__FUNCTION__, udSegments | udVertices);
+		if (CalculateTunnel(nullptr, nullptr, false) && Create())
+			m_tunnel.Realize(m_path, true);
+		else
+			m_tunnel.Release();
+		undoManager.End(__FUNCTION__);
+	}
+	Destroy();
+
+	segmentManager.SetLinesToDraw();
+	g_data.RefreshMineView();
+}
+
+//------------------------------------------------------------------------------
+
+bool CTunnelMaker::CalculateTunnel (ISelection* current, ISelection* opposite, bool bNewTunnelMakerInstance)
 {
 	bool bRegeneratePath = bNewTunnelMakerInstance;
 	bool bRegenerateStartSides = bNewTunnelMakerInstance;
-	auto current = g_data.currentSelection;
-	auto other = g_data.otherSelection;
 
 if (bNewTunnelMakerInstance) {
 	m_base [0].Setup (current, -1.0, true);
-	m_base [1].Setup (other, 1.0, false);
+	m_base [1].Setup (opposite, 1.0, false);
 	}
 else {
 	if (m_base [0].m_updateStatus == CTunnelBase::UpdateOrientation) 
-		m_base [0].Setup (null, -1.0, true);
+		m_base [0].Setup (nullptr, -1.0, true);
 	else if (m_base [0].m_updateStatus == CTunnelBase::UpdateSide) {
 		m_base [0].Setup (current, -1.0, true);
 		bRegeneratePath = true;
 		bRegenerateStartSides = true;
 		}
 	if (m_base [1].m_updateStatus == CTunnelBase::UpdateOrientation) 
-		m_base [1].Setup (null, 1.0, false);
+		m_base [1].Setup (nullptr, 1.0, false);
 	else if (m_base [1].m_updateStatus == CTunnelBase::UpdateSide) {
 		m_base [1].Setup (current, 1.0, false);
 		bRegeneratePath = true;
@@ -1138,31 +1142,29 @@ if (m_path.Setup (m_base, bRegenerateStartSides, bRegeneratePath)) {
 	m_tunnel.Setup (m_base);
 	return true;
 	}
-g_data.DoErrorMsg ("Could not calculate the tunnel path (out of memory).");
+g_data.Trace(Error, "Could not calculate the tunnel path (out of memory).");
 Destroy ();
 return false;
 }
 
 //------------------------------------------------------------------------------
 
-bool CTunnelMaker::Update (void) 
+bool CTunnelMaker::Update (ISelection* current, ISelection* opposite)
 { 
 if (!m_bActive)
 	return false;
-auto current = g_data.currentSelection;
-auto other = g_data.otherSelection;
-if (current->Segment ()->HasChild (current->SideId ()) || other->Segment ()->HasChild (other->SideId ()))
+if (current->Segment ()->HasChild (current->SideId ()) || opposite->Segment ()->HasChild (opposite->SideId ()))
 	return true;
 // If there is more than one start side, we know they have to be tagged
 bool bStartSidesTagged = m_path.m_startSides.Length () > 1 ||
 	segmentManager.Side (CSideKey (m_path.m_startSides [0].m_nSegment, m_path.m_startSides [0].m_nSide))->IsTagged ();
-if (g_data.currentSelection == m_base [0].m_selection) {
+if (CSideKey(current->SegmentId(), current->SideId()) == m_base [0].m_sideKey && current->Point() == m_base [0].m_nPoint) {
 	if (m_base [0].IsUpdateNeeded (current, bStartSidesTagged))
-		return CalculateTunnel (false);
+		return CalculateTunnel (current, opposite, false);
 	}
 else {
 	if (m_base [1].IsUpdateNeeded (current, bStartSidesTagged))
-		return CalculateTunnel (false);
+		return CalculateTunnel (current, opposite, false);
 	}
 return true;
 }
@@ -1211,15 +1213,15 @@ g_data.RefreshMineView();
 
 //------------------------------------------------------------------------------
 
-void CTunnelMaker::Stretch (void) 
+void CTunnelMaker::Stretch (ISelection* current)
 {
-if (g_data.currentSelection->SegmentId () == m_base [0].m_sideKey.m_nSegment) {
+if (current->SegmentId () == m_base [0].m_sideKey.m_nSegment) {
 	if (m_path.Bezier ().GetLength (0) > (MAX_TUNNEL_LENGTH - TUNNEL_INTERVAL))
 		return;
 	m_path.Bezier ().SetLength (m_path.Bezier ().GetLength (0) + TUNNEL_INTERVAL, 0);
 	m_path.Bezier ().SetPoint (m_base [0].GetPoint () + m_base [0].GetNormal () * m_path.Bezier ().GetLength (0), 1);
 	}
-else if (g_data.currentSelection->SegmentId () == m_base [1].m_sideKey.m_nSegment) {
+else if (current->SegmentId () == m_base [1].m_sideKey.m_nSegment) {
 	if (m_path.Bezier ().GetLength (1) > (MAX_TUNNEL_LENGTH - TUNNEL_INTERVAL))
 		return;
 	m_path.Bezier ().SetLength (m_path.Bezier ().GetLength (1) + TUNNEL_INTERVAL, 1);
@@ -1232,15 +1234,15 @@ g_data.RefreshMineView();
 
 //------------------------------------------------------------------------------
 
-void CTunnelMaker::Shrink (void) 
+void CTunnelMaker::Shrink (ISelection* current)
 {
-if (g_data.currentSelection->SegmentId () == m_base [0].m_sideKey.m_nSegment) {
-	if (m_path.Bezier ().GetLength (0) < (MIN_TUNNEL_LENGTH + TUNNEL_INTERVAL)) 
+if (current->SegmentId () == m_base [0].m_sideKey.m_nSegment) {
+	if (m_path.Bezier ().GetLength (0) < (MIN_TUNNEL_LENGTH + TUNNEL_INTERVAL))
 		return;
 	m_path.Bezier ().SetLength (m_path.Bezier ().GetLength (0) - TUNNEL_INTERVAL, 0);
 	m_path.Bezier ().SetPoint (m_base [0].GetPoint () + m_base [0].GetNormal () * m_path.Bezier ().GetLength (0), 1);
 	}
-else if (g_data.currentSelection->SegmentId () == m_base [1].m_sideKey.m_nSegment) {
+else if (current->SegmentId () == m_base [1].m_sideKey.m_nSegment) {
 	if (m_path.Bezier ().GetLength (1) < (MIN_TUNNEL_LENGTH + TUNNEL_INTERVAL))
 		return;
 	m_path.Bezier ().SetLength (m_path.Bezier ().GetLength (1) - TUNNEL_INTERVAL, 1);

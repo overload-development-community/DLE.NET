@@ -222,6 +222,8 @@ BOOL CDLE::InitInstance()
 	// such as the name of your company or organization.
 	SetRegistryKey(_T("DLE"));
 
+	g_data.hModule = _Module.m_hInst;
+
 	::GetModuleFileName (0, m_appFolder, sizeof (m_appFolder));
 	char* ps = strrchr (m_appFolder, '\\');
 	if (ps)

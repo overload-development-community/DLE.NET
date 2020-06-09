@@ -66,7 +66,7 @@ if (type == NORMAL_HAM)  {
 	if (id != MAKESIG (d2HamSig)) {//0x214d4148L) {
 		char message[MAX_PATH]{};
 		sprintf_s (message, sizeof (message), "Not a D2 HAM file (%s)", fp->Name ());
-		g_data.DoErrorMsg (message);
+		g_data.Trace(Error, message);
 	    return 0;
 		}
 	fp->ReadInt32 (); // version (0x00000007)
@@ -88,7 +88,7 @@ else if (type == EXTENDED_HAM)  {
 	if (id != MAKESIG (d2xHamSig)) {//0x214d4148L) {
 		char message[MAX_PATH]{};
 		sprintf_s (message, sizeof (message), "Not a D2X HAM file (%s)", fp->Name ());
-		g_data.DoErrorMsg (message);
+		g_data.Trace(Error, message);
 	    return 0;
 		}
 	fp->ReadInt32 (); //skip version
@@ -104,7 +104,7 @@ if (m_nRobotTypes > MAX_ROBOT_TYPES) {
 	char message[MAX_PATH]{};
 	sprintf_s (message, sizeof (message), "Too many robots (%d) in <%s>.  Max is %d.", 
 				  t, fp->Name (), MAX_ROBOT_TYPES - N_ROBOT_TYPES_D2);
-	g_data.DoErrorMsg (message);
+	g_data.Trace(Error, message);
 	m_nRobotTypes = MAX_ROBOT_TYPES;
 	t = m_nRobotTypes - t0;
 	}
@@ -129,7 +129,7 @@ if (t > MAX_POLYGON_MODELS) {
 	char message[MAX_PATH]{};
 	sprintf_s (message, sizeof (message), "Too many polygon models (%d) in <%s>.  Max is %d.",
 				t, fp->Name (), MAX_POLYGON_MODELS - N_POLYGON_MODELS_D2);
-	g_data.DoErrorMsg (message);
+	g_data.Trace(Error, message);
 	return 0;
 	}
 
@@ -145,7 +145,7 @@ int CRobotManager::ReadHXM (CFileManager& fp, long size, bool bCustom)
 	int			n, i, j;
 
 if (!fp.File ()) {
-	g_data.DoErrorMsg ("Invalid file handle for reading HXM data.");
+	g_data.Trace(Error, "Invalid file handle for reading HXM data.");
 	return 0;
 	}
 
@@ -155,7 +155,7 @@ if (size < 0)
 uint id;
 id = fp.ReadInt32 (); // "HXM!"
 if (id != 0x21584d48L) {
-	g_data.DoErrorMsg ("Not a HXM file");
+	g_data.Trace(Error, "Not a HXM file");
 	return 0;
 	}
 
@@ -168,7 +168,7 @@ for (j = 0; j < n; j++) {
 	if ((i < 0) || (i >= (int) m_nRobotTypes)) {
 		char message[MAX_PATH]{};
 		sprintf_s (message, sizeof (message), "Robots number (%d) out of range.  Range = [0..%d].", i, m_nRobotTypes - 1);
-		g_data.DoErrorMsg (message);
+		g_data.Trace(Error, message);
 		return 0;
 		}
 	rInfo.Read (&fp);
@@ -183,11 +183,11 @@ m_hxmExtraDataSize = size - fp.Tell () + p;
 if (m_hxmExtraDataSize > 0) {
 	m_hxmExtraData = new ubyte [m_hxmExtraDataSize];
 	if (m_hxmExtraData == null) {
-		g_data.DoErrorMsg ("Couldn'n allocate extra data from hxm file.\nThis data will be lost when saving the level!");
+		g_data.Trace(Error, "Couldn'n allocate extra data from hxm file.\nThis data will be lost when saving the level!");
 		return 0;
 		}
 	if (fp.Read (m_hxmExtraData, m_hxmExtraDataSize, 1) != 1) {
-		g_data.DoErrorMsg ("Couldn'n read extra data from hxm file.\nThis data will be lost when saving the level!");
+		g_data.Trace(Error, "Couldn'n read extra data from hxm file.\nThis data will be lost when saving the level!");
 		return 0;
 		}
 	modelManager.ReadCustomModelData (m_hxmExtraData, m_hxmExtraDataSize, bCustom);
@@ -228,7 +228,7 @@ if ((t == 0) && (m_hxmExtraDataSize == 0))
 	return 1;
 
 if (!fp.File ()) {
-	g_data.DoErrorMsg ("Invalid file handle for writing HXM data.");
+	g_data.Trace(Error, "Invalid file handle for writing HXM data.");
 	return 0;
 	}
 
@@ -278,7 +278,7 @@ void CRobotManager::LoadResource (int nRobot)
 	auto buffer = g_data.LoadResourceAsBlob("ROBOT.HXM");
 	if (buffer.empty())
 	{
-		g_data.DoErrorMsg("Could not lock robot resource data");
+		g_data.Trace(Error, "Could not lock robot resource data");
 		return;
 	}
 	ubyte* pBuffer = buffer.data();

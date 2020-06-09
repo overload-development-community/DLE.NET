@@ -745,8 +745,11 @@ if (!CFileManager::RunOpenFileDialog (szFile, ARRAYSIZE (szFile), filters, ARRAY
 
 const CTexture *pTexture = GetFocusedTexture (strstr (::_strlwr (szFile), ".tga") != null);
 
+auto transparencyMode = QueryTransparencyMode(szFile);
+auto scalingMode = QueryScalingMode(szFile, pTexture);
+
 CTexture *pNewTexture = textureManager.OverrideTexture (pTexture->Index ());
-if (pNewTexture->LoadFromFile (szFile)) {
+if (pNewTexture->LoadFromFile (szFile, true, transparencyMode, scalingMode)) {
 	if (pNewTexture->IsSingleImageAnimation ())
 		RebuildTextureList ();
 	else

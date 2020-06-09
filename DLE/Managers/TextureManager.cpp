@@ -976,7 +976,7 @@ if (nCustom) {
 	sprintf_s (message, sizeof (message), "%d custom textures %s removed", nRemoved, (nRemoved == 1) ? "was" : "were");
 	if (nRemoved)
 		undoManager.SetModified (true);
-	g_data.DoInfoMsg(message);
+	g_data.Trace(TraceLevel::Info, message);
 	}
 }
 
@@ -1017,7 +1017,7 @@ if (nReverted > 0) {
 	char message[50]{};
 	sprintf_s (message, sizeof (message), "%d modified texture%s reverted", nReverted, (nReverted == 1) ? " was" : "s were");
 	undoManager.SetModified (true);
-	g_data.DoInfoMsg(message);
+	g_data.Trace(TraceLevel::Info, message);
 	}
 }
 
@@ -1188,22 +1188,6 @@ char message[MAX_PATH + 100]{};
 sprintf_s (message, sizeof (message), "Couldn't find texture data file (%s).\n\nPlease select the proper folder in the settings dialog.\n", folder);
 //ErrorMsg (message);
 return false;
-}
-
-//------------------------------------------------------------------------
-
-void CTextureManager::CreateGLTextures (int nVersion)
-{
-	int nVersionResolved = (nVersion < 0) ? Version () : nVersion;
-
-if (!Available (nVersionResolved))
-	return;
-
-for (int i = 0; i < GlobalTextureCount (); i++)
-	m_textures [nVersionResolved][i].GLCreate (false);
-m_arrow.GLCreate (false);
-for (int i = 0; i < ICON_COUNT; i++)
-	m_icons [i].GLCreate (false);
 }
 
 //------------------------------------------------------------------------

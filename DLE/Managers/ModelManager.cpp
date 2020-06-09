@@ -9,6 +9,7 @@
 #include "ModelManager.h"
 #include "RobotManager.h"
 #include "HogManager.h"
+#include "IRenderer.h"
 
 CModelManager modelManager;
 
@@ -163,6 +164,7 @@ void CModelManager::Reset (void)
 {
 CPolyModel* pModel = &m_polyModels [1][0];
 for (int i = 0; i < MAX_POLYGON_MODELS; i++, pModel++) {
+	m_renderer->DestroyModelVBOData(m_renderModels[i]);
 	m_renderModels [i].Destroy ();
 	m_aseModels [i].Destroy ();
 	m_oofModels [i].Destroy ();
@@ -324,19 +326,27 @@ if (mf.Open (buffer, bufSize))
 
 void CModelManager::ReadMod (const char* pszFolder)
 {
-for (int i = 0; i < MAX_POLYGON_MODELS; i++) {
-	g_data.StepProgress();
+    for (int i = 0; i < MAX_POLYGON_MODELS; i++) {
+        g_data.StepProgress();
 #ifdef _DEBUG
-	if (i == nDbgModel)
-		nDbgModel = nDbgModel;
+        if (i == nDbgModel)
+            nDbgModel = nDbgModel;
 #endif
-	if (m_polyModels [1][i].m_info.renderData || (m_aseModels [i].m_nModel >= 0) || (m_oofModels [i].m_nModel >= 0))
-		continue; // already have a custom model
-	if (m_aseModels [i].Read (pszFolder, i))
-		m_renderModels [i].BuildFromASE (m_aseModels [i]);
-	else if (m_oofModels [i].Read (pszFolder, i))
-		m_renderModels [i].BuildFromOOF (m_oofModels [i]);
-	}
+        if (m_polyModels[1][i].m_info.renderData || (m_aseModels[i].m_nModel >= 0) || (m_oofModels[i].m_nModel >= 0))
+            continue; // already have a custom model
+        if (m_aseModels[i].Read(pszFolder, i))
+        {
+            m_renderModels[i].BuildFromASE(m_aseModels[i]);
+            if (m_renderer->CreateModelVBOData(m_renderModels[i]))
+                m_renderer->BindModelVBOData(m_renderModels[i]);
+        }
+        else if (m_oofModels[i].Read(pszFolder, i))
+        {
+            m_renderModels[i].BuildFromOOF(m_oofModels[i]);
+            if (m_renderer->CreateModelVBOData(m_renderModels[i]))
+                m_renderer->BindModelVBOData(m_renderModels[i]);
+        }
+    }
 }
 
 //------------------------------------------------------------------------------
