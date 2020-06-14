@@ -1,52 +1,58 @@
 #pragma once
 
-delegate void TraceDelegate(System::Diagnostics::TraceLevel level, System::String^ trace);
-delegate double MineMoveRateDelegate();
-delegate System::String^ D1PigPathDelegate();
-delegate System::String^ D2PigPathDelegate();
-delegate void ChangeD2PigPathDelegate(System::String^ newPath);
-delegate System::String^ MissionFolderDelegate();
-
-interface struct IProgressTracker
+namespace DLEDotNet
 {
-public:
-    void InitializeProgress(int numSteps) = 0;
-    void SetProgress(int stepNum) = 0;
-    void IncrementProgress() = 0;
-    void CleanupProgress() = 0;
-};
+    namespace ManagerProxies
+    {
+        public delegate void TraceDelegate(System::Diagnostics::TraceLevel level, System::String^ trace);
+        public delegate double MineMoveRateDelegate();
+        public delegate System::String^ D1PigPathDelegate();
+        public delegate System::String^ D2PigPathDelegate();
+        public delegate void ChangeD2PigPathDelegate(System::String^ newPath);
+        public delegate System::String^ MissionFolderDelegate();
 
-ref class ProxyDelegateManager
-{
-public:
-    // Called by UI
+        public interface struct IProgressTracker
+        {
+        public:
+            void InitializeProgress(int numSteps) = 0;
+            void SetProgress(int stepNum) = 0;
+            void IncrementProgress() = 0;
+            void CleanupProgress() = 0;
+        };
 
-    void AddTraceDelegate(TraceDelegate^ traceDelegate);
-    void SetMineMoveRateDelegate(MineMoveRateDelegate^ mineMoveRateDelegate);
-    void SetD1PigPathDelegate(D1PigPathDelegate^ d1PigPathDelegate);
-    void SetD2PigPathDelegate(D2PigPathDelegate^ d2PigPathDelegate);
-    void SetChangeD2PigPathDelegate(ChangeD2PigPathDelegate^ changeD2PigPathDelegate);
-    void SetMissionFolderDelegate(MissionFolderDelegate^ missionFolderDelegate);
-    void SetProgressTracker(IProgressTracker^ progressTracker);
+        public ref class ProxyDelegateManager
+        {
+        public:
+            // Called by UI
 
-    // Called by GlobalDataImpl
+            void AddTraceDelegate(TraceDelegate^ traceDelegate);
+            void SetMineMoveRateDelegate(MineMoveRateDelegate^ mineMoveRateDelegate);
+            void SetD1PigPathDelegate(D1PigPathDelegate^ d1PigPathDelegate);
+            void SetD2PigPathDelegate(D2PigPathDelegate^ d2PigPathDelegate);
+            void SetChangeD2PigPathDelegate(ChangeD2PigPathDelegate^ changeD2PigPathDelegate);
+            void SetMissionFolderDelegate(MissionFolderDelegate^ missionFolderDelegate);
+            void SetProgressTracker(IProgressTracker^ progressTracker);
 
-    void OnTrace(System::Diagnostics::TraceLevel level, System::String^ trace);
-    double GetMineMoveRate();
-    System::String^ GetD1PigPath();
-    System::String^ GetD2PigPath();
-    void ChangeD2PigPath(System::String^ newPath);
-    System::String^ GetMissionFolder();
-    IProgressTracker^ GetProgressTracker();
+            // Called by GlobalDataImpl
 
-private:
-    TraceDelegate^ m_traceDelegate;
-    MineMoveRateDelegate^ m_mineMoveRateDelegate;
-    D1PigPathDelegate^ m_d1PigPathDelegate;
-    D2PigPathDelegate^ m_d2PigPathDelegate;
-    ChangeD2PigPathDelegate^ m_changeD2PigPathDelegate;
-    MissionFolderDelegate^ m_missionFolderDelegate;
-    IProgressTracker^ m_progressTracker;
-};
+            void OnTrace(System::Diagnostics::TraceLevel level, System::String^ trace);
+            double GetMineMoveRate();
+            System::String^ GetD1PigPath();
+            System::String^ GetD2PigPath();
+            void ChangeD2PigPath(System::String^ newPath);
+            System::String^ GetMissionFolder();
+            IProgressTracker^ GetProgressTracker();
 
-extern gcroot<ProxyDelegateManager^> g_proxyDelegateManager;
+        private:
+            TraceDelegate^ m_traceDelegate;
+            MineMoveRateDelegate^ m_mineMoveRateDelegate;
+            D1PigPathDelegate^ m_d1PigPathDelegate;
+            D2PigPathDelegate^ m_d2PigPathDelegate;
+            ChangeD2PigPathDelegate^ m_changeD2PigPathDelegate;
+            MissionFolderDelegate^ m_missionFolderDelegate;
+            IProgressTracker^ m_progressTracker;
+        };
+    }
+}
+
+extern gcroot<DLEDotNet::ManagerProxies::ProxyDelegateManager^> g_proxyDelegateManager;

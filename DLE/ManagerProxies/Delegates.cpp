@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Delegates.h"
 
+using namespace DLEDotNet::ManagerProxies;
+
 gcroot<ProxyDelegateManager^> g_proxyDelegateManager = gcnew ProxyDelegateManager();
 
 void ProxyDelegateManager::AddTraceDelegate(TraceDelegate^ traceDelegate)
