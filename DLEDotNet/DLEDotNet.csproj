@@ -12,6 +12,7 @@
     <Authors>The DLE.NET Team</Authors>
     <Title>DLE.NET</Title>
     <AssemblyTitle>DLE.NET</AssemblyTitle>
+    <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(TargetFramework)', '^net\d'))">
