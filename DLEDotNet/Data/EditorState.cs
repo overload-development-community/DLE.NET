@@ -29,8 +29,10 @@ namespace DLEDotNet.Data
             LevelFileName = null;
             Unsaved = false;
             Unsafe = new UnsafeEditorStateMethods(this);
+            // ManagerProxyBinder must be created before any classes from DLE.ManagerProxies
             ManagerProxyBinder = new ManagerProxyBinder(this);
-    }
+            Level = new ManagerProxies.LevelProxy();
+        }
 
         /// <summary>
         /// The object that owns this EditorState. In the Windows Forms
@@ -194,6 +196,11 @@ namespace DLEDotNet.Data
             set => AssignChanged(ref _innerFileName, value);
         }
         private string _innerFileName;
+
+        /// <summary>
+        /// The currently loaded level.
+        /// </summary>
+        public ManagerProxies.LevelProxy Level { get; }
 
         /// <summary>
         /// Returns whether a message box with the given minimum information level should be displayed,

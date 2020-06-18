@@ -3,7 +3,12 @@
 
 using namespace DLEDotNet::ManagerProxies;
 
-gcroot<ProxyDelegateManager^> g_proxyDelegateManager = gcnew ProxyDelegateManager();
+gcroot<ProxyDelegateManager^> g_proxyDelegateManager = nullptr;
+
+ProxyDelegateManager::ProxyDelegateManager()
+{
+	g_proxyDelegateManager = this;
+}
 
 void ProxyDelegateManager::AddTraceDelegate(TraceDelegate^ traceDelegate)
 {

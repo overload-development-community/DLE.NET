@@ -23,6 +23,8 @@ namespace DLEDotNet
         public ref class ProxyDelegateManager
         {
         public:
+            ProxyDelegateManager();
+
             // Called by UI
 
             void AddTraceDelegate(TraceDelegate^ traceDelegate);
