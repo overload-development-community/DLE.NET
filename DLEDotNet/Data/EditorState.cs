@@ -29,7 +29,8 @@ namespace DLEDotNet.Data
             LevelFileName = null;
             Unsaved = false;
             Unsafe = new UnsafeEditorStateMethods(this);
-        }
+            ManagerProxyBinder = new ManagerProxyBinder(this);
+    }
 
         /// <summary>
         /// The object that owns this EditorState. In the Windows Forms
@@ -253,5 +254,10 @@ namespace DLEDotNet.Data
                 state.ResumeStateEvents();
             }
         }
+
+        /// <summary>
+        /// Allows code in DLE.ManagerProxies to access editor state.
+        /// </summary>
+        internal ManagerProxyBinder ManagerProxyBinder { get; }
     }
 }

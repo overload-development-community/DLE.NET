@@ -1,15 +1,14 @@
-﻿using DLEDotNet.Data;
-using DLEDotNet.ManagerProxies;
+﻿using DLEDotNet.ManagerProxies;
 using System.Diagnostics;
 
-namespace DLEDotNet.Editor
+namespace DLEDotNet.Data
 {
     internal class ManagerProxyBinder
     {
         private ProxyDelegateManager proxyDelegateManager = new ProxyDelegateManager();
         private EditorState editorState;
 
-        internal void Initialize(EditorState editorState)
+        internal ManagerProxyBinder(EditorState editorState)
         {
             this.editorState = editorState;
             proxyDelegateManager.AddTraceDelegate(TraceMessage);

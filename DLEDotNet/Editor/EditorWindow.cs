@@ -35,7 +35,6 @@ namespace DLEDotNet.Editor
         private EditorKeyBinder editorKeyBinds;
         private string programName;
         private SplashScreen openSplash = null;
-        private ManagerProxyBinder managerProxyBinder = new ManagerProxyBinder();
         public EditorState EditorState { get; }
 
         public EditorWindow()
@@ -70,7 +69,6 @@ namespace DLEDotNet.Editor
             SetupContextMenu();
             editorKeyBinds.InitializeDefaultKeybinds();
             mineViewControlBinder.AddDefaults();
-            managerProxyBinder.Initialize(EditorState);
         }
 
         private void EditorWindow_FormClosing(object sender, FormClosingEventArgs e)
