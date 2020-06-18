@@ -25,7 +25,7 @@
     <RootNamespace>DLEManagerProxies</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <TargetFramework>net461</TargetFramework>
-    <TargetFrameworkVersion>4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>4.7.2</TargetFrameworkVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -183,6 +183,12 @@
     <ClCompile Include="VertexManagerProxy.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\LibDescent\Data\LibDescent.Data.csproj">
+      <Project>{2575e719-599f-457f-bd42-58dc8466b0a5}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\..\LibDescent\Edit\LibDescent.Edit.csproj">
+      <Project>{1b55bb54-b400-407d-bcd0-2077cc73300b}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Core\DLE.Core.vcxproj">
       <Project>{57d9b500-1aec-434f-9a0c-5db4383aa442}</Project>
     </ProjectReference>
