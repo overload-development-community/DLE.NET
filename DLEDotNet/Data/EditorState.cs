@@ -1,4 +1,5 @@
-﻿using LibDescent.Edit;
+﻿using DLEDotNet.Data.Proxies;
+using LibDescent.Edit;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,9 +30,10 @@ namespace DLEDotNet.Data
             LevelFileName = null;
             Unsaved = false;
             Unsafe = new UnsafeEditorStateMethods(this);
-            // ManagerProxyBinder must be created before any classes from DLE.ManagerProxies
+            // ManagerProxyBinder must be created before any classes from DLE.ManagedWrappers
             ManagerProxyBinder = new ManagerProxyBinder(this);
-            Level = new ManagerProxies.LevelProxy();
+            Level = new LevelProxy();
+            SegmentManager = new SegmentManagerProxy();
         }
 
         /// <summary>
@@ -200,7 +202,18 @@ namespace DLEDotNet.Data
         /// <summary>
         /// The currently loaded level.
         /// </summary>
-        public ManagerProxies.LevelProxy Level { get; }
+        public LevelProxy Level { get; }
+
+        /// <summary>
+        /// Represents the currently selected segment, side, edge, vertex, and object.
+        /// </summary>
+        public Selection CurrentSelection { get; internal set; }
+
+        /// <summary>
+        /// Represents the "other cube" that the user can switch to. This is swapped
+        /// with the current selection when the user presses the corresponding hotkey.
+        /// </summary>
+        public Selection OtherSelection { get; internal set; }
 
         /// <summary>
         /// Returns whether a message box with the given minimum information level should be displayed,
@@ -266,5 +279,7 @@ namespace DLEDotNet.Data
         /// Allows code in DLE.ManagerProxies to access editor state.
         /// </summary>
         internal ManagerProxyBinder ManagerProxyBinder { get; }
+
+        public SegmentManagerProxy SegmentManager { get; }
     }
 }

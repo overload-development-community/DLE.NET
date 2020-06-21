@@ -2,7 +2,7 @@
 
 namespace DLEDotNet
 {
-    namespace ManagerProxies
+    namespace ManagedWrappers
     {
         public delegate void TraceDelegate(System::Diagnostics::TraceLevel level, System::String^ trace);
         public delegate double MineMoveRateDelegate();
@@ -20,10 +20,10 @@ namespace DLEDotNet
             void CleanupProgress() = 0;
         };
 
-        public ref class ProxyDelegateManager
+        public ref class DelegateManager
         {
         public:
-            ProxyDelegateManager();
+            DelegateManager();
 
             // Called by UI
 
@@ -57,4 +57,4 @@ namespace DLEDotNet
     }
 }
 
-extern gcroot<DLEDotNet::ManagerProxies::ProxyDelegateManager^> g_proxyDelegateManager;
+extern gcroot<DLEDotNet::ManagedWrappers::DelegateManager^> g_proxyDelegateManager;

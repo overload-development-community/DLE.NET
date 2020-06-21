@@ -17,7 +17,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.DataTypes", "DLE\DataTy
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.Managers", "DLE\Managers\DLE.Managers.vcxproj", "{1A1BD677-4BFC-4B6D-9562-13F6DFB87DDE}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.ManagerProxies", "DLE\ManagerProxies\DLE.ManagerProxies.vcxproj", "{BC898186-68E5-4FA8-82D6-54222806C4AA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.ManagedWrappers", "DLE\ManagedWrappers\DLE.ManagedWrappers.vcxproj", "{BC898186-68E5-4FA8-82D6-54222806C4AA}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.Editor", "DLE\Editor\DLE.Editor.vcxproj", "{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}"
 EndProject

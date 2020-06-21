@@ -2,16 +2,15 @@
 #include "mine.h"
 
 using namespace System;
-using namespace LibDescent::Edit;
 
 namespace DLEDotNet
 {
-    namespace ManagerProxies
+    namespace ManagedWrappers
     {
-        public ref class LevelProxy : public ChangeableState
+        public ref class LevelWrapper
         {
         public:
-            LevelProxy()
+            LevelWrapper()
             {
                 if (!theMine)
                 {

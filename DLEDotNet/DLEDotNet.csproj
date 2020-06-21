@@ -40,7 +40,7 @@
   </ItemGroup>
   
   <ItemGroup>
-    <ProjectReference Include="..\DLE\ManagerProxies\DLE.ManagerProxies.vcxproj" />
+    <ProjectReference Include="..\DLE\ManagedWrappers\DLE.ManagedWrappers.vcxproj" />
     <ProjectReference Include="..\LibDescent\Data\LibDescent.Data.csproj" />
     <ProjectReference Include="..\LibDescent\Edit\LibDescent.Edit.csproj" />
   </ItemGroup>
@@ -835,7 +835,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="Data\Proxies\" />
     <Folder Include="Logic\" />
   </ItemGroup>
   

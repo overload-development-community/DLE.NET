@@ -37,6 +37,8 @@ namespace DLEDotNet.Editor.Layouts
         protected override void SetupControls()
         {
             EditorStateBinder binder = EditorStateBinder.FromState(this.EditorState);
+            binder.BindComboBox(this.segmentIdComboBox,
+                PROP(s => s.SegmentManager.Segments), PROP(s => s.CurrentSelection.Segment));
         }
 
         private void segmentAddButton_Click(object sender, EventArgs e)

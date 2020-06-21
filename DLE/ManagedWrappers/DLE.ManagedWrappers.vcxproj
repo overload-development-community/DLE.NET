@@ -22,10 +22,11 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{BC898186-68E5-4FA8-82D6-54222806C4AA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>DLEManagerProxies</RootNamespace>
+    <RootNamespace>DLEDotNet.ManagedWrappers</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <TargetFramework>net461</TargetFramework>
     <TargetFrameworkVersion>4.7.2</TargetFrameworkVersion>
+    <ProjectName>DLE.ManagedWrappers</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -174,14 +175,15 @@
     <ClCompile Include="Delegates.cpp" />
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="GlobalDataImpl.cpp" />
-    <ClCompile Include="LevelProxy.cpp" />
+    <ClCompile Include="LevelWrapper.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="VertexManagerProxy.cpp" />
+    <ClCompile Include="SegmentManagerWrapper.cpp" />
+    <ClCompile Include="VertexManagerWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\LibDescent\Data\LibDescent.Data.csproj">
@@ -201,7 +203,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="DLE.ManagerProxies.rc" />
+    <ResourceCompile Include="DLE.ManagedWrappers.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

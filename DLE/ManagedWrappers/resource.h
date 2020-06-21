@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by DLE.ManagerProxies.rc
+// Used by DLE.ManagedWrappers.rc
 
 // Next default values for new objects
 // 

@@ -1,11 +1,11 @@
-﻿using DLEDotNet.ManagerProxies;
+﻿using DLEDotNet.ManagedWrappers;
 using System.Diagnostics;
 
-namespace DLEDotNet.Data
+namespace DLEDotNet.Data.Proxies
 {
     internal class ManagerProxyBinder
     {
-        private ProxyDelegateManager proxyDelegateManager = new ProxyDelegateManager();
+        private DelegateManager proxyDelegateManager = new DelegateManager();
         private EditorState editorState;
 
         internal ManagerProxyBinder(EditorState editorState)
