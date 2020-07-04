@@ -1,9 +1,6 @@
 #ifndef __FBO_H
 #define __FBO_H
 
-#include <windows.h>
-#include <stddef.h>
-
 #define MAX_COLOR_BUFFERS 16
 
 typedef struct tFrameBuffer {
@@ -72,7 +69,7 @@ class CFBO {
 
 		GLuint& StencilBuffer (void) { return m_info.hStencilBuffer; }
 
-		void CFBO::Flush (CRect viewport);
+		void Flush (CRect viewport);
 		
 	private:
 		int CreateColorBuffers (int nBuffers);

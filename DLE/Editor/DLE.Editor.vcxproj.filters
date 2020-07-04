@@ -38,15 +38,6 @@
     <Filter Include="UI\Resource Files\Bitmaps\Game Icons">
       <UniqueIdentifier>{3d09ed59-631f-400e-bb30-4c64f3c34c66}</UniqueIdentifier>
     </Filter>
-    <Filter Include="OpenGL">
-      <UniqueIdentifier>{0571aaef-e304-4009-ac59-7f0ad190a5b1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="OpenGL\Header Files">
-      <UniqueIdentifier>{e8843d21-a0ee-44e2-ab81-2a6fb368ccd1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="OpenGL\Source Files">
-      <UniqueIdentifier>{4a247671-14da-4a22-ba47-3f931f55e74f}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="dlcDoc.h">
@@ -76,15 +67,6 @@
     <ClInclude Include="Resource.h">
       <Filter>UI\Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="FBO.h">
-      <Filter>OpenGL\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RenderBuffers.h">
-      <Filter>OpenGL\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Frustum.h">
-      <Filter>OpenGL\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PogDialog.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
@@ -103,17 +85,11 @@
     <ClInclude Include="dle-res.h">
       <Filter>UI\Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="oglmatrix.h">
-      <Filter>OpenGL\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Selection.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TextureProjector.h">
       <Filter>UI\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ShaderManager.h">
-      <Filter>OpenGL\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="TextureFilter.h">
       <Filter>UI\Header Files</Filter>
@@ -273,15 +249,6 @@
     <ClCompile Include="WallTool.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FBO.cpp">
-      <Filter>OpenGL\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RenderBuffers.cpp">
-      <Filter>OpenGL\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Frustum.cpp">
-      <Filter>OpenGL\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ObjectTool.Position.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
@@ -333,20 +300,11 @@
     <ClCompile Include="TextureProjector.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderManager.cpp">
-      <Filter>OpenGL\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TextureFilter.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="HogDialog.cpp">
       <Filter>UI\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TextureManager.Shaders.cpp">
-      <Filter>OpenGL\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="VBO.cpp">
-      <Filter>OpenGL\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

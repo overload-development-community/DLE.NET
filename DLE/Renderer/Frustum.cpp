@@ -79,7 +79,7 @@ bool CFrustum::Contains (short nSegment, short nSide)
 		{0,4}, {1,5}, {2,6}, {3,7}
 	};
 
-	CSegment* pSegment = segmentManager.Segment (nSegment);
+	CSegment* pSegment = g_data.segmentManager->Segment (nSegment);
 	CSide* pSide = pSegment->Side (nSide);
 	int i, j, nInside = 0, nOutside [4] = {0, 0, 0, 0}, nVertices = pSide->VertexCount ();
 	CVertex*	points [4];
