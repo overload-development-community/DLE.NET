@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "ViewMatrix.h"
 
 double CViewMatrix::m_depthScaleTable [4] = {10000.0, 400.0, 250.0, 150.0};
 

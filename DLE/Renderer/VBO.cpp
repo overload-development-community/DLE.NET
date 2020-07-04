@@ -1,5 +1,10 @@
 #include "stdafx.h"
 #include "rendermodel.h"
+#include "oglmatrix.h"
+#include "ViewMatrix.h"
+#include "Frustum.h"
+#include "FBO.h"
+#include "renderer.h"
 
 bool CRendererGL::CreateModelVBOData(RenderModel::CModel& model)
 {
