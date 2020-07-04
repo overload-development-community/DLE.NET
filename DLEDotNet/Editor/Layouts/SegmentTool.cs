@@ -42,6 +42,16 @@ namespace DLEDotNet.Editor.Layouts
                 PROP(s => s.SegmentManager.Segments), PROP(s => s.CurrentSelection.Segment));
             binder.BindComboBox<SegFunction>(this.segmentFunctionComboBox,
                 PROP(s => s.CurrentSelection.Segment.Function));
+            binder.BindRadioButton(this.segmentSide1RadioButton, PROP(s => s.CurrentSelection.SideNum), 0);
+            binder.BindRadioButton(this.segmentSide2RadioButton, PROP(s => s.CurrentSelection.SideNum), 1);
+            binder.BindRadioButton(this.segmentSide3RadioButton, PROP(s => s.CurrentSelection.SideNum), 2);
+            binder.BindRadioButton(this.segmentSide4RadioButton, PROP(s => s.CurrentSelection.SideNum), 3);
+            binder.BindRadioButton(this.segmentSide5RadioButton, PROP(s => s.CurrentSelection.SideNum), 4);
+            binder.BindRadioButton(this.segmentSide6RadioButton, PROP(s => s.CurrentSelection.SideNum), 5);
+            binder.BindRadioButton(this.segmentPoint1RadioButton, PROP(s => s.CurrentSelection.PointNum), 0);
+            binder.BindRadioButton(this.segmentPoint2RadioButton, PROP(s => s.CurrentSelection.PointNum), 1);
+            binder.BindRadioButton(this.segmentPoint3RadioButton, PROP(s => s.CurrentSelection.PointNum), 2);
+            binder.BindRadioButton(this.segmentPoint4RadioButton, PROP(s => s.CurrentSelection.PointNum), 3);
             binder.BindFloatTextBox(this.segmentPointxTextBox, PROP(s => s.CurrentSelection.Point.X), false);
             binder.BindFloatTextBox(this.segmentPointyTextBox, PROP(s => s.CurrentSelection.Point.Y), false);
             binder.BindFloatTextBox(this.segmentPointzTextBox, PROP(s => s.CurrentSelection.Point.Z), false);

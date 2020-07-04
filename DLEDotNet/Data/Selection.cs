@@ -7,8 +7,8 @@ namespace DLEDotNet.Data
     {
         private readonly EditorState _state;
         private SegmentProxy _segment;
-        private SegmentProxy.Side _side;
-        private SegmentProxy.Point _point;
+        private int _sideNum;
+        private int _pointNum;
         private LevelObjectProxy _object;
 
         public Selection(EditorState state) : this(state, 0, 0, 0) { }
@@ -17,8 +17,8 @@ namespace DLEDotNet.Data
         {
             _state = state;
             _segment = _state.SegmentManager.Segments[segmentNum];
-            _side = _segment.Sides[sideNum];
-            _point = _side.Points[pointNum];
+            _sideNum = sideNum;
+            _pointNum = pointNum;
         }
 
         public SegmentProxy Segment
@@ -27,16 +27,36 @@ namespace DLEDotNet.Data
             set => AssignChanged(ref _segment, value);
         }
 
+        public int SideNum
+        {
+            get => _sideNum;
+            set
+            {
+                AssignChanged(ref _sideNum, value);
+                OnReadOnlyPropertyChanged(nameof(Side), Side);
+            }
+        }
+
         public SegmentProxy.Side Side
         {
-            get => _side;
-            set => AssignChanged(ref _side, value);
+            get => Segment.Sides[_sideNum];
+            set => SideNum = value.SideNum;
+        }
+
+        public int PointNum
+        {
+            get => _pointNum;
+            set
+            {
+                AssignChanged(ref _pointNum, value);
+                OnReadOnlyPropertyChanged(nameof(Point), Point);
+            }
         }
 
         public SegmentProxy.Point Point
         {
-            get => _point;
-            set => AssignChanged(ref _point, value);
+            get => Side.Points[_pointNum];
+            set => PointNum = value.PointNum;
         }
 
         public LevelObjectProxy Object

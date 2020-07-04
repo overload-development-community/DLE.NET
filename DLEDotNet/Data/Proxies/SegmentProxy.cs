@@ -8,14 +8,14 @@ namespace DLEDotNet.Data.Proxies
 {
     public class SegmentProxy : ChangeableState, IListBoxable
     {
-        private int _segmentId;
+        private readonly int _segmentId;
 
         public SegmentProxy(int segmentId)
         {
             _segmentId = segmentId;
             for (int sideNum = 0; sideNum < Segment.NumSides; sideNum++)
             {
-                Sides.Add(new Side(Segment.get_Sides(sideNum)));
+                Sides.Add(new Side(Segment, sideNum));
             }
         }
 
@@ -35,57 +35,71 @@ namespace DLEDotNet.Data.Proxies
 
         public List<Side> Sides { get; } = new List<Side>();
 
-        public class Side
+        public class Side : IListBoxable
         {
-            private ManagedWrappers.Side _side;
+            private readonly ManagedWrappers.Segment _segment;
+            private readonly ManagedWrappers.Side _side;
 
-            public Side(ManagedWrappers.Side side)
+            internal Side(ManagedWrappers.Segment segment, int sideNum)
             {
-                _side = side;
+                _segment = segment;
+                SideNum = sideNum;
+                _side = _segment.get_Sides(SideNum);
                 for (int pointNum = 0; pointNum < _side.NumPoints; pointNum++)
                 {
-                    Points.Add(new Point(_side.get_Points(pointNum)));
+                    Points.Add(new Point(_side, pointNum));
                 }
             }
 
+            public int SideNum { get; }
+
             public List<Point> Points { get; } = new List<Point>();
+
+            object IListBoxable.DisplayValue => SideNum;
         }
 
-        public class Point : ChangeableState
+        public class Point : ChangeableState, IListBoxable
         {
-            private Vertex _vertex;
+            private readonly ManagedWrappers.Side _side;
 
-            public Point(Vertex vertex)
+            internal Point(ManagedWrappers.Side side, int pointNum)
             {
-                _vertex = vertex;
+                _side = side;
+                PointNum = pointNum;
             }
+
+            public int PointNum { get; }
+
+            private Vertex Vertex => _side.get_Points(PointNum);
+
+            object IListBoxable.DisplayValue => PointNum;
 
             public double X
             {
-                get => _vertex.X;
+                get => Vertex.X;
                 set
                 {
-                    _vertex.X = value;
+                    Vertex.X = value;
                     OnReadOnlyPropertyChanged(nameof(X), value);
                 }
             }
 
             public double Y
             {
-                get => _vertex.Y;
+                get => Vertex.Y;
                 set
                 {
-                    _vertex.Y = value;
+                    Vertex.Y = value;
                     OnReadOnlyPropertyChanged(nameof(Y), value);
                 }
             }
 
             public double Z
             {
-                get => _vertex.Z;
+                get => Vertex.Z;
                 set
                 {
-                    _vertex.Z = value;
+                    Vertex.Z = value;
                     OnReadOnlyPropertyChanged(nameof(Z), value);
                 }
             }
