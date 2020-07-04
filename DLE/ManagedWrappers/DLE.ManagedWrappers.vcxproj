@@ -170,6 +170,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="VertexManagerWrapper.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Delegates.cpp" />

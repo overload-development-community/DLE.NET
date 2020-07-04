@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DLEDotNet.Editor.Layouts.Vertical;
+using LibDescent.Data;
 
 namespace DLEDotNet.Editor.Layouts
 {
@@ -39,6 +40,11 @@ namespace DLEDotNet.Editor.Layouts
             EditorStateBinder binder = EditorStateBinder.FromState(this.EditorState);
             binder.BindComboBox(this.segmentIdComboBox,
                 PROP(s => s.SegmentManager.Segments), PROP(s => s.CurrentSelection.Segment));
+            binder.BindComboBox<SegFunction>(this.segmentFunctionComboBox,
+                PROP(s => s.CurrentSelection.Segment.Function));
+            binder.BindFloatTextBox(this.segmentPointxTextBox, PROP(s => s.CurrentSelection.Point.X), false);
+            binder.BindFloatTextBox(this.segmentPointyTextBox, PROP(s => s.CurrentSelection.Point.Y), false);
+            binder.BindFloatTextBox(this.segmentPointzTextBox, PROP(s => s.CurrentSelection.Point.Z), false);
         }
 
         private void segmentAddButton_Click(object sender, EventArgs e)

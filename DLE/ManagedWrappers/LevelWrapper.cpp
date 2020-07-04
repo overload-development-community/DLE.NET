@@ -7,10 +7,10 @@ namespace DLEDotNet
 {
     namespace ManagedWrappers
     {
-        public ref class LevelWrapper
+        public ref class Level
         {
         public:
-            LevelWrapper()
+            Level()
             {
                 if (!theMine)
                 {

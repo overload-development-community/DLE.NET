@@ -7,21 +7,28 @@ namespace DLEDotNet.Data.Proxies
 {
     public class SegmentManagerProxy : ChangeableState
     {
-        private SegmentManagerWrapper segmentManager = SegmentManagerWrapper.Instance;
+        private SegmentManager segmentManager = SegmentManager.Instance;
 
-        public SegmentList Segments { get; } = new SegmentList();
+        public IReadOnlyList<SegmentProxy> Segments => new SegmentList(segmentManager);
 
-        public class SegmentList : IReadOnlyList<SegmentProxy>
+        private class SegmentList : IReadOnlyList<SegmentProxy>
         {
+            private SegmentManager segmentManager;
+
+            public SegmentList(SegmentManager segmentManager)
+            {
+                this.segmentManager = segmentManager;
+            }
+
             public SegmentProxy this[int index] => new SegmentProxy(index);
 
-            public int Count => SegmentManagerWrapper.Instance.Count;
+            public int Count => segmentManager.Count;
 
             public IEnumerator<SegmentProxy> GetEnumerator() => new SegmentEnumerator(this);
 
             IEnumerator IEnumerable.GetEnumerator() => new SegmentEnumerator(this);
 
-            public sealed class SegmentEnumerator : IEnumerator<SegmentProxy>
+            private sealed class SegmentEnumerator : IEnumerator<SegmentProxy>
             {
                 private int currentIndex = -1;
                 private SegmentList segmentList;

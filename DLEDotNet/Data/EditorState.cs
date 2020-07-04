@@ -34,6 +34,8 @@ namespace DLEDotNet.Data
             ManagerProxyBinder = new ManagerProxyBinder(this);
             Level = new LevelProxy();
             SegmentManager = new SegmentManagerProxy();
+            CurrentSelection = new Selection(this, 0, 4, 0);
+            OtherSelection = new Selection(this, 0, 4, 0);
         }
 
         /// <summary>
