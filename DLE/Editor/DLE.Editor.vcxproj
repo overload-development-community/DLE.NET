@@ -285,7 +285,6 @@
     <ClInclude Include="MainFrame.h" />
     <ClInclude Include="mineview.h" />
     <ClInclude Include="PogDialog.h" />
-    <ClInclude Include="renderer.h" />
     <ClInclude Include="StdAfx.h" />
     <ClInclude Include="TEXEDIT.h" />
     <ClInclude Include="textureView.h" />
@@ -293,7 +292,6 @@
     <ClInclude Include="dle-res.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Global.h" />
-    <ClInclude Include="ViewMatrix.h" />
     <ClInclude Include="Selection.h" />
     <ClInclude Include="TextureFilter.h" />
     <ClInclude Include="TextureProjector.h" />
@@ -366,7 +364,6 @@
     <ClCompile Include="TriggerTool.cpp" />
     <ClCompile Include="WallTool.cpp" />
     <ClCompile Include="global.cpp" />
-    <ClCompile Include="ViewMatrix.cpp" />
     <ClCompile Include="Selection.cpp" />
     <ClCompile Include="TextureFilter.cpp" />
     <ClCompile Include="TextureProjector.cpp" />

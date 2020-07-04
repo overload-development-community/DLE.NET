@@ -1,6 +1,10 @@
 #include "stdafx.h"
 #include <fcntl.h>
 #include "oglmatrix.h"
+#include "ViewMatrix.h"
+#include "Frustum.h"
+#include "FBO.h"
+#include "renderer.h"
 #include "shadermanager.h"
 
 #define SUSPENDABLE_SHADERS 1

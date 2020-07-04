@@ -18,6 +18,8 @@
 #include "IFileManager.h"
 #include "carray.h"
 #include "cstack.h"
+#include "SLL.h"
+#include "AVLTree.h"
 
 // DLE.DataTypes
 #include "GameItem.h"
@@ -29,6 +31,9 @@
 #include "ModelTextures.h"
 #include "ASEModel.h"
 #include "OOFModel.h"
+#include "MineInfo.h"
+#include "ItemIterator.h"
+#include "IViewMatrix.h"
 // Begin GlobalData section
 #include "Light.h"
 #include "robot.h"
@@ -39,3 +44,6 @@
 // DLE.Managers
 #include "FileManager.h"
 #include "IRenderer.h"
+#include "PaletteManager.h"
+#include "SegmentManager.h"
+#include "TunnelMaker.h"

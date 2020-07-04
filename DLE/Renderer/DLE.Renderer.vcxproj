@@ -155,6 +155,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ViewMatrix.h" />
+    <ClInclude Include="renderer.h" />
     <ClInclude Include="FBO.h" />
     <ClInclude Include="Frustum.h" />
     <ClInclude Include="oglmatrix.h" />
@@ -163,6 +165,7 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ViewMatrix.cpp" />
     <ClCompile Include="FBO.cpp" />
     <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="RenderBuffers.cpp" />
