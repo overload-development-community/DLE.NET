@@ -282,12 +282,9 @@
     <ClInclude Include="dlcDoc.h" />
     <ClInclude Include="dle.h" />
     <ClInclude Include="DrawHelpers.h" />
-    <ClInclude Include="FBO.h" />
-    <ClInclude Include="Frustum.h" />
     <ClInclude Include="MainFrame.h" />
     <ClInclude Include="mineview.h" />
     <ClInclude Include="PogDialog.h" />
-    <ClInclude Include="RenderBuffers.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="StdAfx.h" />
     <ClInclude Include="TEXEDIT.h" />
@@ -297,9 +294,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="ViewMatrix.h" />
-    <ClInclude Include="oglmatrix.h" />
     <ClInclude Include="Selection.h" />
-    <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="TextureFilter.h" />
     <ClInclude Include="TextureProjector.h" />
     <ClInclude Include="HogDialog.h" />
@@ -321,8 +316,6 @@
     <ClCompile Include="EffectTool.WayPoints.cpp" />
     <ClCompile Include="ExtBitmapButton.cpp" />
     <ClCompile Include="ExtSliderCtrl.cpp" />
-    <ClCompile Include="FBO.cpp" />
-    <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="LightTool.cpp" />
     <ClCompile Include="MainFrame.cpp" />
     <ClCompile Include="MainFrame.EditTool.cpp" />
@@ -348,7 +341,6 @@
     <ClCompile Include="ObjectTool.Sound.cpp" />
     <ClCompile Include="PogDialog.cpp" />
     <ClCompile Include="ReactorTool.cpp" />
-    <ClCompile Include="RenderBuffers.cpp" />
     <ClCompile Include="SegmentTool.cpp" />
     <ClCompile Include="SettingsTool.cpp" />
     <ClCompile Include="SettingsTool.Editor.cpp" />
@@ -375,11 +367,8 @@
     <ClCompile Include="WallTool.cpp" />
     <ClCompile Include="global.cpp" />
     <ClCompile Include="ViewMatrix.cpp" />
-    <ClCompile Include="VBO.cpp" />
     <ClCompile Include="Selection.cpp" />
-    <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="TextureFilter.cpp" />
-    <ClCompile Include="TextureManager.Shaders.cpp" />
     <ClCompile Include="TextureProjector.cpp" />
     <ClCompile Include="HogDialog.cpp" />
   </ItemGroup>

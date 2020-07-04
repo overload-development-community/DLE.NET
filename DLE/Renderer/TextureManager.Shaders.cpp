@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "PaletteManager.h"
+#include "oglmatrix.h"
 #include "shadermanager.h"
 
 //------------------------------------------------------------------------------
