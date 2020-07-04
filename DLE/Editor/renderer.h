@@ -45,12 +45,6 @@ typedef long depthType;
 
 // -----------------------------------------------------------------------------
 
-typedef float vec2 [2];
-typedef float vec3 [3];
-typedef float vec4 [4];
-
-// -----------------------------------------------------------------------------
-
 enum eObjectViewFlags {
 	eViewObjectsNone          = 0,
 	eViewObjectsRobots        = (1 << 0),

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include <fcntl.h>
+#include "oglmatrix.h"
 #include "shadermanager.h"
 
 #define SUSPENDABLE_SHADERS 1
@@ -121,7 +122,7 @@ else {
 glGetObjectParameterivARB (GLuint (int (handle)), GL_OBJECT_INFO_LOG_LENGTH_ARB, &nLogLen);
 if ((nLogLen > 0) && (infoLog = new char [nLogLen])) {
 	glGetInfoLogARB (GLuint (int (handle)), nLogLen, &charsWritten, infoLog);
-	ErrorMsg (infoLog);
+	g_data.Trace(Error, infoLog);
 #if HAVE_PRINTLOG
 	if (*infoLog) {
 		::PrintLog (1);

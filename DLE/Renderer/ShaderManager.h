@@ -1,11 +1,4 @@
-#ifndef _OGL_SHADER_H
-#define _OGL_SHADER_H
-
-#include "glew.h"
-#include "cstack.h"
-#include "oglmatrix.h"
-#include "vector.h"
-#include "renderer.h"
+#pragma once
 
 typedef struct tShaderData {
 	GLhandleARB		shaders [2];
@@ -115,5 +108,3 @@ extern CShaderManager shaderManager;
 
 int InitShaders(void);
 int DeployShader(int nType, CFaceListEntry* fle);
-
-#endif
