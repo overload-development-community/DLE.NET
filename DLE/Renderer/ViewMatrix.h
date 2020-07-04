@@ -50,7 +50,7 @@ class CViewMatrix : public IViewMatrix
 		void Stuff (CDoubleVector fVec, CDoubleVector uVec, CDoubleVector rVec);
 		void Stuff (CDoubleMatrix& m);
 
-		CDoubleVector CViewMatrix::Angles (void) { return Transformation ().Angles (); }
+		CDoubleVector Angles (void) { return Transformation ().Angles (); }
 
 		void Translate (CDoubleVector vTranslate);
 
