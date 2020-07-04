@@ -94,12 +94,6 @@
     <ClInclude Include="ViewMatrix.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="glew.h">
-      <Filter>OpenGL\Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="wglew.h">
-      <Filter>OpenGL\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="DrawHelpers.h">
       <Filter>UI\Header Files</Filter>
     </ClInclude>
@@ -326,9 +320,6 @@
     </ClCompile>
     <ClCompile Include="global.cpp">
       <Filter>UI\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="glew.cpp">
-      <Filter>OpenGL\Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DrawHelpers.cpp">
       <Filter>UI\Source Files</Filter>

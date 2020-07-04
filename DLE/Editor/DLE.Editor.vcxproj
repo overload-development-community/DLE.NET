@@ -122,7 +122,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CallingConvention>FastCall</CallingConvention>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers;..\glew</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
@@ -175,7 +175,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CallingConvention>FastCall</CallingConvention>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers;..\glew</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
@@ -217,7 +217,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers;..\glew</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
@@ -257,7 +257,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers;..\glew</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
@@ -295,10 +295,8 @@
     <ClInclude Include="toolview.h" />
     <ClInclude Include="dle-res.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="glew.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="ViewMatrix.h" />
-    <ClInclude Include="wglew.h" />
     <ClInclude Include="oglmatrix.h" />
     <ClInclude Include="Selection.h" />
     <ClInclude Include="ShaderManager.h" />
@@ -375,9 +373,6 @@
     <ClCompile Include="toolview.cpp" />
     <ClCompile Include="TriggerTool.cpp" />
     <ClCompile Include="WallTool.cpp" />
-    <ClCompile Include="glew.cpp">
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="global.cpp" />
     <ClCompile Include="ViewMatrix.cpp" />
     <ClCompile Include="VBO.cpp" />
@@ -1107,6 +1102,9 @@
     </ProjectReference>
     <ProjectReference Include="..\DataTypes\DLE.DataTypes.vcxproj">
       <Project>{d3b6e4e3-ec8a-4b81-bee1-e4e481d9939a}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\glew\glew.vcxproj">
+      <Project>{d1271a77-07b8-4cf9-859c-7e4d0019b67b}</Project>
     </ProjectReference>
     <ProjectReference Include="..\Managers\DLE.Managers.vcxproj">
       <Project>{1a1bd677-4bfc-4b6d-9562-13f6dfb87dde}</Project>
