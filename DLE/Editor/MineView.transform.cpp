@@ -63,7 +63,7 @@ DelayRefresh (true);
 GetMoveRates (moveRates);
 SetViewMoveRate (1.0);
 SetMineMoveRate (1.0);
-Renderer ().Setup (this, DC ());
+Renderer ().Setup (m_hWnd, DC ());
 Renderer ().Reset ();
 ViewMatrix ()->Setup (Translation (), Scale (), Rotation ());
 //CenterOnMine ();

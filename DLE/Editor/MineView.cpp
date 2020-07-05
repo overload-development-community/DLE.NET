@@ -297,7 +297,7 @@ ASSERT_VALID(pDoc);
 if (!pDoc) 
 	return;
 
-Renderer ().SetDC (pViewDC);
+Renderer ().SetDC (pViewDC->m_hDC);
 if (!m_nRenderer) {
 	if (DrawRubberBox () || DrawDragPos ()) {
 		m_bUpdate = false;
@@ -352,7 +352,7 @@ DrawHighlight ();
 DrawMineCenter ();
 
 Renderer ().EndRender (true);
-Renderer ().SetDC (pViewDC);
+Renderer ().SetDC (pViewDC->m_hDC);
 m_bUpdate = false;
 
 // If the movement timer is active we measure the elapsed time since the last frame
@@ -545,7 +545,7 @@ if (bRefresh)
 
 void CMineView::InitView (CDC *pViewDC)
 {
-m_bUpdate = (0 > Renderer ().Setup (this, pViewDC));
+m_bUpdate = (0 > Renderer ().Setup (m_hWnd, pViewDC->m_hDC));
 }
 
 //----------------------------------------------------------------------------
@@ -986,7 +986,7 @@ if ((m_rubberRect.Width () || m_rubberRect.Height ())) {
 		Renderer ().SelectPen (penWhite + 1);
 		}
 	else {
-		DC ()->SetROP2 (R2_XORPEN);
+		::SetROP2 (DC(), R2_XORPEN);
 		Renderer ().SelectPen (penBlack + 1);
 		}
 	rubberPoly [0].x = m_rubberRect.left + RUBBER_BORDER;
@@ -1004,7 +1004,7 @@ if ((m_rubberRect.Width () || m_rubberRect.Height ())) {
 	if (m_nRenderer)
 		glPopAttrib ();
 	else 
-		DC ()->SetROP2 (R2_COPYPEN);
+		::SetROP2 (DC(), R2_COPYPEN);
 	}
 
 return TRUE;

@@ -37,7 +37,7 @@ CHECKMINE;
 
 Renderer ().SelectObject ((HBRUSH) GetStockObject (NULL_BRUSH));
 if (!m_nRenderer)
-	DC ()->SetROP2 (R2_NOT);
+	::SetROP2 (DC(), R2_NOT);
 else
 	Renderer ().SelectPen (penWhite + 1);
 
@@ -60,7 +60,7 @@ for (int i = 0; i < 3; i++) {
 	}
 
 if (!m_nRenderer) {
-	DC ()->SetROP2 (R2_COPYPEN);
+	::SetROP2 (DC(), R2_COPYPEN);
 	rc.InflateRect (4, 4);
 	InvalidateRect (rc, FALSE);
 	UpdateWindow ();
@@ -91,7 +91,7 @@ HighlightDrag (nVert, LastMousePos ().x, LastMousePos ().y);
 m_lastDragPos = LastMousePos ();
 
 if (!m_nRenderer)
-	DC ()->SetROP2 (R2_NOT);
+	::SetROP2 (DC(), R2_NOT);
 
 for (i = 0; i < vertexManager.Count (); i++) {
 	CVertex& v = vertexManager [i];
@@ -115,7 +115,7 @@ if ((i >= vertexManager.Count ()) && (m_highlightPos.x != -1))
 
 Renderer ().EndRender ();
 if (!m_nRenderer)
-	DC ()->SetROP2 (R2_COPYPEN);
+	::SetROP2 (DC(), R2_COPYPEN);
 // define and draw new point
 m_highlightPos.x = -1;
 m_highlightPos.y = -1;

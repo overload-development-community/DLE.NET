@@ -119,7 +119,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CallingConvention>FastCall</CallingConvention>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers;..\glew</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers;..\glew;..\Renderer</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
@@ -172,7 +172,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CallingConvention>FastCall</CallingConvention>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers;..\glew</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers;..\glew;..\Renderer</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
@@ -214,7 +214,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers;..\glew</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers;..\glew;..\Renderer</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
@@ -254,7 +254,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers;..\glew</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers;..\glew;..\Renderer</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
