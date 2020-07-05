@@ -6,7 +6,7 @@
 #include "Frustum.h"
 #include "FBO.h"
 #include "renderer.h"
-#include "DrawHelpers.h"
+#include "GLTextures.h"
 
 short nDbgSeg = -1, nDbgSide = -1;
 int nDbgVertex = -1;
@@ -15,7 +15,7 @@ int nDbgVertex = -1;
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 
-void CRenderer::Reset (void)
+void CRenderer::Reset (const CDoubleVector& currentSegmentCenter)
 {
 Center ().Clear ();
 Translation ().Clear ();
@@ -205,7 +205,7 @@ void CRenderer::RenderSubModel(RenderModel::CModel& model, short nSubModel, int 
 				glDisable(GL_TEXTURE_2D);
 			else {
 				glEnable(GL_TEXTURE_2D);
-				if (!DrawHelpers::GLBindTexture(&(*model.m_textures)[nTexture], GL_TEXTURE0, GL_MODULATE))
+				if (!GLTextureHelpers::GLBindTexture(&(*model.m_textures)[nTexture], GL_TEXTURE0, GL_MODULATE))
 					continue;
 			}
 		}

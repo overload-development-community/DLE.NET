@@ -39,6 +39,9 @@
     <ClInclude Include="ViewMatrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GLTextures.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -72,6 +75,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MineView.Renderer.Software.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GLTextures.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

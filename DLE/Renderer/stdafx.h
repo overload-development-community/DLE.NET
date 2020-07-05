@@ -35,6 +35,7 @@
 #include "ItemIterator.h"
 #include "IViewMatrix.h"
 #include "GameObject.h"
+#include "wall.h"
 // Begin GlobalData section
 #include "Light.h"
 #include "robot.h"
@@ -54,3 +55,4 @@
 #include "TextureManager.h"
 #include "MemoryFile.h"
 #include "ModelManager.h"
+#include "mine.h"

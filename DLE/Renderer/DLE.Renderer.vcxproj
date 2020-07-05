@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="GLTextures.h" />
     <ClInclude Include="ViewMatrix.h" />
     <ClInclude Include="renderer.h" />
     <ClInclude Include="FBO.h" />
@@ -165,6 +166,7 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GLTextures.cpp" />
     <ClCompile Include="MineView.Renderer.cpp" />
     <ClCompile Include="MineView.Renderer.OpenGL.cpp" />
     <ClCompile Include="MineView.Renderer.Software.cpp" />

@@ -200,7 +200,7 @@ public:
     virtual CViewMatrix* ViewMatrix(void) = 0;
     virtual void SetCenter(CVertex v, int nType) = 0;
     virtual void Pan(char direction, double offset) = 0;
-    virtual void Reset(void);
+    virtual void Reset(const CDoubleVector& currentSegmentCenter = CDoubleVector(0, 0, 0));
     virtual void RenderFaces(CFaceListEntry* faceRenderList, int faceCount, int bRenderSideKeys) = 0;
     virtual void FitToView(void) = 0;
     virtual bool CanFitToView(void) = 0;
@@ -282,7 +282,7 @@ public:
     CRendererSW(CRenderData& renderData);
 
     virtual int Setup(HWND hParent, HDC hDC);
-    virtual void Reset(void);
+    virtual void Reset(const CDoubleVector& currentSegmentCenter = CDoubleVector(0, 0, 0));
     virtual void Release(void);
     virtual int Project(CRect* pRC = null, bool bCheckBehind = false);
     virtual void ClearView(void);
@@ -354,8 +354,7 @@ private:
 
 public:
     HGLRC m_glRC; // Permanent Rendering Context
-    HDC* m_glDC; // Private GDI Device Context
-    HDC m_glHDC;
+    HDC m_glHDC; // Private GDI Device Context
     bool m_glFitToView;
     bool m_glInited;
     double m_glAspectRatio;
@@ -385,7 +384,7 @@ public:
     virtual void SetCenter(CVertex v, int nType);
     virtual void Pan(char direction, double offset);
     virtual CViewMatrix* ViewMatrix(void) { return &m_viewMatrix; }
-    virtual void Reset(void);
+    virtual void Reset(const CDoubleVector& currentSegmentCenter = CDoubleVector(0, 0, 0));
     virtual void FitToView(void) { ComputeZoom(); }
     virtual bool CanFitToView(void) { return Perspective() == 0; }
 
