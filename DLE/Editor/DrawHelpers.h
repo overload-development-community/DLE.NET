@@ -7,11 +7,6 @@ public:
 
 	static bool TGA2Bitmap(tRGBA* pTGA, ubyte* pBM, int nWidth, int nHeight);
 	static bool CreateBitmapFromTexture(const CTexture* texture, CBitmap** ppImage, bool bScale = false, int width = -1, int height = -1);
-
-	static bool GLCreateTexture(CTexture* texture, bool bForce);
-	static GLuint GLBindTexture(const CTexture* texture, GLuint nTMU, GLuint nMode);
-	static void GLReleaseTexture(CTexture* texture);
-	static void CreateGLTextures(int nVersion = -1);
 };
 
 void RgbFromIndex(int nIndex, PALETTEENTRY& rgb);
