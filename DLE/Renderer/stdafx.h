@@ -34,12 +34,14 @@
 #include "MineInfo.h"
 #include "ItemIterator.h"
 #include "IViewMatrix.h"
+#include "GameObject.h"
 // Begin GlobalData section
 #include "Light.h"
 #include "robot.h"
 #include "GlobalData.h"
 // End GlobalData section
 #include "PolyModel.h"
+#include "rendermodel.h"
 
 // DLE.Managers
 #include "FileManager.h"
@@ -47,3 +49,8 @@
 #include "PaletteManager.h"
 #include "SegmentManager.h"
 #include "TunnelMaker.h"
+#include "VertexManager.h"
+#include "LightManager.h"
+#include "TextureManager.h"
+#include "MemoryFile.h"
+#include "ModelManager.h"
