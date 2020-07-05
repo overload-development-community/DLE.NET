@@ -1,6 +1,10 @@
 // render.cpp
 
 #include "stdafx.h"
+#include "ViewMatrix.h"
+#include "Frustum.h"
+#include "FBO.h"
+#include "renderer.h"
 
 extern short nDbgSeg, nDbgSide;
 extern int nDbgVertex;
@@ -58,11 +62,11 @@ if (m_DC.m_hDC)
 
 //------------------------------------------------------------------------------
 
-int CRendererSW::Setup (CWnd* pParent, CDC *pDC)
+int CRendererSW::Setup(HWND hParent, HDC hDC)
 {
-if (!CRenderer::Setup (pParent, pDC))
+if (!CRenderer::Setup (hParent, hDC))
 	return 0;
-m_viewDC = pDC;
+m_hViewDC = hDC;
 
 int bUpdate = 0;
 int depth = 3; // force 24-bit DIB

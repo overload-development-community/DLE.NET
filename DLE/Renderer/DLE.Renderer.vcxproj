@@ -165,6 +165,9 @@
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MineView.Renderer.cpp" />
+    <ClCompile Include="MineView.Renderer.OpenGL.cpp" />
+    <ClCompile Include="MineView.Renderer.Software.cpp" />
     <ClCompile Include="ViewMatrix.cpp" />
     <ClCompile Include="FBO.cpp" />
     <ClCompile Include="Frustum.cpp" />
