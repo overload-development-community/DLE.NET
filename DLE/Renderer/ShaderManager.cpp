@@ -65,14 +65,14 @@ char* CShaderManager::Load (const char* fileName) //, char* Shadersource)
 if (!(fileName && *fileName))
 	return null;	// no fileName
 
-if (0 > (f = _open (fileName, _O_RDONLY)))
+if (_sopen_s (&f, fileName, _O_RDONLY, _SH_DENYWR, 0) != 0)
 	return null;	// couldn't open file
 fSize = _lseek (f, 0, SEEK_END);
 _close (f);
 if (fSize <= 0)
 	return null;	// empty file or seek error
 
-if (!(fp = fopen (fileName, "rb")))
+if (fopen_s (&fp, fileName, "rb") != 0)
 	return null;	// couldn't open file
 
 if (!(pBuffer = new char [fSize + 1])) {
