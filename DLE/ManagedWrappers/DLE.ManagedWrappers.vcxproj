@@ -23,7 +23,7 @@
     <ProjectGuid>{BC898186-68E5-4FA8-82D6-54222806C4AA}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>DLEDotNet.ManagedWrappers</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
     <TargetFramework>net461</TargetFramework>
     <TargetFrameworkVersion>4.7.2</TargetFrameworkVersion>
     <ProjectName>DLE.ManagedWrappers</ProjectName>
@@ -79,6 +79,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_ATLMFC_includePath);$(WindowsSdkDir)include\$(WindowsTargetPlatformVersion)\ucrt;$(VC_VC_IncludePath);$(WindowsSdk_IncludePath);$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>false</LinkIncremental>

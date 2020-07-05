@@ -18,7 +18,7 @@ namespace DLEDotNet.Data
         public Selection(EditorState state, int segmentNum, int sideNum, int pointNum)
         {
             _state = state;
-            _segment = _state.SegmentManager.Segments[segmentNum];
+            _segment = _state.Level.Segments[segmentNum];
             _side = _segment.Sides[_sideNum = sideNum];
             _point = _side.Points[_pointNum = pointNum];
         }
@@ -29,9 +29,8 @@ namespace DLEDotNet.Data
             set
             {
                 AssignChanged(ref _segment, value);
-                // force update of Side and Point
+                // force update of Side (and indirectly Point)
                 SideNum = SideNum;
-                PointNum = PointNum;
             }
         }
 
@@ -47,7 +46,7 @@ namespace DLEDotNet.Data
             set
             {
                 AssignChanged(ref _side, value);
-                AssignChanged(ref _sideNum, value.SideNum);
+                AssignChangedRename(ref _sideNum, value.SideNum, nameof(SideNum));
                 // force update of Point
                 PointNum = PointNum;
             }
@@ -65,7 +64,7 @@ namespace DLEDotNet.Data
             set
             {
                 AssignChanged(ref _point, value);
-                AssignChanged(ref _pointNum, value.PointNum);
+                AssignChangedRename(ref _pointNum, value.PointNum, nameof(PointNum));
             }
         }
 

@@ -32,10 +32,12 @@ namespace DLEDotNet.Data
             Unsafe = new UnsafeEditorStateMethods(this);
             // ManagerProxyBinder must be created before any classes from DLE.ManagedWrappers
             ManagerProxyBinder = new ManagerProxyBinder(this);
-            Level = new LevelProxy();
-            SegmentManager = new SegmentManagerProxy();
+            Level = LevelProxy.New();
             CurrentSelection = new Selection(this, 0, 4, 0);
             OtherSelection = new Selection(this, 0, 4, 0);
+
+            // debug
+            this.PropertyChanged += (s, e) => System.Diagnostics.Trace.WriteLine("Changed property " + e.PropertyName);
         }
 
         /// <summary>
@@ -204,18 +206,33 @@ namespace DLEDotNet.Data
         /// <summary>
         /// The currently loaded level.
         /// </summary>
-        public LevelProxy Level { get; }
+        public LevelProxy Level
+        {
+            get => _level;
+            set => AssignChanged(ref _level, value);
+        }
+        private LevelProxy _level;
 
         /// <summary>
         /// Represents the currently selected segment, side, edge, vertex, and object.
         /// </summary>
-        public Selection CurrentSelection { get; internal set; }
+        public Selection CurrentSelection
+        {
+            get => _currentSelection;
+            set => AssignChanged(ref _currentSelection, value);
+        }
+        private Selection _currentSelection;
 
         /// <summary>
         /// Represents the "other cube" that the user can switch to. This is swapped
         /// with the current selection when the user presses the corresponding hotkey.
         /// </summary>
-        public Selection OtherSelection { get; internal set; }
+        public Selection OtherSelection
+        {
+            get => _otherSelection;
+            set => AssignChanged(ref _otherSelection, value);
+        }
+        private Selection _otherSelection;
 
         /// <summary>
         /// Returns whether a message box with the given minimum information level should be displayed,
@@ -281,7 +298,5 @@ namespace DLEDotNet.Data
         /// Allows code in DLE.ManagerProxies to access editor state.
         /// </summary>
         internal ManagerProxyBinder ManagerProxyBinder { get; }
-
-        public SegmentManagerProxy SegmentManager { get; }
     }
 }

@@ -39,7 +39,7 @@ namespace DLEDotNet.Editor.Layouts
         {
             EditorStateBinder binder = EditorStateBinder.FromState(this.EditorState);
             binder.BindComboBox(this.segmentIdComboBox,
-                PROP(s => s.SegmentManager.Segments), PROP(s => s.CurrentSelection.Segment));
+                PROP(s => s.Level.Segments.Items), PROP(s => s.CurrentSelection.Segment));
             binder.BindComboBox<SegFunction>(this.segmentFunctionComboBox,
                 PROP(s => s.CurrentSelection.Segment.Function));
             binder.BindRadioButton(this.segmentSide1RadioButton, PROP(s => s.CurrentSelection.SideNum), 0);
