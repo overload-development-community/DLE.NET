@@ -323,10 +323,6 @@
     <ClCompile Include="MineView.drag.cpp" />
     <ClCompile Include="MineView.draw.cpp" />
     <ClCompile Include="MineView.Input.cpp" />
-    <ClCompile Include="MineView.Renderer.cpp" />
-    <ClCompile Include="MineView.Renderer.OpenGL.cpp" />
-    <ClCompile Include="MineView.Renderer.Software.cpp" />
-    <ClCompile Include="MineView.RenderLib.cpp" />
     <ClCompile Include="MineView.select.cpp" />
     <ClCompile Include="MineView.transform.cpp" />
     <ClCompile Include="MissionTool.cpp" />

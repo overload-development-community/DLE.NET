@@ -156,18 +156,6 @@
     <ClCompile Include="MineView.draw.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MineView.Renderer.cpp">
-      <Filter>UI\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MineView.Renderer.OpenGL.cpp">
-      <Filter>UI\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MineView.Renderer.Software.cpp">
-      <Filter>UI\Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MineView.RenderLib.cpp">
-      <Filter>UI\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MineView.select.cpp">
       <Filter>UI\Source Files</Filter>
     </ClCompile>

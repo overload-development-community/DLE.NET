@@ -1,6 +1,11 @@
 // render.cpp
 
 #include "stdafx.h"
+#include "ViewMatrix.h"
+#include "Frustum.h"
+#include "FBO.h"
+#include "renderer.h"
+#include "oglmatrix.h"
 #include "ShaderManager.h"
 #include "DrawHelpers.h"
 

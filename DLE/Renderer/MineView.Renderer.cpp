@@ -2,6 +2,10 @@
 //
 
 #include "stdafx.h"
+#include "ViewMatrix.h"
+#include "Frustum.h"
+#include "FBO.h"
+#include "renderer.h"
 #include "DrawHelpers.h"
 
 short nDbgSeg = -1, nDbgSide = -1;
@@ -25,7 +29,7 @@ bool CRenderer::InitViewDimensions (void)
 {
 	CRect	rc;
 
-m_pParent->GetClientRect (rc);
+::GetClientRect (m_hParent, rc);
 int width = (rc.Width () + 3) & ~3; // long word align
 int height = rc.Height ();
 if ((ViewWidth () == width) && (ViewHeight () == height))
@@ -380,7 +384,6 @@ void CRenderer::DrawTunnelMakerTunnel(const CTunnel* tunnel, CViewMatrix* viewMa
 	BeginRender(true);
 	SelectObject((HBRUSH)GetStockObject(NULL_BRUSH));
 	SelectPen(penBlue + 1);
-	CMineView* mineView = DLE.MineView();
 	for (int i = 1; i <= tunnel->m_nSteps; i++)
 		DrawTunnelMakerSegment(tunnel->m_segments[i]);
 	EndRender();
