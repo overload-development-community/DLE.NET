@@ -660,4 +660,58 @@ short CRenderer::IsSegmentSelected(CSegment& segment, CRect& viewport, long xMou
 	return -1;
 }
 
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
+COLORREF CRenderData::PenColor(int nPen)
+{
+	static COLORREF penColors[] = {
+		RGB(  0,  0,  0),
+		RGB(255,255,255),
+		RGB(255,196,  0),
+		RGB(255,  0,  0),
+		RGB(255,  0, 64),
+		RGB(128,128,128),
+		RGB(160,160,160),
+		RGB( 64, 64, 64),
+		RGB(  0,255,  0),
+		RGB(  0,255,128),
+		RGB(  0,128,  0),
+		RGB(  0,128,128),
+		RGB(  0,192,192),
+		RGB(  0,255,255),
+		RGB(  0, 64,255),
+		RGB(  0,128,255),
+		RGB(  0,255,255),
+		RGB(255,196,  0),
+		RGB(255,128,  0),
+		RGB(255,  0,255)
+	};
+
+	return (nPen < penCount) ? penColors[nPen] : RGB(0, 0, 0);
+}
+
+//------------------------------------------------------------------------------
+
+CRenderData::CRenderData()
+{
+	m_renderBuffer = 0;
+	m_depthBuffer = null;
+	m_bDepthTest = true;
+
+	for (int nWeight = 0; nWeight < 2; nWeight++)
+		for (int nPen = 0; nPen < penCount; nPen++)
+			m_pens[nWeight][nPen] = ::CreatePen(PS_SOLID, nWeight + 1, PenColor(nPen));
+}
+
+//------------------------------------------------------------------------------
+
+CRenderData::~CRenderData()
+{
+	for (int nWeight = 0; nWeight < 2; nWeight++)
+		for (int nPen = 0; nPen < penCount; nPen++)
+			::DeleteObject(m_pens[nWeight][nPen]);
+}
+
 //eof
