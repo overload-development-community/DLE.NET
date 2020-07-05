@@ -256,7 +256,6 @@ void CTextureProjector::DrawProjectGuides (CRenderer& renderer, CViewMatrix* vie
 {
 if(!m_bActive || !m_nProjectionMode)
 	return;
-CDC* pDC = renderer.DC ();
 
 CVertex vCenter = m_vCenter;
 CVertex projectAxes [3] = { m_projectOrient.R (), m_projectOrient.U (), m_projectOrient.F () };
