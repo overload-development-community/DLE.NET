@@ -18,7 +18,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.DataTypes", "DataTypes\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.Managers", "Managers\DLE.Managers.vcxproj", "{1A1BD677-4BFC-4B6D-9562-13F6DFB87DDE}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.ManagerProxies", "ManagerProxies\DLE.ManagerProxies.vcxproj", "{BC898186-68E5-4FA8-82D6-54222806C4AA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.ManagedWrappers", "ManagedWrappers\DLE.ManagedWrappers.vcxproj", "{BC898186-68E5-4FA8-82D6-54222806C4AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

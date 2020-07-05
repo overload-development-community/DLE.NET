@@ -4,7 +4,7 @@
 
 bool GlobalData::IsD1File()
 {
-    return theMine->IsD1File();
+    return theMine ? theMine->IsD1File() : false;
 }
 
 bool GlobalData::IsD2File()

@@ -27,6 +27,9 @@
     <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="VertexManagerWrapper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">
@@ -35,18 +38,24 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VertexManagerProxy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GlobalDataImpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Delegates.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SegmentManagerWrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexManagerWrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelWrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="DLE.ManagerProxies.rc">
+    <ResourceCompile Include="DLE.ManagedWrappers.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>

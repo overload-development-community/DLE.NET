@@ -1,4 +1,5 @@
 ﻿using DLEDotNet.Data;
+using DLEDotNet.Data.Proxies;
 using DLEDotNet.Dialogs;
 using DLEDotNet.Editor;
 using DLEDotNet.Editor.Layouts;
@@ -288,8 +289,7 @@ namespace DLEDotNet.Editor
             if (willOpen)
             {
                 string fileName = levelOpenFileDialog.FileName;
-                _TODO("OpenFile");
-                // EditorState.Level.Open(); ???????
+                EditorState.Level = LevelProxy.Open(fileName);
                 // maybe don't do anything below if opening the file fails
                 // make sure to add a ShowDialog thing here to show the HOG dialog
                 EditorState.FilePath = fileName;

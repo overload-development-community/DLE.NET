@@ -1,4 +1,5 @@
-﻿using LibDescent.Edit;
+﻿using DLEDotNet.Data.Proxies;
+using LibDescent.Edit;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,6 +30,14 @@ namespace DLEDotNet.Data
             LevelFileName = null;
             Unsaved = false;
             Unsafe = new UnsafeEditorStateMethods(this);
+            // ManagerProxyBinder must be created before any classes from DLE.ManagedWrappers
+            ManagerProxyBinder = new ManagerProxyBinder(this);
+            Level = LevelProxy.New();
+            CurrentSelection = new Selection(this, 0, 4, 0);
+            OtherSelection = new Selection(this, 0, 4, 0);
+
+            // debug
+            this.PropertyChanged += (s, e) => System.Diagnostics.Debug.WriteLine("Changed property " + e.PropertyName);
         }
 
         /// <summary>
@@ -195,6 +204,37 @@ namespace DLEDotNet.Data
         private string _innerFileName;
 
         /// <summary>
+        /// The currently loaded level.
+        /// </summary>
+        public LevelProxy Level
+        {
+            get => _level;
+            set => AssignChanged(ref _level, value);
+        }
+        private LevelProxy _level;
+
+        /// <summary>
+        /// Represents the currently selected segment, side, edge, vertex, and object.
+        /// </summary>
+        public Selection CurrentSelection
+        {
+            get => _currentSelection;
+            set => AssignChanged(ref _currentSelection, value);
+        }
+        private Selection _currentSelection;
+
+        /// <summary>
+        /// Represents the "other cube" that the user can switch to. This is swapped
+        /// with the current selection when the user presses the corresponding hotkey.
+        /// </summary>
+        public Selection OtherSelection
+        {
+            get => _otherSelection;
+            set => AssignChanged(ref _otherSelection, value);
+        }
+        private Selection _otherSelection;
+
+        /// <summary>
         /// Returns whether a message box with the given minimum information level should be displayed,
         /// which depends on the information level set in the settings. "Quiet" should be used for
         /// important messages like errors, "Normal" for warnings/success messages or confirmation boxes
@@ -253,5 +293,10 @@ namespace DLEDotNet.Data
                 state.ResumeStateEvents();
             }
         }
+
+        /// <summary>
+        /// Allows code in DLE.ManagerProxies to access editor state.
+        /// </summary>
+        internal ManagerProxyBinder ManagerProxyBinder { get; }
     }
 }

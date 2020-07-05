@@ -110,7 +110,7 @@ if (g_data.IsD2File ()) {
 
 // read file header
 pigFileInfo.Read (fp);
-char message[50]{};
+char message[100]{};
 sprintf_s (message, sizeof (message), " Pog manager: Reading %d custom textures", pigFileInfo.nTextures);
 DEBUGMSG (message);
 hdrOffset = fp.Tell ();

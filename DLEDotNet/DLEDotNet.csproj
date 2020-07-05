@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net472</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <Version>0.0.1-alpha</Version>
     <Description>A Descent 1 and 2 level editor for .NET.</Description>
@@ -12,6 +12,7 @@
     <Authors>The DLE.NET Team</Authors>
     <Title>DLE.NET</Title>
     <AssemblyTitle>DLE.NET</AssemblyTitle>
+    <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
 
   <PropertyGroup Condition="$([System.Text.RegularExpressions.Regex]::IsMatch('$(TargetFramework)', '^net\d'))">
@@ -39,6 +40,7 @@
   </ItemGroup>
   
   <ItemGroup>
+    <ProjectReference Include="..\DLE\ManagedWrappers\DLE.ManagedWrappers.vcxproj" />
     <ProjectReference Include="..\LibDescent\Data\LibDescent.Data.csproj" />
     <ProjectReference Include="..\LibDescent\Edit\LibDescent.Edit.csproj" />
   </ItemGroup>
@@ -833,7 +835,6 @@
   </ItemGroup>
   
   <ItemGroup>
-    <Folder Include="Data\Proxies\" />
     <Folder Include="Logic\" />
   </ItemGroup>
   
