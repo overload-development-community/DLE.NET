@@ -7,6 +7,8 @@ namespace DLEDotNet.Data
     {
         private readonly EditorState _state;
         private SegmentProxy _segment;
+        private SegmentProxy.Side _side;
+        private SegmentProxy.Point _point;
         private int _sideNum;
         private int _pointNum;
         private LevelObjectProxy _object;
@@ -17,46 +19,54 @@ namespace DLEDotNet.Data
         {
             _state = state;
             _segment = _state.SegmentManager.Segments[segmentNum];
-            _sideNum = sideNum;
-            _pointNum = pointNum;
+            _side = _segment.Sides[_sideNum = sideNum];
+            _point = _side.Points[_pointNum = pointNum];
         }
 
         public SegmentProxy Segment
         {
             get => _segment;
-            set => AssignChanged(ref _segment, value);
+            set
+            {
+                AssignChanged(ref _segment, value);
+                // force update of Side and Point
+                SideNum = SideNum;
+                PointNum = PointNum;
+            }
         }
 
         public int SideNum
         {
             get => _sideNum;
-            set
-            {
-                AssignChanged(ref _sideNum, value);
-                OnReadOnlyPropertyChanged(nameof(Side), Side);
-            }
+            set => Side = Segment.Sides[value];
         }
 
         public SegmentProxy.Side Side
         {
-            get => Segment.Sides[_sideNum];
-            set => SideNum = value.SideNum;
+            get => _side;
+            set
+            {
+                AssignChanged(ref _side, value);
+                AssignChanged(ref _sideNum, value.SideNum);
+                // force update of Point
+                PointNum = PointNum;
+            }
         }
 
         public int PointNum
         {
             get => _pointNum;
-            set
-            {
-                AssignChanged(ref _pointNum, value);
-                OnReadOnlyPropertyChanged(nameof(Point), Point);
-            }
+            set => Point = _side.Points[value];
         }
 
         public SegmentProxy.Point Point
         {
-            get => Side.Points[_pointNum];
-            set => PointNum = value.PointNum;
+            get => _point;
+            set
+            {
+                AssignChanged(ref _point, value);
+                AssignChanged(ref _pointNum, value.PointNum);
+            }
         }
 
         public LevelObjectProxy Object
