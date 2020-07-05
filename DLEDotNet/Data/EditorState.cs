@@ -37,7 +37,7 @@ namespace DLEDotNet.Data
             OtherSelection = new Selection(this, 0, 4, 0);
 
             // debug
-            this.PropertyChanged += (s, e) => System.Diagnostics.Trace.WriteLine("Changed property " + e.PropertyName);
+            this.PropertyChanged += (s, e) => System.Diagnostics.Debug.WriteLine("Changed property " + e.PropertyName);
         }
 
         /// <summary>
