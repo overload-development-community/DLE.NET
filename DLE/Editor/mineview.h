@@ -10,6 +10,7 @@
 #endif // _MSC_VER >= 1000
 
 #include "afxcview.h"
+#include "MineDisplay.h"
 
 // -----------------------------------------------------------------------------
 
@@ -281,7 +282,7 @@ protected: // create from serialization only
 	DECLARE_DYNCREATE(CMineView)
 
 	CSplitterWnd*	m_pSplitter;
-
+	CMineDisplay	m_mineDisplay;
 	CRenderData		m_renderData;
 	CInputHandler	m_inputHandler;
 
