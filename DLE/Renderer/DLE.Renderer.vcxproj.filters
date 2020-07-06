@@ -92,7 +92,7 @@
     <ClCompile Include="TextureProjector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GLTextures.cpp">
+    <ClCompile Include="MineDisplay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
