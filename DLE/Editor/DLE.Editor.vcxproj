@@ -1091,6 +1091,9 @@
     <ProjectReference Include="..\Managers\DLE.Managers.vcxproj">
       <Project>{1a1bd677-4bfc-4b6d-9562-13f6dfb87dde}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\Renderer\DLE.Renderer.vcxproj">
+      <Project>{6fc005c8-930f-4bf1-81b5-01f584998330}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
