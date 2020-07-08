@@ -86,7 +86,7 @@ for (;;) {
 	Zoom (-1, 1.0 / zoomScales [1]);
 	}
 
-if (m_nRenderer) {
+if (GetRenderer()) {
 	if ((rc.Width () > crc.Width ()) || (rc.Height () > crc.Height ())) {
 		int	nSteps = -1;
 		int	dx0, dy0;
@@ -282,20 +282,6 @@ if (Perspective ()) {
 	SetCenter (pSegment->Center (), 1);
 	Invalidate (FALSE);
 	}
-}
-
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-//------------------------------------------------------------------------------
-
-void CRenderer::Zoom (int nSteps, double zoom)
-{
-if (nSteps < 0)
-	zoom = 1.0 / zoom;
-else if (nSteps > 1)
-	zoom = pow (zoom, nSteps);
-Scale ().v.z *= zoom;
-ViewMatrix ()->Scale (zoom);
 }
 
 //------------------------------------------------------------------------------

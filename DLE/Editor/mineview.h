@@ -10,18 +10,7 @@
 #endif // _MSC_VER >= 1000
 
 #include "afxcview.h"
-#include "MineDisplay.h"
-
-// -----------------------------------------------------------------------------
-
-enum eViewOptions {
-	eViewWireFrameFull = 0,
-	eViewHideLines,
-	eViewNearbyCubeLines,
-	eViewWireFrameSparse,
-	eViewTextured,
-	eViewTexturedWireFrame
-	};
+#include "MineView.Presenter.h"
 
 // -----------------------------------------------------------------------------
 
@@ -282,8 +271,7 @@ protected: // create from serialization only
 	DECLARE_DYNCREATE(CMineView)
 
 	CSplitterWnd*	m_pSplitter;
-	CMineDisplay	m_mineDisplay;
-	CRenderData		m_renderData;
+	CMineViewPresenter m_presenter;
 	CInputHandler	m_inputHandler;
 
 	// member variables
@@ -291,8 +279,8 @@ protected: // create from serialization only
 	bool 				m_bUpdateCursor;
 	bool 				m_bDelayRefresh;
 	int 				m_nDelayRefresh;
-	uint				m_viewOption;
 	uint				m_selectMode;
+	double			m_moveRate [2];
 
 	CPoint			m_lastDragPos;
 	CPoint			m_highlightPos;
@@ -311,7 +299,6 @@ protected: // create from serialization only
 						m_yScrollCenter;
 	int 				m_xRenderOffs,
 						m_yRenderOffs;
-	int 				m_nViewDist;
 	int 				m_nMineCenter;
 	int				m_nElementMovementReference;
 
@@ -320,10 +307,6 @@ protected: // create from serialization only
 
 	int 				m_x0, m_x1, m_y;
 	double			m_z0, m_z1;
-
-	CRenderer*		m_renderers [2];
-	CRenderer*		m_renderer;
-	int				m_nRenderer;
 
 	CDynamicArray< CPreviewUVL > m_previewUVLs;
 
@@ -361,27 +344,10 @@ public:
 	virtual void Dump(CDumpContext& dc) const;
 #endif
 
-	inline void SetViewDistIndex (int nViewDist) {
-		if (m_nViewDist != nViewDist) {
-			m_nViewDist = nViewDist;
-			Refresh ();
-			}
-		}
-	inline int ViewDistIndex () {
-		return m_nViewDist;
-		}
-	inline int ViewDist (void) {
-		return (m_nViewDist <= 10) ? m_nViewDist : 
-		(m_nViewDist < 20) ? 10 + 2 * (m_nViewDist - 10) : 30 + 3 * (m_nViewDist - 20);
-		}
-
-	inline bool Visible (CSegment *pSegment) {
-		if ((pSegment->m_info.function == SEGMENT_FUNC_SKYBOX) && !ViewFlag (eViewMineSkyBox))
-			return false;
-		if (!m_nViewDist)
-			return true;
-		return (pSegment->Index () >= 0) && (pSegment->Index () <= ViewDist ()); 
-		}
+	inline void SetViewDistIndex(int nViewDist) { if (m_presenter.SetViewDistIndex(nViewDist)) Refresh(); }
+	inline int ViewDistIndex() { return m_presenter.ViewDistIndex(); }
+	inline int ViewDist() { return m_presenter.ViewDist(); }
+	inline bool Visible(CSegment* pSegment) { return m_presenter.Visible(pSegment); }
 
 	inline void SetElementMovementReference (int nReference) { m_nElementMovementReference = nReference; }
 	inline int GetElementMovementReference (void) { return Perspective () && m_nElementMovementReference; }
@@ -477,13 +443,13 @@ public:
 	void AlignViewerWithSide (void);
 
 	bool ViewObject (CGameObject *pObject);
-	inline bool ViewObject (uint flag = 0) { return flag ? ((ViewObjectFlags () & flag) != 0) : (ViewObjectFlags () != 0); }
-	inline bool ViewFlag (uint flag = 0) { return flag ? (ViewMineFlags () & flag) != 0 : (ViewMineFlags () != 0); }
-	inline bool ViewOption (uint option) { return m_viewOption == option; }
+	inline bool ViewObject(uint flag = 0) { return m_presenter.ViewObject(flag); }
+	inline bool ViewFlag(uint flag = 0) { return m_presenter.ViewFlag(flag); }
+	inline bool ViewOption(uint option) { return m_presenter.ViewOption(option); }
 	inline bool SelectMode (uint mode) { return m_selectMode == mode; }
 	inline uint GetMineViewFlags () { return ViewMineFlags (); }
 	inline uint GetObjectViewFlags () { return ViewObjectFlags (); }
-	inline uint GetViewOptions () { return m_viewOption; }
+	inline uint GetViewOptions() { return m_presenter.GetViewOptions(); }
 	inline uint GetSelectMode () { return m_selectMode; }
 	inline int& MineCenter (void) { return m_nMineCenter; }
 	inline void DelayRefresh (bool bDelay) {
@@ -538,15 +504,14 @@ public:
 	void ApplyPreview (void);
 	void RevertPreview (void);
 
-	CRenderer& Renderer (void) { return *m_renderer; }
-	void SetRenderer (int nRenderer);
-	inline int GetRenderer (void) { return m_nRenderer; }
-	void SetPerspective (int nPerspective);
-
-	inline int Perspective (void) { return Renderer ().Perspective (); }
+	CRenderer& Renderer() { return m_presenter.Renderer(); }
+	void SetRenderer(int nRenderer);
+	inline int GetRenderer() { return m_presenter.GetRenderer() == RendererType::OpenGL; }
+	void SetPerspective(int nPerspective);
+	inline int Perspective() { return m_presenter.Perspective(); }
 
 	inline void Zoom (int nSteps, double zoom) { 
-		Renderer ().Zoom (nSteps, zoom); 
+		Renderer ().Zoom (nSteps, zoom, ViewMoveRate()); 
 		Refresh (false);
 		}
 	inline int Project (CRect* pRC = null, bool bCheckBehind = false) { return Renderer ().Project (pRC, bCheckBehind); } 
@@ -555,13 +520,13 @@ public:
 	inline void BeginRender (bool bOrtho = false) { Renderer ().BeginRender (bOrtho); }
 	inline void EndRender (bool bSwapBuffers = false) { Renderer ().EndRender (bSwapBuffers); } 
 	inline int ZoomIn (int nSteps = 1, bool bSlow = false) { 
-		if (!Renderer ().ZoomIn (nSteps, bSlow))
+		if (!Renderer ().ZoomIn (nSteps, bSlow, ViewMoveRate()))
 			return 0;
 		Refresh ();
 		return 1;
 		} 
 	inline int ZoomOut (int nSteps = 1, bool bSlow = false) { 
-		if (!Renderer ().ZoomOut (nSteps, bSlow))
+		if (!Renderer ().ZoomOut (nSteps, bSlow, ViewMoveRate()))
 			return 0;
 		Refresh ();
 		return 1;
@@ -573,51 +538,51 @@ public:
 		}
 
 	inline void Pan (char direction, double offset) { 
-		Renderer ().Pan (direction, offset); 
+		Renderer ().Pan (direction, offset, ViewMoveRate());
 		Refresh (false);
 		}
 	inline void Reset (void);
 
-	inline CDoubleVector& Center (void) { return m_renderData.m_vCenter; }
-	inline CDoubleVector& Translation (void) { return m_renderData.m_vTranslate; }
-	inline CDoubleVector& Scale (void) { return m_renderData.m_vScale; }
-	inline CDoubleVector& Rotation (void) { return m_renderData.m_vRotate; }
-	inline int& ViewWidth (void) { return m_renderData.m_viewWidth; }
-	inline int& ViewHeight (void) { return m_renderData.m_viewHeight; }
-	inline int& ViewDepth (void) { return m_renderData.m_viewDepth; }
+	inline CDoubleVector& Center(void) { return m_presenter.Center(); }
+	inline CDoubleVector& Translation (void) { return m_presenter.Translation(); }
+	inline CDoubleVector& Scale (void) { return m_presenter.Scale(); }
+	inline CDoubleVector& Rotation (void) { return m_presenter.Rotation(); }
+	inline int& ViewWidth (void) { return m_presenter.ViewWidth(); }
+	inline int& ViewHeight (void) { return m_presenter.ViewHeight(); }
+	inline int& ViewDepth (void) { return m_presenter.ViewDepth(); }
 	inline double DepthScale (void) { return ViewMatrix ()->DepthScale (); }
 	//inline void SetDepthScale (double scale) { return ViewMatrix ()->SetDepthScale (scale); }
 	inline void SetDepthScale (int i) { return ViewMatrix ()->SetDepthScale (i); }
 	inline int DepthPerception (void) { return ViewMatrix ()->DepthPerception (); }
-	inline CBGR* RenderBuffer (void) { return m_renderData.m_renderBuffer; }
-	inline depthType* DepthBuffer (void) { return m_renderData.m_depthBuffer; }
-	inline CBGR& RenderBuffer (int i) { return m_renderData.m_renderBuffer [i]; }
-	inline depthType& DepthBuffer (int i) { return m_renderData.m_depthBuffer [i]; }
-	inline void SetDepthBuffer (depthType* buffer) { m_renderData.m_depthBuffer = buffer; }
-	inline HPEN Pen (ePenColor nPen, int nWeight = 1) { return (nPen < penCount) ? m_renderData.m_pens [nWeight > 1][nPen] : null; }
-	inline CVertex& MinViewPoint (void) { return m_renderData.m_minViewPoint; }
-	inline CVertex& MaxViewPoint (void) { return m_renderData.m_maxViewPoint; }
-	inline bool IgnoreDepth (void) { return m_renderData.m_bIgnoreDepth; }
-	inline void SetIgnoreDepth (bool bIgnoreDepth) { m_renderData.m_bIgnoreDepth = bIgnoreDepth; }
-	inline bool DepthTest (void) { return m_renderData.m_bDepthTest; }
-	inline void SetDepthTest (bool bDepthTest) { m_renderData.m_bDepthTest = bDepthTest; }
-	inline int RenderIllumination (void) { return (m_renderData.m_viewMineFlags & eViewMineIllumination) != 0; }
-	inline int RenderVariableLights (void) { return (m_renderData.m_viewMineFlags & eViewMineVariableLights) != 0; }
-	inline ubyte Alpha (void) { return m_renderData.m_alpha; }
-	inline void SetAlpha (ubyte alpha) { m_renderData.m_alpha = alpha; }
-	inline uint& ViewMineFlags (void) { return m_renderData.m_viewMineFlags; }
-	inline uint& ViewObjectFlags (void) { return m_renderData.m_viewObjectFlags; }
-	inline double MineMoveRate (void) { return m_renderData.m_moveRate [0]; }
-	inline double ViewMoveRate (void) { return m_renderData.m_moveRate [1]; }
-	inline void SetMineMoveRate (double moveRate) { m_renderData.m_moveRate [0] = moveRate; }
-	inline void SetViewMoveRate (double moveRate) { m_renderData.m_moveRate [1] = moveRate; }
+	inline CBGR* RenderBuffer (void) { return m_presenter.RenderBuffer(); }
+	inline depthType* DepthBuffer (void) { return m_presenter.DepthBuffer(); }
+	inline CBGR& RenderBuffer (int i) { return m_presenter.RenderBuffer(i); }
+	inline depthType& DepthBuffer (int i) { return m_presenter.DepthBuffer(i); }
+	inline void SetDepthBuffer (depthType* buffer) { m_presenter.SetDepthBuffer(buffer); }
+	inline HPEN Pen (ePenColor nPen, int nWeight = 1) { return m_presenter.Pen(nPen, nWeight); }
+	inline CVertex& MinViewPoint (void) { return m_presenter.MinViewPoint(); }
+	inline CVertex& MaxViewPoint (void) { return m_presenter.MaxViewPoint(); }
+	inline bool IgnoreDepth (void) { return m_presenter.IgnoreDepth(); }
+	inline void SetIgnoreDepth (bool bIgnoreDepth) { m_presenter.SetIgnoreDepth(bIgnoreDepth); }
+	inline bool DepthTest (void) { return m_presenter.DepthTest(); }
+	inline void SetDepthTest (bool bDepthTest) { m_presenter.SetDepthTest(bDepthTest); }
+	inline int RenderIllumination (void) { return m_presenter.RenderIllumination(); }
+	inline int RenderVariableLights (void) { return m_presenter.RenderVariableLights(); }
+	inline ubyte Alpha (void) { return m_presenter.Alpha(); }
+	inline void SetAlpha (ubyte alpha) { m_presenter.SetAlpha(alpha); }
+	inline uint& ViewMineFlags (void) { return m_presenter.ViewMineFlags(); }
+	inline uint& ViewObjectFlags (void) { return m_presenter.ViewObjectFlags(); }
+	inline double MineMoveRate (void) { return m_moveRate [0]; }
+	inline double ViewMoveRate (void) { return m_moveRate [1]; }
+	inline void SetMineMoveRate (double moveRate) { m_moveRate [0] = moveRate; }
+	inline void SetViewMoveRate (double moveRate) { m_moveRate [1] = moveRate; }
 	inline void GetMoveRates (double* moveRates) { 
-		moveRates [0] = m_renderData.m_moveRate [0], 
-		moveRates [1] = m_renderData.m_moveRate [1]; 
+		moveRates [0] = m_moveRate [0], 
+		moveRates [1] = m_moveRate [1]; 
 		}
 	inline void SetMoveRates (double* moveRates) { 
-		m_renderData.m_moveRate [0] = Clamp (moveRates [0], 0.001, 1000.0), 
-		m_renderData.m_moveRate [1] = Clamp (moveRates [1], 0.001, 1000.0);
+		m_moveRate [0] = Clamp (moveRates [0], 0.001, 1000.0), 
+		m_moveRate [1] = Clamp (moveRates [1], 0.001, 1000.0);
 		}
 	inline void SetInputSettings () { m_inputHandler.LoadSettings (); }
 
