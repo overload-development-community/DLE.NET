@@ -176,10 +176,10 @@ int CRendererSW::ZoomFactor(int nSteps, double min, double max)
 
 //------------------------------------------------------------------------------
 
-int CRendererSW::ZoomIn(int nSteps, bool bSlow)
+int CRendererSW::ZoomIn(int nSteps, bool bSlow, double viewMoveRate)
 {
     if (nSteps = ZoomFactor(nSteps, -100, 25))
-        Zoom(nSteps, zoomScales[0]);
+        Zoom(nSteps, zoomScales[0], viewMoveRate);
     else
         g_data.Trace(Info, "Already at maximum zoom");
     return nSteps;
@@ -187,10 +187,10 @@ int CRendererSW::ZoomIn(int nSteps, bool bSlow)
 
 //------------------------------------------------------------------------------
 
-int CRendererSW::ZoomOut(int nSteps, bool bSlow)
+int CRendererSW::ZoomOut(int nSteps, bool bSlow, double viewMoveRate)
 {
     if (nSteps = ZoomFactor(nSteps, -5, 100))
-        Zoom(nSteps, 1.0 / zoomScales[0]);
+        Zoom(nSteps, 1.0 / zoomScales[0], viewMoveRate);
     else
         g_data.Trace(Info, "Already at minimum zoom");
     return nSteps;
@@ -208,7 +208,7 @@ else
 
 //------------------------------------------------------------------------------
 
-void CRendererSW::Pan (char direction, double offset)
+void CRendererSW::Pan (char direction, double offset, double viewMoveRate)
 {
 if (offset == 0.0)
     return;
@@ -217,7 +217,7 @@ if ((i < 0) || (i > 2))
     i = 1;
 Translation () -= CDoubleVector (ViewMatrix ()->m_data [0].m_transformation [1].m.rVec [i], 
                                            ViewMatrix ()->m_data [0].m_transformation [1].m.uVec [i], 
-                                           ViewMatrix ()->m_data [0].m_transformation [1].m.fVec [i]) * (ViewMoveRate () * offset);
+                                           ViewMatrix ()->m_data [0].m_transformation [1].m.fVec [i]) * (viewMoveRate * offset);
 }
 
 //------------------------------------------------------------------------------

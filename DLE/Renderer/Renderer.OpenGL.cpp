@@ -382,17 +382,17 @@ if (bSwapBuffers) {
 
 //------------------------------------------------------------------------------
 
-int CRendererGL::ZoomIn (int nSteps, bool bSlow)
+int CRendererGL::ZoomIn (int nSteps, bool bSlow, double viewMoveRate)
 {
-Zoom (nSteps, zoomScales [1]);
+Zoom (nSteps, zoomScales [1], viewMoveRate);
 return nSteps;
 }
 
 //------------------------------------------------------------------------------
 
-int CRendererGL::ZoomOut (int nSteps, bool bSlow)
+int CRendererGL::ZoomOut (int nSteps, bool bSlow, double viewMoveRate)
 {
-Zoom (nSteps, 1.0 / zoomScales [1]);
+Zoom (nSteps, 1.0 / zoomScales [1], viewMoveRate);
 return nSteps;
 }
 
@@ -408,10 +408,10 @@ if (!Perspective ()) {
 
 //------------------------------------------------------------------------------
 
-void CRendererGL::Zoom (int nSteps, double zoom)
+void CRendererGL::Zoom (int nSteps, double zoom, double viewMoveRate)
 {
 if (Perspective ()) {
-    Pan ('Z', nSteps * ((zoom < 1.0) ? 1 : -1));
+    Pan ('Z', nSteps * ((zoom < 1.0) ? 1 : -1), viewMoveRate);
     }
 else {
     if (nSteps < 0) {
@@ -474,7 +474,7 @@ ComputeZoom ();
 
 //------------------------------------------------------------------------------
 
-void CRendererGL::Pan (char axis, double offset)
+void CRendererGL::Pan (char axis, double offset, double viewMoveRate)
 {
 if (offset == 0.0)
     return;
@@ -494,7 +494,7 @@ if (Perspective ()) {
         default:
             return;
         }
-    vMove *= offset * ViewMoveRate ();
+    vMove *= offset * viewMoveRate;
     Translation () += vMove;
     }
 else {
@@ -502,14 +502,14 @@ else {
     if ((i < 0) || (i > 2))
         return;
 #if 1
-    double d = ViewMoveRate () * ((i == 1) ? offset : -offset);
+    double d = viewMoveRate * ((i == 1) ? offset : -offset);
     CVertex o = m_viewMatrix.Origin ();
     o.m_view = m_viewMatrix.Transformation () * o;
     o.m_view [i] -= d;
     o = m_viewMatrix.Transformation (1) * o.m_view;
     m_viewMatrix.Origin () = o;
 #else
-m_viewMatrix.MoveViewer (i, ViewMoveRate () * ((i == 1) ? offset : -offset));
+m_viewMatrix.MoveViewer (i, viewMoveRate * ((i == 1) ? offset : -offset));
 #endif
     }
 }
