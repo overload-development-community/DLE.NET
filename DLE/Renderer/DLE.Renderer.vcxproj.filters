@@ -42,7 +42,7 @@
     <ClInclude Include="GLTextures.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MineDisplay.h">
+    <ClInclude Include="MineView.Presenter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -83,7 +83,7 @@
     <ClCompile Include="Renderer.Software.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MineDisplay.cpp">
+    <ClCompile Include="MineView.Presenter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -36,7 +36,7 @@ void CMineView::HighlightDrag (short nVert, long x, long y)
 CHECKMINE;
 
 Renderer ().SelectObject ((HBRUSH) GetStockObject (NULL_BRUSH));
-if (!m_nRenderer)
+if (m_presenter.GetRenderer() == RendererType::Software)
 	::SetROP2 (DC(), R2_NOT);
 else
 	Renderer ().SelectPen (penWhite + 1);
@@ -59,7 +59,7 @@ for (int i = 0; i < 3; i++) {
 		rc.bottom = v.m_screen.y;
 	}
 
-if (!m_nRenderer) {
+if (m_presenter.GetRenderer() == RendererType::Software) {
 	::SetROP2 (DC(), R2_COPYPEN);
 	rc.InflateRect (4, 4);
 	InvalidateRect (rc, FALSE);
@@ -84,13 +84,13 @@ short nVert = current->Side ()->VertexIdIndex (current->Point ());
 
 Renderer ().BeginRender (true);
 // unhighlight last point and lines drawing
-if (!m_nRenderer)
+if (m_presenter.GetRenderer() == RendererType::Software)
 	HighlightDrag (nVert, m_lastDragPos.x, m_lastDragPos.y);
 // highlight the new position
 HighlightDrag (nVert, LastMousePos ().x, LastMousePos ().y);
 m_lastDragPos = LastMousePos ();
 
-if (!m_nRenderer)
+if (m_presenter.GetRenderer() == RendererType::Software)
 	::SetROP2 (DC(), R2_NOT);
 
 for (i = 0; i < vertexManager.Count (); i++) {
@@ -114,7 +114,7 @@ if ((i >= vertexManager.Count ()) && (m_highlightPos.x != -1))
 	Renderer ().Ellipse (m_highlightPos, 8, 8);
 
 Renderer ().EndRender ();
-if (!m_nRenderer)
+if (m_presenter.GetRenderer() == RendererType::Software)
 	::SetROP2 (DC(), R2_COPYPEN);
 // define and draw new point
 m_highlightPos.x = -1;

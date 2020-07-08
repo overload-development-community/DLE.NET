@@ -96,8 +96,6 @@ public:
     int m_viewHeight; // in pixels
     int m_viewDepth; // in bytes
 
-    double m_moveRate[2];
-
     CVertex m_minViewPoint;
     CVertex m_maxViewPoint;
     //CLongVector m_minVPIdx;
@@ -172,7 +170,6 @@ public:
     inline int RenderVariableLights(void) { return RenderIllumination() && (m_renderData.m_viewMineFlags & eViewMineVariableLights) != 0; }
     inline ubyte Alpha(void) { return m_renderData.m_alpha; }
     inline void SetAlpha(ubyte alpha) { m_renderData.m_alpha = alpha; }
-    inline double ViewMoveRate(void) { return m_renderData.m_moveRate[1]; }
     inline uint& ViewMineFlags(void) { return m_renderData.m_viewMineFlags; }
     inline uint& ViewObjectFlags(void) { return m_renderData.m_viewObjectFlags; }
     inline void SetDC(HDC dc) { m_hDC = dc; }
@@ -188,18 +185,18 @@ public:
     }
     virtual void Release(void) = 0;
     virtual void ClearView(void) = 0;
-    virtual void Zoom(int nSteps, double zoom);
+    virtual void Zoom(int nSteps, double zoom, double viewMoveRate);
     virtual int Project(CRect* pRC = null, bool bCheckBehind = false) = 0;
     virtual void DrawFaceTextured(CFaceListEntry& fle) = 0;
     virtual int FaceIsVisible(CSegment* pSegment, CSide* pSide) = 0;
     virtual bool IsSideInFrustum(short nSegment, short nSide) { return Frustum()->Contains(nSegment, nSide); }
     virtual void BeginRender(bool bOrtho = false) = 0;
     virtual void EndRender(bool bSwapBuffers = false) = 0;
-    virtual int ZoomIn(int nSteps = 1, bool bSlow = false) = 0;
-    virtual int ZoomOut(int nSteps = 1, bool bSlow = false) = 0;
+    virtual int ZoomIn(int nSteps /*= 1*/, bool bSlow /*= false*/, double viewMoveRate) = 0;
+    virtual int ZoomOut(int nSteps /*= 1*/, bool bSlow /*= false*/, double viewMoveRate) = 0;
     virtual CViewMatrix* ViewMatrix(void) = 0;
     virtual void SetCenter(CVertex v, int nType) = 0;
-    virtual void Pan(char direction, double offset) = 0;
+    virtual void Pan(char direction, double offset, double viewMoveRate) = 0;
     virtual void Reset(const CDoubleVector& currentSegmentCenter = CDoubleVector(0, 0, 0));
     virtual void RenderFaces(CFaceListEntry* faceRenderList, int faceCount, int bRenderSideKeys) = 0;
     virtual void FitToView(void) = 0;
@@ -257,14 +254,6 @@ public:
     bool InitViewDimensions(void);
     void ComputeViewLimits(CRect* pRC);
     void ComputeBrightness(CFaceListEntry& fle, ushort brightness[4], int bVariableLights);
-
-    void DrawTunnelMaker(CViewMatrix* viewMatrix);
-
-private:
-    void DrawTunnelMakerPath(const CTunnelPath* path, CViewMatrix* viewMatrix);
-    void DrawTunnelMakerPathNode(const CTunnelPathNode& node, CViewMatrix* viewMatrix);
-    void DrawTunnelMakerTunnel(const CTunnel* tunnel, CViewMatrix* viewMatrix);
-    void DrawTunnelMakerSegment(const CTunnelSegment& segment);
 };
 
 // -----------------------------------------------------------------------------
@@ -286,15 +275,15 @@ public:
     virtual void Release(void);
     virtual int Project(CRect* pRC = null, bool bCheckBehind = false);
     virtual void ClearView(void);
-    //virtual void Zoom (int nSteps, double zoom);
-    virtual int ZoomIn(int nSteps = 1, bool bSlow = false);
-    virtual int ZoomOut(int nSteps = 1, bool bSlow = false);
+    //virtual void Zoom (int nSteps, double zoom, double viewMoveRate);
+    virtual int ZoomIn(int nSteps /*= 1*/, bool bSlow /*= false*/, double viewMoveRate);
+    virtual int ZoomOut(int nSteps /*= 1*/, bool bSlow /*= false*/, double viewMoveRate);
     virtual void DrawFaceTextured(CFaceListEntry& fle);
     virtual int FaceIsVisible(CSegment* pSegment, CSide* pSide);
     virtual void BeginRender(bool bOrtho = false) {}
     virtual void EndRender(bool bSwapBuffers = false);
     virtual void SetCenter(CVertex v, int nType);
-    virtual void Pan(char direction, double offset);
+    virtual void Pan(char direction, double offset, double viewMoveRate);
     virtual CViewMatrix* ViewMatrix(void) { return &m_viewMatrix; }
     virtual void FitToView(void) {}
     virtual bool CanFitToView(void) { return true; }
@@ -374,15 +363,15 @@ public:
     virtual void Release(void) {};
     virtual void ClearView(void);
     virtual int Project(CRect* pRC = null, bool bCheckBehind = false);
-    virtual void Zoom(int nSteps, double zoom);
-    virtual int ZoomIn(int nSteps = 1, bool bSlow = false);
-    virtual int ZoomOut(int nSteps = 1, bool bSlow = false);
+    virtual void Zoom(int nSteps, double zoom, double viewMoveRate);
+    virtual int ZoomIn(int nSteps /*= 1*/, bool bSlow /*= false*/, double viewMoveRate);
+    virtual int ZoomOut(int nSteps /*= 1*/, bool bSlow /*= false*/, double viewMoveRate);
     virtual void DrawFaceTextured(CFaceListEntry& fle);
     virtual int FaceIsVisible(CSegment* pSegment, CSide* pSide) { return 1; }
     virtual void BeginRender(bool bOrtho = false);
     virtual void EndRender(bool bSwapBuffers = false);
     virtual void SetCenter(CVertex v, int nType);
-    virtual void Pan(char direction, double offset);
+    virtual void Pan(char direction, double offset, double viewMoveRate);
     virtual CViewMatrix* ViewMatrix(void) { return &m_viewMatrix; }
     virtual void Reset(const CDoubleVector& currentSegmentCenter = CDoubleVector(0, 0, 0));
     virtual void FitToView(void) { ComputeZoom(); }

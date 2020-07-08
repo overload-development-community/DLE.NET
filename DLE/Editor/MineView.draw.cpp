@@ -84,7 +84,7 @@ else if (m_nMineCenter == 2) {
 
 			v.Set (scale * cosj, scale * sinj, 5 * sini);
 			v += viewMatrix->Origin ();
-			if (!m_nRenderer)
+			if (m_presenter.GetRenderer() == RendererType::Software)
 				v -= viewMatrix->m_data [0].m_translate;
 			viewMatrix->Transform (v.m_view, v);
 			v.Project (viewMatrix);
@@ -92,7 +92,7 @@ else if (m_nMineCenter == 2) {
 
 			v.Set (scale * cosj, 5 * sini, scale * sinj);
 			v += viewMatrix->Origin ();
-			if (!m_nRenderer)
+			if (m_presenter.GetRenderer() == RendererType::Software)
 				v -= viewMatrix->m_data [0].m_translate;
 			viewMatrix->Transform (v.m_view, v);
 			v.Project (viewMatrix);
@@ -100,7 +100,7 @@ else if (m_nMineCenter == 2) {
 
 			v.Set (5 * sini, scale * cosj, scale * sinj);
 			v += viewMatrix->Origin ();
-			if (!m_nRenderer)
+			if (m_presenter.GetRenderer() == RendererType::Software)
 				v -= viewMatrix->m_data [0].m_translate;
 			viewMatrix->Transform (v.m_view, v);
 			v.Project (viewMatrix);
@@ -122,7 +122,9 @@ else if (m_nMineCenter == 2) {
 				CVertex v = circles [h][m][n];
 				if (j == 0)
 					Renderer ().MoveTo (v.m_screen.x, v.m_screen.y);
-				else if (m_nRenderer ? (v.m_view.v.z < center.m_view.v.z) : (v.m_screen.z <= 0))
+				else if ((m_presenter.GetRenderer() == RendererType::OpenGL) ?
+					(v.m_view.v.z < center.m_view.v.z) :
+					(v.m_screen.z <= 0))
 					Renderer ().LineTo (v.m_screen.x, v.m_screen.y);
 				else 
 					Renderer ().MoveTo (v.m_screen.x, v.m_screen.y);
@@ -145,7 +147,7 @@ Renderer ().BeginRender (Renderer ().Type () == 0);
 Renderer ().SelectPen (penGray + 1);
 CSegment* pSegment = segmentManager.Segment (0);
 short segCount = segmentManager.Count ();
-if (m_nRenderer)
+if (m_presenter.GetRenderer() == RendererType::OpenGL)
 	glDepthFunc (GL_LEQUAL);
 for (short nSegment = 0; nSegment < segCount; nSegment++, pSegment++) 
 	DrawSegmentWireFrame (pSegment, bSparse);
@@ -360,151 +362,24 @@ if (left < r)
 
 void CMineView::DrawSparseSegmentWireFrame (CSegment *pSegment)
 {
-bool bOrtho = Renderer ().Ortho ();
-CEdgeList edgeList;
-int nEdges = pSegment->BuildEdgeList (edgeList, true);
-
-for (short nSide = 0; nSide < 6; nSide++) {
-	if (pSegment->ChildId (nSide) >= 0)
-		continue;
-	CSide* pSide = pSegment->Side (nSide);
-	CPoint side [4], line [2];
-	ubyte v [2];
-	int i, j;
-
-	for (i = 0; i < 4; i++) {
-		side [i].x = vertexManager [pSegment->m_info.vertexIds [pSide->VertexIdIndex (i)]].m_screen.x; 
-		side [i].y = vertexManager [pSegment->m_info.vertexIds [pSide->VertexIdIndex (i)]].m_screen.y; 
-		}
-	CDoubleVector a,b;
-	a.v.x = (double) (side [1].x - side [0].x);
-	a.v.y = (double) (side [1].y - side [0].y);
-	b.v.x = (double) (side [3].x - side [0].x);
-	b.v.y = (double) (side [3].y - side [0].y);
-	if (a.v.x * b.v.y < a.v.y * b.v.x)
-		Renderer ().SelectPen (penWhite + 1);
-	else
-		Renderer ().SelectPen (penGray + 1);
-	// draw each line of the current side separately
-	// only draw if there is no childP segment of the current segment with a common side
-	for (i = 0; i < 4; i++) {
-		for (j = 0; j < 2; j++) {
-			line [j] = side [(i+j)%4];
-			v [j] = pSide->VertexIdIndex ((i+j)%4);
-			}
-
-		// Using the sparse edge list: if a neighboring side is 0xff, it's joined to another cube,
-		// so don't render this line
-		ubyte side1, side2;
-		edgeList.Find (0, side1, side2, v [0], v [1]);
-		if (side1 == 0xff || side2 == 0xff)
-			continue;
-
-		CVertex& v1 = vertexManager [pSegment->m_info.vertexIds [v [0]]];
-		CVertex& v2 = vertexManager [pSegment->m_info.vertexIds [v [1]]];
-		if (!bOrtho) {
-			Renderer ().MoveTo (v1);
-			Renderer ().LineTo (v2);
-			}
-		else {
-			Renderer ().MoveTo (v1.m_screen.x, v1.m_screen.y);
-			Renderer ().LineTo (v2.m_screen.x, v2.m_screen.y);
-			}
-		}
-	}
+	m_presenter.DrawSparseSegmentWireFrame(pSegment);
 }
 
 //--------------------------------------------------------------------------
 
 void CMineView::RenderSegmentWireFrame (CSegment *pSegment, bool bSparse, bool bTagged)
 {
-	int	bOrtho = Renderer ().Ortho ();
-
-if (bOrtho) {
-	if (!Visible (pSegment))
-		return;
-	}
-else if (!bSparse) {
-	if ((pSegment == current->Segment ()) || (pSegment == other->Segment ()))
-		glDisable (GL_DEPTH_TEST);
-	else
-		glEnable (GL_DEPTH_TEST);
-	glLineWidth (ViewOption (eViewTexturedWireFrame) ? 3.0f : 2.0f);
-	}
-
-	CEdgeList	edgeList;
-	ushort*		vertexIds = pSegment->m_info.vertexIds;
-	short			xMax = ViewWidth (),
-					yMax = ViewHeight ();
-	int			nType = Renderer ().Type ();
-	ePenColor	pen;
-	float			penWeight;
-	bool			bSegmentIsTagged = pSegment->IsTagged ();
-	bool			bSideTagged [2] = {false, false};
-	bool			bFullWireFrame = !bTagged || bSegmentIsTagged || (m_viewOption != eViewTextured);
-
-#ifdef _DEBUG
-if (segmentManager.Index (pSegment) == nDbgSeg)
-	nDbgSeg = nDbgSeg;
-#endif
-Renderer ().GetPen (pen, penWeight);
-for (int i = 0, j = pSegment->BuildEdgeList (edgeList); i < j; i++) {
-	ubyte i1, i2, side1, side2;
-	edgeList.Get (i, side1, side2, i1, i2);
-	if (!bSegmentIsTagged) {
-		bSideTagged [0] = bSideTagged [1];
-		bSideTagged [1] = pSegment->IsTagged (short (side1)) || pSegment->IsTagged (short (side2));
-		if (bSideTagged [0] != bSideTagged [1]) {
-			if (bSideTagged [1])
-				Renderer ().SelectPen (penOrange + 1, ViewOption (eViewTexturedWireFrame) ? 3.0f : 2.0f);
-			else
-				Renderer ().SelectPen (pen + 1, penWeight);
-			}
-		}
-
-	 if (!(bFullWireFrame || bSideTagged [1]))
-		continue;
-	CVertex& v1 = vertexManager [vertexIds [i1]];
-	CVertex& v2 = vertexManager [vertexIds [i2]];
-	if (!bOrtho) {
-		Renderer ().MoveTo (v1);
-		Renderer ().LineTo (v2);
-		}
-	else { //if (v1.InRange (xMax, yMax, nType) && v2.InRange (xMax, yMax, nType)) {
-		Renderer ().MoveTo (v1.m_screen.x, v1.m_screen.y);
-		Renderer ().LineTo (v2.m_screen.x, v2.m_screen.y);
-		}
-	}
-if (bSideTagged [1])
-	Renderer ().SelectPen (pen + 1, penWeight);
+	bool isSelected = (pSegment == current->Segment()) || (pSegment == other->Segment());
+	m_presenter.RenderSegmentWireFrame(pSegment, isSelected, bSparse, bTagged);
 }
 
 //--------------------------------------------------------------------------
 
 void CMineView::DrawSegmentWireFrame (CSegment *pSegment, bool bSparse, bool bTagged, char bTunnel)
 {
-CHECKMINE;
-
-if (!Visible (pSegment))
-	return;
-if (pSegment->m_info.bTunnel != bTunnel)
-	return;
-
-if (!m_nRenderer && (bSparse || Renderer ().Ortho ())) {
-	short xMax = ViewWidth ();
-	short yMax = ViewHeight ();
-	ushort* vertexIds = pSegment->m_info.vertexIds;
-	for (int i = 0; i < 8; i++, vertexIds++) {
-		int v = *vertexIds;
-		if ((v <= MAX_VERTEX) && !vertexManager [v].InRange (xMax, yMax, Renderer ().Type ()))
-			return;
-		}
-	}
-
-if (bSparse)
-	DrawSparseSegmentWireFrame (pSegment);
-else
-	RenderSegmentWireFrame (pSegment, false, bTagged);
+	CHECKMINE;
+	bool isSelected = (pSegment == current->Segment()) || (pSegment == other->Segment());
+	m_presenter.DrawSegmentWireFrame(pSegment, isSelected, bSparse, bTagged, bTunnel);
 }
 
 //--------------------------------------------------------------------------
@@ -534,7 +409,7 @@ if (pSegment->IsTagged ()) {
 	return true;
 	}
 
-if (ViewFlag (eViewMineSpecial) && (m_viewOption != eViewTextured)) {
+if (ViewFlag (eViewMineSpecial) && (GetViewOptions() != eViewTextured)) {
 	switch (pSegment->m_info.function) {
 		case SEGMENT_FUNC_PRODUCER:
 		case SEGMENT_FUNC_SPEEDBOOST:
@@ -849,7 +724,7 @@ if (nSegment >= 0 && nSegment <= segmentManager.Count () && nSide >= 0 && nSide 
 
 
 	CVertex vCenter = pSegment->ComputeCenter (nSide);
-	if (!vCenter.InRange (xMax, yMax, m_nRenderer)) 
+	if (!vCenter.InRange (xMax, yMax, GetRenderer())) 
 		return;
 
 	if (ViewMatrix ()->Distance (vCenter) <= MODEL_DISPLAY_LIMIT) {
@@ -932,7 +807,7 @@ if (IN_RANGE (points [2].m_screen.x, m_viewMax.x) && IN_RANGE (points [2].m_scre
 		}
 	}
 if (tunnelMaker.Update(current, other) && tunnelMaker.Create())
-	Renderer().DrawTunnelMaker(ViewMatrix());
+	m_presenter.DrawTunnelMaker(ViewMatrix());
 }
 
 //--------------------------------------------------------------------------
@@ -1017,7 +892,8 @@ else {
 	}
 
 double d = (ViewOption (eViewTexturedWireFrame) || ViewOption (eViewTextured)) ? ViewMatrix ()->Distance (pObject->Position ()) : 1e30;
-if (textureManager.Available (1) && pObject->HasPolyModel () && modelManager.Setup (pObject, m_renderer) && ((nObject == current->ObjectId ()) || (d <= MODEL_DISPLAY_LIMIT))) {
+if (textureManager.Available (1) && pObject->HasPolyModel () && modelManager.Setup (pObject, &m_presenter.Renderer()) &&
+	((nObject == current->ObjectId ()) || (d <= MODEL_DISPLAY_LIMIT))) {
 	SelectObjectPen (pObject);
 	if (Renderer ().IsObjectInView (*pObject, true)) { // only render if fully visible
 		Renderer ().SelectObject ((HBRUSH) GetStockObject (BLACK_BRUSH));
@@ -1083,7 +959,7 @@ CDoubleVector mousePos (double (LastMousePos ().x), double (LastMousePos ().y), 
 short nVertices = vertexManager.Count ();
 for (short nVertex = 0; nVertex < nVertices; nVertex++) {
 	CVertex& v = vertexManager [nVertex];
-	if (!v.InRange (viewport.right, viewport.bottom, m_nRenderer))
+	if (!v.InRange (viewport.right, viewport.bottom, GetRenderer()))
 		continue;
 	double dist = Distance (mousePos, v.m_proj);
 	if (minDist > dist) {
@@ -1120,7 +996,7 @@ if (nNearestEdge < 0)
 nearest->Setup (segmentManager.Index (nearestSegment), nearestSegment->SideIndex (nearestSide), nNearestEdge, nNearestEdge);
 
 Renderer ().BeginRender (true);
-if (m_nRenderer) {
+if (m_presenter.GetRenderer() == RendererType::OpenGL) {
 	glLineStipple (1, 0x00ff);  
 	glEnable (GL_LINE_STIPPLE);
 	}
@@ -1129,7 +1005,7 @@ CVertex* v1 = nearest->Segment ()->Vertex (nearest->m_nSide, nNearestEdge);
 CVertex* v2 = nearest->Segment ()->Vertex (nearest->m_nSide, nNearestEdge + 1);
 Renderer ().MoveTo (v1->m_screen.x, v1->m_screen.y);
 Renderer ().LineTo (v2->m_screen.x, v2->m_screen.y);
-if (m_nRenderer)
+if (m_presenter.GetRenderer() == RendererType::OpenGL)
 	glDisable (GL_LINE_STIPPLE);
 Renderer ().SelectPen (penMedBlue + 1);
 Renderer ().Ellipse (*v1, 8.0, 8.0);
@@ -1184,7 +1060,7 @@ if (nearest->m_nSegment < 0)
 
 if (m_nShowSelectionCandidates > 1) {
 	Renderer ().BeginRender ();
-	if (m_nRenderer) {
+	if (m_presenter.GetRenderer() == RendererType::OpenGL) {
 		glLineStipple (1, 0x00ff);  
 		glEnable (GL_LINE_STIPPLE);
 		glDepthFunc (GL_ALWAYS);
@@ -1200,7 +1076,7 @@ if (m_nShowSelectionCandidates > 1) {
 		if (dist > 64.0)
 			continue;
 	#endif
-		if (m_nRenderer) 
+		if (m_presenter.GetRenderer() == RendererType::OpenGL)
 			glLineStipple (1, 0x00ff);  
 		if (Renderer ().Ortho ()) {
 			for (int i = 0; i <= nVertices; i++) {
@@ -1226,7 +1102,7 @@ if (m_nShowSelectionCandidates > 1) {
 			normal.Project (ViewMatrix ());
 			center += normal;
 			}
-		if (m_nRenderer)
+		if (m_presenter.GetRenderer() == RendererType::OpenGL)
 			glLineStipple (1, 0x3333);  
 		for (int i = 0; i < nVertices; i++) {
 			if (Renderer ().Ortho ()) {
@@ -1251,7 +1127,7 @@ if (m_nShowSelectionCandidates > 1) {
 
 if (m_nShowSelectionCandidates > 0) {
 	Renderer ().BeginRender ();
-	if (m_nRenderer)
+	if (m_presenter.GetRenderer() == RendererType::OpenGL)
 		glDepthFunc (GL_ALWAYS);
 	for (CSide* pSide : selectableSides) {
 		CSegment* pSegment = segmentManager.Segment (pSide->GetParent ());
@@ -1316,7 +1192,7 @@ if (nearest->m_nSegment < 0)
 
 if (m_nShowSelectionCandidates > 1) {
 	Renderer ().BeginRender ();
-	if (m_nRenderer) {
+	if (m_presenter.GetRenderer() == RendererType::OpenGL) {
 		glLineStipple (1, 0x00ff);  
 		glDepthFunc (GL_ALWAYS);
 		glEnable (GL_LINE_STIPPLE);
@@ -1334,11 +1210,11 @@ if (m_nShowSelectionCandidates > 1) {
 			continue;
 #endif
 		Renderer ().SelectPen ((pSide == nearestSide) ? penGold + 1 : penMedBlue + 1);
-		if (m_nRenderer)
+		if (m_presenter.GetRenderer() == RendererType::OpenGL)
 			glLineStipple (1, 0x00ff);  
 		DrawSegmentWireFrame (pSegment);
 		Renderer ().SelectPen ((pSide == nearestSide) ? penGold + 1 : penMedBlue + 1);
-		if (m_nRenderer)
+		if (m_presenter.GetRenderer() == RendererType::OpenGL)
 			glLineStipple (1, 0x3333);  
 		for (int i = 0; i < 8; i++) {
 			if (pSegment->VertexId (i) > MAX_VERTEX)
@@ -1365,7 +1241,7 @@ if (m_nShowSelectionCandidates > 1) {
 
 if (m_nShowSelectionCandidates > 0) {
 	Renderer ().BeginRender ();
-	if (m_nRenderer)
+	if (m_presenter.GetRenderer() == RendererType::OpenGL)
 		glDepthFunc (GL_ALWAYS);
 	nSegment = -1;
 	for (CSide* pSide : selectableSides) {
@@ -1483,13 +1359,13 @@ if ((m_inputHandler.MouseState () == eMouseStateSelect && m_inputHandler.HasMous
 		;
 	else if (DrawSelectableSides () || DrawSelectableSegments ()) {
 		Renderer ().BeginRender (false);
-		if (m_nRenderer) {
+		if (m_presenter.GetRenderer() == RendererType::OpenGL) {
 			glLineStipple (1, 0x00ff);  
 			glEnable (GL_LINE_STIPPLE);
 			glDepthFunc (GL_ALWAYS);
 			}
 		DrawSegmentHighlighted (selections [2].m_nSegment, selections [2].m_nSide, DEFAULT_EDGE, DEFAULT_POINT);
-		if (m_nRenderer)
+		if (m_presenter.GetRenderer() == RendererType::OpenGL)
 			glDisable (GL_LINE_STIPPLE);
 		Renderer ().EndRender ();
 		}
@@ -1497,7 +1373,7 @@ if ((m_inputHandler.MouseState () == eMouseStateSelect && m_inputHandler.HasMous
 
 if (tunnelMaker.Update(current, other) && tunnelMaker.Create())
 {
-	Renderer().DrawTunnelMaker(ViewMatrix());
+	m_presenter.DrawTunnelMaker(ViewMatrix());
 }
 textureProjector.DrawProjectGuides (Renderer (), ViewMatrix ());
 
@@ -1550,7 +1426,7 @@ strcat_s (message, sizeof (message), " 2nd:");
 _itoa_s (current->Side ()->OvlTex (0), message + strlen (message), sizeof (message) - strlen (message), 10);
 
 strcat_s (message, sizeof (message), ",  zoom:");
-double zoom = log (10 * Scale ().v.x) / log (zoomScales [m_nRenderer]);
+double zoom = log (10 * Scale ().v.x) / log (zoomScales [GetRenderer()]);
 if (zoom > 0) 
 	zoom += 0.5;
 else

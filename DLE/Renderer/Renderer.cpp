@@ -287,127 +287,6 @@ int CRenderer::RenderModel(RenderModel::CModel& model, CGameObject* object,
 	return 1;
 }
 
-void CRenderer::DrawTunnelMaker(CViewMatrix* viewMatrix)
-{
-	DrawTunnelMakerPath(tunnelMaker.Path(), viewMatrix);
-	DrawTunnelMakerTunnel(tunnelMaker.Tunnel(), viewMatrix);
-}
-
-void CRenderer::DrawTunnelMakerPath(const CTunnelPath* path, CViewMatrix* viewMatrix)
-{
-#ifdef _DEBUG
-
-	for (int i = 0; i <= path->m_nSteps; i++)
-		DrawTunnelMakerPathNode(path->m_nodes[i], viewMatrix);
-
-#else
-
-	// Haven't confirmed this works, there's no explicit copy-constructor.
-	// If this bugs out, make one.
-	CCubicBezier bezier(path->Bezier());
-
-	BeginRender();
-	for (int i = 0; i < 4; i++) {
-		bezier.Transform(viewMatrix);
-		bezier.Project(viewMatrix);
-	}
-	EndRender();
-
-	BeginRender(true);
-	SelectObject((HBRUSH)GetStockObject(NULL_BRUSH));
-	SelectPen(penRed + 1);
-
-	CMineView* mineView = DLE.MineView();
-	if (bezier.GetPoint(1).InRange(mineView->ViewMax().x, mineView->ViewMax().y, Type())) {
-		if (bezier.GetPoint(0).InRange(mineView->ViewMax().x, mineView->ViewMax().y, Type())) {
-			MoveTo(bezier.GetPoint(0).m_screen.x, bezier.GetPoint(0).m_screen.y);
-			LineTo(bezier.GetPoint(1).m_screen.x, bezier.GetPoint(1).m_screen.y);
-			Ellipse(bezier.GetPoint(1), 4, 4);
-		}
-	}
-	if (bezier.GetPoint(2).InRange(mineView->ViewMax().x, mineView->ViewMax().y, Type())) {
-		if (bezier.GetPoint(3).InRange(mineView->ViewMax().x, mineView->ViewMax().y, Type())) {
-			MoveTo(bezier.GetPoint(3).m_screen.x, bezier.GetPoint(3).m_screen.y);
-			LineTo(bezier.GetPoint(2).m_screen.x, bezier.GetPoint(2).m_screen.y);
-			Ellipse(bezier.GetPoint(2), 4, 4);
-		}
-	}
-	EndRender();
-
-#endif
-}
-
-void CRenderer::DrawTunnelMakerPathNode(const CTunnelPathNode& node, CViewMatrix* viewMatrix)
-{
-	CDoubleMatrix m;
-	m = node.m_rotation.Inverse();
-	CVertex v[4] = { m.R(), m.U(), m.F(), node.m_axis };
-
-	BeginRender();
-	CVertex vertex(node.m_vertex);
-	vertex.Transform(viewMatrix);
-	vertex.Project(viewMatrix);
-	for (int i = 0; i < 4; i++) {
-		v[i].Normalize();
-		v[i] *= 5.0;
-		v[i] += vertex;
-		v[i].Transform(viewMatrix);
-		v[i].Project(viewMatrix);
-	}
-	EndRender();
-
-	BeginRender(true);
-	SelectObject((HBRUSH)GetStockObject(NULL_BRUSH));
-	static ePenColor pens[4] = { penRed, penMedGreen, penMedBlue, penOrange };
-
-	Ellipse(vertex, 4, 4);
-	for (int i = 0; i < 4; i++) {
-		SelectPen(pens[i] + 1);
-		MoveTo(vertex.m_screen.x, vertex.m_screen.y);
-		LineTo(v[i].m_screen.x, v[i].m_screen.y);
-	}
-	EndRender();
-}
-
-void CRenderer::DrawTunnelMakerTunnel(const CTunnel* tunnel, CViewMatrix* viewMatrix)
-{
-	BeginRender();
-	for (int i = 0; i <= tunnel->m_nSteps; i++) {
-		for (int j = 0; j < 4; j++) {
-			CVertex& v = vertexManager[tunnel->m_segments[i].m_nVertices[j]];
-			v.Transform(viewMatrix);
-			v.Project(viewMatrix);
-		}
-	}
-	EndRender();
-
-	BeginRender(true);
-	SelectObject((HBRUSH)GetStockObject(NULL_BRUSH));
-	SelectPen(penBlue + 1);
-	for (int i = 1; i <= tunnel->m_nSteps; i++)
-		DrawTunnelMakerSegment(tunnel->m_segments[i]);
-	EndRender();
-}
-
-void CRenderer::DrawTunnelMakerSegment(const CTunnelSegment& segment)
-{
-	BeginRender(false);
-#ifdef NDEBUG
-	if (mineView->GetRenderer() && (mineView->ViewOption(eViewTexturedWireFrame) || mineView->ViewOption(eViewTextured)))
-#endif
-	{
-		glLineStipple(1, 0x0c3f);  // dot dash
-		glEnable(GL_LINE_STIPPLE);
-	}
-	for (int i = (int)segment.m_elements.Length(); --i >= 0; )
-		DLE.MineView()->DrawSegmentWireFrame(segmentManager.Segment(segment.m_elements[i].m_nSegment), false, false, 1);
-	EndRender();
-#ifdef NDEBUG
-	if (mineView->GetRenderer() && (mineView->ViewOption(eViewTexturedWireFrame) || mineView->ViewOption(eViewTextured)))
-#endif
-		glDisable(GL_LINE_STIPPLE);
-}
-
 // -----------------------------------------------------------------------------
 
 int CRenderer::DrawObjectArrow(CGameObject& object, int bCurrent)
@@ -658,6 +537,16 @@ short CRenderer::IsSegmentSelected(CSegment& segment, CRect& viewport, long xMou
 		return nSide;
 	}
 	return -1;
+}
+
+void CRenderer::Zoom(int nSteps, double zoom, double viewMoveRate)
+{
+	if (nSteps < 0)
+		zoom = 1.0 / zoom;
+	else if (nSteps > 1)
+		zoom = pow(zoom, nSteps);
+	Scale().v.z *= zoom;
+	ViewMatrix()->Scale(zoom);
 }
 
 //------------------------------------------------------------------------------

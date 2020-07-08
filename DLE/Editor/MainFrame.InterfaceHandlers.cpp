@@ -796,13 +796,13 @@ MineView ()->ToggleViewObjects (eViewObjectsControlCenter);
 
 void CMainFrame::OnViewPanIn () 
 {
-if (MineView ()->m_viewOption != eViewNearbyCubeLines)
+if (MineView ()->GetViewOptions() != eViewNearbyCubeLines)
 	MineView ()->Pan ('Z', gMoveRates [MineView ()->Perspective ()]);
 }
 
 void CMainFrame::OnViewPanOut () 
 {
-if (MineView ()->m_viewOption != eViewNearbyCubeLines)
+if (MineView ()->GetViewOptions() != eViewNearbyCubeLines)
 	MineView ()->Pan ('Z', -gMoveRates [MineView ()->Perspective ()]);
 }
 
@@ -810,7 +810,7 @@ void CMainFrame::OnViewPanRight ()
 {
 /*if (MineView ()->Perspective ())
 	OnViewRotateRight ();
-else*/ if (MineView ()->m_viewOption != eViewNearbyCubeLines)
+else*/ if (MineView ()->GetViewOptions() != eViewNearbyCubeLines)
 	MineView ()->Pan ('X', MineView ()->Perspective () ? gMoveRates [0] : -gMoveRates [0]);
 }
 
@@ -818,7 +818,7 @@ void CMainFrame::OnViewPanLeft ()
 {
 /*if (MineView ()->Perspective ())
 	OnViewRotateLeft ();
-else*/ if (MineView ()->m_viewOption != eViewNearbyCubeLines)
+else*/ if (MineView ()->GetViewOptions() != eViewNearbyCubeLines)
 	MineView ()->Pan ('X', MineView ()->Perspective () ? -gMoveRates [0] : gMoveRates [0]);
 }
 
@@ -826,7 +826,7 @@ void CMainFrame::OnViewPanUp ()
 {
 /*if (MineView ()->Perspective ())
 	OnViewRotateUp ();
-else*/ if (MineView ()->m_viewOption != eViewNearbyCubeLines)
+else*/ if (MineView ()->GetViewOptions() != eViewNearbyCubeLines)
 	MineView ()->Pan ('Y', MineView ()->Renderer ().Type () ? gMoveRates [0] : -gMoveRates [0]);
 }
 
@@ -834,7 +834,7 @@ void CMainFrame::OnViewPanDown ()
 {
 /*if (MineView ()->Perspective ())
 	OnViewRotateDown ();
-else*/ if (MineView ()->m_viewOption != eViewNearbyCubeLines)
+else*/ if (MineView ()->GetViewOptions() != eViewNearbyCubeLines)
 	MineView ()->Pan ('Y', MineView ()->Renderer ().Type () ? -gMoveRates [0] : gMoveRates [0]);
 }
 
@@ -960,24 +960,24 @@ pCmdUI->Enable ((BOOL) DLE.IsD2XLevel ());
 
 void CMainFrame::OnUpdateViewAlllines (CCmdUI* pCmdUI) 
 {
-pCmdUI->SetCheck (MineView ()->m_viewOption == eViewWireFrameFull ? 1 : 0);
+pCmdUI->SetCheck (MineView ()->GetViewOptions() == eViewWireFrameFull ? 1 : 0);
 }
 void CMainFrame::OnUpdateViewHidelines (CCmdUI* pCmdUI) 
 {
-pCmdUI->SetCheck (MineView ()->m_viewOption == eViewHideLines ? 1 : 0);
+pCmdUI->SetCheck (MineView ()->GetViewOptions() == eViewHideLines ? 1 : 0);
 }
 void CMainFrame::OnUpdateViewNearbySegmentLines (CCmdUI* pCmdUI) 
 {
-pCmdUI->SetCheck (MineView ()->m_viewOption == eViewNearbyCubeLines ? 1 : 0);
+pCmdUI->SetCheck (MineView ()->GetViewOptions() == eViewNearbyCubeLines ? 1 : 0);
 }
 void CMainFrame::OnUpdateViewPartiallines (CCmdUI* pCmdUI) 
 {
-pCmdUI->SetCheck (MineView ()->m_viewOption == eViewWireFrameSparse ? 1 : 0);
+pCmdUI->SetCheck (MineView ()->GetViewOptions() == eViewWireFrameSparse ? 1 : 0);
 }
 
 void CMainFrame::OnUpdateViewTexturemapped (CCmdUI* pCmdUI) 
 {
-pCmdUI->SetCheck (MineView ()->m_viewOption == eViewTextured ? 1 : 0);
+pCmdUI->SetCheck (MineView ()->GetViewOptions() == eViewTextured ? 1 : 0);
 }
 
 //------------------------------------------------------------------------------

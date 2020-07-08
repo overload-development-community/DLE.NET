@@ -112,7 +112,7 @@ RefreshObject(i, nClosestObj);
 short CMineView::FindSelectedTexturedSide (long xMouse, long yMouse, short& nSide)
 {
 short nSegment;
-if (m_viewOption == eViewTextured || m_viewOption == eViewTexturedWireFrame) {
+if (GetViewOptions() == eViewTextured || GetViewOptions() == eViewTexturedWireFrame) {
 	int nResult = Renderer ().GetSideKey (xMouse, yMouse, nSegment, nSide);
 	if (nResult == 1)
 		if (!segmentManager.Segment (nSegment)->m_info.bTunnel)
@@ -313,12 +313,12 @@ int CMineView::FindNearestVertex (long xMouse, long yMouse, bool bCurrentSideOnl
 
 for (int i = vertexManager.Count (); i; i--, pVertex++) {
 #if 0
-	if (!pVertex->InRange (xMax, yMax, m_nRenderer))
+	if (!pVertex->InRange (xMax, yMax, GetRenderer()))
 		continue;
 	double d = Distance (clickPos, pVertex->m_proj);
 #else
 	CVertex v = *pVertex;
-	if (!v.InRange (xMax, yMax, m_nRenderer))
+	if (!v.InRange (xMax, yMax, GetRenderer()))
 		continue;
 	if (bCurrentSideOnly) {
 		if (!current->Segment ()->HasVertex (vertexManager.Index (pVertex)))
