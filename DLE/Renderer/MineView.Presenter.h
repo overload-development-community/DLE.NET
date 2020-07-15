@@ -36,6 +36,17 @@ public:
     bool SetPerspective(int nPerspective);
     int Perspective() { return Renderer().Perspective(); }
 
+    // Viewport
+
+    void UpdateViewportBounds();
+    inline CPoint ViewCenter() { return m_renderData.m_viewport.CenterPoint(); }
+    inline CPoint ViewMax()
+    {
+        // I don't know why DLE multiplies the number by 8 - it seems fishy.
+        // But best to leave it until we know it's safe to remove.
+        return m_renderData.m_viewport.MulDiv(8, 1).BottomRight();
+    }
+
     // Render data
 
     inline CDoubleVector& Center() { return m_renderData.m_vCenter; }

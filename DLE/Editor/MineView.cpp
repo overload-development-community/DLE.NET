@@ -632,15 +632,7 @@ void CMineView::OnSize (UINT nType, int cx, int cy)
     CRect	rc;
 
 GetClientRect(rc);
-// define global screen variables (these must be redefined if window is sized)
-m_viewCenter.x = (rc.right - rc.left) / 2;
-m_viewCenter.y = (rc.bottom - rc.top) / 2;
-//aspect_ratio = (Center ().y/7.0) / (Center ().x/10.0);
-//aspect_ratio = (double) rc.Height () / (double) rc.Width ();
-m_viewMax.x = 8 * rc.right;
-m_viewMax.y = 8 * rc.bottom;
-//if (DLE.MainFrame () && ((ViewWidth () != cx) || (ViewHeight () != cy)))
-//	DLE.MainFrame ()->ResetPaneMode ();
+m_presenter.UpdateViewportBounds();
 CView::OnSize (nType, cx, cy);
 m_bUpdate = true;
 }

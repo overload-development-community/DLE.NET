@@ -261,7 +261,7 @@ Renderer ().RenderFaces (faceRenderList, faceCount, Renderer ().IsRTTSupported (
 bool CMineView::InRange (short *pv, short i)
 {
 for (; i; i--, pv++) {
-	if ((*pv <= MAX_VERTEX) && !vertexManager [*pv].InRange (m_viewMax.x, m_viewMax.y, Renderer ().Type ()))
+	if ((*pv <= MAX_VERTEX) && !vertexManager[*pv].InRange(m_presenter.ViewMax().x, m_presenter.ViewMax().y, Renderer().Type()))
 		return false;
 	}
 return true;
@@ -773,6 +773,7 @@ void CMineView::DrawTunnel (void)
 {
 	CVertex points [4];
 	CRenderer& renderer = DLE.MineView ()->Renderer ();
+	auto viewMax = m_presenter.ViewMax();
 
 renderer.SelectPen (penRed + 1);
 Renderer ().SelectObject ((HBRUSH)GetStockObject (NULL_BRUSH));
@@ -780,10 +781,10 @@ tunnelMaker.Create ();
 renderer.BeginRender ();
 points [1].Transform (ViewMatrix ());
 points [1].Project (ViewMatrix ());
-if (IN_RANGE (points [1].m_screen.x, m_viewMax.x) && IN_RANGE (points [1].m_screen.y, m_viewMax.y)) {
+if (IN_RANGE (points [1].m_screen.x, viewMax.x) && IN_RANGE (points [1].m_screen.y, viewMax.y)) {
 	points [0].Transform (ViewMatrix ());
 	points [0].Project (ViewMatrix ());
-	if (IN_RANGE (points [0].m_screen.x, m_viewMax.x) && IN_RANGE (points [0].m_screen.y, m_viewMax.y)){
+	if (IN_RANGE (points [0].m_screen.x, viewMax.x) && IN_RANGE (points [0].m_screen.y, viewMax.y)){
 		renderer.BeginRender (true);
 		renderer.MoveTo (points [0].m_screen.x, points [0].m_screen.y);
 		renderer.LineTo (points [1].m_screen.x, points [1].m_screen.y);
@@ -794,10 +795,10 @@ if (IN_RANGE (points [1].m_screen.x, m_viewMax.x) && IN_RANGE (points [1].m_scre
 	}
 points [2].Transform (ViewMatrix ());
 points [2].Project (ViewMatrix ());
-if (IN_RANGE (points [2].m_screen.x, m_viewMax.x) && IN_RANGE (points [2].m_screen.y, m_viewMax.y)){
+if (IN_RANGE (points [2].m_screen.x, viewMax.x) && IN_RANGE (points [2].m_screen.y, viewMax.y)){
 	points [2].Transform (ViewMatrix ());
 	points [2].Project (ViewMatrix ());
-	if (IN_RANGE (points [3].m_screen.x, m_viewMax.x) && IN_RANGE (points [3].m_screen.y, m_viewMax.y)){
+	if (IN_RANGE (points [3].m_screen.x, viewMax.x) && IN_RANGE (points [3].m_screen.y, viewMax.y)){
 		renderer.BeginRender (true);
 		renderer.MoveTo (points [3].m_screen.x, points [3].m_screen.y);
 		renderer.LineTo (points [2].m_screen.x, points [2].m_screen.y);

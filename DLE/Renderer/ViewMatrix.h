@@ -34,7 +34,7 @@ class CViewMatrix : public IViewMatrix
 		virtual void Project (CLongVector& a, CDoubleVector v) = 0;
 		virtual void Project (CDoubleVector& s, CDoubleVector& v) = 0;
 		virtual void Unproject (CDoubleVector& s, CDoubleVector& v) = 0;
-		virtual void Unproject (CVertex& vWorld, CLongVector& vScreen, CPoint& viewCenter) = 0;
+		virtual void Unproject (CVertex& vWorld, CLongVector& vScreen, const CPoint& viewCenter) = 0;
 		virtual void GetProjection (void) = 0;
 		virtual int Perspective (void) = 0;
 
@@ -119,7 +119,7 @@ class CViewMatrixSW : public CViewMatrix {
 			}
 
 		virtual void Unproject (CDoubleVector& s, CDoubleVector& v) {}
-		virtual void Unproject (CVertex& vWorld, CLongVector& vScreen, CPoint& viewCenter);
+		virtual void Unproject (CVertex& vWorld, CLongVector& vScreen, const CPoint& viewCenter);
 		virtual void GetProjection (void) {}
 		virtual int Perspective (void) { return 0; }
 };
@@ -151,7 +151,7 @@ class CViewMatrixGL : public CViewMatrix {
 		virtual void Project (CLongVector& a, CDoubleVector v);
 		virtual void Project (CDoubleVector& s, CDoubleVector& v);
 		virtual void Unproject (CDoubleVector& s, CDoubleVector& v);
-		virtual void Unproject (CVertex& vWorld, CLongVector& vScreen, CPoint& viewCenter);
+		virtual void Unproject (CVertex& vWorld, CLongVector& vScreen, const CPoint& viewCenter);
 		virtual void GetProjection (void);
 
 		inline void SetPerspective (int nPerspective) { m_nPerspective = nPerspective; }
