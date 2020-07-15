@@ -40,6 +40,15 @@ bool CMineViewPresenter::SetPerspective(int nPerspective)
     return Renderer().SetPerspective(nPerspective);
 }
 
+void CMineViewPresenter::UpdateViewportBounds()
+{
+    RECT rc{};
+    if (::GetClientRect(m_hwnd, &rc))
+    {
+        m_renderData.m_viewport = rc;
+    }
+}
+
 //--------------------------------------------------------------------------
 
 void CMineViewPresenter::DrawSparseSegmentWireFrame(CSegment* pSegment)
@@ -211,16 +220,15 @@ void CMineViewPresenter::DrawTunnelMakerPath(const CTunnelPath* path, CViewMatri
     Renderer().SelectObject((HBRUSH)GetStockObject(NULL_BRUSH));
     Renderer().SelectPen(penRed + 1);
 
-    CMineView* mineView = DLE.MineView();
-    if (bezier.GetPoint(1).InRange(mineView->ViewMax().x, mineView->ViewMax().y, Type())) {
-        if (bezier.GetPoint(0).InRange(mineView->ViewMax().x, mineView->ViewMax().y, Type())) {
+    if (bezier.GetPoint(1).InRange(ViewMax().x, ViewMax().y, Renderer().Type())) {
+        if (bezier.GetPoint(0).InRange(ViewMax().x, ViewMax().y, Renderer().Type())) {
             Renderer().MoveTo(bezier.GetPoint(0).m_screen.x, bezier.GetPoint(0).m_screen.y);
             Renderer().LineTo(bezier.GetPoint(1).m_screen.x, bezier.GetPoint(1).m_screen.y);
             Renderer().Ellipse(bezier.GetPoint(1), 4, 4);
         }
     }
-    if (bezier.GetPoint(2).InRange(mineView->ViewMax().x, mineView->ViewMax().y, Type())) {
-        if (bezier.GetPoint(3).InRange(mineView->ViewMax().x, mineView->ViewMax().y, Type())) {
+    if (bezier.GetPoint(2).InRange(ViewMax().x, ViewMax().y, Renderer().Type())) {
+        if (bezier.GetPoint(3).InRange(ViewMax().x, ViewMax().y, Renderer().Type())) {
             Renderer().MoveTo(bezier.GetPoint(3).m_screen.x, bezier.GetPoint(3).m_screen.y);
             Renderer().LineTo(bezier.GetPoint(2).m_screen.x, bezier.GetPoint(2).m_screen.y);
             Renderer().Ellipse(bezier.GetPoint(2), 4, 4);
@@ -287,7 +295,7 @@ void CMineViewPresenter::DrawTunnelMakerSegment(const CTunnelSegment& segment)
 {
     Renderer().BeginRender(false);
 #ifdef NDEBUG
-    if (GetRenderer() == RendererType::OpenGL && (mineView->ViewOption(eViewTexturedWireFrame) || mineView->ViewOption(eViewTextured)))
+    if (GetRenderer() == RendererType::OpenGL && (ViewOption(eViewTexturedWireFrame) || ViewOption(eViewTextured)))
 #endif
     {
         glLineStipple(1, 0x0c3f);  // dot dash
@@ -297,7 +305,7 @@ void CMineViewPresenter::DrawTunnelMakerSegment(const CTunnelSegment& segment)
         DrawSegmentWireFrame(segmentManager.Segment(segment.m_elements[i].m_nSegment), false, false, 1);
     Renderer().EndRender();
 #ifdef NDEBUG
-    if (GetRenderer() == RendererType::OpenGL && (mineView->ViewOption(eViewTexturedWireFrame) || mineView->ViewOption(eViewTextured)))
+    if (GetRenderer() == RendererType::OpenGL && (ViewOption(eViewTexturedWireFrame) || ViewOption(eViewTextured)))
 #endif
         glDisable(GL_LINE_STIPPLE);
 }
