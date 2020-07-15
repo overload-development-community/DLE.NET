@@ -192,7 +192,7 @@ else {
 	p.z = vertexManager [vert1].m_screen.z;
 	// BeginRender recalculates the view matrix
 	Renderer ().BeginRender (false);
-	ViewMatrix ()->Unproject (*vertexManager.Vertex (vert1), p, m_viewCenter);
+	ViewMatrix ()->Unproject (*vertexManager.Vertex (vert1), p, m_presenter.ViewCenter());
 	Renderer ().EndRender ();
 	}
 undoManager.End (__FUNCTION__);

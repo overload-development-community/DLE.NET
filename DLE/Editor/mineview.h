@@ -302,9 +302,6 @@ protected: // create from serialization only
 	int 				m_nMineCenter;
 	int				m_nElementMovementReference;
 
-	CPoint			m_viewCenter;
-	CPoint			m_viewMax;
-
 	int 				m_x0, m_x1, m_y;
 	double			m_z0, m_z1;
 
@@ -459,8 +456,6 @@ public:
 			m_nDelayRefresh--;
 		}
 	inline bool DelayRefresh (void) { return m_nDelayRefresh > 0; }
-	inline CPoint& ViewCenter (void) { return m_viewCenter; }
-	inline CPoint& ViewMax (void) { return m_viewMax; }
 
 	CPoint AdjustMousePos (CPoint point);
 	BOOL UpdateCursor ();
