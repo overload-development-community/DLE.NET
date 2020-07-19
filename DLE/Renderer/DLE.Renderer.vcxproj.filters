@@ -45,6 +45,9 @@
     <ClInclude Include="MineView.Presenter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TextureProjector.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -84,6 +87,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MineView.Presenter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureProjector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

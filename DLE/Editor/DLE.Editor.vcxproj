@@ -291,7 +291,6 @@
     <ClInclude Include="Global.h" />
     <ClInclude Include="Selection.h" />
     <ClInclude Include="TextureFilter.h" />
-    <ClInclude Include="TextureProjector.h" />
     <ClInclude Include="HogDialog.h" />
   </ItemGroup>
   <ItemGroup>
@@ -359,7 +358,6 @@
     <ClCompile Include="global.cpp" />
     <ClCompile Include="Selection.cpp" />
     <ClCompile Include="TextureFilter.cpp" />
-    <ClCompile Include="TextureProjector.cpp" />
     <ClCompile Include="HogDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
