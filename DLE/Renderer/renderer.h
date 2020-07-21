@@ -44,33 +44,6 @@ typedef long depthType;
 #endif
 
 // -----------------------------------------------------------------------------
-
-enum eObjectViewFlags {
-    eViewObjectsNone = 0,
-    eViewObjectsRobots = (1 << 0),
-    eViewObjectsPlayers = (1 << 1),
-    eViewObjectsWeapons = (1 << 2),
-    eViewObjectsPowerups = (1 << 3),
-    eViewObjectsKeys = (1 << 4),
-    eViewObjectsHostages = (1 << 5),
-    eViewObjectsControlCenter = (1 << 6),
-    eViewObjectsEffects = (1 << 7),
-    eViewObjectsAll = 0xff
-};
-
-// -----------------------------------------------------------------------------
-
-enum eMineViewFlags {
-    eViewMineWalls = (1 << 0),
-    eViewMineSpecial = (1 << 1),
-    eViewMineLights = (1 << 2),
-    eViewMineIllumination = (1 << 3),
-    eViewMineVariableLights = (1 << 4),
-    eViewMineUsedTextures = (1 << 5),
-    eViewMineSkyBox = (1 << 6)
-};
-
-// -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 // -----------------------------------------------------------------------------
 
@@ -104,14 +77,13 @@ public:
     bool m_bIgnoreDepth;
     bool m_bDepthTest;
     ubyte m_alpha;
+    bool m_renderIllumination;
+    bool m_renderVariableLights;
 
     CBGR* m_renderBuffer;
     depthType* m_depthBuffer;
 
     HPEN m_pens[2][penCount];
-
-    uint m_viewObjectFlags;
-    uint m_viewMineFlags;
 
     ePenColor m_pen;
     float m_penWeight;
@@ -166,12 +138,12 @@ public:
     inline void SetIgnoreDepth(bool bIgnoreDepth) { m_renderData.m_bIgnoreDepth = bIgnoreDepth; }
     inline bool DepthTest(void) { return m_renderData.m_bDepthTest; }
     inline void SetDepthTest(bool bDepthTest) { m_renderData.m_bDepthTest = bDepthTest; }
-    inline int RenderIllumination(void) { return (m_renderData.m_viewMineFlags & eViewMineIllumination) != 0; }
-    inline int RenderVariableLights(void) { return RenderIllumination() && (m_renderData.m_viewMineFlags & eViewMineVariableLights) != 0; }
+    inline bool RenderIllumination() { return m_renderData.m_renderIllumination; }
+    inline void SetRenderIllumination(bool enabled) { m_renderData.m_renderIllumination = enabled; }
+    inline bool RenderVariableLights() { return m_renderData.m_renderVariableLights; }
+    inline void SetRenderVariableLights(bool enabled) { m_renderData.m_renderVariableLights = enabled; }
     inline ubyte Alpha(void) { return m_renderData.m_alpha; }
     inline void SetAlpha(ubyte alpha) { m_renderData.m_alpha = alpha; }
-    inline uint& ViewMineFlags(void) { return m_renderData.m_viewMineFlags; }
-    inline uint& ViewObjectFlags(void) { return m_renderData.m_viewObjectFlags; }
     inline void SetDC(HDC dc) { m_hDC = dc; }
     inline HDC DC() { return m_hDC; }
     virtual HPEN SelectObject(HPEN pen) = 0;
