@@ -1,4 +1,8 @@
 #include "stdafx.h"
+#include "ViewMatrix.h"
+#include "Frustum.h"
+#include "FBO.h"
+#include "renderer.h"
 #include "TextureProjector.h"
 
 #define PREVIEWUVLS_EXPAND_INCREMENT 256
@@ -18,9 +22,11 @@ CTextureProjector::~CTextureProjector(void)
 {
 }
 
-void CTextureProjector::Start (int nProjectionMode)
+void CTextureProjector::Start (ISelection* currentSelection, int nProjectionMode, int* saveTexture1st, int* saveTexture2nd)
 {
 	m_nProjectionMode = nProjectionMode;
+	m_saveTexture1st = saveTexture1st;
+	m_saveTexture2nd = saveTexture2nd;
 
 	if(m_bActive) {
 		switch(m_nProjectionMode) {
@@ -40,15 +46,15 @@ void CTextureProjector::Start (int nProjectionMode)
 
 		switch(m_nProjectionMode) {
 		case PROJECTION_MODE_PLANAR:
-			ResetProjectOffset();
-			ResetProjectDirection();
+			ResetProjectOffset(currentSelection);
+			ResetProjectDirection(currentSelection);
 			m_projectScaleU = 1;
 			m_projectScaleV = 1;
 			break;
 
 		case PROJECTION_MODE_CYLINDER:
-			ResetProjectOffset();
-			ResetProjectDirection();
+			ResetProjectOffset(currentSelection);
+			ResetProjectDirection(currentSelection);
 			// 4 repeats for every 10 units radius - this scales exactly to a square cross-section.
 			// May distort a little for more sides; substantially for triangles but these are rare.
 			m_projectScaleU = CalcAverageRadius() * 0.4;
@@ -71,17 +77,17 @@ void CTextureProjector::End (BOOL bApply)
 	m_projectScaleV = 0;
 }
 
-void CTextureProjector::ResetProjectOffset ()
+void CTextureProjector::ResetProjectOffset (ISelection* currentSelection)
 {
-	m_vCenter = current->Segment ()->ComputeCenter ();
+	m_vCenter = currentSelection->Segment ()->ComputeCenter ();
 }
 
-void CTextureProjector::ResetProjectDirection ()
+void CTextureProjector::ResetProjectDirection (ISelection* currentSelection)
 {
-	CSegment* pSegment = current->Segment ();
-	CSide* pSide = current->Side ();
-	short nSide = current->SideId ();
-	short nEdge = current->Edge ();
+	CSegment* pSegment = currentSelection->Segment ();
+	CSide* pSide = currentSelection->Side ();
+	short nSide = currentSelection->SideId ();
+	short nEdge = currentSelection->Edge ();
 	ubyte v1 = pSide->VertexIdIndex (nEdge);
 	ubyte v2 = pSide->VertexIdIndex (nEdge + 1);
 	pSide->ComputeNormals (pSegment->m_info.vertexIds, m_vCenter);
@@ -135,7 +141,7 @@ double CTextureProjector::CalcAverageRadius ()
 	return sumDistance / count;
 }
 
-void CTextureProjector::Project (CDynamicArray< CPreviewUVL > *previewUVLs)
+void CTextureProjector::Project (std::vector<CPreviewUVL>* previewUVLs)
 {
 	if (!m_bActive || !m_nProjectionMode)
 		return;
@@ -144,9 +150,7 @@ void CTextureProjector::Project (CDynamicArray< CPreviewUVL > *previewUVLs)
 
 	uint nModifiedUVLs = 0;
 	if (!previewUVLs)
-		undoManager.Begin (__FUNCTION__, udSegments, true);
-	else
-		previewUVLs->Create (PREVIEWUVLS_EXPAND_INCREMENT);
+		g_data.undoManager->Begin (__FUNCTION__, udSegments, true);
 
 	#pragma omp parallel for if (segmentManager.Count () > 15 && !previewUVLs)
 	for (int i = 0; i < segmentManager.Count (); i++) {
@@ -156,9 +160,6 @@ void CTextureProjector::Project (CDynamicArray< CPreviewUVL > *previewUVLs)
 				continue;
 
 			uint nThisUVL = nModifiedUVLs++;
-			if (previewUVLs && nModifiedUVLs >= previewUVLs->Length ()) {
-				previewUVLs->Resize (nModifiedUVLs + PREVIEWUVLS_EXPAND_INCREMENT);
-			}
 
 			CSegment* pSegment = segmentManager.Segment (i);
 			CSide *pSide = pSegment->Side (j);
@@ -224,18 +225,11 @@ void CTextureProjector::Project (CDynamicArray< CPreviewUVL > *previewUVLs)
 	}
 
 	if (!previewUVLs)
-		undoManager.End (__FUNCTION__);
-	else if (nModifiedUVLs > 0)
-		previewUVLs->Resize (nModifiedUVLs);
-	else
-		previewUVLs->Destroy ();
+		g_data.undoManager->End (__FUNCTION__);
 }
 
 bool CTextureProjector::ShouldProjectFace (short nSegment, short nSide)
 {
-	CTextureTool *texTool = DLE.ToolView ()->TextureTool ();
-	if (!texTool)
-		return false;
 	CSide *pSide = segmentManager.Segment (nSegment)->Side (nSide);
 	if (pSide->Shape () > SIDE_SHAPE_TRIANGLE)
 		return false;
@@ -245,9 +239,9 @@ bool CTextureProjector::ShouldProjectFace (short nSegment, short nSide)
 			return false;
 	}
 	// Find faces that match the saved texture(s) if requested
-	if (m_bProjectCopiedOnly && texTool->m_bUse1st && (pSide->BaseTex () != texTool->m_saveTexture [0]))
+	if (m_bProjectCopiedOnly && m_saveTexture1st && (pSide->BaseTex () != *m_saveTexture1st))
 		return false;
-	if (m_bProjectCopiedOnly && texTool->m_bUse2nd && (pSide->OvlTex (0) != texTool->m_saveTexture [1]))
+	if (m_bProjectCopiedOnly && m_saveTexture2nd && (pSide->OvlTex (0) != *m_saveTexture2nd))
 		return false;
 	return true;
 }

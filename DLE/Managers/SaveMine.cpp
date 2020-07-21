@@ -244,10 +244,12 @@ public:
 	virtual short SideId() override { return sideId; }
 	virtual short Edge() override { return pointNum; }
 	virtual short Point() override { return pointNum; }
+	virtual short ObjectId() override { return 0; }
 	virtual CSegment* Segment() override { return segmentManager.Segment(segmentId); }
 	virtual CSide* Side() override { return segmentManager.Side(*this); }
 	virtual CVertex* Vertex(short vertexNum = 0) override { return Segment()->Vertex(sideId, pointNum + vertexNum); }
 	virtual operator CSideKey() override { return CSideKey(segmentId, sideId); }
+	virtual CGameObject* Object() override { return nullptr; }
 };
 
 using namespace rapidjson;

@@ -281,7 +281,7 @@ void GlobalData::SetDocumentModifiedFlag(bool modified)
 
 void GlobalData::ResetSelections()
 {
-    DLE.MainFrame()->SetSelectMode(eSelectSide);
+    DLE.MainFrame()->SetSelectMode(SelectMode::Side);
     current->Reset();
     other->Reset();
 }

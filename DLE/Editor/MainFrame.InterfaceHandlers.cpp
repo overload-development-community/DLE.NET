@@ -688,19 +688,19 @@ void CMainFrame::OnUpdateInsModeMirror (CCmdUI* pCmdUI)
 pCmdUI->SetCheck (segmentManager.AddMode () == MIRROR);
 }
 
-void CMainFrame::UpdateSelectButtons (eSelectModes mode)
+void CMainFrame::UpdateSelectButtons (SelectMode mode)
 {
 	static char *szSelMode [] = {" select: pos", " select: line", " select: side", " select: segment", " select: object", " select: block"};
 
 for (int i = 0; i <= ID_SEL_BLOCKMODE - ID_SEL_POINTMODE; i++)
-	m_toolBar.GetToolBarCtrl ().CheckButton (ID_SEL_POINTMODE + i, i == mode);
-SelModeMsg (szSelMode [mode]);
+	m_toolBar.GetToolBarCtrl ().CheckButton (ID_SEL_POINTMODE + i, i == static_cast<uint>(mode));
+SelModeMsg (szSelMode [static_cast<uint>(mode)]);
 }
 
-void CMainFrame::SetSelectMode (eSelectModes mode)
+void CMainFrame::SetSelectMode (SelectMode mode)
 {
 UpdateSelectButtons (mode);
-MineView ()->SetSelectMode (mode);
+MineView ()->SetSelectMode (static_cast<uint>(mode));
 }
 
 void CMainFrame::OnSelectPrevTab ()
@@ -717,32 +717,32 @@ ToolView ()->NextTab ();
 
 void CMainFrame::OnSelectPointMode ()
 {
-SetSelectMode (eSelectPoint);
+SetSelectMode (SelectMode::Point);
 }
 
 void CMainFrame::OnSelectEdgeMode ()
 {
-SetSelectMode (eSelectLine);
+SetSelectMode (SelectMode::Line);
 }
 
 void CMainFrame::OnSelectSideMode ()
 {
-SetSelectMode (eSelectSide);
+SetSelectMode (SelectMode::Side);
 }
 
 void CMainFrame::OnSelectCubeMode ()
 {
-SetSelectMode (eSelectSegment);
+SetSelectMode (SelectMode::Segment);
 }
 
 void CMainFrame::OnSelectObjectMode ()
 {
-SetSelectMode (eSelectObject);
+SetSelectMode (SelectMode::Object);
 }
 
 void CMainFrame::OnSelectBlockMode ()
 {
-SetSelectMode (eSelectBlock);
+SetSelectMode (SelectMode::Block);
 }
 
 //------------------------------------------------------------------------------
@@ -1177,7 +1177,7 @@ EditGeoShrink ();
 
 void CMainFrame::OnSelNextPoint ()
 {
-if (MineView ()->SelectMode (POINT_MODE))
+if (MineView ()->IsSelectMode (SelectMode::Point))
 	MineView ()->NextPoint ();
 else
 	MineView ()->SetSelectMode (POINT_MODE);
@@ -1187,7 +1187,7 @@ else
 
 void CMainFrame::OnSelPrevPoint ()
 {
-if (MineView ()->SelectMode (POINT_MODE))
+if (MineView ()->IsSelectMode(SelectMode::Point))
 	MineView ()->PrevPoint ();
 else
 	MineView ()->SetSelectMode (POINT_MODE);
@@ -1197,7 +1197,7 @@ else
 
 void CMainFrame::OnSelNextLine ()
 {
-if (MineView ()->SelectMode (LINE_MODE))
+if (MineView ()->IsSelectMode(SelectMode::Line))
 	MineView ()->NextLine ();
 else
 	MineView ()->SetSelectMode (LINE_MODE);
@@ -1207,7 +1207,7 @@ else
 
 void CMainFrame::OnSelPrevLine ()
 {
-if (MineView ()->SelectMode (LINE_MODE))
+if (MineView ()->IsSelectMode(SelectMode::Line))
 	MineView ()->PrevLine ();
 else
 	MineView ()->SetSelectMode (LINE_MODE);
@@ -1217,7 +1217,7 @@ else
 
 void CMainFrame::OnSelNextSide ()
 {
-if (MineView ()->SelectMode (SIDE_MODE))
+if (MineView ()->IsSelectMode(SelectMode::Side))
 	MineView ()->NextSide ();
 else
 	MineView ()->SetSelectMode (SIDE_MODE);
@@ -1227,7 +1227,7 @@ else
 
 void CMainFrame::OnSelPrevSide ()
 {
-if (MineView ()->SelectMode (SIDE_MODE))
+if (MineView ()->IsSelectMode(SelectMode::Side))
 	MineView ()->PrevSide ();
 else
 	MineView ()->SetSelectMode (SIDE_MODE);
@@ -1237,7 +1237,7 @@ else
 
 void CMainFrame::OnSelNextSegment ()
 {
-if (MineView ()->SelectMode (SEGMENT_MODE))
+if (MineView ()->IsSelectMode(SelectMode::Segment))
 	MineView ()->NextSegment ();
 else
 	MineView ()->SetSelectMode (SEGMENT_MODE);
@@ -1247,7 +1247,7 @@ else
 
 void CMainFrame::OnSelPrevSegment ()
 {
-if (MineView ()->SelectMode (SEGMENT_MODE))
+if (MineView ()->IsSelectMode(SelectMode::Segment))
 	MineView ()->PrevSegment ();
 else
 	MineView ()->SetSelectMode (SEGMENT_MODE);
@@ -1257,7 +1257,7 @@ else
 
 void CMainFrame::OnSelNextObject ()
 {
-if (MineView ()->SelectMode (OBJECT_MODE))
+if (MineView ()->IsSelectMode(SelectMode::Object))
 	MineView ()->NextObject ();
 else
 	MineView ()->SetSelectMode (OBJECT_MODE);
@@ -1267,7 +1267,7 @@ else
 
 void CMainFrame::OnSelPrevObject ()
 {
-if (MineView ()->SelectMode (OBJECT_MODE))
+if (MineView ()->IsSelectMode(SelectMode::Object))
 	MineView ()->PrevObject ();
 else
 	MineView ()->SetSelectMode (OBJECT_MODE);

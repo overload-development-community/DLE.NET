@@ -386,7 +386,7 @@ DLE.TextureView ()->Refresh ();
 DLE.ToolView ()->MissionTool ()->Refresh ();
 DLE.MineView ()->DelayRefresh (false);
 DLE.MineView ()->ResetView (true);
-DLE.MainFrame ()->UpdateSelectButtons ((enum eSelectModes) DLE.MineView ()->GetSelectMode ());
+DLE.MainFrame ()->UpdateSelectButtons (DLE.MineView ()->GetSelectMode ());
 //UpdateAllViews (null);
 if (!err) {
 	if (m_szFile != szFile)

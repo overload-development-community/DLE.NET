@@ -157,10 +157,12 @@ public:
     virtual short SideId() = 0;
     virtual short Edge() = 0;
     virtual short Point() = 0;
+    virtual short ObjectId() = 0;
     virtual CSegment* Segment() = 0;
     virtual CSide* Side() = 0;
     virtual CVertex* Vertex(short vertexNum = 0) = 0;
     virtual operator CSideKey() = 0;
+    virtual CGameObject* Object() = 0;
 };
 
 enum TraceLevel
