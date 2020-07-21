@@ -17,8 +17,8 @@ class CPreviewUVL {
 			ZeroMemory (m_uvlPreview, sizeof (m_uvlPreview));
 			ZeroMemory (m_uvlOld, sizeof (m_uvlOld));
 			}
-		void Apply (void);
-		void Revert (void);
+		void Apply ();
+		void Revert ();
 };
 
 class CTextureProjector
@@ -26,6 +26,8 @@ class CTextureProjector
 public:
 	bool				m_bActive;
 	int					m_nProjectionMode;
+	int*				m_saveTexture1st;
+	int*				m_saveTexture2nd;
 	CDoubleMatrix		m_projectOrient;
 	CDoubleVector		m_vCenter;
 	double				m_projectScaleU;
@@ -33,16 +35,16 @@ public:
 	BOOL				m_bProjectPreview;
 	BOOL				m_bProjectCopiedOnly;
 
-	CTextureProjector(void);
-	~CTextureProjector(void);
+	CTextureProjector();
+	~CTextureProjector();
 	
-	void Start (int nProjectionMode);
+	void Start (ISelection* currentSelection, int nProjectionMode, int* saveTexture1st, int* saveTexture2nd);
 	void End (BOOL bApply);
-	void ResetProjectOffset();
-	void ResetProjectDirection ();
+	void ResetProjectOffset (ISelection* currentSelection);
+	void ResetProjectDirection (ISelection* currentSelection);
 	void ResetProjectScaling ();
 	double CalcAverageRadius ();
-	void Project (CDynamicArray< CPreviewUVL > *previewUVLs = null);
+	void Project (std::vector<CPreviewUVL>* previewUVLs = nullptr);
 	bool ShouldProjectFace (short nSegment, short nSide);
 	void DrawProjectGuides (CRenderer& renderer, CViewMatrix* viewMatrix);
 };

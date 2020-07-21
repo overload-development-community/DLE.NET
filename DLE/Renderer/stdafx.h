@@ -43,6 +43,7 @@
 // End GlobalData section
 #include "PolyModel.h"
 #include "rendermodel.h"
+#include "trigger.h"
 
 // DLE.Managers
 #include "FileManager.h"
@@ -56,3 +57,6 @@
 #include "MemoryFile.h"
 #include "ModelManager.h"
 #include "mine.h"
+#include "ObjectManager.h"
+#include "TriggerManager.h"
+#include "WallManager.h"

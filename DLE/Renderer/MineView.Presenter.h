@@ -16,20 +16,79 @@ enum eViewOptions
     eViewTexturedWireFrame
 };
 
+enum eObjectViewFlags
+{
+    eViewObjectsNone = 0,
+    eViewObjectsRobots = (1 << 0),
+    eViewObjectsPlayers = (1 << 1),
+    eViewObjectsWeapons = (1 << 2),
+    eViewObjectsPowerups = (1 << 3),
+    eViewObjectsKeys = (1 << 4),
+    eViewObjectsHostages = (1 << 5),
+    eViewObjectsControlCenter = (1 << 6),
+    eViewObjectsEffects = (1 << 7),
+    eViewObjectsAll = 0xff
+};
+
+enum eMineViewFlags
+{
+    eViewMineWalls = (1 << 0),
+    eViewMineSpecial = (1 << 1),
+    eViewMineLights = (1 << 2),
+    eViewMineIllumination = (1 << 3),
+    eViewMineVariableLights = (1 << 4),
+    eViewMineUsedTextures = (1 << 5),
+    eViewMineSkyBox = (1 << 6)
+};
+
+enum class OriginDisplayType
+{
+    Crosshair = 1,
+    Globe = 2
+};
+
+enum class SelectMode
+{
+    Point = POINT_MODE,
+    Line = LINE_MODE,
+    Side = SIDE_MODE,
+    Segment = SEGMENT_MODE,
+    Object = OBJECT_MODE,
+    Block = BLOCK_MODE
+};
+
 class CMineViewPresenter
 {
 private:
     HWND m_hwnd;
+    CRenderData m_renderData;
     CRendererSW m_swRenderer;
     CRendererGL m_glRenderer;
     CRenderer* m_renderer;
-    CRenderData m_renderData;
+
     eViewOptions m_viewOption;
+    eObjectViewFlags m_viewObjectFlags;
+    eMineViewFlags m_viewMineFlags;
+    OriginDisplayType m_originDisplayType;
     int m_nViewDist;
+    ISelection* m_currentSelection;
+    ISelection* m_otherSelection;
+    ISelection* m_nearestSelection;
+    SelectMode m_selectMode;
+    CRect m_rubberRect;
+    bool m_dragInProgress;
+    CPoint m_lastDragPos;
+    CPoint m_highlightPos;
+    std::vector<CSide*> m_selectableSides;
+    int m_nShowSelectionCandidates;
+    bool m_tunnelMakerActive;
+    std::vector<CPreviewUVL> m_previewUVLs;
 
 public:
     CMineViewPresenter(HWND hwndTarget);
 
+    // Apparently MFC doesn't create windows before initializing classes. Thanks MFC.
+    void UpdateHwnd(HWND hwndTarget) { m_hwnd = hwndTarget; }
     CRenderer& Renderer() { return *m_renderer; }
     bool SetRenderer(RendererType rendererType);
     RendererType GetRenderer();
@@ -71,15 +130,17 @@ public:
     inline void SetIgnoreDepth(bool bIgnoreDepth) { m_renderData.m_bIgnoreDepth = bIgnoreDepth; }
     inline bool DepthTest() { return m_renderData.m_bDepthTest; }
     inline void SetDepthTest(bool bDepthTest) { m_renderData.m_bDepthTest = bDepthTest; }
-    inline int RenderIllumination() { return (m_renderData.m_viewMineFlags & eViewMineIllumination) != 0; }
-    inline int RenderVariableLights() { return (m_renderData.m_viewMineFlags & eViewMineVariableLights) != 0; }
+    inline int RenderIllumination() { return (m_viewMineFlags & eViewMineIllumination) != 0; }
+    inline int RenderVariableLights() { return (m_viewMineFlags & eViewMineVariableLights) != 0; }
     inline ubyte Alpha() { return m_renderData.m_alpha; }
     inline void SetAlpha(ubyte alpha) { m_renderData.m_alpha = alpha; }
-    inline uint& ViewMineFlags() { return m_renderData.m_viewMineFlags; }
-    inline uint& ViewObjectFlags() { return m_renderData.m_viewObjectFlags; }
+    inline eMineViewFlags& ViewMineFlags() { return m_viewMineFlags; }
+    inline eObjectViewFlags& ViewObjectFlags() { return m_viewObjectFlags; }
+    inline OriginDisplayType& OriginDisplayType() { return m_originDisplayType; }
 
     // View options
 
+    bool ViewObject(CGameObject* pObject);
     inline bool ViewObject(uint flag = 0) { return flag ? ((ViewObjectFlags() & flag) != 0) : (ViewObjectFlags() != 0); }
     inline bool ViewFlag(uint flag = 0) { return flag ? (ViewMineFlags() & flag) != 0 : (ViewMineFlags() != 0); }
     inline bool ViewOption(uint option) { return m_viewOption == option; }
@@ -110,16 +171,61 @@ public:
         return (pSegment->Index() >= 0) && (pSegment->Index() <= ViewDist());
     }
 
+    // Selection
+
+    void UpdateCurrentSelection(ISelection* selection) { m_currentSelection = selection; }
+    void UpdateOtherSelection(ISelection* selection) { m_otherSelection = selection; }
+    void UpdateNearestSelection(ISelection* selection) { m_nearestSelection = selection; }
+    bool IsSelectMode(SelectMode selectMode) const { return m_selectMode == selectMode; }
+    void UpdateSelectMode(SelectMode selectMode) { m_selectMode = selectMode; }
+    void UpdateTunnelMakerActive(bool active) { m_tunnelMakerActive = active; }
+    bool HasRubberRect() const;
+    void UpdateRubberRect(const CPoint& clickPos, const CPoint& mousePos);
+    void ClearRubberRect();
+    void BeginDrag();
+    const CPoint& DragPos() const { return m_lastDragPos; }
+    void EndDrag();
+    void UpdateSelectableSides(const std::vector<CSide*>& sides);
+    void UpdateShowSelectionCandidates(int value) { m_nShowSelectionCandidates = value; }
+
     // Draw functions
 
+    void Draw();
+    void DrawMineCenter();
+    void DrawCurrentSegment(CSegment* pSegment, bool bSparse);
+    void DrawWireFrame(bool bSparse);
     void DrawSegmentWireFrame(CSegment* pSegment, bool isSelected, bool bSparse = false, bool bTagged = false, char bTunnel = 0);
     void DrawSparseSegmentWireFrame(CSegment* pSegment);
     void RenderSegmentWireFrame(CSegment* pSegment, bool isSelected, bool bSparse, bool bTagged = false);
-    void DrawTunnelMaker(CViewMatrix* viewMatrix);
+    void DrawTexturedSegments();
+    void DrawHighlight();
+    void DrawLine(CSegment* pSegment, short vert1, short vert2);
+    bool DrawRubberRect();
+    bool DrawDragPos(const CPoint& mousePos);
+    void DrawTunnelMaker();
 
 private:
-    void DrawTunnelMakerPath(const CTunnelPath* path, CViewMatrix* viewMatrix);
-    void DrawTunnelMakerPathNode(const CTunnelPathNode& node, CViewMatrix* viewMatrix);
-    void DrawTunnelMakerTunnel(const CTunnel* tunnel, CViewMatrix* viewMatrix);
+    void CalcSegDist();
+    void HighlightDrag(short nVert, long x, long y);
+    void DrawObjects();
+    void DrawObject(short nObject);
+    void SelectObjectPen(CGameObject* pObject);
+    void DrawTaggedSegments();
+    bool SelectWireFramePen(CSegment* pSegment);
+    void DrawSegmentHighlighted(short nSegment, short nSide, short nEdge, short nPoint);
+    void DrawWalls();
+    void SelectWallPen(CWall* pWall);
+    void DrawLights();
+    void DrawOctagon(short nSide, short nSegment);
+    bool DrawSelectablePoint();
+    bool DrawSelectableEdge();
+    bool DrawSelectableSides();
+    bool DrawSelectableSegments();
+    void DrawTunnel();
+    void DrawTunnelMakerPath(const CTunnelPath* path);
+    void DrawTunnelMakerPathNode(const CTunnelPathNode& node);
+    void DrawTunnelMakerTunnel(const CTunnel* tunnel);
     void DrawTunnelMakerSegment(const CTunnelSegment& segment);
+    void ApplyPreview();
+    void RevertPreview();
 };

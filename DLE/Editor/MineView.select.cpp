@@ -529,7 +529,6 @@ if (nChild > -1) {
 	m_lastSegment = current->SegmentId ();
 	current->SetSegmentId (nChild);
 	}
-DrawHighlight ();
 Refresh (true);
 }
 
@@ -592,10 +591,10 @@ NextObject (-1);
 void CMineView::NextSegmentElement (int dir)
 {
 switch (m_selectMode) {
-	case eSelectPoint:
+	case SelectMode::Point:
 		NextPoint (dir);
 		break;
-	case eSelectLine:
+	case SelectMode::Line:
 		NextLine (dir);
 		break;
 	default:
@@ -641,27 +640,26 @@ void CMineView::TagSelected()
 	bool	bSegTag = false;
 	CSegment* pSegment = current->Segment();
 	int i, j, p[8], nPoints;
-	uint selectMode = DLE.MineView()->GetSelectMode();
 
-	switch (selectMode) {
-	case eSelectPoint:
+	switch (m_selectMode) {
+	case SelectMode::Point:
 		nPoints = 1;
 		p[0] = current->VertexId();
 		break;
 
-	case eSelectLine:
+	case SelectMode::Line:
 		nPoints = 2;
 		p[0] = pSegment->VertexId(current->Side()->VertexIdIndex(current->Point()));
 		p[1] = pSegment->VertexId(current->Side()->VertexIdIndex(current->Point() + 1));
 		break;
 
-	case eSelectSide:
+	case SelectMode::Side:
 		nPoints = current->Side()->VertexCount();
 		for (i = 0; i < nPoints; i++)
 			p[i] = pSegment->VertexId(current->Side()->VertexIdIndex(i));
 		break;
 
-	case eSelectSegment:
+	case SelectMode::Segment:
 	default:
 		nPoints = 8;
 		for (i = 0, j = 0; i < nPoints; i++) {
@@ -679,19 +677,19 @@ void CMineView::TagSelected()
 			break;
 
 	if (i == nPoints) { // if all verts are tagged, then untag them
-		switch (selectMode) {
-		case eSelectPoint:
-		case eSelectLine:
+		switch (m_selectMode) {
+		case SelectMode::Point:
+		case SelectMode::Line:
 			for (i = 0; i < nPoints; i++)
 				vertexManager[p[i]].UnTag();
 			break;
 
-		case eSelectSide:
+		case SelectMode::Side:
 			current->Segment()->UnTag(current->SideId());
 			current->Segment()->UnTagVertices(TAGGED_MASK, current->SideId());
 			break;
 
-		case eSelectSegment:
+		case SelectMode::Segment:
 		default:
 			current->Segment()->UnTag();
 			current->Segment()->UnTagVertices(TAGGED_MASK, -1);
@@ -699,19 +697,19 @@ void CMineView::TagSelected()
 		}
 	}
 	else { // otherwise tag all the points
-		switch (selectMode) {
-		case eSelectPoint:
-		case eSelectLine:
+		switch (m_selectMode) {
+		case SelectMode::Point:
+		case SelectMode::Line:
 			for (i = 0; i < nPoints; i++)
 				vertexManager[p[i]].Tag();
 			break;
 
-		case eSelectSide:
+		case SelectMode::Side:
 			current->Segment()->Tag(current->SideId());
 			current->Segment()->TagVertices(TAGGED_MASK, current->SideId());
 			break;
 
-		case eSelectSegment:
+		case SelectMode::Segment:
 		default:
 			current->Segment()->Tag();
 			current->Segment()->TagVertices(TAGGED_MASK, -1);
