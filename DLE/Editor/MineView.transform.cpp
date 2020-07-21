@@ -9,19 +9,6 @@ double zoomScales [2] = {1.2, 1.1};
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 
-void CMineView::ShiftViewPoints (void)
-{
-if (!(m_xRenderOffs && m_yRenderOffs))
-	return;
-for (int i = 0, j = vertexManager.Count (); i < j; i++) {
-	CVertex& v = vertexManager [i];
-	v.m_screen.x += m_xRenderOffs;
-	v.m_screen.y += m_yRenderOffs;
-	}
-}
-
-//------------------------------------------------------------------------------
-
 void CMineView::TogglePerspective (void)
 {
 SetPerspective (!Perspective ());

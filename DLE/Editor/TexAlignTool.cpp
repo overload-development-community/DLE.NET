@@ -234,7 +234,7 @@ pDC = m_alignWnd.GetDC ();
 // create brush, pen, and region handles
 hPenAxis.CreatePen (PS_DOT, 1, RGB (192,192,192));
 hPenGrid.CreatePen (PS_DOT, 1, RGB (128,128,128));
-uint select_mode = DLE.MineView ()->GetSelectMode ();
+uint select_mode = (uint)DLE.MineView ()->GetSelectMode ();
 hPenCurrentPoint.CreatePen (PS_SOLID, 1, (select_mode == POINT_MODE) ? RGB (255,0,0) : RGB(255,196,0)); // red
 hPenCurrentLine.CreatePen (PS_SOLID, 1, (select_mode == LINE_MODE) ? RGB (255,0,0) : RGB(255,196,0)); // red
 hPenCurrentSide.CreatePen (PS_SOLID, 1, (select_mode == LINE_MODE) ? RGB (255,0,0) : RGB(0,255,0)); // red
@@ -476,7 +476,7 @@ UpdateData (TRUE);
 if (delta) {
 	UpdateData (TRUE);
 	undoManager.Begin (__FUNCTION__, udSegments, true);
-	switch (DLE.MineView ()->GetSelectMode ()) {
+	switch ((uint)DLE.MineView ()->GetSelectMode ()) {
 		case POINT_MODE:
 			pSide->m_info.uvls [current->Point ()].u -= delta;
 			break;
@@ -505,7 +505,7 @@ UpdateData (TRUE);
 if (delta) {
 	UpdateData (TRUE);
 	undoManager.Begin (__FUNCTION__, udSegments, true);
-	switch (DLE.MineView ()->GetSelectMode ()) {
+	switch ((uint)DLE.MineView ()->GetSelectMode ()) {
 		case POINT_MODE:
 			pSide->m_info.uvls [current->Point ()].v -= delta;
 			break;
@@ -585,7 +585,7 @@ void CTextureAlignTool::HFlip (void)
 
 UpdateData (TRUE);
 undoManager.Begin (__FUNCTION__, udSegments);
-switch (DLE.MineView ()->GetSelectMode ()) {
+switch ((uint)DLE.MineView ()->GetSelectMode ()) {
 	case POINT_MODE:
 		break;
 	case LINE_MODE:
@@ -608,7 +608,7 @@ void CTextureAlignTool::VFlip (void)
 
 UpdateData (TRUE);
 undoManager.Begin (__FUNCTION__, udSegments);
-switch (DLE.MineView ()->GetSelectMode ()) {
+switch ((uint)DLE.MineView ()->GetSelectMode ()) {
 	case POINT_MODE:
 		break;
 	case LINE_MODE:
@@ -632,7 +632,7 @@ void CTextureAlignTool::HAlign (int dir)
 
 UpdateData (TRUE);
 undoManager.Begin (__FUNCTION__, udSegments);
-switch (DLE.MineView ()->GetSelectMode ()) {
+switch ((uint)DLE.MineView ()->GetSelectMode ()) {
 	case POINT_MODE:
 		pSide->m_info.uvls [current->Point ()].u += delta;
 		break;
@@ -659,7 +659,7 @@ void CTextureAlignTool::VAlign (int dir)
 
 UpdateData (TRUE);
 undoManager.Begin (__FUNCTION__, udSegments);
-switch (DLE.MineView ()->GetSelectMode ()) {
+switch ((uint)DLE.MineView ()->GetSelectMode ()) {
 	case POINT_MODE:
 		pSide->m_info.uvls [current->Point ()].v += delta;
 		break;

@@ -14,17 +14,6 @@
 
 // -----------------------------------------------------------------------------
 
-enum eSelectModes {
-	eSelectPoint	= POINT_MODE,
-	eSelectLine		= LINE_MODE,
-	eSelectSide		= SIDE_MODE,
-	eSelectSegment	= SEGMENT_MODE,
-	eSelectObject	= OBJECT_MODE,
-	eSelectBlock	= BLOCK_MODE
-	};
-
-// -----------------------------------------------------------------------------
-
 enum eMouseStates
 {
 	eMouseStateIdle,
@@ -275,37 +264,25 @@ protected: // create from serialization only
 	CInputHandler	m_inputHandler;
 
 	// member variables
-	bool 				m_bUpdate;
+	bool 				m_needsRepaint;
 	bool 				m_bUpdateCursor;
 	bool 				m_bDelayRefresh;
 	int 				m_nDelayRefresh;
-	uint				m_selectMode;
+	SelectMode			m_selectMode;
 	double			m_moveRate [2];
 
-	CPoint			m_lastDragPos;
-	CPoint			m_highlightPos;
 	short				m_lastSegment;
-	CRect				m_rubberRect;
 	UINT_PTR			m_lightTimer;
 	UINT_PTR			m_selectTimer;
 	int 				m_nFrameRate;
 	int				m_nShowSelectionCandidates;
 	int				m_bEnableQuickSelection;
-	bool 				m_bHScroll,
-						m_bVScroll;
-	int 				m_xScrollRange,
-						m_yScrollRange;
-	int 				m_xScrollCenter,
-						m_yScrollCenter;
-	int 				m_xRenderOffs,
-						m_yRenderOffs;
-	int 				m_nMineCenter;
 	int				m_nElementMovementReference;
+	int m_xScrollRange;
+	int m_yScrollRange;
 
 	int 				m_x0, m_x1, m_y;
 	double			m_z0, m_z1;
-
-	CDynamicArray< CPreviewUVL > m_previewUVLs;
 
 	bool m_bMovementTimerActive;
 	LARGE_INTEGER m_lastFrameTime;
@@ -350,45 +327,14 @@ public:
 	inline int GetElementMovementReference (void) { return Perspective () && m_nElementMovementReference; }
 	inline int EnableQuickSelection (void) { return m_bEnableQuickSelection; }
 	inline int ShowSelectionCandidates (void) { return m_nShowSelectionCandidates; }
-	void DrawMineCenter (void);
 	bool VertexVisible (int v);
 	void ComputeViewLimits (CRect* pRC = null);
-	void ShiftViewPoints ();
 	// drawing functions
-	void InitView (CDC* pViewDC);
 	bool UpdateScrollBars (void);
-	void ClearView();
 	void ResetView (bool bRefresh = false);
-	bool InitViewDimensions (void);
-	void DrawWireFrame (bool bSparse);
-	void DrawTexturedSegments (void);
-	void DrawTaggedSegments (void);
-	void DrawSegment (CSegment *pSegment, bool bSparse);
-	void DrawSegmentHighlighted (short nSegment,short nSide, short nEdge, short nPoint);
-	void DrawSegmentPartial (CSegment *pSegment);
-	void DrawSegmentWireFrame (CSegment *pSegment, bool bSparse = false, bool bTagged = false, char bTunnel = 0);
-	void DrawSparseSegmentWireFrame (CSegment *pSegment);
-	void RenderSegmentWireFrame (CSegment *pSegment, bool bSparse, bool bTagged = false);
-	void DrawSegmentPoints (CSegment *pSegment);
 
-	void DrawCurrentSegment (CSegment *pSegment, bool bSparse);
-	void DrawLine (CSegment *pSegment, short vert1, short vert2);
-
-	void DrawWalls (void);
-	void DrawLights (void);
-	void DrawOctagon(short nSide, short nSegment);
-	void DrawObject (short nObject);
-	void DrawObjects (void);
-	bool DrawSelectablePoint (void);
-	bool DrawSelectableEdge (void);
-	bool DrawSelectableSides (void);
-	bool DrawSelectableSegments (void);
 	std::vector<CSide*> GatherSelectableSides(CRect& viewport, long xMouse, long yMouse, bool bAllowSkyBox, bool bSegments);
-	void DrawHighlight (void);
-	void DrawTunnel (void);
-	bool SelectWireFramePen (CSegment* pSegment);
-	void SelectWallPen (CWall* pWall);
-	void SelectObjectPen (CGameObject* pObject);
+	void UpdateStatusText();
 
 	// view control functions
 	int FitToView (void);
@@ -406,8 +352,6 @@ public:
 	void SetViewMineFlags (uint mask);
 	void SetViewObjectFlags (uint mask);
 	void SetSelectMode (uint mode);
-	void CalcSegDist (void);
-	bool InRange (short *pv, short i);
 
 	void NextPoint (int dir = 1);
 	void PrevPoint ();
@@ -426,6 +370,7 @@ public:
 	void NextSegmentElement (int dir = 1);
 	void PrevSegmentElement ();
 	void HiliteTarget (void);
+	void UpdateNearestSelection();
 
 	void Refresh (bool bAll = true);
 	void EnableDeltaShading (int bEnable, int nFrameRate, int bShowLightSource);
@@ -439,16 +384,16 @@ public:
 
 	void AlignViewerWithSide (void);
 
-	bool ViewObject (CGameObject *pObject);
+	inline bool ViewObject(CGameObject* pObject) { return m_presenter.ViewObject(pObject); }
 	inline bool ViewObject(uint flag = 0) { return m_presenter.ViewObject(flag); }
 	inline bool ViewFlag(uint flag = 0) { return m_presenter.ViewFlag(flag); }
 	inline bool ViewOption(uint option) { return m_presenter.ViewOption(option); }
-	inline bool SelectMode (uint mode) { return m_selectMode == mode; }
+	inline bool IsSelectMode(SelectMode mode) { return m_presenter.IsSelectMode(mode); }
 	inline uint GetMineViewFlags () { return ViewMineFlags (); }
 	inline uint GetObjectViewFlags () { return ViewObjectFlags (); }
 	inline uint GetViewOptions() { return m_presenter.GetViewOptions(); }
-	inline uint GetSelectMode () { return m_selectMode; }
-	inline int& MineCenter (void) { return m_nMineCenter; }
+	inline SelectMode GetSelectMode () { return m_selectMode; }
+	inline int& MineCenter (void) { return (int&)m_presenter.OriginDisplayType(); }
 	inline void DelayRefresh (bool bDelay) {
 		if (bDelay)
 			m_nDelayRefresh++;
@@ -495,9 +440,6 @@ public:
 	void LocateTexture (short nTexture);
 
 	BOOL SetWindowPos (const CWnd *pWndInsertAfter, int x, int y, int cx, int cy, UINT nFlags);
-
-	void ApplyPreview (void);
-	void RevertPreview (void);
 
 	CRenderer& Renderer() { return m_presenter.Renderer(); }
 	void SetRenderer(int nRenderer);
@@ -565,8 +507,8 @@ public:
 	inline int RenderVariableLights (void) { return m_presenter.RenderVariableLights(); }
 	inline ubyte Alpha (void) { return m_presenter.Alpha(); }
 	inline void SetAlpha (ubyte alpha) { m_presenter.SetAlpha(alpha); }
-	inline uint& ViewMineFlags (void) { return m_presenter.ViewMineFlags(); }
-	inline uint& ViewObjectFlags (void) { return m_presenter.ViewObjectFlags(); }
+	inline uint& ViewMineFlags (void) { return reinterpret_cast<uint&>(m_presenter.ViewMineFlags()); }
+	inline uint& ViewObjectFlags (void) { return reinterpret_cast<uint&>(m_presenter.ViewObjectFlags()); }
 	inline double MineMoveRate (void) { return m_moveRate [0]; }
 	inline double ViewMoveRate (void) { return m_moveRate [1]; }
 	inline void SetMineMoveRate (double moveRate) { m_moveRate [0] = moveRate; }

@@ -25,7 +25,6 @@ static LPSTR szMouseStates [] = {
 
 
 #define BETWEEN(a,b,c) ((a<c) ? (a<b)&&(b<c): (c<b)&&(b<a))
-#define  RUBBER_BORDER     1
 
 /////////////////////////////////////////////////////////////////////////////
 // CMineView
@@ -73,17 +72,11 @@ CMineView::CMineView() :
     m_inputHandler (this)
 {
 ViewObjectFlags () = eViewObjectsAll;
-ViewMineFlags () = eViewMineLights | eViewMineWalls | eViewMineSpecial;
+ViewMineFlags () = (eMineViewFlags) eViewMineLights | eViewMineWalls | eViewMineSpecial;
 m_nDelayRefresh = 0;
 m_bEnableQuickSelection = false;
 m_nShowSelectionCandidates = 2;
-m_bHScroll = 
-m_bVScroll = false;
-m_xScrollRange =
-m_yScrollRange = 0;
-m_xScrollCenter =
-m_yScrollCenter = 0;
-m_nMineCenter = 2;
+m_xScrollRange = m_yScrollRange = 0;
 SetElementMovementReference (1);
 SetMineMoveRate (1.0);
 SetViewMoveRate (1.0);
@@ -101,8 +94,8 @@ void CMineView::Reset (void)
 ViewWidth () = ViewHeight () = ViewDepth () = 0;	// force OnDraw to initialize these
 
 tunnelMaker.Destroy ();
-m_bUpdate = true;
-m_selectMode = eSelectSide;
+m_needsRepaint = true;
+m_selectMode = SelectMode::Side;
 m_lastSegment = 0;
 
 Renderer ().Reset ();
@@ -110,7 +103,6 @@ Renderer ().Reset ();
 m_lightTimer =
 m_selectTimer = -1;
 m_nFrameRate = 100;
-m_xRenderOffs = m_yRenderOffs = 0;
 }
 
 //------------------------------------------------------------------------------
@@ -231,79 +223,37 @@ return (bHScroll != m_bHScroll) || (bVScroll != m_bVScroll);
 
 void CMineView::OnDraw (CDC* pViewDC)
 {
-CHECKMINE;
+    CHECKMINE;
 
-CDlcDoc* pDoc = GetDocument();
-ASSERT_VALID(pDoc);
-if (!pDoc) 
-    return;
-
-Renderer ().SetDC (pViewDC->m_hDC);
-if (m_presenter.GetRenderer() == RendererType::Software) {
-    if (DrawRubberBox () || DrawDragPos ()) {
-        m_bUpdate = false;
+    CDlcDoc* pDoc = GetDocument();
+    ASSERT_VALID(pDoc);
+    if (!pDoc)
         return;
-        }
+
+    if (m_needsRepaint)
+    {
+        m_presenter.UpdateHwnd(m_hWnd);
+        m_presenter.UpdateCurrentSelection(current);
+        m_presenter.UpdateOtherSelection(other);
+        m_presenter.UpdateSelectMode(m_selectMode);
+        bool tunnelMakerActive = tunnelMaker.Update(current, other) && tunnelMaker.Create();
+        m_presenter.UpdateTunnelMakerActive(tunnelMakerActive);
+        HiliteTarget();
+        UpdateNearestSelection();
+        m_presenter.UpdateShowSelectionCandidates(m_nShowSelectionCandidates);
+        m_presenter.Draw();
+        UpdateStatusText();
     }
+    m_needsRepaint = false;
 
-InitView (pViewDC);
-if (m_bUpdate) {
-    ClearView ();
-    m_xRenderOffs = m_bHScroll ? GetScrollPos (SB_HORZ) - m_xScrollCenter: 0;
-    m_yRenderOffs = m_bVScroll ? GetScrollPos (SB_VERT) - m_yScrollCenter: 0;
-
-    BeginRender ();
-    Project ();
-    EndRender ();
-    ApplyPreview ();
-    ShiftViewPoints ();
-    switch (m_presenter.GetViewOptions()) {
-        case eViewTextured:
-            DrawTexturedSegments ();
-            break;
-
-        case eViewTexturedWireFrame:
-            DrawWireFrame (false);
-            DrawTexturedSegments ();
-            break;
-
-        case eViewWireFrameFull:
-            DrawWireFrame (false);
-            break;
-
-        case eViewHideLines:
-            DrawWireFrame (false); 
-            break;
-
-        case eViewNearbyCubeLines:
-            DrawWireFrame (false);
-            break;
-
-        case eViewWireFrameSparse:
-            DrawWireFrame (true);
-            break;
-        }
-    RevertPreview ();
-    }
-
-DrawRubberBox ();
-if (m_presenter.GetRenderer() == RendererType::OpenGL)
-    DrawDragPos ();
-DrawHighlight ();
-DrawMineCenter ();
-
-Renderer ().EndRender (true);
-Renderer ().SetDC (pViewDC->m_hDC);
-m_bUpdate = false;
-
-// If the movement timer is active we measure the elapsed time since the last frame
-// and immediately update the camera position
-if (m_bMovementTimerActive) {
-    LARGE_INTEGER newFrameTime = { 0 };
-    QueryPerformanceCounter (&newFrameTime);
-    double timeElapsed = ((double)(newFrameTime.QuadPart - m_lastFrameTime.QuadPart)) / m_qpcFrequency.QuadPart;
-    m_inputHandler.UpdateMovement (timeElapsed);
-    m_lastFrameTime = newFrameTime;
+    // If the movement timer is active we measure the elapsed time since the last frame
+    // and immediately update the camera position
+    if (m_bMovementTimerActive) {
+        LARGE_INTEGER newFrameTime = { 0 };
+        QueryPerformanceCounter(&newFrameTime);
+        double timeElapsed = ((double)(newFrameTime.QuadPart - m_lastFrameTime.QuadPart)) / m_qpcFrequency.QuadPart;
+        m_inputHandler.UpdateMovement(timeElapsed);
+        m_lastFrameTime = newFrameTime;
     }
 }
 
@@ -429,7 +379,7 @@ if (nIdEvent == 3) {
     if (DLE.MineView ()->RenderVariableLights ()) {
         AdvanceLightTick ();
         if (SetLightStatus ()) {
-            m_bUpdate = TRUE;
+            m_needsRepaint = true;
             InvalidateRect (null, TRUE);
             UpdateWindow ();
             }
@@ -480,77 +430,6 @@ void CMineView::ResetView (bool bRefresh)
 Renderer ().Release ();
 if (bRefresh)
     Refresh (true);
-}
-
-//----------------------------------------------------------------------------
-
-void CMineView::InitView (CDC *pViewDC)
-{
-m_bUpdate = (0 > Renderer ().Setup (m_hWnd, pViewDC->m_hDC));
-}
-
-//----------------------------------------------------------------------------
-
-void CMineView::ClearView (void)
-{
-Renderer ().ClearView ();
-}
-
-//--------------------------------------------------------------------------
-
-bool CMineView::ViewObject (CGameObject *pObject)
-{
-switch(pObject->Type ()) {
-    case OBJ_ROBOT:
-        if (ViewObject (eViewObjectsRobots))
-            return true;
-        if (ViewObject (eViewObjectsKeys)) {
-            int nId = pObject->Contains (OBJ_POWERUP);
-            if ((nId >= 0) && (powerupTypeTable [nId] == POWERUP_KEY_MASK))
-                return true;
-            nId = pObject->TypeContains (OBJ_POWERUP);
-            if ((nId >= 0) && (powerupTypeTable [nId] == POWERUP_KEY_MASK))
-                return true;
-            }
-        if (ViewObject (eViewObjectsControlCenter) && pObject->IsBoss ())
-            return true;
-        return false;
-
-    case OBJ_CAMBOT:
-    case OBJ_SMOKE:
-    case OBJ_EXPLOSION:
-    case OBJ_MONSTERBALL:
-        return ViewObject (eViewObjectsRobots);
-
-    case OBJ_EFFECT:
-        return ViewObject (eViewObjectsEffects);
-
-    case OBJ_HOSTAGE:
-        return ViewObject (eViewObjectsHostages);
-
-    case OBJ_PLAYER:
-    case OBJ_COOP:
-        return ViewObject (eViewObjectsPlayers);
-
-    case OBJ_WEAPON:
-        return ViewObject (eViewObjectsWeapons);
-
-    case OBJ_POWERUP:
-        switch (powerupTypeTable [pObject->Id ()]) {
-            case POWERUP_WEAPON_MASK:
-                return ViewObject (eViewObjectsWeapons);
-            case POWERUP_POWERUP_MASK:
-                return ViewObject (eViewObjectsPowerups);
-            case POWERUP_KEY_MASK:
-                return ViewObject (eViewObjectsKeys);
-            default:
-                return false;
-            }
-
-    case OBJ_REACTOR:
-        return ViewObject (eViewObjectsControlCenter);
-    }
-return false;
 }
 
 //------------------------------------------------------------------------
@@ -629,12 +508,12 @@ BOOL CMineView::OnEraseBkgnd(CDC* pDC)
 
 void CMineView::OnSize (UINT nType, int cx, int cy)
 {
-    CRect	rc;
+    CRect rc;
 
 GetClientRect(rc);
 m_presenter.UpdateViewportBounds();
 CView::OnSize (nType, cx, cy);
-m_bUpdate = true;
+m_needsRepaint = true;
 }
 
 //------------------------------------------------------------------------------
@@ -683,8 +562,8 @@ void CMineView::SetViewObjectFlags (uint mask)
 void CMineView::SetSelectMode (uint mode)
 {
 theMine->SetSelectMode ((short) mode);
-DLE.MainFrame ()->UpdateSelectButtons ((eSelectModes) mode);
-m_selectMode = mode; 
+m_selectMode = static_cast<::SelectMode>(mode);
+DLE.MainFrame()->UpdateSelectButtons(m_selectMode);
 Refresh (false);
 }
 
@@ -796,8 +675,9 @@ Refresh (false);
 
 void CMineView::UpdateSelectHighlights ()
 {
-if (SelectMode (eSelectPoint) || SelectMode (eSelectLine) || SelectMode (eSelectSide) || SelectMode (eSelectSegment))
-    Invalidate (FALSE);
+    if (IsSelectMode(SelectMode::Point) || IsSelectMode(SelectMode::Line) ||
+        IsSelectMode(SelectMode::Side) || IsSelectMode(SelectMode::Segment))
+        Invalidate(FALSE);
 }
 
 //------------------------------------------------------------------------------
@@ -825,15 +705,13 @@ CHECKMINE;
 if (!(bRefreshing || m_nDelayRefresh)) {
     bRefreshing = true;
     InvalidateRect (null, TRUE);
-//	SetFocus ();
     // Don't update the UI panels if we're moving the mouse because this
     // results in repaints every frame which is slow
     if (bAll && (m_inputHandler.MouseState () == eMouseStateIdle || m_inputHandler.IsStateExiting ())) {
         DLE.ToolView ()->Refresh ();
         DLE.TextureView ()->Refresh ();
-//		UpdateWindow ();
         }
-    m_bUpdate = true;
+    m_needsRepaint = true;
     bRefreshing = false;
     }
 }
@@ -842,8 +720,6 @@ if (!(bRefreshing || m_nDelayRefresh)) {
 
 void CMineView::OnUpdate (CView* pSender, LPARAM lHint, CGameObject* pHint)
 {
-//m_bUpdate = true;
-//InvalidateRect(null);
 Refresh ();
 }
 
@@ -876,10 +752,10 @@ for (int i = 0, j = vertexManager.Count (); i < j; i++) {
             vertexManager [i].Tag ();
         else
             vertexManager [i].UnTag ();
-        m_bUpdate = true;
+        m_needsRepaint = true;
         }
     }
-if (m_bUpdate) 
+if (m_needsRepaint) 
     segmentManager.UpdateTagged ();
 Refresh ();
 }
@@ -909,36 +785,7 @@ if (m_inputHandler.MouseState () != eMouseStateRubberBandTag &&
     m_inputHandler.MouseState () != eMouseStateRubberBandUnTag)
     return FALSE;
 
-if ((m_rubberRect.Width () || m_rubberRect.Height ())) {
-    CPoint	rubberPoly[5];
-
-    if (m_presenter.GetRenderer() == RendererType::OpenGL) {
-        glPushAttrib (GL_ENABLE_BIT);
-        glLineStipple (1, 0x3333);
-        glEnable (GL_LINE_STIPPLE);
-        Renderer ().SelectPen (penWhite + 1);
-        }
-    else {
-        ::SetROP2 (DC(), R2_XORPEN);
-        Renderer ().SelectPen (penBlack + 1);
-        }
-    rubberPoly [0].x = m_rubberRect.left + RUBBER_BORDER;
-    rubberPoly [0].y = m_rubberRect.top + RUBBER_BORDER;
-    rubberPoly [1].x = m_rubberRect.right - RUBBER_BORDER;
-    rubberPoly [1].y = m_rubberRect.top + RUBBER_BORDER;
-    rubberPoly [2].x = m_rubberRect.right - RUBBER_BORDER;
-    rubberPoly [2].y = m_rubberRect.bottom - RUBBER_BORDER;
-    rubberPoly [3].x = m_rubberRect.left + RUBBER_BORDER;
-    rubberPoly [3].y = m_rubberRect.bottom - RUBBER_BORDER;
-    rubberPoly [4] = rubberPoly [0];
-    Renderer ().BeginRender (true);
-    Renderer ().PolyLine (rubberPoly, sizeof (rubberPoly) / sizeof (POINT));
-    Renderer ().EndRender ();
-    if (m_presenter.GetRenderer() == RendererType::OpenGL)
-        glPopAttrib ();
-    else 
-        ::SetROP2 (DC(), R2_COPYPEN);
-    }
+m_presenter.DrawRubberRect();
 
 return TRUE;
 }
@@ -947,36 +794,15 @@ return TRUE;
 
 void CMineView::UpdateRubberRect (CPoint clickPos, CPoint pt)
 {
-CHECKMINE;
+    CHECKMINE;
 
-// If this is the first frame we're drawing the rubber rect, capture the mouse
-CRect emptyRect (0, 0, 0, 0);
-if (EqualRect (m_rubberRect, emptyRect))
-    SetCapture ();
+    // If this is the first frame we're drawing the rubber rect, capture the mouse
+    if (!m_presenter.HasRubberRect())
+    {
+        SetCapture();
+    }
 
-CRect rc = m_rubberRect;
-if (clickPos.x < pt.x) {
-    rc.left = clickPos.x - RUBBER_BORDER;
-    rc.right = pt.x + RUBBER_BORDER;
-    }
-else if (clickPos.x > pt.x) {
-    rc.right = clickPos.x + RUBBER_BORDER;
-    rc.left = pt.x - RUBBER_BORDER;
-    }
-if (clickPos.y < pt.y) {
-    rc.top = clickPos.y - RUBBER_BORDER;
-    rc.bottom = pt.y + RUBBER_BORDER;
-    }
-else if (clickPos.y > pt.y) {
-    rc.bottom = clickPos.y + RUBBER_BORDER;
-    rc.top = pt.y - RUBBER_BORDER;
-    }
-if (rc != m_rubberRect) {
-    InvalidateRect (&m_rubberRect, TRUE);
-    UpdateWindow ();
-    m_rubberRect = rc;
-    InvalidateRect (&m_rubberRect, TRUE);
-    }
+    m_presenter.UpdateRubberRect(clickPos, pt);
 }
 
 //------------------------------------------------------------------------------
@@ -986,10 +812,7 @@ void CMineView::ResetRubberRect ()
 CHECKMINE;
 
 ReleaseCapture ();
-InvalidateRect (&m_rubberRect, FALSE);
-UpdateWindow ();
-m_rubberRect.left = m_rubberRect.right =
-m_rubberRect.top = m_rubberRect.bottom = 0;
+m_presenter.ClearRubberRect();
 }
 
 //------------------------------------------------------------------------------
@@ -1149,7 +972,6 @@ if (nPos < 0)
 else if (nPos >= m_yScrollRange)
     nPos = m_yScrollRange - 1;
 SetScrollPos (SB_VERT, nPos, TRUE);
-m_yRenderOffs = nPos - m_yScrollCenter;
 Refresh ();
 }
 
@@ -1209,33 +1031,5 @@ void CMineView::OnSetFocus (CWnd* pOldWnd)
 {
 m_inputHandler.OnSetFocus ();
 }
-
-//------------------------------------------------------------------------------
-
-void CMineView::ApplyPreview ()
-{
-// Clear anything in the existing list
-m_previewUVLs.Destroy ();
-
-// Build preview changes.
-// This is backward from how it would ideally work, but we need to respond to geometry changes
-textureProjector.Project (&m_previewUVLs);
-
-// Apply preview changes
-for (uint i = 0; i < m_previewUVLs.Length (); i++) {
-    m_previewUVLs[i].Apply();
-    }
-}
-
-//------------------------------------------------------------------------------
-
-void CMineView::RevertPreview ()
-{
-// Revert already-existing preview changes
-for (uint i = 0; i < m_previewUVLs.Length (); i++) {
-    m_previewUVLs[i].Revert();
-    }
-}
-
 
 //eof

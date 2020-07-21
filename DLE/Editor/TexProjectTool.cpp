@@ -138,7 +138,10 @@ void CTextureProjectTool::UpdateOrientation ()
 void CTextureProjectTool::StartProjectionTool (int nProjectionMode)
 {
 	UpdateData (TRUE);
-	textureProjector.Start (nProjectionMode);
+	CTextureTool* texTool = DLE.ToolView()->TextureTool();
+	textureProjector.Start (current, nProjectionMode,
+		texTool->m_bUse1st ? &texTool->m_saveTexture [0] : nullptr,
+		texTool->m_bUse2nd ? &texTool->m_saveTexture [1] : nullptr);
 
 	if (textureProjector.m_bProjectPreview)
 		DLE.MineView ()->Refresh (false);
@@ -365,7 +368,7 @@ void CTextureProjectTool::OnProjectScaleV ()
 void CTextureProjectTool::OnProjectResetOffset ()
 {
 	UpdateData (TRUE);
-	textureProjector.ResetProjectOffset();
+	textureProjector.ResetProjectOffset(current);
 	UpdateData (FALSE);
 	DLE.MineView ()->Refresh (false);
 }
@@ -373,7 +376,7 @@ void CTextureProjectTool::OnProjectResetOffset ()
 void CTextureProjectTool::OnProjectResetDirection ()
 {
 	UpdateData (TRUE);
-	textureProjector.ResetProjectDirection();
+	textureProjector.ResetProjectDirection(current);
 	UpdateData (FALSE);
 	DLE.MineView ()->Refresh (false);
 }

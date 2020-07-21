@@ -202,8 +202,8 @@ public:
 	void ShowTools (void);
 	void ResetPaneMode ();
 	void ResetMineZoom ();
-	void SetSelectMode (eSelectModes mode);
-	void UpdateSelectButtons (eSelectModes mode);
+	void SetSelectMode (SelectMode mode);
+	void UpdateSelectButtons (SelectMode mode);
 	void SetInsertMode (short mode);
 	void UpdateInsModeButtons (short mode);
 	int CreateToolBars (bool bToolBar = true, bool bEditBar = true);

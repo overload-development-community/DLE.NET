@@ -262,7 +262,7 @@ BOOL CDLE::InitInstance()
 	if (!textureManager.Available ())
 		ToolView ()->SetActive (11); // invoke preferences dialog
 	TextureView ()->Setup ();
-	MainFrame ()->SetSelectMode (eSelectSide);
+	MainFrame ()->SetSelectMode (SelectMode::Side);
 	MainFrame ()->ShowWindow (SW_SHOW);
 	MainFrame ()->GetWindowText (m_szCaption, sizeof (m_szCaption));
 	MainFrame ()->FixToolBars ();
