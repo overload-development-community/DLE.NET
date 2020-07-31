@@ -685,6 +685,7 @@ void CMineView::UpdateSelectHighlights ()
 void CMineView::Invalidate (BOOL bErase)
 {
 CWnd::Invalidate (bErase);
+m_needsRepaint = true;
 }
 
 //------------------------------------------------------------------------------
@@ -692,6 +693,7 @@ CWnd::Invalidate (bErase);
 void CMineView::InvalidateRect (LPCRECT lpRect, BOOL bErase)
 {
 CWnd::InvalidateRect (lpRect, bErase);
+m_needsRepaint = true;
 }
 
 //------------------------------------------------------------------------------

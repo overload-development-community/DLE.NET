@@ -28,154 +28,11 @@ return (u >= 0.0) && (v >= 0.0) && (u + v <= 1.0);
 
 void CMineView::SelectCurrentObject (long xMouse, long yMouse) 
 {
-	CGameObject*	pObject, tempObj;
-	short				nClosestObj;
-	short				i;
-	double			radius, closestRadius;
+	short nClosestObj = m_presenter.FindNearestObject(xMouse, yMouse);
 
-// default to object 0 but set radius very large
-nClosestObj = 0;
-closestRadius = 1.0e30;
-
-// if there is a secret exit, then enable it in search
-int enable_secret = false;
-if (DLE.IsD2File ())
-	for(i = 0; i < (short) triggerManager.WallTriggerCount (); i++)
-		if (triggerManager.Trigger (i)->Type () == TT_SECRET_EXIT) {
-			enable_secret = true;
-			break;
-			}
-
-for (i = 0; i < objectManager.Count () + (enable_secret ? 1 : 0); i++) {
-	BOOL drawable = false;
-	// define temp object type and position for secret object selection
-	if (i == objectManager.Count () && DLE.IsD2File () && enable_secret) {
-		pObject = &tempObj;
-		pObject->Type () = OBJ_PLAYER;
-		// define pObject->position
-		CVertex center;
-		pObject->Position () = segmentManager.CalcCenter (center, (short) objectManager.SecretSegment ());
-		}
-	else
-		pObject = objectManager.Object (i);
-#if 0
-	switch(pObject->Type ()) {
-		case OBJ_WEAPON:
-			if (ViewObject (eViewObjectsPowerups | eViewObjectsWeapons)) {
-				drawable = true;
-				}
-		case OBJ_POWERUP:
-			if (ViewObject (powerupTypeTable [pObject->Id ()])) {
-				drawable = true;
-				}
-			break;
-		default:
-			if(ViewObject (1<<pObject->Type ()))
-				drawable = true;
-		}
-	if (drawable) 
-#else
-	if (ViewObject (pObject))
-#endif
-		{
-		// translate object's position to screen coordinates
-		CVertex v = pObject->Position ();
-		Renderer ().BeginRender ();
-		v.Transform (ViewMatrix ());
-		v.Project (ViewMatrix ());
-		Renderer ().EndRender ();
-		// calculate radius^2 (don't bother to take square root)
-		double dx = (double) v.m_screen.x - (double) xMouse;
-		double dy = (double) v.m_screen.y - (double) yMouse;
-		radius = dx * dx + dy * dy;
-	// check to see if this object is closer than the closest so far
-		if (radius < closestRadius) {
-			nClosestObj = i;
-			closestRadius = radius;
-			}
-		}
-	}
-
-// unhighlight current object and select next object
-i = current->ObjectId ();
-RefreshObject(i, nClosestObj);
-}
-
-//-----------------------------------------------------------------------------
-// Find the nearest textured segment side the user had clicked on.
-// First try to read the segment and side secondary render target from the renderer
-// If that fails, cast a ray through the mouse position from the near to the 
-// far plane and find the nearest textured segment side intersected by the ray
-// Disabled because the new side and segment selection method is more flexible
-// when it comes to selecting open (untextured) sides.
-
-short CMineView::FindSelectedTexturedSide (long xMouse, long yMouse, short& nSide)
-{
-short nSegment;
-if (GetViewOptions() == eViewTextured || GetViewOptions() == eViewTexturedWireFrame) {
-	int nResult = Renderer ().GetSideKey (xMouse, yMouse, nSegment, nSide);
-	if (nResult == 1)
-		if (!segmentManager.Segment (nSegment)->m_info.bTunnel)
-			return nSegment;
-		else
-			return -1;
-	if (nResult == 0)
-		return -1;
-	}
-
-CVertex p1, p2;
-p2.m_proj.v.x = xMouse;
-p2.m_proj.v.y = yMouse;
-p1.m_proj.v.z = -1.0;
-p2.m_proj.v.z = 1.0;
-CPoint viewCenter (0, 0);
-Renderer ().BeginRender ();
-Renderer ().ViewMatrix ()->Unproject (p2, p2.m_proj);
-Renderer ().EndRender ();
-p1.Clear ();
-CDoubleVector mouseDir = p2;
-mouseDir.Normalize ();
-
-double minDist = 1e30;
-short nMinSeg = -1;
-short nMinSide = -1;
-short nSegments = segmentManager.Count ();
-Renderer ().Project ();
-segmentManager.ComputeNormals (true, true);
-
-bool bSkyBox = ViewFlag (eViewMineSkyBox);
-
-#pragma omp parallel for if (nSegments > 15)
-for (short nSegment = 0; nSegment < nSegments; nSegment++) {
-	CSegment* pSegment = segmentManager.Segment (nSegment);
-	if (!bSkyBox && (pSegment->Function () == SEGMENT_FUNC_SKYBOX))
-		continue;
-	if (pSegment->m_info.bTunnel)
-		continue;
-	CSide* pSide = pSegment->Side (0);
-	for (short nSide = 0; nSide < 6; nSide++, pSide++) {
-		double d;
-		if (pSide->Shape () > SIDE_SHAPE_TRIANGLE)
-			continue;
-		if (!pSide->IsVisible ())
-			continue;
-		if ((d = Dot (mouseDir, pSide->m_vNormal [0])) > 0.0)
-			continue; // looking at the back of the side
-		d = pSide->LineHitsFace (&p1, &p2, pSegment->m_info.vertexIds, minDist, true);
-		if (d < 0.0)
-			continue;
-#pragma omp critical
-			{
-			if (minDist > d) {
-				minDist = d;
-				nMinSeg = nSegment;
-				nMinSide = nSide;
-				}
-			}
-		}
-	}
-nSide = nMinSide;
-return nMinSeg;
+	// unhighlight current object and select next object
+	short i = current->ObjectId();
+	RefreshObject(i, nClosestObj);
 }
 
 //-----------------------------------------------------------------------------
@@ -189,7 +46,7 @@ if ((m_inputHandler.MouseState () == eMouseStateApplySelect) && (nearest->m_nSeg
 	current->SetSideId (nearest->m_nSide);
 	}
 else {
-	short nSide, nSegment = FindSelectedTexturedSide (xMouse, yMouse, nSide);
+	short nSide, nSegment = m_presenter.FindSelectedTexturedSide (xMouse, yMouse, nSide);
 	if (0 > nSegment) 
 		return false;
 	current->Setup (nSegment, nSide);
@@ -210,60 +67,6 @@ return SelectCurrentSide (xMouse, yMouse, bAddToTagged);
 
 //-----------------------------------------------------------------------------
 
-short CMineView::FindNearestLine (CSegment** nearestSegment, CSide** nearestSide, bool bCurrentSideOnly)
-{
-short nNearestEdge = -1;
-double minDist = 1e30;
-CRect viewport;
-GetClientRect (viewport);
-
-#if 1
-if (bCurrentSideOnly) {
-	short nEdge = current->Side ()->NearestEdge (viewport, LastMousePos ().x, LastMousePos ().y, current->Segment ()->m_info.vertexIds, minDist);
-	if (nEdge >= 0) {
-		*nearestSegment = current->Segment ();
-		*nearestSide = current->Side ();
-		nNearestEdge = nEdge;
-		}
-	}
-else {
-	short nSegments = segmentManager.Count ();
-	for (short nSegment = 0; nSegment < nSegments; nSegment++) {
-		CSegment* pSegment = segmentManager.Segment (nSegment);
-		bool bSegmentSelected = false;
-		CSide* pSide = pSegment->Side (0);
-		for (short nSide = 0; nSide < 6; nSide++, pSide++) {
-			if (pSide->Shape () > SIDE_SHAPE_TRIANGLE)
-				continue;
-			short nEdge = pSide->NearestEdge (viewport, LastMousePos ().x, LastMousePos ().y, pSegment->m_info.vertexIds, minDist);
-			if (nEdge >= 0) {
-				*nearestSegment = pSegment;
-				*nearestSide = pSide;
-				nNearestEdge = nEdge;
-				}
-			}
-		}
-	}
-#else
-if (!segmentManager.GatherSelectableSides (viewport, LastMousePos ().x, LastMousePos ().y))
-	return false;
-
-for (CSide* pSide = segmentManager.SelectedSides (); pSide; pSide = pSide->GetLink ()) {
-	CSegment* pSegment = segmentManager.Segment (pSide->GetParent ());
-	short nEdge = pSide->NearestEdge (viewport, LastMousePos ().x, LastMousePos ().y, pSegment->m_info.vertexIds, minDist);
-	if (nEdge >= 0) {
-		nearestSegment = pSegment;
-		nearestSide = pSide;
-		nNearestEdge = nEdge;
-		}
-	}
-#endif
-
-return nNearestEdge;
-}
-
-//-----------------------------------------------------------------------------
-
 bool CMineView::SelectCurrentLine (long xMouse, long yMouse, bool bAddToTagged) 
 {
 if (!m_bEnableQuickSelection && m_inputHandler.MouseState () != eMouseStateApplySelect)
@@ -279,7 +82,12 @@ if (m_inputHandler.MouseState () == eMouseStateApplySelect && nearest->Edge () >
 	}
 else {
 	CSide *pSide = null;
-	nEdge = FindNearestLine (&pSegment, &pSide, m_inputHandler.MouseState () != eMouseStateApplySelect);
+	if (m_inputHandler.MouseState() != eMouseStateApplySelect)
+	{
+		pSegment = current->Segment();
+		pSide = current->Side();
+	}
+	nEdge = m_presenter.FindNearestLine(&pSegment, &pSide, LastMousePos().x, LastMousePos().y);
 	if (nEdge < 0 || !pSegment || !pSide)
 		return false;
 	nSegment = segmentManager.Index (pSegment);

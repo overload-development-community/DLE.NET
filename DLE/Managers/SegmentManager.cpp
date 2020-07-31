@@ -52,6 +52,8 @@ CDoubleVector CSegmentManager::CalcSideNormal(CSideKey key)
 // ------------------------------------------------------------------------------ 
 
 CSide _const_* CSegmentManager::Side(CSideKey key) {
+    if (key.m_nSegment < 0 || key.m_nSide < 0)
+        return nullptr;
     return m_segments[key.m_nSegment].m_sides + key.m_nSide;
 }
 
@@ -79,7 +81,8 @@ CSide* CSegmentManager::BackSide(CSideKey key, CSideKey& back)
 
 CWall* CSegmentManager::Wall(CSideKey key)
 {
-    return Side(key)->Wall();
+    auto side = Side(key);
+    return side ? side->Wall() : nullptr;
 }
 
 bool CSegmentManager::IsExit(short nSegment)

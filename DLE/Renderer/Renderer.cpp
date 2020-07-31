@@ -525,7 +525,7 @@ short CRenderer::IsSegmentSelected(CSegment& segment, CRect& viewport, long xMou
 			segment.ComputeCenter(nSide);
 			CVertex& center = pSide->Center();
 			if (!pSide->IsVisible()) {
-				pSide->ComputeNormals(segment.m_info.vertexIds, Center());
+				pSide->ComputeNormals(segment.m_info.vertexIds, segment.Center());
 				CVertex normal;
 				center += pSide->Normal(2) * 2.0;
 				center.Transform(viewMatrix);

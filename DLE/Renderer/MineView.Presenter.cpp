@@ -1226,12 +1226,18 @@ bool CMineViewPresenter::DrawSelectableSides()
                 }
             }
 
-            if (!pSide->IsVisible())
+            // This was actually doing nothing in the previous version, but CRenderer::IsSegmentSelected
+            // was luckily setting up center offsets already. Which also means this isn't technically needed.
+            // Refactor?
+            /*if (!pSide->IsVisible())
             {
+                pSegment->ComputeCenter(nSide);
+                pSide->ComputeNormals(pSegment->m_info.vertexIds, pSegment->ComputeCenter());
                 CVertex normal = pSide->Normal(2);
-                normal.Project(Renderer().ViewMatrix());
-                center += normal;
-            }
+                center += normal * 2.0;
+                center.Transform(Renderer().ViewMatrix());
+                center.Project(Renderer().ViewMatrix());
+            }*/
             if (GetRenderer() == RendererType::OpenGL)
                 glLineStipple(1, 0x3333);
             for (int i = 0; i < nVertices; i++)
@@ -1713,6 +1719,424 @@ void CMineViewPresenter::RevertPreview()
     }
 }
 
+void CMineViewPresenter::FitToView()
+{
+    if (theMine == null)
+        return;
+    if (!Renderer().CanFitToView()) {
+        if (segmentManager.Count() == 1)
+            Renderer().Zoom(-10, 2, 1.0);
+        return;
+    }
+
+    CRect rc(LONG_MAX, LONG_MAX, -LONG_MAX, -LONG_MAX);
+    double zoomX, zoomY, zoom;
+    long dx, dy;
+
+    Renderer().Setup(m_hwnd, ::GetDC(m_hwnd));
+    Renderer().Reset();
+    Renderer().ViewMatrix()->Setup(Translation(), Scale(), Rotation());
+    Renderer().Project(&rc);
+    Renderer().ViewMatrix()->SetViewInfo(ViewWidth(), ViewHeight());
+    TagVisibleVerts();
+    Renderer().Project(&rc);
+    CRect crc;
+    GetClientRect(m_hwnd, crc);
+    crc.InflateRect(-4, -4);
+    zoomX = (double)rc.Width() / (double)crc.Width();
+    zoomY = (double)rc.Height() / (double)crc.Height();
+    zoom = (zoomX < zoomY) ? zoomX : zoomY;
+    Renderer().Zoom(-1, zoom, 1.0);
+    for (;;) {
+        if (!Renderer().Project(&rc))
+            return;
+        if ((rc.Width() >= crc.Width()) || (rc.Height() >= crc.Height()))
+            break;
+        Renderer().Zoom(-1, 1.0 / zoomScales[1], 1.0);
+    }
+
+    if (GetRenderer() == RendererType::OpenGL)
+    {
+        if ((rc.Width() > crc.Width()) || (rc.Height() > crc.Height())) {
+            int	nSteps = -1;
+            int	dx0, dy0;
+            CRect rcPrev;
+
+            for (;;) {
+                rcPrev = rc;
+                Renderer().Zoom(nSteps, zoomScales[1], 1.0);
+                int nProjected = Renderer().Project(&rc, true);
+                if (!nProjected)
+                    return;
+                dx0 = rc.Width() - crc.Width();
+                dy0 = rc.Height() - crc.Height();
+                if ((dx0 <= 0) && (dy0 <= 0))
+                    break;
+                if (nProjected < 0)
+                    continue;
+                dx = rcPrev.Width() - rc.Width();
+                dy = rcPrev.Height() - rc.Height();
+                if ((dx > 0) && (dy > 0)) {
+                    float sx = float(dx0) / float(dx);
+                    float sy = float(dy0) / float(dy);
+                    nSteps = (dx0 < 0) ? -int(sy) : (dy0 < 0) ? -int(sx) : (sx < sy) ? -int(sx) : -int(sy);
+                    if (nSteps == 0x80000000)
+                        nSteps = -1;
+                    if (nSteps > -1)
+                        nSteps = -1;
+                }
+            }
+        }
+    }
+    else {
+        while ((rc.Width() > crc.Width()) || (rc.Height() > crc.Height())) {
+            Renderer().Zoom(-1, zoomScales[1], 1.0);
+            if (!Renderer().Project(&rc))
+                return;
+        }
+    }
+
+    dy = (crc.Height() - rc.Height()) / 2;
+    while (rc.top - dy > 0) {
+        Renderer().Pan('Y', -1, 1.0);
+        if (!Renderer().Project(&rc))
+            return;
+        dy = (crc.Height() - rc.Height()) / 2;
+    }
+    if (rc.top < dy)
+        while (rc.top - dy < 0) {
+            Renderer().Pan('Y', 1, 1.0);
+            if (!Renderer().Project(&rc))
+                return;
+            dy = (crc.Height() - rc.Height()) / 2;
+        }
+    else
+        while (rc.bottom + dy > crc.bottom) {
+            Renderer().Pan('Y', -1, 1.0);
+            if (!Renderer().Project(&rc))
+                return;
+        }
+    dx = (crc.Width() - rc.Width()) / 2;
+    if (rc.left < dx)
+        while (rc.left - dx < 0) {
+            Renderer().Pan('X', -1, 1.0);
+            if (!Renderer().Project(&rc))
+                return;
+            dx = (crc.Width() - rc.Width()) / 2;
+        }
+    else
+        while (rc.right + dx > crc.right) {
+            Renderer().Pan('X', +1, 1.0);
+            if (!Renderer().Project(&rc))
+                return;
+            dx = (crc.Width() - rc.Width()) / 2;
+        }
+    if (segmentManager.Count() == 1)
+        Renderer().Zoom(-80, 2, 1.0);
+    Renderer().FitToView();
+    TagVisibleVerts(true);
+}
+
+static inline double sqr(long v) { return double(v) * double(v); }
+
+void CMineViewPresenter::CalculateNearestSelection(SelectMode selectMode, long xMouse, long yMouse,
+    short* nearestSegmentNum, short* nearestSideNum, short* nearestEdgeNum, short* nearestPointNum)
+{
+    Renderer().BeginRender();
+
+    switch (selectMode)
+    {
+    case SelectMode::Point:
+    {
+        CRect viewport;
+        GetClientRect(m_hwnd, viewport);
+
+        double minDist = 1e30;
+        short nNearestVertex = -1;
+
+        CDoubleVector mousePos(double(xMouse), double(yMouse), 0.0);
+
+        short nVertices = vertexManager.Count();
+        for (short nVertex = 0; nVertex < nVertices; nVertex++)
+        {
+            CVertex& v = vertexManager[nVertex];
+            if (!v.InRange(viewport.right, viewport.bottom, static_cast<int>(GetRenderer())))
+                continue;
+            double dist = Distance(mousePos, v.m_proj);
+            if (minDist > dist)
+            {
+                minDist = dist;
+                nNearestVertex = nVertex;
+            }
+        }
+        if (nNearestVertex >= 0)
+        {
+            *nearestPointNum = nNearestVertex;
+        }
+    }
+    break;
+
+    case SelectMode::Line:
+    {
+        CSegment* nearestSegment = null;
+        CSide* nearestSide = null;
+        short nNearestEdge = FindNearestLine(&nearestSegment, &nearestSide, xMouse, yMouse);
+        if (nNearestEdge >= 0)
+        {
+            *nearestSegmentNum = segmentManager.Index(nearestSegment);
+            *nearestSideNum = nearestSegment->SideIndex(nearestSide);
+            *nearestEdgeNum = nNearestEdge;
+            *nearestPointNum = nNearestEdge;
+        }
+    }
+    break;
+
+    case SelectMode::Side:
+    {
+        CRect viewport;
+        GetClientRect(m_hwnd, viewport);
+
+        auto selectableSides = GatherSelectableSides(viewport, xMouse, yMouse, ViewFlag(eViewMineSkyBox), false);
+        if (!selectableSides.empty())
+        {
+            double minDist = 1e30;
+
+            CSegment* nearestSegment = null;
+            CSide* nearestSide = null;
+
+            for (CSide* pSide : selectableSides)
+            {
+                CSegment* pSegment = segmentManager.Segment(pSide->GetParent());
+                CVertex& center = pSide->Center();
+                double dist = sqrt(sqr(xMouse - center.m_screen.x) + sqr(yMouse - center.m_screen.y));
+                if (minDist > dist)
+                {
+                    minDist = dist;
+                    nearestSegment = segmentManager.Segment(pSide->GetParent());
+                    nearestSide = pSide;
+                }
+            }
+
+            *nearestSegmentNum = segmentManager.Index(nearestSegment);
+            *nearestSideNum = nearestSegment->SideIndex(nearestSide);
+            UpdateSelectableSides(selectableSides);
+        }
+    }
+    break;
+
+    case SelectMode::Segment:
+    {
+        CRect viewport;
+        GetClientRect(m_hwnd, viewport);
+
+        auto selectableSides = GatherSelectableSides(viewport, xMouse, yMouse, ViewFlag(eViewMineSkyBox), true);
+        if (!selectableSides.empty())
+        {
+            double minDist = 1e30;
+
+            CSegment* nearestSegment = null;
+            CSide* nearestSide = null;
+
+            short nSegment = -1;
+            for (CSide* pSide : selectableSides)
+            {
+                if (nSegment == pSide->GetParent())
+                    continue;
+                CSegment* pSegment = segmentManager.Segment(nSegment = pSide->GetParent());
+                CVertex& center = pSegment->Center();
+                double dist = sqrt(sqr(xMouse - center.m_screen.x) + sqr(yMouse - center.m_screen.y));
+                if (minDist > dist)
+                {
+                    minDist = dist;
+                    nearestSegment = pSegment;
+                    nearestSide = pSide;
+                }
+            }
+
+            *nearestSegmentNum = segmentManager.Index(nearestSegment);
+            *nearestSideNum = nearestSegment->SideIndex(nearestSide);
+            UpdateSelectableSides(selectableSides);
+        }
+    }
+    break;
+
+    default:
+        break;
+    }
+
+    Renderer().EndRender();
+}
+
+short CMineViewPresenter::FindNearestLine(CSegment** nearestSegment, CSide** nearestSide, long xMouse, long yMouse)
+{
+    short nNearestEdge = -1;
+    double minDist = 1e30;
+    CRect viewport;
+    GetClientRect(m_hwnd, viewport);
+
+    if (*nearestSegment && *nearestSide)
+    {
+        short nEdge = (*nearestSide)->NearestEdge(viewport, xMouse, yMouse, (*nearestSegment)->m_info.vertexIds, minDist);
+        if (nEdge >= 0)
+        {
+            nNearestEdge = nEdge;
+        }
+    }
+    else {
+        short nSegments = segmentManager.Count();
+        for (short nSegment = 0; nSegment < nSegments; nSegment++) {
+            CSegment* pSegment = segmentManager.Segment(nSegment);
+            bool bSegmentSelected = false;
+            CSide* pSide = pSegment->Side(0);
+            for (short nSide = 0; nSide < 6; nSide++, pSide++) {
+                if (pSide->Shape() > SIDE_SHAPE_TRIANGLE)
+                    continue;
+                short nEdge = pSide->NearestEdge(viewport, xMouse, yMouse, pSegment->m_info.vertexIds, minDist);
+                if (nEdge >= 0) {
+                    *nearestSegment = pSegment;
+                    *nearestSide = pSide;
+                    nNearestEdge = nEdge;
+                }
+            }
+        }
+    }
+
+    return nNearestEdge;
+}
+
+//-----------------------------------------------------------------------------
+// Find the nearest textured segment side the user had clicked on.
+// First try to read the segment and side secondary render target from the renderer
+// If that fails, cast a ray through the mouse position from the near to the 
+// far plane and find the nearest textured segment side intersected by the ray
+// Disabled because the new side and segment selection method is more flexible
+// when it comes to selecting open (untextured) sides.
+
+short CMineViewPresenter::FindSelectedTexturedSide(long xMouse, long yMouse, short& nSide)
+{
+    short nSegment;
+    if (GetViewOptions() == eViewTextured || GetViewOptions() == eViewTexturedWireFrame) {
+        int nResult = Renderer().GetSideKey(xMouse, yMouse, nSegment, nSide);
+        if (nResult == 1)
+            if (!segmentManager.Segment(nSegment)->m_info.bTunnel)
+                return nSegment;
+            else
+                return -1;
+        if (nResult == 0)
+            return -1;
+    }
+
+    CVertex p1, p2;
+    p2.m_proj.v.x = xMouse;
+    p2.m_proj.v.y = yMouse;
+    p1.m_proj.v.z = -1.0;
+    p2.m_proj.v.z = 1.0;
+    CPoint viewCenter(0, 0);
+    Renderer().BeginRender();
+    Renderer().ViewMatrix()->Unproject(p2, p2.m_proj);
+    Renderer().EndRender();
+    p1.Clear();
+    CDoubleVector mouseDir = p2;
+    mouseDir.Normalize();
+
+    double minDist = 1e30;
+    short nMinSeg = -1;
+    short nMinSide = -1;
+    short nSegments = segmentManager.Count();
+    Renderer().Project();
+    segmentManager.ComputeNormals(true, true);
+
+    bool bSkyBox = ViewFlag(eViewMineSkyBox);
+
+#pragma omp parallel for if (nSegments > 15)
+    for (short nSegment = 0; nSegment < nSegments; nSegment++) {
+        CSegment* pSegment = segmentManager.Segment(nSegment);
+        if (!bSkyBox && (pSegment->Function() == SEGMENT_FUNC_SKYBOX))
+            continue;
+        if (pSegment->m_info.bTunnel)
+            continue;
+        CSide* pSide = pSegment->Side(0);
+        for (short nSide = 0; nSide < 6; nSide++, pSide++) {
+            double d;
+            if (pSide->Shape() > SIDE_SHAPE_TRIANGLE)
+                continue;
+            if (!pSide->IsVisible())
+                continue;
+            if ((d = Dot(mouseDir, pSide->m_vNormal[0])) > 0.0)
+                continue; // looking at the back of the side
+            d = pSide->LineHitsFace(&p1, &p2, pSegment->m_info.vertexIds, minDist, true);
+            if (d < 0.0)
+                continue;
+#pragma omp critical
+            {
+                if (minDist > d) {
+                    minDist = d;
+                    nMinSeg = nSegment;
+                    nMinSide = nSide;
+                }
+            }
+        }
+    }
+    nSide = nMinSide;
+    return nMinSeg;
+}
+
+short CMineViewPresenter::FindNearestObject(long xMouse, long yMouse)
+{
+    CGameObject* pObject, tempObj;
+    short nClosestObj;
+    short i;
+    double radius, closestRadius;
+
+    // default to object 0 but set radius very large
+    nClosestObj = 0;
+    closestRadius = 1.0e30;
+
+    // if there is a secret exit, then enable it in search
+    int enable_secret = false;
+    if (g_data.IsD2File())
+        for (i = 0; i < (short)triggerManager.WallTriggerCount(); i++)
+            if (triggerManager.Trigger(i)->Type() == TT_SECRET_EXIT) {
+                enable_secret = true;
+                break;
+            }
+
+    for (i = 0; i < objectManager.Count() + (enable_secret ? 1 : 0); i++) {
+        BOOL drawable = false;
+        // define temp object type and position for secret object selection
+        if (i == objectManager.Count() && g_data.IsD2File() && enable_secret) {
+            pObject = &tempObj;
+            pObject->Type() = OBJ_PLAYER;
+            // define pObject->position
+            CVertex center;
+            pObject->Position() = segmentManager.CalcCenter(center, (short)objectManager.SecretSegment());
+        }
+        else
+            pObject = objectManager.Object(i);
+
+        if (ViewObject(pObject))
+        {
+            // translate object's position to screen coordinates
+            CVertex v = pObject->Position();
+            Renderer().BeginRender();
+            v.Transform(Renderer().ViewMatrix());
+            v.Project(Renderer().ViewMatrix());
+            Renderer().EndRender();
+            // calculate radius^2 (don't bother to take square root)
+            double dx = (double)v.m_screen.x - (double)xMouse;
+            double dy = (double)v.m_screen.y - (double)yMouse;
+            radius = dx * dx + dy * dy;
+            // check to see if this object is closer than the closest so far
+            if (radius < closestRadius) {
+                nClosestObj = i;
+                closestRadius = radius;
+            }
+        }
+    }
+
+    return nClosestObj;
+}
+
 bool CMineViewPresenter::HasRubberRect() const
 {
     CRect emptyRect{ 0, 0, 0, 0 };
@@ -1778,4 +2202,59 @@ void CMineViewPresenter::UpdateSelectableSides(const std::vector<CSide*>& sides)
 {
     m_selectableSides.clear();
     m_selectableSides = sides;
+}
+
+void CMineViewPresenter::TagVisibleVerts(bool bReset)
+{
+    CSegment* pSegment = segmentManager.Segment(0);
+    for (int i = 0; i < segmentManager.Count(); i++, pSegment++)
+    {
+        ubyte status = bReset ? 0 : Visible(pSegment) ? 1 : 255;
+        for (int j = 0; j < 8; j++)
+            if (pSegment->m_info.vertexIds[j] <= MAX_VERTEX)
+                vertexManager.Status(pSegment->m_info.vertexIds[j]) = status;
+    }
+}
+
+std::vector<CSide*> CMineViewPresenter::GatherSelectableSides(CRect& viewport, long xMouse, long yMouse, bool bAllowSkyBox, bool bSegments)
+{
+    short nSegments = segmentManager.Count();
+    std::vector<CSide*> selectableSides;
+    std::vector<CSegment*> selectableSegments;
+
+#ifdef NDEBUG
+#pragma omp parallel for if (nSegments > 15)
+#endif
+    for (short nSegment = 0; nSegment < nSegments; nSegment++) {
+        CSegment* pSegment = segmentManager.Segment(nSegment);
+        if ((pSegment->Function() == SEGMENT_FUNC_SKYBOX) && !bAllowSkyBox)
+            continue;
+        if (pSegment->m_info.bTunnel)
+            continue;
+        bool bSegmentSelected = false;
+        short nSide = 0;
+        for (; nSide < 6; nSide++) {
+            nSide = Renderer().IsSegmentSelected(*pSegment, viewport, xMouse, yMouse, nSide, bSegments);
+            if (nSide < 0)
+                break;
+#ifdef NDEBUG
+#pragma omp critical
+#endif
+            {
+                if (!bSegmentSelected) {
+                    bSegmentSelected = true;
+                    selectableSegments.push_back(pSegment);
+                }
+            }
+            CSide* pSide = pSegment->Side(nSide);
+#ifdef NDEBUG
+#pragma omp critical
+#endif
+            {
+                selectableSides.push_back(pSide);
+            }
+            pSide->SetParent(nSegment);
+        }
+    }
+    return selectableSides;
 }
