@@ -332,8 +332,6 @@ public:
 	// drawing functions
 	bool UpdateScrollBars (void);
 	void ResetView (bool bRefresh = false);
-
-	std::vector<CSide*> GatherSelectableSides(CRect& viewport, long xMouse, long yMouse, bool bAllowSkyBox, bool bSegments);
 	void UpdateStatusText();
 
 	// view control functions
@@ -341,9 +339,6 @@ public:
 	void TogglePerspective (void);
 	void OverridePerspective (bool bEnable, int nPerspective = 1);
 	void Rotate (char direction, double angle);
-	void AlignSide ();
-	void TagVisibleVerts (bool bReset = false);
-	void CenterOnMine ();
 	void CenterOnSegment ();
 	void CenterOnObject ();
 	void SetViewOption (eViewOptions option);
@@ -417,7 +412,6 @@ public:
 		}
 
 	int FindNearestVertex (long xMouse, long yMouse, bool bCurrentSideOnly);
-	short FindNearestLine (CSegment** nearestSegment, CSide** nearestSide, bool bCurrentSideOnly);
 	bool SelectCurrentSegment (long xMouse, long yMouse, bool bAddToTagged = false);
 	bool SelectCurrentSide (long xMouse, long yMouse, bool bAddToTagged = false);
 	bool SelectCurrentLine (long xMouse, long yMouse, bool bAddToTagged = false);
@@ -524,9 +518,6 @@ public:
 	inline void SetInputSettings () { m_inputHandler.LoadSettings (); }
 
 	inline HDC DC (void) { return Renderer ().DC (); }
-
-private:
-	short FindSelectedTexturedSide (long xMouse, long yMouse, short& nSide);
 
 protected:
 

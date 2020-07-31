@@ -280,6 +280,7 @@ BOOL CDLE::InitInstance()
 		appSettings.Set (-1);
 	if (*missionFolder)
 		::SetCurrentDirectory (missionFolder);
+	MineView ()->FitToView ();
 	MineView ()->DelayRefresh (false);
 	//DLE.GetDocument ()->SetModifiedFlag (1); // allow saving right away
 	MineView ()->Refresh ();

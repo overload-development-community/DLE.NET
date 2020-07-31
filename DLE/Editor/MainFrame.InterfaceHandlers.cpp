@@ -448,24 +448,24 @@ void CMainFrame::OnViewShiftVertices ()
 current->Segment ()->ShiftVertices (current->SideId ());
 }
 
-void CMainFrame::OnViewAlignSideRotation () 
+void CMainFrame::OnViewAlignSideRotation()
 {
-MineView ()->AlignSide ();	
+    // never implemented
 }
 
-void CMainFrame::OnViewCenterEntireMine () 
+void CMainFrame::OnViewCenterEntireMine()
 {
-MineView ()->CenterOnMine ();	
+    MineView()->FitToView();
 }
 
-void CMainFrame::OnViewCenterOnCurrentSegment () 
+void CMainFrame::OnViewCenterOnCurrentSegment()
 {
-MineView ()->CenterOnSegment ();	
+    MineView()->CenterOnSegment();
 }
 
-void CMainFrame::OnViewCenterOnCurrentObject () 
+void CMainFrame::OnViewCenterOnCurrentObject()
 {
-MineView ()->CenterOnObject ();
+    MineView()->CenterOnObject();
 }
 
 //------------------------------------------------------------------------------
