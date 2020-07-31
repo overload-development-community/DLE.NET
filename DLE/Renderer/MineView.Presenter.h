@@ -170,12 +170,18 @@ public:
             return true;
         return (pSegment->Index() >= 0) && (pSegment->Index() <= ViewDist());
     }
+    void FitToView();
 
     // Selection
 
     void UpdateCurrentSelection(ISelection* selection) { m_currentSelection = selection; }
     void UpdateOtherSelection(ISelection* selection) { m_otherSelection = selection; }
     void UpdateNearestSelection(ISelection* selection) { m_nearestSelection = selection; }
+    void CalculateNearestSelection(SelectMode selectMode, long xMouse, long yMouse,
+        short* nearestSegmentNum, short* nearestSideNum, short* nearestEdgeNum, short* nearestPointNum);
+    short FindNearestLine(CSegment** nearestSegment, CSide** nearestSide, long xMouse, long yMouse);
+    short FindSelectedTexturedSide(long xMouse, long yMouse, short& nSide);
+    short FindNearestObject(long xMouse, long yMouse);
     bool IsSelectMode(SelectMode selectMode) const { return m_selectMode == selectMode; }
     void UpdateSelectMode(SelectMode selectMode) { m_selectMode = selectMode; }
     void UpdateTunnelMakerActive(bool active) { m_tunnelMakerActive = active; }
@@ -228,4 +234,6 @@ private:
     void DrawTunnelMakerSegment(const CTunnelSegment& segment);
     void ApplyPreview();
     void RevertPreview();
+    void TagVisibleVerts(bool bReset = false);
+    std::vector<CSide*> GatherSelectableSides(CRect& viewport, long xMouse, long yMouse, bool bAllowSkyBox, bool bSegments);
 };
