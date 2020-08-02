@@ -73,6 +73,7 @@ CMineView::CMineView() :
 {
 ViewObjectFlags () = eViewObjectsAll;
 ViewMineFlags () = (eMineViewFlags) eViewMineLights | eViewMineWalls | eViewMineSpecial;
+m_rubberRectInProgress = false;
 m_nDelayRefresh = 0;
 m_bEnableQuickSelection = false;
 m_nShowSelectionCandidates = 2;
@@ -255,23 +256,6 @@ void CMineView::OnDraw (CDC* pViewDC)
         m_inputHandler.UpdateMovement(timeElapsed);
         m_lastFrameTime = newFrameTime;
     }
-}
-
-//------------------------------------------------------------------------------
-
-afx_msg void CMineView::OnPaint ()
-{
-CHECKMINE;
-
-    CRect	rc;
-    CDC	*pDC;
-    PAINTSTRUCT	ps;
-
-if (!GetUpdateRect (rc))
-    return;
-pDC = BeginPaint (&ps);
-DrawRubberBox ();
-EndPaint (&ps);
 }
 
 //------------------------------------------------------------------------------
@@ -732,7 +716,7 @@ bool CMineView::VertexVisible (int v)
 CSegment	*pSegment = segmentManager.Segment (0);
 for (int i = segmentManager.Count (); i; i--, pSegment++) {
     for (short j = 0; j < MAX_VERTICES_PER_SEGMENT; j++)
-        if ((pSegment->m_info.vertexIds [j] == v) && Visible (pSegment))
+        if ((pSegment->m_info.vertexIds [j] == v) && m_presenter.Visible (pSegment))
             return true;
     }
 return false;
@@ -772,26 +756,6 @@ DLE.ToolView ()->Refresh ();
 Refresh (false);
 }
 
-//-------------------------------------------------------------------------
-// calculate_segment_center()
-//-------------------------------------------------------------------------
-
-BOOL CMineView::DrawRubberBox (void)
-{
-    static CRect prevRect (0, 0, 0, 0);
-
-if (theMine == null)
-    return FALSE;
-
-if (m_inputHandler.MouseState () != eMouseStateRubberBandTag &&
-    m_inputHandler.MouseState () != eMouseStateRubberBandUnTag)
-    return FALSE;
-
-m_presenter.DrawRubberRect();
-
-return TRUE;
-}
-
 //------------------------------------------------------------------------------
 
 void CMineView::UpdateRubberRect (CPoint clickPos, CPoint pt)
@@ -799,12 +763,15 @@ void CMineView::UpdateRubberRect (CPoint clickPos, CPoint pt)
     CHECKMINE;
 
     // If this is the first frame we're drawing the rubber rect, capture the mouse
-    if (!m_presenter.HasRubberRect())
+    if (!m_rubberRectInProgress)
     {
+        m_rubberRectInProgress = true;
         SetCapture();
+        m_presenter.BeginRubberRect(clickPos);
     }
 
-    m_presenter.UpdateRubberRect(clickPos, pt);
+    m_presenter.UpdateRubberRect(pt);
+    Refresh(false);
 }
 
 //------------------------------------------------------------------------------
@@ -813,6 +780,7 @@ void CMineView::ResetRubberRect ()
 {
 CHECKMINE;
 
+m_rubberRectInProgress = false;
 ReleaseCapture ();
 m_presenter.ClearRubberRect();
 }

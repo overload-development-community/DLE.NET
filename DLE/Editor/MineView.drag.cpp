@@ -5,15 +5,16 @@
 
 //------------------------------------------------------------------------------
 
-BOOL CMineView::UpdateDragPos (void)
+BOOL CMineView::UpdateDragPos()
 {
-if (theMine == null) return FALSE;
+	if (theMine == null) return FALSE;
 
-if (m_inputHandler.MouseState () != eMouseStateDrag)
-	return FALSE;
+	if (m_inputHandler.MouseState() != eMouseStateDrag)
+		return FALSE;
 
-InvalidateRect (null, TRUE);
-return TRUE;
+	m_presenter.UpdateDragPos(LastMousePos());
+	Refresh(false);
+	return TRUE;
 }
 
 //------------------------------------------------------------------------------
@@ -21,19 +22,6 @@ return TRUE;
 void CMineView::InitDrag ()
 {
 	m_presenter.BeginDrag();
-}
-
-//------------------------------------------------------------------------------
-
-BOOL CMineView::DrawDragPos (void)
-{
-if (theMine == null) return FALSE;
-
-if (m_inputHandler.MouseState () != eMouseStateDrag)
-	return FALSE;
-if (LastMousePos() == m_presenter.DragPos())
-	return FALSE;
-return m_presenter.DrawDragPos(LastMousePos());
 }
 
 //------------------------------------------------------------------------------

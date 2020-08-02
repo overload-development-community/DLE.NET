@@ -266,6 +266,7 @@ protected: // create from serialization only
 	// member variables
 	bool 				m_needsRepaint;
 	bool 				m_bUpdateCursor;
+	bool 				m_rubberRectInProgress;
 	bool 				m_bDelayRefresh;
 	int 				m_nDelayRefresh;
 	SelectMode			m_selectMode;
@@ -280,9 +281,6 @@ protected: // create from serialization only
 	int				m_nElementMovementReference;
 	int m_xScrollRange;
 	int m_yScrollRange;
-
-	int 				m_x0, m_x1, m_y;
-	double			m_z0, m_z1;
 
 	bool m_bMovementTimerActive;
 	LARGE_INTEGER m_lastFrameTime;
@@ -321,14 +319,12 @@ public:
 	inline void SetViewDistIndex(int nViewDist) { if (m_presenter.SetViewDistIndex(nViewDist)) Refresh(); }
 	inline int ViewDistIndex() { return m_presenter.ViewDistIndex(); }
 	inline int ViewDist() { return m_presenter.ViewDist(); }
-	inline bool Visible(CSegment* pSegment) { return m_presenter.Visible(pSegment); }
 
 	inline void SetElementMovementReference (int nReference) { m_nElementMovementReference = nReference; }
 	inline int GetElementMovementReference (void) { return Perspective () && m_nElementMovementReference; }
 	inline int EnableQuickSelection (void) { return m_bEnableQuickSelection; }
 	inline int ShowSelectionCandidates (void) { return m_nShowSelectionCandidates; }
 	bool VertexVisible (int v);
-	void ComputeViewLimits (CRect* pRC = null);
 	// drawing functions
 	bool UpdateScrollBars (void);
 	void ResetView (bool bRefresh = false);
@@ -379,9 +375,6 @@ public:
 
 	void AlignViewerWithSide (void);
 
-	inline bool ViewObject(CGameObject* pObject) { return m_presenter.ViewObject(pObject); }
-	inline bool ViewObject(uint flag = 0) { return m_presenter.ViewObject(flag); }
-	inline bool ViewFlag(uint flag = 0) { return m_presenter.ViewFlag(flag); }
 	inline bool ViewOption(uint option) { return m_presenter.ViewOption(option); }
 	inline bool IsSelectMode(SelectMode mode) { return m_presenter.IsSelectMode(mode); }
 	inline uint GetMineViewFlags () { return ViewMineFlags (); }
@@ -420,13 +413,10 @@ public:
 	bool SelectCurrentElement (long xMouse, long yMouse, bool bAddToTagged);
 	void RefreshObject(short old_object, short new_object);
 	void TagRubberBandedVertices (CPoint clickPos, CPoint releasePos, bool bTag);
-	BOOL DrawRubberBox ();
 	void UpdateRubberRect (CPoint clickPos, CPoint pt);
 	void ResetRubberRect ();
 	void DoContextMenu (CPoint point);
 	BOOL UpdateDragPos ();
-	void HighlightDrag (short nVert, long x, long y);
-	BOOL DrawDragPos (void);
 	void InitDrag ();
 	void FinishDrag (CPoint releasePos);
 	void TagSelected();
@@ -446,8 +436,6 @@ public:
 		Refresh (false);
 		}
 	inline int Project (CRect* pRC = null, bool bCheckBehind = false) { return Renderer ().Project (pRC, bCheckBehind); } 
-	inline void DrawFaceTextured (CFaceListEntry& fle) { Renderer ().DrawFaceTextured (fle); } 
-	inline int FaceIsVisible (CSegment* pSegment, CSide* pSide) { return Renderer ().FaceIsVisible (pSegment, pSide); }
 	inline void BeginRender (bool bOrtho = false) { Renderer ().BeginRender (bOrtho); }
 	inline void EndRender (bool bSwapBuffers = false) { Renderer ().EndRender (bSwapBuffers); } 
 	inline int ZoomIn (int nSteps = 1, bool bSlow = false) { 
@@ -474,33 +462,15 @@ public:
 		}
 	inline void Reset (void);
 
-	inline CDoubleVector& Center(void) { return m_presenter.Center(); }
-	inline CDoubleVector& Translation (void) { return m_presenter.Translation(); }
 	inline CDoubleVector& Scale (void) { return m_presenter.Scale(); }
-	inline CDoubleVector& Rotation (void) { return m_presenter.Rotation(); }
 	inline int& ViewWidth (void) { return m_presenter.ViewWidth(); }
 	inline int& ViewHeight (void) { return m_presenter.ViewHeight(); }
 	inline int& ViewDepth (void) { return m_presenter.ViewDepth(); }
-	inline double DepthScale (void) { return ViewMatrix ()->DepthScale (); }
-	//inline void SetDepthScale (double scale) { return ViewMatrix ()->SetDepthScale (scale); }
 	inline void SetDepthScale (int i) { return ViewMatrix ()->SetDepthScale (i); }
 	inline int DepthPerception (void) { return ViewMatrix ()->DepthPerception (); }
-	inline CBGR* RenderBuffer (void) { return m_presenter.RenderBuffer(); }
-	inline depthType* DepthBuffer (void) { return m_presenter.DepthBuffer(); }
-	inline CBGR& RenderBuffer (int i) { return m_presenter.RenderBuffer(i); }
-	inline depthType& DepthBuffer (int i) { return m_presenter.DepthBuffer(i); }
-	inline void SetDepthBuffer (depthType* buffer) { m_presenter.SetDepthBuffer(buffer); }
-	inline HPEN Pen (ePenColor nPen, int nWeight = 1) { return m_presenter.Pen(nPen, nWeight); }
-	inline CVertex& MinViewPoint (void) { return m_presenter.MinViewPoint(); }
-	inline CVertex& MaxViewPoint (void) { return m_presenter.MaxViewPoint(); }
-	inline bool IgnoreDepth (void) { return m_presenter.IgnoreDepth(); }
-	inline void SetIgnoreDepth (bool bIgnoreDepth) { m_presenter.SetIgnoreDepth(bIgnoreDepth); }
 	inline bool DepthTest (void) { return m_presenter.DepthTest(); }
 	inline void SetDepthTest (bool bDepthTest) { m_presenter.SetDepthTest(bDepthTest); }
-	inline int RenderIllumination (void) { return m_presenter.RenderIllumination(); }
 	inline int RenderVariableLights (void) { return m_presenter.RenderVariableLights(); }
-	inline ubyte Alpha (void) { return m_presenter.Alpha(); }
-	inline void SetAlpha (ubyte alpha) { m_presenter.SetAlpha(alpha); }
 	inline uint& ViewMineFlags (void) { return reinterpret_cast<uint&>(m_presenter.ViewMineFlags()); }
 	inline uint& ViewObjectFlags (void) { return reinterpret_cast<uint&>(m_presenter.ViewObjectFlags()); }
 	inline double MineMoveRate (void) { return m_moveRate [0]; }
@@ -517,8 +487,6 @@ public:
 		}
 	inline void SetInputSettings () { m_inputHandler.LoadSettings (); }
 
-	inline HDC DC (void) { return Renderer ().DC (); }
-
 protected:
 
 // Generated message map functions
@@ -534,7 +502,6 @@ protected:
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
-	afx_msg void OnPaint ();
 	afx_msg BOOL OnMouseWheel (UINT nFlags, short zDelta, CPoint pt);
 	afx_msg void OnSelectPrevTab ();
 	afx_msg void OnSelectNextTab ();

@@ -68,7 +68,7 @@ void CMineViewPresenter::Draw()
     Renderer().SetDC(viewDC);
     if (GetRenderer() == RendererType::Software)
     {
-        if (DrawRubberRect() || DrawDragPos(DragPos()))
+        if (DrawRubberRect() || DrawDragPos())
         {
             return;
         }
@@ -117,7 +117,7 @@ void CMineViewPresenter::Draw()
     DrawRubberRect();
     if (GetRenderer() == RendererType::OpenGL)
     {
-        DrawDragPos(DragPos());
+        DrawDragPos();
     }
     DrawHighlight();
     DrawMineCenter();
@@ -1393,8 +1393,7 @@ bool CMineViewPresenter::DrawRubberRect()
         }
         else
         {
-            ::SetROP2(Renderer().DC(), R2_XORPEN);
-            Renderer().SelectPen(penBlack + 1);
+            ::SetROP2(Renderer().DC(), R2_NOT);
         }
 
         CPoint rubberPoly[5]{};
@@ -1426,9 +1425,9 @@ bool CMineViewPresenter::DrawRubberRect()
     return false;
 }
 
-bool CMineViewPresenter::DrawDragPos(const CPoint& mousePos)
+bool CMineViewPresenter::DrawDragPos()
 {
-    if (!m_dragInProgress)
+    if (!m_dragInProgress || (m_lastDragPos == m_dragPos))
     {
         return false;
     }
@@ -1442,8 +1441,8 @@ bool CMineViewPresenter::DrawDragPos(const CPoint& mousePos)
         HighlightDrag(nVert, m_lastDragPos.x, m_lastDragPos.y);
     }
     // highlight the new position
-    HighlightDrag(nVert, mousePos.x, mousePos.y);
-    m_lastDragPos = mousePos;
+    HighlightDrag(nVert, m_dragPos.x, m_dragPos.y);
+    m_lastDragPos = m_dragPos;
 
     if (GetRenderer() == RendererType::Software)
     {
@@ -1454,7 +1453,7 @@ bool CMineViewPresenter::DrawDragPos(const CPoint& mousePos)
     for (i = 0; i < vertexManager.Count(); i++)
     {
         CVertex& v = vertexManager[i];
-        if ((abs(v.m_screen.x - mousePos.x) < 5) && (abs(v.m_screen.y - mousePos.y) < 5))
+        if ((abs(v.m_screen.x - m_dragPos.x) < 5) && (abs(v.m_screen.y - m_dragPos.y) < 5))
         {
             if ((v.m_screen.x != m_highlightPos.x) || (v.m_screen.y != m_highlightPos.y))
             {
@@ -2140,36 +2139,45 @@ short CMineViewPresenter::FindNearestObject(long xMouse, long yMouse)
 bool CMineViewPresenter::HasRubberRect() const
 {
     CRect emptyRect{ 0, 0, 0, 0 };
-    return ::EqualRect(m_rubberRect, emptyRect);
+    return !::EqualRect(m_rubberRect, emptyRect);
 }
 
-void CMineViewPresenter::UpdateRubberRect(const CPoint& clickPos, const CPoint& mousePos)
+void CMineViewPresenter::BeginRubberRect(const CPoint& clickPos)
+{
+    m_rubberRectClickPos = clickPos;
+    m_rubberRect = CRect{ m_rubberRectClickPos, m_rubberRectClickPos };
+}
+
+void CMineViewPresenter::UpdateRubberRect(const CPoint& mousePos)
 {
     CRect rc = m_rubberRect;
-    if (clickPos.x < mousePos.x)
+    if (m_rubberRectClickPos.x < mousePos.x)
     {
-        rc.left = clickPos.x - rubberBorderWidth;
+        rc.left = m_rubberRectClickPos.x - rubberBorderWidth;
         rc.right = mousePos.x + rubberBorderWidth;
     }
-    else if (clickPos.x > mousePos.x)
+    else if (m_rubberRectClickPos.x > mousePos.x)
     {
-        rc.right = clickPos.x + rubberBorderWidth;
+        rc.right = m_rubberRectClickPos.x + rubberBorderWidth;
         rc.left = mousePos.x - rubberBorderWidth;
     }
-    if (clickPos.y < mousePos.y)
+    if (m_rubberRectClickPos.y < mousePos.y)
     {
-        rc.top = clickPos.y - rubberBorderWidth;
+        rc.top = m_rubberRectClickPos.y - rubberBorderWidth;
         rc.bottom = mousePos.y + rubberBorderWidth;
     }
-    else if (clickPos.y > mousePos.y)
+    else if (m_rubberRectClickPos.y > mousePos.y)
     {
-        rc.bottom = clickPos.y + rubberBorderWidth;
+        rc.bottom = m_rubberRectClickPos.y + rubberBorderWidth;
         rc.top = mousePos.y - rubberBorderWidth;
     }
     if (rc != m_rubberRect)
     {
-        ::InvalidateRect(m_hwnd, &rc, TRUE);
-        ::UpdateWindow(m_hwnd);
+        if (GetRenderer() == RendererType::Software)
+        {
+            // Erase old rect
+            DrawRubberRect();
+        }
         m_rubberRect = rc;
     }
 }
@@ -2179,6 +2187,7 @@ void CMineViewPresenter::ClearRubberRect()
     ::InvalidateRect(m_hwnd, &m_rubberRect, FALSE);
     ::UpdateWindow(m_hwnd);
     m_rubberRect = CRect{ 0, 0, 0, 0 };
+    m_rubberRectClickPos = CPoint{ 0, 0 };
 }
 
 void CMineViewPresenter::BeginDrag()
