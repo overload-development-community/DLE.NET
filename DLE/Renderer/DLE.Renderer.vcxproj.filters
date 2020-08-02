@@ -92,8 +92,5 @@
     <ClCompile Include="TextureProjector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MineDisplay.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

@@ -194,23 +194,6 @@ public:
     void UpdateSelectableSides(const std::vector<CSide*>& sides);
     void UpdateShowSelectionCandidates(int value) { m_nShowSelectionCandidates = value; }
 
-    // Selection
-
-    void UpdateCurrentSelection(ISelection* selection) { m_currentSelection = selection; }
-    void UpdateOtherSelection(ISelection* selection) { m_otherSelection = selection; }
-    void UpdateNearestSelection(ISelection* selection) { m_nearestSelection = selection; }
-    bool IsSelectMode(SelectMode selectMode) const { return m_selectMode == selectMode; }
-    void UpdateSelectMode(SelectMode selectMode) { m_selectMode = selectMode; }
-    void UpdateTunnelMakerActive(bool active) { m_tunnelMakerActive = active; }
-    bool HasRubberRect() const;
-    void UpdateRubberRect(const CPoint& clickPos, const CPoint& mousePos);
-    void ClearRubberRect();
-    void BeginDrag();
-    const CPoint& DragPos() const { return m_lastDragPos; }
-    void EndDrag();
-    void UpdateSelectableSides(const std::vector<CSide*>& sides);
-    void UpdateShowSelectionCandidates(int value) { m_nShowSelectionCandidates = value; }
-
     // Draw functions
 
     void Draw();
