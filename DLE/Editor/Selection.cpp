@@ -26,7 +26,7 @@ if (nPoint >= 0)
 
 // -----------------------------------------------------------------------------
 
-void CSelection::Get (CSideKey& key)
+void CSelection::Get (CSideKey& key) const
 {
 if (key.m_nSegment < 0)
 	key.m_nSegment = m_nSegment;
@@ -36,7 +36,7 @@ if (key.m_nSide < 0)
 
 // -----------------------------------------------------------------------------
 
-void CSelection::Get (short& nSegment, short& nSide)
+void CSelection::Get (short& nSegment, short& nSide) const
 {
 if (nSegment < 0)
 	nSegment = m_nSegment;
@@ -46,7 +46,7 @@ if (nSide < 0)
 
 // -----------------------------------------------------------------------------
 
-CSegment* CSelection::Segment (void)
+CSegment* CSelection::Segment (void) const
 {
 return (m_nSegment < 0) ? null : segmentManager.Segment (m_nSegment);
 }
@@ -68,7 +68,7 @@ return (nChild < 0) ? null : segmentManager.Segment (nChild);
 
 // -----------------------------------------------------------------------------
 
-CSide* CSelection::Side (void)
+CSide* CSelection::Side (void) const
 {
 return (m_nSegment < 0) ? null : segmentManager.Side (*this);
 }
@@ -98,14 +98,14 @@ return (pWall == null) ? null : pWall->Trigger ();
 
 // -----------------------------------------------------------------------------
 
-CGameObject* CSelection::Object (void)
+CGameObject* CSelection::Object (void) const
 {
 return objectManager.Object (m_nObject);
 }
 
 // -----------------------------------------------------------------------------
 
-CVertex* CSelection::Vertex (short offset)
+CVertex* CSelection::Vertex (short offset) const
 {
 return Segment ()->Vertex (Side ()->VertexIdIndex (m_nPoint + offset)); 
 }
@@ -155,26 +155,24 @@ if (m_nObject >= objectManager.Count())
 
 // -----------------------------------------------------------------------------
 
-short CSelection::SetSegmentId (short nSegment) 
+void CSelection::SetSegmentId (short nSegment)
 { 
 if ((this == current) && (0 <= m_nSegment) && (0 <= m_nSide))
 	Side ()->SetPoint ((ubyte) Point ());
 m_nSegment = nSegment;
 if ((0 <= m_nSegment) && (0 <= m_nSide))
 	SetPoint (Side ()->Point ());
-return m_nSegment;
 }
 
 // -----------------------------------------------------------------------------
 
-short CSelection::SetSideId (short nSide) 
+void CSelection::SetSideId (short nSide)
 { 
 if ((this == current) && (0 <= m_nSegment) && (0 <= m_nSide))
 	Side ()->SetPoint ((ubyte) Point ());
 m_nSide = nSide;
 if ((0 <= m_nSegment) && (0 <= m_nSide))
 	SetPoint (Side ()->Point ());
-return m_nSide; 
 }
 
 // -----------------------------------------------------------------------------

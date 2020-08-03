@@ -71,9 +71,9 @@ private:
     eMineViewFlags m_viewMineFlags;
     OriginDisplayType m_originDisplayType;
     int m_nViewDist;
-    ISelection* m_currentSelection;
-    ISelection* m_otherSelection;
-    ISelection* m_nearestSelection;
+    const ISelection* m_currentSelection;
+    const ISelection* m_otherSelection;
+    const ISelection* m_nearestSelection;
     SelectMode m_selectMode;
     CRect m_rubberRect;
     CPoint m_rubberRectClickPos;
@@ -96,6 +96,7 @@ public:
     RendererType GetRenderer();
     bool SetPerspective(int nPerspective);
     int Perspective() { return Renderer().Perspective(); }
+    void Draw();
 
     // Viewport
 
@@ -154,27 +155,25 @@ public:
 
     // Selection
 
-    void UpdateCurrentSelection(ISelection* selection) { m_currentSelection = selection; }
-    void UpdateOtherSelection(ISelection* selection) { m_otherSelection = selection; }
-    void UpdateNearestSelection(ISelection* selection) { m_nearestSelection = selection; }
-    void CalculateNearestSelection(SelectMode selectMode, long xMouse, long yMouse,
-        short* nearestSegmentNum, short* nearestSideNum, short* nearestEdgeNum, short* nearestPointNum);
-    short FindNearestLine(CSegment** nearestSegment, CSide** nearestSide, long xMouse, long yMouse);
-    short FindSelectedTexturedSide(long xMouse, long yMouse, short& nSide);
-    short FindNearestObject(long xMouse, long yMouse);
-    bool IsSelectMode(SelectMode selectMode) const { return m_selectMode == selectMode; }
+    void UpdateCurrentSelection(const ISelection* selection) { m_currentSelection = selection; }
+    void UpdateOtherSelection(const ISelection* selection) { m_otherSelection = selection; }
+    void UpdateNearestSelection(const ISelection* selection) { m_nearestSelection = selection; }
+    void FindNearestVertex(long xMouse, long yMouse, ISelection* selection, CSide* fromSide = nullptr);
+    void FindNearestLine(long xMouse, long yMouse, ISelection* selection, CSide* fromSide = nullptr);
+    void FindNearestTexturedSide(long xMouse, long yMouse, ISelection* selection);
+    void FindNearestSide(long xMouse, long yMouse, ISelection* selection);
+    void FindNearestSegment(long xMouse, long yMouse, ISelection* selection);
+    void FindNearestObject(long xMouse, long yMouse, ISelection* selection);
     void UpdateSelectMode(SelectMode selectMode) { m_selectMode = selectMode; }
-    void UpdateTunnelMakerActive(bool active) { m_tunnelMakerActive = active; }
+    void UpdateShowSelectionCandidates(int value) { m_nShowSelectionCandidates = value; }
+
     void BeginRubberRect(const CPoint& clickPos);
     void UpdateRubberRect(const CPoint& mousePos);
     void ClearRubberRect();
     void BeginDrag();
     void UpdateDragPos(const CPoint& mousePos) { m_dragPos = mousePos; }
     void EndDrag();
-    void UpdateShowSelectionCandidates(int value) { m_nShowSelectionCandidates = value; }
-
-    // Draw functions
-    void Draw();
+    void UpdateTunnelMakerActive(bool active) { m_tunnelMakerActive = active; }
 
 private:
     void CalcSegDist();
@@ -211,6 +210,10 @@ private:
     void DrawTunnelMakerPathNode(const CTunnelPathNode& node);
     void DrawTunnelMakerTunnel(const CTunnel* tunnel);
     void DrawTunnelMakerSegment(const CTunnelSegment& segment);
+
+    // Selection
+    bool IsSelectMode(SelectMode selectMode) const { return m_selectMode == selectMode; }
+    void FindNearestSideInternal(long xMouse, long yMouse, ISelection* selection, bool segmentMode);
     std::vector<CSide*> GatherSelectableSides(CRect& viewport, long xMouse, long yMouse, bool bAllowSkyBox, bool bSegments);
 
     // Selection mode highlights

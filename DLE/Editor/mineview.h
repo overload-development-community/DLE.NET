@@ -376,7 +376,7 @@ public:
 	void AlignViewerWithSide (void);
 
 	inline bool ViewOption(uint option) { return m_presenter.ViewOption(option); }
-	inline bool IsSelectMode(SelectMode mode) { return m_presenter.IsSelectMode(mode); }
+	inline bool IsSelectMode(SelectMode mode) { return m_selectMode == mode; }
 	inline uint GetMineViewFlags () { return ViewMineFlags (); }
 	inline uint GetObjectViewFlags () { return ViewObjectFlags (); }
 	inline uint GetViewOptions() { return m_presenter.GetViewOptions(); }
@@ -404,13 +404,13 @@ public:
 		return v;
 		}
 
-	int FindNearestVertex (long xMouse, long yMouse, bool bCurrentSideOnly);
-	bool SelectCurrentSegment (long xMouse, long yMouse, bool bAddToTagged = false);
-	bool SelectCurrentSide (long xMouse, long yMouse, bool bAddToTagged = false);
-	bool SelectCurrentLine (long xMouse, long yMouse, bool bAddToTagged = false);
-	bool SelectCurrentPoint (long xMouse, long yMouse, bool bAddToTagged = false);
-	void SelectCurrentObject (long xMouse, long yMouse);
+	bool SelectSegment (const CSelection& selection, bool bAddToTagged = false);
+	bool SelectSide (const CSelection& selection, bool bAddToTagged = false);
+	bool SelectLine (const CSelection& selection, bool bAddToTagged = false);
+	bool SelectPoint (const CSelection& selection, bool bAddToTagged = false);
+	void SelectObject (const CSelection& selection);
 	bool SelectCurrentElement (long xMouse, long yMouse, bool bAddToTagged);
+	void SelectNearestObject (long xMouse, long yMouse);
 	void RefreshObject(short old_object, short new_object);
 	void TagRubberBandedVertices (CPoint clickPos, CPoint releasePos, bool bTag);
 	void UpdateRubberRect (CPoint clickPos, CPoint pt);

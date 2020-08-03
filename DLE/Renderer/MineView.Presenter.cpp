@@ -1139,7 +1139,7 @@ bool CMineViewPresenter::DrawSelectablePoint()
 
     Renderer().BeginRender(true);
     Renderer().SelectPen(penMedBlue + 1, 1);
-    Renderer().Ellipse(vertexManager[m_nearestSelection->Point()], 8.0, 8.0);
+    Renderer().Ellipse(*m_nearestSelection->Vertex(), 8.0, 8.0);
     Renderer().EndRender();
 
     return true;
@@ -1836,149 +1836,92 @@ void CMineViewPresenter::FitToView()
     TagVisibleVerts(true);
 }
 
-static inline double sqr(long v) { return double(v) * double(v); }
-
-void CMineViewPresenter::CalculateNearestSelection(SelectMode selectMode, long xMouse, long yMouse,
-    short* nearestSegmentNum, short* nearestSideNum, short* nearestEdgeNum, short* nearestPointNum)
+void CMineViewPresenter::FindNearestVertex(long xMouse, long yMouse, ISelection* selection, CSide* fromSide)
 {
-    Renderer().BeginRender();
+    CRect viewport;
+    GetClientRect(m_hwnd, viewport);
 
-    switch (selectMode)
+    double minDist = 1e30;
+    short nNearestVertex = -1;
+
+    CDoubleVector mousePos(double(xMouse), double(yMouse), 0.0);
+    auto fromSegment = fromSide ? segmentManager.Segment(fromSide->GetParent()) : nullptr;
+
+    short nVertices = vertexManager.Count();
+    for (short nVertex = 0; nVertex < nVertices; nVertex++)
     {
-    case SelectMode::Point:
-    {
-        CRect viewport;
-        GetClientRect(m_hwnd, viewport);
-
-        double minDist = 1e30;
-        short nNearestVertex = -1;
-
-        CDoubleVector mousePos(double(xMouse), double(yMouse), 0.0);
-
-        short nVertices = vertexManager.Count();
-        for (short nVertex = 0; nVertex < nVertices; nVertex++)
+        CVertex& v = vertexManager[nVertex];
+        if (!v.InRange(viewport.right, viewport.bottom, static_cast<int>(GetRenderer())))
+            continue;
+        if (fromSide)
         {
-            CVertex& v = vertexManager[nVertex];
-            if (!v.InRange(viewport.right, viewport.bottom, static_cast<int>(GetRenderer())))
+            if (!fromSegment->HasVertex(nVertex))
                 continue;
-            double dist = Distance(mousePos, v.m_proj);
-            if (minDist > dist)
-            {
-                minDist = dist;
-                nNearestVertex = nVertex;
-            }
+            short nSegmentVertexIndex = fromSegment->VertexIndex(nVertex);
+            if (!fromSide->HasVertex((ubyte)nSegmentVertexIndex))
+                continue;
         }
-        if (nNearestVertex >= 0)
+        double dist = Distance(mousePos, v.m_proj);
+        if (minDist > dist)
         {
-            *nearestPointNum = nNearestVertex;
-        }
-    }
-    break;
-
-    case SelectMode::Line:
-    {
-        CSegment* nearestSegment = null;
-        CSide* nearestSide = null;
-        short nNearestEdge = FindNearestLine(&nearestSegment, &nearestSide, xMouse, yMouse);
-        if (nNearestEdge >= 0)
-        {
-            *nearestSegmentNum = segmentManager.Index(nearestSegment);
-            *nearestSideNum = nearestSegment->SideIndex(nearestSide);
-            *nearestEdgeNum = nNearestEdge;
-            *nearestPointNum = nNearestEdge;
+            minDist = dist;
+            nNearestVertex = nVertex;
         }
     }
-    break;
 
-    case SelectMode::Side:
+    if (nNearestVertex >= 0)
     {
-        CRect viewport;
-        GetClientRect(m_hwnd, viewport);
-
-        auto selectableSides = GatherSelectableSides(viewport, xMouse, yMouse, ViewFlag(eViewMineSkyBox), false);
-        if (!selectableSides.empty())
+        // Does the current side contain this vertex? If so, use it
+        if (fromSide)
         {
-            double minDist = 1e30;
-
-            CSegment* nearestSegment = null;
-            CSide* nearestSide = null;
-
-            for (CSide* pSide : selectableSides)
-            {
-                CSegment* pSegment = segmentManager.Segment(pSide->GetParent());
-                CVertex& center = pSide->Center();
-                double dist = sqrt(sqr(xMouse - center.m_screen.x) + sqr(yMouse - center.m_screen.y));
-                if (minDist > dist)
-                {
-                    minDist = dist;
-                    nearestSegment = segmentManager.Segment(pSide->GetParent());
-                    nearestSide = pSide;
+            short nSegmentVertexIndex = fromSegment->VertexIndex(nNearestVertex);
+            short nSideVertexIndex = fromSide->FindVertexIdIndex((ubyte)nSegmentVertexIndex);
+            selection->SetSegmentId(segmentManager.Index(fromSegment));
+            selection->SetSideId(fromSegment->SideIndex(fromSide));
+            selection->SetEdge(nSideVertexIndex);
+            selection->SetPoint(nSideVertexIndex);
+        }
+        else
+        {
+            // Need to find a segment with this vertex
+            short nSideVertexIndex = -1;
+            CSegment* pSegment = segmentManager.Segment(0);
+            for (int i = 0; i < segmentManager.Count(); i++, pSegment++) {
+                short nSegmentVertexIndex = pSegment->VertexIndex(nNearestVertex);
+                for (int j = 0; nSegmentVertexIndex >= 0 && j < MAX_SIDES_PER_SEGMENT; j++) {
+                    nSideVertexIndex = pSegment->SideVertexIndex(j, (ubyte)nSegmentVertexIndex);
+                    if (nSideVertexIndex >= 0)
+                    {
+                        selection->SetSegmentId(i);
+                        selection->SetSideId(j);
+                        selection->SetEdge(nSideVertexIndex);
+                        selection->SetPoint(nSideVertexIndex);
+                        break;
+                    }
                 }
+                if (nSideVertexIndex >= 0)
+                    break;
             }
-
-            *nearestSegmentNum = segmentManager.Index(nearestSegment);
-            *nearestSideNum = nearestSegment->SideIndex(nearestSide);
-            UpdateSelectableSides(selectableSides);
         }
     }
-    break;
-
-    case SelectMode::Segment:
-    {
-        CRect viewport;
-        GetClientRect(m_hwnd, viewport);
-
-        auto selectableSides = GatherSelectableSides(viewport, xMouse, yMouse, ViewFlag(eViewMineSkyBox), true);
-        if (!selectableSides.empty())
-        {
-            double minDist = 1e30;
-
-            CSegment* nearestSegment = null;
-            CSide* nearestSide = null;
-
-            short nSegment = -1;
-            for (CSide* pSide : selectableSides)
-            {
-                if (nSegment == pSide->GetParent())
-                    continue;
-                CSegment* pSegment = segmentManager.Segment(nSegment = pSide->GetParent());
-                CVertex& center = pSegment->Center();
-                double dist = sqrt(sqr(xMouse - center.m_screen.x) + sqr(yMouse - center.m_screen.y));
-                if (minDist > dist)
-                {
-                    minDist = dist;
-                    nearestSegment = pSegment;
-                    nearestSide = pSide;
-                }
-            }
-
-            *nearestSegmentNum = segmentManager.Index(nearestSegment);
-            *nearestSideNum = nearestSegment->SideIndex(nearestSide);
-            UpdateSelectableSides(selectableSides);
-        }
-    }
-    break;
-
-    default:
-        break;
-    }
-
-    Renderer().EndRender();
 }
 
-short CMineViewPresenter::FindNearestLine(CSegment** nearestSegment, CSide** nearestSide, long xMouse, long yMouse)
+void CMineViewPresenter::FindNearestLine(long xMouse, long yMouse, ISelection* selection, CSide* fromSide)
 {
-    short nNearestEdge = -1;
     double minDist = 1e30;
     CRect viewport;
     GetClientRect(m_hwnd, viewport);
 
-    if (*nearestSegment && *nearestSide)
+    if (fromSide)
     {
-        short nEdge = (*nearestSide)->NearestEdge(viewport, xMouse, yMouse, (*nearestSegment)->m_info.vertexIds, minDist);
+        auto fromSegment = segmentManager.Segment(fromSide->GetParent());
+        short nEdge = fromSide->NearestEdge(viewport, xMouse, yMouse, fromSegment->m_info.vertexIds, minDist);
         if (nEdge >= 0)
         {
-            nNearestEdge = nEdge;
+            selection->SetSegmentId(segmentManager.Index(fromSegment));
+            selection->SetSideId(fromSegment->SideIndex(fromSide));
+            selection->SetEdge(nEdge);
+            selection->SetPoint(nEdge);
         }
     }
     else {
@@ -1992,15 +1935,14 @@ short CMineViewPresenter::FindNearestLine(CSegment** nearestSegment, CSide** nea
                     continue;
                 short nEdge = pSide->NearestEdge(viewport, xMouse, yMouse, pSegment->m_info.vertexIds, minDist);
                 if (nEdge >= 0) {
-                    *nearestSegment = pSegment;
-                    *nearestSide = pSide;
-                    nNearestEdge = nEdge;
+                    selection->SetSegmentId(segmentManager.Index(pSegment));
+                    selection->SetSideId(pSegment->SideIndex(pSide));
+                    selection->SetEdge(nEdge);
+                    selection->SetPoint(nEdge);
                 }
             }
         }
     }
-
-    return nNearestEdge;
 }
 
 //-----------------------------------------------------------------------------
@@ -2011,18 +1953,22 @@ short CMineViewPresenter::FindNearestLine(CSegment** nearestSegment, CSide** nea
 // Disabled because the new side and segment selection method is more flexible
 // when it comes to selecting open (untextured) sides.
 
-short CMineViewPresenter::FindSelectedTexturedSide(long xMouse, long yMouse, short& nSide)
+void CMineViewPresenter::FindNearestTexturedSide(long xMouse, long yMouse, ISelection* selection)
 {
-    short nSegment;
     if (GetViewOptions() == eViewTextured || GetViewOptions() == eViewTexturedWireFrame) {
+        short nSegment, nSide;
         int nResult = Renderer().GetSideKey(xMouse, yMouse, nSegment, nSide);
         if (nResult == 1)
             if (!segmentManager.Segment(nSegment)->m_info.bTunnel)
-                return nSegment;
+            {
+                selection->SetSegmentId(nSegment);
+                selection->SetSideId(nSide);
+                return;
+            }
             else
-                return -1;
+                return;
         if (nResult == 0)
-            return -1;
+            return;
     }
 
     CVertex p1, p2;
@@ -2076,11 +2022,63 @@ short CMineViewPresenter::FindSelectedTexturedSide(long xMouse, long yMouse, sho
             }
         }
     }
-    nSide = nMinSide;
-    return nMinSeg;
+
+    selection->SetSegmentId(nMinSeg);
+    selection->SetSideId(nMinSide);
 }
 
-short CMineViewPresenter::FindNearestObject(long xMouse, long yMouse)
+void CMineViewPresenter::FindNearestSide(long xMouse, long yMouse, ISelection* selection)
+{
+    FindNearestSideInternal(xMouse, yMouse, selection, false);
+}
+
+void CMineViewPresenter::FindNearestSegment(long xMouse, long yMouse, ISelection* selection)
+{
+    FindNearestSideInternal(xMouse, yMouse, selection, true);
+}
+
+static inline double sqr(long v) { return double(v) * double(v); }
+
+void CMineViewPresenter::FindNearestSideInternal(long xMouse, long yMouse, ISelection* selection, bool segmentMode)
+{
+    Renderer().BeginRender();
+
+    CRect viewport;
+    GetClientRect(m_hwnd, viewport);
+
+    auto selectableSides = GatherSelectableSides(viewport, xMouse, yMouse, ViewFlag(eViewMineSkyBox), segmentMode);
+    if (!selectableSides.empty())
+    {
+        double minDist = 1e30;
+
+        CSegment* nearestSegment = null;
+        CSide* nearestSide = null;
+
+        short nLastSegment = -1;
+        for (CSide* pSide : selectableSides)
+        {
+            if (segmentMode && nLastSegment == pSide->GetParent())
+                continue;
+            CSegment* pSegment = segmentManager.Segment(nLastSegment = pSide->GetParent());
+            CVertex& center = segmentMode ? pSegment->Center() : pSide->Center();
+            double dist = sqrt(sqr(xMouse - center.m_screen.x) + sqr(yMouse - center.m_screen.y));
+            if (minDist > dist)
+            {
+                minDist = dist;
+                nearestSegment = pSegment;
+                nearestSide = pSide;
+            }
+        }
+
+        selection->SetSegmentId(segmentManager.Index(nearestSegment));
+        selection->SetSideId(nearestSegment->SideIndex(nearestSide));
+        UpdateSelectableSides(selectableSides);
+    }
+
+    Renderer().EndRender();
+}
+
+void CMineViewPresenter::FindNearestObject(long xMouse, long yMouse, ISelection* selection)
 {
     CGameObject* pObject, tempObj;
     short nClosestObj;
@@ -2133,7 +2131,7 @@ short CMineViewPresenter::FindNearestObject(long xMouse, long yMouse)
         }
     }
 
-    return nClosestObj;
+    selection->SetObjectId(nClosestObj);
 }
 
 bool CMineViewPresenter::HasRubberRect() const

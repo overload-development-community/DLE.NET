@@ -166,7 +166,7 @@ for (int i = 0; i < 4; i++)
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 
-void CTunnelBase::Setup (ISelection* source, double sign, bool bStart)
+void CTunnelBase::Setup (const ISelection* source, double sign, bool bStart)
 {
 m_bStart = bStart;
 if (source)
@@ -203,7 +203,7 @@ m_updateStatus = NoUpdate;
 //   Otherwise, update when the vertex, edge, segment and/or side have changed (to preserve legacy behavior)
 // For the end side, also update when the segment and/or side have changed
 
-CTunnelBase::eUpdateStatus CTunnelBase::IsUpdateNeeded (ISelection* selection, bool bStartSidesTagged)
+CTunnelBase::eUpdateStatus CTunnelBase::IsUpdateNeeded (const ISelection* selection, bool bStartSidesTagged)
 {
 	bool bNewSide = m_sideKey != CSideKey (selection->SegmentId(), selection->SideId());
 
@@ -1051,7 +1051,7 @@ m_path.Destroy ();
 
 //------------------------------------------------------------------------------
 
-void CTunnelMaker::Start(ISelection* current, ISelection* opposite)
+void CTunnelMaker::Start(const ISelection* current, const ISelection* opposite)
 {
 	short nMaxSegments = SEGMENT_LIMIT - segmentManager.Count ();
 	if (nMaxSegments > MAX_TUNNEL_SEGMENTS)
@@ -1111,7 +1111,7 @@ void CTunnelMaker::End(bool keepTunnel)
 
 //------------------------------------------------------------------------------
 
-bool CTunnelMaker::CalculateTunnel (ISelection* current, ISelection* opposite, bool bNewTunnelMakerInstance)
+bool CTunnelMaker::CalculateTunnel (const ISelection* current, const ISelection* opposite, bool bNewTunnelMakerInstance)
 {
 	bool bRegeneratePath = bNewTunnelMakerInstance;
 	bool bRegenerateStartSides = bNewTunnelMakerInstance;
@@ -1149,7 +1149,7 @@ return false;
 
 //------------------------------------------------------------------------------
 
-bool CTunnelMaker::Update (ISelection* current, ISelection* opposite)
+bool CTunnelMaker::Update (const ISelection* current, const ISelection* opposite)
 { 
 if (!m_bActive)
 	return false;
@@ -1213,7 +1213,7 @@ g_data.RefreshMineView();
 
 //------------------------------------------------------------------------------
 
-void CTunnelMaker::Stretch (ISelection* current)
+void CTunnelMaker::Stretch (const ISelection* current)
 {
 if (current->SegmentId () == m_base [0].m_sideKey.m_nSegment) {
 	if (m_path.Bezier ().GetLength (0) > (MAX_TUNNEL_LENGTH - TUNNEL_INTERVAL))
@@ -1234,7 +1234,7 @@ g_data.RefreshMineView();
 
 //------------------------------------------------------------------------------
 
-void CTunnelMaker::Shrink (ISelection* current)
+void CTunnelMaker::Shrink (const ISelection* current)
 {
 if (current->SegmentId () == m_base [0].m_sideKey.m_nSegment) {
 	if (m_path.Bezier ().GetLength (0) < (MIN_TUNNEL_LENGTH + TUNNEL_INTERVAL))

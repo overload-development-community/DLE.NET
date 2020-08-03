@@ -240,16 +240,21 @@ public:
 	SideOrientationSelection(const CSideKey& key, short pointNum) :
 		segmentId(key.m_nSegment), sideId(key.m_nSide), pointNum(pointNum)
 	{}
-	virtual short SegmentId() override { return segmentId; }
-	virtual short SideId() override { return sideId; }
-	virtual short Edge() override { return pointNum; }
-	virtual short Point() override { return pointNum; }
-	virtual short ObjectId() override { return 0; }
-	virtual CSegment* Segment() override { return segmentManager.Segment(segmentId); }
-	virtual CSide* Side() override { return segmentManager.Side(*this); }
-	virtual CVertex* Vertex(short vertexNum = 0) override { return Segment()->Vertex(sideId, pointNum + vertexNum); }
-	virtual operator CSideKey() override { return CSideKey(segmentId, sideId); }
-	virtual CGameObject* Object() override { return nullptr; }
+	virtual short SegmentId() const override { return segmentId; }
+	virtual short SideId() const override { return sideId; }
+	virtual short Edge() const override { return pointNum; }
+	virtual short Point() const override { return pointNum; }
+	virtual short ObjectId() const override { return 0; }
+	virtual CSegment* Segment() const override { return segmentManager.Segment(segmentId); }
+	virtual CSide* Side() const override { return segmentManager.Side(*this); }
+	virtual CVertex* Vertex(short vertexNum = 0) const override { return Segment()->Vertex(sideId, pointNum + vertexNum); }
+	virtual operator CSideKey() const override { return CSideKey(segmentId, sideId); }
+	virtual CGameObject* Object() const override { return nullptr; }
+	virtual void SetSegmentId(short segmentId) override { this->segmentId = segmentId; }
+	virtual void SetSideId(short sideId) override { this->sideId = sideId; }
+	virtual void SetEdge(short edgeNum) override { pointNum = edgeNum; }
+	virtual void SetPoint(short pointNum) override { this->pointNum = pointNum; }
+	virtual void SetObjectId(short objectId) override { }
 };
 
 using namespace rapidjson;

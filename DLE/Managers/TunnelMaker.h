@@ -71,9 +71,9 @@ class CTunnelBase {
 
 		CTunnelBase(CDoubleVector point, CDoubleVector normal) : m_point(point), m_normal(normal), m_sideKey(CSideKey(-1, -1)) {}
 
-		void Setup (ISelection* source, double sign, bool bStart);
+		void Setup (const ISelection* source, double sign, bool bStart);
 
-		eUpdateStatus IsUpdateNeeded (ISelection* selection, bool bStartSidesTagged = false);
+		eUpdateStatus IsUpdateNeeded (const ISelection* selection, bool bStartSidesTagged = false);
 
 		inline CDoubleVector GetPoint (void) { return m_point; }
 
@@ -238,13 +238,13 @@ class CTunnelMaker {
 	public:
 		CTunnelMaker () : m_nSteps (0) {}
 
-		void Start(ISelection* current, ISelection* opposite);
+		void Start(const ISelection* current, const ISelection* opposite);
 
 		void End(bool keepTunnel);
 
 		void Destroy (void);
 
-		bool CalculateTunnel (ISelection* current, ISelection* opposite, bool bNewTunnelMakerInstance);
+		bool CalculateTunnel (const ISelection* current, const ISelection* opposite, bool bNewTunnelMakerInstance);
 		
 		bool Active (bool bMsg = true) { 
 			if (!m_bActive)
@@ -258,9 +258,9 @@ class CTunnelMaker {
 
 		void Finer (void);
 
-		void Stretch (ISelection* current);
+		void Stretch (const ISelection* current);
 
-		void Shrink (ISelection* current);
+		void Shrink (const ISelection* current);
 
 		void Realize (void);
 
@@ -270,7 +270,7 @@ class CTunnelMaker {
 
 		bool Create(void);
 
-		bool Update(ISelection* current, ISelection* opposite);
+		bool Update(const ISelection* current, const ISelection* opposite);
 
 		inline short MaxSegments (void) {
 			short h = SEGMENT_LIMIT - segmentManager.Count ();

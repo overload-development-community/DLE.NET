@@ -20,20 +20,28 @@ void CMineView::UpdateNearestSelection()
 	if ((m_inputHandler.MouseState() == eMouseStateSelect && m_inputHandler.HasMouseMovedInCurrentState()) ||
 		m_inputHandler.MouseState() == eMouseStateApplySelect)
 	{
-		short nearestSegment = -1, nearestSide = -1, nearestEdge = -1, nearestPoint = -1;
-		m_presenter.CalculateNearestSelection(m_selectMode, LastMousePos().x, LastMousePos().y,
-			&nearestSegment, &nearestSide, &nearestEdge, &nearestPoint);
-		nearest->Setup(nearestSegment, nearestSide, nearestEdge, nearestPoint);
+		nearest->Setup();
 
 		switch (m_selectMode)
 		{
 		case SelectMode::Point:
+			m_presenter.FindNearestVertex(LastMousePos().x, LastMousePos().y, nearest);
+			m_presenter.UpdateNearestSelection(nearest);
+			break;
 		case SelectMode::Line:
+			m_presenter.FindNearestLine(LastMousePos().x, LastMousePos().y, nearest);
 			m_presenter.UpdateNearestSelection(nearest);
 			break;
 		case SelectMode::Side:
+			m_presenter.FindNearestSide(LastMousePos().x, LastMousePos().y, nearest);
+			if (nearest->SegmentId() >= 0)
+			{
+				m_presenter.UpdateNearestSelection(nearest);
+			}
+			break;
 		case SelectMode::Segment:
-			if (nearestSegment >= 0)
+			m_presenter.FindNearestSegment(LastMousePos().x, LastMousePos().y, nearest);
+			if (nearest->SegmentId() >= 0)
 			{
 				m_presenter.UpdateNearestSelection(nearest);
 			}
