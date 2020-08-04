@@ -5,9 +5,6 @@
 
 #define CURRENT_POINT(a) ((current->Point () + (a))&0x03)
 
-extern short nDbgSeg, nDbgSide;
-extern int nDbgVertex;
-
 //------------------------------------------------------------------------------
 
 bool CMine::EditGeoFwd(ISelection* atSide, CDoubleVector* forwardVector)

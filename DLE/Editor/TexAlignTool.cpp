@@ -10,8 +10,6 @@
 static char THIS_FILE [] = __FILE__;
 #endif
 
-extern short nDbgSeg, nDbgSide;
-extern int nDbgVertex;
 static int rotMasks [4] = {0, 3, 2, 1};
 
 /////////////////////////////////////////////////////////////////////////////

@@ -5,11 +5,6 @@
 #include "MemoryFile.h"
 #include "mine.h"
 
-// external globals
-//extern int DLE.MineView ()->RenderVariableLights (); // uvls.cpp
-extern short nDbgSeg, nDbgSide;
-extern int nDbgVertex;
-
 #define CHECK_POINT_VISIBILITY 1
 
 #define LINEAR_ATTENUATION 0.05
@@ -146,10 +141,6 @@ for (int nSegment = 0; nSegment < nSegments; nSegment++) {
 					continue;
 				if (!pSide->IsVisible ())
 					continue;
-#if DBG
-				if (nVertex == nDbgVertex)
-					nDbgVertex = nDbgVertex;
-#endif
 #if USE_AVG_LIGHT == 2
 				maxBrightness [nVertex].light += sqr (pSide->m_info.uvls [nCorner].l);
 #elif USE_AVG_LIGHT == 1
@@ -265,16 +256,8 @@ for (; nSegment < nSegments; nSegment++) {
 #endif
 	g_data.StepProgress();
 	CSegment *pSegment = segmentManager.Segment (nSegment);
-#if DBG
-	if (nSegment == nDbgSeg)
-		nDbgSeg = nDbgSeg;
-#endif
 	CSide* pSide = pSegment->m_sides;
 	for (short nSide = 0; nSide < 6; nSide++, pSide++) {
-#if DBG
-		if ((nSegment == nDbgSeg) && ((nDbgSide < 0) || (nSide == nDbgSide)))
-			nDbgSeg = nDbgSeg;
-#endif
 		if (pSide->Shape () > SIDE_SHAPE_TRIANGLE)
 			continue;
 		if (!(bAll || pSide->IsTagged ()))
@@ -350,10 +333,6 @@ void CLightManager::GatherFaceLight (double cornerLights [], CSegment* pSegment,
 	CSide*	pSide = pSegment->Side (nSide);
 	CUVL*		pTexCoord = pSide->m_info.uvls;
 
-#if DBG
-if ((pSegment - segmentManager.Segment (0) == nDbgSeg) && ((nDbgSide < 0) || (nSide == nDbgSide)))
-	nDbgSeg = nDbgSeg;
-#endif
 for (int i = 0, j = pSide->VertexCount (); i < j; i++, pTexCoord++) {
 	CColor* pVertexColor = VertexColor (pSegment->VertexId (nSide, i));
 	if (pSegment->m_info.function == SEGMENT_FUNC_SKYBOX) {
@@ -371,10 +350,6 @@ for (int i = 0, j = pSide->VertexCount (); i < j; i++, pTexCoord++) {
 		}
 		}
 	}
-#if DBG
-if ((pSegment - segmentManager.Segment (0) == nDbgSeg) && ((nDbgSide < 0) || (nSide == nDbgSide)))
-	nDbgSeg = nDbgSeg;
-#endif
 }
 
 //---------------------------------------------------------------------------------
@@ -410,11 +385,6 @@ if (ApplyFaceLightSettingsGlobally () && bCopyTexLights) {
 	}
 bool bWall = false; 
 
-#ifdef _DEBUG
-if ((nSourceSeg == nDbgSeg) && ((nDbgSide < 0) || (nSourceSide == nDbgSide)))
-	nSourceSeg = nSourceSeg;
-#endif
-
 CVertex sourceCorners [5];
 short nVertices = pSrcSeg->Side (nSourceSide)->VertexCount ();
 sourceCorners [nVertices].Clear ();
@@ -427,10 +397,6 @@ sourceCorners [nVertices] /= double (nVertices);
 int nSegments = segmentManager.Count ();
 #pragma omp parallel for if (nSegments > 15)
 for (int nChildSeg = 0; nChildSeg < nSegments; nChildSeg++) {
-#if DBG
-	if (nChildSeg == nDbgSeg)
-		nDbgSeg = nDbgSeg;
-#endif
 	// skip if this is too far away
 	if (vicinity [nChildSeg] <= 0)
 		continue;
@@ -584,10 +550,6 @@ for (short nSourceSeg = 0; !nErrors && (nSourceSeg < nSegments); nSourceSeg++) {
 	CSegment* pSrcSeg = segmentManager.Segment (nSourceSeg);
 	// skip if not marked unless we are automatically saving
 	// loop on all sides
-#if DBG
-	if (nSourceSeg == nDbgSeg)
-		nDbgSeg = nDbgSeg;
-#endif
 	CSide* pSrcSide = pSrcSeg->m_sides;
 	for (int nSourceSide = 0; !nErrors && (nSourceSide < 6); nSourceSide++, pSrcSide++) {
 		if  (!(bForce || pSrcSide->IsTagged ())) 
@@ -649,10 +611,6 @@ for (short nSourceSeg = 0; !nErrors && (nSourceSeg < nSegments); nSourceSeg++) {
 //#pragma omp flush (nErrors)
 			if (nErrors)
 				continue;
-#if DBG
-			if (nChildSeg == nDbgSeg)
-				nDbgSeg = nDbgSeg;
-#endif
 			if (vicinity [nChildSeg] == 0)
 				continue;
 			CSegment *pChildSeg = segmentManager.Segment (nChildSeg);
@@ -708,10 +666,7 @@ for (short nSourceSeg = 0; !nErrors && (nSourceSeg < nSegments); nSourceSeg++) {
 
 				pLightDelta->m_nSegment = nChildSeg;
 				pLightDelta->m_nSide = nChildSide;
-#if DBG
-				if ((nChildSeg == nDbgSeg) && ((nDbgSide < 0) || (nChildSide == nDbgSide)))
-						nDbgSeg = nDbgSeg;
-#endif
+
 				for (int nCorner = 0; nCorner < 4; nCorner++)
 					pLightDelta->m_info.vertLight [nCorner] = uint (cornerLights [nCorner] * fBrightness);
 				}
@@ -816,10 +771,6 @@ return bestLight;
 
 bool CLightManager::CalcCornerLights (double cornerLights [], int nChildSeg, int nChildSide, int nSourceSeg, int nSourceSide, CVertex* sourceCorners, CVertex& sourceNormal, bool bIgnoreAngle)
 {
-#if DBG
-if ((nChildSeg == nDbgSeg) && ((nDbgSide < 0) || (nChildSide == nDbgSide)))
-	nDbgSeg = nDbgSeg;
-#endif
 	double lightScale = 1.0;
 	
 CVertex destNormal = Average (segmentManager.Segment (nChildSeg)->Side (nChildSide)->m_vNormal [0], segmentManager.Segment (nChildSeg)->Side (nChildSide)->m_vNormal [1]);
@@ -866,10 +817,6 @@ for (int i = 0; i < nDestVertices; i++) {
 		}
 	}
 // if any of the effects are > 0, then increment the light for that side
-#if DBG
-if ((nChildSeg == nDbgSeg) && ((nDbgSide < 0) || (nChildSide == nDbgSide)))
-	nDbgSeg = nDbgSeg;
-#endif
 return (cornerLights [0] != 0.0) || (cornerLights [1] != 0.0) || (cornerLights [2] != 0.0) || (cornerLights [3 % nDestVertices] != 0.0);
 }
 
@@ -928,18 +875,10 @@ for (short nSegment = 0; nSegment < nSegments; nSegment++) {
 		short nVertices = pSide->VertexCount ();
 		for (short nVertex = 0; nVertex < nVertices; nVertex++, pTexCoord++) {
 			if (pTexCoord->l > maxLight) {
-#ifdef _DEBUG
-				if ((nSegment == nDbgSeg) && ((nDbgSide < 0) || (nSide == nDbgSide)))
-					nDbgSeg = nDbgSeg;
-#endif
 				int indexCount = lightManager.DeltaIndexCount ();
 				CLightDeltaIndex* pIndex = lightManager.LightDeltaIndex (0);
 				uint deltaLight = 0;
 				for (int nIndex = 0; nIndex < indexCount; nIndex++, pIndex++) {
-#ifdef _DEBUG
-					if ((pIndex->m_nSegment == nDbgSeg) && ((nDbgSide < 0) || (pIndex->m_nSide == nDbgSide)))
-						nDbgSeg = nDbgSeg;
-#endif
 					if (VariableLight (*pIndex) < 0)
 						continue; // there's no variable light for this delta light index (-> light data error!)
 					CLightDeltaValue* pLightDelta = lightManager.LightDeltaValue (pIndex->m_info.index);
@@ -956,10 +895,6 @@ for (short nSegment = 0; nSegment < nSegments; nSegment++) {
 				indexCount = lightManager.DeltaIndexCount ();
 				pIndex = lightManager.LightDeltaIndex (0);
 				for (int nIndex = 0; nIndex < indexCount; nIndex++, pIndex++) {
-#ifdef _DEBUG
-					if ((pIndex->m_nSegment == nDbgSeg) && ((nDbgSide < 0) || (pIndex->m_nSide == nDbgSide)))
-						nDbgSeg = nDbgSeg;
-#endif
 					if (VariableLight (*pIndex) < 0)
 						continue; // there's no variable light for this delta light index (-> light data error!)
 					CLightDeltaValue* pLightDelta = lightManager.LightDeltaValue (pIndex->m_info.index);

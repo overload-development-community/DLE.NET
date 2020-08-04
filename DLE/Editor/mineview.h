@@ -324,7 +324,6 @@ public:
 	inline int GetElementMovementReference (void) { return Perspective () && m_nElementMovementReference; }
 	inline int EnableQuickSelection (void) { return m_bEnableQuickSelection; }
 	inline int ShowSelectionCandidates (void) { return m_nShowSelectionCandidates; }
-	bool VertexVisible (int v);
 	// drawing functions
 	bool UpdateScrollBars (void);
 	void ResetView (bool bRefresh = false);
@@ -337,7 +336,7 @@ public:
 	void Rotate (char direction, double angle);
 	void CenterOnSegment ();
 	void CenterOnObject ();
-	void SetViewOption (eViewOptions option);
+	void SetViewMode (eViewMode mode);
 	void ToggleViewMine (eMineViewFlags flag);
 	void ToggleViewObjects (eObjectViewFlags mask);
 	void SetViewMineFlags (uint mask);
@@ -375,11 +374,11 @@ public:
 
 	void AlignViewerWithSide (void);
 
-	inline bool ViewOption(uint option) { return m_presenter.ViewOption(option); }
+	inline bool IsViewModeSet(eViewMode mode) { return m_presenter.IsViewModeSet(mode); }
 	inline bool IsSelectMode(SelectMode mode) { return m_selectMode == mode; }
 	inline uint GetMineViewFlags () { return ViewMineFlags (); }
 	inline uint GetObjectViewFlags () { return ViewObjectFlags (); }
-	inline uint GetViewOptions() { return m_presenter.GetViewOptions(); }
+	inline uint GetViewOptions() { return m_presenter.GetViewMode(); }
 	inline SelectMode GetSelectMode () { return m_selectMode; }
 	inline int& MineCenter (void) { return (int&)m_presenter.OriginDisplayType(); }
 	inline void DelayRefresh (bool bDelay) {
@@ -470,7 +469,7 @@ public:
 	inline int DepthPerception (void) { return ViewMatrix ()->DepthPerception (); }
 	inline bool DepthTest (void) { return m_presenter.DepthTest(); }
 	inline void SetDepthTest (bool bDepthTest) { m_presenter.SetDepthTest(bDepthTest); }
-	inline int RenderVariableLights (void) { return m_presenter.RenderVariableLights(); }
+	inline int RenderVariableLights(void) { return (m_presenter.ViewMineFlags() & eViewMineVariableLights) != 0; }
 	inline uint& ViewMineFlags (void) { return reinterpret_cast<uint&>(m_presenter.ViewMineFlags()); }
 	inline uint& ViewObjectFlags (void) { return reinterpret_cast<uint&>(m_presenter.ViewObjectFlags()); }
 	inline double MineMoveRate (void) { return m_moveRate [0]; }

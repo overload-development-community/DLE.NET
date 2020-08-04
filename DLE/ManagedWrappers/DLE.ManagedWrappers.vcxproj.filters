@@ -53,6 +53,9 @@
     <ClCompile Include="LevelWrapper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MineViewPresenter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DLE.ManagedWrappers.rc">

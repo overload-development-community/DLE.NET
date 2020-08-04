@@ -8,9 +8,6 @@
 #include "renderer.h"
 #include "GLTextures.h"
 
-short nDbgSeg = -1, nDbgSide = -1;
-int nDbgVertex = -1;
-
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
@@ -92,11 +89,6 @@ if (pRC)
 
 void CRenderer::ComputeBrightness (CFaceListEntry& face, ushort brightness [4], int bVariableLights)
 {
-#ifdef _DEBUG
-if ((face.m_nSegment == nDbgSeg) && ((nDbgSide < 0) || (face.m_nSide == nDbgSide)))
-	nDbgSeg = nDbgSeg;
-#endif
-
 	CSegment*	pSegment = segmentManager.Segment (face.m_nSegment);
 	CSide*		pSide = pSegment->Side (face.m_nSide);
 	short			nVertices = pSide->VertexCount ();
@@ -110,11 +102,6 @@ for (int i = 0; i < nVertices; i++) {
 	//	}
 	}
 
-#ifdef _DEBUG
-if ((face.m_nSegment == nDbgSeg) && ((nDbgSide < 0) || (face.m_nSide == nDbgSide)))
-	nDbgSeg = nDbgSeg;
-#endif
-
 if (bVariableLights /*&& (lightManager.LightIsOn (face) < 1)*/) {
 	// check each variable light whether it affects side face
 	// search delta light index to see if current side has light
@@ -122,10 +109,6 @@ if (bVariableLights /*&& (lightManager.LightIsOn (face) < 1)*/) {
 //#pragma omp parallel for if (indexCount > 15)
 	for (int i = 0; i < indexCount; i++) {
 		CLightDeltaIndex* pIndex = lightManager.LightDeltaIndex (i);
-#ifdef _DEBUG
-		if ((pIndex->m_nSegment == nDbgSeg) && ((nDbgSide < 0) || (pIndex->m_nSide == nDbgSide)))
-			nDbgSeg = nDbgSeg;
-#endif
 		if (lightManager.LightIsOn (*pIndex))
 			continue; // light is on or there's no variable light for this delta light index (e.g. only blastable)
 		if (*pIndex == face) {
@@ -157,11 +140,6 @@ if (bVariableLights /*&& (lightManager.LightIsOn (face) < 1)*/) {
 
 for (int i = 0; i < nVertices; i++) 
 	brightness [i] = (b [i] < 0) ? 0 : (b [i] > 32767) ? 32767 : b [i];
-
-#ifdef _DEBUG
-if ((face.m_nSegment == nDbgSeg) && ((nDbgSide < 0) || (face.m_nSide == nDbgSide)))
-	nDbgSeg = nDbgSeg;
-#endif
 }
 
 //------------------------------------------------------------------------------
@@ -510,10 +488,6 @@ short CRenderer::IsSegmentSelected(CSegment& segment, CRect& viewport, long xMou
 			return -1;
 	}
 	short nSegment = segmentManager.Index(&segment);
-#ifdef _DEBUG
-	if (nSegment == nDbgSeg)
-		nDbgSeg = nDbgSeg;
-#endif
 	CSide* pSide = segment.Side(nSide);
 	for (; nSide < 6; nSide++, pSide++) {
 		if (!IsSideInFrustum(nSegment, nSide))

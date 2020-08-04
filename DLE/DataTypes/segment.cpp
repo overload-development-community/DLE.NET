@@ -3,9 +3,6 @@
 #include "stdafx.h"
 #include "wall.h"
 
-extern short nDbgSeg, nDbgSide;
-extern int nDbgVertex;
-
 // -----------------------------------------------------------------------------
 // define points for a given side 
 ubyte sideVertexTable [6][4] = {
@@ -1299,10 +1296,6 @@ void CSegment::UpdateTexCoords (ushort nVertexId, bool bMove, short nIgnoreSide)
 for (ubyte i = 0; i < 8; i++) {
 	if (m_info.vertexIds [i] == nVertexId) {
 		for (short nSide = 0; nSide < 6; nSide++) {
-#ifdef _DEBUG
-			if (nSide == nDbgSide)
-				nDbgSide = nDbgSide;
-#endif
 			if (nSide != nIgnoreSide)
 				m_sides [nSide].FindAndUpdateTexCoords (i, m_info.vertexIds, bMove);
 			}

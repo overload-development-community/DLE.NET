@@ -6,9 +6,6 @@
 #include "FBO.h"
 #include "renderer.h"
 
-extern short nDbgSeg, nDbgSide;
-extern int nDbgVertex;
-
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
@@ -585,11 +582,6 @@ void CRendererSW::DrawFaceTextured (CFaceListEntry& fle)
     CSide*		pSide = segmentManager.Side (fle);
     CWall*		pWall = segmentManager.Wall (fle);
     CBGRA			color, * pColor = null;
-
-#ifdef _DEBUG
-if ((fle.m_nSegment == nDbgSeg) && ((nDbgSide < 0) || (fle.m_nSide == nDbgSide)))
-    nDbgSeg = nDbgSeg;
-#endif
 
 SetAlpha (255);
 

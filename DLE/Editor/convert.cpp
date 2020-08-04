@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "DrawHelpers.h"
 
-extern short nDbgSeg, nDbgSide;
-extern int nDbgVertex;
-
 // D2 list translate to D1 equivelant textures.
 // D1 texture numbers on left, D2 textures on right, closest match first.
 // A zero in either column means the texture number in the other column
@@ -604,10 +601,6 @@ CSegment* pSegment = segmentManager.Segment (0);
 for (nSegment = 0; nSegment < segCount; nSegment++, pSegment++) {
 	CSide* pSide = pSegment->m_sides;
 	for (nSide = 0; nSide < 6; nSide++, pSide++) {
-#ifdef _DEBUG
-		if ((nSegment == nDbgSeg) && ((nDbgSide < 0) || (nSide == nDbgSide)))
-			nDbgSeg = nDbgSeg;
-#endif
 		if (pSide->m_info.nWall >= wallCount)
 			pSide->m_info.nWall = NO_WALL;
 		if ((pSegment->ChildId (nSide) == -1) || (pSide->m_info.nWall < wallCount)) {
@@ -1006,10 +999,6 @@ for (short nSegment = 0; nSegment < segmentManager.Count (); nSegment++, pSegmen
 
 	CSide* pSide = pSegment->m_sides;
 	for (short nSide = 0; nSide < 6; nSide++, pSide++) {
-#ifdef _DEBUG
-		if ((nSegment == nDbgSeg) && ((nDbgSide < 0) || (nSide == nDbgSide)))
-			nDbgSeg = nDbgSeg;
-#endif
 //		if (names != textureManager.m_names [1])
 //			names = textureManager.m_names [1];
 		if ((pSegment->ChildId (nSide) == -1) || (pSide->m_info.nWall < wallManager.Count ())) {

@@ -502,9 +502,9 @@ m_needsRepaint = true;
 
 //------------------------------------------------------------------------------
 
-void CMineView::SetViewOption (eViewOptions option)
+void CMineView::SetViewMode (eViewMode mode)
 {
-m_presenter.SetViewOption(option);
+m_presenter.SetViewMode(mode);
 Refresh ();
 }
 
@@ -711,39 +711,28 @@ Refresh ();
 
 //------------------------------------------------------------------------------
 
-bool CMineView::VertexVisible (int v)
-{
-CSegment	*pSegment = segmentManager.Segment (0);
-for (int i = segmentManager.Count (); i; i--, pSegment++) {
-    for (short j = 0; j < MAX_VERTICES_PER_SEGMENT; j++)
-        if ((pSegment->m_info.vertexIds [j] == v) && m_presenter.Visible (pSegment))
-            return true;
-    }
-return false;
-}
-
-//------------------------------------------------------------------------------
-
 void CMineView::TagRubberBandedVertices (CPoint clickPos, CPoint releasePos, bool bTag)
 {
-CHECKMINE;
+    CHECKMINE;
 
-for (int i = 0, j = vertexManager.Count (); i < j; i++) {
-    CVertex& v = vertexManager [i];
-    if (BETWEEN (clickPos.x, v.m_screen.x, releasePos.x) &&
-         BETWEEN (clickPos.y, v.m_screen.y, releasePos.y) &&
-         v.m_view.v.z > 0 && // in front of camera
-         VertexVisible (i)) {
-        if (bTag)
-            vertexManager [i].Tag ();
-        else
-            vertexManager [i].UnTag ();
-        m_needsRepaint = true;
+    for (int i = 0, j = vertexManager.Count(); i < j; i++)
+    {
+        CVertex& v = vertexManager[i];
+        if (BETWEEN(clickPos.x, v.m_screen.x, releasePos.x) &&
+            BETWEEN(clickPos.y, v.m_screen.y, releasePos.y) &&
+            v.m_view.v.z > 0 && // in front of camera
+            m_presenter.IsVertexVisible(i))
+        {
+            if (bTag)
+                vertexManager[i].Tag();
+            else
+                vertexManager[i].UnTag();
+            m_needsRepaint = true;
         }
     }
-if (m_needsRepaint) 
-    segmentManager.UpdateTagged ();
-Refresh ();
+    if (m_needsRepaint)
+        segmentManager.UpdateTagged();
+    Refresh();
 }
 
 //==========================================================================

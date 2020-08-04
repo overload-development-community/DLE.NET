@@ -13,10 +13,6 @@
 #include "VertexManager.h"
 #include "mine.h"
 
-// This is what conditional breakpoints are for, but I digress... will be removed eventually
-short nDbgSeg = 0;
-short nDbgSide = 0;
-
 CMissionData missionData;
 
 GlobalData g_data{ &lightManager, &modelManager, &objectManager,

@@ -473,38 +473,38 @@ void CMainFrame::OnViewCenterOnCurrentObject()
 void CMainFrame::OnViewWireFrameFull () 
 {
 CMineView* mineView = MineView ();
-if ((mineView->Renderer ().Type () == 1) && mineView->ViewOption (eViewTextured))
-	mineView->SetViewOption (eViewTexturedWireFrame);
+if ((mineView->Renderer ().Type () == 1) && mineView->IsViewModeSet (eViewTextured))
+	mineView->SetViewMode (eViewTexturedWireFrame);
 else
-	mineView->SetViewOption (eViewWireFrameFull);
+	mineView->SetViewMode (eViewWireFrameFull);
 }
 
 void CMainFrame::OnViewHidelines () 
 {
-MineView ()->SetViewOption (eViewHideLines);
+MineView ()->SetViewMode (eViewHideLines);
 }
 
 void CMainFrame::OnViewNearbySegmentLines () 
 {
-MineView ()->SetViewOption (eViewNearbyCubeLines);
+MineView ()->SetViewMode (eViewNearbyCubeLines);
 }
 
 void CMainFrame::OnViewWireFrameSparse () 
 {
 CMineView* mineView = MineView ();
-if ((mineView->Renderer ().Type () == 1) && mineView->ViewOption (eViewTextured))
-	mineView->SetViewOption (eViewTexturedWireFrame);
+if ((mineView->Renderer ().Type () == 1) && mineView->IsViewModeSet (eViewTextured))
+	mineView->SetViewMode (eViewTexturedWireFrame);
 else
-	mineView->SetViewOption (eViewWireFrameSparse);
+	mineView->SetViewMode (eViewWireFrameSparse);
 }
 
 void CMainFrame::OnViewTextured () 
 {
 CMineView* mineView = MineView ();
-if ((mineView->Renderer ().Type () == 1) && (mineView->ViewOption (eViewWireFrameFull) || mineView->ViewOption (eViewWireFrameSparse)))
-	mineView->SetViewOption (eViewTexturedWireFrame);
+if ((mineView->Renderer ().Type () == 1) && (mineView->IsViewModeSet (eViewWireFrameFull) || mineView->IsViewModeSet (eViewWireFrameSparse)))
+	mineView->SetViewMode (eViewTexturedWireFrame);
 else
-	mineView->SetViewOption (eViewTextured);
+	mineView->SetViewMode (eViewTextured);
 }
 
 //------------------------------------------------------------------------------

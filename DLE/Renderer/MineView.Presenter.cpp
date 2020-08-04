@@ -16,7 +16,7 @@ CMineViewPresenter::CMineViewPresenter(HWND hwndTarget) :
     m_swRenderer{ m_renderData },
     m_glRenderer{ m_renderData },
     m_renderer{ &m_glRenderer },
-    m_viewOption{ eViewTextured },
+    m_viewMode{ eViewTextured },
     m_originDisplayType{ OriginDisplayType::Globe },
     m_nViewDist{ 0 },
     m_currentSelection{ nullptr },
@@ -85,7 +85,7 @@ void CMineViewPresenter::Draw()
     Renderer().Project();
     Renderer().EndRender();
     ApplyPreview();
-    switch (GetViewOptions())
+    switch (GetViewMode())
     {
     case eViewTextured:
         DrawTexturedSegments();
@@ -299,7 +299,7 @@ void CMineViewPresenter::DrawWireFrame(bool bSparse)
     for (short nSegment = 0; nSegment < segCount; nSegment++, pSegment++)
         DrawSegmentWireFrame(pSegment, bSparse);
     Renderer().EndRender();
-    if (Visible(m_currentSelection->Segment())) {
+    if (IsSegmentVisible(m_currentSelection->Segment())) {
         DrawCurrentSegment(m_currentSelection->Segment(), bSparse);
     }
 }
@@ -367,7 +367,7 @@ void CMineViewPresenter::RenderSegmentWireFrame(CSegment* pSegment, bool isSelec
     int	bOrtho = Renderer().Ortho();
 
     if (bOrtho) {
-        if (!Visible(pSegment))
+        if (!IsSegmentVisible(pSegment))
             return;
     }
     else if (!bSparse) {
@@ -375,7 +375,7 @@ void CMineViewPresenter::RenderSegmentWireFrame(CSegment* pSegment, bool isSelec
             glDisable(GL_DEPTH_TEST);
         else
             glEnable(GL_DEPTH_TEST);
-        glLineWidth(ViewOption(eViewTexturedWireFrame) ? 3.0f : 2.0f);
+        glLineWidth(IsViewModeSet(eViewTexturedWireFrame) ? 3.0f : 2.0f);
     }
 
     CEdgeList	edgeList;
@@ -387,7 +387,7 @@ void CMineViewPresenter::RenderSegmentWireFrame(CSegment* pSegment, bool isSelec
     float			penWeight;
     bool			bSegmentIsTagged = pSegment->IsTagged();
     bool			bSideTagged[2] = { false, false };
-    bool			bFullWireFrame = !bTagged || bSegmentIsTagged || (m_viewOption != eViewTextured);
+    bool			bFullWireFrame = !bTagged || bSegmentIsTagged || (m_viewMode != eViewTextured);
 
     Renderer().GetPen(pen, penWeight);
     for (int i = 0, j = pSegment->BuildEdgeList(edgeList); i < j; i++) {
@@ -398,7 +398,7 @@ void CMineViewPresenter::RenderSegmentWireFrame(CSegment* pSegment, bool isSelec
             bSideTagged[1] = pSegment->IsTagged(short(side1)) || pSegment->IsTagged(short(side2));
             if (bSideTagged[0] != bSideTagged[1]) {
                 if (bSideTagged[1])
-                    Renderer().SelectPen(penOrange + 1, ViewOption(eViewTexturedWireFrame) ? 3.0f : 2.0f);
+                    Renderer().SelectPen(penOrange + 1, IsViewModeSet(eViewTexturedWireFrame) ? 3.0f : 2.0f);
                 else
                     Renderer().SelectPen(pen + 1, penWeight);
             }
@@ -423,7 +423,7 @@ void CMineViewPresenter::RenderSegmentWireFrame(CSegment* pSegment, bool isSelec
 
 void CMineViewPresenter::DrawSegmentWireFrame(CSegment* pSegment, bool isSelected, bool bSparse, bool bTagged, char bTunnel)
 {
-    if (!Visible(pSegment))
+    if (!IsSegmentVisible(pSegment))
         return;
     if (pSegment->m_info.bTunnel != bTunnel)
         return;
@@ -485,7 +485,7 @@ void CMineViewPresenter::DrawTexturedSegments()
     int faceCount = 0;
     CSegment* pSegment = segmentManager.Segment(0);
     for (short nSegment = 0; nSegment < segCount; nSegment++, pSegment++) {
-        if (!Visible(pSegment))
+        if (!IsSegmentVisible(pSegment))
             continue;
 
         CSide* pSide = pSegment->Side(0);
@@ -684,7 +684,7 @@ void CMineViewPresenter::DrawObject(short nObject)
 
     if (nObject >= 0 && nObject < objectManager.Count()) {
         pObject = objectManager.Object(nObject);
-        if (!Visible(segmentManager.Segment(pObject->m_info.nSegment)))
+        if (!IsSegmentVisible(segmentManager.Segment(pObject->m_info.nSegment)))
             return;
     }
     else {
@@ -700,13 +700,13 @@ void CMineViewPresenter::DrawObject(short nObject)
         ushort nSegment = (ushort)objectManager.SecretSegment();
         if (nSegment >= segmentManager.Count())
             nSegment = 0;
-        if (!Visible(segmentManager.Segment(nSegment)))
+        if (!IsSegmentVisible(segmentManager.Segment(nSegment)))
             return;
         CVertex center;
         pObject->Position() = segmentManager.CalcCenter(center, nSegment); // define pObject->position
     }
 
-    double d = (ViewOption(eViewTexturedWireFrame) || ViewOption(eViewTextured)) ?
+    double d = (IsViewModeSet(eViewTexturedWireFrame) || IsViewModeSet(eViewTextured)) ?
         Renderer().ViewMatrix()->Distance(pObject->Position()) :
         1e30;
     if (textureManager.Available(1) && pObject->HasPolyModel() && modelManager.Setup(pObject, &Renderer()) &&
@@ -814,7 +814,7 @@ bool CMineViewPresenter::SelectWireFramePen(CSegment* pSegment)
         return true;
     }
 
-    if (ViewFlag(eViewMineSpecial) && (GetViewOptions() != eViewTextured))
+    if (ViewFlag(eViewMineSpecial) && (GetViewMode() != eViewTextured))
     {
         switch (pSegment->m_info.function)
         {
@@ -871,7 +871,7 @@ void CMineViewPresenter::DrawSegmentHighlighted(short nSegment, short nSide, sho
     short xMax = ViewWidth() * 2;
     short yMax = ViewHeight() * 2;
 
-    if (!Visible(pSegment))
+    if (!IsSegmentVisible(pSegment))
         return;
 
     bool isCurrentSegment = nSegment == m_currentSelection->SegmentId();
@@ -945,7 +945,7 @@ void CMineViewPresenter::DrawWalls()
         if (walls[i].m_nSegment > segmentManager.Count())
             continue;
         pSegment = segments + (int)walls[i].m_nSegment;
-        if (!Visible(pSegment))
+        if (!IsSegmentVisible(pSegment))
             continue;
         short nSide = walls[i].m_nSide;
         pSide = pSegment->Side(nSide);
@@ -996,7 +996,7 @@ void CMineViewPresenter::DrawWalls()
                 Renderer().BeginRender(false);
                 glEnable(GL_DEPTH_TEST);
                 SelectWallPen(&walls[i]);
-                glLineWidth(ViewOption(eViewTexturedWireFrame) ? 4.0f : 3.0f);
+                glLineWidth(IsViewModeSet(eViewTexturedWireFrame) ? 4.0f : 3.0f);
                 for (j = 0; j < pSide->VertexCount(); j++) {
                     Renderer().MoveTo(vector);
                     Renderer().LineTo(*pSegment->Vertex(nSide, j));
@@ -1085,7 +1085,7 @@ void CMineViewPresenter::DrawLights()
     Renderer().BeginRender();
     pLight = lightManager.VariableLight(0);
     for (INT i = 0; i < lightManager.Count(); i++, pLight++)
-        if (Visible(segmentManager.Segment(pLight->m_nSegment)))
+        if (IsSegmentVisible(segmentManager.Segment(pLight->m_nSegment)))
             DrawOctagon(pLight->m_nSide, pLight->m_nSegment);
     Renderer().EndRender();
 }
@@ -1529,7 +1529,9 @@ void CMineViewPresenter::HighlightDrag(short nVert, long x, long y)
 void CMineViewPresenter::DrawTunnel()
 {
     CVertex points[4];
-    auto viewMax = ViewMax();
+    // I don't know why DLE multiplies the number by 8 - it seems fishy.
+    // But best to leave it until we know it's safe to remove.
+    auto viewMax = m_renderData.m_viewport.MulDiv(8, 1).BottomRight();
 
     Renderer().SelectPen(penRed + 1);
     Renderer().SelectObject((HBRUSH)GetStockObject(NULL_BRUSH));
@@ -1716,6 +1718,29 @@ void CMineViewPresenter::RevertPreview()
     {
         previewUVL.Revert();
     }
+}
+
+bool CMineViewPresenter::IsSegmentVisible(CSegment* pSegment)
+{
+    if ((pSegment->m_info.function == SEGMENT_FUNC_SKYBOX) && !ViewFlag(eViewMineSkyBox))
+        return false;
+    if (!m_nViewDist)
+        return true;
+    return (pSegment->Index() >= 0) && (pSegment->Index() <= ViewDist());
+}
+
+bool CMineViewPresenter::IsVertexVisible(int vertexNum)
+{
+    CSegment* pSegment = segmentManager.Segment(0);
+    for (int i = segmentManager.Count(); i; i--, pSegment++)
+    {
+        for (short j = 0; j < MAX_VERTICES_PER_SEGMENT; j++)
+        {
+            if ((pSegment->m_info.vertexIds[j] == vertexNum) && IsSegmentVisible(pSegment))
+                return true;
+        }
+    }
+    return false;
 }
 
 void CMineViewPresenter::FitToView()
@@ -1955,7 +1980,7 @@ void CMineViewPresenter::FindNearestLine(long xMouse, long yMouse, ISelection* s
 
 void CMineViewPresenter::FindNearestTexturedSide(long xMouse, long yMouse, ISelection* selection)
 {
-    if (GetViewOptions() == eViewTextured || GetViewOptions() == eViewTexturedWireFrame) {
+    if (GetViewMode() == eViewTextured || GetViewMode() == eViewTexturedWireFrame) {
         short nSegment, nSide;
         int nResult = Renderer().GetSideKey(xMouse, yMouse, nSegment, nSide);
         if (nResult == 1)
@@ -2216,7 +2241,7 @@ void CMineViewPresenter::TagVisibleVerts(bool bReset)
     CSegment* pSegment = segmentManager.Segment(0);
     for (int i = 0; i < segmentManager.Count(); i++, pSegment++)
     {
-        ubyte status = bReset ? 0 : Visible(pSegment) ? 1 : 255;
+        ubyte status = bReset ? 0 : IsSegmentVisible(pSegment) ? 1 : 255;
         for (int j = 0; j < 8; j++)
             if (pSegment->m_info.vertexIds[j] <= MAX_VERTEX)
                 vertexManager.Status(pSegment->m_info.vertexIds[j]) = status;

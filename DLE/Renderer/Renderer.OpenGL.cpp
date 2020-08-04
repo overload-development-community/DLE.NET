@@ -9,9 +9,6 @@
 #include "ShaderManager.h"
 #include "GLTextures.h"
 
-extern short nDbgSeg, nDbgSide;
-extern int nDbgVertex;
-
 //------------------------------------------------------------------------------
 
 static int bInitSinCosTable = 1;
@@ -317,10 +314,6 @@ j = vertexManager.Count ();
 #pragma omp parallel for reduction(+: nProjected)
 #endif
 for (i = 0; i < j; i++) {
-#ifdef _DEBUG
-    if (i == nDbgVertex)
-        nDbgVertex = nDbgVertex;
-#endif
     CVertex& v = vertexManager [i];
     if (v.Status () == 255) // skybox inclusion/exclusion
         continue;
@@ -526,11 +519,6 @@ void CRendererGL::DrawFaceTextured (CFaceListEntry& fle)
     CBGRA			color, * pColor = null;
     int			bArrow = 0;
 
-#ifdef _DEBUG
-if ((fle.m_nSegment == nDbgSeg) && ((nDbgSide < 0) || (fle.m_nSide == nDbgSide)))
-    nDbgSeg = nDbgSeg;
-#endif
-
 SetAlpha (255);
 short nBaseTex = pSide->BaseTex ();
 short nOvlTex = pSide->OvlTex (0);
@@ -629,11 +617,6 @@ void CRendererGL::RenderFace (CFaceListEntry& fle, const CTexture* pTexture [], 
     tTexCoord2d		texCoords [3][4];
     rgbaColorf		colors [4];
 
-#ifdef _DEBUG
-if ((fle.m_nSegment == nDbgSeg) && ((nDbgSide < 0) || (fle.m_nSide == nDbgSide)))
-    nDbgSeg = nDbgSeg;
-#endif
-
 if (bArrow) {
     int nDir = textureManager.ScrollDirection (pTexture [0]->Id ());
     if (nDir >= 0)
@@ -709,11 +692,6 @@ else {
         glDisable (GL_TEXTURE_2D);
         }
     }
-
-#ifdef _DEBUG
-if ((fle.m_nSegment == nDbgSeg) && ((nDbgSide < 0) || (fle.m_nSide == nDbgSide)))
-    nDbgSeg = nDbgSeg;
-#endif
 
 DeployShader ((bArrow ? nTextures + bArrow : nTextures - 1), m_bRenderSideKeys ? &fle : null);
 

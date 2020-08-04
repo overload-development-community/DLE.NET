@@ -6,7 +6,7 @@ enum class RendererType
     OpenGL
 };
 
-enum eViewOptions
+enum eViewMode
 {
     eViewWireFrameFull = 0,
     eViewHideLines,
@@ -66,7 +66,7 @@ private:
     CRendererGL m_glRenderer;
     CRenderer* m_renderer;
 
-    eViewOptions m_viewOption;
+    eViewMode m_viewMode;
     eObjectViewFlags m_viewObjectFlags;
     eMineViewFlags m_viewMineFlags;
     OriginDisplayType m_originDisplayType;
@@ -102,12 +102,8 @@ public:
 
     void UpdateViewportBounds();
     inline CPoint ViewCenter() { return m_renderData.m_viewport.CenterPoint(); }
-    inline CPoint ViewMax()
-    {
-        // I don't know why DLE multiplies the number by 8 - it seems fishy.
-        // But best to leave it until we know it's safe to remove.
-        return m_renderData.m_viewport.MulDiv(8, 1).BottomRight();
-    }
+    bool IsSegmentVisible(CSegment* pSegment);
+    bool IsVertexVisible(int vertexNum);
 
     // Render data
 
@@ -117,16 +113,15 @@ public:
     inline int& ViewDepth() { return m_renderData.m_viewDepth; }
     inline bool DepthTest() { return m_renderData.m_bDepthTest; }
     inline void SetDepthTest(bool bDepthTest) { m_renderData.m_bDepthTest = bDepthTest; }
-    inline int RenderVariableLights() { return (m_viewMineFlags & eViewMineVariableLights) != 0; }
     inline eMineViewFlags& ViewMineFlags() { return m_viewMineFlags; }
     inline eObjectViewFlags& ViewObjectFlags() { return m_viewObjectFlags; }
     inline OriginDisplayType& OriginDisplayType() { return m_originDisplayType; }
 
-    // View options
+    // View mode
 
-    inline eViewOptions GetViewOptions() { return m_viewOption; }
-    inline void SetViewOption(eViewOptions option) { m_viewOption = option; }
-    inline bool ViewOption(uint option) { return m_viewOption == option; }
+    inline eViewMode GetViewMode() { return m_viewMode; }
+    inline void SetViewMode(eViewMode mode) { m_viewMode = mode; }
+    inline bool IsViewModeSet(eViewMode mode) { return m_viewMode == mode; }
 
     // View distance
 
@@ -142,14 +137,6 @@ public:
         return (m_nViewDist <= 10) ? m_nViewDist :
             (m_nViewDist < 20) ? 10 + 2 * (m_nViewDist - 10) :
             30 + 3 * (m_nViewDist - 20);
-    }
-    inline bool Visible(CSegment* pSegment)
-    {
-        if ((pSegment->m_info.function == SEGMENT_FUNC_SKYBOX) && !ViewFlag(eViewMineSkyBox))
-            return false;
-        if (!m_nViewDist)
-            return true;
-        return (pSegment->Index() >= 0) && (pSegment->Index() <= ViewDist());
     }
     void FitToView();
 
@@ -253,6 +240,7 @@ private:
     inline bool IgnoreDepth() { return m_renderData.m_bIgnoreDepth; }
     inline void SetIgnoreDepth(bool bIgnoreDepth) { m_renderData.m_bIgnoreDepth = bIgnoreDepth; }
     inline int RenderIllumination() { return (m_viewMineFlags & eViewMineIllumination) != 0; }
+    inline int RenderVariableLights() { return (m_viewMineFlags & eViewMineVariableLights) != 0; }
     inline ubyte Alpha() { return m_renderData.m_alpha; }
     inline void SetAlpha(ubyte alpha) { m_renderData.m_alpha = alpha; }
 

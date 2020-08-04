@@ -3,10 +3,6 @@
 #include "stdafx.h"
 #include "VertexManager.h"
 
-extern short nDbgSeg, nDbgSide;
-extern int nDbgVertex;
-uint nDbgEdgeKey = 0xffffffff;
-
 // ----------------------------------------------------------------------------- 
 
 bool CSegmentManager::IsTagged(CSideKey key)
@@ -188,10 +184,7 @@ int CTaggingStrategy::Run(short nSegment, short nSide)
         m_pSegment = segmentManager.Segment(m_parent);
         m_pSide = segmentManager.Side(m_parent);
         edgeList.Reset();
-#ifdef _DEBUG
-        if ((m_child.m_nSegment == nDbgSeg) && ((nDbgSide < 0) || (m_child.m_nSide == nDbgSide)))
-            nDbgSeg = nDbgSeg;
-#endif
+
         if (!m_pSegment->BuildEdgeList(edgeList, ubyte(m_parent.m_nSide), false))
             continue;
         int nEdges = edgeList.Count();
@@ -207,21 +200,10 @@ int CTaggingStrategy::Run(short nSegment, short nSide)
             for (iter.Begin(); *iter != iter.End(); iter++) {
                 m_child = **iter;
                 m_pChildSeg = segmentManager.Segment(m_child);
-#ifdef _DEBUG
-                if ((m_child.m_nSegment == nDbgSeg) && ((nDbgSide < 0) || (m_child.m_nSide == nDbgSide)))
-                    nDbgSeg = nDbgSeg;
-#endif
+
                 if (!m_pChildSeg->IsTagged(iter->m_nSide, m_tag)) {
-#ifdef _DEBUG
-                    if ((m_child.m_nSegment == nDbgSeg) && ((nDbgSide < 0) || (m_child.m_nSide == nDbgSide)))
-                        nDbgSeg = nDbgSeg;
-#endif
                     m_pChildSide = segmentManager.Side(m_child);
                     if (Accept()) {
-#ifdef _DEBUG
-                        if ((m_child.m_nSegment == nDbgSeg) && ((nDbgSide < 0) || (m_child.m_nSide == nDbgSide)))
-                            nDbgSeg = nDbgSeg;
-#endif
                         m_pChildSeg->Tag(iter->m_nSide, m_tag);
                         m_pChildSeg->TagVertices(m_tag, iter->m_nSide);
                         m_sideList[nTail].m_edge = m_edgeKey;

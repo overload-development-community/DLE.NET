@@ -4,9 +4,6 @@
 #include "TunnelMaker.h"
 #include "VertexManager.h"
 
-extern short nDbgSeg, nDbgSide;
-extern int nDbgVertex;
-
 // ----------------------------------------------------------------------------- 
 // LinkSegments()
 //
