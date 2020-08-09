@@ -14,6 +14,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.Core", "DLE\Core\DLE.Core.vcxproj", "{57D9B500-1AEC-434F-9A0C-5DB4383AA442}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.DataTypes", "DLE\DataTypes\DLE.DataTypes.vcxproj", "{D3B6E4E3-EC8A-4B81-BEE1-E4E481D9939A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{57D9B500-1AEC-434F-9A0C-5DB4383AA442} = {57D9B500-1AEC-434F-9A0C-5DB4383AA442}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.Managers", "DLE\Managers\DLE.Managers.vcxproj", "{1A1BD677-4BFC-4B6D-9562-13F6DFB87DDE}"
 EndProject
@@ -22,6 +25,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.Editor", "DLE\Editor\DLE.Editor.vcxproj", "{B1ED4CCD-992E-48E3-808A-64A33D8EC7F7}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "glew", "DLE\glew\glew.vcxproj", "{D1271A77-07B8-4CF9-859C-7E4D0019B67B}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DLE.Renderer", "DLE\Renderer\DLE.Renderer.vcxproj", "{6FC005C8-930F-4BF1-81B5-01F584998330}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -151,6 +156,16 @@ Global
 		{D1271A77-07B8-4CF9-859C-7E4D0019B67B}.Release|x64.Build.0 = Release|x64
 		{D1271A77-07B8-4CF9-859C-7E4D0019B67B}.Release|x86.ActiveCfg = Release|Win32
 		{D1271A77-07B8-4CF9-859C-7E4D0019B67B}.Release|x86.Build.0 = Release|Win32
+		{6FC005C8-930F-4BF1-81B5-01F584998330}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{6FC005C8-930F-4BF1-81B5-01F584998330}.Debug|x64.ActiveCfg = Debug|x64
+		{6FC005C8-930F-4BF1-81B5-01F584998330}.Debug|x64.Build.0 = Debug|x64
+		{6FC005C8-930F-4BF1-81B5-01F584998330}.Debug|x86.ActiveCfg = Debug|Win32
+		{6FC005C8-930F-4BF1-81B5-01F584998330}.Debug|x86.Build.0 = Debug|Win32
+		{6FC005C8-930F-4BF1-81B5-01F584998330}.Release|Any CPU.ActiveCfg = Release|Win32
+		{6FC005C8-930F-4BF1-81B5-01F584998330}.Release|x64.ActiveCfg = Release|x64
+		{6FC005C8-930F-4BF1-81B5-01F584998330}.Release|x64.Build.0 = Release|x64
+		{6FC005C8-930F-4BF1-81B5-01F584998330}.Release|x86.ActiveCfg = Release|Win32
+		{6FC005C8-930F-4BF1-81B5-01F584998330}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
