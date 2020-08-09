@@ -519,6 +519,7 @@
             this.recentFileToolStripMenuItem0.Size = new System.Drawing.Size(184, 22);
             this.recentFileToolStripMenuItem0.Text = "&1 Recent File";
             this.recentFileToolStripMenuItem0.Visible = false;
+            this.recentFileToolStripMenuItem0.Click += new System.EventHandler(this.recentFileToolStripMenuItem_Click);
             // 
             // recentFileToolStripMenuItem1
             // 
@@ -526,6 +527,7 @@
             this.recentFileToolStripMenuItem1.Size = new System.Drawing.Size(184, 22);
             this.recentFileToolStripMenuItem1.Text = "&2 Recent File";
             this.recentFileToolStripMenuItem1.Visible = false;
+            this.recentFileToolStripMenuItem1.Click += new System.EventHandler(this.recentFileToolStripMenuItem_Click);
             // 
             // recentFileToolStripMenuItem2
             // 
@@ -533,6 +535,7 @@
             this.recentFileToolStripMenuItem2.Size = new System.Drawing.Size(184, 22);
             this.recentFileToolStripMenuItem2.Text = "3& Recent File";
             this.recentFileToolStripMenuItem2.Visible = false;
+            this.recentFileToolStripMenuItem2.Click += new System.EventHandler(this.recentFileToolStripMenuItem_Click);
             // 
             // recentFileToolStripMenuItem3
             // 
@@ -540,6 +543,7 @@
             this.recentFileToolStripMenuItem3.Size = new System.Drawing.Size(184, 22);
             this.recentFileToolStripMenuItem3.Text = "4& Recent File";
             this.recentFileToolStripMenuItem3.Visible = false;
+            this.recentFileToolStripMenuItem3.Click += new System.EventHandler(this.recentFileToolStripMenuItem_Click);
             // 
             // recentFileToolStripMenuItem4
             // 
@@ -547,6 +551,7 @@
             this.recentFileToolStripMenuItem4.Size = new System.Drawing.Size(184, 22);
             this.recentFileToolStripMenuItem4.Text = "5& Recent File";
             this.recentFileToolStripMenuItem4.Visible = false;
+            this.recentFileToolStripMenuItem4.Click += new System.EventHandler(this.recentFileToolStripMenuItem_Click);
             // 
             // recentFileToolStripMenuItem5
             // 
@@ -554,6 +559,7 @@
             this.recentFileToolStripMenuItem5.Size = new System.Drawing.Size(184, 22);
             this.recentFileToolStripMenuItem5.Text = "&6 Recent File";
             this.recentFileToolStripMenuItem5.Visible = false;
+            this.recentFileToolStripMenuItem5.Click += new System.EventHandler(this.recentFileToolStripMenuItem_Click);
             // 
             // recentFileToolStripMenuItem6
             // 
@@ -561,6 +567,7 @@
             this.recentFileToolStripMenuItem6.Size = new System.Drawing.Size(184, 22);
             this.recentFileToolStripMenuItem6.Text = "&7 Recent File";
             this.recentFileToolStripMenuItem6.Visible = false;
+            this.recentFileToolStripMenuItem6.Click += new System.EventHandler(this.recentFileToolStripMenuItem_Click);
             // 
             // recentFileToolStripMenuItem7
             // 
@@ -568,6 +575,7 @@
             this.recentFileToolStripMenuItem7.Size = new System.Drawing.Size(184, 22);
             this.recentFileToolStripMenuItem7.Text = "&8 Recent File";
             this.recentFileToolStripMenuItem7.Visible = false;
+            this.recentFileToolStripMenuItem7.Click += new System.EventHandler(this.recentFileToolStripMenuItem_Click);
             // 
             // recentFileToolStripMenuItem8
             // 
@@ -575,6 +583,7 @@
             this.recentFileToolStripMenuItem8.Size = new System.Drawing.Size(184, 22);
             this.recentFileToolStripMenuItem8.Text = "&9 Recent File";
             this.recentFileToolStripMenuItem8.Visible = false;
+            this.recentFileToolStripMenuItem8.Click += new System.EventHandler(this.recentFileToolStripMenuItem_Click);
             // 
             // recentFileToolStripMenuItem9
             // 
@@ -582,6 +591,7 @@
             this.recentFileToolStripMenuItem9.Size = new System.Drawing.Size(184, 22);
             this.recentFileToolStripMenuItem9.Text = "1&0 Recent File";
             this.recentFileToolStripMenuItem9.Visible = false;
+            this.recentFileToolStripMenuItem9.Click += new System.EventHandler(this.recentFileToolStripMenuItem_Click);
             // 
             // toolStripSeparator10
             // 

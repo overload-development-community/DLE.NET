@@ -23,6 +23,7 @@ namespace DLEDotNet.Editor
         {
             InitializeComponent();
             presenter = new MineViewPresenter(Handle);
+            presenter.ResetZoom();
         }
 
         #region --- click-through
@@ -49,6 +50,8 @@ namespace DLEDotNet.Editor
             presenter.UpdateCurrentSelection(new SelectionProxy(EditorState.CurrentSelection));
             presenter.UpdateOtherSelection(new SelectionProxy(EditorState.OtherSelection));
             presenter.UpdateSelectionMode((uint)EditorState.SelectionMode);
+            presenter.UpdateViewMode((uint)EditorState.ViewMode);
+            presenter.UpdateDepthPerception((uint)EditorState.Prefs.DepthPerception);
             presenter.Paint();
         }
 
@@ -95,6 +98,11 @@ namespace DLEDotNet.Editor
         {
             // TODO
             System.Diagnostics.Debug.WriteLine("MineView.ZoomOut");
+        }
+
+        internal void ResetZoom()
+        {
+            presenter.ResetZoom();
         }
     }
 }

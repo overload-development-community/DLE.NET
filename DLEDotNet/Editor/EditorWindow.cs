@@ -296,6 +296,9 @@ namespace DLEDotNet.Editor
                 // EditorState.LevelFileName = "whatever.rl2"; // if we have a HOG
                 EditorState.Unsaved = false;
                 PushNewRecentFile(EditorState.FilePath);
+
+                MineView.ResetZoom();
+                UpdateMineView();
             }
             return willOpen;
         }
@@ -532,6 +535,7 @@ namespace DLEDotNet.Editor
         private void UpdateMineView()
         {
             MineView.Owner = this;
+            MineView.Refresh();
             // ...
         }
 
@@ -592,6 +596,22 @@ namespace DLEDotNet.Editor
             if (newRecentFiles > maxRecentFiles)
                 EditorState.SavedPrefs.RecentFiles.RemoveRange(maxRecentFiles, newRecentFiles - maxRecentFiles);
             UpdateRecentFilesMenu();
+        }
+
+        private void OpenRecentFile(int recentFileNum)
+        {
+            string fileName = EditorState.SavedPrefs.RecentFiles[recentFileNum];
+
+            // TODO: Merge this with the regular open code
+            EditorState.Level = LevelProxy.Open(fileName);
+            // maybe don't do anything below if opening the file fails
+            // make sure to add a ShowDialog thing here to show the HOG dialog
+            EditorState.FilePath = fileName;
+            // EditorState.LevelFileName = "whatever.rl2"; // if we have a HOG
+            EditorState.Unsaved = false;
+
+            MineView.ResetZoom();
+            UpdateMineView();
         }
         #endregion
 
@@ -699,6 +719,11 @@ namespace DLEDotNet.Editor
         private void checkMineToolStripMenuItem_Click(object sender, EventArgs e) => checkMineToolStripMenuItem.PerformClick();
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Settings);
         private void informationToolStripMenuItem_Click(object sender, EventArgs e) => EditorTools.ShowTool(this, editorTabs.Diagnostics);
+        private void recentFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenRecentFile(Array.IndexOf(recentFileControls, sender));
+        }
+
         private void exitToolStripMenuItem_Click(object sender, EventArgs e) => this.Close();
         #endregion
 

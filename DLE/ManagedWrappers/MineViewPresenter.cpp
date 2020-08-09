@@ -84,6 +84,21 @@ namespace DLEDotNet
                 m_presenter->UpdateSelectMode(static_cast<SelectMode>(mode));
             }
 
+            void UpdateViewMode(uint mode)
+            {
+                m_presenter->SetViewMode(static_cast<eViewMode>(mode));
+            }
+
+            void UpdateDepthPerception(uint depthPerceptionLevel)
+            {
+                m_presenter->Renderer().ViewMatrix()->SetDepthScale(depthPerceptionLevel);
+            }
+
+            void ResetZoom()
+            {
+                m_presenter->FitToView();
+            }
+
         private:
             CMineViewPresenter* m_presenter;
             SelectionAdaptor* m_currentSelection;
