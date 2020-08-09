@@ -40,6 +40,7 @@
 #include "ASEModel.h"
 #include "OOFModel.h"
 #include "rendermodel.h"
+#include "IViewMatrix.h"
 
 #include "ResourceManager.h"
 #include "FileManager.h"

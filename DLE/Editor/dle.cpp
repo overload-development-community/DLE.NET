@@ -262,7 +262,7 @@ BOOL CDLE::InitInstance()
 	if (!textureManager.Available ())
 		ToolView ()->SetActive (11); // invoke preferences dialog
 	TextureView ()->Setup ();
-	MainFrame ()->SetSelectMode (eSelectSide);
+	MainFrame ()->SetSelectMode (SelectMode::Side);
 	MainFrame ()->ShowWindow (SW_SHOW);
 	MainFrame ()->GetWindowText (m_szCaption, sizeof (m_szCaption));
 	MainFrame ()->FixToolBars ();
@@ -280,6 +280,7 @@ BOOL CDLE::InitInstance()
 		appSettings.Set (-1);
 	if (*missionFolder)
 		::SetCurrentDirectory (missionFolder);
+	MineView ()->FitToView ();
 	MineView ()->DelayRefresh (false);
 	//DLE.GetDocument ()->SetModifiedFlag (1); // allow saving right away
 	MineView ()->Refresh ();

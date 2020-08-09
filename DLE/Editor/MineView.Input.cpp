@@ -283,7 +283,7 @@ class CMouseStateQuickSelectObject : public CMouseInputStateBase < eMouseStateQu
 		{}
 
 		void OnCompleted (UINT msg, const CPoint& point) {
-			m_pMineView->SelectCurrentObject (point.x, point.y);
+			m_pMineView->SelectNearestObject (point.x, point.y);
 			}
 
 		bool IsExitAllowed (UINT msg, const CPoint& point) const {

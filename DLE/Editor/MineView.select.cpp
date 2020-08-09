@@ -5,406 +5,142 @@
 
 //-----------------------------------------------------------------------------
 
-static bool PointIsInTriangle2D (CDoubleVector& p, CDoubleVector t [])
+void CMineView::SelectNearestObject(long xMouse, long yMouse)
 {
-CDoubleVector v0 = t [2];
-v0 -= t [0];
-CDoubleVector v1 = t [1];
-v1 -= t [0];
-CDoubleVector v2 = p;
-v2 -= t [0];
-double dot00 = Dot (v0, v0);
-double dot11 = Dot (v1, v1);
-double dot01 = Dot (v0, v1);
-double dot02 = Dot (v0, v2);
-double dot12 = Dot (v1, v2);
-double invDenom = 1.0f / (dot00 * dot11 - dot01 * dot01);
-double u = (dot11 * dot02 - dot01 * dot12) * invDenom;
-double v = (dot00 * dot12 - dot01 * dot02) * invDenom;
-return (u >= 0.0) && (v >= 0.0) && (u + v <= 1.0);
+	CSelection currentElement;
+	currentElement.Setup();
+	m_presenter.FindNearestObject(xMouse, yMouse, &currentElement);
+	SelectObject(currentElement);
+}
+
+void CMineView::SelectObject (const CSelection& selection)
+{
+	// unhighlight current object and select next object
+	RefreshObject(current->ObjectId(), selection.ObjectId());
 }
 
 //-----------------------------------------------------------------------------
 
-void CMineView::SelectCurrentObject (long xMouse, long yMouse) 
+bool CMineView::SelectSide (const CSelection& selection, bool bAddToTagged)
 {
-	CGameObject*	pObject, tempObj;
-	short				nClosestObj;
-	short				i;
-	double			radius, closestRadius;
-
-// default to object 0 but set radius very large
-nClosestObj = 0;
-closestRadius = 1.0e30;
-
-// if there is a secret exit, then enable it in search
-int enable_secret = false;
-if (DLE.IsD2File ())
-	for(i = 0; i < (short) triggerManager.WallTriggerCount (); i++)
-		if (triggerManager.Trigger (i)->Type () == TT_SECRET_EXIT) {
-			enable_secret = true;
-			break;
-			}
-
-for (i = 0; i < objectManager.Count () + (enable_secret ? 1 : 0); i++) {
-	BOOL drawable = false;
-	// define temp object type and position for secret object selection
-	if (i == objectManager.Count () && DLE.IsD2File () && enable_secret) {
-		pObject = &tempObj;
-		pObject->Type () = OBJ_PLAYER;
-		// define pObject->position
-		CVertex center;
-		pObject->Position () = segmentManager.CalcCenter (center, (short) objectManager.SecretSegment ());
-		}
-	else
-		pObject = objectManager.Object (i);
-#if 0
-	switch(pObject->Type ()) {
-		case OBJ_WEAPON:
-			if (ViewObject (eViewObjectsPowerups | eViewObjectsWeapons)) {
-				drawable = true;
-				}
-		case OBJ_POWERUP:
-			if (ViewObject (powerupTypeTable [pObject->Id ()])) {
-				drawable = true;
-				}
-			break;
-		default:
-			if(ViewObject (1<<pObject->Type ()))
-				drawable = true;
-		}
-	if (drawable) 
-#else
-	if (ViewObject (pObject))
-#endif
-		{
-		// translate object's position to screen coordinates
-		CVertex v = pObject->Position ();
-		Renderer ().BeginRender ();
-		v.Transform (ViewMatrix ());
-		v.Project (ViewMatrix ());
-		Renderer ().EndRender ();
-		// calculate radius^2 (don't bother to take square root)
-		double dx = (double) v.m_screen.x - (double) xMouse;
-		double dy = (double) v.m_screen.y - (double) yMouse;
-		radius = dx * dx + dy * dy;
-	// check to see if this object is closer than the closest so far
-		if (radius < closestRadius) {
-			nClosestObj = i;
-			closestRadius = radius;
-			}
-		}
-	}
-
-// unhighlight current object and select next object
-i = current->ObjectId ();
-RefreshObject(i, nClosestObj);
-}
-
-//-----------------------------------------------------------------------------
-// Find the nearest textured segment side the user had clicked on.
-// First try to read the segment and side secondary render target from the renderer
-// If that fails, cast a ray through the mouse position from the near to the 
-// far plane and find the nearest textured segment side intersected by the ray
-// Disabled because the new side and segment selection method is more flexible
-// when it comes to selecting open (untextured) sides.
-
-short CMineView::FindSelectedTexturedSide (long xMouse, long yMouse, short& nSide)
-{
-short nSegment;
-if (m_viewOption == eViewTextured || m_viewOption == eViewTexturedWireFrame) {
-	int nResult = Renderer ().GetSideKey (xMouse, yMouse, nSegment, nSide);
-	if (nResult == 1)
-		if (!segmentManager.Segment (nSegment)->m_info.bTunnel)
-			return nSegment;
-		else
-			return -1;
-	if (nResult == 0)
-		return -1;
-	}
-
-CVertex p1, p2;
-p2.m_proj.v.x = xMouse;
-p2.m_proj.v.y = yMouse;
-p1.m_proj.v.z = -1.0;
-p2.m_proj.v.z = 1.0;
-CPoint viewCenter (0, 0);
-Renderer ().BeginRender ();
-Renderer ().ViewMatrix ()->Unproject (p2, p2.m_proj);
-Renderer ().EndRender ();
-p1.Clear ();
-CDoubleVector mouseDir = p2;
-mouseDir.Normalize ();
-
-double minDist = 1e30;
-short nMinSeg = -1;
-short nMinSide = -1;
-short nSegments = segmentManager.Count ();
-Renderer ().Project ();
-segmentManager.ComputeNormals (true, true);
-
-bool bSkyBox = ViewFlag (eViewMineSkyBox);
-
-#pragma omp parallel for if (nSegments > 15)
-for (short nSegment = 0; nSegment < nSegments; nSegment++) {
-	CSegment* pSegment = segmentManager.Segment (nSegment);
-	if (!bSkyBox && (pSegment->Function () == SEGMENT_FUNC_SKYBOX))
-		continue;
-	if (pSegment->m_info.bTunnel)
-		continue;
-	CSide* pSide = pSegment->Side (0);
-	for (short nSide = 0; nSide < 6; nSide++, pSide++) {
-		double d;
-		if (pSide->Shape () > SIDE_SHAPE_TRIANGLE)
-			continue;
-		if (!pSide->IsVisible ())
-			continue;
-		if ((d = Dot (mouseDir, pSide->m_vNormal [0])) > 0.0)
-			continue; // looking at the back of the side
-		d = pSide->LineHitsFace (&p1, &p2, pSegment->m_info.vertexIds, minDist, true);
-		if (d < 0.0)
-			continue;
-#pragma omp critical
-			{
-			if (minDist > d) {
-				minDist = d;
-				nMinSeg = nSegment;
-				nMinSide = nSide;
-				}
-			}
-		}
-	}
-nSide = nMinSide;
-return nMinSeg;
-}
-
-//-----------------------------------------------------------------------------
-
-bool CMineView::SelectCurrentSide (long xMouse, long yMouse, bool bAddToTagged) 
-{
-if (!m_bEnableQuickSelection && m_inputHandler.MouseState () != eMouseStateApplySelect)
-	return false;
-if ((m_inputHandler.MouseState () == eMouseStateApplySelect) && (nearest->m_nSegment >= 0) && (nearest->m_nSide >= 0)) {
-	current->SetSegmentId (nearest->m_nSegment);
-	current->SetSideId (nearest->m_nSide);
-	}
-else {
-	short nSide, nSegment = FindSelectedTexturedSide (xMouse, yMouse, nSide);
-	if (0 > nSegment) 
+	if (!m_bEnableQuickSelection && m_inputHandler.MouseState() != eMouseStateApplySelect)
 		return false;
-	current->Setup (nSegment, nSide);
-	}
-if (Perspective () && bAddToTagged)
-	current->Segment ()->TagVertices (TAGGED_MASK, current->SideId ());
-DLE.ToolView ()->Refresh ();
-Refresh ();
-return true;
-}
-
-//-----------------------------------------------------------------------------
-
-bool CMineView::SelectCurrentSegment (long xMouse, long yMouse, bool bAddToTagged) 
-{
-return SelectCurrentSide (xMouse, yMouse, bAddToTagged);
-}
-
-//-----------------------------------------------------------------------------
-
-short CMineView::FindNearestLine (CSegment** nearestSegment, CSide** nearestSide, bool bCurrentSideOnly)
-{
-short nNearestEdge = -1;
-double minDist = 1e30;
-CRect viewport;
-GetClientRect (viewport);
-
-#if 1
-if (bCurrentSideOnly) {
-	short nEdge = current->Side ()->NearestEdge (viewport, LastMousePos ().x, LastMousePos ().y, current->Segment ()->m_info.vertexIds, minDist);
-	if (nEdge >= 0) {
-		*nearestSegment = current->Segment ();
-		*nearestSide = current->Side ();
-		nNearestEdge = nEdge;
-		}
-	}
-else {
-	short nSegments = segmentManager.Count ();
-	for (short nSegment = 0; nSegment < nSegments; nSegment++) {
-		CSegment* pSegment = segmentManager.Segment (nSegment);
-		bool bSegmentSelected = false;
-		CSide* pSide = pSegment->Side (0);
-		for (short nSide = 0; nSide < 6; nSide++, pSide++) {
-			if (pSide->Shape () > SIDE_SHAPE_TRIANGLE)
-				continue;
-			short nEdge = pSide->NearestEdge (viewport, LastMousePos ().x, LastMousePos ().y, pSegment->m_info.vertexIds, minDist);
-			if (nEdge >= 0) {
-				*nearestSegment = pSegment;
-				*nearestSide = pSide;
-				nNearestEdge = nEdge;
-				}
-			}
-		}
-	}
-#else
-if (!segmentManager.GatherSelectableSides (viewport, LastMousePos ().x, LastMousePos ().y))
-	return false;
-
-for (CSide* pSide = segmentManager.SelectedSides (); pSide; pSide = pSide->GetLink ()) {
-	CSegment* pSegment = segmentManager.Segment (pSide->GetParent ());
-	short nEdge = pSide->NearestEdge (viewport, LastMousePos ().x, LastMousePos ().y, pSegment->m_info.vertexIds, minDist);
-	if (nEdge >= 0) {
-		nearestSegment = pSegment;
-		nearestSide = pSide;
-		nNearestEdge = nEdge;
-		}
-	}
-#endif
-
-return nNearestEdge;
-}
-
-//-----------------------------------------------------------------------------
-
-bool CMineView::SelectCurrentLine (long xMouse, long yMouse, bool bAddToTagged) 
-{
-if (!m_bEnableQuickSelection && m_inputHandler.MouseState () != eMouseStateApplySelect)
-	return false;
-
-short nSegment = -1, nSide = -1, nEdge = -1;
-CSegment *pSegment = null;
-if (m_inputHandler.MouseState () == eMouseStateApplySelect && nearest->Edge () >= 0) {
-	nSegment = nearest->m_nSegment;
-	nSide = nearest->m_nSide;
-	nEdge = nearest->Edge ();
-	pSegment = nearest->Segment ();
-	}
-else {
-	CSide *pSide = null;
-	nEdge = FindNearestLine (&pSegment, &pSide, m_inputHandler.MouseState () != eMouseStateApplySelect);
-	if (nEdge < 0 || !pSegment || !pSide)
+	if (0 > selection.SegmentId())
 		return false;
-	nSegment = segmentManager.Index (pSegment);
-	nSide = pSegment->SideIndex (pSide);
-	}
-
-ushort nVertices [2] = {pSegment->VertexId (nSide, nEdge), pSegment->VertexId (nSide, nEdge + 1)};
-if (bAddToTagged && (nVertices [0] <= MAX_VERTEX) && (nVertices [1] <= MAX_VERTEX)) {
-	vertexManager [nVertices [0]].Tag ();
-	vertexManager [nVertices [1]].Tag ();
-	}
-current->SetSegmentId (nSegment);
-current->SetSideId (nSide);
-current->SetEdge (nEdge);
-current->SetPoint (nEdge);
-
-DLE.ToolView ()->Refresh ();
-Refresh ();
-return true;
+	current->Setup(selection.SegmentId(), selection.SideId());
+	if (Perspective() && bAddToTagged)
+		current->Segment()->TagVertices(TAGGED_MASK, current->SideId());
+	DLE.ToolView()->Refresh();
+	Refresh();
+	return true;
 }
 
 //-----------------------------------------------------------------------------
 
-int CMineView::FindNearestVertex (long xMouse, long yMouse, bool bCurrentSideOnly)
+bool CMineView::SelectSegment (const CSelection& selection, bool bAddToTagged)
 {
-	CDoubleVector screen, clickPos (xMouse, yMouse, 0.0);
-	CVertex* pVertex = vertexManager.Vertex (0);
-	double dMin = 1e30;
-	int xMax = ViewWidth (), yMax = ViewHeight ();
-	int nVertex = -1;
-
-for (int i = vertexManager.Count (); i; i--, pVertex++) {
-#if 0
-	if (!pVertex->InRange (xMax, yMax, m_nRenderer))
-		continue;
-	double d = Distance (clickPos, pVertex->m_proj);
-#else
-	CVertex v = *pVertex;
-	if (!v.InRange (xMax, yMax, m_nRenderer))
-		continue;
-	if (bCurrentSideOnly) {
-		if (!current->Segment ()->HasVertex (vertexManager.Index (pVertex)))
-			continue;
-		short nSegmentVertexIndex = current->Segment ()->VertexIndex (vertexManager.Index(pVertex));
-		if (!current->Side ()->HasVertex ((ubyte) nSegmentVertexIndex))
-			continue;
-		}
-	v.m_proj.v.z = 0.0;
-	double d = Distance (clickPos, v.m_proj);
-#endif
-	if (dMin > d) {
-		dMin = d;
-		nVertex = i;
-		}
-	}
-return (nVertex < 0) ? -1 : vertexManager.Count () - nVertex;
+	return SelectSide(selection, bAddToTagged);
 }
 
 //-----------------------------------------------------------------------------
 
-bool CMineView::SelectCurrentPoint (long xMouse, long yMouse, bool bAddToTagged) 
+bool CMineView::SelectLine (const CSelection& selection, bool bAddToTagged)
 {
-if (!m_bEnableQuickSelection && m_inputHandler.MouseState () != eMouseStateApplySelect)
-	return false;
+	if (!m_bEnableQuickSelection && m_inputHandler.MouseState() != eMouseStateApplySelect)
+		return false;
 
-int nVertex = FindNearestVertex (xMouse, yMouse, m_inputHandler.MouseState () != eMouseStateApplySelect);
-if (nVertex >= 0) {
-	if (bAddToTagged)
-		vertexManager [nVertex].Tag ();
+	short nSide = selection.SideId();
+	short nEdge = selection.Edge();
+	if (selection.SegmentId() < 0 || nSide < 0 || nEdge < 0)
+		return false;
 
-	// Does the current side contain this vertex? If so, use it
-	short nSegmentVertexIndex = current->Segment ()->VertexIndex (nVertex);
-	short nSideVertexIndex = current->Side ()->FindVertexIdIndex ((ubyte) nSegmentVertexIndex);
-	if (nSideVertexIndex >= 0) {
-		current->SetEdge (nSideVertexIndex);
-		current->SetPoint (nSideVertexIndex);
-		}
-	else {
-		// Need to find a segment with this vertex
-		CSegment *pSegment = segmentManager.Segment (0);
-		for (int i = 0; i < segmentManager.Count (); i++, pSegment++) {
-			nSegmentVertexIndex = pSegment->VertexIndex (nVertex);
-			for (int j = 0; nSegmentVertexIndex >= 0 && j < MAX_SIDES_PER_SEGMENT; j++) {
-				nSideVertexIndex = pSegment->SideVertexIndex (j, (ubyte) nSegmentVertexIndex);
-				if (nSideVertexIndex >= 0) {
-					current->SetSegmentId (i);
-					current->SetSideId (j);
-					current->SetEdge (nSideVertexIndex);
-					current->SetPoint (nSideVertexIndex);
-					break;
-					}
-				}
-			if (nSideVertexIndex >= 0)
-				break;
-			}
-		}
+	CSegment* pSegment = selection.Segment();
+	ushort nVertices[2]{
+		pSegment->VertexId(nSide, nEdge),
+		pSegment->VertexId(nSide, nEdge + 1)
+	};
+	if (bAddToTagged && (nVertices[0] <= MAX_VERTEX) && (nVertices[1] <= MAX_VERTEX))
+	{
+		vertexManager[nVertices[0]].Tag();
+		vertexManager[nVertices[1]].Tag();
 	}
-DLE.ToolView ()->Refresh ();
-Refresh ();
-return true;
+	current->Setup(selection.SegmentId(), nSide, nEdge, nEdge);
+
+	DLE.ToolView()->Refresh();
+	Refresh();
+	return true;
 }
 
 //-----------------------------------------------------------------------------
 
-bool CMineView::SelectCurrentElement (long xMouse, long yMouse, bool bAddToTagged) 
+bool CMineView::SelectPoint (const CSelection& selection, bool bAddToTagged)
 {
-switch (theMine->SelectMode ()) {
+	if (!m_bEnableQuickSelection && m_inputHandler.MouseState() != eMouseStateApplySelect)
+		return false;
+
+	int nVertex = vertexManager.Index(selection.Vertex());
+	if (nVertex >= 0)
+	{
+		if (bAddToTagged)
+			vertexManager[nVertex].Tag();
+		current->Setup(selection.SegmentId(), selection.SideId(), selection.Edge(), selection.Point());
+	}
+
+	DLE.ToolView()->Refresh();
+	Refresh();
+	return true;
+}
+
+//-----------------------------------------------------------------------------
+
+bool CMineView::SelectCurrentElement(long xMouse, long yMouse, bool bAddToTagged)
+{
+	bool useNearest = (m_inputHandler.MouseState() == eMouseStateApplySelect);
+	CSelection currentElement;
+	if (useNearest)
+	{
+		currentElement = *nearest;
+	}
+
+	switch (theMine->SelectMode())
+	{
 	case POINT_MODE:
-		return SelectCurrentPoint (xMouse, yMouse, bAddToTagged);
+		currentElement.Setup();
+		m_presenter.FindNearestVertex(xMouse, yMouse, &currentElement, useNearest ? nullptr : current->Side());
+		return SelectPoint(currentElement, bAddToTagged);
 
 	case LINE_MODE:
-		return SelectCurrentLine (xMouse, yMouse, bAddToTagged);
+		if (!useNearest || (nearest->Edge() < 0))
+		{
+			currentElement.Setup();
+			m_presenter.FindNearestLine(xMouse, yMouse, &currentElement, useNearest ? nullptr : current->Side());
+		}
+		return SelectLine(currentElement, bAddToTagged);
 
 	case SIDE_MODE:
-		return SelectCurrentSide (xMouse, yMouse, bAddToTagged);
+		if (!useNearest || (nearest->m_nSegment < 0) || (nearest->m_nSide < 0))
+		{
+			currentElement.Setup();
+			m_presenter.FindNearestSide(xMouse, yMouse, &currentElement);
+		}
+		return SelectSide(currentElement, bAddToTagged);
 
 	case SEGMENT_MODE:
 	case BLOCK_MODE:
-		return SelectCurrentSegment (xMouse, yMouse, bAddToTagged);
+		if (!useNearest || (nearest->m_nSegment < 0) || (nearest->m_nSide < 0))
+		{
+			currentElement.Setup();
+			m_presenter.FindNearestSegment(xMouse, yMouse, &currentElement);
+		}
+		return SelectSegment(currentElement, bAddToTagged);
 
 	case OBJECT_MODE:
-		SelectCurrentObject (xMouse, yMouse);
+		currentElement.Setup();
+		m_presenter.FindNearestObject(xMouse, yMouse, &currentElement);
+		SelectObject(currentElement);
 		return true;
 	}
-return false;
+	return false;
 }
 
 //-----------------------------------------------------------------------------
@@ -529,7 +265,6 @@ if (nChild > -1) {
 	m_lastSegment = current->SegmentId ();
 	current->SetSegmentId (nChild);
 	}
-DrawHighlight ();
 Refresh (true);
 }
 
@@ -592,10 +327,10 @@ NextObject (-1);
 void CMineView::NextSegmentElement (int dir)
 {
 switch (m_selectMode) {
-	case eSelectPoint:
+	case SelectMode::Point:
 		NextPoint (dir);
 		break;
-	case eSelectLine:
+	case SelectMode::Line:
 		NextLine (dir);
 		break;
 	default:
@@ -621,15 +356,17 @@ void CMineView::LocateTexture (short nTexture)
 
 for (short i = nSegments; i; i--) {
 	CSegment* pSegment = segmentManager.Segment (nSegment);
-	for (short j = nSide; j < MAX_SIDES_PER_SEGMENT; j++) {
-		CSide* pSide = pSegment->Side (j);
+	for (short j = 0; j < MAX_SIDES_PER_SEGMENT; j++) {
+		nSide %= MAX_SIDES_PER_SEGMENT;
+		CSide* pSide = pSegment->Side (nSide);
 		if ((pSide->Shape () <= SIDE_SHAPE_TRIANGLE) && ((pSide->BaseTex () == nTexture) || (nTexture && (pSide->OvlTex () == nTexture)))) {
 			current->SetSegmentId (nSegment);
-			current->SetSideId (j);
+			current->SetSideId (nSide);
 			DLE.ToolView ()->Refresh ();
 			Refresh ();
 			return;
 			}
+		nSide++;
 		}
 	nSide = 0;
 	nSegment = (nSegment + 1) % nSegments;
@@ -641,27 +378,26 @@ void CMineView::TagSelected()
 	bool	bSegTag = false;
 	CSegment* pSegment = current->Segment();
 	int i, j, p[8], nPoints;
-	uint selectMode = DLE.MineView()->GetSelectMode();
 
-	switch (selectMode) {
-	case eSelectPoint:
+	switch (m_selectMode) {
+	case SelectMode::Point:
 		nPoints = 1;
 		p[0] = current->VertexId();
 		break;
 
-	case eSelectLine:
+	case SelectMode::Line:
 		nPoints = 2;
 		p[0] = pSegment->VertexId(current->Side()->VertexIdIndex(current->Point()));
 		p[1] = pSegment->VertexId(current->Side()->VertexIdIndex(current->Point() + 1));
 		break;
 
-	case eSelectSide:
+	case SelectMode::Side:
 		nPoints = current->Side()->VertexCount();
 		for (i = 0; i < nPoints; i++)
 			p[i] = pSegment->VertexId(current->Side()->VertexIdIndex(i));
 		break;
 
-	case eSelectSegment:
+	case SelectMode::Segment:
 	default:
 		nPoints = 8;
 		for (i = 0, j = 0; i < nPoints; i++) {
@@ -679,19 +415,19 @@ void CMineView::TagSelected()
 			break;
 
 	if (i == nPoints) { // if all verts are tagged, then untag them
-		switch (selectMode) {
-		case eSelectPoint:
-		case eSelectLine:
+		switch (m_selectMode) {
+		case SelectMode::Point:
+		case SelectMode::Line:
 			for (i = 0; i < nPoints; i++)
 				vertexManager[p[i]].UnTag();
 			break;
 
-		case eSelectSide:
+		case SelectMode::Side:
 			current->Segment()->UnTag(current->SideId());
 			current->Segment()->UnTagVertices(TAGGED_MASK, current->SideId());
 			break;
 
-		case eSelectSegment:
+		case SelectMode::Segment:
 		default:
 			current->Segment()->UnTag();
 			current->Segment()->UnTagVertices(TAGGED_MASK, -1);
@@ -699,19 +435,19 @@ void CMineView::TagSelected()
 		}
 	}
 	else { // otherwise tag all the points
-		switch (selectMode) {
-		case eSelectPoint:
-		case eSelectLine:
+		switch (m_selectMode) {
+		case SelectMode::Point:
+		case SelectMode::Line:
 			for (i = 0; i < nPoints; i++)
 				vertexManager[p[i]].Tag();
 			break;
 
-		case eSelectSide:
+		case SelectMode::Side:
 			current->Segment()->Tag(current->SideId());
 			current->Segment()->TagVertices(TAGGED_MASK, current->SideId());
 			break;
 
-		case eSelectSegment:
+		case SelectMode::Segment:
 		default:
 			current->Segment()->Tag();
 			current->Segment()->TagVertices(TAGGED_MASK, -1);

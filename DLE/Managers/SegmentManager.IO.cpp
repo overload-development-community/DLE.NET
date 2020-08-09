@@ -3,8 +3,6 @@
 #include "stdafx.h"
 #include "RobotManager.h"
 
-extern short nDbgSeg, nDbgSide;
-
 // ------------------------------------------------------------------------
 
 void CSegmentManager::SetIndex (void)
@@ -22,10 +20,6 @@ if (m_segmentInfo.Restore (fp)) {
 	int i;
 
 	for (i = 0; i < Count (); i++) {
-#ifdef _DEBUG
-		if (i == nDbgSeg)
-			nDbgSeg = nDbgSeg;
-#endif
 		if (i < SEGMENT_LIMIT) {
 			m_segments [i].Reset ();
 			m_segments [i].Read (fp);
@@ -40,10 +34,6 @@ if (m_segmentInfo.Restore (fp)) {
 	if (!g_data.IsD2File ())
 		return;
 	for (i = 0; i < Count (); i++) {
-#ifdef _DEBUG
-		if (i == nDbgSeg)
-			nDbgSeg = nDbgSeg;
-#endif
 		m_segments [i].ReadExtras (fp, true);
 		}
 	}
@@ -58,10 +48,6 @@ if (m_segmentInfo.Setup (fp)) {
 
 	int j = Count ();
 	for (int i = 0; i < j; i++) {
-#ifdef _DEBUG
-		if (i == nDbgSeg)
-			nDbgSeg = nDbgSeg;
-#endif
 		m_segments [i].Write (fp);
 		}
 	if (!g_data.IsD2File ())

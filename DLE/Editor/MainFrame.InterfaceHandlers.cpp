@@ -448,24 +448,24 @@ void CMainFrame::OnViewShiftVertices ()
 current->Segment ()->ShiftVertices (current->SideId ());
 }
 
-void CMainFrame::OnViewAlignSideRotation () 
+void CMainFrame::OnViewAlignSideRotation()
 {
-MineView ()->AlignSide ();	
+    // never implemented
 }
 
-void CMainFrame::OnViewCenterEntireMine () 
+void CMainFrame::OnViewCenterEntireMine()
 {
-MineView ()->CenterOnMine ();	
+    MineView()->FitToView();
 }
 
-void CMainFrame::OnViewCenterOnCurrentSegment () 
+void CMainFrame::OnViewCenterOnCurrentSegment()
 {
-MineView ()->CenterOnSegment ();	
+    MineView()->CenterOnSegment();
 }
 
-void CMainFrame::OnViewCenterOnCurrentObject () 
+void CMainFrame::OnViewCenterOnCurrentObject()
 {
-MineView ()->CenterOnObject ();
+    MineView()->CenterOnObject();
 }
 
 //------------------------------------------------------------------------------
@@ -473,38 +473,38 @@ MineView ()->CenterOnObject ();
 void CMainFrame::OnViewWireFrameFull () 
 {
 CMineView* mineView = MineView ();
-if ((mineView->Renderer ().Type () == 1) && mineView->ViewOption (eViewTextured))
-	mineView->SetViewOption (eViewTexturedWireFrame);
+if ((mineView->Renderer ().Type () == 1) && mineView->IsViewModeSet (eViewTextured))
+	mineView->SetViewMode (eViewTexturedWireFrame);
 else
-	mineView->SetViewOption (eViewWireFrameFull);
+	mineView->SetViewMode (eViewWireFrameFull);
 }
 
 void CMainFrame::OnViewHidelines () 
 {
-MineView ()->SetViewOption (eViewHideLines);
+MineView ()->SetViewMode (eViewHideLines);
 }
 
 void CMainFrame::OnViewNearbySegmentLines () 
 {
-MineView ()->SetViewOption (eViewNearbyCubeLines);
+MineView ()->SetViewMode (eViewNearbyCubeLines);
 }
 
 void CMainFrame::OnViewWireFrameSparse () 
 {
 CMineView* mineView = MineView ();
-if ((mineView->Renderer ().Type () == 1) && mineView->ViewOption (eViewTextured))
-	mineView->SetViewOption (eViewTexturedWireFrame);
+if ((mineView->Renderer ().Type () == 1) && mineView->IsViewModeSet (eViewTextured))
+	mineView->SetViewMode (eViewTexturedWireFrame);
 else
-	mineView->SetViewOption (eViewWireFrameSparse);
+	mineView->SetViewMode (eViewWireFrameSparse);
 }
 
 void CMainFrame::OnViewTextured () 
 {
 CMineView* mineView = MineView ();
-if ((mineView->Renderer ().Type () == 1) && (mineView->ViewOption (eViewWireFrameFull) || mineView->ViewOption (eViewWireFrameSparse)))
-	mineView->SetViewOption (eViewTexturedWireFrame);
+if ((mineView->Renderer ().Type () == 1) && (mineView->IsViewModeSet (eViewWireFrameFull) || mineView->IsViewModeSet (eViewWireFrameSparse)))
+	mineView->SetViewMode (eViewTexturedWireFrame);
 else
-	mineView->SetViewOption (eViewTextured);
+	mineView->SetViewMode (eViewTextured);
 }
 
 //------------------------------------------------------------------------------
@@ -688,19 +688,19 @@ void CMainFrame::OnUpdateInsModeMirror (CCmdUI* pCmdUI)
 pCmdUI->SetCheck (segmentManager.AddMode () == MIRROR);
 }
 
-void CMainFrame::UpdateSelectButtons (eSelectModes mode)
+void CMainFrame::UpdateSelectButtons (SelectMode mode)
 {
 	static char *szSelMode [] = {" select: pos", " select: line", " select: side", " select: segment", " select: object", " select: block"};
 
 for (int i = 0; i <= ID_SEL_BLOCKMODE - ID_SEL_POINTMODE; i++)
-	m_toolBar.GetToolBarCtrl ().CheckButton (ID_SEL_POINTMODE + i, i == mode);
-SelModeMsg (szSelMode [mode]);
+	m_toolBar.GetToolBarCtrl ().CheckButton (ID_SEL_POINTMODE + i, i == static_cast<uint>(mode));
+SelModeMsg (szSelMode [static_cast<uint>(mode)]);
 }
 
-void CMainFrame::SetSelectMode (eSelectModes mode)
+void CMainFrame::SetSelectMode (SelectMode mode)
 {
 UpdateSelectButtons (mode);
-MineView ()->SetSelectMode (mode);
+MineView ()->SetSelectMode (static_cast<uint>(mode));
 }
 
 void CMainFrame::OnSelectPrevTab ()
@@ -717,32 +717,32 @@ ToolView ()->NextTab ();
 
 void CMainFrame::OnSelectPointMode ()
 {
-SetSelectMode (eSelectPoint);
+SetSelectMode (SelectMode::Point);
 }
 
 void CMainFrame::OnSelectEdgeMode ()
 {
-SetSelectMode (eSelectLine);
+SetSelectMode (SelectMode::Line);
 }
 
 void CMainFrame::OnSelectSideMode ()
 {
-SetSelectMode (eSelectSide);
+SetSelectMode (SelectMode::Side);
 }
 
 void CMainFrame::OnSelectCubeMode ()
 {
-SetSelectMode (eSelectSegment);
+SetSelectMode (SelectMode::Segment);
 }
 
 void CMainFrame::OnSelectObjectMode ()
 {
-SetSelectMode (eSelectObject);
+SetSelectMode (SelectMode::Object);
 }
 
 void CMainFrame::OnSelectBlockMode ()
 {
-SetSelectMode (eSelectBlock);
+SetSelectMode (SelectMode::Block);
 }
 
 //------------------------------------------------------------------------------
@@ -796,13 +796,13 @@ MineView ()->ToggleViewObjects (eViewObjectsControlCenter);
 
 void CMainFrame::OnViewPanIn () 
 {
-if (MineView ()->m_viewOption != eViewNearbyCubeLines)
+if (MineView ()->GetViewOptions() != eViewNearbyCubeLines)
 	MineView ()->Pan ('Z', gMoveRates [MineView ()->Perspective ()]);
 }
 
 void CMainFrame::OnViewPanOut () 
 {
-if (MineView ()->m_viewOption != eViewNearbyCubeLines)
+if (MineView ()->GetViewOptions() != eViewNearbyCubeLines)
 	MineView ()->Pan ('Z', -gMoveRates [MineView ()->Perspective ()]);
 }
 
@@ -810,7 +810,7 @@ void CMainFrame::OnViewPanRight ()
 {
 /*if (MineView ()->Perspective ())
 	OnViewRotateRight ();
-else*/ if (MineView ()->m_viewOption != eViewNearbyCubeLines)
+else*/ if (MineView ()->GetViewOptions() != eViewNearbyCubeLines)
 	MineView ()->Pan ('X', MineView ()->Perspective () ? gMoveRates [0] : -gMoveRates [0]);
 }
 
@@ -818,7 +818,7 @@ void CMainFrame::OnViewPanLeft ()
 {
 /*if (MineView ()->Perspective ())
 	OnViewRotateLeft ();
-else*/ if (MineView ()->m_viewOption != eViewNearbyCubeLines)
+else*/ if (MineView ()->GetViewOptions() != eViewNearbyCubeLines)
 	MineView ()->Pan ('X', MineView ()->Perspective () ? -gMoveRates [0] : gMoveRates [0]);
 }
 
@@ -826,7 +826,7 @@ void CMainFrame::OnViewPanUp ()
 {
 /*if (MineView ()->Perspective ())
 	OnViewRotateUp ();
-else*/ if (MineView ()->m_viewOption != eViewNearbyCubeLines)
+else*/ if (MineView ()->GetViewOptions() != eViewNearbyCubeLines)
 	MineView ()->Pan ('Y', MineView ()->Renderer ().Type () ? gMoveRates [0] : -gMoveRates [0]);
 }
 
@@ -834,7 +834,7 @@ void CMainFrame::OnViewPanDown ()
 {
 /*if (MineView ()->Perspective ())
 	OnViewRotateDown ();
-else*/ if (MineView ()->m_viewOption != eViewNearbyCubeLines)
+else*/ if (MineView ()->GetViewOptions() != eViewNearbyCubeLines)
 	MineView ()->Pan ('Y', MineView ()->Renderer ().Type () ? -gMoveRates [0] : gMoveRates [0]);
 }
 
@@ -960,24 +960,24 @@ pCmdUI->Enable ((BOOL) DLE.IsD2XLevel ());
 
 void CMainFrame::OnUpdateViewAlllines (CCmdUI* pCmdUI) 
 {
-pCmdUI->SetCheck (MineView ()->m_viewOption == eViewWireFrameFull ? 1 : 0);
+pCmdUI->SetCheck (MineView ()->GetViewOptions() == eViewWireFrameFull ? 1 : 0);
 }
 void CMainFrame::OnUpdateViewHidelines (CCmdUI* pCmdUI) 
 {
-pCmdUI->SetCheck (MineView ()->m_viewOption == eViewHideLines ? 1 : 0);
+pCmdUI->SetCheck (MineView ()->GetViewOptions() == eViewHideLines ? 1 : 0);
 }
 void CMainFrame::OnUpdateViewNearbySegmentLines (CCmdUI* pCmdUI) 
 {
-pCmdUI->SetCheck (MineView ()->m_viewOption == eViewNearbyCubeLines ? 1 : 0);
+pCmdUI->SetCheck (MineView ()->GetViewOptions() == eViewNearbyCubeLines ? 1 : 0);
 }
 void CMainFrame::OnUpdateViewPartiallines (CCmdUI* pCmdUI) 
 {
-pCmdUI->SetCheck (MineView ()->m_viewOption == eViewWireFrameSparse ? 1 : 0);
+pCmdUI->SetCheck (MineView ()->GetViewOptions() == eViewWireFrameSparse ? 1 : 0);
 }
 
 void CMainFrame::OnUpdateViewTexturemapped (CCmdUI* pCmdUI) 
 {
-pCmdUI->SetCheck (MineView ()->m_viewOption == eViewTextured ? 1 : 0);
+pCmdUI->SetCheck (MineView ()->GetViewOptions() == eViewTextured ? 1 : 0);
 }
 
 //------------------------------------------------------------------------------
@@ -1177,7 +1177,7 @@ EditGeoShrink ();
 
 void CMainFrame::OnSelNextPoint ()
 {
-if (MineView ()->SelectMode (POINT_MODE))
+if (MineView ()->IsSelectMode (SelectMode::Point))
 	MineView ()->NextPoint ();
 else
 	MineView ()->SetSelectMode (POINT_MODE);
@@ -1187,7 +1187,7 @@ else
 
 void CMainFrame::OnSelPrevPoint ()
 {
-if (MineView ()->SelectMode (POINT_MODE))
+if (MineView ()->IsSelectMode(SelectMode::Point))
 	MineView ()->PrevPoint ();
 else
 	MineView ()->SetSelectMode (POINT_MODE);
@@ -1197,7 +1197,7 @@ else
 
 void CMainFrame::OnSelNextLine ()
 {
-if (MineView ()->SelectMode (LINE_MODE))
+if (MineView ()->IsSelectMode(SelectMode::Line))
 	MineView ()->NextLine ();
 else
 	MineView ()->SetSelectMode (LINE_MODE);
@@ -1207,7 +1207,7 @@ else
 
 void CMainFrame::OnSelPrevLine ()
 {
-if (MineView ()->SelectMode (LINE_MODE))
+if (MineView ()->IsSelectMode(SelectMode::Line))
 	MineView ()->PrevLine ();
 else
 	MineView ()->SetSelectMode (LINE_MODE);
@@ -1217,7 +1217,7 @@ else
 
 void CMainFrame::OnSelNextSide ()
 {
-if (MineView ()->SelectMode (SIDE_MODE))
+if (MineView ()->IsSelectMode(SelectMode::Side))
 	MineView ()->NextSide ();
 else
 	MineView ()->SetSelectMode (SIDE_MODE);
@@ -1227,7 +1227,7 @@ else
 
 void CMainFrame::OnSelPrevSide ()
 {
-if (MineView ()->SelectMode (SIDE_MODE))
+if (MineView ()->IsSelectMode(SelectMode::Side))
 	MineView ()->PrevSide ();
 else
 	MineView ()->SetSelectMode (SIDE_MODE);
@@ -1237,7 +1237,7 @@ else
 
 void CMainFrame::OnSelNextSegment ()
 {
-if (MineView ()->SelectMode (SEGMENT_MODE))
+if (MineView ()->IsSelectMode(SelectMode::Segment))
 	MineView ()->NextSegment ();
 else
 	MineView ()->SetSelectMode (SEGMENT_MODE);
@@ -1247,7 +1247,7 @@ else
 
 void CMainFrame::OnSelPrevSegment ()
 {
-if (MineView ()->SelectMode (SEGMENT_MODE))
+if (MineView ()->IsSelectMode(SelectMode::Segment))
 	MineView ()->PrevSegment ();
 else
 	MineView ()->SetSelectMode (SEGMENT_MODE);
@@ -1257,7 +1257,7 @@ else
 
 void CMainFrame::OnSelNextObject ()
 {
-if (MineView ()->SelectMode (OBJECT_MODE))
+if (MineView ()->IsSelectMode(SelectMode::Object))
 	MineView ()->NextObject ();
 else
 	MineView ()->SetSelectMode (OBJECT_MODE);
@@ -1267,7 +1267,7 @@ else
 
 void CMainFrame::OnSelPrevObject ()
 {
-if (MineView ()->SelectMode (OBJECT_MODE))
+if (MineView ()->IsSelectMode(SelectMode::Object))
 	MineView ()->PrevObject ();
 else
 	MineView ()->SetSelectMode (OBJECT_MODE);

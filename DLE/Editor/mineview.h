@@ -10,28 +10,7 @@
 #endif // _MSC_VER >= 1000
 
 #include "afxcview.h"
-
-// -----------------------------------------------------------------------------
-
-enum eViewOptions {
-	eViewWireFrameFull = 0,
-	eViewHideLines,
-	eViewNearbyCubeLines,
-	eViewWireFrameSparse,
-	eViewTextured,
-	eViewTexturedWireFrame
-	};
-
-// -----------------------------------------------------------------------------
-
-enum eSelectModes {
-	eSelectPoint	= POINT_MODE,
-	eSelectLine		= LINE_MODE,
-	eSelectSide		= SIDE_MODE,
-	eSelectSegment	= SEGMENT_MODE,
-	eSelectObject	= OBJECT_MODE,
-	eSelectBlock	= BLOCK_MODE
-	};
+#include "MineView.Presenter.h"
 
 // -----------------------------------------------------------------------------
 
@@ -281,50 +260,27 @@ protected: // create from serialization only
 	DECLARE_DYNCREATE(CMineView)
 
 	CSplitterWnd*	m_pSplitter;
-
-	CRenderData		m_renderData;
+	CMineViewPresenter m_presenter;
 	CInputHandler	m_inputHandler;
 
 	// member variables
-	bool 				m_bUpdate;
+	bool 				m_needsRepaint;
 	bool 				m_bUpdateCursor;
+	bool 				m_rubberRectInProgress;
 	bool 				m_bDelayRefresh;
 	int 				m_nDelayRefresh;
-	uint				m_viewOption;
-	uint				m_selectMode;
+	SelectMode			m_selectMode;
+	double			m_moveRate [2];
 
-	CPoint			m_lastDragPos;
-	CPoint			m_highlightPos;
 	short				m_lastSegment;
-	CRect				m_rubberRect;
 	UINT_PTR			m_lightTimer;
 	UINT_PTR			m_selectTimer;
 	int 				m_nFrameRate;
 	int				m_nShowSelectionCandidates;
 	int				m_bEnableQuickSelection;
-	bool 				m_bHScroll,
-						m_bVScroll;
-	int 				m_xScrollRange,
-						m_yScrollRange;
-	int 				m_xScrollCenter,
-						m_yScrollCenter;
-	int 				m_xRenderOffs,
-						m_yRenderOffs;
-	int 				m_nViewDist;
-	int 				m_nMineCenter;
 	int				m_nElementMovementReference;
-
-	CPoint			m_viewCenter;
-	CPoint			m_viewMax;
-
-	int 				m_x0, m_x1, m_y;
-	double			m_z0, m_z1;
-
-	CRenderer*		m_renderers [2];
-	CRenderer*		m_renderer;
-	int				m_nRenderer;
-
-	CDynamicArray< CPreviewUVL > m_previewUVLs;
+	int m_xScrollRange;
+	int m_yScrollRange;
 
 	bool m_bMovementTimerActive;
 	LARGE_INTEGER m_lastFrameTime;
@@ -360,90 +316,32 @@ public:
 	virtual void Dump(CDumpContext& dc) const;
 #endif
 
-	inline void SetViewDistIndex (int nViewDist) {
-		if (m_nViewDist != nViewDist) {
-			m_nViewDist = nViewDist;
-			Refresh ();
-			}
-		}
-	inline int ViewDistIndex () {
-		return m_nViewDist;
-		}
-	inline int ViewDist (void) {
-		return (m_nViewDist <= 10) ? m_nViewDist : 
-		(m_nViewDist < 20) ? 10 + 2 * (m_nViewDist - 10) : 30 + 3 * (m_nViewDist - 20);
-		}
-
-	inline bool Visible (CSegment *pSegment) {
-		if ((pSegment->m_info.function == SEGMENT_FUNC_SKYBOX) && !ViewFlag (eViewMineSkyBox))
-			return false;
-		if (!m_nViewDist)
-			return true;
-		return (pSegment->Index () >= 0) && (pSegment->Index () <= ViewDist ()); 
-		}
+	inline void SetViewDistIndex(int nViewDist) { if (m_presenter.SetViewDistIndex(nViewDist)) Refresh(); }
+	inline int ViewDistIndex() { return m_presenter.ViewDistIndex(); }
+	inline int ViewDist() { return m_presenter.ViewDist(); }
 
 	inline void SetElementMovementReference (int nReference) { m_nElementMovementReference = nReference; }
 	inline int GetElementMovementReference (void) { return Perspective () && m_nElementMovementReference; }
 	inline int EnableQuickSelection (void) { return m_bEnableQuickSelection; }
 	inline int ShowSelectionCandidates (void) { return m_nShowSelectionCandidates; }
-	void DrawMineCenter (void);
-	bool VertexVisible (int v);
-	void ComputeViewLimits (CRect* pRC = null);
-	void ShiftViewPoints ();
 	// drawing functions
-	void InitView (CDC* pViewDC);
 	bool UpdateScrollBars (void);
-	void ClearView();
 	void ResetView (bool bRefresh = false);
-	bool InitViewDimensions (void);
-	void DrawWireFrame (bool bSparse);
-	void DrawTexturedSegments (void);
-	void DrawTaggedSegments (void);
-	void DrawSegment (CSegment *pSegment, bool bSparse);
-	void DrawSegmentHighlighted (short nSegment,short nSide, short nEdge, short nPoint);
-	void DrawSegmentPartial (CSegment *pSegment);
-	void DrawSegmentWireFrame (CSegment *pSegment, bool bSparse = false, bool bTagged = false, char bTunnel = 0);
-	void DrawSparseSegmentWireFrame (CSegment *pSegment);
-	void RenderSegmentWireFrame (CSegment *pSegment, bool bSparse, bool bTagged = false);
-	void DrawSegmentPoints (CSegment *pSegment);
-
-	void DrawCurrentSegment (CSegment *pSegment, bool bSparse);
-	void DrawLine (CSegment *pSegment, short vert1, short vert2);
-
-	void DrawWalls (void);
-	void DrawLights (void);
-	void DrawOctagon(short nSide, short nSegment);
-	void DrawObject (short nObject);
-	void DrawObjects (void);
-	bool DrawSelectablePoint (void);
-	bool DrawSelectableEdge (void);
-	bool DrawSelectableSides (void);
-	bool DrawSelectableSegments (void);
-	std::vector<CSide*> GatherSelectableSides(CRect& viewport, long xMouse, long yMouse, bool bAllowSkyBox, bool bSegments);
-	void DrawHighlight (void);
-	void DrawTunnel (void);
-	bool SelectWireFramePen (CSegment* pSegment);
-	void SelectWallPen (CWall* pWall);
-	void SelectObjectPen (CGameObject* pObject);
+	void UpdateStatusText();
 
 	// view control functions
 	int FitToView (void);
 	void TogglePerspective (void);
 	void OverridePerspective (bool bEnable, int nPerspective = 1);
 	void Rotate (char direction, double angle);
-	void AlignSide ();
-	void TagVisibleVerts (bool bReset = false);
-	void CenterOnMine ();
 	void CenterOnSegment ();
 	void CenterOnObject ();
-	void SetViewOption (eViewOptions option);
+	void SetViewMode (eViewMode mode);
 	void ToggleViewMine (eMineViewFlags flag);
 	void ToggleViewObjects (eObjectViewFlags mask);
 	void SetViewMineFlags (uint mask);
 	void SetViewObjectFlags (uint mask);
 	void SetSelectMode (uint mode);
-	void CalcSegDist (void);
-	bool InRange (short *pv, short i);
 
 	void NextPoint (int dir = 1);
 	void PrevPoint ();
@@ -462,6 +360,7 @@ public:
 	void NextSegmentElement (int dir = 1);
 	void PrevSegmentElement ();
 	void HiliteTarget (void);
+	void UpdateNearestSelection();
 
 	void Refresh (bool bAll = true);
 	void EnableDeltaShading (int bEnable, int nFrameRate, int bShowLightSource);
@@ -475,16 +374,13 @@ public:
 
 	void AlignViewerWithSide (void);
 
-	bool ViewObject (CGameObject *pObject);
-	inline bool ViewObject (uint flag = 0) { return flag ? ((ViewObjectFlags () & flag) != 0) : (ViewObjectFlags () != 0); }
-	inline bool ViewFlag (uint flag = 0) { return flag ? (ViewMineFlags () & flag) != 0 : (ViewMineFlags () != 0); }
-	inline bool ViewOption (uint option) { return m_viewOption == option; }
-	inline bool SelectMode (uint mode) { return m_selectMode == mode; }
+	inline bool IsViewModeSet(eViewMode mode) { return m_presenter.IsViewModeSet(mode); }
+	inline bool IsSelectMode(SelectMode mode) { return m_selectMode == mode; }
 	inline uint GetMineViewFlags () { return ViewMineFlags (); }
 	inline uint GetObjectViewFlags () { return ViewObjectFlags (); }
-	inline uint GetViewOptions () { return m_viewOption; }
-	inline uint GetSelectMode () { return m_selectMode; }
-	inline int& MineCenter (void) { return m_nMineCenter; }
+	inline uint GetViewOptions() { return m_presenter.GetViewMode(); }
+	inline SelectMode GetSelectMode () { return m_selectMode; }
+	inline int& MineCenter (void) { return (int&)m_presenter.OriginDisplayType(); }
 	inline void DelayRefresh (bool bDelay) {
 		if (bDelay)
 			m_nDelayRefresh++;
@@ -492,8 +388,6 @@ public:
 			m_nDelayRefresh--;
 		}
 	inline bool DelayRefresh (void) { return m_nDelayRefresh > 0; }
-	inline CPoint& ViewCenter (void) { return m_viewCenter; }
-	inline CPoint& ViewMax (void) { return m_viewMax; }
 
 	CPoint AdjustMousePos (CPoint point);
 	BOOL UpdateCursor ();
@@ -509,23 +403,19 @@ public:
 		return v;
 		}
 
-	int FindNearestVertex (long xMouse, long yMouse, bool bCurrentSideOnly);
-	short FindNearestLine (CSegment** nearestSegment, CSide** nearestSide, bool bCurrentSideOnly);
-	bool SelectCurrentSegment (long xMouse, long yMouse, bool bAddToTagged = false);
-	bool SelectCurrentSide (long xMouse, long yMouse, bool bAddToTagged = false);
-	bool SelectCurrentLine (long xMouse, long yMouse, bool bAddToTagged = false);
-	bool SelectCurrentPoint (long xMouse, long yMouse, bool bAddToTagged = false);
-	void SelectCurrentObject (long xMouse, long yMouse);
+	bool SelectSegment (const CSelection& selection, bool bAddToTagged = false);
+	bool SelectSide (const CSelection& selection, bool bAddToTagged = false);
+	bool SelectLine (const CSelection& selection, bool bAddToTagged = false);
+	bool SelectPoint (const CSelection& selection, bool bAddToTagged = false);
+	void SelectObject (const CSelection& selection);
 	bool SelectCurrentElement (long xMouse, long yMouse, bool bAddToTagged);
+	void SelectNearestObject (long xMouse, long yMouse);
 	void RefreshObject(short old_object, short new_object);
 	void TagRubberBandedVertices (CPoint clickPos, CPoint releasePos, bool bTag);
-	BOOL DrawRubberBox ();
 	void UpdateRubberRect (CPoint clickPos, CPoint pt);
 	void ResetRubberRect ();
 	void DoContextMenu (CPoint point);
 	BOOL UpdateDragPos ();
-	void HighlightDrag (short nVert, long x, long y);
-	BOOL DrawDragPos (void);
 	void InitDrag ();
 	void FinishDrag (CPoint releasePos);
 	void TagSelected();
@@ -534,33 +424,27 @@ public:
 
 	BOOL SetWindowPos (const CWnd *pWndInsertAfter, int x, int y, int cx, int cy, UINT nFlags);
 
-	void ApplyPreview (void);
-	void RevertPreview (void);
-
-	CRenderer& Renderer (void) { return *m_renderer; }
-	void SetRenderer (int nRenderer);
-	inline int GetRenderer (void) { return m_nRenderer; }
-	void SetPerspective (int nPerspective);
-
-	inline int Perspective (void) { return Renderer ().Perspective (); }
+	CRenderer& Renderer() { return m_presenter.Renderer(); }
+	void SetRenderer(int nRenderer);
+	inline int GetRenderer() { return m_presenter.GetRenderer() == RendererType::OpenGL; }
+	void SetPerspective(int nPerspective);
+	inline int Perspective() { return m_presenter.Perspective(); }
 
 	inline void Zoom (int nSteps, double zoom) { 
-		Renderer ().Zoom (nSteps, zoom); 
+		Renderer ().Zoom (nSteps, zoom, ViewMoveRate()); 
 		Refresh (false);
 		}
 	inline int Project (CRect* pRC = null, bool bCheckBehind = false) { return Renderer ().Project (pRC, bCheckBehind); } 
-	inline void DrawFaceTextured (CFaceListEntry& fle) { Renderer ().DrawFaceTextured (fle); } 
-	inline int FaceIsVisible (CSegment* pSegment, CSide* pSide) { return Renderer ().FaceIsVisible (pSegment, pSide); }
 	inline void BeginRender (bool bOrtho = false) { Renderer ().BeginRender (bOrtho); }
 	inline void EndRender (bool bSwapBuffers = false) { Renderer ().EndRender (bSwapBuffers); } 
 	inline int ZoomIn (int nSteps = 1, bool bSlow = false) { 
-		if (!Renderer ().ZoomIn (nSteps, bSlow))
+		if (!Renderer ().ZoomIn (nSteps, bSlow, ViewMoveRate()))
 			return 0;
 		Refresh ();
 		return 1;
 		} 
 	inline int ZoomOut (int nSteps = 1, bool bSlow = false) { 
-		if (!Renderer ().ZoomOut (nSteps, bSlow))
+		if (!Renderer ().ZoomOut (nSteps, bSlow, ViewMoveRate()))
 			return 0;
 		Refresh ();
 		return 1;
@@ -572,58 +456,35 @@ public:
 		}
 
 	inline void Pan (char direction, double offset) { 
-		Renderer ().Pan (direction, offset); 
+		Renderer ().Pan (direction, offset, ViewMoveRate());
 		Refresh (false);
 		}
 	inline void Reset (void);
 
-	inline CDoubleVector& Center (void) { return m_renderData.m_vCenter; }
-	inline CDoubleVector& Translation (void) { return m_renderData.m_vTranslate; }
-	inline CDoubleVector& Scale (void) { return m_renderData.m_vScale; }
-	inline CDoubleVector& Rotation (void) { return m_renderData.m_vRotate; }
-	inline int& ViewWidth (void) { return m_renderData.m_viewWidth; }
-	inline int& ViewHeight (void) { return m_renderData.m_viewHeight; }
-	inline int& ViewDepth (void) { return m_renderData.m_viewDepth; }
-	inline double DepthScale (void) { return ViewMatrix ()->DepthScale (); }
-	//inline void SetDepthScale (double scale) { return ViewMatrix ()->SetDepthScale (scale); }
+	inline CDoubleVector& Scale (void) { return m_presenter.Scale(); }
+	inline int& ViewWidth (void) { return m_presenter.ViewWidth(); }
+	inline int& ViewHeight (void) { return m_presenter.ViewHeight(); }
+	inline int& ViewDepth (void) { return m_presenter.ViewDepth(); }
 	inline void SetDepthScale (int i) { return ViewMatrix ()->SetDepthScale (i); }
 	inline int DepthPerception (void) { return ViewMatrix ()->DepthPerception (); }
-	inline CBGR* RenderBuffer (void) { return m_renderData.m_renderBuffer; }
-	inline depthType* DepthBuffer (void) { return m_renderData.m_depthBuffer; }
-	inline CBGR& RenderBuffer (int i) { return m_renderData.m_renderBuffer [i]; }
-	inline depthType& DepthBuffer (int i) { return m_renderData.m_depthBuffer [i]; }
-	inline void SetDepthBuffer (depthType* buffer) { m_renderData.m_depthBuffer = buffer; }
-	inline CPen* Pen (ePenColor nPen, int nWeight = 1) { return (nPen < penCount) ? m_renderData.m_pens [nWeight > 1][nPen] : null; }
-	inline CVertex& MinViewPoint (void) { return m_renderData.m_minViewPoint; }
-	inline CVertex& MaxViewPoint (void) { return m_renderData.m_maxViewPoint; }
-	inline bool IgnoreDepth (void) { return m_renderData.m_bIgnoreDepth; }
-	inline void SetIgnoreDepth (bool bIgnoreDepth) { m_renderData.m_bIgnoreDepth = bIgnoreDepth; }
-	inline bool DepthTest (void) { return m_renderData.m_bDepthTest; }
-	inline void SetDepthTest (bool bDepthTest) { m_renderData.m_bDepthTest = bDepthTest; }
-	inline int RenderIllumination (void) { return (m_renderData.m_viewMineFlags & eViewMineIllumination) != 0; }
-	inline int RenderVariableLights (void) { return (m_renderData.m_viewMineFlags & eViewMineVariableLights) != 0; }
-	inline ubyte Alpha (void) { return m_renderData.m_alpha; }
-	inline void SetAlpha (ubyte alpha) { m_renderData.m_alpha = alpha; }
-	inline uint& ViewMineFlags (void) { return m_renderData.m_viewMineFlags; }
-	inline uint& ViewObjectFlags (void) { return m_renderData.m_viewObjectFlags; }
-	inline double MineMoveRate (void) { return m_renderData.m_moveRate [0]; }
-	inline double ViewMoveRate (void) { return m_renderData.m_moveRate [1]; }
-	inline void SetMineMoveRate (double moveRate) { m_renderData.m_moveRate [0] = moveRate; }
-	inline void SetViewMoveRate (double moveRate) { m_renderData.m_moveRate [1] = moveRate; }
+	inline bool DepthTest (void) { return m_presenter.DepthTest(); }
+	inline void SetDepthTest (bool bDepthTest) { m_presenter.SetDepthTest(bDepthTest); }
+	inline int RenderVariableLights(void) { return (m_presenter.ViewMineFlags() & eViewMineVariableLights) != 0; }
+	inline uint& ViewMineFlags (void) { return reinterpret_cast<uint&>(m_presenter.ViewMineFlags()); }
+	inline uint& ViewObjectFlags (void) { return reinterpret_cast<uint&>(m_presenter.ViewObjectFlags()); }
+	inline double MineMoveRate (void) { return m_moveRate [0]; }
+	inline double ViewMoveRate (void) { return m_moveRate [1]; }
+	inline void SetMineMoveRate (double moveRate) { m_moveRate [0] = moveRate; }
+	inline void SetViewMoveRate (double moveRate) { m_moveRate [1] = moveRate; }
 	inline void GetMoveRates (double* moveRates) { 
-		moveRates [0] = m_renderData.m_moveRate [0], 
-		moveRates [1] = m_renderData.m_moveRate [1]; 
+		moveRates [0] = m_moveRate [0], 
+		moveRates [1] = m_moveRate [1]; 
 		}
 	inline void SetMoveRates (double* moveRates) { 
-		m_renderData.m_moveRate [0] = Clamp (moveRates [0], 0.001, 1000.0), 
-		m_renderData.m_moveRate [1] = Clamp (moveRates [1], 0.001, 1000.0);
+		m_moveRate [0] = Clamp (moveRates [0], 0.001, 1000.0), 
+		m_moveRate [1] = Clamp (moveRates [1], 0.001, 1000.0);
 		}
 	inline void SetInputSettings () { m_inputHandler.LoadSettings (); }
-
-	inline CDC* DC (void) { return Renderer ().DC (); }
-
-private:
-	short FindSelectedTexturedSide (long xMouse, long yMouse, short& nSide);
 
 protected:
 
@@ -640,7 +501,6 @@ protected:
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnRButtonDown(UINT nFlags, CPoint point);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
-	afx_msg void OnPaint ();
 	afx_msg BOOL OnMouseWheel (UINT nFlags, short zDelta, CPoint pt);
 	afx_msg void OnSelectPrevTab ();
 	afx_msg void OnSelectNextTab ();

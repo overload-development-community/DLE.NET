@@ -21,41 +21,41 @@ class CSelection : public CSideKey, public ISelection
 			m_nObject (DEFAULT_OBJECT)
 		{}
 
-		void Get (CSideKey& key);
+		void Get (CSideKey& key) const;
 
-		void Get (short& nSegment, short& nSide);
+		void Get (short& nSegment, short& nSide) const;
 
-		CSegment* Segment (void);
+		CSegment* Segment (void) const;
 
-		inline short SegmentId (void) { return m_nSegment; }
+		inline short SegmentId (void) const { return m_nSegment; }
 
-		inline short SideId (void) { return m_nSide; }
+		inline short SideId (void) const { return m_nSide; }
 
-		inline short Edge (void) { return m_nEdge; }
+		inline short Edge (void) const { return m_nEdge; }
 
-		inline short Point (void) { return m_nPoint; }
+		inline short Point (void) const { return m_nPoint; }
 
-		short SetSegmentId (short nSegment);
+		void SetSegmentId (short nSegment) override;
 
-		short SetSideId (short nSide);
+		void SetSideId (short nSide) override;
 
-		inline short SetEdge (short nEdge) { 
+		inline void SetEdge (short nEdge) { 
 			if (Side () != null)
 				Side ()->m_nPoint = (ubyte) nEdge;
-			return m_nPoint = m_nEdge = nEdge; 
+			m_nPoint = m_nEdge = nEdge; 
 			}
 
-		inline short SetPoint (short nPoint) { 
+		inline void SetPoint (short nPoint) { 
 			if (Side () != null)
 				Side ()->m_nPoint = (ubyte) nPoint;
-			return m_nEdge = m_nPoint = nPoint; 
+			m_nEdge = m_nPoint = nPoint; 
 			}
 
 		short ChildId (void);
 
 		CSegment* ChildSeg (void);
 
-		CSide* Side (void);
+		CSide* Side (void) const;
 
 		CSide* OppositeSide (void);
 
@@ -63,13 +63,13 @@ class CSelection : public CSideKey, public ISelection
 
 		CTrigger* Trigger (void);
 
-		CGameObject* Object (void);
+		CGameObject* Object (void) const;
 
-		inline short ObjectId (void) { return m_nObject; }
+		inline short ObjectId (void) const { return m_nObject; }
 
-		inline short SetObjectId (short nObject) { return m_nObject = nObject; }
+		inline void SetObjectId (short nObject) { m_nObject = nObject; }
 
-		CVertex* Vertex (short offset = 0);
+		CVertex* Vertex (short offset = 0) const;
 
 		inline ushort VertexId (void) { return Segment ()->VertexId (m_nSide, m_nPoint); }
 
@@ -93,7 +93,7 @@ class CSelection : public CSideKey, public ISelection
 
 		inline short& Index (void) { return m_nIndex; }
 
-		virtual operator CSideKey() override
+		virtual operator CSideKey() const override
 		{
 			CSideKey key;
 			Get(key);

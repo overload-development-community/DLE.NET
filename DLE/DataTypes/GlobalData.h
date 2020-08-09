@@ -153,14 +153,21 @@ public:
 class ISelection
 {
 public:
-    virtual short SegmentId() = 0;
-    virtual short SideId() = 0;
-    virtual short Edge() = 0;
-    virtual short Point() = 0;
-    virtual CSegment* Segment() = 0;
-    virtual CSide* Side() = 0;
-    virtual CVertex* Vertex(short vertexNum = 0) = 0;
-    virtual operator CSideKey() = 0;
+    virtual short SegmentId() const = 0;
+    virtual short SideId() const = 0;
+    virtual short Edge() const = 0;
+    virtual short Point() const = 0;
+    virtual short ObjectId() const = 0;
+    virtual CSegment* Segment() const = 0;
+    virtual CSide* Side() const = 0;
+    virtual CVertex* Vertex(short vertexNum = 0) const = 0;
+    virtual operator CSideKey() const = 0;
+    virtual CGameObject* Object() const = 0;
+    virtual void SetSegmentId(short segmentId) = 0;
+    virtual void SetSideId(short sideId) = 0;
+    virtual void SetEdge(short edgeNum) = 0;
+    virtual void SetPoint(short pointNum) = 0;
+    virtual void SetObjectId(short objectId) = 0;
 };
 
 enum TraceLevel

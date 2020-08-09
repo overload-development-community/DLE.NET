@@ -1,5 +1,9 @@
 #include "stdafx.h"
-#include "PaletteManager.h"
+#include "oglmatrix.h"
+#include "ViewMatrix.h"
+#include "Frustum.h"
+#include "FBO.h"
+#include "renderer.h"
 #include "shadermanager.h"
 
 //------------------------------------------------------------------------------

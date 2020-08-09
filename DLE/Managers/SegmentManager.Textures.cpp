@@ -4,9 +4,6 @@
 #include "LightManager.h"
 #include "WallManager.h"
 
-extern short nDbgSeg, nDbgSide;
-extern int nDbgVertex;
-
 // -----------------------------------------------------------------------------
 
 void CSegmentManager::Textures (CSideKey key, short& nBaseTex, short& nOvlTex)
@@ -111,9 +108,6 @@ if ((nChildSeg < 0) || (nChildSeg >= Count ()))
 	return -1;
 if ((nChildSide < 0) || (nChildSide >= 6))
 	return -1;
-
-if ((nStartSeg == nDbgSeg) && ((nDbgSide < 0) || (nStartSide == nDbgSide)))
-	nDbgSeg = nDbgSeg;
 #endif
 
 CSegment*	pSegment = Segment (nStartSeg); 

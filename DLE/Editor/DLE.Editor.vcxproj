@@ -122,7 +122,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CallingConvention>FastCall</CallingConvention>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers;..\glew;..\Renderer</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
@@ -175,7 +175,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CallingConvention>FastCall</CallingConvention>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers;..\glew;..\Renderer</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
@@ -217,7 +217,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers;..\glew;..\Renderer</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
@@ -257,7 +257,7 @@
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Core;..\DataTypes;..\Managers;..\glew;..\Renderer</AdditionalIncludeDirectories>
       <BrowseInformation>true</BrowseInformation>
       <ExceptionHandling>Async</ExceptionHandling>
       <AdditionalOptions>/Zc:twoPhase- %(AdditionalOptions)</AdditionalOptions>
@@ -282,28 +282,18 @@
     <ClInclude Include="dlcDoc.h" />
     <ClInclude Include="dle.h" />
     <ClInclude Include="DrawHelpers.h" />
-    <ClInclude Include="FBO.h" />
-    <ClInclude Include="Frustum.h" />
     <ClInclude Include="MainFrame.h" />
     <ClInclude Include="mineview.h" />
     <ClInclude Include="PogDialog.h" />
-    <ClInclude Include="RenderBuffers.h" />
-    <ClInclude Include="renderer.h" />
     <ClInclude Include="StdAfx.h" />
     <ClInclude Include="TEXEDIT.h" />
     <ClInclude Include="textureView.h" />
     <ClInclude Include="toolview.h" />
     <ClInclude Include="dle-res.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="glew.h" />
     <ClInclude Include="Global.h" />
-    <ClInclude Include="ViewMatrix.h" />
-    <ClInclude Include="wglew.h" />
-    <ClInclude Include="oglmatrix.h" />
     <ClInclude Include="Selection.h" />
-    <ClInclude Include="ShaderManager.h" />
     <ClInclude Include="TextureFilter.h" />
-    <ClInclude Include="TextureProjector.h" />
     <ClInclude Include="HogDialog.h" />
   </ItemGroup>
   <ItemGroup>
@@ -323,8 +313,6 @@
     <ClCompile Include="EffectTool.WayPoints.cpp" />
     <ClCompile Include="ExtBitmapButton.cpp" />
     <ClCompile Include="ExtSliderCtrl.cpp" />
-    <ClCompile Include="FBO.cpp" />
-    <ClCompile Include="Frustum.cpp" />
     <ClCompile Include="LightTool.cpp" />
     <ClCompile Include="MainFrame.cpp" />
     <ClCompile Include="MainFrame.EditTool.cpp" />
@@ -334,10 +322,6 @@
     <ClCompile Include="MineView.drag.cpp" />
     <ClCompile Include="MineView.draw.cpp" />
     <ClCompile Include="MineView.Input.cpp" />
-    <ClCompile Include="MineView.Renderer.cpp" />
-    <ClCompile Include="MineView.Renderer.OpenGL.cpp" />
-    <ClCompile Include="MineView.Renderer.Software.cpp" />
-    <ClCompile Include="MineView.RenderLib.cpp" />
     <ClCompile Include="MineView.select.cpp" />
     <ClCompile Include="MineView.transform.cpp" />
     <ClCompile Include="MissionTool.cpp" />
@@ -350,7 +334,6 @@
     <ClCompile Include="ObjectTool.Sound.cpp" />
     <ClCompile Include="PogDialog.cpp" />
     <ClCompile Include="ReactorTool.cpp" />
-    <ClCompile Include="RenderBuffers.cpp" />
     <ClCompile Include="SegmentTool.cpp" />
     <ClCompile Include="SettingsTool.cpp" />
     <ClCompile Include="SettingsTool.Editor.cpp" />
@@ -375,17 +358,9 @@
     <ClCompile Include="toolview.cpp" />
     <ClCompile Include="TriggerTool.cpp" />
     <ClCompile Include="WallTool.cpp" />
-    <ClCompile Include="glew.cpp">
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
-    </ClCompile>
     <ClCompile Include="global.cpp" />
-    <ClCompile Include="ViewMatrix.cpp" />
-    <ClCompile Include="VBO.cpp" />
     <ClCompile Include="Selection.cpp" />
-    <ClCompile Include="ShaderManager.cpp" />
     <ClCompile Include="TextureFilter.cpp" />
-    <ClCompile Include="TextureManager.Shaders.cpp" />
-    <ClCompile Include="TextureProjector.cpp" />
     <ClCompile Include="HogDialog.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -1108,8 +1083,14 @@
     <ProjectReference Include="..\DataTypes\DLE.DataTypes.vcxproj">
       <Project>{d3b6e4e3-ec8a-4b81-bee1-e4e481d9939a}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\glew\glew.vcxproj">
+      <Project>{d1271a77-07b8-4cf9-859c-7e4d0019b67b}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Managers\DLE.Managers.vcxproj">
       <Project>{1a1bd677-4bfc-4b6d-9562-13f6dfb87dde}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Renderer\DLE.Renderer.vcxproj">
+      <Project>{6fc005c8-930f-4bf1-81b5-01f584998330}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -1,5 +1,10 @@
 #include "stdafx.h"
 #include <fcntl.h>
+#include "oglmatrix.h"
+#include "ViewMatrix.h"
+#include "Frustum.h"
+#include "FBO.h"
+#include "renderer.h"
 #include "shadermanager.h"
 
 #define SUSPENDABLE_SHADERS 1
@@ -60,14 +65,14 @@ char* CShaderManager::Load (const char* fileName) //, char* Shadersource)
 if (!(fileName && *fileName))
 	return null;	// no fileName
 
-if (0 > (f = _open (fileName, _O_RDONLY)))
+if (_sopen_s (&f, fileName, _O_RDONLY, _SH_DENYWR, 0) != 0)
 	return null;	// couldn't open file
 fSize = _lseek (f, 0, SEEK_END);
 _close (f);
 if (fSize <= 0)
 	return null;	// empty file or seek error
 
-if (!(fp = fopen (fileName, "rb")))
+if (fopen_s (&fp, fileName, "rb") != 0)
 	return null;	// couldn't open file
 
 if (!(pBuffer = new char [fSize + 1])) {
@@ -121,7 +126,7 @@ else {
 glGetObjectParameterivARB (GLuint (int (handle)), GL_OBJECT_INFO_LOG_LENGTH_ARB, &nLogLen);
 if ((nLogLen > 0) && (infoLog = new char [nLogLen])) {
 	glGetInfoLogARB (GLuint (int (handle)), nLogLen, &charsWritten, infoLog);
-	ErrorMsg (infoLog);
+	g_data.Trace(Error, infoLog);
 #if HAVE_PRINTLOG
 	if (*infoLog) {
 		::PrintLog (1);

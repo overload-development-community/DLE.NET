@@ -669,6 +669,7 @@ class CTexture {
 		bool SaveBMP (IFileManager& fp) const;
 
 		friend class DrawHelpers;
+		friend class GLTextureHelpers;
 };
 
 //------------------------------------------------------------------------

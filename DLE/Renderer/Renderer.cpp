@@ -2,16 +2,17 @@
 //
 
 #include "stdafx.h"
-#include "DrawHelpers.h"
-
-short nDbgSeg = -1, nDbgSide = -1;
-int nDbgVertex = -1;
+#include "ViewMatrix.h"
+#include "Frustum.h"
+#include "FBO.h"
+#include "renderer.h"
+#include "GLTextures.h"
 
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 
-void CRenderer::Reset (void)
+void CRenderer::Reset (const CDoubleVector& currentSegmentCenter)
 {
 Center ().Clear ();
 Translation ().Clear ();
@@ -25,7 +26,7 @@ bool CRenderer::InitViewDimensions (void)
 {
 	CRect	rc;
 
-m_pParent->GetClientRect (rc);
+::GetClientRect (m_hParent, rc);
 int width = (rc.Width () + 3) & ~3; // long word align
 int height = rc.Height ();
 if ((ViewWidth () == width) && (ViewHeight () == height))
@@ -88,11 +89,6 @@ if (pRC)
 
 void CRenderer::ComputeBrightness (CFaceListEntry& face, ushort brightness [4], int bVariableLights)
 {
-#ifdef _DEBUG
-if ((face.m_nSegment == nDbgSeg) && ((nDbgSide < 0) || (face.m_nSide == nDbgSide)))
-	nDbgSeg = nDbgSeg;
-#endif
-
 	CSegment*	pSegment = segmentManager.Segment (face.m_nSegment);
 	CSide*		pSide = pSegment->Side (face.m_nSide);
 	short			nVertices = pSide->VertexCount ();
@@ -106,11 +102,6 @@ for (int i = 0; i < nVertices; i++) {
 	//	}
 	}
 
-#ifdef _DEBUG
-if ((face.m_nSegment == nDbgSeg) && ((nDbgSide < 0) || (face.m_nSide == nDbgSide)))
-	nDbgSeg = nDbgSeg;
-#endif
-
 if (bVariableLights /*&& (lightManager.LightIsOn (face) < 1)*/) {
 	// check each variable light whether it affects side face
 	// search delta light index to see if current side has light
@@ -118,10 +109,6 @@ if (bVariableLights /*&& (lightManager.LightIsOn (face) < 1)*/) {
 //#pragma omp parallel for if (indexCount > 15)
 	for (int i = 0; i < indexCount; i++) {
 		CLightDeltaIndex* pIndex = lightManager.LightDeltaIndex (i);
-#ifdef _DEBUG
-		if ((pIndex->m_nSegment == nDbgSeg) && ((nDbgSide < 0) || (pIndex->m_nSide == nDbgSide)))
-			nDbgSeg = nDbgSeg;
-#endif
 		if (lightManager.LightIsOn (*pIndex))
 			continue; // light is on or there's no variable light for this delta light index (e.g. only blastable)
 		if (*pIndex == face) {
@@ -153,11 +140,6 @@ if (bVariableLights /*&& (lightManager.LightIsOn (face) < 1)*/) {
 
 for (int i = 0; i < nVertices; i++) 
 	brightness [i] = (b [i] < 0) ? 0 : (b [i] > 32767) ? 32767 : b [i];
-
-#ifdef _DEBUG
-if ((face.m_nSegment == nDbgSeg) && ((nDbgSide < 0) || (face.m_nSide == nDbgSide)))
-	nDbgSeg = nDbgSeg;
-#endif
 }
 
 //------------------------------------------------------------------------------
@@ -201,7 +183,7 @@ void CRenderer::RenderSubModel(RenderModel::CModel& model, short nSubModel, int 
 				glDisable(GL_TEXTURE_2D);
 			else {
 				glEnable(GL_TEXTURE_2D);
-				if (!DrawHelpers::GLBindTexture(&(*model.m_textures)[nTexture], GL_TEXTURE0, GL_MODULATE))
+				if (!GLTextureHelpers::GLBindTexture(&(*model.m_textures)[nTexture], GL_TEXTURE0, GL_MODULATE))
 					continue;
 			}
 		}
@@ -281,128 +263,6 @@ int CRenderer::RenderModel(RenderModel::CModel& model, CGameObject* object,
 	glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, 0);
 	glDisable(GL_TEXTURE_2D);
 	return 1;
-}
-
-void CRenderer::DrawTunnelMaker(CViewMatrix* viewMatrix)
-{
-	DrawTunnelMakerPath(tunnelMaker.Path(), viewMatrix);
-	DrawTunnelMakerTunnel(tunnelMaker.Tunnel(), viewMatrix);
-}
-
-void CRenderer::DrawTunnelMakerPath(const CTunnelPath* path, CViewMatrix* viewMatrix)
-{
-#ifdef _DEBUG
-
-	for (int i = 0; i <= path->m_nSteps; i++)
-		DrawTunnelMakerPathNode(path->m_nodes[i], viewMatrix);
-
-#else
-
-	// Haven't confirmed this works, there's no explicit copy-constructor.
-	// If this bugs out, make one.
-	CCubicBezier bezier(path->Bezier());
-
-	BeginRender();
-	for (int i = 0; i < 4; i++) {
-		bezier.Transform(viewMatrix);
-		bezier.Project(viewMatrix);
-	}
-	EndRender();
-
-	BeginRender(true);
-	SelectObject((HBRUSH)GetStockObject(NULL_BRUSH));
-	SelectPen(penRed + 1);
-
-	CMineView* mineView = DLE.MineView();
-	if (bezier.GetPoint(1).InRange(mineView->ViewMax().x, mineView->ViewMax().y, Type())) {
-		if (bezier.GetPoint(0).InRange(mineView->ViewMax().x, mineView->ViewMax().y, Type())) {
-			MoveTo(bezier.GetPoint(0).m_screen.x, bezier.GetPoint(0).m_screen.y);
-			LineTo(bezier.GetPoint(1).m_screen.x, bezier.GetPoint(1).m_screen.y);
-			Ellipse(bezier.GetPoint(1), 4, 4);
-		}
-	}
-	if (bezier.GetPoint(2).InRange(mineView->ViewMax().x, mineView->ViewMax().y, Type())) {
-		if (bezier.GetPoint(3).InRange(mineView->ViewMax().x, mineView->ViewMax().y, Type())) {
-			MoveTo(bezier.GetPoint(3).m_screen.x, bezier.GetPoint(3).m_screen.y);
-			LineTo(bezier.GetPoint(2).m_screen.x, bezier.GetPoint(2).m_screen.y);
-			Ellipse(bezier.GetPoint(2), 4, 4);
-		}
-	}
-	EndRender();
-
-#endif
-}
-
-void CRenderer::DrawTunnelMakerPathNode(const CTunnelPathNode& node, CViewMatrix* viewMatrix)
-{
-	CDoubleMatrix m;
-	m = node.m_rotation.Inverse();
-	CVertex v[4] = { m.R(), m.U(), m.F(), node.m_axis };
-
-	BeginRender();
-	CVertex vertex(node.m_vertex);
-	vertex.Transform(viewMatrix);
-	vertex.Project(viewMatrix);
-	for (int i = 0; i < 4; i++) {
-		v[i].Normalize();
-		v[i] *= 5.0;
-		v[i] += vertex;
-		v[i].Transform(viewMatrix);
-		v[i].Project(viewMatrix);
-	}
-	EndRender();
-
-	BeginRender(true);
-	SelectObject((HBRUSH)GetStockObject(NULL_BRUSH));
-	static ePenColor pens[4] = { penRed, penMedGreen, penMedBlue, penOrange };
-
-	Ellipse(vertex, 4, 4);
-	for (int i = 0; i < 4; i++) {
-		SelectPen(pens[i] + 1);
-		MoveTo(vertex.m_screen.x, vertex.m_screen.y);
-		LineTo(v[i].m_screen.x, v[i].m_screen.y);
-	}
-	EndRender();
-}
-
-void CRenderer::DrawTunnelMakerTunnel(const CTunnel* tunnel, CViewMatrix* viewMatrix)
-{
-	BeginRender();
-	for (int i = 0; i <= tunnel->m_nSteps; i++) {
-		for (int j = 0; j < 4; j++) {
-			CVertex& v = vertexManager[tunnel->m_segments[i].m_nVertices[j]];
-			v.Transform(viewMatrix);
-			v.Project(viewMatrix);
-		}
-	}
-	EndRender();
-
-	BeginRender(true);
-	SelectObject((HBRUSH)GetStockObject(NULL_BRUSH));
-	SelectPen(penBlue + 1);
-	CMineView* mineView = DLE.MineView();
-	for (int i = 1; i <= tunnel->m_nSteps; i++)
-		DrawTunnelMakerSegment(tunnel->m_segments[i]);
-	EndRender();
-}
-
-void CRenderer::DrawTunnelMakerSegment(const CTunnelSegment& segment)
-{
-	BeginRender(false);
-#ifdef NDEBUG
-	if (mineView->GetRenderer() && (mineView->ViewOption(eViewTexturedWireFrame) || mineView->ViewOption(eViewTextured)))
-#endif
-	{
-		glLineStipple(1, 0x0c3f);  // dot dash
-		glEnable(GL_LINE_STIPPLE);
-	}
-	for (int i = (int)segment.m_elements.Length(); --i >= 0; )
-		DLE.MineView()->DrawSegmentWireFrame(segmentManager.Segment(segment.m_elements[i].m_nSegment), false, false, 1);
-	EndRender();
-#ifdef NDEBUG
-	if (mineView->GetRenderer() && (mineView->ViewOption(eViewTexturedWireFrame) || mineView->ViewOption(eViewTextured)))
-#endif
-		glDisable(GL_LINE_STIPPLE);
 }
 
 // -----------------------------------------------------------------------------
@@ -628,10 +488,6 @@ short CRenderer::IsSegmentSelected(CSegment& segment, CRect& viewport, long xMou
 			return -1;
 	}
 	short nSegment = segmentManager.Index(&segment);
-#ifdef _DEBUG
-	if (nSegment == nDbgSeg)
-		nDbgSeg = nDbgSeg;
-#endif
 	CSide* pSide = segment.Side(nSide);
 	for (; nSide < 6; nSide++, pSide++) {
 		if (!IsSideInFrustum(nSegment, nSide))
@@ -643,7 +499,7 @@ short CRenderer::IsSegmentSelected(CSegment& segment, CRect& viewport, long xMou
 			segment.ComputeCenter(nSide);
 			CVertex& center = pSide->Center();
 			if (!pSide->IsVisible()) {
-				pSide->ComputeNormals(segment.m_info.vertexIds, Center());
+				pSide->ComputeNormals(segment.m_info.vertexIds, segment.Center());
 				CVertex normal;
 				center += pSide->Normal(2) * 2.0;
 				center.Transform(viewMatrix);
@@ -655,6 +511,70 @@ short CRenderer::IsSegmentSelected(CSegment& segment, CRect& viewport, long xMou
 		return nSide;
 	}
 	return -1;
+}
+
+void CRenderer::Zoom(int nSteps, double zoom, double viewMoveRate)
+{
+	if (nSteps < 0)
+		zoom = 1.0 / zoom;
+	else if (nSteps > 1)
+		zoom = pow(zoom, nSteps);
+	Scale().v.z *= zoom;
+	ViewMatrix()->Scale(zoom);
+}
+
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+//------------------------------------------------------------------------------
+
+COLORREF CRenderData::PenColor(int nPen)
+{
+	static COLORREF penColors[] = {
+		RGB(  0,  0,  0),
+		RGB(255,255,255),
+		RGB(255,196,  0),
+		RGB(255,  0,  0),
+		RGB(255,  0, 64),
+		RGB(128,128,128),
+		RGB(160,160,160),
+		RGB( 64, 64, 64),
+		RGB(  0,255,  0),
+		RGB(  0,255,128),
+		RGB(  0,128,  0),
+		RGB(  0,128,128),
+		RGB(  0,192,192),
+		RGB(  0,255,255),
+		RGB(  0, 64,255),
+		RGB(  0,128,255),
+		RGB(  0,255,255),
+		RGB(255,196,  0),
+		RGB(255,128,  0),
+		RGB(255,  0,255)
+	};
+
+	return (nPen < penCount) ? penColors[nPen] : RGB(0, 0, 0);
+}
+
+//------------------------------------------------------------------------------
+
+CRenderData::CRenderData()
+{
+	m_renderBuffer = 0;
+	m_depthBuffer = null;
+	m_bDepthTest = true;
+
+	for (int nWeight = 0; nWeight < 2; nWeight++)
+		for (int nPen = 0; nPen < penCount; nPen++)
+			m_pens[nWeight][nPen] = ::CreatePen(PS_SOLID, nWeight + 1, PenColor(nPen));
+}
+
+//------------------------------------------------------------------------------
+
+CRenderData::~CRenderData()
+{
+	for (int nWeight = 0; nWeight < 2; nWeight++)
+		for (int nPen = 0; nPen < penCount; nPen++)
+			::DeleteObject(m_pens[nWeight][nPen]);
 }
 
 //eof

@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include "ViewMatrix.h"
 
 double CViewMatrix::m_depthScaleTable [4] = {10000.0, 400.0, 250.0, 150.0};
 
@@ -275,7 +276,7 @@ a.z = (long) Round (v.v.z * 10000.0); // 5 digits precision
 
 //--------------------------------------------------------------------------
 
-void CViewMatrixSW::Unproject (CVertex& vWorld, CLongVector& vScreen, CPoint& viewCenter) 
+void CViewMatrixSW::Unproject (CVertex& vWorld, CLongVector& vScreen, const CPoint& viewCenter)
 {
 CDoubleVector r (double (vScreen.x - viewCenter.x), double (viewCenter.y - vScreen.y), double (vScreen.z) / 10000.0);
 double scale = 0.2;
@@ -501,7 +502,7 @@ gluUnProject (s.v.x, s.v.y, s.v.z,
 
 //--------------------------------------------------------------------------
 
-void CViewMatrixGL::Unproject (CVertex& vWorld, CLongVector& vScreen, CPoint& viewCenter) 
+void CViewMatrixGL::Unproject (CVertex& vWorld, CLongVector& vScreen, const CPoint& viewCenter)
 {
 	CDoubleVector vView;
 

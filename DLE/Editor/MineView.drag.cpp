@@ -5,121 +5,23 @@
 
 //------------------------------------------------------------------------------
 
-BOOL CMineView::UpdateDragPos (void)
+BOOL CMineView::UpdateDragPos()
 {
-if (theMine == null) return FALSE;
+	if (theMine == null) return FALSE;
 
-if (m_inputHandler.MouseState () != eMouseStateDrag)
-	return FALSE;
+	if (m_inputHandler.MouseState() != eMouseStateDrag)
+		return FALSE;
 
-InvalidateRect (null, TRUE);
-return TRUE;
+	m_presenter.UpdateDragPos(LastMousePos());
+	Refresh(false);
+	return TRUE;
 }
 
 //------------------------------------------------------------------------------
 
 void CMineView::InitDrag ()
 {
-	short nVert = current->Side ()->VertexIdIndex (current->Point ());
-	short i = current->Segment ()->m_info.vertexIds [nVert];
-	CVertex& v = vertexManager [i];
-
-m_highlightPos.x = v.m_screen.x;
-m_highlightPos.y = v.m_screen.y;
-m_lastDragPos = m_highlightPos;
-}
-
-//------------------------------------------------------------------------------
-
-void CMineView::HighlightDrag (short nVert, long x, long y) 
-{
-CHECKMINE;
-
-Renderer ().SelectObject ((HBRUSH) GetStockObject (NULL_BRUSH));
-if (!m_nRenderer)
-	DC ()->SetROP2 (R2_NOT);
-else
-	Renderer ().SelectPen (penWhite + 1);
-
-Renderer ().Ellipse (x, y, 4, 4);
-
-CRect	rc (x, y, x, y);
-for (int i = 0; i < 3; i++) {
-	Renderer ().MoveTo (x, y);
-	short nVert2 = adjacentPointTable [nVert][i];
-	CVertex& v = vertexManager [current->Segment ()->m_info.vertexIds [nVert2]];
-	Renderer ().LineTo (v.m_screen.x, v.m_screen.y);
-	if (rc.left > v.m_screen.x)
-		rc.left = v.m_screen.x;
-	if (rc.right < v.m_screen.x)
-		rc.right = v.m_screen.x;
-	if (rc.top > v.m_screen.y)
-		rc.top = v.m_screen.y;
-	if (rc.bottom < v.m_screen.y)
-		rc.bottom = v.m_screen.y;
-	}
-
-if (!m_nRenderer) {
-	DC ()->SetROP2 (R2_COPYPEN);
-	rc.InflateRect (4, 4);
-	InvalidateRect (rc, FALSE);
-	UpdateWindow ();
-	}
-}
-
-//------------------------------------------------------------------------------
-
-BOOL CMineView::DrawDragPos (void)
-{
-if (theMine == null) return FALSE;
-
-if (m_inputHandler.MouseState () != eMouseStateDrag)
-	return FALSE;
-if (LastMousePos () == m_lastDragPos)
-	return FALSE;
-
-int i;
-
-short nVert = current->Side ()->VertexIdIndex (current->Point ());
-
-Renderer ().BeginRender (true);
-// unhighlight last point and lines drawing
-if (!m_nRenderer)
-	HighlightDrag (nVert, m_lastDragPos.x, m_lastDragPos.y);
-// highlight the new position
-HighlightDrag (nVert, LastMousePos ().x, LastMousePos ().y);
-m_lastDragPos = LastMousePos ();
-
-if (!m_nRenderer)
-	DC ()->SetROP2 (R2_NOT);
-
-for (i = 0; i < vertexManager.Count (); i++) {
-	CVertex& v = vertexManager [i];
-	if ((abs (v.m_screen.x - LastMousePos ().x) < 5) && (abs (v.m_screen.y - LastMousePos ().y) < 5)) {
-		if ((v.m_screen.x != m_highlightPos.x) || (v.m_screen.y != m_highlightPos.y)) {
-			if (m_highlightPos.x != -1)
-				// erase last point
-				Renderer ().Ellipse (m_highlightPos, 8, 8);
-			// define and draw new point
-			m_highlightPos.x = v.m_screen.x;
-			m_highlightPos.y = v.m_screen.y;
-			Renderer ().Ellipse (m_highlightPos, 8, 8);
-			break;
-			}
-		}
-	}
-// if no point found near cursor
-if ((i >= vertexManager.Count ()) && (m_highlightPos.x != -1))
-	// erase last point
-	Renderer ().Ellipse (m_highlightPos, 8, 8);
-
-Renderer ().EndRender ();
-if (!m_nRenderer)
-	DC ()->SetROP2 (R2_COPYPEN);
-// define and draw new point
-m_highlightPos.x = -1;
-m_highlightPos.y = -1;
-return TRUE;
+	m_presenter.BeginDrag();
 }
 
 //------------------------------------------------------------------------------
@@ -192,10 +94,11 @@ else {
 	p.z = vertexManager [vert1].m_screen.z;
 	// BeginRender recalculates the view matrix
 	Renderer ().BeginRender (false);
-	ViewMatrix ()->Unproject (*vertexManager.Vertex (vert1), p, m_viewCenter);
+	ViewMatrix ()->Unproject (*vertexManager.Vertex (vert1), p, m_presenter.ViewCenter());
 	Renderer ().EndRender ();
 	}
 undoManager.End (__FUNCTION__);
+m_presenter.EndDrag();
 Refresh ();
 }
 
