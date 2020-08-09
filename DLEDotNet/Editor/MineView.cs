@@ -9,16 +9,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using DLEDotNet.Util;
 using DLEDotNet.Data;
+using DLEDotNet.ManagedWrappers;
+using DLEDotNet.Data.Proxies;
 
 namespace DLEDotNet.Editor
 {
     public partial class MineView : UserControl
     {
         private MouseState mouseState = MouseState.Idle;
+        private MineViewPresenter presenter;
 
         public MineView()
         {
             InitializeComponent();
+            presenter = new MineViewPresenter(Handle);
         }
 
         #region --- click-through
@@ -42,6 +46,10 @@ namespace DLEDotNet.Editor
         {
             base.OnPaint(e);
             // custom rendering
+            presenter.UpdateCurrentSelection(new SelectionProxy(EditorState.CurrentSelection));
+            presenter.UpdateOtherSelection(new SelectionProxy(EditorState.OtherSelection));
+            presenter.UpdateSelectionMode((uint)EditorState.SelectionMode);
+            presenter.Paint();
         }
 
         internal void ShowContextMenu()

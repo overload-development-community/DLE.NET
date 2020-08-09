@@ -35,6 +35,8 @@ namespace DLEDotNet.Data.Proxies
 
         public List<Side> Sides { get; } = new List<Side>();
 
+        public static implicit operator ManagedWrappers.Segment(SegmentProxy segment) => segment.Segment;
+
         public class Side : IListBoxable
         {
             private readonly ManagedWrappers.Segment _segment;
@@ -56,6 +58,8 @@ namespace DLEDotNet.Data.Proxies
             public List<Point> Points { get; } = new List<Point>();
 
             object IListBoxable.DisplayValue => SideNum;
+
+            public static implicit operator ManagedWrappers.Side(Side side) => side._side;
         }
 
         public class Point : ChangeableState, IListBoxable

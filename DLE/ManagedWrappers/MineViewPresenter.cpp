@@ -8,6 +8,8 @@
 #include "TunnelMaker.h"
 #include "MineView.Presenter.h"
 
+#include "SelectionWrapper.h"
+
 using namespace System;
 
 namespace DLEDotNet
@@ -30,6 +32,14 @@ namespace DLEDotNet
             ~MineViewPresenter()
             {
                 delete m_presenter;
+                if (m_currentSelection)
+                {
+                    delete m_currentSelection;
+                }
+                if (m_otherSelection)
+                {
+                    delete m_otherSelection;
+                }
             }
 
             void Paint()
@@ -49,8 +59,35 @@ namespace DLEDotNet
                 void set(PerspectiveMode value) { m_presenter->SetPerspective((int)value); }
             }
 
+            void UpdateCurrentSelection(DLEDotNet::ManagedWrappers::ISelection^ selection)
+            {
+                if (m_currentSelection)
+                {
+                    delete m_currentSelection;
+                }
+                m_currentSelection = new SelectionAdaptor(selection);
+                m_presenter->UpdateCurrentSelection(m_currentSelection);
+            }
+
+            void UpdateOtherSelection(DLEDotNet::ManagedWrappers::ISelection^ selection)
+            {
+                if (m_otherSelection)
+                {
+                    delete m_otherSelection;
+                }
+                m_otherSelection = new SelectionAdaptor(selection);
+                m_presenter->UpdateOtherSelection(m_otherSelection);
+            }
+
+            void UpdateSelectionMode(uint mode)
+            {
+                m_presenter->UpdateSelectMode(static_cast<SelectMode>(mode));
+            }
+
         private:
             CMineViewPresenter* m_presenter;
+            SelectionAdaptor* m_currentSelection;
+            SelectionAdaptor* m_otherSelection;
         };
     }
 }

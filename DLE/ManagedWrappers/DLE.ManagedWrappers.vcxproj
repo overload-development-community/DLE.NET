@@ -175,6 +175,8 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SegmentManagerWrapper.h" />
+    <ClInclude Include="SelectionWrapper.h" />
     <ClInclude Include="VertexManagerWrapper.h" />
   </ItemGroup>
   <ItemGroup>
@@ -190,6 +192,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="SegmentManagerWrapper.cpp" />
+    <ClCompile Include="SelectionWrapper.cpp" />
     <ClCompile Include="VertexManagerWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>
