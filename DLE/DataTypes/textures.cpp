@@ -925,7 +925,9 @@ bool CTexture::Save (char* pszFile) const
 	bool bSuccess = false;
 
 if (!fp->Open (pszFile, "wb")) {
-	g_data.Trace(Error, "Could not create texture file.");
+	char message[512];
+	sprintf_s(message, ARRAYSIZE(message), "Could not create texture file \"%s\" (error: %d).", pszFile, (int)errno);
+	g_data.Trace(Error, message);
 	bSuccess = false;
 	}
 else {

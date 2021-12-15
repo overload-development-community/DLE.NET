@@ -617,7 +617,7 @@ bool CSegmentManager::SplitIn8(CSegment* pRootSeg)
 bool CSegmentManager::CollapseEdge(short nSegment, short nSide, short nEdge, bool bUpdateCoord)
 {
 #ifdef NDEBUG
-    if (!DLE.IsD2XLevel())
+    if (!g_data.IsD2XLevel())
         return false;
 #endif
 
@@ -720,7 +720,7 @@ bool CSegmentManager::CollapseEdge(short nSegment, short nSide, short nEdge, boo
 bool CSegmentManager::CreateWedge(ISelection* atSide)
 {
 #ifdef NDEBUG
-    if (!DLE.IsD2XLevel())
+    if (!g_data.IsD2XLevel())
         return false;
 #endif
 
@@ -758,7 +758,7 @@ bool CSegmentManager::CreateWedge(ISelection* atSide)
 bool CSegmentManager::CreatePyramid(ISelection* atSide)
 {
 #ifdef NDEBUG
-    if (!DLE.IsD2XLevel())
+    if (!g_data.IsD2XLevel())
         return false;
 #endif
 

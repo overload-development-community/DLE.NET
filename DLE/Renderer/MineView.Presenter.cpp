@@ -1583,6 +1583,8 @@ void CMineViewPresenter::DrawTunnelMakerPath(const CTunnelPath* path)
         DrawTunnelMakerPathNode(path->m_nodes[i]);
 
 #else
+    short xMax = ViewWidth();
+    short yMax = ViewHeight();
 
     // Haven't confirmed this works, there's no explicit copy-constructor.
     // If this bugs out, make one.
@@ -1599,15 +1601,15 @@ void CMineViewPresenter::DrawTunnelMakerPath(const CTunnelPath* path)
     Renderer().SelectObject((HBRUSH)GetStockObject(NULL_BRUSH));
     Renderer().SelectPen(penRed + 1);
 
-    if (bezier.GetPoint(1).InRange(ViewMax().x, ViewMax().y, Renderer().Type())) {
-        if (bezier.GetPoint(0).InRange(ViewMax().x, ViewMax().y, Renderer().Type())) {
+    if (bezier.GetPoint(1).InRange(xMax, yMax, Renderer().Type())) {
+        if (bezier.GetPoint(0).InRange(xMax, yMax, Renderer().Type())) {
             Renderer().MoveTo(bezier.GetPoint(0).m_screen.x, bezier.GetPoint(0).m_screen.y);
             Renderer().LineTo(bezier.GetPoint(1).m_screen.x, bezier.GetPoint(1).m_screen.y);
             Renderer().Ellipse(bezier.GetPoint(1), 4, 4);
         }
     }
-    if (bezier.GetPoint(2).InRange(ViewMax().x, ViewMax().y, Renderer().Type())) {
-        if (bezier.GetPoint(3).InRange(ViewMax().x, ViewMax().y, Renderer().Type())) {
+    if (bezier.GetPoint(2).InRange(xMax, yMax, Renderer().Type())) {
+        if (bezier.GetPoint(3).InRange(xMax, yMax, Renderer().Type())) {
             Renderer().MoveTo(bezier.GetPoint(3).m_screen.x, bezier.GetPoint(3).m_screen.y);
             Renderer().LineTo(bezier.GetPoint(2).m_screen.x, bezier.GetPoint(2).m_screen.y);
             Renderer().Ellipse(bezier.GetPoint(2), 4, 4);
@@ -1676,7 +1678,7 @@ void CMineViewPresenter::DrawTunnelMakerSegment(const CTunnelSegment& segment)
 {
     Renderer().BeginRender(false);
 #ifdef NDEBUG
-    if (GetRenderer() == RendererType::OpenGL && (ViewOption(eViewTexturedWireFrame) || ViewOption(eViewTextured)))
+    if (GetRenderer() == RendererType::OpenGL && (IsViewModeSet(eViewTexturedWireFrame) || IsViewModeSet(eViewTextured)))
 #endif
     {
         glLineStipple(1, 0x0c3f);  // dot dash
@@ -1686,7 +1688,7 @@ void CMineViewPresenter::DrawTunnelMakerSegment(const CTunnelSegment& segment)
         DrawSegmentWireFrame(segmentManager.Segment(segment.m_elements[i].m_nSegment), false, false, 1);
     Renderer().EndRender();
 #ifdef NDEBUG
-    if (GetRenderer() == RendererType::OpenGL && (ViewOption(eViewTexturedWireFrame) || ViewOption(eViewTextured)))
+    if (GetRenderer() == RendererType::OpenGL && (IsViewModeSet(eViewTexturedWireFrame) || IsViewModeSet(eViewTextured)))
 #endif
         glDisable(GL_LINE_STIPPLE);
 }

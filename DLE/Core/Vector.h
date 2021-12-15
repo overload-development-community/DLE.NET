@@ -472,8 +472,7 @@ static inline const CFloatVector Normal (const CFloatVector& p0, const CFloatVec
 // -----------------------------------------------------------------------------
 
 inline CDoubleVector::operator CFixVector() {
-	CFixVector v (int (v.x * 65536.0), int (v.y * 65536.0), int (v.z * 65536.0));
-	return v;
+    return CFixVector(int(v.x * 65536.0), int(v.y * 65536.0), int(v.z * 65536.0));
 }
 
 inline const bool CDoubleVector::operator== (const CDoubleVector other) {
