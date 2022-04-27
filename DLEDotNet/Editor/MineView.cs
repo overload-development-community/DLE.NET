@@ -184,7 +184,7 @@ namespace DLEDotNet.Editor
                     break;
                 case SelectMode.Object:
                     var objectNum = presenter.GetNearestObjectNumToScreenPosition(x, y);
-                    //EditorState.CurrentSelection.Object = EditorState.Level.Objects[objectNum];
+                    EditorState.CurrentSelection.Object = EditorState.Level.Objects[objectNum];
                     break;
             }
 

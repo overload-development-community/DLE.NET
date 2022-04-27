@@ -32,7 +32,7 @@ namespace DLEDotNet
 
             property Segment^ Segments[int]
             {
-                Segment ^ get(int index) { return gcnew Segment(segmentManager.Segment(index)); }
+                Segment^ get(int index) { return gcnew Segment(segmentManager.Segment(index)); }
             }
 
             int IndexOf(Segment^ segment)

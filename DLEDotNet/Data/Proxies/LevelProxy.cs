@@ -9,6 +9,7 @@ namespace DLEDotNet.Data.Proxies
         public LevelProxy(Level host) : base(host)
         {
             Segments = Subscribe(nameof(Segments), new SegmentList());
+            Objects = Subscribe(nameof(Objects), new LevelObjectList(host));
         }
 
         public static LevelProxy New() => new LevelProxy(new Level());
@@ -21,5 +22,7 @@ namespace DLEDotNet.Data.Proxies
         }
 
         public SegmentList Segments { get; }
+
+        public LevelObjectList Objects { get; }
     }
 }
