@@ -570,7 +570,7 @@ BOOL CMineView::UpdateCursor ()
 
 if (hCursor == NULL)
     return FALSE;
-::SetClassLongPtr (GetSafeHwnd (), GCL_HCURSOR, LONG (hCursor));
+::SetClassLongPtr (GetSafeHwnd (), GCLP_HCURSOR, LONG (hCursor));
 ::SetCursor (hCursor); // to update the cursor this frame
 return TRUE;
 }
