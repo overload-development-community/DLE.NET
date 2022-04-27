@@ -5,6 +5,14 @@ namespace DLEDotNet
 {
     namespace ManagedWrappers
     {
+        SelectionAdaptor::SelectionAdaptor() :
+            m_segmentId{ 0 },
+            m_sideId{ 0 },
+            m_edgeNum{ 0 },
+            m_pointNum{ 0 },
+            m_objectId{ 0 }
+        {}
+
         SelectionAdaptor::SelectionAdaptor(DLEDotNet::ManagedWrappers::ISelection^ selection) :
             m_segmentId{ selection->SegmentId },
             m_sideId{ selection->SideId },

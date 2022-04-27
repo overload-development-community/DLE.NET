@@ -51,7 +51,9 @@ namespace DLEDotNet.Editor
             presenter.UpdateOtherSelection(new SelectionProxy(EditorState.OtherSelection));
             presenter.UpdateSelectionMode((uint)EditorState.SelectionMode);
             presenter.UpdateViewMode((uint)EditorState.ViewMode);
-            presenter.UpdateDepthPerception((uint)EditorState.Prefs.DepthPerception);
+            presenter.UpdateGeometryVisibility((uint)EditorState.SavedPrefs.GeometryVisibility);
+            presenter.UpdateObjectVisibility((uint)EditorState.SavedPrefs.ObjectVisibility);
+            presenter.UpdateDepthPerception((uint)EditorState.SavedPrefs.DepthPerception);
             presenter.Paint();
         }
 
@@ -64,16 +66,18 @@ namespace DLEDotNet.Editor
         {
             if (!e.Cancel)
             {
+                var previousState = mouseState;
                 mouseState = e.NewState;
                 // TODO
                 System.Diagnostics.Debug.WriteLine("MineView.MouseState = " + mouseState);
-                switch (mouseState)
+                switch (previousState)
                 {
                     case MouseState.Idle:
                         break;
                     case MouseState.QuickSelect:
                         break;
                     case MouseState.PointDrag:
+                        SelectElementAtCursor();
                         break;
                     case MouseState.QuickTag:
                         break;
@@ -152,6 +156,39 @@ namespace DLEDotNet.Editor
         internal void CenterOnCurrentObject()
         {
             presenter.CenterCurrentObject();
+            presenter.Paint();
+        }
+
+        private void SelectElementAtCursor()
+        {
+            var clientCursorPos = PointToClient(MousePosition);
+            (var x, var y) = (clientCursorPos.X, ClientSize.Height - clientCursorPos.Y);
+
+            switch (EditorState.SelectionMode)
+            {
+                case SelectMode.Point:
+                    var pointNum = presenter.GetNearestPointNumToScreenPosition(x, y);
+                    EditorState.CurrentSelection.Point = EditorState.CurrentSelection.Side.Points[pointNum];
+                    break;
+                case SelectMode.Line:
+                    var lineNum = presenter.GetNearestLineNumToScreenPosition(x, y);
+                    EditorState.CurrentSelection.Point = EditorState.CurrentSelection.Side.Points[lineNum];
+                    break;
+                case SelectMode.Side:
+                case SelectMode.Segment:
+                case SelectMode.Block:
+                    var segmentNum = presenter.GetNearestSegmentNumToScreenPosition(x, y);
+                    var sideNum = presenter.GetNearestSideNumToScreenPosition(x, y);
+                    EditorState.CurrentSelection.Segment = EditorState.Level.Segments[segmentNum];
+                    EditorState.CurrentSelection.Side = EditorState.CurrentSelection.Segment.Sides[sideNum];
+                    break;
+                case SelectMode.Object:
+                    var objectNum = presenter.GetNearestObjectNumToScreenPosition(x, y);
+                    //EditorState.CurrentSelection.Object = EditorState.Level.Objects[objectNum];
+                    break;
+            }
+
+            presenter.UpdateCurrentSelection(new SelectionProxy(EditorState.CurrentSelection));
             presenter.Paint();
         }
     }

@@ -15,6 +15,7 @@ namespace DLEDotNet
         public class SelectionAdaptor : public ::ISelection
         {
         public:
+            SelectionAdaptor();
             SelectionAdaptor(DLEDotNet::ManagedWrappers::ISelection^ selection);
 
             // Inherited via ISelection

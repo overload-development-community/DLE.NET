@@ -114,6 +114,16 @@ namespace DLEDotNet
                 m_presenter->Renderer().ViewMatrix()->SetDepthScale(depthPerceptionLevel);
             }
 
+            void UpdateGeometryVisibility(uint geometryVisibility)
+            {
+                m_presenter->ViewMineFlags() = static_cast<eMineViewFlags>(geometryVisibility);
+            }
+
+            void UpdateObjectVisibility(uint objectVisibility)
+            {
+                m_presenter->ViewObjectFlags() = static_cast<eObjectViewFlags>(objectVisibility);
+            }
+
             void CenterCurrentSegment()
             {
                 m_currentSelection->Segment()->ComputeCenter();
@@ -139,6 +149,41 @@ namespace DLEDotNet
             void ZoomOut()
             {
                 m_presenter->Renderer().ZoomOut(1, false, g_proxyDelegateManager->GetViewMoveRate());
+            }
+
+            short GetNearestSegmentNumToScreenPosition(int x, int y)
+            {
+                SelectionAdaptor nearestElement;
+                m_presenter->FindNearestTexturedSide(x, y, &nearestElement);
+                return nearestElement.SegmentId();
+            }
+
+            short GetNearestSideNumToScreenPosition(int x, int y)
+            {
+                SelectionAdaptor nearestElement;
+                m_presenter->FindNearestTexturedSide(x, y, &nearestElement);
+                return nearestElement.SideId();
+            }
+
+            short GetNearestLineNumToScreenPosition(int x, int y)
+            {
+                SelectionAdaptor nearestElement;
+                m_presenter->FindNearestLine(x, y, &nearestElement, m_currentSelection->Side());
+                return nearestElement.Edge();
+            }
+
+            short GetNearestPointNumToScreenPosition(int x, int y)
+            {
+                SelectionAdaptor nearestElement;
+                m_presenter->FindNearestVertex(x, y, &nearestElement, m_currentSelection->Side());
+                return nearestElement.Point();
+            }
+
+            short GetNearestObjectNumToScreenPosition(int x, int y)
+            {
+                SelectionAdaptor nearestElement;
+                m_presenter->FindNearestObject(x, y, &nearestElement);
+                return nearestElement.ObjectId();
             }
 
         private:
