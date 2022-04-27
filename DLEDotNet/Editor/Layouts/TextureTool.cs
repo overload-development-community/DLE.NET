@@ -41,6 +41,22 @@ namespace DLEDotNet.Editor.Layouts
         {
             EditorStateBinder binder = EditorStateBinder.FromState(this.EditorState);
             binder.BindTabControlBacking(this.textureSubTabControl, PROP(s => s.ActiveTextureTab));
+            // Currently crashes - why?
+            //binder.BindFloatTextBox(this.textureLight1TextBox, PROP(s => s.CurrentSelection.Side.UVLs[0].L), false);
+            //binder.BindFloatTextBox(this.textureLight2TextBox, PROP(s => s.CurrentSelection.Side.UVLs[1].L), false);
+            //binder.BindFloatTextBox(this.textureLight3TextBox, PROP(s => s.CurrentSelection.Side.UVLs[2].L), false);
+            //binder.BindFloatTextBox(this.textureLight4TextBox, PROP(s => s.CurrentSelection.Side.UVLs[3].L), false);
+            binder.BindComboBox(this.texture1StComboBox, PROP(s => s.TextureList.Items),
+                PROP(s => s.CurrentSelection.Side.PrimaryTexture));
+            binder.BindComboBox(this.texture2NdComboBox, PROP(s => s.TextureList.Items),
+                PROP(s => s.CurrentSelection.Side.SecondaryTexture));
+        }
+
+        internal void RefreshBindings(object sender, EventArgs e)
+        {
+            EditorStateBinder binder = EditorStateBinder.FromState(this.EditorState);
+            binder.RefreshBind(this.texture1StComboBox);
+            binder.RefreshBind(this.texture2NdComboBox);
         }
     }
 }

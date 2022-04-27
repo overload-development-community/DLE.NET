@@ -67,6 +67,41 @@ namespace DLEDotNet.Editor
                 mouseState = e.NewState;
                 // TODO
                 System.Diagnostics.Debug.WriteLine("MineView.MouseState = " + mouseState);
+                switch (mouseState)
+                {
+                    case MouseState.Idle:
+                        break;
+                    case MouseState.QuickSelect:
+                        break;
+                    case MouseState.PointDrag:
+                        break;
+                    case MouseState.QuickTag:
+                        break;
+                    case MouseState.RubberbandTag:
+                        break;
+                    case MouseState.RubberbandUnTag:
+                        break;
+                    case MouseState.RubberbandTagSet:
+                        break;
+                    case MouseState.Pan:
+                        break;
+                    case MouseState.Rotate:
+                        break;
+                    case MouseState.LockedRotate:
+                        break;
+                    case MouseState.ZoomUpDown:
+                        break;
+                    case MouseState.PanUpDown:
+                        break;
+                    case MouseState.MarkedDrag:
+                        break;
+                    case MouseState.MarkedDragRotate:
+                        break;
+                    case MouseState.MarkedDragScale:
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
@@ -90,19 +125,34 @@ namespace DLEDotNet.Editor
 
         internal void ZoomIn()
         {
-            // TODO
             System.Diagnostics.Debug.WriteLine("MineView.ZoomIn");
+            presenter.ZoomIn();
+            presenter.Paint();
         }
 
         internal void ZoomOut()
         {
-            // TODO
             System.Diagnostics.Debug.WriteLine("MineView.ZoomOut");
+            presenter.ZoomOut();
+            presenter.Paint();
         }
 
         internal void ResetZoom()
         {
             presenter.ResetZoom();
+            presenter.Paint();
+        }
+
+        internal void CenterOnCurrentCube()
+        {
+            presenter.CenterCurrentSegment();
+            presenter.Paint();
+        }
+
+        internal void CenterOnCurrentObject()
+        {
+            presenter.CenterCurrentObject();
+            presenter.Paint();
         }
     }
 }

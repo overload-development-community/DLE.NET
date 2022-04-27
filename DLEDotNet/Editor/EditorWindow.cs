@@ -59,6 +59,7 @@ namespace DLEDotNet.Editor
 #endif
             EditorState.SavedPrefs.ReloadFromFile();
             EditorState.Prefs.CopyFrom(EditorState.SavedPrefs);
+            EditorState.TextureList.Reload();
             // a layout MUST be set on load.
             ActiveLayout = EditorState.SavedPrefs.ActiveLayout;
             WindowState = ControlUtil.ConvertToFormWindowState(EditorState.SavedPrefs.StartupState);
@@ -773,6 +774,10 @@ namespace DLEDotNet.Editor
         
         private void viewAllObjectsToolStripMenuItem_Click(object sender, EventArgs e) => EditorState.SavedPrefs.ObjectVisibility = ObjectVisibilityFlags.All;
         private void viewNoObjectsToolStripMenuItem_Click(object sender, EventArgs e) => EditorState.SavedPrefs.ObjectVisibility = ObjectVisibilityFlags.None;
+
+        private void centerOnCurrentCubeToolStripMenuItem_Click(object sender, EventArgs e) => MineView?.CenterOnCurrentCube();
+        private void centerOnCurrentObjectToolStripMenuItem_Click(object sender, EventArgs e) => MineView?.CenterOnCurrentObject();
+        private void centerEntireMineToolStripMenuItem_Click(object sender, EventArgs e) => MineView?.ResetZoom();
         #endregion
 
         #region --- Events & binds for the Select menu

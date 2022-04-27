@@ -17,6 +17,7 @@ namespace DLEDotNet.Data.Proxies
             proxyDelegateManager.SetChangeD2PigPathDelegate((newPath) => editorState.Prefs.D2PIGPath = newPath);
             proxyDelegateManager.SetMissionFolderDelegate(() => editorState.Prefs.LevelsPath);
             proxyDelegateManager.SetMineMoveRateDelegate(() => editorState.Prefs.MoveRate);
+            proxyDelegateManager.SetViewMoveRateDelegate(() => editorState.Prefs.ViewRate);
         }
 
         private void TraceMessage(TraceLevel level, string message)

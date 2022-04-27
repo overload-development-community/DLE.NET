@@ -31,13 +31,23 @@ namespace DLEDotNet.Data.Proxies
             }
         }
 
+        public double Light
+        {
+            get => Segment.Light;
+            set
+            {
+                Segment.Light = value;
+                OnReadOnlyPropertyChanged(nameof(Light), value);
+            }
+        }
+
         object IListBoxable.DisplayValue => _segmentId;
 
         public List<Side> Sides { get; } = new List<Side>();
 
         public static implicit operator ManagedWrappers.Segment(SegmentProxy segment) => segment.Segment;
 
-        public class Side : IListBoxable
+        public class Side : ChangeableState, IListBoxable
         {
             private readonly ManagedWrappers.Segment _segment;
             private readonly ManagedWrappers.Side _side;
@@ -50,12 +60,35 @@ namespace DLEDotNet.Data.Proxies
                 for (int pointNum = 0; pointNum < _side.NumPoints; pointNum++)
                 {
                     Points.Add(new Point(_side, pointNum));
+                    UVLs.Add(new UVLProxy(_side.get_UVLs(pointNum)));
                 }
             }
 
             public int SideNum { get; }
 
             public List<Point> Points { get; } = new List<Point>();
+
+            public List<UVLProxy> UVLs { get; } = new List<UVLProxy>();
+
+            public TextureProxy PrimaryTexture
+            {
+                get => new TextureProxy(_side.PrimaryTexture);
+                set
+                {
+                    _side.PrimaryTexture = value;
+                    OnReadOnlyPropertyChanged(nameof(PrimaryTexture), value);
+                }
+            }
+
+            public TextureProxy SecondaryTexture
+            {
+                get => new TextureProxy(_side.SecondaryTexture);
+                set
+                {
+                    _side.SecondaryTexture = value;
+                    OnReadOnlyPropertyChanged(nameof(SecondaryTexture), value);
+                }
+            }
 
             object IListBoxable.DisplayValue => SideNum;
 
@@ -105,6 +138,43 @@ namespace DLEDotNet.Data.Proxies
                 {
                     Vertex.Z = value;
                     OnReadOnlyPropertyChanged(nameof(Z), value);
+                }
+            }
+        }
+
+        public class UVLProxy : ChangeableStateProxy<UVL>
+        {
+            public UVLProxy(UVL host) : base(host)
+            {
+            }
+
+            public double U
+            {
+                get => Host.U;
+                set
+                {
+                    Host.U = value;
+                    OnReadOnlyPropertyChanged(nameof(U), value);
+                }
+            }
+
+            public double V
+            {
+                get => Host.V;
+                set
+                {
+                    Host.V = value;
+                    OnReadOnlyPropertyChanged(nameof(V), value);
+                }
+            }
+
+            public double L
+            {
+                get => Host.L;
+                set
+                {
+                    Host.L = value;
+                    OnReadOnlyPropertyChanged(nameof(L), value);
                 }
             }
         }

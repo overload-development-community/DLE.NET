@@ -35,6 +35,7 @@ namespace DLEDotNet.Data
             Level = LevelProxy.New();
             CurrentSelection = new Selection(this, 0, 4, 0);
             OtherSelection = new Selection(this, 0, 4, 0);
+            TextureList = Subscribe(nameof(TextureList), new TextureListProxy());
 
             // debug
             this.PropertyChanged += (s, e) => System.Diagnostics.Debug.WriteLine("Changed property " + e.PropertyName);
@@ -155,7 +156,7 @@ namespace DLEDotNet.Data
         private SelectMode _selectMode;
 
         /// <summary>
-        /// The current selection mode (points, lines, sides, segments, objects or blocks).
+        /// The current display mode (wireframe, sparse wireframe, textured wireframe, or textured).
         /// </summary>
         public RenderDisplayMode ViewMode
         {
@@ -233,6 +234,12 @@ namespace DLEDotNet.Data
             set => AssignChanged(ref _otherSelection, value);
         }
         private Selection _otherSelection;
+
+        /// <summary>
+        /// The list of textures available for use in the current level.
+        /// Defined by the currently-loaded .PIG, with potential modifications by .POG/.DTX files.
+        /// </summary>
+        public TextureListProxy TextureList { get; }
 
         /// <summary>
         /// Returns whether a message box with the given minimum information level should be displayed,

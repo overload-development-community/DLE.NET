@@ -970,18 +970,21 @@
             this.centerOnCurrentCubeToolStripMenuItem.Name = "centerOnCurrentCubeToolStripMenuItem";
             this.centerOnCurrentCubeToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
             this.centerOnCurrentCubeToolStripMenuItem.Text = "&Center on current segment";
+            this.centerOnCurrentCubeToolStripMenuItem.Click += new System.EventHandler(this.centerOnCurrentCubeToolStripMenuItem_Click);
             // 
             // centerOnCurrentObjectToolStripMenuItem
             // 
             this.centerOnCurrentObjectToolStripMenuItem.Name = "centerOnCurrentObjectToolStripMenuItem";
             this.centerOnCurrentObjectToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
             this.centerOnCurrentObjectToolStripMenuItem.Text = "Center on current &object";
+            this.centerOnCurrentObjectToolStripMenuItem.Click += new System.EventHandler(this.centerOnCurrentObjectToolStripMenuItem_Click);
             // 
             // centerEntireMineToolStripMenuItem
             // 
             this.centerEntireMineToolStripMenuItem.Name = "centerEntireMineToolStripMenuItem";
             this.centerEntireMineToolStripMenuItem.Size = new System.Drawing.Size(216, 22);
             this.centerEntireMineToolStripMenuItem.Text = "Center entire &Mine";
+            this.centerEntireMineToolStripMenuItem.Click += new System.EventHandler(this.centerEntireMineToolStripMenuItem_Click);
             // 
             // alignSideRotationToolStripMenuItem
             // 

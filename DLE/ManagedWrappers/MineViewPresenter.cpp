@@ -8,6 +8,7 @@
 #include "TunnelMaker.h"
 #include "MineView.Presenter.h"
 
+#include "Delegates.h"
 #include "SelectionWrapper.h"
 
 using namespace System;
@@ -86,7 +87,26 @@ namespace DLEDotNet
 
             void UpdateViewMode(uint mode)
             {
-                m_presenter->SetViewMode(static_cast<eViewMode>(mode));
+                eViewMode internalViewMode;
+                switch (mode)
+                {
+                case 0: // SparseWireframe
+                    internalViewMode = eViewWireFrameSparse;
+                    break;
+                case 1: // FullWireframe
+                    internalViewMode = eViewWireFrameFull;
+                    break;
+                case 2: // TextureAndWireframe
+                    internalViewMode = eViewTexturedWireFrame;
+                    break;
+                case 3: // TextureOnly
+                    internalViewMode = eViewTextured;
+                    break;
+                default:
+                    internalViewMode = eViewWireFrameFull;
+                    break;
+                }
+                m_presenter->SetViewMode(internalViewMode);
             }
 
             void UpdateDepthPerception(uint depthPerceptionLevel)
@@ -94,9 +114,31 @@ namespace DLEDotNet
                 m_presenter->Renderer().ViewMatrix()->SetDepthScale(depthPerceptionLevel);
             }
 
+            void CenterCurrentSegment()
+            {
+                m_currentSelection->Segment()->ComputeCenter();
+                m_presenter->Renderer().SetCenter(m_currentSelection->Segment()->Center(), 0);
+            }
+
+            void CenterCurrentObject()
+            {
+                CVertex position(m_currentSelection->Object()->Position());
+                m_presenter->Renderer().SetCenter(position, 0);
+            }
+
             void ResetZoom()
             {
                 m_presenter->FitToView();
+            }
+
+            void ZoomIn()
+            {
+                m_presenter->Renderer().ZoomIn(1, false, g_proxyDelegateManager->GetViewMoveRate());
+            }
+
+            void ZoomOut()
+            {
+                m_presenter->Renderer().ZoomOut(1, false, g_proxyDelegateManager->GetViewMoveRate());
             }
 
         private:

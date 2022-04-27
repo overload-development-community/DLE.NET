@@ -6,6 +6,7 @@ namespace DLEDotNet
     {
         public delegate void TraceDelegate(System::Diagnostics::TraceLevel level, System::String^ trace);
         public delegate double MineMoveRateDelegate();
+        public delegate double ViewMoveRateDelegate();
         public delegate System::String^ D1PigPathDelegate();
         public delegate System::String^ D2PigPathDelegate();
         public delegate void ChangeD2PigPathDelegate(System::String^ newPath);
@@ -29,6 +30,7 @@ namespace DLEDotNet
 
             void AddTraceDelegate(TraceDelegate^ traceDelegate);
             void SetMineMoveRateDelegate(MineMoveRateDelegate^ mineMoveRateDelegate);
+            void SetViewMoveRateDelegate(ViewMoveRateDelegate^ viewMoveRateDelegate);
             void SetD1PigPathDelegate(D1PigPathDelegate^ d1PigPathDelegate);
             void SetD2PigPathDelegate(D2PigPathDelegate^ d2PigPathDelegate);
             void SetChangeD2PigPathDelegate(ChangeD2PigPathDelegate^ changeD2PigPathDelegate);
@@ -39,6 +41,7 @@ namespace DLEDotNet
 
             void OnTrace(System::Diagnostics::TraceLevel level, System::String^ trace);
             double GetMineMoveRate();
+            double GetViewMoveRate();
             System::String^ GetD1PigPath();
             System::String^ GetD2PigPath();
             void ChangeD2PigPath(System::String^ newPath);
@@ -48,6 +51,7 @@ namespace DLEDotNet
         private:
             TraceDelegate^ m_traceDelegate;
             MineMoveRateDelegate^ m_mineMoveRateDelegate;
+            ViewMoveRateDelegate^ m_viewMoveRateDelegate;
             D1PigPathDelegate^ m_d1PigPathDelegate;
             D2PigPathDelegate^ m_d2PigPathDelegate;
             ChangeD2PigPathDelegate^ m_changeD2PigPathDelegate;

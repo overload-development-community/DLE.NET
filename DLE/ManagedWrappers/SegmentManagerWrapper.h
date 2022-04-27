@@ -1,9 +1,39 @@
 #pragma once
 
+#include "VertexManagerWrapper.h"
+#include "TextureManagerWrapper.h"
+
 namespace DLEDotNet
 {
     namespace ManagedWrappers
     {
+        public ref class UVL
+        {
+        private:
+            CUVL* m_uvl = nullptr;
+
+        public:
+            UVL(CUVL* uvl);
+
+            property double U
+            {
+                double get();
+                void set(double value);
+            }
+
+            property double V
+            {
+                double get();
+                void set(double value);
+            }
+
+            property double L
+            {
+                double get();
+                void set(double value);
+            }
+        };
+
         public ref class Side
         {
         private:
@@ -20,7 +50,24 @@ namespace DLEDotNet
 
             property Vertex^ Points[int]
             {
-                Vertex ^ get(int index);
+                Vertex^ get(int index);
+            }
+
+            property UVL^ UVLs[int]
+            {
+                UVL^ get(int index);
+            }
+
+            property Texture^ PrimaryTexture
+            {
+                Texture^ get();
+                void set(Texture^ value);
+            }
+
+            property Texture^ SecondaryTexture
+            {
+                Texture^ get();
+                void set(Texture^ value);
             }
 
             operator CSide* ();
@@ -40,6 +87,12 @@ namespace DLEDotNet
                 void set(LibDescent::Data::SegFunction value);
             }
 
+            property double Light
+            {
+                double get();
+                void set(double value);
+            }
+
             property int NumSides
             {
                 int get();
@@ -47,7 +100,7 @@ namespace DLEDotNet
 
             property Side^ Sides[int]
             {
-                Side ^ get(int index);
+                Side^ get(int index);
             }
 
             int IndexOf(Side^ side);

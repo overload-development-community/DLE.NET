@@ -177,6 +177,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="SegmentManagerWrapper.h" />
     <ClInclude Include="SelectionWrapper.h" />
+    <ClInclude Include="TextureManagerWrapper.h" />
     <ClInclude Include="VertexManagerWrapper.h" />
   </ItemGroup>
   <ItemGroup>
@@ -193,6 +194,7 @@
     </ClCompile>
     <ClCompile Include="SegmentManagerWrapper.cpp" />
     <ClCompile Include="SelectionWrapper.cpp" />
+    <ClCompile Include="TextureManagerWrapper.cpp" />
     <ClCompile Include="VertexManagerWrapper.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -21,6 +21,11 @@ void DelegateManager::SetMineMoveRateDelegate(MineMoveRateDelegate^ mineMoveRate
 	m_mineMoveRateDelegate = mineMoveRateDelegate;
 }
 
+void DelegateManager::SetViewMoveRateDelegate(ViewMoveRateDelegate^ viewMoveRateDelegate)
+{
+	m_viewMoveRateDelegate = viewMoveRateDelegate;
+}
+
 void DelegateManager::SetD1PigPathDelegate(D1PigPathDelegate^ d1PigPathDelegate)
 {
 	m_d1PigPathDelegate = d1PigPathDelegate;
@@ -54,6 +59,11 @@ void DelegateManager::OnTrace(System::Diagnostics::TraceLevel level, System::Str
 double DelegateManager::GetMineMoveRate()
 {
 	return m_mineMoveRateDelegate();
+}
+
+double DelegateManager::GetViewMoveRate()
+{
+	return m_viewMoveRateDelegate();
 }
 
 System::String^ DelegateManager::GetD1PigPath()
