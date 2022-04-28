@@ -179,8 +179,12 @@ namespace DLEDotNet.Editor
                 case SelectMode.Block:
                     var segmentNum = presenter.GetNearestSegmentNumToScreenPosition(x, y);
                     var sideNum = presenter.GetNearestSideNumToScreenPosition(x, y);
-                    EditorState.CurrentSelection.Segment = EditorState.Level.Segments[segmentNum];
-                    EditorState.CurrentSelection.Side = EditorState.CurrentSelection.Segment.Sides[sideNum];
+                    if (segmentNum >= 0 && segmentNum < EditorState.Level.Segments.Count &&
+                        sideNum >= 0 && sideNum < EditorState.Level.Segments[segmentNum].Sides.Count)
+                    {
+                        EditorState.CurrentSelection.Segment = EditorState.Level.Segments[segmentNum];
+                        EditorState.CurrentSelection.Side = EditorState.CurrentSelection.Segment.Sides[sideNum];
+                    }
                     break;
                 case SelectMode.Object:
                     var objectNum = presenter.GetNearestObjectNumToScreenPosition(x, y);
