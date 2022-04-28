@@ -686,10 +686,10 @@ namespace DLEDotNet.Editor
         private void fitMineToolStripButton_Click(object sender, EventArgs e) => fitToViewToolStripMenuItem.PerformClick();
         private void panInToolStripButton_Click(object sender, EventArgs e) => panInToolStripMenuItem.PerformClick();
         private void panOutToolStripButton_Click(object sender, EventArgs e) => panOutToolStripMenuItem.PerformClick();
-        private void panLeftToolStripButton_Click(object sender, EventArgs e) => panLeftToolStripButton.PerformClick();
-        private void panRightToolStripButton_Click(object sender, EventArgs e) => panRightToolStripButton.PerformClick();
-        private void panUpToolStripButton_Click(object sender, EventArgs e) => panUpToolStripButton.PerformClick();
-        private void panDownToolStripButton_Click(object sender, EventArgs e) => panDownToolStripButton.PerformClick();
+        private void panLeftToolStripButton_Click(object sender, EventArgs e) => panLeftToolStripMenuItem.PerformClick();
+        private void panRightToolStripButton_Click(object sender, EventArgs e) => panRightToolStripMenuItem.PerformClick();
+        private void panUpToolStripButton_Click(object sender, EventArgs e) => panUpToolStripMenuItem.PerformClick();
+        private void panDownToolStripButton_Click(object sender, EventArgs e) => panDownToolStripMenuItem.PerformClick();
         private void rotateXMToolStripButton_Click(object sender, EventArgs e) => rotateHorizontallyRightToolStripMenuItem.PerformClick();
         private void rotateXPToolStripButton_Click(object sender, EventArgs e) => rotateHorizontallyLeftToolStripMenuItem.PerformClick();
         private void rotateYMToolStripButton_Click(object sender, EventArgs e) => rotateVerticallyDownToolStripMenuItem.PerformClick();
