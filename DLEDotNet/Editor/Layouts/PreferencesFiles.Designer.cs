@@ -88,6 +88,7 @@
             this.prefsBrowseD1PigButton.Size = new System.Drawing.Size(22, 24);
             this.prefsBrowseD1PigButton.TabIndex = 3;
             this.helpToolTip.SetToolTip(this.prefsBrowseD1PigButton, "Browse...");
+            this.prefsBrowseD1PigButton.Click += new System.EventHandler(this.prefsBrowseD1PigButton_Click);
             // 
             // prefsBrowseD2PigButton
             // 
@@ -98,6 +99,7 @@
             this.prefsBrowseD2PigButton.Size = new System.Drawing.Size(22, 24);
             this.prefsBrowseD2PigButton.TabIndex = 4;
             this.helpToolTip.SetToolTip(this.prefsBrowseD2PigButton, "Browse...");
+            this.prefsBrowseD2PigButton.Click += new System.EventHandler(this.prefsBrowseD2PigButton_Click);
             // 
             // prefsBrowseMissionsButton
             // 
@@ -108,6 +110,7 @@
             this.prefsBrowseMissionsButton.Size = new System.Drawing.Size(22, 24);
             this.prefsBrowseMissionsButton.TabIndex = 5;
             this.helpToolTip.SetToolTip(this.prefsBrowseMissionsButton, "Browse...");
+            this.prefsBrowseMissionsButton.Click += new System.EventHandler(this.prefsBrowseMissionsButton_Click);
             // 
             // labelD1Pig
             // 

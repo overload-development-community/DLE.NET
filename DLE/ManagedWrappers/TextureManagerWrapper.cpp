@@ -53,10 +53,18 @@ Texture::Texture(CTexture* texture) :
 
 int Texture::TextureIndex::get()
 {
+    if (!m_texture)
+    {
+        return 0;
+    }
     return static_cast<int>(m_texture->Index());
 }
 
 System::String^ Texture::TextureName::get()
 {
+    if (!m_texture)
+    {
+        return "";
+    }
     return gcnew System::String(m_texture->Name());
 }

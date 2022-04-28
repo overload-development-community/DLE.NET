@@ -1,6 +1,7 @@
 ﻿using DLEDotNet.Editor.Layouts.Vertical;
 using System;
 using System.ComponentModel;
+using System.Windows.Forms;
 
 namespace DLEDotNet.Editor.Layouts
 {
@@ -33,6 +34,40 @@ namespace DLEDotNet.Editor.Layouts
             binder.BindStringTextBox(this.prefsPathD1PigTextBox, PROP(s => s.Prefs.D1PIGPath), false);
             binder.BindStringTextBox(this.prefsPathD2PigTextBox, PROP(s => s.Prefs.D2PIGPath), false);
             binder.BindStringTextBox(this.prefsPathMissionsTextBox, PROP(s => s.Prefs.LevelsPath), false);
+        }
+
+        private void prefsBrowseD1PigButton_Click(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.Filter = "Descent PIG files (*.pig)|*.pig";
+            dialog.FileName = "descent.pig";
+            var result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                EditorState.Prefs.D1PIGPath = dialog.FileName;
+            }
+        }
+
+        private void prefsBrowseD2PigButton_Click(object sender, EventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.Filter = "Descent II PIG files (*.pig)|*.pig";
+            dialog.FileName = "groupa.pig";
+            var result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                EditorState.Prefs.D2PIGPath = dialog.FileName;
+            }
+        }
+
+        private void prefsBrowseMissionsButton_Click(object sender, EventArgs e)
+        {
+            var dialog = new FolderBrowserDialog();
+            var result = dialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                EditorState.Prefs.LevelsPath = dialog.SelectedPath;
+            }
         }
     }
 }
