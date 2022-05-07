@@ -69,6 +69,10 @@ namespace DLEDotNet.Data.Proxies
             public List<Point> Points { get; } = new List<Point>();
 
             public List<UVLProxy> UVLs { get; } = new List<UVLProxy>();
+            public UVLProxy UVL0 => UVLs[0];
+            public UVLProxy UVL1 => UVLs[1];
+            public UVLProxy UVL2 => UVLs[2];
+            public UVLProxy UVL3 => UVLs[3];
 
             public TextureProxy PrimaryTexture
             {

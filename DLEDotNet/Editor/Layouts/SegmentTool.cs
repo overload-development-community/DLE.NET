@@ -56,50 +56,6 @@ namespace DLEDotNet.Editor.Layouts
             binder.BindFloatTextBox(this.segmentPointyTextBox, PROP(s => s.CurrentSelection.Point.Y), false);
             binder.BindFloatTextBox(this.segmentPointzTextBox, PROP(s => s.CurrentSelection.Point.Z), false);
             binder.BindFloatTextBox(this.segmentLightTextBox, PROP(s => s.CurrentSelection.Segment.Light), false);
-
-            // This is more or less a cop-out, the bindings should update automatically
-            // but we need to figure out how to get that to happen with property trees
-            this.segmentIdComboBox.SelectedIndexChanged += RefreshBindings;
-            this.segmentSide1RadioButton.CheckedChanged += RefreshBindings;
-            this.segmentSide2RadioButton.CheckedChanged += RefreshBindings;
-            this.segmentSide3RadioButton.CheckedChanged += RefreshBindings;
-            this.segmentSide4RadioButton.CheckedChanged += RefreshBindings;
-            this.segmentSide5RadioButton.CheckedChanged += RefreshBindings;
-            this.segmentSide6RadioButton.CheckedChanged += RefreshBindings;
-            this.segmentPoint1RadioButton.CheckedChanged += RefreshBindings;
-            this.segmentPoint2RadioButton.CheckedChanged += RefreshBindings;
-            this.segmentPoint3RadioButton.CheckedChanged += RefreshBindings;
-            this.segmentPoint4RadioButton.CheckedChanged += RefreshBindings;
-        }
-
-        private void RefreshBindings(object sender, EventArgs e)
-        {
-            EditorStateBinder binder = EditorStateBinder.FromState(this.EditorState);
-            binder.RefreshBind(this.segmentIdComboBox);
-            binder.RefreshBind(this.segmentFunctionComboBox);
-            if (sender != this.segmentSide1RadioButton && sender != this.segmentSide2RadioButton &&
-                sender != this.segmentSide3RadioButton && sender != this.segmentSide4RadioButton &&
-                sender != this.segmentSide5RadioButton && sender != this.segmentSide6RadioButton)
-            {
-                binder.RefreshBind(this.segmentSide1RadioButton);
-                binder.RefreshBind(this.segmentSide2RadioButton);
-                binder.RefreshBind(this.segmentSide3RadioButton);
-                binder.RefreshBind(this.segmentSide4RadioButton);
-                binder.RefreshBind(this.segmentSide5RadioButton);
-                binder.RefreshBind(this.segmentSide6RadioButton);
-            }
-            if (sender != this.segmentPoint1RadioButton && sender != this.segmentPoint2RadioButton &&
-                sender != this.segmentPoint3RadioButton && sender != this.segmentPoint4RadioButton)
-            {
-                binder.RefreshBind(this.segmentPoint1RadioButton);
-                binder.RefreshBind(this.segmentPoint2RadioButton);
-                binder.RefreshBind(this.segmentPoint3RadioButton);
-                binder.RefreshBind(this.segmentPoint4RadioButton);
-            }
-            binder.RefreshBind(this.segmentPointxTextBox);
-            binder.RefreshBind(this.segmentPointyTextBox);
-            binder.RefreshBind(this.segmentPointzTextBox);
-            binder.RefreshBind(this.segmentLightTextBox);
         }
 
         private void segmentAddButton_Click(object sender, EventArgs e)
