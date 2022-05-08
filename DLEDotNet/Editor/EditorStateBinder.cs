@@ -151,7 +151,7 @@ namespace DLEDotNet.Editor
         /// <returns>The display text to show.</returns>
         public delegate string GetEnumDisplayText<T>(T enumValue) where T : Enum;
 
-        private static IList<KeyValuePair<string, T>> GetEnumAsList<T>(Type enumType, bool sorted, GetEnumDisplayText<T> getDisplayText) where T : Enum
+        private static IList<KeyValuePair<string, T>> GetEnumAsList<T>(Type enumType, GetEnumDisplayText<T> getDisplayText, bool sorted) where T : Enum
         {
             var result = new List<KeyValuePair<string, T>>();
             Array enumValues = Enum.GetValues(enumType);
@@ -536,19 +536,7 @@ namespace DLEDotNet.Editor
         /// <param name="property">The name of the property under EditorState to bind; dots are allowed for nested properties. The property must have an enum type T.</param>
         public void BindComboBox<T>(ComboBox comboBox, string property) where T : Enum
         {
-            comboBox.Items.Clear();
-            bool sorted = comboBox.Sorted;
-            comboBox.Sorted = false;
-            comboBox.DataSource = GetEnumAsList<T>(typeof(T), sorted, null);
-            comboBox.DisplayMember = "Key";
-            comboBox.ValueMember = "Value";
-            comboBox.SelectedValue = LibDescent.Data.SegFunction.RedGoal;
-            BindControl(comboBox, property, (object sender, PropertyChangeEventArgs e) => {
-                if (e.PropertyName == property)
-                    comboBox.SelectedValue = e.NewValue;
-            });
-            comboBox.SelectedValueChanged += (object sender, EventArgs e) =>
-                SetPropertyValue(property, comboBox.SelectedValue);
+            BindComboBox<T>(comboBox, property, null);
         }
 
         /// <summary>
@@ -563,7 +551,7 @@ namespace DLEDotNet.Editor
             comboBox.Items.Clear();
             bool sorted = comboBox.Sorted;
             comboBox.Sorted = false;
-            comboBox.DataSource = GetEnumAsList(typeof(T), sorted, displayTextProvider);
+            comboBox.DataSource = GetEnumAsList(typeof(T), displayTextProvider, sorted);
             comboBox.DisplayMember = "Key";
             comboBox.ValueMember = "Value";
             comboBox.SelectedValue = LibDescent.Data.SegFunction.RedGoal;
