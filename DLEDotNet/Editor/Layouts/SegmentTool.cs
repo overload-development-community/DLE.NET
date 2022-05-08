@@ -41,7 +41,7 @@ namespace DLEDotNet.Editor.Layouts
             binder.BindComboBox(this.segmentIdComboBox,
                 PROP(s => s.Level.Segments.Items), PROP(s => s.CurrentSelection.Segment));
             binder.BindComboBox<SegFunction>(this.segmentFunctionComboBox,
-                PROP(s => s.CurrentSelection.Segment.Function));
+                PROP(s => s.CurrentSelection.Segment.Function), GetSegFunctionDisplayText);
             binder.BindRadioButton(this.segmentSide1RadioButton, PROP(s => s.CurrentSelection.SideNum), 0);
             binder.BindRadioButton(this.segmentSide2RadioButton, PROP(s => s.CurrentSelection.SideNum), 1);
             binder.BindRadioButton(this.segmentSide3RadioButton, PROP(s => s.CurrentSelection.SideNum), 2);
@@ -61,6 +61,39 @@ namespace DLEDotNet.Editor.Layouts
         private void segmentAddButton_Click(object sender, EventArgs e)
         {
             MessageBox.Show("you clicked add segment!\nthis is an example of a layout-agnostic event handler.");
+        }
+
+        private static string GetSegFunctionDisplayText(SegFunction segFunction)
+        {
+            switch (segFunction)
+            {
+                case SegFunction.None:
+                    return "None";
+                case SegFunction.FuelCenter:
+                    return "Fuel Center";
+                case SegFunction.RepairCenter:
+                    return "Repair Center";
+                case SegFunction.Reactor:
+                    return "Reactor";
+                case SegFunction.MatCenter:
+                    return "Robot Maker";
+                case SegFunction.BlueGoal:
+                    return "Blue Goal";
+                case SegFunction.RedGoal:
+                    return "Red Goal";
+                case SegFunction.BlueTeamStart:
+                    return "Blue Team";
+                case SegFunction.RedTeamStart:
+                    return "Red Team";
+                case SegFunction.WindTunnel:
+                    return "Speed Boost";
+                case SegFunction.SkyBox:
+                    return "Sky Box";
+                case SegFunction.PowerupCenter:
+                    return "Equip Maker";
+                default:
+                    return null;
+            }
         }
     }
 }
