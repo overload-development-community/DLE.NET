@@ -554,7 +554,6 @@ namespace DLEDotNet.Editor
             comboBox.DataSource = GetEnumAsList(typeof(T), displayTextProvider, sorted);
             comboBox.DisplayMember = "Key";
             comboBox.ValueMember = "Value";
-            comboBox.SelectedValue = LibDescent.Data.SegFunction.RedGoal;
             BindControl(comboBox, property, (object sender, PropertyChangeEventArgs e) => {
                 if (e.PropertyName == property)
                     comboBox.SelectedValue = e.NewValue;
