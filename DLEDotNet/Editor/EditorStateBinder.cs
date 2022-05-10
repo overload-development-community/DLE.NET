@@ -136,11 +136,39 @@ namespace DLEDotNet.Editor
             }
         }
 
-        private dynamic Unbox(object boxed)
+        private static dynamic Unbox(object boxed)
         {
             if (boxed == null)
                 return null;
             return DynamicCast(boxed.GetType(), boxed);
+        }
+
+        /// <summary>
+        /// A function that returns a display text for an enumerated value.
+        /// </summary>
+        /// <typeparam name="T">The enum type.</typeparam>
+        /// <param name="enumValue">The value to return the display text for.</param>
+        /// <returns>The display text to show.</returns>
+        public delegate string GetEnumDisplayText<T>(T enumValue) where T : Enum;
+
+        private static IList<KeyValuePair<string, T>> GetEnumAsList<T>(Type enumType, GetEnumDisplayText<T> getDisplayText, bool sorted) where T : Enum
+        {
+            var result = new List<KeyValuePair<string, T>>();
+            Array enumValues = Enum.GetValues(enumType);
+
+            foreach (Enum value in enumValues)
+            {
+                T typedValue = (T)value;
+                string displayText = getDisplayText?.Invoke(typedValue);
+                if (displayText is null)
+                {
+                    displayText = EnumDisplayTextAttribute.GetTextFor(value);
+                }
+                result.Add(new KeyValuePair<string, T>(displayText, typedValue));
+            }
+
+            if (sorted) result.Sort((pair1, pair2) => string.Compare(pair1.Key, pair2.Key, StringComparison.CurrentCultureIgnoreCase));
+            return result;
         }
 
         #region --- RootStateEventListener wrappers & debounced methods
@@ -508,14 +536,30 @@ namespace DLEDotNet.Editor
         /// <param name="property">The name of the property under EditorState to bind; dots are allowed for nested properties. The property must have an enum type T.</param>
         public void BindComboBox<T>(ComboBox comboBox, string property) where T : Enum
         {
+            BindComboBox<T>(comboBox, property, null);
+        }
+
+        /// <summary>
+        /// Binds a combo box to a (public) property with an enum type and a display text provider.
+        /// </summary>
+        /// <typeparam name="T">The type of the enum.</typeparam>
+        /// <param name="comboBox">The combo box to bind.</param>
+        /// <param name="property">The name of the property under EditorState to bind; dots are allowed for nested properties. The property must have an enum type T.</param>
+        /// <param name="displayTextProvider">A function that can provide a display text for an enum value.</param>
+        public void BindComboBox<T>(ComboBox comboBox, string property, GetEnumDisplayText<T> displayTextProvider) where T : Enum
+        {
             comboBox.Items.Clear();
-            comboBox.DataSource = Enum.GetValues(typeof(T));
+            bool sorted = comboBox.Sorted;
+            comboBox.Sorted = false;
+            comboBox.DataSource = GetEnumAsList(typeof(T), displayTextProvider, sorted);
+            comboBox.DisplayMember = "Key";
+            comboBox.ValueMember = "Value";
             BindControl(comboBox, property, (object sender, PropertyChangeEventArgs e) => {
                 if (e.PropertyName == property)
-                    comboBox.SelectedItem = e.NewValue;
+                    comboBox.SelectedValue = e.NewValue;
             });
-            comboBox.SelectedIndexChanged += (object sender, EventArgs e) =>
-                SetPropertyValue(property, comboBox.SelectedItem);
+            comboBox.SelectedValueChanged += (object sender, EventArgs e) =>
+                SetPropertyValue(property, comboBox.SelectedValue);
         }
 
         /// <summary>
@@ -682,6 +726,53 @@ namespace DLEDotNet.Editor
 
         public InvalidPropertyException(string property) : base("The property '" + property + "' has an invalid type for this binding type.")
         {
+        }
+    }
+
+    /// <summary>
+    /// Allows a display text to be attached to enumeration values for use in bound controls.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Enum | AttributeTargets.Field, AllowMultiple = false)]
+    public class EnumDisplayTextAttribute : Attribute
+    {
+        private string displayText;
+
+        /// <summary>
+        /// The description for this enumeration value.
+        /// </summary>
+        public string DisplayText { get => displayText; }
+
+        /// <summary>
+        /// Initializes a new EnumDisplayTextAttribute instance.
+        /// </summary>
+        /// <param name="displayText">The display text for this enumeration value.</param>
+        public EnumDisplayTextAttribute(string displayText) : base()
+        {
+            this.displayText = displayText;
+        }
+
+        /// <summary>
+        /// Fetches the display text for an enumeration value.
+        /// </summary>
+        /// <param name="value">The enumeration value to get the text for.</param>
+        /// <returns>The display text.</returns>
+        /// <exception cref="ArgumentNullException">value may not be null.</exception>
+        public static string GetTextFor(Enum value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException("value");
+            }
+
+            string text = value.ToString();
+            FieldInfo fieldInfo = value.GetType().GetField(text);
+            EnumDisplayTextAttribute[] attributes = (EnumDisplayTextAttribute[]) fieldInfo.GetCustomAttributes(typeof(EnumDisplayTextAttribute), false);
+
+            if (attributes != null && attributes.Length > 0)
+            {
+                text = attributes[0].DisplayText;
+            }
+            return text;
         }
     }
 
